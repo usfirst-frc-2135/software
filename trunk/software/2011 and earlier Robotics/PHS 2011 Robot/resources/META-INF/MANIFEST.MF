@@ -1,0 +1,6 @@
+MIDlet-Name: PHS 2011 Robot
+MIDlet-Version: 1.0.0
+MIDlet-Vendor: FIRST
+MIDlet-1: PHS2011Robot, , edu.wpi.first.wpilibj.templates.PHS2011Robot
+MicroEdition-Profile: IMP-1.0
+MicroEdition-Configuration: CLDC-1.1
