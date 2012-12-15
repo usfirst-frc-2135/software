@@ -1,0 +1,53 @@
+[ProjectWindow_Data]
+ProjectExplorer.ClassicPosition[String] = "36,936,732,1259"
+
+[AB_Cache_{8918E54B-57F8-4157-9A9B-E5B1DDE9D5DC}]
+Cache_ProjSymbolChksum[String] = "7dea362b3fac8e00956a4952a3d4f474"
+Cache_TargetSymbolChksum[String] = "7dea362b3fac8e00956a4952a3d4f474"
+Cache_MyCompChksum[String] = "2002e13acf59079a1a5782c918894579"
+Cache_GenFile_Count[Integer] = 4
+Cache_GenFile[0][Path] Line0001 = "/C/Users/PHS-User/Documents/usfirst-frc-team"
+Cache_GenFile[0][Path] Line0002 = "-2135/trunk/2012 Robot - Team 2135/Builds/c/"
+Cache_GenFile[0][Path] Line0003 = "ni-rt/startup/startup.rtexe"
+Cache_GenFile[1][Path] Line0001 = "/C/Users/PHS-User/Documents/usfirst-frc-team"
+Cache_GenFile[1][Path] Line0002 = "-2135/trunk/2012 Robot - Team 2135/Builds/c/"
+Cache_GenFile[1][Path] Line0003 = "ni-rt/startup/startup.aliases"
+Cache_GenFile[2][Path] Line0001 = "/C/Users/PHS-User/Documents/usfirst-frc-team"
+Cache_GenFile[2][Path] Line0002 = "-2135/trunk/2012 Robot - Team 2135/Builds/c/"
+Cache_GenFile[2][Path] Line0003 = "ni-rt/startup/data/ni_emb.dll"
+Cache_GenFile[3][Path] Line0001 = "/C/Users/PHS-User/Documents/usfirst-frc-team"
+Cache_GenFile[3][Path] Line0002 = "-2135/trunk/2012 Robot - Team 2135/Builds/de"
+Cache_GenFile[3][Path] Line0003 = "pinstr.bin"
+Cache_GenGUID_Count[Integer] = 3
+Cache_GenGUID[0][String] = "{FA9EE9FC-BB86-4427-9BD6-2778CDC5E638}"
+Cache_GenGUID[1][String] = "{81CAB607-961A-4950-820F-14767FC45DA2}"
+Cache_GenGUID[2][String] = ""
+Cache_OutputDir[Path] Line0001 = "/C/Users/PHS-User/Documents/usfirst-frc-team-"
+Cache_OutputDir[Path] Line0002 = "2135/trunk/2012 Robot - Team 2135/Builds/c/ni"
+Cache_OutputDir[Path] Line0003 = "-rt/startup"
+
+[AB_Cache_{818764A5-CF2F-459D-99A2-FC861F69E9D6}]
+Cache_ProjSymbolChksum[String] = "7dea362b3fac8e00956a4952a3d4f474"
+Cache_TargetSymbolChksum[String] = "7dea362b3fac8e00956a4952a3d4f474"
+Cache_MyCompChksum[String] = "2002e13acf59079a1a5782c918894579"
+Cache_GenFile_Count[Integer] = 4
+Cache_GenFile[0][Path] Line0001 = "/C/Users/PHS-User/Documents/usfirst-frc-team"
+Cache_GenFile[0][Path] Line0002 = "-2135/trunk/2012 Robot - Team 2135/Builds/c/"
+Cache_GenFile[0][Path] Line0003 = "ni-rt/startup/startup.rtexe"
+Cache_GenFile[1][Path] Line0001 = "/C/Users/PHS-User/Documents/usfirst-frc-team"
+Cache_GenFile[1][Path] Line0002 = "-2135/trunk/2012 Robot - Team 2135/Builds/c/"
+Cache_GenFile[1][Path] Line0003 = "ni-rt/startup/startup.aliases"
+Cache_GenFile[2][Path] Line0001 = "/C/Users/PHS-User/Documents/usfirst-frc-team"
+Cache_GenFile[2][Path] Line0002 = "-2135/trunk/2012 Robot - Team 2135/Builds/c/"
+Cache_GenFile[2][Path] Line0003 = "ni-rt/startup/data/ni_emb.dll"
+Cache_GenFile[3][Path] Line0001 = "/C/Users/PHS-User/Documents/usfirst-frc-team"
+Cache_GenFile[3][Path] Line0002 = "-2135/trunk/2012 Robot - Team 2135/Builds/de"
+Cache_GenFile[3][Path] Line0003 = "pinstr.bin"
+Cache_GenGUID_Count[Integer] = 3
+Cache_GenGUID[0][String] = "{FA9EE9FC-BB86-4427-9BD6-2778CDC5E638}"
+Cache_GenGUID[1][String] = "{81CAB607-961A-4950-820F-14767FC45DA2}"
+Cache_GenGUID[2][String] = ""
+Cache_OutputDir[Path] Line0001 = "/C/Users/PHS-User/Documents/usfirst-frc-team-"
+Cache_OutputDir[Path] Line0002 = "2135/trunk/2012 Robot - Team 2135/Builds/c/ni"
+Cache_OutputDir[Path] Line0003 = "-rt/startup"
+
