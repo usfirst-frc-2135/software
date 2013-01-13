@@ -6,12 +6,14 @@
 class OI {
 	
 private:
-	Joystick *stick;
-	JoystickButton *trigger;
+	Joystick *driverStick;
+	Joystick *operatorStick;
+	JoystickButton *operatorTrigger;
 
 public:
 	OI();
-	Joystick *getJoystick();
+	Joystick *getDriverJoystick();
+	Joystick *getOperatorJoystick();
 };
 
 #endif

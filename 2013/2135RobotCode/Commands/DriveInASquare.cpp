@@ -1,6 +1,5 @@
 #include "DriveInASquare.h"
 #include "DriveStraight.h"
-#include "Turn.h"
 
 DriveInASquare::DriveInASquare() {
         // Add Commands here:
@@ -19,11 +18,6 @@ DriveInASquare::DriveInASquare() {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-	AddSequential(new DriveStraight(1));
-	AddSequential(new Turn(1));
-	AddSequential(new DriveStraight(1));
-	AddSequential(new Turn(1));
-	AddSequential(new DriveStraight(1));
-	AddSequential(new Turn(1));
-	AddSequential(new DriveStraight(1));
+	AddSequential(new DriveStraight(0));
+	AddSequential(new DriveStraight(0));
 }

@@ -3,6 +3,7 @@
 
 #include "Commands/Command.h"
 #include "Subsystems/Chassis.h"
+#include "Subsystems/Shooter.h"
 #include "OI.h"
 
 /**
@@ -18,6 +19,7 @@ public:
 	static void init();
 	// Create a single static instance of all of your subsystems
 	static Chassis *chassis;
+	static Shooter *shooter;
 	static OI *oi;
 };
 

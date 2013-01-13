@@ -3,8 +3,8 @@
 #include "../Commands/DriveWithJoystick.h"
 
 Chassis::Chassis() : Subsystem("Chassis") {
-	drive = new RobotDrive ( LEFTMOTOR, RIGHTMOTOR );
-	drive->SetSafetyEnabled ( false );
+	driveTrain = new RobotDrive ( PWM_LEFT_DRIVE_MOTOR, PWM_RIGHT_DRIVE_MOTOR );
+	driveTrain->SetSafetyEnabled ( false );
 }
     
 void Chassis::InitDefaultCommand () {
@@ -12,18 +12,11 @@ void Chassis::InitDefaultCommand () {
 }
 
 void Chassis::goStraight () {
-	drive->ArcadeDrive ( 1.0, 0.0 );
+	driveTrain->ArcadeDrive ( 1.0, 0.0 );
 }
 
-void Chassis::turnLeft () {
-	drive->ArcadeDrive ( 0.0, 1.0 );
-}
-
-void Chassis::tankDrive ( double left, double right ) {
-	drive->TankDrive ( left, right );
-}
-void Chassis::driveWithJoystick ( Joystick *stick ) {
-	drive->ArcadeDrive ( stick );
+void Chassis::driveWithJoystick ( Joystick *driverStick ) {
+	driveTrain->ArcadeDrive ( driverStick );
 }
 
 
