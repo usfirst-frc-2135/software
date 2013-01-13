@@ -1,6 +1,6 @@
 #include "WPILib.h"
-#include "Commands/Command.h"
 #include "CommandBase.h"
+#include "Commands/Command.h"
 #include "Commands/DriveInASquare.h"
 
 class CommandBasedRobot : public IterativeRobot {

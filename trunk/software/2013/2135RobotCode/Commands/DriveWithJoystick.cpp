@@ -8,7 +8,7 @@ void DriveWithJoystick::Initialize() {
 }
 
 void DriveWithJoystick::Execute() {
-	chassis->driveWithJoystick( oi->getJoystick() );
+	chassis->driveWithJoystick( oi->getDriverJoystick() );
 }
 
 bool DriveWithJoystick::IsFinished() {
