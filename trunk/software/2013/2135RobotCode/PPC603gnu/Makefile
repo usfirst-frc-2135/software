@@ -32,7 +32,7 @@ MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
 WS_ROOT_DIR := C:/windriver/workspace
-PRJ_ROOT_DIR := C:/Users/PHS-User/Documents/usfirst-frc-team-2135/trunk/software/2013/2135RobotCode
+PRJ_ROOT_DIR := C:/usfirst-frc-team-2135/trunk/software/2013/2135RobotCode
 
 
 
