@@ -5,6 +5,7 @@ DriveWithJoystick::DriveWithJoystick() {
 }
 
 void DriveWithJoystick::Initialize() {
+	printf( "2135: DriveWithJoystick - Init\n" );
 }
 
 void DriveWithJoystick::Execute() {

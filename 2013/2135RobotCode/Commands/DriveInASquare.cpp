@@ -18,6 +18,6 @@ DriveInASquare::DriveInASquare() {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-	AddSequential(new DriveStraight(0));
-	AddSequential(new DriveStraight(0));
+	printf( "2135: DriveInASquare\n" );
+	AddSequential(new DriveStraight(2));
 }
