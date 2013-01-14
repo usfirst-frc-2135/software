@@ -8,12 +8,14 @@ class OI {
 private:
 	Joystick *driverStick;
 	Joystick *operatorStick;
-	JoystickButton *operatorTrigger;
-
+	JoystickButton *driverTrigger;
+	
 public:
 	OI();
 	Joystick *getDriverJoystick();
 	Joystick *getOperatorJoystick();
+	float OI::getDriverThrottle();
+	float OI::getOperatorThrottle();
 };
 
 #endif
