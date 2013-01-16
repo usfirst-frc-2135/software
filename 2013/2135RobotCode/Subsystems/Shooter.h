@@ -15,7 +15,7 @@ private:
 public:
 	Shooter();
 	void InitDefaultCommand();
-	void SetPower(float intakePower, float exitPower);
+	void SetPower( float intakePower, float exitPower );
 };
 
 #endif

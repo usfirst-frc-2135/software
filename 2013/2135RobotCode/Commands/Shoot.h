@@ -3,11 +3,6 @@
 
 #include "../CommandBase.h"
 
-/**
- *
- *
- * @author PHS-User
- */
 class Shoot: public CommandBase {
 	
 public:

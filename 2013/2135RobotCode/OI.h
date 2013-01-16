@@ -9,6 +9,7 @@ private:
 	Joystick *driverStick;
 	Joystick *operatorStick;
 	JoystickButton *driverTrigger;
+	JoystickButton *operatorTrigger;
 	
 public:
 	OI();
