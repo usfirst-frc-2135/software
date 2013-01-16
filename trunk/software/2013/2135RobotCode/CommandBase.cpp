@@ -1,6 +1,5 @@
 #include "CommandBase.h"
 #include "Commands/Scheduler.h"
-#include "Subsystems/Shooter.h"
 
 CommandBase::CommandBase( const char *name ) : Command( name ) {
 }

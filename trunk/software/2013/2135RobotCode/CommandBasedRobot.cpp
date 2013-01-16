@@ -1,7 +1,6 @@
 #include "WPILib.h"
-#include "CommandBase.h"
 #include "Commands/Command.h"
-#include "Commands/DriveInASquare.h"
+#include "CommandBase.h"
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/Shoot.h"
 
@@ -10,14 +9,12 @@ class CommandBasedRobot : public IterativeRobot {
 private:
 	Command *autonomousCommand;
 	Command *teleopCommand;
-	Command *shootCommand;
 
 	virtual void RobotInit() {
 		CommandBase::init();
 		printf( "2135: RobotInit\n" );
 		autonomousCommand = new Shoot();
 		teleopCommand = new DriveWithJoystick();
-		shootCommand = new Shoot ();
 //		SmartDashboard::PutData( "SchedulerData", (Sendable*) Scheduler::GetInstance() );
 	}
 	
