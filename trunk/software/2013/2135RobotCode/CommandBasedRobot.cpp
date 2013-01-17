@@ -1,20 +1,18 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
 #include "CommandBase.h"
-#include "Commands/DriveWithJoystick.h"
-#include "Commands/Shoot.h"
+//#include "Commands/Shoot.h"
+#include "Commands/DriveStraight.h"
 
 class CommandBasedRobot : public IterativeRobot {
 
 private:
 	Command *autonomousCommand;
-	Command *teleopCommand;
 
 	virtual void RobotInit() {
 		CommandBase::init();
 		printf( "2135: RobotInit\n" );
-		autonomousCommand = new Shoot();
-		teleopCommand = new DriveWithJoystick();
+		autonomousCommand = new DriveStraight(1);
 //		SmartDashboard::PutData( "SchedulerData", (Sendable*) Scheduler::GetInstance() );
 	}
 	
@@ -31,8 +29,6 @@ private:
 	virtual void TeleopInit() {
 		printf( "2135: TeleopInit\n" );
 		autonomousCommand->Cancel();
-		teleopCommand->Start();
-//		shootCommand->Start();
 	}
 	
 	virtual void TeleopPeriodic() {

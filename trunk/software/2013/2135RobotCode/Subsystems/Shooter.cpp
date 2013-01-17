@@ -11,7 +11,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
     
 void Shooter::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
-	SetDefaultCommand ( new Shoot() );
+	// SetDefaultCommand ( new Shoot() );
 }
 
 // Put methods for controlling this subsystem
@@ -25,10 +25,10 @@ void Shooter::SetPower( float intakePower, float exitPower ) {
 	shooterIntakeMotor->Set( intakePower, 0 );
 	shooterExitMotor->Set( exitPower, 0 );
 	
-	intakePowerPercent = ( intakePower - 1) / 2 * 100;
-	exitPowerPercent = ( exitPower - 1 ) / 2 * 100;
+	intakePowerPercent = - ( intakePower - 1) / 2 * 100;
+	exitPowerPercent = - ( exitPower - 1 ) / 2 * 100;
 	
-	if ( i++ > 100 ) {i = 0 ;
+	if ( i++ > 25 ) {i = 0 ;
 		printf( "Set shooter power: %6.1f  %6.1f\n", intakePowerPercent, exitPowerPercent );
 	}
 }
