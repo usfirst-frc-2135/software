@@ -4,13 +4,14 @@
 #include "Commands/DriveStraight.h"
 
 OI::OI() {
+	printf (" 2135 - OI::OI\n" );
 	driverStick = new Joystick( DRIVER_JOYSTICK_PORT );
 	operatorStick = new Joystick( OPERATOR_JOYSTICK_PORT );
 	
-	driverTrigger = new JoystickButton( driverStick, Joystick::kTriggerButton );
-	driverTrigger->WhenPressed ( new Shoot );
-	operatorTrigger = new JoystickButton( operatorStick, Joystick::kTriggerButton );
-//	operatorTrigger->WhenPressed ( new DriveStraight );
+	driverTrigger = new JoystickButton( driverStick, Joystick::kDefaultTriggerButton );
+	driverTrigger->WhileActive( new Shoot );
+	operatorTrigger = new JoystickButton( operatorStick, Joystick::kDefaultTriggerButton );
+	operatorTrigger->WhenPressed ( new DriveStraight (2) );
 }
 
 Joystick * OI::getDriverJoystick() {
@@ -25,8 +26,7 @@ Joystick * OI::getOperatorJoystick() {
 float OI::getDriverThrottle() {
 	float driverThrottle;
 
-	driverThrottle = driverStick->GetRawAxis( Joystick::kThrottleAxis );
-	printf ( "driverStick->GetRawAxis\n" );
+	driverThrottle = driverStick->GetAxis( Joystick::kThrottleAxis );
 	return driverThrottle;
 }
 
@@ -34,7 +34,6 @@ float OI::getOperatorThrottle() {
 	float operatorThrottle;
 
 	operatorThrottle = operatorStick->GetAxis( Joystick::kThrottleAxis );
-    //printf( "2135: operatorStick->GetAxis\n");
 	return operatorThrottle;
 }
 

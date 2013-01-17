@@ -3,6 +3,7 @@
 DriveStraight::DriveStraight( double timeout ) {
 	m_timeout = timeout;
 	Requires( chassis );
+	printf ( "2135 - DriveStraight\n" );
 }
 
 void DriveStraight::Initialize() {
