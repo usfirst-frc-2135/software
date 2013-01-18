@@ -4,7 +4,6 @@
 CommandBase::CommandBase( const char *name ) : Command( name ) {
 }
 
-
 CommandBase::CommandBase() : Command() {
 }
 
