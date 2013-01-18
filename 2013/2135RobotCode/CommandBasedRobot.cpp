@@ -30,7 +30,6 @@ private:
 		Scheduler::GetInstance()->Run();
 		dashboardDataFormat.SendIOPortData();
 		dashboardDataFormat.SendVisionData();
-		SmartDashboard::PutData( "SchedulerData", (Sendable*) Scheduler::GetInstance() );
 	}
 	
 	virtual void TeleopInit() {
@@ -47,7 +46,7 @@ private:
 		Scheduler::GetInstance()->Run();
 		dashboardDataFormat.SendIOPortData();
 		dashboardDataFormat.SendVisionData();
-		SmartDashboard::PutData( "SchedulerData", (Sendable*) Scheduler::GetInstance() );
+//		SmartDashboard::PutData( "SchedulerData", (Sendable*) Scheduler::GetInstance() );
 //		SmartDashboard::PutData( chassis );
 	}
 	
