@@ -182,6 +182,10 @@ endif
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
+2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/DashboardDataFormat.o : $(PRJ_ROOT_DIR)/DashboardDataFormat.cpp $(FORCE_FILE_BUILD)
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
+
+
 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/OI.o : $(PRJ_ROOT_DIR)/OI.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
@@ -199,6 +203,7 @@ OBJECTS_2135RobotCode_partialImage = 2135RobotCode_partialImage/$(MODE_DIR)/Obje
 	 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Commands/DriveStraight.o \
 	 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Commands/DriveWithJoystick.o \
 	 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Commands/Shoot.o \
+	 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/DashboardDataFormat.o \
 	 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/OI.o \
 	 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Subsystems/Chassis.o \
 	 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Subsystems/Shooter.o
@@ -216,8 +221,8 @@ _clean :: 2135RobotCode_partialImage/$(MODE_DIR)/2135RobotCode_partialImage_clea
 force : 
 
 DEP_FILES := 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/CommandBase.d 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/CommandBasedRobot.d 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Commands/DriveStraight.d \
-	 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Commands/DriveWithJoystick.d 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Commands/Shoot.d 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/OI.d \
-	 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Subsystems/Chassis.d 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Subsystems/Shooter.d
+	 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Commands/DriveWithJoystick.d 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Commands/Shoot.d 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/DashboardDataFormat.d \
+	 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/OI.d 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Subsystems/Chassis.d 2135RobotCode_partialImage/$(MODE_DIR)/Objects/2135RobotCode/Subsystems/Shooter.d
 -include $(DEP_FILES)
 
 
