@@ -28,7 +28,7 @@ void Shooter::SetPower( float intakePower, float exitPower ) {
 	intakePowerPercent = - ( intakePower - 1) / 2 * 100;
 	exitPowerPercent = - ( exitPower - 1 ) / 2 * 100;
 	
-	if ( i++ > 25 ) {i = 0 ;
+	if ( i++ > 20 ) {i = 0 ;
 		printf( "Set shooter power: %6.1f  %6.1f\n", intakePowerPercent, exitPowerPercent );
 	}
 }

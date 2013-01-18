@@ -26,14 +26,14 @@ Joystick * OI::getOperatorJoystick() {
 float OI::getDriverThrottle() {
 	float driverThrottle;
 
-	driverThrottle = driverStick->GetAxis( Joystick::kThrottleAxis );
+	driverThrottle = driverStick->GetThrottle();
 	return driverThrottle;
 }
 
 float OI::getOperatorThrottle() {
 	float operatorThrottle;
 
-	operatorThrottle = operatorStick->GetAxis( Joystick::kThrottleAxis );
+	operatorThrottle = operatorStick->GetThrottle();
 	return operatorThrottle;
 }
 
