@@ -1,34 +1,49 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+//	Shoot.cpp
+//
+//	Shoot command definition file.
+//
 #include "Shoot.h"
 
-Shoot::Shoot() {
+//	When created, take control of shooter subsystem
+
+Shoot::Shoot( double power ) {
 	// Use requires() here to declare subsystem dependencies
-	// eg. requires(chassis);
+	printf( "2135: Shoot - Constructed\n" );
 	Requires( shooter );
-	printf( "2135: Shoot - Shoot\n" );
+	m_power = power;
 }
 
-// Called just before this Command runs the first time
+//	Initialization tasks
+//	Called just before this Command runs the first time
+
 void Shoot::Initialize() {
-	printf( "2135: Shoot - Init\n" );
+	printf( "2135: Shoot - Initialize\n" );
 }
 
-// Called repeatedly when this Command is scheduled to run
+//	Normal tasks
+//	Called repeatedly when this Command is scheduled to run
+
 void Shoot::Execute() {
-//	printf( "2135: Shoot - Exec\n" );
 	shooter->SetPower( oi->getDriverThrottle(), oi->getOperatorThrottle() );
 }
 
-// Make this return true when this Command no longer needs to run execute()
+//	Test for when finished
+//	Make this return true when this Command no longer needs to run execute()
+
 bool Shoot::IsFinished() {
 	return false;
 }
 
-// Called once after isFinished returns true
+//	Called once after isFinished returns true
+
 void Shoot::End() {
-	
+	printf( "2135: Shoot - End\n" );
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
+// Called when another command uses require on this subsystem and is scheduled
+
 void Shoot::Interrupted() {
+	printf( "2135: Shoot - Interrupted\n" );
 }
