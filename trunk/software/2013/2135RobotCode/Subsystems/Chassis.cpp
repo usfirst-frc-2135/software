@@ -9,6 +9,7 @@
 #include "../Commands/DriveWithJoystick.h"
 
 Chassis::Chassis() : Subsystem("Chassis") {
+	printf( "2135: Chassis - constructed\n" );
 	driveTrain = new RobotDrive ( PWM_LEFT_DRIVE_MOTOR, PWM_RIGHT_DRIVE_MOTOR );
 	driveTrain->SetSafetyEnabled ( false );
 }

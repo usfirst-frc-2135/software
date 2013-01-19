@@ -13,7 +13,7 @@
 //	Define operator joysticks, buttons, and dashboard data
 
 OI::OI() {
-	printf (" 2135: OI::OI\n" );
+	printf ("2135: OI - constructed\n" );
 	driverStick = new Joystick( DRIVER_JOYSTICK_PORT );
 	operatorStick = new Joystick( OPERATOR_JOYSTICK_PORT );
 	
