@@ -2,16 +2,21 @@
 #include "OI.h"
 #include "Commands/Shoot.h"
 #include "Commands/DriveStraight.h"
+#include "Commands/DriveWithJoystick.h"
 
 OI::OI() {
-	printf (" 2135 - OI::OI\n" );
+	printf (" 2135: OI::OI\n" );
 	driverStick = new Joystick( DRIVER_JOYSTICK_PORT );
 	operatorStick = new Joystick( OPERATOR_JOYSTICK_PORT );
 	
 	driverTrigger = new JoystickButton( driverStick, Joystick::kDefaultTriggerButton );
-	driverTrigger->WhileActive( new Shoot );
+	driverTrigger->WhileActive( new Shoot() );
 	operatorTrigger = new JoystickButton( operatorStick, Joystick::kDefaultTriggerButton );
-	operatorTrigger->WhenPressed ( new DriveStraight (2) );
+	operatorTrigger->WhenPressed ( new DriveStraight(2) );
+
+	SmartDashboard::PutData( "Shoot", new Shoot() );
+	SmartDashboard::PutData( "DriveWithJoystick", new DriveWithJoystick() );
+//	SmartDashboard::PutData( (NamedSendable *) "SchedulerData" );
 }
 
 Joystick * OI::getDriverJoystick() {
