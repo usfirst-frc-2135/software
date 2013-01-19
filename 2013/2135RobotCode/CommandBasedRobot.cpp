@@ -46,8 +46,6 @@ private:
 		Scheduler::GetInstance()->Run();
 		dashboardDataFormat.SendIOPortData();
 		dashboardDataFormat.SendVisionData();
-//		SmartDashboard::PutData( "SchedulerData", (Sendable*) Scheduler::GetInstance() );
-//		SmartDashboard::PutData( chassis );
 	}
 	
 	virtual void TestPeriodic() {
