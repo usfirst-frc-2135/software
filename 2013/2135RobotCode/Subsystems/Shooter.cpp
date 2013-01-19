@@ -9,6 +9,7 @@
 #include "../Commands/Shoot.h"
 
 Shooter::Shooter() : Subsystem("Shooter") {
+	printf( "2135: Shooter - constructed\n" );
 	shooterIntakeMotor = new Victor (PWM_SHOOTER_INTAKE_MOTOR);
 	shooterExitMotor = new Victor (PWM_SHOOTER_EXIT_MOTOR);
 	shooterIntakeMotor->SetSafetyEnabled( false );
