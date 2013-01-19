@@ -1,3 +1,9 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+//	DashboardDataFormat.cpp
+//
+//	Header file base for dashboard data.
+//
 #include "DashboardDataFormat.h"
 
 DashboardDataFormat::DashboardDataFormat(void)
@@ -9,6 +15,7 @@ DashboardDataFormat::DashboardDataFormat(void)
 	//	digitalModule2 = DigitalModule::GetInstance(2);
 	digitalModule2 = NULL;
 }
+
 DashboardDataFormat::~DashboardDataFormat()
 {
 }

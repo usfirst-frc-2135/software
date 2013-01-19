@@ -1,3 +1,9 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+//	CommandBase.h
+//
+//	Header file base for all commands.
+//
 #ifndef COMMANDBASE_H
 #define COMMANDBASE_H
 
@@ -18,9 +24,9 @@ public:
 	CommandBase();
 	static void init();
 	// Create a single static instance of all of your subsystems
-	static Chassis *chassis;
-	static Shooter *shooter;
-	static OI *oi;
+	static Chassis	*chassis;
+	static Shooter	*shooter;
+	static OI 		*oi;
 };
 
 #endif

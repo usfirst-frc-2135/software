@@ -1,5 +1,11 @@
-#ifndef __DashboardDataFormat_h__
-#define __DashboardDataFormat_h__
+///////////////////////////////////////////////////////////////////////////////
+//
+//	DashboardDataFormat.h
+//
+//	Header file base for dashboard data.
+//
+#ifndef __DASHBOARDDATAFORMAT_H__
+#define __DASHBOARDDATAFORMAT_H__
 
 #include "WPILib.h"
 
@@ -14,13 +20,16 @@
  * to add data elements or remove them.  Just remember to make any changes consistently
  * between the LabVIEW "Dashboard Datatype" and the data that gets packed by this class.
  */
+
 class DashboardDataFormat : public SensorBase
 {
+	
 public:
 	DashboardDataFormat(void);
 	virtual ~DashboardDataFormat();
 	void SendIOPortData(void);
 	void SendVisionData(void);
+	
 private:
 	DISALLOW_COPY_AND_ASSIGN(DashboardDataFormat);
 	AnalogModule *analogModule1;

@@ -1,6 +1,11 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+//	RobotMap.h
+//
+//	Header file base for wiring diagram constants.
+//
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
-
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
