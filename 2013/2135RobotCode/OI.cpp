@@ -18,9 +18,9 @@ OI::OI() {
 	operatorStick = new Joystick( OPERATOR_JOYSTICK_PORT );
 	
 	driverTrigger = new JoystickButton( driverStick, Joystick::kDefaultTriggerButton );
-	driverTrigger->WhileActive( new Shoot( 0 ) );
+	driverTrigger->WhenPressed ( new DriveStraight(2) );
 	operatorTrigger = new JoystickButton( operatorStick, Joystick::kDefaultTriggerButton );
-	operatorTrigger->WhenPressed ( new DriveStraight(2) );
+	operatorTrigger->WhileActive( new Shoot( 0 ) );
 
 	SmartDashboard::PutData( "Shoot", new Shoot( 0 ) );
 	SmartDashboard::PutData( "DriveWithJoystick", new DriveWithJoystick() );
