@@ -61,7 +61,7 @@ Children:
         Sensitivity: !!robotbuilder.data.properties.DoubleProperty {default: 0.5,
           name: Sensitivity, validators: null, value: 0.5}
         Safety Enabled: !!robotbuilder.data.properties.BooleanProperty {default: true,
-          name: Safety Enabled, validators: null, value: true}
+          name: Safety Enabled, validators: null, value: false}
         Left Motor Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Left Motor Inverted, validators: null, value: false}
         Right Motor: !!robotbuilder.data.properties.ChildSelectionProperty
