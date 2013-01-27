@@ -9,13 +9,11 @@
 #include "Subsystems/Chassis.h"
 #include "Commands/DriveStraight.h"
 #include "CommandBase.h"
-#include "DashboardDataFormat.h"
 
 //	Main Robot Class - subclass of IterativeRobot
 
 class CommandBasedRobot : public IterativeRobot {
-	DashboardDataFormat dashboardDataFormat;	// Our dashboard data
-
+	
 private:
 	Command		*autonomousCommand;				// Our autonomous command
 	LiveWindow	*lw;							// Our live window object
@@ -25,8 +23,8 @@ private:
 	virtual void RobotInit() {
 		printf( "2135: RobotInit\n" );
 		CommandBase::init();
-		autonomousCommand = new DriveStraight(1);
 		lw = LiveWindow::GetInstance();
+		autonomousCommand = new DriveStraight(1);
 	}
 	
 	//	Autonomous initialization - runs once at start of Autonomous
@@ -41,8 +39,6 @@ private:
 	virtual void AutonomousPeriodic() {
 //		printf( "2135: AutonomousPeriodic\n" );
 		Scheduler::GetInstance()->Run();
-		dashboardDataFormat.SendIOPortData();
-		dashboardDataFormat.SendVisionData();
 	}
 	
 	//	Teleop initialization - runs once at start of Teleop
@@ -57,8 +53,6 @@ private:
 	virtual void TeleopPeriodic() {
 //		printf( "2135: TeleopPeriodic\n" );
 		Scheduler::GetInstance()->Run();
-		dashboardDataFormat.SendIOPortData();
-		dashboardDataFormat.SendVisionData();
 	}
 	
 	//	Test periodic - runs test routines in Live Window mode
