@@ -14,7 +14,7 @@
 class Chassis: public Subsystem {
 	
 private:
-	RobotDrive *driveTrain;				// Declare driveTrain a RobotDrive type
+	RobotDrive *chassisdriveTrain;				// Declare driveTrain a RobotDrive type
 	
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
