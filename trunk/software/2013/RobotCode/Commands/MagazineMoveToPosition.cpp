@@ -17,7 +17,7 @@ MagazineMoveToPosition::MagazineMoveToPosition() {
 }
 // Called just before this Command runs the first time
 void MagazineMoveToPosition::Initialize() {
-	printf( "2135: MagazineMoveToPositionStart\n" );
+	printf( "2135: MagazineMoveToPosition\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void MagazineMoveToPosition::Execute() {

@@ -17,7 +17,7 @@ SweeperAcquire::SweeperAcquire() {
 }
 // Called just before this Command runs the first time
 void SweeperAcquire::Initialize() {
-	printf( "2135: SweeperAcquireStart\n" );
+	printf( "2135: SweeperAcquire\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void SweeperAcquire::Execute() {

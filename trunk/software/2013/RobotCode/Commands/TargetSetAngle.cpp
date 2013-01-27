@@ -17,7 +17,7 @@ TargetSetAngle::TargetSetAngle() {
 }
 // Called just before this Command runs the first time
 void TargetSetAngle::Initialize() {
-	printf( "2135: TargetSetAngleStart\n" );
+	printf( "2135: TargetSetAngle\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void TargetSetAngle::Execute() {

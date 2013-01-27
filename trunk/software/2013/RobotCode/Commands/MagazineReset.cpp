@@ -17,7 +17,7 @@ MagazineReset::MagazineReset() {
 }
 // Called just before this Command runs the first time
 void MagazineReset::Initialize() {
-	printf( "2135: MagazineResetStart\n" );
+	printf( "2135: MagazineReset\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void MagazineReset::Execute() {
