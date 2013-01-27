@@ -17,7 +17,7 @@ ShootFrisbee::ShootFrisbee() {
 }
 // Called just before this Command runs the first time
 void ShootFrisbee::Initialize() {
-	printf( "2135: ShootFrisbeeStart\n" );
+	printf( "2135: ShootFrisbee\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void ShootFrisbee::Execute() {

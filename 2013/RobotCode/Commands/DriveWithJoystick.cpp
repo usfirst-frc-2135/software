@@ -17,7 +17,7 @@ DriveWithJoystick::DriveWithJoystick() {
 }
 // Called just before this Command runs the first time
 void DriveWithJoystick::Initialize() {
-	printf ( "2135: DriveWithJoystickStart\n" );
+	printf( "2135: DriveWithJoystick\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoystick::Execute() {

@@ -17,7 +17,7 @@ DriveStraight::DriveStraight() {
 }
 // Called just before this Command runs the first time
 void DriveStraight::Initialize() {
-	printf( "2135: DriveStraightStart\n" );
+	printf( "2135: DriveStraight\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveStraight::Execute() {
