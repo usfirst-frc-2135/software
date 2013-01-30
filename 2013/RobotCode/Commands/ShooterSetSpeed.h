@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef SHOOTER_SET_WHEEL_SPEED_H
-#define SHOOTER_SET_WHEEL_SPEED_H
+#ifndef SHOOTER_SET_SPEED_H
+#define SHOOTER_SET_SPEED_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class ShooterSetWheelSpeed: public Command {
+class ShooterSetSpeed: public Command {
 public:
-	ShooterSetWheelSpeed();
+	ShooterSetSpeed();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

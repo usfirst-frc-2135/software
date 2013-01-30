@@ -25,8 +25,8 @@
 #include "Commands/ShiftHighGear.h"
 #include "Commands/ShiftLowGear.h"
 #include "Commands/ShootFrisbee.h"
-#include "Commands/ShooterSetWheelDirection.h"
-#include "Commands/ShooterSetWheelSpeed.h"
+#include "Commands/ShooterSetDirection.h"
+#include "Commands/ShooterSetSpeed.h"
 #include "Commands/ShooterStop.h"
 #include "Commands/SweeperAcquire.h"
 #include "Commands/SweeperReject.h"
@@ -62,8 +62,8 @@ OI::OI() {
 	SmartDashboard::PutData("Magazine Stop", new MagazineStop());
 	SmartDashboard::PutData("Target Set Angle", new TargetSetAngle());
 	SmartDashboard::PutData("Target Stop", new TargetStop());
-	SmartDashboard::PutData("Shooter Set Wheel Speed", new ShooterSetWheelSpeed());
-	SmartDashboard::PutData("Shooter Set Wheel Direction", new ShooterSetWheelDirection());
+	SmartDashboard::PutData("Shooter Set Speed", new ShooterSetSpeed());
+	SmartDashboard::PutData("Shooter Set Direction", new ShooterSetDirection());
 	SmartDashboard::PutData("Shoot Frisbee", new ShootFrisbee());
 	SmartDashboard::PutData("Shooter Stop", new ShooterStop());
 	SmartDashboard::PutData("Climb", new Climb());
