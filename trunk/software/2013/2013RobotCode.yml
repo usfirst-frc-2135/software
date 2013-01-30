@@ -995,20 +995,20 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Targeting}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Shooter Set Wheel Speed
+  - Name: Shooter Set Speed
     Base: Command
     Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: None}
+        name: Requires, type: Subsystem, validators: null, value: Shooter}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Shooter Set Wheel Direction
+  - Name: Shooter Set Direction
     Base: Command
     Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: None}
+        name: Requires, type: Subsystem, validators: null, value: Shooter}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
   - Name: Shoot Frisbee
