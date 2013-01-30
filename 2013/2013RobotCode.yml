@@ -63,7 +63,7 @@ Children:
         Safety Enabled: !!robotbuilder.data.properties.BooleanProperty {default: true,
           name: Safety Enabled, validators: null, value: false}
         Left Motor Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Left Motor Inverted, validators: null, value: false}
+          name: Left Motor Inverted, validators: null, value: true}
         Right Motor: !!robotbuilder.data.properties.ChildSelectionProperty
           default: 1
           name: Right Motor
@@ -105,7 +105,7 @@ Children:
           validators: null
           value: kDistance
         Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
-          name: Distance Per Pulse, validators: null, value: 1.0}
+          name: Distance Per Pulse, validators: null, value: 0.00277778}
         Encoding Type: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id011 [k4X, k2X, k1X]
           default: k4X
@@ -127,7 +127,7 @@ Children:
           validators: &id015 [DigitalChannel]
           value: '1'
         Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Reverse Direction, validators: null, value: false}
+          name: Reverse Direction, validators: null, value: true}
     - Name: Right Encoder
       Base: Quadrature Encoder
       Children: []
@@ -151,7 +151,7 @@ Children:
           validators: null
           value: kDistance
         Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
-          name: Distance Per Pulse, validators: null, value: 1.0}
+          name: Distance Per Pulse, validators: null, value: 0.00277778}
         Encoding Type: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id011
           default: k4X
@@ -499,7 +499,7 @@ Children:
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: Target Stop}
-  - Name: Shooter1
+  - Name: Shooter
     Base: Subsystem
     Children:
     - Name: Firing Pin
@@ -566,7 +566,7 @@ Children:
             validators: null
             value: kRate
           Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
-            name: Distance Per Pulse, validators: null, value: 1.0}
+            name: Distance Per Pulse, validators: null, value: 0.00277778}
           Encoding Type: !!robotbuilder.data.properties.ChoicesProperty
             choices: *id011
             default: k4X
@@ -597,7 +597,7 @@ Children:
           name: Input
           type: PIDSource
           validators: *id024
-          value: Shooter1 Entry Shooter Encoder
+          value: Shooter Entry Shooter Encoder
         Limit Output: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Limit Output, validators: null, value: false}
         F: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: F, validators: null,
@@ -615,7 +615,7 @@ Children:
           name: Output
           type: PIDOutput
           validators: *id025
-          value: Shooter1 Entry Shooter Motor
+          value: Shooter Entry Shooter Motor
         Minimum Input: !!robotbuilder.data.properties.DoubleProperty {default: 0,
           name: Minimum Input, validators: null, value: 0.0}
         Minimum Output: !!robotbuilder.data.properties.DoubleProperty {default: -1,
@@ -674,7 +674,7 @@ Children:
             validators: null
             value: kRate
           Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
-            name: Distance Per Pulse, validators: null, value: 1.0}
+            name: Distance Per Pulse, validators: null, value: 0.00277778}
           Encoding Type: !!robotbuilder.data.properties.ChoicesProperty
             choices: *id011
             default: k4X
@@ -705,7 +705,7 @@ Children:
           name: Input
           type: PIDSource
           validators: *id024
-          value: Shooter1 Exit Shooter Encoder
+          value: Shooter Exit Shooter Encoder
         Limit Output: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Limit Output, validators: null, value: false}
         F: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: F, validators: null,
@@ -723,7 +723,7 @@ Children:
           name: Output
           type: PIDOutput
           validators: *id025
-          value: Shooter1 Exit Shooter Motor
+          value: Shooter Exit Shooter Motor
         Minimum Input: !!robotbuilder.data.properties.DoubleProperty {default: 0,
           name: Minimum Input, validators: null, value: 0.0}
         Minimum Output: !!robotbuilder.data.properties.DoubleProperty {default: -1,
@@ -736,7 +736,7 @@ Children:
           name: Maximum Input, validators: null, value: 5.0}
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Shooter Stop}
+        name: Default Command, type: Command, validators: null, value: None}
   - Name: Climber
     Base: Subsystem
     Children:
@@ -800,28 +800,6 @@ Children:
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: Compressor Set On}
-  - Name: Battery Monitor
-    Base: Subsystem
-    Children:
-    - Name: Battery Voltage
-      Base: Analog Input
-      Children: []
-      Properties:
-        Input Module (Analog): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id016
-          default: '1'
-          name: Input Module (Analog)
-          validators: *id017
-          value: '1'
-        Input Channel (Analog): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id018
-          default: '1'
-          name: Input Channel (Analog)
-          validators: *id019
-          value: '7'
-    Properties:
-      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: None}
   Properties: {}
 - Name: Operator Interface
   Base: OI
@@ -1100,6 +1078,6 @@ Properties:
     validators: null, value: 2135}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
-  Java Project Directory: !!robotbuilder.data.properties.FileProperty {default: \\psf\Home\NetBeansProjects,
+  Java Project Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\NetBeansProjects',
     extension: null, folder: true, name: Java Project Directory, validators: null,
     value: \\psf\Home\NetBeansProjects}
