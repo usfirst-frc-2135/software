@@ -21,7 +21,7 @@ void DriveWithJoystick::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoystick::Execute() {
-	
+	Robot::chassis->driveWithJoystick(Robot::oi->getDriverStick());
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveWithJoystick::IsFinished() {
