@@ -40,7 +40,7 @@ OI::OI() {
 	operatorStick = new Joystick(2);
 	
 	operatorTrigger = new JoystickButton(operatorStick, 1);
-	operatorTrigger->WhileHeld(new ShootFrisbee());
+	operatorTrigger->WhileHeld(new ShooterSetSpeed());
 	driverStick = new Joystick(1);
 	
 	driverTrigger = new JoystickButton(driverStick, 1);
