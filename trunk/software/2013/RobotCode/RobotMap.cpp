@@ -49,12 +49,12 @@ void RobotMap::init() {
 	
 	chassisDriveTrain = new RobotDrive(chassisLeft, chassisRight);
 	
-	chassisDriveTrain->SetSafetyEnabled(false);
+	chassisDriveTrain->SetSafetyEnabled(true);
         chassisDriveTrain->SetExpiration(0.1);
         chassisDriveTrain->SetSensitivity(0.5);
         chassisDriveTrain->SetMaxOutput(1.0);
         chassisDriveTrain->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);        
-	chassisLeftEncoder = new Encoder(1, 1, 1, 2, true, Encoder::k4X);
+	chassisLeftEncoder = new Encoder(1, 1, 1, 2, false, Encoder::k4X);
 	lw->AddSensor("Chassis", "Left Encoder", chassisLeftEncoder);
 	chassisLeftEncoder->SetDistancePerPulse(0.00277778);
         chassisLeftEncoder->SetPIDSourceParameter(Encoder::kDistance);
