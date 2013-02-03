@@ -30,6 +30,8 @@ Magazine::Magazine() : PIDSubsystem("Magazine", 1.0, 0.0, 0.0) {
 	// SetSetpoint() -  Sets where the PID controller should move the system
 	//                  to
 	// Enable() - Enables the PID controller.
+	SetSetpoint(MAG_FULLDOWN);
+	Enable();
 }
 double Magazine::ReturnPIDInput() {
 	// Return your input value for the PID loop
