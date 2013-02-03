@@ -30,5 +30,6 @@ class Magazine: public PIDSubsystem {
 	double ReturnPIDInput();
 	void UsePIDOutput(double output);
 	void InitDefaultCommand();
+	bool Magazine::GetSlotLimit(int slotNum);
 };
 #endif

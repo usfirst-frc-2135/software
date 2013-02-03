@@ -62,6 +62,15 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
 	if (autonomousCommand != NULL)
 		Scheduler::GetInstance()->Run();
+	
+	SmartDashboard::PutNumber( "Driver Throttle", - ( Robot::oi->getDriverThrottle() - 1 ) / 2 );
+	SmartDashboard::PutNumber( "Operator Throttle", - ( Robot::oi->getOperatorThrottle() - 1 ) / 2 );	
+	SmartDashboard::PutNumber( "Shooter Exit Encoder", Robot::shooter->exitShooterEncoder->GetRate() );	
+	SmartDashboard::PutBoolean( "Magazine Slot 1", Robot::magazine->GetSlotLimit( 1 ) );	
+	SmartDashboard::PutBoolean( "Magazine Slot 2", Robot::magazine->GetSlotLimit( 2 ) );	
+	SmartDashboard::PutBoolean( "Magazine Slot 3", Robot::magazine->GetSlotLimit( 3 ) );	
+	SmartDashboard::PutBoolean( "Magazine Slot 4", Robot::magazine->GetSlotLimit( 4 ) );	
+	SmartDashboard::PutNumber( "Shooter Exit Encoder", Robot::shooter->exitShooterEncoder->GetRate() );	
 }
 void Robot::TestPeriodic() {
 	lw->Run();
