@@ -49,7 +49,7 @@ void RobotMap::init() {
 	
 	chassisDriveTrain = new RobotDrive(chassisLeft, chassisRight);
 	
-	chassisDriveTrain->SetSafetyEnabled(true);
+	chassisDriveTrain->SetSafetyEnabled(false);
         chassisDriveTrain->SetExpiration(0.1);
         chassisDriveTrain->SetSensitivity(0.5);
         chassisDriveTrain->SetMaxOutput(1.0);
