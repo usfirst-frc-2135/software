@@ -21,7 +21,7 @@ void MagazineStop::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void MagazineStop::Execute() {
-	
+	Robot::magazine->Disable();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool MagazineStop::IsFinished() {

@@ -49,7 +49,7 @@ void RobotMap::init() {
 	
 	chassisDriveTrain = new RobotDrive(chassisLeft, chassisRight);
 	
-	chassisDriveTrain->SetSafetyEnabled(false);
+	chassisDriveTrain->SetSafetyEnabled(true);
         chassisDriveTrain->SetExpiration(0.1);
         chassisDriveTrain->SetSensitivity(0.5);
         chassisDriveTrain->SetMaxOutput(1.0);
@@ -102,7 +102,8 @@ void RobotMap::init() {
 	
 	targetingElevationPID = new PIDController(1.0, 0.0, 0.0,/* F: 0.0, */ targetingElevationPotentiometer, targetingElevationMotor, 0.02);
 	lw->AddActuator("Targeting", "Elevation PID", targetingElevationPID);
-	targetingElevationPID->SetContinuous(false); targetingElevationPID->SetAbsoluteTolerance(0.2); 
+	targetingElevationPID->SetContinuous(false); 
+	targetingElevationPID->SetAbsoluteTolerance(0.2); 
         targetingElevationPID->SetOutputRange(-1.0, 1.0);
 	shooterFiringPin = new Solenoid(1, 3);
 	lw->AddActuator("Shooter", "Firing Pin", shooterFiringPin);
@@ -117,7 +118,8 @@ void RobotMap::init() {
         shooterEntryShooterEncoder->Start();
 	shooterEntryShooterPID = new PIDController(1.0, 0.0, 0.0,/* F: 0.0, */ shooterEntryShooterEncoder, shooterEntryShooterMotor, 0.02);
 	lw->AddActuator("Shooter", "Entry Shooter PID", shooterEntryShooterPID);
-	shooterEntryShooterPID->SetContinuous(false); shooterEntryShooterPID->SetAbsoluteTolerance(0.2); 
+	shooterEntryShooterPID->SetContinuous(false); 
+	shooterEntryShooterPID->SetAbsoluteTolerance(0.2); 
         shooterEntryShooterPID->SetOutputRange(-1.0, 1.0);
 	shooterExitShooterMotor = new Talon(1, 8);
 	lw->AddActuator("Shooter", "Exit Shooter Motor", (Talon*) shooterExitShooterMotor);
@@ -129,7 +131,8 @@ void RobotMap::init() {
         shooterExitShooterEncoder->Start();
 	shooterExitShooterPID = new PIDController(1.0, 0.0, 0.0,/* F: 0.0, */ shooterExitShooterEncoder, shooterExitShooterMotor, 0.02);
 	lw->AddActuator("Shooter", "Exit Shooter PID", shooterExitShooterPID);
-	shooterExitShooterPID->SetContinuous(false); shooterExitShooterPID->SetAbsoluteTolerance(0.2); 
+	shooterExitShooterPID->SetContinuous(false); 
+	shooterExitShooterPID->SetAbsoluteTolerance(0.2); 
         shooterExitShooterPID->SetOutputRange(-1.0, 1.0);
 	climberClimberMotor = new Talon(1, 9);
 	lw->AddActuator("Climber", "Climber Motor", (Talon*) climberClimberMotor);

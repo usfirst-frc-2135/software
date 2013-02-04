@@ -66,13 +66,18 @@ void Robot::TeleopPeriodic() {
 	SmartDashboard::PutNumber( "Driver Throttle", - ( Robot::oi->getDriverThrottle() - 1 ) / 2 );
 	SmartDashboard::PutNumber( "Operator Throttle", - ( Robot::oi->getOperatorThrottle() - 1 ) / 2 );	
 	SmartDashboard::PutNumber( "Shooter Exit Encoder", Robot::shooter->exitShooterEncoder->GetRate() );	
+	SmartDashboard::PutNumber( "Magazine Potentiometer", Robot::magazine->GetSetpoint() );	
 	SmartDashboard::PutBoolean( "Magazine Slot 1", Robot::magazine->GetSlotLimit( 1 ) );	
 	SmartDashboard::PutBoolean( "Magazine Slot 2", Robot::magazine->GetSlotLimit( 2 ) );	
 	SmartDashboard::PutBoolean( "Magazine Slot 3", Robot::magazine->GetSlotLimit( 3 ) );	
 	SmartDashboard::PutBoolean( "Magazine Slot 4", Robot::magazine->GetSlotLimit( 4 ) );	
-	SmartDashboard::PutNumber( "Shooter Exit Encoder", Robot::shooter->exitShooterEncoder->GetRate() );	
 }
 void Robot::TestPeriodic() {
-	lw->Run();
+	static int	i = 0;
+	
+	if ( i++ > 5 ) {		// Update only once in every 5 DS packets ( 10 times per second)
+		lw->Run();
+		i = 0;
+	}
 }
 START_ROBOT_CLASS(Robot);
