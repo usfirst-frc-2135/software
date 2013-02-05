@@ -18,14 +18,15 @@ MagazineStop::MagazineStop() {
 // Called just before this Command runs the first time
 void MagazineStop::Initialize() {
 	printf( "2135: MagazineStop\n" );
+	Robot::magazine->Disable();
 }
 // Called repeatedly when this Command is scheduled to run
 void MagazineStop::Execute() {
-	Robot::magazine->Disable();
+	Robot::magazine->magazineMotor->Set( 0.0, 0 );
 }
 // Make this return true when this Command no longer needs to run execute()
 bool MagazineStop::IsFinished() {
-	return false;
+	return true;
 }
 // Called once after isFinished returns true
 void MagazineStop::End() {

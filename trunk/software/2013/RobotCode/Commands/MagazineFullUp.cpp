@@ -19,12 +19,10 @@ MagazineFullUp::MagazineFullUp() {
 // Called just before this Command runs the first time
 void MagazineFullUp::Initialize() {
 	printf( "2135: MagazineFullUp\n" );	
-
+	Robot::magazine->SetSetpoint( Robot::magazine->MAG_FULLUP );
 }
 // Called repeatedly when this Command is scheduled to run
 void MagazineFullUp::Execute() {
-	Robot::magazine->Enable();
-	Robot::magazine->SetSetpoint( Robot::magazine->MAG_FULLUP );
 }
 // Make this return true when this Command no longer needs to run execute()
 bool MagazineFullUp::IsFinished() {
