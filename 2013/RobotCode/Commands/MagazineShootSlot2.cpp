@@ -19,11 +19,10 @@ MagazineShootSlot2::MagazineShootSlot2() {
 // Called just before this Command runs the first time
 void MagazineShootSlot2::Initialize() {
 	printf( "2135: MagazineShootSlot2\n" );	
+	Robot::magazine->SetSetpoint( Robot::magazine->MAG_SHOOT_SLOT2 );
 }
 // Called repeatedly when this Command is scheduled to run
 void MagazineShootSlot2::Execute() {
-	Robot::magazine->Enable();
-	Robot::magazine->SetSetpoint( Robot::magazine->MAG_SHOOT_SLOT2 );
 }
 // Make this return true when this Command no longer needs to run execute()
 bool MagazineShootSlot2::IsFinished() {

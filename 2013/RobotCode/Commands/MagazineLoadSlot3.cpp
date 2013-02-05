@@ -19,12 +19,10 @@ MagazineLoadSlot3::MagazineLoadSlot3() {
 // Called just before this Command runs the first time
 void MagazineLoadSlot3::Initialize() {
 	printf( "2135: MagazineLoadSlot3\n" );	
-
+	Robot::magazine->SetSetpoint( Robot::magazine->MAG_LOAD_SLOT3 );
 }
 // Called repeatedly when this Command is scheduled to run
 void MagazineLoadSlot3::Execute() {
-	Robot::magazine->Enable();
-	Robot::magazine->SetSetpoint( Robot::magazine->MAG_LOAD_SLOT3 );
 }
 // Make this return true when this Command no longer needs to run execute()
 bool MagazineLoadSlot3::IsFinished() {
