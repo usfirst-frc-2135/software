@@ -18,7 +18,7 @@ MagazineShootSlot3::MagazineShootSlot3() {
 }
 // Called just before this Command runs the first time
 void MagazineShootSlot3::Initialize() {
-	
+	printf( "2135: MagazineShootSlot3\n" );	
 }
 // Called repeatedly when this Command is scheduled to run
 void MagazineShootSlot3::Execute() {
