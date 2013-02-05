@@ -18,7 +18,7 @@ MagazineLoadSlot1::MagazineLoadSlot1() {
 }
 // Called just before this Command runs the first time
 void MagazineLoadSlot1::Initialize() {
-	
+	printf( "2135: MagazineLoadSlot1\n" );	
 }
 // Called repeatedly when this Command is scheduled to run
 void MagazineLoadSlot1::Execute() {

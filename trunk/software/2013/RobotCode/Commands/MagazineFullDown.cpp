@@ -18,7 +18,8 @@ MagazineFullDown::MagazineFullDown() {
 }
 // Called just before this Command runs the first time
 void MagazineFullDown::Initialize() {
-	
+	printf( "2135: MagazineFullDown\n" );	
+
 }
 // Called repeatedly when this Command is scheduled to run
 void MagazineFullDown::Execute() {

@@ -18,7 +18,8 @@ MagazineFullUp::MagazineFullUp() {
 }
 // Called just before this Command runs the first time
 void MagazineFullUp::Initialize() {
-	
+	printf( "2135: MagazineFullUp\n" );	
+
 }
 // Called repeatedly when this Command is scheduled to run
 void MagazineFullUp::Execute() {
