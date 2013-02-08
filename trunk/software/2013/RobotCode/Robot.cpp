@@ -12,7 +12,7 @@
 Chassis* Robot::chassis = 0;
 Sweeper* Robot::sweeper = 0;
 Magazine* Robot::magazine = 0;
-Targeting* Robot::targeting = 0;
+Aiming* Robot::aiming = 0;
 Shooter* Robot::shooter = 0;
 Climber* Robot::climber = 0;
 Pneumatics* Robot::pneumatics = 0;
@@ -24,7 +24,7 @@ void Robot::RobotInit() {
 	chassis = new Chassis();
 	sweeper = new Sweeper();
 	magazine = new Magazine();
-	targeting = new Targeting();
+	aiming = new Aiming();
 	shooter = new Shooter();
 	climber = new Climber();
 	pneumatics = new Pneumatics();

@@ -33,10 +33,10 @@ public:
 	static AnalogChannel* magazineSlotLimit2;
 	static AnalogChannel* magazineSlotLimit3;
 	static AnalogChannel* magazineSlotLimit4;
-	static Servo* targetingCameraServo;
-	static SpeedController* targetingElevationMotor;
-	static AnalogChannel* targetingElevationPotentiometer;
-	static PIDController* targetingElevationPID;
+	static Servo* aimingCameraServo;
+	static SpeedController* aimingElevationMotor;
+	static AnalogChannel* aimingElevationPotentiometer;
+	static PIDController* aimingElevationPID;
 	static Solenoid* shooterFiringPin;
 	static SpeedController* shooterEntryShooterMotor;
 	static Encoder* shooterEntryShooterEncoder;

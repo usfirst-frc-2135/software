@@ -24,10 +24,10 @@ AnalogChannel* RobotMap::magazineSlotLimit1 = NULL;
 AnalogChannel* RobotMap::magazineSlotLimit2 = NULL;
 AnalogChannel* RobotMap::magazineSlotLimit3 = NULL;
 AnalogChannel* RobotMap::magazineSlotLimit4 = NULL;
-Servo* RobotMap::targetingCameraServo = NULL;
-SpeedController* RobotMap::targetingElevationMotor = NULL;
-AnalogChannel* RobotMap::targetingElevationPotentiometer = NULL;
-PIDController* RobotMap::targetingElevationPID = NULL;
+Servo* RobotMap::aimingCameraServo = NULL;
+SpeedController* RobotMap::aimingElevationMotor = NULL;
+AnalogChannel* RobotMap::aimingElevationPotentiometer = NULL;
+PIDController* RobotMap::aimingElevationPID = NULL;
 Solenoid* RobotMap::shooterFiringPin = NULL;
 SpeedController* RobotMap::shooterEntryShooterMotor = NULL;
 Encoder* RobotMap::shooterEntryShooterEncoder = NULL;
@@ -49,7 +49,7 @@ void RobotMap::init() {
 	
 	chassisDriveTrain = new RobotDrive(chassisLeft, chassisRight);
 	
-	chassisDriveTrain->SetSafetyEnabled(false);
+	chassisDriveTrain->SetSafetyEnabled(true);
         chassisDriveTrain->SetExpiration(0.1);
         chassisDriveTrain->SetSensitivity(0.5);
         chassisDriveTrain->SetMaxOutput(1.0);
@@ -91,20 +91,19 @@ void RobotMap::init() {
 	magazineSlotLimit4 = new AnalogChannel(1, 5);
 	lw->AddSensor("Magazine", "Slot Limit 4", magazineSlotLimit4);
 	
-	targetingCameraServo = new Servo(1, 10);
-	lw->AddActuator("Targeting", "Camera Servo", targetingCameraServo);
+	aimingCameraServo = new Servo(1, 10);
+	lw->AddActuator("Aiming", "Camera Servo", aimingCameraServo);
 	
-	targetingElevationMotor = new Talon(1, 6);
-	lw->AddActuator("Targeting", "Elevation Motor", (Talon*) targetingElevationMotor);
+	aimingElevationMotor = new Talon(1, 6);
+	lw->AddActuator("Aiming", "Elevation Motor", (Talon*) aimingElevationMotor);
 	
-	targetingElevationPotentiometer = new AnalogChannel(1, 6);
-	lw->AddSensor("Targeting", "Elevation Potentiometer", targetingElevationPotentiometer);
+	aimingElevationPotentiometer = new AnalogChannel(1, 6);
+	lw->AddSensor("Aiming", "Elevation Potentiometer", aimingElevationPotentiometer);
 	
-	targetingElevationPID = new PIDController(1.0, 0.0, 0.0,/* F: 0.0, */ targetingElevationPotentiometer, targetingElevationMotor, 0.02);
-	lw->AddActuator("Targeting", "Elevation PID", targetingElevationPID);
-	targetingElevationPID->SetContinuous(false); 
-	targetingElevationPID->SetAbsoluteTolerance(0.2); 
-        targetingElevationPID->SetOutputRange(-1.0, 1.0);
+	aimingElevationPID = new PIDController(1.0, 0.0, 0.0,/* F: 0.0, */ aimingElevationPotentiometer, aimingElevationMotor, 0.02);
+	lw->AddActuator("Aiming", "Elevation PID", aimingElevationPID);
+	aimingElevationPID->SetContinuous(false); aimingElevationPID->SetAbsoluteTolerance(0.2); 
+        aimingElevationPID->SetOutputRange(-1.0, 1.0);
 	shooterFiringPin = new Solenoid(1, 3);
 	lw->AddActuator("Shooter", "Firing Pin", shooterFiringPin);
 	
@@ -118,8 +117,7 @@ void RobotMap::init() {
         shooterEntryShooterEncoder->Start();
 	shooterEntryShooterPID = new PIDController(1.0, 0.0, 0.0,/* F: 0.0, */ shooterEntryShooterEncoder, shooterEntryShooterMotor, 0.02);
 	lw->AddActuator("Shooter", "Entry Shooter PID", shooterEntryShooterPID);
-	shooterEntryShooterPID->SetContinuous(false); 
-	shooterEntryShooterPID->SetAbsoluteTolerance(0.2); 
+	shooterEntryShooterPID->SetContinuous(false); shooterEntryShooterPID->SetAbsoluteTolerance(0.2); 
         shooterEntryShooterPID->SetOutputRange(-1.0, 1.0);
 	shooterExitShooterMotor = new Talon(1, 8);
 	lw->AddActuator("Shooter", "Exit Shooter Motor", (Talon*) shooterExitShooterMotor);
@@ -131,8 +129,7 @@ void RobotMap::init() {
         shooterExitShooterEncoder->Start();
 	shooterExitShooterPID = new PIDController(1.0, 0.0, 0.0,/* F: 0.0, */ shooterExitShooterEncoder, shooterExitShooterMotor, 0.02);
 	lw->AddActuator("Shooter", "Exit Shooter PID", shooterExitShooterPID);
-	shooterExitShooterPID->SetContinuous(false); 
-	shooterExitShooterPID->SetAbsoluteTolerance(0.2); 
+	shooterExitShooterPID->SetContinuous(false); shooterExitShooterPID->SetAbsoluteTolerance(0.2); 
         shooterExitShooterPID->SetOutputRange(-1.0, 1.0);
 	climberClimberMotor = new Talon(1, 9);
 	lw->AddActuator("Climber", "Climber Motor", (Talon*) climberClimberMotor);
