@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef TARGET_SET_ANGLE_H
-#define TARGET_SET_ANGLE_H
+#ifndef AIM_STOP_H
+#define AIM_STOP_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class TargetSetAngle: public Command {
+class AimStop: public Command {
 public:
-	TargetSetAngle();
+	AimStop();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
