@@ -41,6 +41,5 @@ class Magazine: public PIDSubsystem {
 	void UsePIDOutput(double output);
 	void InitDefaultCommand();
 	bool GetSlotLimit(int slotNum);
-	bool MyOnTarget();
 };
 #endif

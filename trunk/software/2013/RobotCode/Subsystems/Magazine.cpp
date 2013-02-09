@@ -77,6 +77,4 @@ bool Magazine::GetSlotLimit(int slotNum) {
 	
 	return pressed;
 }
-bool Magazine::MyOnTarget() {
-	return (fabs(GetSetpoint() - PIDGet()) < 0.2);
-}
+

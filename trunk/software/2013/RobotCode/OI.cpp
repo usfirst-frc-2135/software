@@ -104,9 +104,9 @@ OI::OI() {
 	SmartDashboard::PutData("Magazine Shoot Slot 3", new MagazineShootSlot3());
 	SmartDashboard::PutData("Magazine Shoot Slot 4", new MagazineShootSlot4());
 	SmartDashboard::PutData("Magazine Full Up", new MagazineFullUp());
+	SmartDashboard::PutData("Shoot Frisbee", new ShootFrisbee());
 	SmartDashboard::PutData("Shooter Set Speed", new ShooterSetSpeed());
 	SmartDashboard::PutData("Shooter Set Direction", new ShooterSetDirection());
-	SmartDashboard::PutData("Shoot Frisbee", new ShootFrisbee());
 	SmartDashboard::PutData("Shooter Stop", new ShooterStop());
 	SmartDashboard::PutData("Climb", new Climb());
 	SmartDashboard::PutData("Climb Stop", new ClimbStop());
