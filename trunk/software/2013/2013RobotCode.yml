@@ -79,7 +79,7 @@ Children:
           validators: [RobotDrive2, ChildDropdownSelected]
           value: Chassis Left
         Right Motor Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Right Motor Inverted, validators: null, value: false}
+          name: Right Motor Inverted, validators: null, value: true}
         Safety Expiration Time: !!robotbuilder.data.properties.DoubleProperty {default: 0.1,
           name: Safety Expiration Time, validators: null, value: 0.1}
     - Name: Left Encoder
