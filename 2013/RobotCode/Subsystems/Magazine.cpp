@@ -77,4 +77,3 @@ bool Magazine::GetSlotLimit(int slotNum) {
 	
 	return pressed;
 }
-
