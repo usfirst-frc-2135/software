@@ -16,20 +16,10 @@ RobotDrive* RobotMap::chassisDriveTrain = NULL;
 Encoder* RobotMap::chassisLeftEncoder = NULL;
 Encoder* RobotMap::chassisRightEncoder = NULL;
 DoubleSolenoid* RobotMap::chassisShifter = NULL;
-SpeedController* RobotMap::sweeperSweepMotor = NULL;
-SpeedController* RobotMap::sweeperConveyorMotor = NULL;
-SpeedController* RobotMap::magazineMagazineMotor = NULL;
-AnalogChannel* RobotMap::magazineMagazinePotentiometer = NULL;
-AnalogChannel* RobotMap::magazineSlotLimit1 = NULL;
-AnalogChannel* RobotMap::magazineSlotLimit2 = NULL;
-AnalogChannel* RobotMap::magazineSlotLimit3 = NULL;
-AnalogChannel* RobotMap::magazineSlotLimit4 = NULL;
 SpeedController* RobotMap::aimingElevationMotor = NULL;
 AnalogChannel* RobotMap::aimingElevationPotentiometer = NULL;
-Servo* RobotMap::aimingCameraServo = NULL;
 Solenoid* RobotMap::shooterFiringPin = NULL;
 SpeedController* RobotMap::shooterEntryShooterMotor = NULL;
-Encoder* RobotMap::shooterEntryShooterEncoder = NULL;
 SpeedController* RobotMap::shooterExitShooterMotor = NULL;
 Encoder* RobotMap::shooterExitShooterEncoder = NULL;
 SpeedController* RobotMap::climberClimberMotor = NULL;
@@ -47,7 +37,7 @@ void RobotMap::init() {
 	chassisDriveTrain = new RobotDrive(chassisLeft, chassisRight);
 	
 	chassisDriveTrain->SetSafetyEnabled(true);
-        chassisDriveTrain->SetExpiration(0.1);
+        chassisDriveTrain->SetExpiration(0.3);
         chassisDriveTrain->SetSensitivity(0.5);
         chassisDriveTrain->SetMaxOutput(1.0);
         chassisDriveTrain->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
@@ -65,38 +55,11 @@ void RobotMap::init() {
 	chassisShifter = new DoubleSolenoid(1, 1, 2);      
 	
 	
-	sweeperSweepMotor = new Talon(1, 3);
-	lw->AddActuator("Sweeper", "Sweep Motor", (Talon*) sweeperSweepMotor);
-	
-	sweeperConveyorMotor = new Talon(1, 4);
-	lw->AddActuator("Sweeper", "Conveyor Motor", (Talon*) sweeperConveyorMotor);
-	
-	magazineMagazineMotor = new Talon(1, 5);
-	lw->AddActuator("Magazine", "Magazine Motor", (Talon*) magazineMagazineMotor);
-	
-	magazineMagazinePotentiometer = new AnalogChannel(1, 1);
-	lw->AddSensor("Magazine", "Magazine Potentiometer", magazineMagazinePotentiometer);
-	
-	magazineSlotLimit1 = new AnalogChannel(1, 2);
-	lw->AddSensor("Magazine", "Slot Limit 1", magazineSlotLimit1);
-	
-	magazineSlotLimit2 = new AnalogChannel(1, 3);
-	lw->AddSensor("Magazine", "Slot Limit 2", magazineSlotLimit2);
-	
-	magazineSlotLimit3 = new AnalogChannel(1, 4);
-	lw->AddSensor("Magazine", "Slot Limit 3", magazineSlotLimit3);
-	
-	magazineSlotLimit4 = new AnalogChannel(1, 5);
-	lw->AddSensor("Magazine", "Slot Limit 4", magazineSlotLimit4);
-	
 	aimingElevationMotor = new Talon(1, 6);
 	lw->AddActuator("Aiming", "Elevation Motor", (Talon*) aimingElevationMotor);
 	
 	aimingElevationPotentiometer = new AnalogChannel(1, 6);
 	lw->AddSensor("Aiming", "Elevation Potentiometer", aimingElevationPotentiometer);
-	
-	aimingCameraServo = new Servo(1, 10);
-	lw->AddActuator("Aiming", "Camera Servo", aimingCameraServo);
 	
 	shooterFiringPin = new Solenoid(1, 3);
 	lw->AddActuator("Shooter", "Firing Pin", shooterFiringPin);
@@ -104,11 +67,6 @@ void RobotMap::init() {
 	shooterEntryShooterMotor = new Talon(1, 7);
 	lw->AddActuator("Shooter", "Entry Shooter Motor", (Talon*) shooterEntryShooterMotor);
 	
-	shooterEntryShooterEncoder = new Encoder(1, 5, 1, 6, false, Encoder::k4X);
-	lw->AddSensor("Shooter", "Entry Shooter Encoder", shooterEntryShooterEncoder);
-	shooterEntryShooterEncoder->SetDistancePerPulse(0.00277778);
-        shooterEntryShooterEncoder->SetPIDSourceParameter(Encoder::kRate);
-        shooterEntryShooterEncoder->Start();
 	shooterExitShooterMotor = new Talon(1, 8);
 	lw->AddActuator("Shooter", "Exit Shooter Motor", (Talon*) shooterExitShooterMotor);
 	
