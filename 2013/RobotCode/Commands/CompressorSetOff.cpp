@@ -18,6 +18,7 @@ CompressorSetOff::CompressorSetOff() {
 // Called just before this Command runs the first time
 void CompressorSetOff::Initialize() {
 	printf( "2135: CompressorSetOff\n");
+	Robot::pneumatics->stopCompressor();
 }
 // Called repeatedly when this Command is scheduled to run
 void CompressorSetOff::Execute() {
