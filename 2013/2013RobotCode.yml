@@ -105,7 +105,7 @@ Children:
           validators: null
           value: kDistance
         Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
-          name: Distance Per Pulse, validators: null, value: 0.00277778}
+          name: Distance Per Pulse, validators: null, value: 0.03665191429188092}
         Encoding Type: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id011 [k4X, k2X, k1X]
           default: k4X
@@ -151,7 +151,7 @@ Children:
           validators: null
           value: kDistance
         Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
-          name: Distance Per Pulse, validators: null, value: 0.00277778}
+          name: Distance Per Pulse, validators: null, value: 0.03665191429188092}
         Encoding Type: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id011
           default: k4X
@@ -171,7 +171,7 @@ Children:
           validators: *id015
           value: '3'
         Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Reverse Direction, validators: null, value: false}
+          name: Reverse Direction, validators: null, value: true}
     - Name: Shifter
       Base: Double Solenoid
       Children: []
