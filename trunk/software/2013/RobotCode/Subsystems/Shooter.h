@@ -30,5 +30,7 @@ public:
 	Shooter();
 	void InitDefaultCommand();
 	void SetPower( double entryPower, double exitPower );
+	void Shooter::enableFiringPin();
+	void Shooter::disableFiringPin();
 };
 #endif
