@@ -37,3 +37,12 @@ void Shooter::SetPower( double entryPower, double exitPower ){
 	SmartDashboard::PutNumber( "Shooter Entry Power", entryPower );
 	SmartDashboard::PutNumber( "Shooter Exit Power", exitPower );	
 }
+
+void Shooter::enableFiringPin(){
+	firingPin->Set(true);
+}
+
+void Shooter::disableFiringPin(){
+	firingPin->Set(false);
+}
+

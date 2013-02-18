@@ -22,6 +22,7 @@ void ShooterStop::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ShooterStop::Execute() {
 	Robot::shooter->SetPower ( 0, 0 );
+	Robot::shooter->disableFiringPin();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterStop::IsFinished() {
