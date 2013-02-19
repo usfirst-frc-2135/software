@@ -29,6 +29,8 @@ void Shooter::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+//
+// Set shooter entry and exit power levels
 void Shooter::SetPower( double entryPower, double exitPower ){
 	
 	entryShooterMotor->Set ( entryPower, 0 );
@@ -37,11 +39,13 @@ void Shooter::SetPower( double entryPower, double exitPower ){
 	SmartDashboard::PutNumber( "Shooter Entry Power", entryPower );
 	SmartDashboard::PutNumber( "Shooter Exit Power", exitPower );	
 }
-
+//
+// Enable the firing pin pneumatic
 void Shooter::enableFiringPin(){
 	firingPin->Set(true);
 }
-
+//
+// Disable the firing pin pneumatic
 void Shooter::disableFiringPin(){
 	firingPin->Set(false);
 }
