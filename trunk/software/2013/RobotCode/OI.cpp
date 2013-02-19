@@ -74,7 +74,7 @@ Joystick* OI::getDriverStick() {
 double OI::getDriverThrottle() {
 	return driverStick->GetThrottle();
 }
-//	Get driver joystick throttle setting
+//	Get operator joystick throttle setting
 double OI::getOperatorThrottle() {
 	return operatorStick->GetThrottle();
 }
