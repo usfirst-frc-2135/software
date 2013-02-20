@@ -49,4 +49,3 @@ void Shooter::enableFiringPin(){
 void Shooter::disableFiringPin(){
 	firingPin->Set(false);
 }
-
