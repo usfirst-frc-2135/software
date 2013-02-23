@@ -37,7 +37,7 @@ void RobotMap::init() {
 	chassisDriveTrain = new RobotDrive(chassisLeft, chassisRight);
 	
 	chassisDriveTrain->SetSafetyEnabled(true);
-        chassisDriveTrain->SetExpiration(0.25);
+        chassisDriveTrain->SetExpiration(0.3);
         chassisDriveTrain->SetSensitivity(0.5);
         chassisDriveTrain->SetMaxOutput(1.0);
         chassisDriveTrain->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
@@ -72,7 +72,7 @@ void RobotMap::init() {
 	
 	shooterExitShooterEncoder = new Encoder(1, 7, 1, 8, false, Encoder::k4X);
 	lw->AddSensor("Shooter", "Exit Shooter Encoder", shooterExitShooterEncoder);
-	shooterExitShooterEncoder->SetDistancePerPulse(0.0523598333334);
+	shooterExitShooterEncoder->SetDistancePerPulse(0.00277778);
         shooterExitShooterEncoder->SetPIDSourceParameter(Encoder::kRate);
         shooterExitShooterEncoder->Start();
 	climberClimberMotor = new Talon(1, 9);
