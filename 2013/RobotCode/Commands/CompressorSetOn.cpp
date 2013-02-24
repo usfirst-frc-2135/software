@@ -18,7 +18,7 @@ CompressorSetOn::CompressorSetOn() {
 // Called just before this Command runs the first time
 void CompressorSetOn::Initialize() {
 	printf( "2135: CompressorSetOn\n" );
-	Robot::pneumatics->startCompressor();
+	Robot::pneumatics->StartCompressor();
 }
 // Called repeatedly when this Command is scheduled to run
 void CompressorSetOn::Execute() {

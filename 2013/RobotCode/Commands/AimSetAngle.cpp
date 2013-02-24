@@ -17,7 +17,7 @@ AimSetAngle::AimSetAngle() {
 }
 // Called just before this Command runs the first time
 void AimSetAngle::Initialize() {
-	
+	printf( "2135: AimSetAngle\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void AimSetAngle::Execute() {
