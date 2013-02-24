@@ -22,7 +22,7 @@ void ShootFrisbee::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void ShootFrisbee::Execute() {
-	Robot::shooter->SetPower( 0.4, 0.7 );
+	Robot::shooter->SetPower( 0.5, 0.75 );
 }			
 // Make this return true when this Command no longer needs to run execute()
 bool ShootFrisbee::IsFinished() {
