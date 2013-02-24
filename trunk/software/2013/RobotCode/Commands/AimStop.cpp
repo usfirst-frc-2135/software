@@ -18,8 +18,7 @@ AimStop::AimStop() {
 // Called just before this Command runs the first time
 void AimStop::Initialize() {
 	printf( "2135: AimStop\n" );
-	Robot::aiming->Disable();
-	
+	Robot::aiming->Disable();	
 }
 // Called repeatedly when this Command is scheduled to run
 void AimStop::Execute() {
