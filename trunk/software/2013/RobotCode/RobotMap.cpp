@@ -18,7 +18,7 @@ Encoder* RobotMap::chassisRightEncoder = NULL;
 DoubleSolenoid* RobotMap::chassisShifter = NULL;
 SpeedController* RobotMap::aimingElevationMotor = NULL;
 AnalogChannel* RobotMap::aimingElevationPotentiometer = NULL;
-Solenoid* RobotMap::shooterFiringPin = NULL;
+DoubleSolenoid* RobotMap::shooterFiringPin = NULL;
 SpeedController* RobotMap::shooterEntryShooterMotor = NULL;
 SpeedController* RobotMap::shooterExitShooterMotor = NULL;
 Encoder* RobotMap::shooterExitShooterEncoder = NULL;
@@ -61,8 +61,8 @@ void RobotMap::init() {
 	aimingElevationPotentiometer = new AnalogChannel(1, 6);
 	lw->AddSensor("Aiming", "Elevation Potentiometer", aimingElevationPotentiometer);
 	
-	shooterFiringPin = new Solenoid(1, 3);
-	lw->AddActuator("Shooter", "Firing Pin", shooterFiringPin);
+	shooterFiringPin = new DoubleSolenoid(1, 3, 4);      
+	
 	
 	shooterEntryShooterMotor = new Talon(1, 7);
 	lw->AddActuator("Shooter", "Entry Shooter Motor", (Talon*) shooterEntryShooterMotor);

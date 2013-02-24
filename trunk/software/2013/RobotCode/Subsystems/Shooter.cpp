@@ -36,16 +36,16 @@ void Shooter::SetPower( double entryPower, double exitPower ){
 	entryShooterMotor->Set ( entryPower, 0 );
 	exitShooterMotor->Set ( exitPower, 0 );
 	
-	SmartDashboard::PutNumber( "Shooter Entry Power", entryPower );
-	SmartDashboard::PutNumber( "Shooter Exit Power", exitPower );	
+	SmartDashboard::PutNumber( "Shooter Entry Power", -entryPower );
+	SmartDashboard::PutNumber( "Shooter Exit Power", -exitPower );	
 }
 //
 // Enable the firing pin pneumatic
 void Shooter::enableFiringPin(){
-	firingPin->Set(true);
+	firingPin->Set(DoubleSolenoid::kForward);
 }
 //
 // Disable the firing pin pneumatic
 void Shooter::disableFiringPin(){
-	firingPin->Set(false);
+	firingPin->Set(DoubleSolenoid::kReverse);
 }
