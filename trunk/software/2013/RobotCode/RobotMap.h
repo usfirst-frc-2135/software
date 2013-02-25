@@ -25,8 +25,7 @@ public:
 	static Encoder* chassisLeftEncoder;
 	static Encoder* chassisRightEncoder;
 	static DoubleSolenoid* transmissionShifter;
-	static SpeedController* aimingElevationMotor;
-	static AnalogChannel* aimingElevationPotentiometer;
+	static DoubleSolenoid* aimingElevation;
 	static SpeedController* shooterEntryShooterMotor;
 	static SpeedController* shooterExitShooterMotor;
 	static Encoder* shooterExitShooterEncoder;

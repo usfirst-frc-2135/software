@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef FIRING_PIN_RETRACT_H
-#define FIRING_PIN_RETRACT_H
+#ifndef AIM_DOWN_H
+#define AIM_DOWN_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class FiringPinRetract: public Command {
+class AimDown: public Command {
 public:
-	FiringPinRetract();
+	AimDown();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

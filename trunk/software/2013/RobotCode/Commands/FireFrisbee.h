@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef AIM_SET_ANGLE_H
-#define AIM_SET_ANGLE_H
+#ifndef FIRE_FRISBEE_H
+#define FIRE_FRISBEE_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class AimSetAngle: public Command {
+class FireFrisbee: public Command {
 public:
-	AimSetAngle();
+	FireFrisbee();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

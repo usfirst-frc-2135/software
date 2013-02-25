@@ -29,6 +29,12 @@ void Chassis::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+//
+// Teleop drive under joystick control
 void Chassis::DriveWithJoystick(Joystick *driverStick){
 		driveTrain->ArcadeDrive(driverStick, true);
+}
+// Controlled drive used during autonomous or drive commands
+void Chassis::DriveUsingTankControls(double left, double right){
+		driveTrain->TankDrive( left, right, false );
 }
