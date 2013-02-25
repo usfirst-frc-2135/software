@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef AIM_STOP_H
-#define AIM_STOP_H
+#ifndef FIRE_RELOAD_H
+#define FIRE_RELOAD_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class AimStop: public Command {
+class FireReload: public Command {
 public:
-	AimStop();
+	FireReload();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

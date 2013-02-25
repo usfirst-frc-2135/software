@@ -21,7 +21,7 @@ void DriveStraight::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveStraight::Execute() {
-	RobotMap::chassisDriveTrain->Drive( -0.707, 0.0);
+	Robot::chassis->DriveUsingTankControls( 0.5, 0.5 );
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveStraight::IsFinished() {

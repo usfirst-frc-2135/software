@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef FIRING_PIN_EXTEND_H
-#define FIRING_PIN_EXTEND_H
+#ifndef AIM_UP_H
+#define AIM_UP_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class FiringPinExtend: public Command {
+class AimUp: public Command {
 public:
-	FiringPinExtend();
+	AimUp();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

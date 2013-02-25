@@ -16,8 +16,7 @@ RobotDrive* RobotMap::chassisDriveTrain = NULL;
 Encoder* RobotMap::chassisLeftEncoder = NULL;
 Encoder* RobotMap::chassisRightEncoder = NULL;
 DoubleSolenoid* RobotMap::transmissionShifter = NULL;
-SpeedController* RobotMap::aimingElevationMotor = NULL;
-AnalogChannel* RobotMap::aimingElevationPotentiometer = NULL;
+DoubleSolenoid* RobotMap::aimingElevation = NULL;
 SpeedController* RobotMap::shooterEntryShooterMotor = NULL;
 SpeedController* RobotMap::shooterExitShooterMotor = NULL;
 Encoder* RobotMap::shooterExitShooterEncoder = NULL;
@@ -55,11 +54,8 @@ void RobotMap::init() {
 	transmissionShifter = new DoubleSolenoid(1, 1, 2);      
 	
 	
-	aimingElevationMotor = new Talon(1, 6);
-	lw->AddActuator("Aiming", "Elevation Motor", (Talon*) aimingElevationMotor);
+	aimingElevation = new DoubleSolenoid(1, 5, 6);      
 	
-	aimingElevationPotentiometer = new AnalogChannel(1, 6);
-	lw->AddSensor("Aiming", "Elevation Potentiometer", aimingElevationPotentiometer);
 	
 	shooterEntryShooterMotor = new Talon(1, 7);
 	lw->AddActuator("Shooter", "Entry Shooter Motor", (Talon*) shooterEntryShooterMotor);
