@@ -21,7 +21,7 @@
  * @author ExampleAuthor
  */
 class AutonomousCommandGroup: public CommandGroup {
-public:	
+public:		
 	AutonomousCommandGroup();
 };
 
