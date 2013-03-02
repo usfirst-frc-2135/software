@@ -11,12 +11,29 @@
 
 
 #include "AutonomousCommandGroup.h"
+#include "../Commands/AimUp.h"
+#include "../Commands/FireFrisbee.h"
+#include "../Commands/FireReload.h"
+#include "../Commands/ShootFrisbee.h"
+#include "../Commands/AimDown.h"
 
 AutonomousCommandGroup::AutonomousCommandGroup() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+	//AddSequential(new AimUp());
+	//AddSequential(new ShootFrisbee());
+	//AddSequential(new FireFrisbee());
+	//AddSequential(new FireReload());
+	//AddSequential(new ShootFrisbee());
+	//AddSequential(new FireFrisbee());
+	//AddSequential(new FireReload());
+	//AddSequential(new ShootFrisbee());
+	//AddSequential(new FireFrisbee());
+	//AddSequential(new FireReload());
+	//AddSequential(new AimDown());
+	
 
 	// To run multiple commands at the same time,
 	// use AddParallel()
