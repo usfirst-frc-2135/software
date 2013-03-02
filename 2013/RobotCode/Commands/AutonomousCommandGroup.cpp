@@ -12,28 +12,27 @@
 
 #include "AutonomousCommandGroup.h"
 #include "../Commands/AimUp.h"
-#include "../Commands/FireFrisbee.h"
-#include "../Commands/FireReload.h"
 #include "../Commands/ShootFrisbee.h"
-#include "../Commands/AimDown.h"
+#include "../Commands/FiringSequence.h"
+#include "../Commands/FireFrisbeeTimed.h"
+#include "../Commands/FireReloadTimed.h"
 
 AutonomousCommandGroup::AutonomousCommandGroup() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
-	//AddSequential(new AimUp());
-	//AddSequential(new ShootFrisbee());
-	//AddSequential(new FireFrisbee());
-	//AddSequential(new FireReload());
-	//AddSequential(new ShootFrisbee());
-	//AddSequential(new FireFrisbee());
-	//AddSequential(new FireReload());
-	//AddSequential(new ShootFrisbee());
-	//AddSequential(new FireFrisbee());
-	//AddSequential(new FireReload());
-	//AddSequential(new AimDown());
-	
+	AddParallel(new AimUp());
+	AddParallel(new ShootFrisbee());
+	AddSequential(new FireReloadTimed());
+	AddSequential(new FireFrisbeeTimed());
+	AddSequential(new FireReloadTimed());
+	AddSequential(new FireFrisbeeTimed());
+	AddSequential(new FireReloadTimed());
+	AddSequential(new FireFrisbeeTimed());
+	AddSequential(new FireReloadTimed());
+	AddSequential(new FireFrisbeeTimed());
+	//AddParallel(new FiringSequence());
 
 	// To run multiple commands at the same time,
 	// use AddParallel()
