@@ -28,10 +28,10 @@ void Firing::InitDefaultCommand() {
 //
 // Enable the firing pin pneumatic
 void Firing::EnableFiringPin(){
-	firingPin->Set(DoubleSolenoid::kForward);
+	firingPin->Set(DoubleSolenoid::kReverse);
 }
 //
 // Disable the firing pin pneumatic
 void Firing::DisableFiringPin(){
-	firingPin->Set(DoubleSolenoid::kReverse);
+	firingPin->Set(DoubleSolenoid::kForward);
 }
