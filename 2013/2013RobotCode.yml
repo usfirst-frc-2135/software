@@ -535,7 +535,7 @@ Children:
           name: Command
           type: Command
           validators: *id024
-          value: Drive Spin
+          value: Drive Spin Slow
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id025
           default: '1'
@@ -559,7 +559,7 @@ Children:
           name: Command
           type: Command
           validators: *id024
-          value: Drive Spin
+          value: Drive Spin Slow
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id025
           default: '1'
@@ -965,6 +965,14 @@ Children:
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Firing}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+  - Name: Drive Spin Slow
+    Base: Command
+    Children: []
+    Properties:
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Chassis}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
   Properties: {}
