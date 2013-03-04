@@ -52,7 +52,7 @@ OI::OI() {
 	operatorButton8 = new JoystickButton(operatorStick, 8);
 	operatorButton8->WhileHeld(new ShooterSetSpeed());
 	operatorButton7 = new JoystickButton(operatorStick, 7);
-	operatorButton7->WhileHeld(new AimUp());
+	operatorButton7->WhileHeld(new AimDown());
 	operatorButton2 = new JoystickButton(operatorStick, 2);
 	operatorButton2->WhileHeld(new ShootFrisbee());
 	operatorTrigger = new JoystickButton(operatorStick, 1);
