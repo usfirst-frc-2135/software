@@ -83,7 +83,7 @@ OI::OI() {
 	SmartDashboard::PutData("Autonomous Command Group", new AutonomousCommandGroup());
 	SmartDashboard::PutData("Drive Teleop", new DriveTeleop());
 	SmartDashboard::PutData("Drive Straight", new DriveStraight());
-	SmartDashboard::PutData("Drive Straight Distance", new DriveStraightDistance());
+	SmartDashboard::PutData("Drive Straight Distance", new DriveStraightDistance(6));
 	SmartDashboard::PutData("Drive Turn", new DriveTurn());
 	SmartDashboard::PutData("Drive Spin", new DriveSpin());
 	SmartDashboard::PutData("Drive Spin Slow", new DriveSpinSlow());

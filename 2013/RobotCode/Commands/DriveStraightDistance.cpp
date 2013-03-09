@@ -19,45 +19,46 @@ DriveStraightDistance::DriveStraightDistance(double inches) {
 }
 // Called just before this Command runs the first time
 void DriveStraightDistance::Initialize() {
-	printf( "2135: DriveStraightDistance - %5.1f inches\n", m_targetInches );
-	m_currentLeftInches = RobotMap::chassisLeftEncoder->GetDistance();
-	m_currentRightInches = RobotMap::chassisRightEncoder->GetDistance();
+//	printf( "2135: DriveStraightDistance - %5.1f inches\n", m_targetInches );
+//	m_currentLeftInches = RobotMap::chassisLeftEncoder->GetDistance();
+//	m_currentRightInches = RobotMap::chassisRightEncoder->GetDistance();
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveStraightDistance::Execute() {
-	double leftEncoder;
-	double rightEncoder;
-	double leftMotorPower;
-	double rightMotorPower;
-	
-	leftEncoder = RobotMap::chassisLeftEncoder->GetDistance() 
-			- m_currentLeftInches;
-	rightEncoder = RobotMap::chassisRightEncoder->GetDistance() 
-			- m_currentRightInches;
-	if (leftEncoder > 18)
-		leftMotorPower = 0.6;
-	else 
-		leftMotorPower = 0.3;
-	if (rightEncoder > 18)
-		rightMotorPower = 0.6;
-	else
-		rightMotorPower = 0.3;
-	Robot::chassis->DriveUsingTankControls(leftMotorPower, rightMotorPower);
+//	double leftEncoder;
+//	double rightEncoder;
+//	double leftMotorPower;
+//	double rightMotorPower;
+//	
+//	leftEncoder = RobotMap::chassisLeftEncoder->GetDistance() 
+//			- m_currentLeftInches;
+//	rightEncoder = RobotMap::chassisRightEncoder->GetDistance() 
+//			- m_currentRightInches;
+//	if (leftEncoder > 18)
+//		leftMotorPower = 0.6;
+//	else 
+//		leftMotorPower = 0.3;
+//	if (rightEncoder > 18)
+//		rightMotorPower = 0.6;
+//	else
+//		rightMotorPower = 0.3;
+//	Robot::chassis->DriveUsingTankControls(leftMotorPower, rightMotorPower);
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveStraightDistance::IsFinished() {
-	bool atTarget;
-	double leftEncoder;
-	double rightEncoder;
-	
-	leftEncoder = RobotMap::chassisLeftEncoder->GetDistance() 
-			- m_currentLeftInches;
-	rightEncoder = RobotMap::chassisRightEncoder->GetDistance() 
-			- m_currentRightInches;
-	atTarget = (fabs(leftEncoder - m_targetInches) < 2.0) 
-			&& (fabs(rightEncoder - m_targetInches) < 2.0);
-	
-	return atTarget;
+//	bool atTarget;
+//	double leftEncoder;
+//	double rightEncoder;
+//	
+//	leftEncoder = RobotMap::chassisLeftEncoder->GetDistance() 
+//			- m_currentLeftInches;
+//	rightEncoder = RobotMap::chassisRightEncoder->GetDistance() 
+//			- m_currentRightInches;
+//	atTarget = (fabs(leftEncoder - m_targetInches) < 2.0) 
+//			&& (fabs(rightEncoder - m_targetInches) < 2.0);
+//	
+//	return atTarget;
+	return false;
 }
 // Called once after isFinished returns true
 void DriveStraightDistance::End() {
