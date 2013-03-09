@@ -22,17 +22,32 @@ AutonomousCommandGroup::AutonomousCommandGroup() {
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
-	AddParallel(new AimUp());
-	AddParallel(new ShootFrisbee());
-	AddSequential(new FireReloadTimed());
-	AddSequential(new FireFrisbeeTimed());
-	AddSequential(new FireReloadTimed());
-	AddSequential(new FireFrisbeeTimed());
-	AddSequential(new FireReloadTimed());
-	AddSequential(new FireFrisbeeTimed());
-	AddSequential(new FireReloadTimed());
-	AddSequential(new FireFrisbeeTimed());
-	//AddParallel(new FiringSequence());
+	if ( RobotMap::driverStation->GetDigitalIn( 1 ) ) {
+		printf( "2135: Autonomous - Digital In 1 set\n" );
+		AddParallel(new AimUp());
+		AddParallel(new ShootFrisbee());
+		AddSequential(new FireReloadTimed());
+		AddSequential(new FireFrisbeeTimed());
+		AddSequential(new FireReloadTimed());
+		AddSequential(new FireFrisbeeTimed());
+		AddSequential(new FireReloadTimed());
+		AddSequential(new FireFrisbeeTimed());
+		AddSequential(new FireReloadTimed());
+		AddSequential(new FireFrisbeeTimed());
+	}
+	else {
+		printf( "2135: Autonomous - Digital In 1 clear\n" );
+		AddParallel(new AimUp());
+		AddParallel(new ShootFrisbee());
+		AddSequential(new FireReloadTimed());
+		AddSequential(new FireFrisbeeTimed());
+		AddSequential(new FireReloadTimed());
+		AddSequential(new FireFrisbeeTimed());
+		AddSequential(new FireReloadTimed());
+		AddSequential(new FireFrisbeeTimed());
+		AddSequential(new FireReloadTimed());
+		AddSequential(new FireFrisbeeTimed());
+	}
 
 	// To run multiple commands at the same time,
 	// use AddParallel()

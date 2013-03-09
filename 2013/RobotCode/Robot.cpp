@@ -55,6 +55,7 @@ void Robot::AutonomousPeriodic() {
 	SmartDashboard::PutNumber( "Left Drive Encoder", Robot::chassis->leftEncoder->GetDistance());
 	SmartDashboard::PutNumber( "Right Drive Encoder", Robot::chassis->rightEncoder->GetDistance());
 	SmartDashboard::PutNumber( "Shooter Exit Encoder", Robot::shooter->exitShooterEncoder->GetRate() );
+	SmartDashboard::PutData( "Scheduler", Scheduler::GetInstance() );
 }
 	
 void Robot::TeleopInit() {
@@ -73,6 +74,7 @@ void Robot::TeleopPeriodic() {
 	SmartDashboard::PutNumber( "Left Drive Encoder", Robot::chassis->leftEncoder->GetDistance());
 	SmartDashboard::PutNumber( "Right Drive Encoder", Robot::chassis->rightEncoder->GetDistance());
 	SmartDashboard::PutNumber( "Shooter Exit Encoder", Robot::shooter->exitShooterEncoder->GetRate() );
+	SmartDashboard::PutData( "Scheduler", Scheduler::GetInstance() );
 }
 void Robot::TestPeriodic() {
 	static int	i = 0;
