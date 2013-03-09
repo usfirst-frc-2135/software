@@ -19,6 +19,7 @@ private:
 	JoystickButton* operatorButton2;
 	JoystickButton* operatorTrigger;
 	Joystick* driverStick;
+	JoystickButton* driverButton9;
 	JoystickButton* driverButton8;
 	JoystickButton* driverButton7;
 	JoystickButton* driverButton6;
