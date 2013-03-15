@@ -1012,7 +1012,7 @@ Properties:
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command Group}
   Wiring File: !!robotbuilder.data.properties.FileProperty {default: '', extension: html,
-    folder: false, name: Wiring File, validators: null, value: 'C:\usfirst-frc-team-2135\trunk\software\2013\2013RobotCode.html'}
+    folder: false, name: Wiring File, validators: null, value: 'C:\usfirst-frc-team-2135\trunk\software\2013\2013RobotCode-Wiring.html'}
   C++ Windriver Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Windriver\workspace',
     extension: null, folder: true, name: C++ Windriver Workspace, validators: null,
     value: 'C:\usfirst-frc-team-2135\trunk\software\2013'}
