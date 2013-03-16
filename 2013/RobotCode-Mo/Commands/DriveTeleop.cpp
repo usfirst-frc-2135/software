@@ -21,7 +21,7 @@ void DriveTeleop::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveTeleop::Execute() {
-	Robot::chassis->DriveWithJoystick(Robot::oi->getDriverStick1());
+	Robot::chassis->DriveWithJoystick(Robot::oi->getDriverStick1(), Robot::oi->getDriverStick2());
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveTeleop::IsFinished() {
