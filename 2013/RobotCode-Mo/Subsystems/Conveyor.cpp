@@ -25,3 +25,13 @@ void Conveyor::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+void Conveyor::ConveyorDrive( bool forward ) {
+	if ( forward )
+		motor->Set( -1.0, 0 );
+	else
+		motor->Set( 1.0, 0 );
+}
+
+void Conveyor::ConveyorStop() {
+	motor->Set( 0.0, 0 );
+}
