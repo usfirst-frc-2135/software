@@ -40,8 +40,29 @@ void Chassis::DriveWithJoystick(Joystick *driverStick1, Joystick *driverStick2){
 	else if ( !RobotMap::driverStation->GetDigitalIn( (UINT32) 6 ) ) {
 		driveTrain->ArcadeDrive( *driverStick1, 2, *driverStick1, 3, true );
 	}
+	else if ( !RobotMap::driverStation->GetDigitalIn( (UINT32) 5 ) ) {
+		float	xAxis;
+		float	yAxis;
+		
+		xAxis = Robot::oi->getDriverStick1()->GetAxis(Joystick::kXAxis);
+		yAxis = Robot::oi->getDriverStick1()->GetAxis(Joystick::kYAxis);
+		
+		xAxis = xAxis * ( RobotMap::driverStation->GetAnalogIn( 1 ) / 5.0 );
+		printf ( "2135: %6.2f\n" , xAxis );
+		driveTrain->Drive( yAxis, xAxis );
+	}
+	else if ( !RobotMap::driverStation->GetDigitalIn( (UINT32) 4 ) ) {
+		float	xAxis;
+		float	yAxis;
+		
+		xAxis = ( RobotMap::driverStation->GetAnalogIn( 2 ) / 5.0 );
+		yAxis = ( RobotMap::driverStation->GetAnalogIn( 2 ) / 5.0 );
+		
+		printf ( "2135: x - %6.2f y - %6.2f\n" , xAxis, yAxis );
+		driveTrain->Drive( xAxis, -yAxis );
+	}
 	else {
-		driveTrain->ArcadeDrive( driverStick1, true );
+		driveTrain->ArcadeDrive( *driverStick1, 2, *driverStick1, 1, true );
 	}
 }
 //Controlled drive used during autonomous or drive commands

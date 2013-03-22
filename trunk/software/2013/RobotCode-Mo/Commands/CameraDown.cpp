@@ -21,7 +21,7 @@ void CameraDown::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void CameraDown::Execute() {
-	
+	Robot::camera->CameraAngleSet( 120.0 );
 }
 // Make this return true when this Command no longer needs to run execute()
 bool CameraDown::IsFinished() {

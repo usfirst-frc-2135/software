@@ -25,11 +25,9 @@ void Transmissions::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-
 void Transmissions::ShifterHigh() {
 	shifter->Set( shifter->kForward );
 }
-
 void Transmissions::ShifterLow() {
 	shifter->Set( shifter->kReverse );
 }

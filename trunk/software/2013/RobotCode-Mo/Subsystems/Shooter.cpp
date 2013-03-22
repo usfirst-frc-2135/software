@@ -28,7 +28,6 @@ void Shooter::InitDefaultCommand() {
 void Shooter::ShooterRun() {
 	wheels->Set( 0.7, 0 );
 }
-
 void Shooter::ShooterStop() {
 	wheels->Set( 0.0, 0 );
 }

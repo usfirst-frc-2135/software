@@ -25,3 +25,6 @@ void Camera::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+void Camera::CameraAngleSet( float angle ) {
+	servo->SetAngle( angle );
+}
