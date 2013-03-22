@@ -65,6 +65,11 @@ void Robot::TeleopPeriodic() {
 		Scheduler::GetInstance()->Run();
 }
 void Robot::TestPeriodic() {
-	lw->Run();
+	static int	i = 0;
+	RobotMap::chassisDriveTrain->SetSafetyEnabled(false);
+	if ( i++ > 10 ) {		// Update only once in every 5 DS packets ( 10 times per second)
+		lw->Run();
+		i = 0;
+	}
 }
 START_ROBOT_CLASS(Robot);

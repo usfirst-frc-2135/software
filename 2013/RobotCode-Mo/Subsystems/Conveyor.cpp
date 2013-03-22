@@ -31,7 +31,6 @@ void Conveyor::ConveyorDrive( bool forward ) {
 	else
 		motor->Set( 1.0, 0 );
 }
-
 void Conveyor::ConveyorStop() {
 	motor->Set( 0.0, 0 );
 }
