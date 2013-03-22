@@ -25,12 +25,12 @@ void Conveyor::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-void Conveyor::ConveyorDrive( bool forward ) {
-	if ( forward )
+void Conveyor::ConveyorMotorOn( DirectionType forward ) {
+	if ( forward == Robot::conveyor->kForward )
 		motor->Set( -1.0, 0 );
 	else
 		motor->Set( 1.0, 0 );
 }
-void Conveyor::ConveyorStop() {
+void Conveyor::ConveyorMotorOff() {
 	motor->Set( 0.0, 0 );
 }

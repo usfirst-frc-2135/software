@@ -31,35 +31,50 @@ void Chassis::InitDefaultCommand() {
 // here. Call these from Commands.
 //Teleop drive under joystick control
 void Chassis::DriveWithJoystick(Joystick *driverStick1, Joystick *driverStick2){
+	// If DS I/O button digital 8 is clear, run Tank drive
 	if ( !RobotMap::driverStation->GetDigitalIn( (UINT32) 8 ) ) {
 		driveTrain->TankDrive( driverStick1, driverStick2, true );
 	}
+	// If DS I/O button digital 7 is clear, run Arcade drive split across two sticks
 	else if ( !RobotMap::driverStation->GetDigitalIn( (UINT32) 7 ) ) {
 		driveTrain->ArcadeDrive( *driverStick1, 2, *driverStick2, 1, true );
 	}
+	// If DS I/O button digital 6 is clear, run Arcade drive using twist instead of X axis
 	else if ( !RobotMap::driverStation->GetDigitalIn( (UINT32) 6 ) ) {
 		driveTrain->ArcadeDrive( *driverStick1, 2, *driverStick1, 3, true );
 	}
+	// If DS I/O button digital 5 is clear, run a de-sensitized Arcade drive
 	else if ( !RobotMap::driverStation->GetDigitalIn( (UINT32) 5 ) ) {
-		float	xAxis;
-		float	yAxis;
+		static	int	i;
+		float		xAxis;
+		float		yAxis;
 		
-		xAxis = Robot::oi->getDriverStick1()->GetAxis(Joystick::kXAxis);
-		yAxis = Robot::oi->getDriverStick1()->GetAxis(Joystick::kYAxis);
+		// Get X and Y axes
+		xAxis = Robot::oi->getDriverStick1()->GetAxis( Joystick::kXAxis );
+		yAxis = Robot::oi->getDriverStick1()->GetAxis( Joystick::kYAxis );
 		
+		// Desensitize X axis based on DS I/O analog 1
 		xAxis = xAxis * ( RobotMap::driverStation->GetAnalogIn( 1 ) / 5.0 );
-		printf ( "2135: %6.2f\n" , xAxis );
-		driveTrain->Drive( yAxis, xAxis );
+		
+		// For every 25 DS packets, print an update
+		if ( ( ++i % 25 ) == 0 )
+			printf ( "2135: Rotate factor - %6.2f\n" , xAxis );
+		driveTrain->ArcadeDrive( yAxis, xAxis );
 	}
+	// If DS I/O button digital 4 is clear, run spin turn using DS analog 2
 	else if ( !RobotMap::driverStation->GetDigitalIn( (UINT32) 4 ) ) {
-		float	xAxis;
-		float	yAxis;
+		static	int	i;
+		float		xAxis;
+		float		yAxis;
 		
-		xAxis = ( RobotMap::driverStation->GetAnalogIn( 2 ) / 5.0 );
-		yAxis = ( RobotMap::driverStation->GetAnalogIn( 2 ) / 5.0 );
+		// Get X and Y axes
+		xAxis = RobotMap::driverStation->GetAnalogIn( 2 ) / 5.0;
+		yAxis = RobotMap::driverStation->GetAnalogIn( 2 ) / 5.0;
 		
-		printf ( "2135: x - %6.2f y - %6.2f\n" , xAxis, yAxis );
-		driveTrain->Drive( xAxis, -yAxis );
+		// For every 25 DS packets, print an update
+		if ( ( ++i % 25 ) == 0 )
+			printf ( "2135: Tank control, x - %6.2f y - %6.2f\n" , xAxis, yAxis );
+		driveTrain->TankDrive( yAxis, -xAxis );
 	}
 	else {
 		driveTrain->ArcadeDrive( *driverStick1, 2, *driverStick1, 1, true );
