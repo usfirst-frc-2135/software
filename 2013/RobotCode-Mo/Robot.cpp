@@ -66,8 +66,11 @@ void Robot::TeleopPeriodic() {
 }
 void Robot::TestPeriodic() {
 	static int	i = 0;
+	
+	// Disable safety update to allow LiveWindow to work
 	RobotMap::chassisDriveTrain->SetSafetyEnabled(false);
-	if ( i++ > 10 ) {		// Update only once in every 5 DS packets ( 10 times per second)
+	// Update only once in every 5 DS packets ( 10 times per second)
+	if ( i++ > 10 ) {
 		lw->Run();
 		i = 0;
 	}

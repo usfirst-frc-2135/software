@@ -21,7 +21,7 @@ void ShooterOff::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void ShooterOff::Execute() {
-	Robot::shooter->ShooterStop();
+	Robot::shooter->ShooterWheelsOff();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterOff::IsFinished() {

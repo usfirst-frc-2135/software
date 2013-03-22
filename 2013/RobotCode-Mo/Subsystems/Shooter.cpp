@@ -25,9 +25,9 @@ void Shooter::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-void Shooter::ShooterRun() {
+void Shooter::ShooterWheelsOn() {
 	wheels->Set( 0.7, 0 );
 }
-void Shooter::ShooterStop() {
+void Shooter::ShooterWheelsOff() {
 	wheels->Set( 0.0, 0 );
 }
