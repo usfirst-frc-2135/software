@@ -9,20 +9,26 @@
 // it from being updated in th future.
 
 
+#ifndef DRIVE_SPIN_SLOW_RIGHT_H
+#define DRIVE_SPIN_SLOW_RIGHT_H
 
-#ifndef FIRING_SEQUENCE_H
-#define FIRING_SEQUENCE_H
 
-#include "Commands/CommandGroup.h"
+#include "Commands/Subsystem.h"
+#include "../Robot.h"
 
 /**
  *
  *
  * @author ExampleAuthor
  */
-class FiringSequence: public CommandGroup {
-public:	
-	FiringSequence();
+class DriveSpinSlowRight: public Command {
+public:
+	DriveSpinSlowRight();
+	virtual void Initialize();
+	virtual void Execute();
+	virtual bool IsFinished();
+	virtual void End();
+	virtual void Interrupted();
 };
 
 #endif

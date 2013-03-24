@@ -17,7 +17,7 @@ ShooterStop::ShooterStop() {
 }
 // Called just before this Command runs the first time
 void ShooterStop::Initialize() {
-	printf( "2135: ShooterStop\n" );
+	printf( "2135: Shooter Stop\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void ShooterStop::Execute() {

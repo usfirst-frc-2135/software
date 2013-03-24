@@ -12,8 +12,7 @@
 
 #include "AutonomousCommandGroup.h"
 #include "../Commands/AimUp.h"
-#include "../Commands/ShootFrisbee.h"
-#include "../Commands/FiringSequence.h"
+#include "../Commands/ShooterRun.h"
 #include "../Commands/FireFrisbeeTimed.h"
 #include "../Commands/FireReloadTimed.h"
 
@@ -25,7 +24,7 @@ AutonomousCommandGroup::AutonomousCommandGroup() {
 	if ( RobotMap::driverStation->GetDigitalIn( 1 ) ) {
 		printf( "2135: Autonomous - Digital In 1 set\n" );
 		AddParallel(new AimUp());
-		AddParallel(new ShootFrisbee());
+		AddParallel(new ShooterRun());
 		AddSequential(new FireReloadTimed());
 		AddSequential(new FireFrisbeeTimed());
 		AddSequential(new FireReloadTimed());
@@ -38,7 +37,7 @@ AutonomousCommandGroup::AutonomousCommandGroup() {
 	else {
 		printf( "2135: Autonomous - Digital In 1 clear\n" );
 		AddParallel(new AimUp());
-		AddParallel(new ShootFrisbee());
+		AddParallel(new ShooterRun());
 		AddSequential(new FireReloadTimed());
 		AddSequential(new FireFrisbeeTimed());
 		AddSequential(new FireReloadTimed());

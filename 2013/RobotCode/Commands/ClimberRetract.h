@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef CLIMB_H
-#define CLIMB_H
+#ifndef CLIMBER_RETRACT_H
+#define CLIMBER_RETRACT_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class Climb: public Command {
+class ClimberRetract: public Command {
 public:
-	Climb();
+	ClimberRetract();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

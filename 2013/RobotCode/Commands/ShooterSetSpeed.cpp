@@ -17,7 +17,7 @@ ShooterSetSpeed::ShooterSetSpeed() {
 }
 // Called just before this Command runs the first time
 void ShooterSetSpeed::Initialize() {
-	printf( "2135: ShooterSetSpeed\n" );
+	printf( "2135: Shooter Set Speed\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void ShooterSetSpeed::Execute() {

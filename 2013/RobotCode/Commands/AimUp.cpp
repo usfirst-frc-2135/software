@@ -17,7 +17,7 @@ AimUp::AimUp() {
 }
 // Called just before this Command runs the first time
 void AimUp::Initialize() {
-	printf( "2135: AimingUp\n" );
+	printf( "2135: Aim Up\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void AimUp::Execute() {

@@ -31,6 +31,6 @@ public:
 	Chassis();
 	void InitDefaultCommand();
 	void DriveWithJoystick( Joystick *driverStick );
-	void DriveUsingTankControls( double left, double right );
+	void DriveUsingLeftRightMotorOutputs( double left, double right );
 };
 #endif

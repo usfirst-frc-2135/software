@@ -17,11 +17,11 @@ DriveStraight::DriveStraight() {
 }
 // Called just before this Command runs the first time
 void DriveStraight::Initialize() {
-	printf( "2135: DriveStraight\n" );
+	printf( "2135: Drive Straight\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveStraight::Execute() {
-	Robot::chassis->DriveUsingTankControls( 0.5, 0.5 );
+	Robot::chassis->DriveUsingLeftRightMotorOutputs( 0.5, 0.5 );
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveStraight::IsFinished() {
