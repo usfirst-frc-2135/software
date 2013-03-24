@@ -50,6 +50,8 @@ void Robot::AutonomousInit() {
 	
 void Robot::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
+	SmartDashboard::PutNumber( "Left Drive Encoder", Robot::chassis->leftEncoder->GetDistance());
+	SmartDashboard::PutNumber( "Right Drive Encoder", Robot::chassis->rightEncoder->GetDistance());
 }
 	
 void Robot::TeleopInit() {
@@ -63,6 +65,10 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
 	if (autonomousCommand != NULL)
 		Scheduler::GetInstance()->Run();
+	SmartDashboard::PutNumber( "Left Drive Encoder Distance", Robot::chassis->leftEncoder->GetDistance());
+	SmartDashboard::PutNumber( "Right Drive Encoder Distance", Robot::chassis->rightEncoder->GetDistance());
+	SmartDashboard::PutNumber( "Left Drive Encoder Speed", Robot::chassis->leftEncoder->GetRate());
+	SmartDashboard::PutNumber( "Right Drive Encoder Speed", Robot::chassis->rightEncoder->GetRate());
 }
 void Robot::TestPeriodic() {
 	static int	i = 0;
