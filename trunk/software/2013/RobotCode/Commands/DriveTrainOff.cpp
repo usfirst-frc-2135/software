@@ -17,7 +17,7 @@ DriveTrainOff::DriveTrainOff() {
 }
 // Called just before this Command runs the first time
 void DriveTrainOff::Initialize() {
-	printf( "2135: DriveTrainOff\n" );
+	printf( "2135: Drive Train Off\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveTrainOff::Execute() {

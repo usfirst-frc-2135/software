@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef SHOOT_FRISBEE_H
-#define SHOOT_FRISBEE_H
+#ifndef CLIMBER_EXTEND_H
+#define CLIMBER_EXTEND_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class ShootFrisbee: public Command {
+class ClimberExtend: public Command {
 public:
-	ShootFrisbee();
+	ClimberExtend();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

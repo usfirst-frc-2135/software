@@ -19,7 +19,7 @@ DriveStraightDistance::DriveStraightDistance(double inches) {
 }
 // Called just before this Command runs the first time
 void DriveStraightDistance::Initialize() {
-//	printf( "2135: DriveStraightDistance - %5.1f inches\n", m_targetInches );
+	printf( "2135: DriveStraightDistance - %5.1f inches\n", m_targetInches );
 //	m_currentLeftInches = RobotMap::chassisLeftEncoder->GetDistance();
 //	m_currentRightInches = RobotMap::chassisRightEncoder->GetDistance();
 }

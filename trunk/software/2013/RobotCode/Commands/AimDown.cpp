@@ -17,7 +17,7 @@ AimDown::AimDown() {
 }
 // Called just before this Command runs the first time
 void AimDown::Initialize() {
-	printf( "2135: AimingDown\n" );
+	printf( "2135: Aim Down\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void AimDown::Execute() {

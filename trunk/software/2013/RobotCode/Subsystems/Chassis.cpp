@@ -34,7 +34,7 @@ void Chassis::InitDefaultCommand() {
 void Chassis::DriveWithJoystick(Joystick *driverStick){
 		driveTrain->ArcadeDrive(driverStick, true);
 }
-// Controlled drive used during autonomous or drive commands
-void Chassis::DriveUsingTankControls(double left, double right){
-		driveTrain->TankDrive( left, right, false );
+//Controlled drive used during autonomous or drive commands
+void Chassis::DriveUsingLeftRightMotorOutputs(double left, double right){
+	driveTrain->SetLeftRightMotorOutputs( left, right );
 }

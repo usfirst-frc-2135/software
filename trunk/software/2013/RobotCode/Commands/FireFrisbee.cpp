@@ -17,7 +17,7 @@ FireFrisbee::FireFrisbee() {
 }
 // Called just before this Command runs the first time
 void FireFrisbee::Initialize() {
-	printf( "2135: FireFrisbee\n" );
+	printf( "2135: Fire Frisbee\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void FireFrisbee::Execute() {

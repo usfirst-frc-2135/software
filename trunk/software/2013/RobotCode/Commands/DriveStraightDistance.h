@@ -28,7 +28,7 @@ private:
 	double m_currentRightInches;
 public:
 //	DriveStraightDistance();
-	DriveStraightDistance(double inches);
+	DriveStraightDistance( double inches );
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

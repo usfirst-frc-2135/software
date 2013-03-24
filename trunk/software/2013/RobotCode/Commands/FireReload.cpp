@@ -17,7 +17,7 @@ FireReload::FireReload() {
 }
 // Called just before this Command runs the first time
 void FireReload::Initialize() {
-	printf( "2135: FireReload\n" );
+	printf( "2135: Fire Reload\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void FireReload::Execute() {

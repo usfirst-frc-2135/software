@@ -17,7 +17,7 @@ DriveTurn::DriveTurn() {
 }
 // Called just before this Command runs the first time
 void DriveTurn::Initialize() {
-	printf( "2135: DriveTurn\n" );
+	printf( "2135: Drive Turn\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveTurn::Execute() {

@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef CLIMB_STOP_H
-#define CLIMB_STOP_H
+#ifndef DRIVE_SPIN_SLOW_LEFT_H
+#define DRIVE_SPIN_SLOW_LEFT_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class ClimbStop: public Command {
+class DriveSpinSlowLeft: public Command {
 public:
-	ClimbStop();
+	DriveSpinSlowLeft();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

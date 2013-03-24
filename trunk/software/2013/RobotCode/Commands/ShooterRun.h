@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef SHOOTER_SET_DIRECTION_H
-#define SHOOTER_SET_DIRECTION_H
+#ifndef SHOOTER_RUN_H
+#define SHOOTER_RUN_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class ShooterSetDirection: public Command {
+class ShooterRun: public Command {
 public:
-	ShooterSetDirection();
+	ShooterRun();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

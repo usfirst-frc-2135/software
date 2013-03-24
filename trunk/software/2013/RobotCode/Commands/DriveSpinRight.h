@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef DRIVE_SPIN_SLOW_H
-#define DRIVE_SPIN_SLOW_H
+#ifndef DRIVE_SPIN_RIGHT_H
+#define DRIVE_SPIN_RIGHT_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,17 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class DriveSpinSlow: public Command {
-private:
-	int m_spinChoice;
+class DriveSpinRight: public Command {
 public:
-	typedef enum
-	{
-		kSpinLeft = 0,
-		kSpinRight = 1,
-	} SpinType;
-	DriveSpinSlow();
-	DriveSpinSlow(SpinType spinChoice);
+	DriveSpinRight();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
