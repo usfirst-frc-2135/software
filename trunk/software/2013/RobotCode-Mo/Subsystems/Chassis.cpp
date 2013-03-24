@@ -74,13 +74,14 @@ void Chassis::DriveWithJoystick(Joystick *driverStick1, Joystick *driverStick2){
 		// For every 25 DS packets, print an update
 		if ( ( ++i % 25 ) == 0 )
 			printf ( "2135: Tank control, x - %6.2f y - %6.2f\n" , xAxis, yAxis );
-		driveTrain->TankDrive( yAxis, -xAxis );
+		driveTrain->SetLeftRightMotorOutputs( yAxis, -xAxis );
 	}
 	else {
 		driveTrain->ArcadeDrive( *driverStick1, 2, *driverStick1, 1, true );
 	}
 }
 //Controlled drive used during autonomous or drive commands
-void Chassis::DriveUsingTankControls(double left, double right){
-	driveTrain->TankDrive( left, right, false );
+void Chassis::DriveUsingLeftRightMotorOutputs(double left, double right){
+	printf ( "2135: SetLeftRightMotorOutputs left - %6.3f, right - %6.3f\n", left, right);
+	driveTrain->SetLeftRightMotorOutputs( left, right );
 }

@@ -26,7 +26,9 @@ void SpinTurnLeft::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void SpinTurnLeft::Execute() {
-	Robot::chassis->DriveUsingTankControls( 0.5, -0.5 );
+	float turnSpeed;
+	turnSpeed = RobotMap::driverStation->GetAnalogIn( 4 ) / 5.0;
+	Robot::chassis->DriveUsingLeftRightMotorOutputs( turnSpeed, -turnSpeed );
 }
 
 // Make this return true when this Command no longer needs to run execute()
