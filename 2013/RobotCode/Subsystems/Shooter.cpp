@@ -32,8 +32,8 @@ void Shooter::InitDefaultCommand() {
 // Set shooter entry and exit power levels
 void Shooter::SetPower( double entryPower, double exitPower ){
 	
-	entryPower *= -1;			// Shooter entry motor is inverted
-	exitPower *= -1;			// Shooter exit motor is inverted
+//	entryPower *= -1;			// Shooter entry motor is inverted
+//	exitPower *= -1;			// Shooter exit motor is inverted
 	
 	entryShooterMotor->Set ( entryPower, 0 );
 	exitShooterMotor->Set ( exitPower, 0 );
