@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef DRIVE_STRAIGHT_DISTANCE_H
-#define DRIVE_STRAIGHT_DISTANCE_H
+#ifndef SHOOTER_AUTO_SETPOINT_H
+#define SHOOTER_AUTO_SETPOINT_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,13 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class DriveStraightDistance: public Command {
-private:
-	double m_targetInches;
-	double m_currentLeftInches;
-	double m_currentRightInches;
+class ShooterAutoSetpoint: public Command {
 public:
-	DriveStraightDistance();
+	ShooterAutoSetpoint();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

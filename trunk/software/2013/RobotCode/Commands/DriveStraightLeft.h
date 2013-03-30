@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef DRIVE_STRAIGHT_DISTANCE_H
-#define DRIVE_STRAIGHT_DISTANCE_H
+#ifndef DRIVE_STRAIGHT_LEFT_H
+#define DRIVE_STRAIGHT_LEFT_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,13 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class DriveStraightDistance: public Command {
-private:
-	double m_targetInches;
-	double m_currentLeftInches;
-	double m_currentRightInches;
+class DriveStraightLeft: public Command {
 public:
-	DriveStraightDistance();
+	DriveStraightLeft();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

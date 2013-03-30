@@ -23,6 +23,7 @@
 #include "Commands/DriveSpinSlowRight.h"
 #include "Commands/DriveStraight.h"
 #include "Commands/DriveStraightDistance.h"
+#include "Commands/DriveStraightLeft.h"
 #include "Commands/DriveTeleop.h"
 #include "Commands/DriveTrainOff.h"
 #include "Commands/DriveTurn.h"
@@ -32,6 +33,7 @@
 #include "Commands/FireReloadTimed.h"
 #include "Commands/ShiftHighGear.h"
 #include "Commands/ShiftLowGear.h"
+#include "Commands/ShooterAutoSetpoint.h"
 #include "Commands/ShooterRun.h"
 #include "Commands/ShooterSetSpeed.h"
 #include "Commands/ShooterStop.h"
@@ -87,7 +89,8 @@ OI::OI() {
      
         // SmartDashboard Buttons
 	SmartDashboard::PutData("Autonomous Command Group", new AutonomousCommandGroup());
-	SmartDashboard::PutData("Drive Straight Distance", new DriveStraightDistance( 10 ));
+	SmartDashboard::PutData("Drive Straight Distance", new DriveStraightDistance());
+	SmartDashboard::PutData("Drive Straight Left", new DriveStraightLeft());
 	SmartDashboard::PutData("Drive Straight", new DriveStraight());
 	SmartDashboard::PutData("Drive Turn", new DriveTurn());
 	SmartDashboard::PutData("Drive Spin Left", new DriveSpinLeft());
@@ -104,6 +107,7 @@ OI::OI() {
 	SmartDashboard::PutData("Fire Frisbee Timed", new FireFrisbeeTimed());
 	SmartDashboard::PutData("Fire Reload", new FireReload());
 	SmartDashboard::PutData("Fire Reload Timed", new FireReloadTimed());
+	SmartDashboard::PutData("Shooter Auto Setpoint", new ShooterAutoSetpoint());
 	SmartDashboard::PutData("Shooter Run", new ShooterRun());
 	SmartDashboard::PutData("Shooter Set Speed", new ShooterSetSpeed());
 	SmartDashboard::PutData("Shooter Stop", new ShooterStop());
