@@ -26,9 +26,9 @@ public:
 	static Encoder* chassisRightEncoder;
 	static DoubleSolenoid* transmissionShifter;
 	static DoubleSolenoid* aimingElevation;
-	static SpeedController* shooterEntryShooterMotor;
-	static SpeedController* shooterExitShooterMotor;
-	static Encoder* shooterExitShooterEncoder;
+	static SpeedController* shooterWheelsEntryMotor;
+	static SpeedController* shooterWheelsExitMotor;
+	static Encoder* shooterWheelsExitEncoder;
 	static DoubleSolenoid* firingFiringPin;
 	static DoubleSolenoid* climberClimberSolenoid;
 	static Compressor* pneumaticsAirCompressor;

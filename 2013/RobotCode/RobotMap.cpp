@@ -17,9 +17,9 @@ Encoder* RobotMap::chassisLeftEncoder = NULL;
 Encoder* RobotMap::chassisRightEncoder = NULL;
 DoubleSolenoid* RobotMap::transmissionShifter = NULL;
 DoubleSolenoid* RobotMap::aimingElevation = NULL;
-SpeedController* RobotMap::shooterEntryShooterMotor = NULL;
-SpeedController* RobotMap::shooterExitShooterMotor = NULL;
-Encoder* RobotMap::shooterExitShooterEncoder = NULL;
+SpeedController* RobotMap::shooterWheelsEntryMotor = NULL;
+SpeedController* RobotMap::shooterWheelsExitMotor = NULL;
+Encoder* RobotMap::shooterWheelsExitEncoder = NULL;
 DoubleSolenoid* RobotMap::firingFiringPin = NULL;
 DoubleSolenoid* RobotMap::climberClimberSolenoid = NULL;
 Compressor* RobotMap::pneumaticsAirCompressor = NULL;
@@ -58,17 +58,17 @@ void RobotMap::init() {
 	aimingElevation = new DoubleSolenoid(1, 5, 6);      
 	
 	
-	shooterEntryShooterMotor = new Talon(1, 7);
-	lw->AddActuator("Shooter", "Entry Shooter Motor", (Talon*) shooterEntryShooterMotor);
+	shooterWheelsEntryMotor = new Talon(1, 7);
+	lw->AddActuator("Shooter Wheels", "Entry Motor", (Talon*) shooterWheelsEntryMotor);
 	
-	shooterExitShooterMotor = new Talon(1, 8);
-	lw->AddActuator("Shooter", "Exit Shooter Motor", (Talon*) shooterExitShooterMotor);
+	shooterWheelsExitMotor = new Talon(1, 8);
+	lw->AddActuator("Shooter Wheels", "Exit Motor", (Talon*) shooterWheelsExitMotor);
 	
-	shooterExitShooterEncoder = new Encoder(1, 7, 1, 8, false, Encoder::k4X);
-	lw->AddSensor("Shooter", "Exit Shooter Encoder", shooterExitShooterEncoder);
-	shooterExitShooterEncoder->SetDistancePerPulse(0.1666666666668);
-        shooterExitShooterEncoder->SetPIDSourceParameter(Encoder::kRate);
-        shooterExitShooterEncoder->Start();
+	shooterWheelsExitEncoder = new Encoder(1, 7, 1, 8, false, Encoder::k4X);
+	lw->AddSensor("Shooter Wheels", "Exit Encoder", shooterWheelsExitEncoder);
+	shooterWheelsExitEncoder->SetDistancePerPulse(0.1666666666668);
+        shooterWheelsExitEncoder->SetPIDSourceParameter(Encoder::kRate);
+        shooterWheelsExitEncoder->Start();
 	firingFiringPin = new DoubleSolenoid(1, 3, 4);      
 	
 	

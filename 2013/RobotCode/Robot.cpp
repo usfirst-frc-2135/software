@@ -12,7 +12,7 @@
 Chassis* Robot::chassis = 0;
 Transmission* Robot::transmission = 0;
 Aiming* Robot::aiming = 0;
-Shooter* Robot::shooter = 0;
+ShooterWheels* Robot::shooterWheels = 0;
 Firing* Robot::firing = 0;
 Climber* Robot::climber = 0;
 Pneumatics* Robot::pneumatics = 0;
@@ -25,7 +25,7 @@ void Robot::RobotInit() {
 	chassis = new Chassis();
 	transmission = new Transmission();
 	aiming = new Aiming();
-	shooter = new Shooter();
+	shooterWheels = new ShooterWheels();
 	firing = new Firing();
 	climber = new Climber();
 	pneumatics = new Pneumatics();
@@ -53,7 +53,7 @@ void Robot::AutonomousPeriodic() {
 	SmartDashboard::PutNumber( "Operator Throttle", - ( Robot::oi->getOperatorThrottle() - 1 ) / 2 );	
 	SmartDashboard::PutNumber( "Left Drive Encoder", Robot::chassis->leftEncoder->GetDistance());
 	SmartDashboard::PutNumber( "Right Drive Encoder", Robot::chassis->rightEncoder->GetDistance());
-	SmartDashboard::PutNumber( "Shooter Exit Encoder", Robot::shooter->exitShooterEncoder->GetRate() );
+	SmartDashboard::PutNumber( "Shooter Exit Encoder", Robot::shooterWheels->exitEncoder->GetRate() );
 }
 	
 void Robot::TeleopInit() {
@@ -71,7 +71,7 @@ void Robot::TeleopPeriodic() {
 	SmartDashboard::PutNumber( "Operator Throttle", - ( Robot::oi->getOperatorThrottle() - 1 ) / 2 );	
 	SmartDashboard::PutNumber( "Left Drive Encoder", Robot::chassis->leftEncoder->GetDistance());
 	SmartDashboard::PutNumber( "Right Drive Encoder", Robot::chassis->rightEncoder->GetDistance());
-	SmartDashboard::PutNumber( "Shooter Exit Encoder", Robot::shooter->exitShooterEncoder->GetRate() );
+	SmartDashboard::PutNumber( "Shooter Exit Encoder", Robot::shooterWheels->exitEncoder->GetRate() );
 }
 void Robot::TestPeriodic() {
 	static int	i = 0;
