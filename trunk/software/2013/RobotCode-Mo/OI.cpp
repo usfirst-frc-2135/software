@@ -20,6 +20,7 @@
 #include "Commands/ConveyorDown.h"
 #include "Commands/ConveyorOff.h"
 #include "Commands/ConveyorUp.h"
+#include "Commands/DriveStraight.h"
 #include "Commands/DriveTeleop.h"
 #include "Commands/ShiftHighGear.h"
 #include "Commands/ShiftLowGear.h"
@@ -70,6 +71,7 @@ OI::OI() {
      
         // SmartDashboard Buttons
 	SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
+	SmartDashboard::PutData("Drive Straight", new DriveStraight());
 	SmartDashboard::PutData("Drive Teleop", new DriveTeleop());
 	SmartDashboard::PutData("Spin Turn Left", new SpinTurnLeft());
 	SmartDashboard::PutData("Spin Turn Left Slow", new SpinTurnLeftSlow());
