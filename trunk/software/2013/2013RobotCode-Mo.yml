@@ -733,6 +733,50 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: None}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
+  - Name: Drive Straight
+    Base: PID Command
+    Children: []
+    Properties:
+      D: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: D, validators: null,
+        value: 0.0}
+      Period: !!robotbuilder.data.properties.DoubleProperty {default: 0.02, name: Period,
+        validators: null, value: 0.02}
+      Input: !!robotbuilder.data.properties.TypeSelectionProperty
+        default: None
+        name: Input
+        type: PIDSource
+        validators: [TypeDropdownSelected]
+        value: Chassis Left Encoder
+      Limit Output: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Limit Output, validators: null, value: false}
+      Tolerance: !!robotbuilder.data.properties.DoubleProperty {default: 0.2, name: Tolerance,
+        validators: null, value: 0.2}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Chassis}
+      Continuous: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Continuous, validators: null, value: false}
+      Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: Maximum Output,
+        validators: null, value: 1.0}
+      Limit Input: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Limit Input, validators: null, value: false}
+      Output: !!robotbuilder.data.properties.TypeSelectionProperty
+        default: None
+        name: Output
+        type: PIDOutput
+        validators: [TypeDropdownSelected]
+        value: Chassis Left
+      Minimum Input: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: Minimum Input,
+        validators: null, value: 0.0}
+      Minimum Output: !!robotbuilder.data.properties.DoubleProperty {default: -1,
+        name: Minimum Output, validators: null, value: -1.0}
+      I: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: I, validators: null,
+        value: 0.0}
+      P: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: P, validators: null,
+        value: 1.0}
+      Maximum Input: !!robotbuilder.data.properties.DoubleProperty {default: 5, name: Maximum Input,
+        validators: null, value: 5.0}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
   - Name: Drive Teleop
     Base: Command
     Children: []
@@ -896,6 +940,6 @@ Properties:
     validators: null, value: 2135}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
-  Java Project Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\NetBeansProjects',
+  Java Project Directory: !!robotbuilder.data.properties.FileProperty {default: \\psf\Home\NetBeansProjects,
     extension: null, folder: true, name: Java Project Directory, validators: null,
     value: 'C:\Users\PHS-User\NetBeansProjects'}
