@@ -18,7 +18,7 @@ ShiftHighGear::ShiftHighGear() {
 // Called just before this Command runs the first time
 void ShiftHighGear::Initialize() {
 	printf ( "2135: ShiftHighGear\n" );
-	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line1, 1, "High Gear %d", 1 );
+	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line1, 1, "Gear: %s", "High" );
 }
 // Called repeatedly when this Command is scheduled to run
 void ShiftHighGear::Execute() {
