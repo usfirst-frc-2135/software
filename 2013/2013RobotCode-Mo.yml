@@ -777,6 +777,14 @@ Children:
         validators: null, value: 5.0}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
+  - Name: Drive Straight Distance
+    Base: Command
+    Children: []
+    Properties:
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Chassis}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
   - Name: Drive Teleop
     Base: Command
     Children: []
@@ -940,6 +948,6 @@ Properties:
     validators: null, value: 2135}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
-  Java Project Directory: !!robotbuilder.data.properties.FileProperty {default: \\psf\Home\NetBeansProjects,
+  Java Project Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\NetBeansProjects',
     extension: null, folder: true, name: Java Project Directory, validators: null,
     value: 'C:\Users\PHS-User\NetBeansProjects'}
