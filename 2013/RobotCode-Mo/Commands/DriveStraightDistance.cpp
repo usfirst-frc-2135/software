@@ -36,7 +36,7 @@ void DriveStraightDistance::Execute() {
 			- m_startLeftInches;
 	rightEncoder = RobotMap::chassisRightEncoder->GetDistance()
 			- m_startRightInches;
-	printf ("2135: LeftRightEncoder Left - %6.3f Right - %6.3f\n", leftEncoder, rightEncoder);
+	printf ("2135: LeftRightEncoder Start Left - %6.3f Right - %6.3f\n", leftEncoder, rightEncoder);
 	if (leftEncoder < 10)
 		leftMotorPower = 0.6;
 	else
@@ -57,10 +57,11 @@ bool DriveStraightDistance::IsFinished() {
 			- m_startLeftInches;
 	rightEncoder = RobotMap::chassisRightEncoder->GetDistance()
 			- m_startRightInches;
-	printf ("2135: LeftRightEncoder Left - %6.3f Right - %6.3f\n", leftEncoder, rightEncoder);
-	atTarget = (fabs(leftEncoder - m_targetInches) < 2.0)
-			&& (fabs(rightEncoder - m_targetInches) < 2.0);
-	printf ("2135: LeftRightEncoder Left - %6.3f Right - %6.3f\n", fabs(leftEncoder - m_targetInches), fabs(rightEncoder - m_targetInches));
+	printf ("2135: LeftRightEncoder Current Left - %6.3f Right - %6.3f\n", leftEncoder, rightEncoder);
+	atTarget = (fabs(m_targetInches - leftEncoder) < 2.0)
+		&& (fabs(m_targetInches -  rightEncoder) < 2.0);
+	printf ("2135: LeftRightEncoder fabs Left - %6.3f Right - %6.3f\n", 
+		fabs(m_targetInches - leftEncoder), fabs(m_targetInches - rightEncoder));
 	return ( IsTimedOut() || atTarget);
 }
 // Called once after isFinished returns true
