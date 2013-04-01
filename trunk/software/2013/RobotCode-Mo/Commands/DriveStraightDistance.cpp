@@ -39,12 +39,12 @@ void DriveStraightDistance::Execute() {
 	rightDistance = RobotMap::chassisRightEncoder->GetDistance() - m_startRightInches;
 	
 	//	Indicate direction of travel
-	leftDirection = ( m_targeInches - leftDistance > 0 ) ? +1.0 : -1.0;
-	rightDirection = ( m_targeInches - rightDistance > 0 ) ? +1.0 : -1.0;
+	leftDirection = ( m_targetInches - leftDistance > 0 ) ? +1.0 : -1.0;
+	rightDirection = ( m_targetInches - rightDistance > 0 ) ? +1.0 : -1.0;
 	
 	//	Filter power level to use based on distance to target
-	leftPower = ( abs( m_targeInches - leftDistance > 0 ) ? 0.6 : 0.3;
-	rightPower = ( abs( m_targeInches - rightDistance > 0 ) ? 0.6 : 0.3;
+	leftPower = abs( m_targetInches - leftDistance > 0 ) ? 0.6 : 0.3;
+	rightPower = abs( m_targetInches - rightDistance > 0 ) ? 0.6 : 0.3;
 	
 	//	Calculate motor power
 	leftPower *= leftDirection;
@@ -69,7 +69,7 @@ bool DriveStraightDistance::IsFinished() {
 		&& ( fabs( m_targetInches -  rightDistance ) < 2.0 );
 	
 	printf ("2135: IsFinishedt  L %6.3f  R %6.3f\n", 
-		( targetInches - leftDistance ), ( targetInches - rightDistance ) );
+		( m_targetInches - leftDistance ), ( m_targetInches - rightDistance ) );
 	
 	return ( IsTimedOut() || atTarget);
 }

@@ -29,6 +29,7 @@ void Chassis::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+//
 //Teleop drive under joystick control
 void Chassis::DriveWithJoystick(Joystick *driverStick1, Joystick *driverStick2){
 	// If DS I/O button digital 8 is clear, run Tank drive
@@ -82,6 +83,6 @@ void Chassis::DriveWithJoystick(Joystick *driverStick1, Joystick *driverStick2){
 }
 //Controlled drive used during autonomous or drive commands
 void Chassis::DriveUsingLeftRightMotorOutputs(double left, double right){
-	printf ( "2135: SetLeftRightMotorOutputs left - %6.3f, right - %6.3f\n", left, right);
+	// printf ( "2135: SetLeftRightMotorOutputs left - %6.3f, right - %6.3f\n", left, right);
 	driveTrain->SetLeftRightMotorOutputs( left, right );
 }
