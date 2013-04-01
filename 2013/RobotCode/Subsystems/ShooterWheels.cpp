@@ -59,6 +59,8 @@ void ShooterWheels::SetPower( double entryPower, double exitPower ){
 	entryMotor->Set ( entryPower, 0 );
 	exitMotor->Set ( exitPower, 0 );
 	
+	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line4, "Shoot:  %5.2f %5.2f", entryPower, exitPower );
+	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line5, "Speed:  %5.2f", exitEncoder );
 	SmartDashboard::PutNumber( "Shooter Entry Power", entryPower );
 	SmartDashboard::PutNumber( "Shooter Exit Power", exitPower );	
 }
