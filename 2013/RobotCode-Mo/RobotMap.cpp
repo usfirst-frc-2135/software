@@ -15,7 +15,7 @@ SpeedController* RobotMap::chassisRight = NULL;
 RobotDrive* RobotMap::chassisDriveTrain = NULL;
 Encoder* RobotMap::chassisLeftEncoder = NULL;
 Encoder* RobotMap::chassisRightEncoder = NULL;
-DoubleSolenoid* RobotMap::transmissionsShifter = NULL;
+DoubleSolenoid* RobotMap::transmissionShifter = NULL;
 SpeedController* RobotMap::conveyorMotor = NULL;
 SpeedController* RobotMap::azimuthMotor = NULL;
 SpeedController* RobotMap::shooterWheels = NULL;
@@ -51,7 +51,7 @@ void RobotMap::init() {
 	chassisRightEncoder->SetDistancePerPulse(0.03490658503988659);
         chassisRightEncoder->SetPIDSourceParameter(Encoder::kDistance);
         chassisRightEncoder->Start();
-	transmissionsShifter = new DoubleSolenoid(1, 1, 2);      
+	transmissionShifter = new DoubleSolenoid(1, 1, 2);      
 	
 	
 	conveyorMotor = new Victor(1, 3);
