@@ -30,10 +30,12 @@ void Transmission::InitDefaultCommand() {
 //
 // Enable the high gear piston
 void Transmission::EnableHighGear(){
+	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line2, "Gear:   %s", "High" );
 	shifter->Set(DoubleSolenoid::kForward);
 }
 //
 // Disable the high gear piston
 void Transmission::DisableHighGear(){
+	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line2, "Gear:   %s", "Low" );
 	shifter->Set(DoubleSolenoid::kReverse);
 }
