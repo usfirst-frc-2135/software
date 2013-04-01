@@ -32,9 +32,10 @@ void Chassis::InitDefaultCommand() {
 //
 // Teleop drive under joystick control
 void Chassis::DriveWithJoystick(Joystick *driverStick){
-		driveTrain->ArcadeDrive(driverStick, true);
+		driveTrain->ArcadeDrive( driverStick, true );
 }
 //Controlled drive used during autonomous or drive commands
 void Chassis::DriveUsingLeftRightMotorOutputs(double left, double right){
+	// printf ( "2135: SetLeftRightMotorOutputs left - %6.3f, right - %6.3f\n", left, right);
 	driveTrain->SetLeftRightMotorOutputs( left, right );
 }
