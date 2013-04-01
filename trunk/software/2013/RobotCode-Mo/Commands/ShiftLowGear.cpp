@@ -18,7 +18,6 @@ ShiftLowGear::ShiftLowGear() {
 // Called just before this Command runs the first time
 void ShiftLowGear::Initialize() {
 	printf( "2135: ShiftLowGear\n" );
-	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line1, 1, "Gear: %s", "Low" );
 }
 // Called repeatedly when this Command is scheduled to run
 void ShiftLowGear::Execute() {

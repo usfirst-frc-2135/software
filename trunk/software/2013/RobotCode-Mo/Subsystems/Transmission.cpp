@@ -26,8 +26,10 @@ void Transmission::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void Transmission::ShifterHigh() {
+	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line2, "Gear:   %s", "High" );
 	shifter->Set( shifter->kForward );
 }
 void Transmission::ShifterLow() {
+	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line2, "Gear:   %s", "Low" );
 	shifter->Set( shifter->kReverse );
 }
