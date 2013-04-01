@@ -26,8 +26,13 @@ void Shooter::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void Shooter::ShooterWheelsOn() {
-	wheels->Set( 0.7, 0 );
+	m_shooterSpeed = 0.7;
+	
+	wheels->Set( m_shooterSpeed, 0 );
+	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line4, "Shoot:  %5.2f", m_shooterSpeed );
 }
 void Shooter::ShooterWheelsOff() {
-	wheels->Set( 0.0, 0 );
+	m_shooterSpeed = 0.0;
+	wheels->Set(m_shooterSpeed, 0 );
+	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line4, "Shoot:  %5.2f", m_shooterSpeed );
 }
