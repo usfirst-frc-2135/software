@@ -127,7 +127,7 @@ Children:
           validators: &id015 [DigitalChannel]
           value: '1'
         Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Reverse Direction, validators: null, value: false}
+          name: Reverse Direction, validators: null, value: true}
     - Name: Right Encoder
       Base: Quadrature Encoder
       Children: []
@@ -171,7 +171,7 @@ Children:
           validators: *id015
           value: '3'
         Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Reverse Direction, validators: null, value: true}
+          name: Reverse Direction, validators: null, value: false}
     - Name: Gyro
       Base: Gyro
       Children: []
@@ -947,6 +947,12 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Camera}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
+  - Name: Drive Straight Distance Low
+    Base: Command Group
+    Children: []
+    Properties:
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
   Properties: {}
 Properties:
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
@@ -966,6 +972,6 @@ Properties:
     validators: null, value: 2135}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
-  Java Project Directory: !!robotbuilder.data.properties.FileProperty {default: \\psf\Home\NetBeansProjects,
+  Java Project Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\NetBeansProjects',
     extension: null, folder: true, name: Java Project Directory, validators: null,
     value: 'C:\Users\PHS-User\NetBeansProjects'}
