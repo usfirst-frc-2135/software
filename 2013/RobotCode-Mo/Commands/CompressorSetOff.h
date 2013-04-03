@@ -9,20 +9,26 @@
 // it from being updated in th future.
 
 
+#ifndef COMPRESSOR_SET_OFF_H
+#define COMPRESSOR_SET_OFF_H
 
-#ifndef AUTONOMOUS_COMMAND_H
-#define AUTONOMOUS_COMMAND_H
 
-#include "Commands/CommandGroup.h"
+#include "Commands/Subsystem.h"
+#include "../Robot.h"
 
 /**
  *
  *
  * @author ExampleAuthor
  */
-class AutonomousCommand: public CommandGroup {
+class CompressorSetOff: public Command {
 public:
-	AutonomousCommand();
+	CompressorSetOff();
+	virtual void Initialize();
+	virtual void Execute();
+	virtual bool IsFinished();
+	virtual void End();
+	virtual void Interrupted();
 };
 
 #endif

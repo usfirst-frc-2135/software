@@ -9,20 +9,26 @@
 // it from being updated in th future.
 
 
+#ifndef DRIVE_SPIN_RIGHT_H
+#define DRIVE_SPIN_RIGHT_H
 
-#ifndef AUTONOMOUS_COMMAND_H
-#define AUTONOMOUS_COMMAND_H
 
-#include "Commands/CommandGroup.h"
+#include "Commands/Subsystem.h"
+#include "../Robot.h"
 
 /**
  *
  *
  * @author ExampleAuthor
  */
-class AutonomousCommand: public CommandGroup {
+class DriveSpinRight: public Command {
 public:
-	AutonomousCommand();
+	DriveSpinRight();
+	virtual void Initialize();
+	virtual void Execute();
+	virtual bool IsFinished();
+	virtual void End();
+	virtual void Interrupted();
 };
 
 #endif

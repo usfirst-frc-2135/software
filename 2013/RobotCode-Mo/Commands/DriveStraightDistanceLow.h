@@ -9,26 +9,20 @@
 // it from being updated in th future.
 
 
-#ifndef SPIN_TURN_RIGHT_SLOW_H
-#define SPIN_TURN_RIGHT_SLOW_H
 
+#ifndef DRIVE_STRAIGHT_DISTANCE_LOW_H
+#define DRIVE_STRAIGHT_DISTANCE_LOW_H
 
-#include "Commands/Subsystem.h"
-#include "../Robot.h"
+#include "Commands/CommandGroup.h"
 
 /**
  *
  *
  * @author ExampleAuthor
  */
-class SpinTurnRightSlow: public Command {
-public:
-	SpinTurnRightSlow();
-	virtual void Initialize();
-	virtual void Execute();
-	virtual bool IsFinished();
-	virtual void End();
-	virtual void Interrupted();
+class DriveStraightDistanceLow: public CommandGroup {
+public:	
+	DriveStraightDistanceLow();
 };
 
 #endif
