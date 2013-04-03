@@ -12,6 +12,7 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/AimDown.h"
 #include "Commands/AimUp.h"
+#include "Commands/AutoClimbGroup.h"
 #include "Commands/AutonomousCommand.h"
 #include "Commands/ClimberExtend.h"
 #include "Commands/ClimberRetract.h"
@@ -46,22 +47,38 @@ OI::OI() {
 	operatorButton12->WhileHeld(new ClimberRetract());
 	operatorButton11 = new JoystickButton(operatorStick, 11);
 	operatorButton11->WhileHeld(new AimDown());
+	operatorButton10 = new JoystickButton(operatorStick, 10);
+	operatorButton10->WhileHeld(new AutoClimbGroup());
+	operatorButton9 = new JoystickButton(operatorStick, 9);
+	operatorButton9->WhileHeld(new AutonomousCommand());
 	operatorButton8 = new JoystickButton(operatorStick, 8);
 	operatorButton8->WhileHeld(new ClimberExtend());
 	operatorButton7 = new JoystickButton(operatorStick, 7);
 	operatorButton7->WhileHeld(new AimUp());
+	operatorButton6 = new JoystickButton(operatorStick, 6);
+	operatorButton6->WhileHeld(new DriveSpinRight());
+	operatorButton5 = new JoystickButton(operatorStick, 5);
+	operatorButton5->WhileHeld(new DriveSpinLeft());
+	operatorButton4 = new JoystickButton(operatorStick, 4);
+	operatorButton4->WhileHeld(new DriveSpinSlowRight());
+	operatorButton3 = new JoystickButton(operatorStick, 3);
+	operatorButton3->WhileHeld(new DriveSpinSlowLeft());
 	operatorButton2 = new JoystickButton(operatorStick, 2);
 	operatorButton2->WhileHeld(new ShooterRun());
 	operatorTrigger = new JoystickButton(operatorStick, 1);
 	operatorTrigger->WhileHeld(new FireFrisbee());
 	driverStick = new Joystick(1);
 	
-	driveButton11 = new JoystickButton(driverStick, 10);
-	driveButton11->WhenPressed(new AimDown());
+	driverButton12 = new JoystickButton(driverStick, 12);
+	driverButton12->WhileHeld(new ClimberRetract());
+	driverButton11 = new JoystickButton(driverStick, 11);
+	driverButton11->WhenPressed(new AimDown());
+	driverButton10 = new JoystickButton(driverStick, 10);
+	driverButton10->WhileHeld(new DriveStraightDistance());
 	driverButton9 = new JoystickButton(driverStick, 9);
 	driverButton9->WhileHeld(new DriveStraightDistanceLow());
 	driverButton8 = new JoystickButton(driverStick, 8);
-	driverButton8->WhileHeld(new DriveStraightDistance());
+	driverButton8->WhileHeld(new ClimberExtend());
 	driverButton7 = new JoystickButton(driverStick, 7);
 	driverButton7->WhileHeld(new AimUp());
 	driverButton6 = new JoystickButton(driverStick, 6);
@@ -73,9 +90,9 @@ OI::OI() {
 	driverButton3 = new JoystickButton(driverStick, 3);
 	driverButton3->WhileHeld(new DriveSpinSlowLeft());
 	driverButton2 = new JoystickButton(driverStick, 2);
-	driverButton2->WhileHeld(new ShiftHighGear());
+	driverButton2->WhileHeld(new ShiftLowGear());
 	driverTrigger = new JoystickButton(driverStick, 1);
-	driverTrigger->WhileHeld(new ShiftHighGear());
+	driverTrigger->WhileHeld(new ShiftLowGear());
      
         // SmartDashboard Buttons
 	SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
@@ -100,6 +117,7 @@ OI::OI() {
 	SmartDashboard::PutData("Shooter Run", new ShooterRun());
 	SmartDashboard::PutData("Shooter Set Speed", new ShooterSetSpeed());
 	SmartDashboard::PutData("Shooter Stop", new ShooterStop());
+	SmartDashboard::PutData("Auto Climb Group", new AutoClimbGroup());
 	SmartDashboard::PutData("Climber Extend", new ClimberExtend());
 	SmartDashboard::PutData("Climber Retract", new ClimberRetract());
 	SmartDashboard::PutData("Compressor Set On", new CompressorSetOn());
