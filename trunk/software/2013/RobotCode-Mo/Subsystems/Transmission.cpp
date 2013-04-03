@@ -25,10 +25,16 @@ void Transmission::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+// Put methods for controlling this subsystem
+// here. Call these from Commands.
+//
+// Enable the high gear piston
 void Transmission::ShifterHigh() {
 	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line2, "Gear:   %s", "High" );
 	shifter->Set( shifter->kForward );
 }
+//
+// Disable the high gear piston
 void Transmission::ShifterLow() {
 	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line2, "Gear:   %s", "Low" );
 	shifter->Set( shifter->kReverse );

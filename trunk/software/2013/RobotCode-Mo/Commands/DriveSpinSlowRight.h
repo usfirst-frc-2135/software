@@ -9,8 +9,8 @@
 // it from being updated in th future.
 
 
-#ifndef SPIN_TURN_RIGHT_H
-#define SPIN_TURN_RIGHT_H
+#ifndef DRIVE_SPIN_SLOW_RIGHT_H
+#define DRIVE_SPIN_SLOW_RIGHT_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class SpinTurnRight: public Command {
+class DriveSpinSlowRight: public Command {
 public:
-	SpinTurnRight();
+	DriveSpinSlowRight();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
