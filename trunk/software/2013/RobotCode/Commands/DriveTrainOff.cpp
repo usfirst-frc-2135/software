@@ -21,7 +21,7 @@ void DriveTrainOff::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveTrainOff::Execute() {
-	RobotMap::chassisDriveTrain->Drive(0.0,0.0);
+	Robot::chassis->DriveUsingLeftRightMotorOutputs( 0.0, 0.0 );
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveTrainOff::IsFinished() {

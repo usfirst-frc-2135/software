@@ -9,26 +9,20 @@
 // it from being updated in th future.
 
 
-#ifndef DRIVE_TURN_H
-#define DRIVE_TURN_H
 
+#ifndef AUTONOMOUS_COMMAND_H
+#define AUTONOMOUS_COMMAND_H
 
-#include "Commands/Subsystem.h"
-#include "../Robot.h"
+#include "Commands/CommandGroup.h"
 
 /**
  *
  *
  * @author ExampleAuthor
  */
-class DriveTurn: public Command {
-public:
-	DriveTurn();
-	virtual void Initialize();
-	virtual void Execute();
-	virtual bool IsFinished();
-	virtual void End();
-	virtual void Interrupted();
+class AutonomousCommand: public CommandGroup {
+public:	
+	AutonomousCommand();
 };
 
 #endif

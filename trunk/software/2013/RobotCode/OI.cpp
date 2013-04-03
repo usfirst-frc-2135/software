@@ -12,7 +12,7 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/AimDown.h"
 #include "Commands/AimUp.h"
-#include "Commands/AutonomousCommandGroup.h"
+#include "Commands/AutonomousCommand.h"
 #include "Commands/ClimberExtend.h"
 #include "Commands/ClimberRetract.h"
 #include "Commands/CompressorSetOff.h"
@@ -21,12 +21,11 @@
 #include "Commands/DriveSpinRight.h"
 #include "Commands/DriveSpinSlowLeft.h"
 #include "Commands/DriveSpinSlowRight.h"
-#include "Commands/DriveStraight.h"
 #include "Commands/DriveStraightDistance.h"
+#include "Commands/DriveStraightDistanceLow.h"
 #include "Commands/DriveStraightLeft.h"
 #include "Commands/DriveTeleop.h"
 #include "Commands/DriveTrainOff.h"
-#include "Commands/DriveTurn.h"
 #include "Commands/FireFrisbee.h"
 #include "Commands/FireFrisbeeTimed.h"
 #include "Commands/FireReload.h"
@@ -60,9 +59,9 @@ OI::OI() {
 	driveButton11 = new JoystickButton(driverStick, 10);
 	driveButton11->WhenPressed(new AimDown());
 	driverButton9 = new JoystickButton(driverStick, 9);
-	driverButton9->WhileHeld(new DriveStraight());
+	driverButton9->WhileHeld(new DriveStraightDistanceLow());
 	driverButton8 = new JoystickButton(driverStick, 8);
-	driverButton8->WhileHeld(new DriveTurn());
+	driverButton8->WhileHeld(new DriveStraightDistance());
 	driverButton7 = new JoystickButton(driverStick, 7);
 	driverButton7->WhileHeld(new AimUp());
 	driverButton6 = new JoystickButton(driverStick, 6);
@@ -79,17 +78,16 @@ OI::OI() {
 	driverTrigger->WhileHeld(new ShiftHighGear());
      
         // SmartDashboard Buttons
-	SmartDashboard::PutData("Autonomous Command Group", new AutonomousCommandGroup());
+	SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
 	SmartDashboard::PutData("Drive Straight Distance", new DriveStraightDistance());
+	SmartDashboard::PutData("Drive Straight Distance Low", new DriveStraightDistanceLow());
 	SmartDashboard::PutData("Drive Straight Left", new DriveStraightLeft());
-	SmartDashboard::PutData("Drive Straight", new DriveStraight());
-	SmartDashboard::PutData("Drive Turn", new DriveTurn());
 	SmartDashboard::PutData("Drive Spin Left", new DriveSpinLeft());
 	SmartDashboard::PutData("Drive Spin Right", new DriveSpinRight());
 	SmartDashboard::PutData("Drive Spin Slow Left", new DriveSpinSlowLeft());
 	SmartDashboard::PutData("Drive Spin Slow Right", new DriveSpinSlowRight());
-	SmartDashboard::PutData("DriveTrain Off", new DriveTrainOff());
 	SmartDashboard::PutData("Drive Teleop", new DriveTeleop());
+	SmartDashboard::PutData("Drive Train Off", new DriveTrainOff());
 	SmartDashboard::PutData("Shift High Gear", new ShiftHighGear());
 	SmartDashboard::PutData("Shift Low Gear", new ShiftLowGear());
 	SmartDashboard::PutData("Aim Down", new AimDown());

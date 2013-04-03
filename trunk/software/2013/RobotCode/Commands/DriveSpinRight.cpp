@@ -17,15 +17,13 @@ DriveSpinRight::DriveSpinRight() {
 }
 // Called just before this Command runs the first time
 void DriveSpinRight::Initialize() {
-	printf( "2135: Drive Spin Right\n" );
-	
+	printf( "2135: Drive Spin Right\n" );	
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveSpinRight::Execute() {
 	float turnSpeed;
 	turnSpeed = RobotMap::driverStation->GetAnalogIn( 4 ) / 5.0;
-	Robot::chassis->DriveUsingLeftRightMotorOutputs( -turnSpeed, turnSpeed );
-	
+	Robot::chassis->DriveUsingLeftRightMotorOutputs( -turnSpeed, turnSpeed );	
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveSpinRight::IsFinished() {

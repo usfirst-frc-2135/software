@@ -24,7 +24,7 @@ public:
 	static RobotDrive* chassisDriveTrain;
 	static Encoder* chassisLeftEncoder;
 	static Encoder* chassisRightEncoder;
-	static Gyro* chassisGyro1;
+	static Gyro* chassisGyro;
 	static DoubleSolenoid* transmissionShifter;
 	static DoubleSolenoid* aimingElevation;
 	static SpeedController* shooterWheelsEntryMotor;
