@@ -172,7 +172,7 @@ Children:
           value: '3'
         Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Reverse Direction, validators: null, value: true}
-    - Name: Gyro 1
+    - Name: Gyro
       Base: Gyro
       Children: []
       Properties:
@@ -226,7 +226,7 @@ Children:
           value: '2'
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Shift Low Gear}
+        name: Default Command, type: Command, validators: null, value: Shift High Gear}
   - Name: Aiming
     Base: Subsystem
     Children:
@@ -711,7 +711,7 @@ Children:
           name: Command
           type: Command
           validators: *id028
-          value: Drive Turn
+          value: Drive Straight Distance
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id029
           default: '1'
@@ -735,7 +735,7 @@ Children:
           name: Command
           type: Command
           validators: *id028
-          value: Drive Straight
+          value: Drive Straight Distance Low
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id029
           default: '1'
@@ -939,7 +939,7 @@ Children:
 - Name: Commands
   Base: Commands
   Children:
-  - Name: Autonomous Command Group
+  - Name: Autonomous Command
     Base: Command Group
     Children: []
     Properties:
@@ -951,6 +951,12 @@ Children:
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Chassis}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+  - Name: Drive Straight Distance Low
+    Base: Command Group
+    Children: []
+    Properties:
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
   - Name: Drive Straight Left
@@ -997,22 +1003,6 @@ Children:
         validators: null, value: 5.0}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Drive Straight
-    Base: Command
-    Children: []
-    Properties:
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Chassis}
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Drive Turn
-    Base: Command
-    Children: []
-    Properties:
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Chassis}
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
   - Name: Drive Spin Left
     Base: Command
     Children: []
@@ -1045,7 +1035,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Chassis}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: DriveTrain Off
+  - Name: Drive Teleop
     Base: Command
     Children: []
     Properties:
@@ -1053,7 +1043,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Chassis}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Drive Teleop
+  - Name: Drive Train Off
     Base: Command
     Children: []
     Properties:
@@ -1198,7 +1188,7 @@ Children:
   Properties: {}
 Properties:
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-    name: Autonomous Command, type: Command, validators: null, value: Autonomous Command Group}
+    name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
   Wiring File: !!robotbuilder.data.properties.FileProperty {default: '', extension: html,
     folder: false, name: Wiring File, validators: null, value: 'C:\usfirst-frc-team-2135\trunk\software\2013\2013RobotCode-Wiring.html'}
   C++ Windriver Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Windriver\workspace',
