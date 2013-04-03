@@ -72,7 +72,7 @@ OI::OI() {
 	driverButton12 = new JoystickButton(driverStick, 12);
 	driverButton12->WhileHeld(new ClimberRetract());
 	driverButton11 = new JoystickButton(driverStick, 11);
-	driverButton11->WhenPressed(new AimDown());
+	driverButton11->WhileHeld(new AimDown());
 	driverButton10 = new JoystickButton(driverStick, 10);
 	driverButton10->WhileHeld(new DriveStraightDistance());
 	driverButton9 = new JoystickButton(driverStick, 9);
