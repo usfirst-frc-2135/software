@@ -9,31 +9,20 @@
 // it from being updated in th future.
 
 
-#ifndef DRIVE_STRAIGHT_DISTANCE_H
-#define DRIVE_STRAIGHT_DISTANCE_H
 
+#ifndef DRIVE_STRAIGHT_DISTANCE_LOW_H
+#define DRIVE_STRAIGHT_DISTANCE_LOW_H
 
-#include "Commands/Subsystem.h"
-#include "../Robot.h"
+#include "Commands/CommandGroup.h"
 
 /**
  *
  *
  * @author ExampleAuthor
  */
-class DriveStraightDistance: public Command {
-private:
-	double m_timeout;
-	double m_targetInches;
-	double m_startLeftInches;
-	double m_startRightInches;
-public:
-	DriveStraightDistance();
-	virtual void Initialize();
-	virtual void Execute();
-	virtual bool IsFinished();
-	virtual void End();
-	virtual void Interrupted();
+class DriveStraightDistanceLow: public CommandGroup {
+public:	
+	DriveStraightDistanceLow();
 };
 
 #endif
