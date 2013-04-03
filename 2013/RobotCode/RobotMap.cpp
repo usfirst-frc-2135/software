@@ -15,7 +15,7 @@ SpeedController* RobotMap::chassisRight = NULL;
 RobotDrive* RobotMap::chassisDriveTrain = NULL;
 Encoder* RobotMap::chassisLeftEncoder = NULL;
 Encoder* RobotMap::chassisRightEncoder = NULL;
-Gyro* RobotMap::chassisGyro1 = NULL;
+Gyro* RobotMap::chassisGyro = NULL;
 DoubleSolenoid* RobotMap::transmissionShifter = NULL;
 DoubleSolenoid* RobotMap::aimingElevation = NULL;
 SpeedController* RobotMap::shooterWheelsEntryMotor = NULL;
@@ -57,9 +57,9 @@ void RobotMap::init() {
 	chassisRightEncoder->SetDistancePerPulse(0.03665191429188092);
         chassisRightEncoder->SetPIDSourceParameter(Encoder::kDistance);
         chassisRightEncoder->Start();
-	chassisGyro1 = new Gyro(1, 1);
-	lw->AddSensor("Chassis", "Gyro 1", chassisGyro1);
-	chassisGyro1->SetSensitivity(0.007);
+	chassisGyro = new Gyro(1, 1);
+	lw->AddSensor("Chassis", "Gyro", chassisGyro);
+	chassisGyro->SetSensitivity(0.007);
 	transmissionShifter = new DoubleSolenoid(1, 1, 2);      
 	
 	

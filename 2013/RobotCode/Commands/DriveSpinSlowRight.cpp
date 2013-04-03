@@ -17,15 +17,13 @@ DriveSpinSlowRight::DriveSpinSlowRight() {
 }
 // Called just before this Command runs the first time
 void DriveSpinSlowRight::Initialize() {
-	printf( "2135: Drive Spin Slow Right\n" );
-	
+	printf( "2135: Drive Spin Slow Right\n" );	
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveSpinSlowRight::Execute() {
 	float turnSpeed;
 	turnSpeed = RobotMap::driverStation->GetAnalogIn( 3 ) / 5.0;
 	Robot::chassis->DriveUsingLeftRightMotorOutputs( -turnSpeed, turnSpeed );
-	
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveSpinSlowRight::IsFinished() {
