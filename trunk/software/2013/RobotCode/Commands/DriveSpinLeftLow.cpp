@@ -25,8 +25,8 @@ DriveSpinLeftLow::DriveSpinLeftLow() {
 	// e.g. AddParallel(new Command1());
 	//      AddSequential(new Command2());
 	// Command1 and Command2 will run in parallel.
-	AddParallel(new DriveSpinSlowLeft());
-	AddSequential(new ShiftLowGear());
+	AddParallel(new ShiftLowGear());
+	AddSequential(new DriveSpinSlowLeft());
 
 	// A command group will require all of the subsystems that each member
 	// would require.

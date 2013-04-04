@@ -13,22 +13,21 @@
 #include "Commands/AimDown.h"
 #include "Commands/AimUp.h"
 #include "Commands/AutoClimbGroup.h"
+#include "Commands/AutoThreePoint.h"
 #include "Commands/AutonomousCommand.h"
 #include "Commands/ClimberExtend.h"
 #include "Commands/ClimberRetract.h"
 #include "Commands/CompressorSetOff.h"
 #include "Commands/CompressorSetOn.h"
 #include "Commands/DriveSpinLeft.h"
-#include "Commands/DriveSpinLeftLow.h"
 #include "Commands/DriveSpinRight.h"
-#include "Commands/DriveSpinRightLow.h"
 #include "Commands/DriveSpinSlowLeft.h"
 #include "Commands/DriveSpinSlowRight.h"
 #include "Commands/DriveStraightDistance.h"
-#include "Commands/DriveStraightDistanceLow.h"
 #include "Commands/DriveStraightLeft.h"
 #include "Commands/DriveTeleop.h"
 #include "Commands/DriveTrainOff.h"
+#include "Commands/DriveUntilLimits.h"
 #include "Commands/FireFrisbee.h"
 #include "Commands/FireFrisbeeTimed.h"
 #include "Commands/FireReload.h"
@@ -52,7 +51,7 @@ OI::OI() {
 	operatorButton10 = new JoystickButton(operatorStick, 10);
 	operatorButton10->WhileHeld(new AutoClimbGroup());
 	operatorButton9 = new JoystickButton(operatorStick, 9);
-	operatorButton9->WhileHeld(new AutonomousCommand());
+	operatorButton9->WhileHeld(new AutoThreePoint());
 	operatorButton8 = new JoystickButton(operatorStick, 8);
 	operatorButton8->WhileHeld(new ClimberExtend());
 	operatorButton7 = new JoystickButton(operatorStick, 7);
@@ -62,9 +61,9 @@ OI::OI() {
 	operatorButton5 = new JoystickButton(operatorStick, 5);
 	operatorButton5->WhileHeld(new DriveSpinLeft());
 	operatorButton4 = new JoystickButton(operatorStick, 4);
-	operatorButton4->WhileHeld(new DriveSpinRightLow());
+	operatorButton4->WhileHeld(new DriveSpinSlowRight());
 	operatorButton3 = new JoystickButton(operatorStick, 3);
-	operatorButton3->WhileHeld(new DriveSpinLeftLow());
+	operatorButton3->WhileHeld(new DriveSpinSlowLeft());
 	operatorButton2 = new JoystickButton(operatorStick, 2);
 	operatorButton2->WhileHeld(new ShooterRun());
 	operatorTrigger = new JoystickButton(operatorStick, 1);
@@ -76,9 +75,9 @@ OI::OI() {
 	driverButton11 = new JoystickButton(driverStick, 11);
 	driverButton11->WhileHeld(new AimDown());
 	driverButton10 = new JoystickButton(driverStick, 10);
-	driverButton10->WhileHeld(new DriveStraightDistance());
+	driverButton10->WhileHeld(new AutonomousCommand());
 	driverButton9 = new JoystickButton(driverStick, 9);
-	driverButton9->WhileHeld(new DriveStraightDistanceLow());
+	driverButton9->WhileHeld(new AutoThreePoint());
 	driverButton8 = new JoystickButton(driverStick, 8);
 	driverButton8->WhileHeld(new ClimberExtend());
 	driverButton7 = new JoystickButton(driverStick, 7);
@@ -88,9 +87,9 @@ OI::OI() {
 	driverButton5 = new JoystickButton(driverStick, 5);
 	driverButton5->WhileHeld(new DriveSpinLeft());
 	driverButton4 = new JoystickButton(driverStick, 4);
-	driverButton4->WhileHeld(new DriveSpinRightLow());
+	driverButton4->WhileHeld(new DriveSpinSlowRight());
 	driverButton3 = new JoystickButton(driverStick, 3);
-	driverButton3->WhileHeld(new DriveSpinLeftLow());
+	driverButton3->WhileHeld(new DriveSpinSlowLeft());
 	driverButton2 = new JoystickButton(driverStick, 2);
 	driverButton2->WhileHeld(new ShiftLowGear());
 	driverTrigger = new JoystickButton(driverStick, 1);
@@ -98,34 +97,18 @@ OI::OI() {
      
         // SmartDashboard Buttons
 	SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
+	SmartDashboard::PutData("Auto Three Point", new AutoThreePoint());
+	SmartDashboard::PutData("Drive Until Limits", new DriveUntilLimits());
 	SmartDashboard::PutData("Drive Straight Distance", new DriveStraightDistance());
-	SmartDashboard::PutData("Drive Straight Distance Low", new DriveStraightDistanceLow());
 	SmartDashboard::PutData("Drive Straight Left", new DriveStraightLeft());
-	SmartDashboard::PutData("Drive Spin Left", new DriveSpinLeft());
-	SmartDashboard::PutData("Drive Spin Right", new DriveSpinRight());
 	SmartDashboard::PutData("Drive Spin Slow Left", new DriveSpinSlowLeft());
 	SmartDashboard::PutData("Drive Spin Slow Right", new DriveSpinSlowRight());
-	SmartDashboard::PutData("Drive Teleop", new DriveTeleop());
-	SmartDashboard::PutData("Drive Train Off", new DriveTrainOff());
-	SmartDashboard::PutData("Shift High Gear", new ShiftHighGear());
-	SmartDashboard::PutData("Shift Low Gear", new ShiftLowGear());
-	SmartDashboard::PutData("Aim Down", new AimDown());
-	SmartDashboard::PutData("Aim Up", new AimUp());
-	SmartDashboard::PutData("Fire Frisbee", new FireFrisbee());
 	SmartDashboard::PutData("Fire Frisbee Timed", new FireFrisbeeTimed());
-	SmartDashboard::PutData("Fire Reload", new FireReload());
 	SmartDashboard::PutData("Fire Reload Timed", new FireReloadTimed());
 	SmartDashboard::PutData("Shooter Auto Setpoint", new ShooterAutoSetpoint());
 	SmartDashboard::PutData("Shooter Run", new ShooterRun());
 	SmartDashboard::PutData("Shooter Set Speed", new ShooterSetSpeed());
-	SmartDashboard::PutData("Shooter Stop", new ShooterStop());
 	SmartDashboard::PutData("Auto Climb Group", new AutoClimbGroup());
-	SmartDashboard::PutData("Climber Extend", new ClimberExtend());
-	SmartDashboard::PutData("Climber Retract", new ClimberRetract());
-	SmartDashboard::PutData("Compressor Set On", new CompressorSetOn());
-	SmartDashboard::PutData("Compressor Set Off", new CompressorSetOff());
-	SmartDashboard::PutData("Drive Spin Left Low", new DriveSpinLeftLow());
-	SmartDashboard::PutData("Drive Spin Right Low", new DriveSpinRightLow());
     // END AUTOGENERATED CODE, SOURCE=ROBOTBUILDER ID=CONSTRUCTORS
 }
 // BEGIN AUTOGENERATED CODE, SOURCE=ROBOTBUILDER ID=FUNCTIONS

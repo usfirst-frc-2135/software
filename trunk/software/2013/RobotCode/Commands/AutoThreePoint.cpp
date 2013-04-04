@@ -10,9 +10,15 @@
 
 
 
-#include "DriveStraightDistanceLow.h"
+#include "AutoThreePoint.h"
+#include "../Commands/ShiftLowGear.h"
+#include "../Commands/DriveStraightDistance.h"
+#include "../Commands/AimUp.h"
+#include "../Commands/ShooterRun.h"
+#include "../Commands/FireReloadTimed.h"
+#include "../Commands/FireFrisbeeTimed.h"
 
-DriveStraightDistanceLow::DriveStraightDistanceLow() {
+AutoThreePoint::AutoThreePoint() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -23,6 +29,19 @@ DriveStraightDistanceLow::DriveStraightDistanceLow() {
 	// e.g. AddParallel(new Command1());
 	//      AddSequential(new Command2());
 	// Command1 and Command2 will run in parallel.
+	AddParallel(new ShiftLowGear());
+	AddSequential(new DriveStraightDistance());
+	AddParallel(new AimUp());
+	AddParallel(new ShooterRun());
+	AddSequential(new FireReloadTimed());
+	AddSequential(new FireFrisbeeTimed());
+	AddSequential(new FireReloadTimed());
+	AddSequential(new FireFrisbeeTimed());
+	AddSequential(new FireReloadTimed());
+	AddSequential(new FireFrisbeeTimed());
+	AddSequential(new FireReloadTimed());
+	AddSequential(new FireFrisbeeTimed());
+	
 
 	// A command group will require all of the subsystems that each member
 	// would require.

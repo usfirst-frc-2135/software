@@ -10,8 +10,8 @@
 
 
 
-#ifndef DRIVE_STRAIGHT_DISTANCE_LOW_H
-#define DRIVE_STRAIGHT_DISTANCE_LOW_H
+#ifndef AUTO_THREE_POINT_H
+#define AUTO_THREE_POINT_H
 
 #include "Commands/CommandGroup.h"
 
@@ -20,9 +20,9 @@
  *
  * @author ExampleAuthor
  */
-class DriveStraightDistanceLow: public CommandGroup {
+class AutoThreePoint: public CommandGroup {
 public:	
-	DriveStraightDistanceLow();
+	AutoThreePoint();
 };
 
 #endif
