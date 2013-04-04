@@ -27,3 +27,35 @@ void Climber::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+//
+// Extend the climber pneumatic
+void Climber::ClimberUp(){
+	climberSolenoid->Set( climberSolenoid->kForward );
+	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line5, 0, "Climb extend" );
+}
+//
+// Retract the climber pneumatic
+void Climber::ClimberDown(){
+	climberSolenoid->Set( climberSolenoid->kReverse );
+	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line5, 0, "Climb retract" );
+}
+// Return the left limit switch
+bool Climber::GetLeftLimit(){
+	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line5, 10, "%4.1f",
+			leftLimit->GetVoltage() );
+	
+	if ( leftLimit->GetVoltage() > 2.5 )
+		return true;
+	else
+		return false;
+}
+// Return the right limit switch
+bool Climber::GetRightLimit(){
+	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line5, 15, "%4.1f",
+			rightLimit->GetVoltage() );
+	
+	if ( rightLimit->GetVoltage() > 2.5 )
+		return true;
+	else
+		return false;
+}

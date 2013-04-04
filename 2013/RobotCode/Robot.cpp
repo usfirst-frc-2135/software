@@ -58,8 +58,10 @@ void Robot::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
 	SmartDashboard::PutNumber( "Driver Throttle", - ( Robot::oi->getDriverThrottle() - 1 ) / 2 );
 	SmartDashboard::PutNumber( "Operator Throttle", - ( Robot::oi->getOperatorThrottle() - 1 ) / 2 );	
-	SmartDashboard::PutNumber( "Left Drive Encoder", Robot::chassis->leftEncoder->GetDistance());
-	SmartDashboard::PutNumber( "Right Drive Encoder", Robot::chassis->rightEncoder->GetDistance());
+	SmartDashboard::PutNumber( "Left Encoder Distance", Robot::chassis->leftEncoder->GetDistance());
+	SmartDashboard::PutNumber( "Right Encoder Distance", Robot::chassis->rightEncoder->GetDistance());
+	SmartDashboard::PutNumber( "Left Encoder Speed", Robot::chassis->leftEncoder->GetRate());
+	SmartDashboard::PutNumber( "Right Encoder Speed", Robot::chassis->rightEncoder->GetRate());
 	SmartDashboard::PutNumber( "Shooter Exit Encoder", Robot::shooterWheels->exitEncoder->GetRate() );
 	RobotMap::driverStationLCD->UpdateLCD();
 }
