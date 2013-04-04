@@ -21,9 +21,7 @@ void DriveSpinSlowRight::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveSpinSlowRight::Execute() {
-	float turnSpeed;
-	turnSpeed = RobotMap::driverStation->GetAnalogIn( 3 ) / 5.0;
-	Robot::chassis->DriveUsingLeftRightMotorOutputs( -turnSpeed, turnSpeed );
+	Robot::chassis->DriveUsingLeftRightMotorOutputs( -0.4, 0.4 );
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveSpinSlowRight::IsFinished() {
