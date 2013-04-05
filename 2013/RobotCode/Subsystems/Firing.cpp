@@ -29,11 +29,11 @@ void Firing::InitDefaultCommand() {
 // Enable the firing pin pneumatic
 void Firing::EnableFiringPin(){
 	firingPin->Set( firingPin->kReverse );
-	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line4, "Fire Enable" );
+//	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line4, "Fire ENABLE" );
 }
 //
 // Disable the firing pin pneumatic
 void Firing::DisableFiringPin(){
 	firingPin->Set( firingPin->kForward );
-	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line4, "Fire Disable" );
+//	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line4, "Fire DISABLE" );
 }

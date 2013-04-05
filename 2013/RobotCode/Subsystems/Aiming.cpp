@@ -28,12 +28,12 @@ void Aiming::InitDefaultCommand() {
 //
 // Enable the firing pin pneumatic
 void Aiming::AimingElevationUp(){
-	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line2, 10, "Aim  Up" );
+//	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line2, 10, "Aim UP" );
 	elevation->Set( elevation->kForward );
 }
 //
 // Disable the firing pin pneumatic
 void Aiming::AimingElevationDown(){
-	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line2, 10, "Aim Down" );
+//	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line2, 10, "Aim DN" );
 	elevation->Set( elevation->kReverse );
 }
