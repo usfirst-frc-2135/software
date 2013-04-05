@@ -13,6 +13,7 @@
 #include "AutoThreePoint.h"
 #include "../Commands/ShiftLowGear.h"
 #include "../Commands/DriveStraightDistance.h"
+#include "../Commands/DriveTrainOff.h"
 #include "../Commands/AimUp.h"
 #include "../Commands/ShooterRun.h"
 #include "../Commands/FireReloadTimed.h"
@@ -31,6 +32,7 @@ AutoThreePoint::AutoThreePoint() {
 	// Command1 and Command2 will run in parallel.
 	AddParallel(new ShiftLowGear());
 	AddSequential(new DriveStraightDistance());
+	AddParallel(new DriveTrainOff());
 	AddParallel(new AimUp());
 	AddParallel(new ShooterRun());
 	AddSequential(new FireReloadTimed());
