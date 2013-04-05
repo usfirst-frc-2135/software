@@ -27,8 +27,8 @@ void DriveUntilLimits::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveUntilLimits::Execute() {
-	double m_leftPower = 0.5;
-	double m_rightPower = 0.5;
+	double m_leftPower = -0.5;
+	double m_rightPower = -0.5;
 	
 	if ( Robot::climber->GetLeftLimit() )
 		m_leftPower = 0.0;
