@@ -15,6 +15,7 @@
 #include "../Commands/ShiftLowGear.h"
 #include "../Commands/DriveUntilLimits.h"
 #include "../Commands/ClimberRetract.h"
+#include "../Commands/AimDown.h"
 
 AutoClimbGroup::AutoClimbGroup() {
 	// Add Commands here:
@@ -29,6 +30,7 @@ AutoClimbGroup::AutoClimbGroup() {
 	// Command1 and Command2 will run in parallel.
 	AddParallel(new ClimberExtend());
 	AddParallel(new ShiftLowGear());
+	AddParallel(new AimDown());
 	AddSequential(new DriveUntilLimits());
 	AddSequential(new ClimberRetract());
 	
