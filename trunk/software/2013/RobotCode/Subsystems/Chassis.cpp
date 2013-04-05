@@ -34,13 +34,13 @@ void Chassis::InitDefaultCommand() {
 // Teleop drive under joystick control
 void Chassis::DriveWithJoystick(Joystick *driverStick){
 		driveTrain->ArcadeDrive( driverStick, true );
-		RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line1, "Drive %5.2f %5.2f", 
-			driverStick->GetAxis( Joystick::kYAxis ), driverStick->GetAxis( Joystick::kXAxis ) );
+//		RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line1, "Drive %5.2f %5.2f", 
+//			driverStick->GetAxis( Joystick::kYAxis ), driverStick->GetAxis( Joystick::kXAxis ) );
 }
 //Controlled drive used during autonomous or drive commands
 void Chassis::DriveUsingLeftRightMotorOutputs(double left, double right){
 	// printf ( "2135: SetLeftRightMotorOutputs left - %6.3f, right - %6.3f\n", left, right);
 	driveTrain->SetLeftRightMotorOutputs( left, right );
-	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line1, "Drives %5.2f %5.2f", 
-			left, right );
+//	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line1, "Drive %5.2f %5.2f", 
+//			left, right );
 }

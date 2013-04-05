@@ -31,18 +31,18 @@ void Climber::InitDefaultCommand() {
 // Extend the climber pneumatic
 void Climber::ClimberUp(){
 	climberSolenoid->Set( climberSolenoid->kForward );
-	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line5, 0, "Climb extend" );
+//	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line5, 0, "Climb UP" );
 }
 //
 // Retract the climber pneumatic
 void Climber::ClimberDown(){
 	climberSolenoid->Set( climberSolenoid->kReverse );
-	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line5, 0, "Climb retract" );
+//	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line5, 0, "Climb DN" );
 }
 // Return the left limit switch
 bool Climber::GetLeftLimit(){
-	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line5, 10, "%4.1f",
-			leftLimit->GetVoltage() );
+//	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line5, 10, "%4.1f",
+//			leftLimit->GetVoltage() );
 	
 	if ( leftLimit->GetVoltage() > 2.5 )
 		return true;
@@ -51,8 +51,8 @@ bool Climber::GetLeftLimit(){
 }
 // Return the right limit switch
 bool Climber::GetRightLimit(){
-	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line5, 15, "%4.1f",
-			rightLimit->GetVoltage() );
+//	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line5, 15, "%4.1f",
+//			rightLimit->GetVoltage() );
 	
 	if ( rightLimit->GetVoltage() > 2.5 )
 		return true;
