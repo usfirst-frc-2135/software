@@ -18,7 +18,7 @@ FireFrisbeeTimed::FireFrisbeeTimed() {
 // Called just before this Command runs the first time
 void FireFrisbeeTimed::Initialize() {
 	printf( "2135: Fire Frisbee Timed\n" );
-	SetTimeout(1.0);
+	SetTimeout(0.5);
 }
 // Called repeatedly when this Command is scheduled to run
 void FireFrisbeeTimed::Execute() {
