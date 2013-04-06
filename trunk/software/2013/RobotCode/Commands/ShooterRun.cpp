@@ -21,7 +21,7 @@ void ShooterRun::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void ShooterRun::Execute() {
-	Robot::shooterWheels->SetPower( 0.5, 0.75 );
+	Robot::shooterWheels->SetPower( -0.5, -0.75 );
 	
 }
 // Make this return true when this Command no longer needs to run execute()

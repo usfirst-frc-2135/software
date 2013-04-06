@@ -18,7 +18,7 @@ FireReloadTimed::FireReloadTimed() {
 // Called just before this Command runs the first time
 void FireReloadTimed::Initialize() {
 	printf( "2135: Fire Reload Timed\n" );
-	SetTimeout(3.0);
+	SetTimeout(3.5);
 }
 // Called repeatedly when this Command is scheduled to run
 void FireReloadTimed::Execute() {
