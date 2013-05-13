@@ -246,12 +246,12 @@
     <buildtargets>
         <buildtarget buildtool="Linker" name="CommandBasedRobotTemplate" passed="false" targetname="CommandBasedRobotTemplate">
             <contents>
-                <folder name="/RobotCode" recursive="true"/>
+                <folder name="/RobotCode-Steve" recursive="true"/>
             </contents>
         </buildtarget>
         <buildtarget buildtool="Partial Image Linker" name="CommandBassedRobotTemplate_partialImage" passed="true" targetname="CommandBassedRobotTemplate_partialImage">
             <contents>
-                <folder name="/RobotCode" recursive="true"/>
+                <folder name="/RobotCode-Steve" recursive="true"/>
             </contents>
         </buildtarget>
     </buildtargets>
