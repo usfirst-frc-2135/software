@@ -18,7 +18,7 @@ FireValve3::FireValve3() {
 // Called just before this Command runs the first time
 void FireValve3::Initialize() {
 	printf ( "2135: Fire Valve 3\n" );
-	SetTimeout(0.5);
+	SetTimeout(0.075);
 }
 // Called repeatedly when this Command is scheduled to run
 void FireValve3::Execute() {
