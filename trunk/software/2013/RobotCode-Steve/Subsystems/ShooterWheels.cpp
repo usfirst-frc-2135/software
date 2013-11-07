@@ -27,6 +27,7 @@ ShooterWheels::ShooterWheels() : PIDSubsystem("ShooterWheels", 1.0, 0.0, 0.0) {
 	// SetSetpoint() -  Sets where the PID controller should move the system
 	//                  to
 	// Enable() - Enables the PID controller.
+	exitEncoder->SetSamplesToAverage(127);
 }
 double ShooterWheels::ReturnPIDInput() {
 	// Return your input value for the PID loop
