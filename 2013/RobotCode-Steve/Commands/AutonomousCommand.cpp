@@ -36,8 +36,8 @@ AutonomousCommand::AutonomousCommand() {
 	AddSequential(new FireReloadTimed());
 	AddSequential(new FireFrisbeeTimed());
 	
-	AddSequential(new FireReloadTimed());
-	AddSequential(new FireFrisbeeTimed());
+	//AddSequential(new FireReloadTimed());
+	//AddSequential(new FireFrisbeeTimed());
 
 	// To run multiple commands at the same time,
 	// use AddParallel()
