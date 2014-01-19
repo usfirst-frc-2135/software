@@ -40,6 +40,7 @@ Joystick* OI::getOperatorJoystick() {
 	return operatorJoystick;
 }
 Joystick* OI::getDriverJoystick() {
+	/* TODO: Remove Michelle's test code */
 	SmartDashboard::PutNumber("Z", driverJoystick->GetAxis(Joystick::kZAxis));
 	SmartDashboard::PutNumber("X", driverJoystick->GetAxis(Joystick::kXAxis));
 	SmartDashboard::PutNumber("Y", driverJoystick->GetAxis(Joystick::kYAxis));

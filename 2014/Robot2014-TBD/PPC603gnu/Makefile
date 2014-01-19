@@ -32,7 +32,7 @@ MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
 WS_ROOT_DIR := C:/WindRiver/workspace
-PRJ_ROOT_DIR := C:/usfirst-frc-team-2135/trunk/software/2014/RobotTeleop2014
+PRJ_ROOT_DIR := C:/usfirst-frc-team-2135/trunk/software/2014/Robot2014-TBD
 
 
 
@@ -117,66 +117,66 @@ CommandBasedRobotTemplate/$(MODE_DIR)/% : LIBPATH =
 CommandBasedRobotTemplate/$(MODE_DIR)/% : LIBS = 
 CommandBasedRobotTemplate/$(MODE_DIR)/% : OBJ_DIR := CommandBasedRobotTemplate/$(MODE_DIR)
 
-CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/AutonomousCommand.o : $(PRJ_ROOT_DIR)/Commands/AutonomousCommand.cpp $(FORCE_FILE_BUILD)
+CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/AutonomousCommand.o : $(PRJ_ROOT_DIR)/Commands/AutonomousCommand.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/CompressorSetOff.o : $(PRJ_ROOT_DIR)/Commands/CompressorSetOff.cpp $(FORCE_FILE_BUILD)
+CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/CompressorSetOff.o : $(PRJ_ROOT_DIR)/Commands/CompressorSetOff.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/CompressorSetOn.o : $(PRJ_ROOT_DIR)/Commands/CompressorSetOn.cpp $(FORCE_FILE_BUILD)
+CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/CompressorSetOn.o : $(PRJ_ROOT_DIR)/Commands/CompressorSetOn.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/DriveTeleop.o : $(PRJ_ROOT_DIR)/Commands/DriveTeleop.cpp $(FORCE_FILE_BUILD)
+CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/DriveTeleop.o : $(PRJ_ROOT_DIR)/Commands/DriveTeleop.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/ShiftHighGear.o : $(PRJ_ROOT_DIR)/Commands/ShiftHighGear.cpp $(FORCE_FILE_BUILD)
+CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/ShiftHighGear.o : $(PRJ_ROOT_DIR)/Commands/ShiftHighGear.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/ShiftLowGear.o : $(PRJ_ROOT_DIR)/Commands/ShiftLowGear.cpp $(FORCE_FILE_BUILD)
+CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/ShiftLowGear.o : $(PRJ_ROOT_DIR)/Commands/ShiftLowGear.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/OI.o : $(PRJ_ROOT_DIR)/OI.cpp $(FORCE_FILE_BUILD)
+CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/OI.o : $(PRJ_ROOT_DIR)/OI.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Robot.o : $(PRJ_ROOT_DIR)/Robot.cpp $(FORCE_FILE_BUILD)
+CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Robot.o : $(PRJ_ROOT_DIR)/Robot.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/RobotMap.o : $(PRJ_ROOT_DIR)/RobotMap.cpp $(FORCE_FILE_BUILD)
+CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/RobotMap.o : $(PRJ_ROOT_DIR)/RobotMap.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Chassis.o : $(PRJ_ROOT_DIR)/Subsystems/Chassis.cpp $(FORCE_FILE_BUILD)
+CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Chassis.o : $(PRJ_ROOT_DIR)/Subsystems/Chassis.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Pneumatics.o : $(PRJ_ROOT_DIR)/Subsystems/Pneumatics.cpp $(FORCE_FILE_BUILD)
+CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Pneumatics.o : $(PRJ_ROOT_DIR)/Subsystems/Pneumatics.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Transmission.o : $(PRJ_ROOT_DIR)/Subsystems/Transmission.cpp $(FORCE_FILE_BUILD)
+CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Transmission.o : $(PRJ_ROOT_DIR)/Subsystems/Transmission.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-OBJECTS_CommandBasedRobotTemplate = CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/AutonomousCommand.o \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/CompressorSetOff.o \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/CompressorSetOn.o \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/DriveTeleop.o \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/ShiftHighGear.o \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/ShiftLowGear.o \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/OI.o \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Robot.o \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/RobotMap.o \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Chassis.o \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Pneumatics.o \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Transmission.o
+OBJECTS_CommandBasedRobotTemplate = CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/AutonomousCommand.o \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/CompressorSetOff.o \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/CompressorSetOn.o \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/DriveTeleop.o \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/ShiftHighGear.o \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/ShiftLowGear.o \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/OI.o \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Robot.o \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/RobotMap.o \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Chassis.o \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Pneumatics.o \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Transmission.o
 
 CommandBasedRobotTemplate/$(MODE_DIR)/CommandBasedRobotTemplate.out : $(OBJECTS_CommandBasedRobotTemplate)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@";rm -f "$@";nmppc $(OBJECTS_CommandBasedRobotTemplate) $(IDE_LIBRARIES) | tclsh $(WIND_BASE)/host/resource/hutils/tcl/munch.tcl -c ppc > $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc $(DEBUGFLAGS_Linker) $(CC_ARCH_SPEC) -fdollars-in-identifiers -Wall $(ADDED_CFLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES)  -o $(OBJ_DIR)/ctdt.o -c $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc -r -nostdlib -Wl,-X -T $(WIND_BASE)/target/h/tool/gnu/ldscripts/link.OUT -o "$@" $(OBJ_DIR)/ctdt.o $(OBJECTS_CommandBasedRobotTemplate) $(IDE_LIBRARIES) $(LIBPATH) $(LIBS)  $(ADDED_LIBPATH) $(ADDED_LIBS) && if [ "$(EXPAND_DBG)" = "1" ]; then plink "$@";fi
@@ -221,66 +221,66 @@ CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/% : LIBPATH =
 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/% : LIBS = 
 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/% : OBJ_DIR := CommandBassedRobotTemplate_partialImage/$(MODE_DIR)
 
-CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/AutonomousCommand.o : $(PRJ_ROOT_DIR)/Commands/AutonomousCommand.cpp $(FORCE_FILE_BUILD)
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/AutonomousCommand.o : $(PRJ_ROOT_DIR)/Commands/AutonomousCommand.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/CompressorSetOff.o : $(PRJ_ROOT_DIR)/Commands/CompressorSetOff.cpp $(FORCE_FILE_BUILD)
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/CompressorSetOff.o : $(PRJ_ROOT_DIR)/Commands/CompressorSetOff.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/CompressorSetOn.o : $(PRJ_ROOT_DIR)/Commands/CompressorSetOn.cpp $(FORCE_FILE_BUILD)
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/CompressorSetOn.o : $(PRJ_ROOT_DIR)/Commands/CompressorSetOn.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/DriveTeleop.o : $(PRJ_ROOT_DIR)/Commands/DriveTeleop.cpp $(FORCE_FILE_BUILD)
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/DriveTeleop.o : $(PRJ_ROOT_DIR)/Commands/DriveTeleop.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/ShiftHighGear.o : $(PRJ_ROOT_DIR)/Commands/ShiftHighGear.cpp $(FORCE_FILE_BUILD)
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/ShiftHighGear.o : $(PRJ_ROOT_DIR)/Commands/ShiftHighGear.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/ShiftLowGear.o : $(PRJ_ROOT_DIR)/Commands/ShiftLowGear.cpp $(FORCE_FILE_BUILD)
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/ShiftLowGear.o : $(PRJ_ROOT_DIR)/Commands/ShiftLowGear.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/OI.o : $(PRJ_ROOT_DIR)/OI.cpp $(FORCE_FILE_BUILD)
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/OI.o : $(PRJ_ROOT_DIR)/OI.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Robot.o : $(PRJ_ROOT_DIR)/Robot.cpp $(FORCE_FILE_BUILD)
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Robot.o : $(PRJ_ROOT_DIR)/Robot.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/RobotMap.o : $(PRJ_ROOT_DIR)/RobotMap.cpp $(FORCE_FILE_BUILD)
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/RobotMap.o : $(PRJ_ROOT_DIR)/RobotMap.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Chassis.o : $(PRJ_ROOT_DIR)/Subsystems/Chassis.cpp $(FORCE_FILE_BUILD)
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Chassis.o : $(PRJ_ROOT_DIR)/Subsystems/Chassis.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Pneumatics.o : $(PRJ_ROOT_DIR)/Subsystems/Pneumatics.cpp $(FORCE_FILE_BUILD)
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Pneumatics.o : $(PRJ_ROOT_DIR)/Subsystems/Pneumatics.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Transmission.o : $(PRJ_ROOT_DIR)/Subsystems/Transmission.cpp $(FORCE_FILE_BUILD)
+CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Transmission.o : $(PRJ_ROOT_DIR)/Subsystems/Transmission.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-OBJECTS_CommandBassedRobotTemplate_partialImage = CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/AutonomousCommand.o \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/CompressorSetOff.o \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/CompressorSetOn.o \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/DriveTeleop.o \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/ShiftHighGear.o \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/ShiftLowGear.o \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/OI.o \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Robot.o \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/RobotMap.o \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Chassis.o \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Pneumatics.o \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Transmission.o
+OBJECTS_CommandBassedRobotTemplate_partialImage = CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/AutonomousCommand.o \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/CompressorSetOff.o \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/CompressorSetOn.o \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/DriveTeleop.o \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/ShiftHighGear.o \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/ShiftLowGear.o \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/OI.o \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Robot.o \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/RobotMap.o \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Chassis.o \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Pneumatics.o \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Transmission.o
 
 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/CommandBassedRobotTemplate_partialImage.o : $(OBJECTS_CommandBassedRobotTemplate_partialImage)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc -r -nostdlib -Wl,-X  -o "$@" $(OBJECTS_CommandBassedRobotTemplate_partialImage) $(LIBPATH) $(LIBS) $(ADDED_LIBPATH) $(ADDED_LIBS)  && if [ "$(EXPAND_DBG)" = "1" ]; then plink "$@";fi
@@ -294,14 +294,14 @@ CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/CommandBassedRobotTemplate_p
 
 force : 
 
-DEP_FILES := CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/AutonomousCommand.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/CompressorSetOff.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/CompressorSetOn.d \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/DriveTeleop.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/ShiftHighGear.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/ShiftLowGear.d \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/OI.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Robot.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/RobotMap.d \
-	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Chassis.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Pneumatics.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Transmission.d \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/AutonomousCommand.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/CompressorSetOff.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/CompressorSetOn.d \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/DriveTeleop.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/ShiftHighGear.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Commands/ShiftLowGear.d \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/OI.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Robot.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/RobotMap.d \
-	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Chassis.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Pneumatics.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/RobotTeleop2014/Subsystems/Transmission.d
+DEP_FILES := CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/AutonomousCommand.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/CompressorSetOff.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/CompressorSetOn.d \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/DriveTeleop.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/ShiftHighGear.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/ShiftLowGear.d \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/OI.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Robot.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/RobotMap.d \
+	 CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Chassis.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Pneumatics.d CommandBasedRobotTemplate/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Transmission.d \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/AutonomousCommand.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/CompressorSetOff.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/CompressorSetOn.d \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/DriveTeleop.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/ShiftHighGear.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Commands/ShiftLowGear.d \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/OI.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Robot.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/RobotMap.d \
+	 CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Chassis.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Pneumatics.d CommandBassedRobotTemplate_partialImage/$(MODE_DIR)/Objects/Robot2014-TBD/Subsystems/Transmission.d
 -include $(DEP_FILES)
 
 

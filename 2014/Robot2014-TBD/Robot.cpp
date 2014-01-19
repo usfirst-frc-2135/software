@@ -54,6 +54,7 @@ void Robot::TeleopInit() {
 }
 	
 void Robot::TeleopPeriodic() {
+	/* TODO: Remove Michelle's test code */
 	double	Michelle;
 	
 	if (autonomousCommand != NULL)
