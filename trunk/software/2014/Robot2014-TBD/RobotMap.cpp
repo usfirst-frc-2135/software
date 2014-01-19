@@ -60,5 +60,4 @@ void RobotMap::init() {
 	driveControlRight->SetOutputRange(-0.6, 0.6);
 	driveControlLeft->SetAbsoluteTolerance(0.05);
 	driveControlRight->SetAbsoluteTolerance(0.05);
-
 }

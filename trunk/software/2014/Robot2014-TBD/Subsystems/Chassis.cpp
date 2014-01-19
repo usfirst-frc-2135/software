@@ -31,12 +31,10 @@ void Chassis::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-
 //	Normal drive during Teleop using joysticks
 void Chassis::DriveUsingJoysticks(Joystick *driverStick){
 	robotDrive->ArcadeDrive(driverStick, true);
 }
-
 //	Autonomous PID driving initialization
 void Chassis::DriveUsingPIDInit(double distance) {
 	driveControlLeft->SetSetpoint(distance);
@@ -47,4 +45,5 @@ void Chassis::DriveUsingPID(void) {
 }
 //	Autonomous PID driving on target check
 bool Chassis::DriveUsingPIDOnTarget() {
+	return (true);
 }
