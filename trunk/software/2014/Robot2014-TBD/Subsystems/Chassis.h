@@ -33,6 +33,8 @@ public:
 	Chassis();
 	void InitDefaultCommand();
 	void DriveUsingJoysticks(Joystick *driverStick);
-	void Chassis::DriveUsingPid(double distance);
+	void Chassis::DriveUsingPIDInit(double distance);
+	void Chassis::DriveUsingPID(void);
+	bool Chassis::DriveUsingPIDOnTarget(void);
 };
 #endif
