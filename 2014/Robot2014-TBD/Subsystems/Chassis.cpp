@@ -37,13 +37,43 @@ void Chassis::DriveUsingJoysticks(Joystick *driverStick){
 }
 //	Autonomous PID driving initialization
 void Chassis::DriveUsingPIDInit(double distance) {
-	driveControlLeft->SetSetpoint(distance);
-	driveControlRight->SetSetpoint(distance);
+	double	outputRange;
+	double	absTolerance;
+	
+	outputRange = SmartDashboard::GetNumber("Output Range");
+	driveControlLeft->SetOutputRange(-outputRange, outputRange);
+	driveControlRight->SetOutputRange(-outputRange, outputRange);
+	
+	absTolerance = SmartDashboard::GetNumber("Abs Tolerance");
+	driveControlLeft->SetAbsoluteTolerance(absTolerance);
+	driveControlRight->SetAbsoluteTolerance(absTolerance);
+	
+	m_leftEncoder = leftEncoder->GetDistance();
+	m_rightEncoder = rightEncoder->GetDistance();
+	SmartDashboard::PutNumber("Left Encoder", m_leftEncoder);
+	SmartDashboard::PutNumber("Right Encoder", m_rightEncoder);
+
+	driveControlLeft->Enable();
+	driveControlRight->Enable();
+	driveControlLeft->SetSetpoint(m_leftEncoder + distance);
+	driveControlRight->SetSetpoint(m_rightEncoder + distance);
 }
 //	Autonomous PID driving normal execution processing
 void Chassis::DriveUsingPID(void) {
+	m_leftEncoder = leftEncoder->GetDistance();
+	m_rightEncoder = rightEncoder->GetDistance();
+	SmartDashboard::PutNumber("Left Encoder", m_leftEncoder);
+	SmartDashboard::PutNumber("Right Encoder", m_rightEncoder);
+}
+//	Autonomous PID driving to stop PID processing
+void Chassis::DriveUsingPIDStop(void) {
+	driveControlLeft->Disable();
+	driveControlRight->Disable();
 }
 //	Autonomous PID driving on target check
 bool Chassis::DriveUsingPIDOnTarget() {
-	return (true);
+	if (driveControlLeft->OnTarget() && driveControlRight->OnTarget())
+		return true;
+	else
+		return false;
 }
