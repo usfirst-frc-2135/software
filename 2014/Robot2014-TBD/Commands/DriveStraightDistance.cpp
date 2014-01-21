@@ -19,6 +19,7 @@ DriveStraightDistance::DriveStraightDistance() {
 // Called just before this Command runs the first time
 void DriveStraightDistance::Initialize() {
 	double	distance;
+	printf( "2135: Drive Straight Distance\n" );
 	distance = SmartDashboard::GetNumber("Drive Distance");
 	Robot::chassis->DriveUsingPIDInit(distance);
 }

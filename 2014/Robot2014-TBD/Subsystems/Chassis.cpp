@@ -39,6 +39,8 @@ void Chassis::DriveUsingJoysticks(Joystick *driverStick){
 void Chassis::DriveUsingPIDInit(double distance) {
 	double	outputRange;
 	double	absTolerance;
+	double	leftDistance;
+	double	rightDistance;
 	
 	outputRange = SmartDashboard::GetNumber("Output Range");
 	driveControlLeft->SetOutputRange(-outputRange, outputRange);
@@ -48,22 +50,20 @@ void Chassis::DriveUsingPIDInit(double distance) {
 	driveControlLeft->SetAbsoluteTolerance(absTolerance);
 	driveControlRight->SetAbsoluteTolerance(absTolerance);
 	
-	m_leftEncoder = leftEncoder->GetDistance();
-	m_rightEncoder = rightEncoder->GetDistance();
-	SmartDashboard::PutNumber("Left Encoder", m_leftEncoder);
-	SmartDashboard::PutNumber("Right Encoder", m_rightEncoder);
+	leftDistance = leftEncoder->GetDistance();
+	rightDistance = rightEncoder->GetDistance();
+	SmartDashboard::PutNumber("Left Encoder", leftDistance);
+	SmartDashboard::PutNumber("Right Encoder", rightDistance);
 
+	driveControlLeft->SetSetpoint(leftDistance + distance);
+	driveControlRight->SetSetpoint(rightDistance + distance);
 	driveControlLeft->Enable();
 	driveControlRight->Enable();
-	driveControlLeft->SetSetpoint(m_leftEncoder + distance);
-	driveControlRight->SetSetpoint(m_rightEncoder + distance);
 }
 //	Autonomous PID driving normal execution processing
 void Chassis::DriveUsingPID(void) {
-	m_leftEncoder = leftEncoder->GetDistance();
-	m_rightEncoder = rightEncoder->GetDistance();
-	SmartDashboard::PutNumber("Left Encoder", m_leftEncoder);
-	SmartDashboard::PutNumber("Right Encoder", m_rightEncoder);
+	SmartDashboard::PutNumber("Left Encoder", leftEncoder->GetDistance());
+	SmartDashboard::PutNumber("Right Encoder", rightEncoder->GetDistance());
 }
 //	Autonomous PID driving to stop PID processing
 void Chassis::DriveUsingPIDStop(void) {
@@ -72,8 +72,14 @@ void Chassis::DriveUsingPIDStop(void) {
 }
 //	Autonomous PID driving on target check
 bool Chassis::DriveUsingPIDOnTarget() {
-	if (driveControlLeft->OnTarget() && driveControlRight->OnTarget())
+	if (driveControlLeft->OnTarget() && driveControlRight->OnTarget()) {
+		driveControlLeft->Disable();
+		driveControlRight->Disable();
 		return true;
+	}
 	else
 		return false;
+}
+//	Cheesy drive
+void Chassis::CheesyDrive(void) {
 }
