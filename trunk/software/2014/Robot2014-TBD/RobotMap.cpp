@@ -60,4 +60,6 @@ void RobotMap::init() {
 	driveControlLeft = new PIDController(0.2, 0.0, 0.0, 0.0, chassisLeftEncoder, chassisLeftMotor);
 	driveControlRight = new PIDController(0.2, 0.0, 0.0, 0.0, chassisRightEncoder, chassisRightMotor);
 	SmartDashboard::PutNumber("Output Range", 1.0);
+	SmartDashboard::PutNumber("Abs Tolerance", 1.0);
+	SmartDashboard::PutNumber("Drive Distance", 0.0);
 }
