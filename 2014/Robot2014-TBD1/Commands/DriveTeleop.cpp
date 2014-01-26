@@ -17,6 +17,7 @@ DriveTeleop::DriveTeleop() {
 }
 // Called just before this Command runs the first time
 void DriveTeleop::Initialize() {
+	printf( "2135: Drive Teleop\n");
 	
 }
 // Called repeatedly when this Command is scheduled to run

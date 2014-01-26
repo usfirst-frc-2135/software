@@ -17,8 +17,8 @@ CompressorOff::CompressorOff() {
 }
 // Called just before this Command runs the first time
 void CompressorOff::Initialize() {
-	printf( "2135: Compressor Off\n" );
-	Robot::pneumatics->StopCompressor();
+	printf( "2135: Compressor Off\n");
+	RobotMap::pneumaticsAirCompressor->Stop();
 }
 // Called repeatedly when this Command is scheduled to run
 void CompressorOff::Execute() {

@@ -18,7 +18,7 @@ DriveDistance::DriveDistance() {
 // Called just before this Command runs the first time
 void DriveDistance::Initialize() {
 	double distance;
-	printf( "2135: Drive Distance\n" );
+	printf( "2135: Drive Distance\n");
 	distance = SmartDashboard::GetNumber("Drive Distance");
 	Robot::chassis->DriveDistanceWithPIDInit(distance);
 }
