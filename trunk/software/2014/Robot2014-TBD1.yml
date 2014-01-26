@@ -243,7 +243,7 @@ Children:
           default: '1'
           name: Forward Channel (Solenoid)
           validators: &id019 [Solenoid]
-          value: '3'
+          value: '1'
         Forward Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
           choices: &id020 ['1', '2']
           default: '1'
@@ -261,7 +261,7 @@ Children:
           default: '1'
           name: Reverse Channel (Solenoid)
           validators: &id025 [Solenoid]
-          value: '4'
+          value: '2'
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: Shift Low Gear}
@@ -299,7 +299,7 @@ Children:
           default: '1'
           name: Forward Channel (Solenoid)
           validators: *id019
-          value: '1'
+          value: '3'
         Forward Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id020
           default: '1'
@@ -317,7 +317,7 @@ Children:
           default: '1'
           name: Reverse Channel (Solenoid)
           validators: *id025
-          value: '2'
+          value: '4'
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: Sweeper Off}
@@ -358,7 +358,7 @@ Children:
           default: '1'
           name: Pressure Switch Channel (Digital)
           validators: [DigitalChannel]
-          value: '5'
+          value: '14'
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: Compressor On}
@@ -368,7 +368,31 @@ Children:
   Children:
   - Name: Driver Joystick
     Base: Joystick
-    Children: []
+    Children:
+    - Name: Driver Trigger
+      Base: Joystick Button
+      Children: []
+      Properties:
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: [TypeDropdownSelected]
+          value: Shift High Gear
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+          default: '1'
+          name: Button
+          validators: null
+          value: '1'
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: Driver Joystick}
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: [whileHeld, whenPressed, whenReleased]
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whileHeld
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: &id026 ['1', '2', '3', '4']
@@ -489,6 +513,6 @@ Properties:
     validators: null, value: 2135}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
-  Java Project Directory: !!robotbuilder.data.properties.FileProperty {default: \\psf\Home\NetBeansProjects,
+  Java Project Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\NetBeansProjects',
     extension: null, folder: true, name: Java Project Directory, validators: null,
     value: 'C:\usfirst-frc-team-2135\trunk\software\2014'}
