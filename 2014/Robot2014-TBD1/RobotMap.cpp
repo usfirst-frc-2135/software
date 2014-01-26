@@ -31,25 +31,25 @@ void RobotMap::init() {
 	
 	chassisLeftDriveEncoder = new Encoder(1, 1, 1, 2, false, Encoder::k4X);
 	lw->AddSensor("Chassis", "Left Drive  Encoder", chassisLeftDriveEncoder);
-	chassisLeftDriveEncoder->SetDistancePerPulse(1.0);
+	chassisLeftDriveEncoder->SetDistancePerPulse(0.03490658503988659);
         chassisLeftDriveEncoder->SetPIDSourceParameter(Encoder::kDistance);
         chassisLeftDriveEncoder->Start();
-	chassisLeftDrivePID = new PIDController(1.0, 0.0, 0.0,/* F: 0.0, */ chassisLeftDriveEncoder, chassisLeftDriveMotor, 0.02);
+	chassisLeftDrivePID = new PIDController(0.02, 0.0, 0.0,/* F: 0.0, */ chassisLeftDriveEncoder, chassisLeftDriveMotor, 0.02);
 	lw->AddActuator("Chassis", "Left Drive PID", chassisLeftDrivePID);
 	chassisLeftDrivePID->SetContinuous(false); chassisLeftDrivePID->SetAbsoluteTolerance(0.2); 
-        chassisLeftDrivePID->SetOutputRange(-1.0, 1.0);
+        chassisLeftDrivePID->SetOutputRange(-0.6, 0.6);
 	chassisRightDriveMotor = new Talon(1, 2);
 	lw->AddActuator("Chassis", "Right Drive Motor", (Talon*) chassisRightDriveMotor);
 	
 	chassisRightDriveEncoder = new Encoder(1, 3, 1, 4, false, Encoder::k4X);
 	lw->AddSensor("Chassis", "Right Drive Encoder", chassisRightDriveEncoder);
-	chassisRightDriveEncoder->SetDistancePerPulse(1.0);
+	chassisRightDriveEncoder->SetDistancePerPulse(0.03490658503988659);
         chassisRightDriveEncoder->SetPIDSourceParameter(Encoder::kDistance);
         chassisRightDriveEncoder->Start();
-	chassisRightDrivePID = new PIDController(1.0, 0.0, 0.0,/* F: 0.0, */ chassisRightDriveEncoder, chassisRightDriveMotor, 0.02);
+	chassisRightDrivePID = new PIDController(0.02, 0.0, 0.0,/* F: 0.0, */ chassisRightDriveEncoder, chassisRightDriveMotor, 0.02);
 	lw->AddActuator("Chassis", "Right Drive PID", chassisRightDrivePID);
 	chassisRightDrivePID->SetContinuous(false); chassisRightDrivePID->SetAbsoluteTolerance(0.2); 
-        chassisRightDrivePID->SetOutputRange(-1.0, 1.0);
+        chassisRightDrivePID->SetOutputRange(-0.6, 0.6);
 	transmissionShifterSolenoid = new DoubleSolenoid(1, 3, 4);      
 	
 	
