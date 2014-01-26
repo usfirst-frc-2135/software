@@ -66,4 +66,8 @@ void RobotMap::init() {
 	printf("2135: RobotMap Init\n");
 	driverStation = DriverStation::GetInstance();
 	driveTrain = new RobotDrive(chassisLeftDriveMotor, chassisRightDriveMotor);
+	// driveTrain->SetInvertedMotor(RobotDrive::kFrontLeftMotor, true);
+	driveTrain->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
+	// driveTrain->SetInvertedMotor(RobotDrive::kFrontRightMotor, true);
+	driveTrain->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 }
