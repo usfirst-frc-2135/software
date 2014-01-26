@@ -16,6 +16,7 @@ AutonomousCommand::AutonomousCommand() {
 }
 // Called just before this Command runs the first time
 void AutonomousCommand::Initialize() {
+	printf( "2135: Autonomous Command\n");
 	
 }
 // Called repeatedly when this Command is scheduled to run

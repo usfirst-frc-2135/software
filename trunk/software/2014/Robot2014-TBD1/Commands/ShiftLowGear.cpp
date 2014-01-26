@@ -17,6 +17,7 @@ ShiftLowGear::ShiftLowGear() {
 }
 // Called just before this Command runs the first time
 void ShiftLowGear::Initialize() {
+	printf( "2135: Shift Low Gear\n");
 	
 }
 // Called repeatedly when this Command is scheduled to run

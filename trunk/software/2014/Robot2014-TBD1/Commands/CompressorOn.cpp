@@ -17,12 +17,12 @@ CompressorOn::CompressorOn() {
 }
 // Called just before this Command runs the first time
 void CompressorOn::Initialize() {
-	printf( "2135: Compressor On\n" );
-	Robot::pneumatics->StartCompressor();
+	printf( "2135: Compressor On\n");
+	RobotMap::pneumaticsAirCompressor->Start();
 }
 // Called repeatedly when this Command is scheduled to run
 void CompressorOn::Execute() {
-	
+
 }
 // Make this return true when this Command no longer needs to run execute()
 bool CompressorOn::IsFinished() {

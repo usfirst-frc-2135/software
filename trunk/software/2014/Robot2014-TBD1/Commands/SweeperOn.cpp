@@ -17,6 +17,7 @@ SweeperOn::SweeperOn() {
 }
 // Called just before this Command runs the first time
 void SweeperOn::Initialize() {
+	printf( "2135: Sweeper On\n");
 	
 }
 // Called repeatedly when this Command is scheduled to run
