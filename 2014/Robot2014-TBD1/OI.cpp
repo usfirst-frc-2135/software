@@ -28,6 +28,8 @@ OI::OI() {
 	
 	driverJoystick = new Joystick(1);
 	
+	driverTrigger = new JoystickButton(driverJoystick, 1);
+	driverTrigger->WhileHeld(new ShiftHighGear());
      
         // SmartDashboard Buttons
 	SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
