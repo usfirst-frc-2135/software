@@ -62,7 +62,7 @@ void Chassis::DriveDistanceWithPIDInit(double distance){
 	rightDistance += distance;
 	// set SetPoint with calculated target distance
 	RobotMap::chassisLeftDrivePID->SetSetpoint( leftDistance );
-	RobotMap::chassisRightDrivePID->SetSetpoint( rightDistance );
+	RobotMap::chassisRightDrivePID->SetSetpoint( -rightDistance );
 	// enable PID loops
 	RobotMap::chassisLeftDrivePID->Enable();
 	RobotMap::chassisRightDrivePID->Enable();

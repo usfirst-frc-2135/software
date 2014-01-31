@@ -25,8 +25,6 @@ void DriveDistance::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DriveDistance::Execute() {
 	Robot::chassis->DriveDistanceWithPIDExecute();
-	SmartDashboard::PutNumber("L: Distance", Robot::chassis->leftDrivePID->Get());
-	SmartDashboard::PutNumber("R: Distance", Robot::chassis->rightDrivePID->Get());
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistance::IsFinished() {

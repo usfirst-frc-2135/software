@@ -79,6 +79,8 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
 	if (autonomousCommand != NULL)
 		Scheduler::GetInstance()->Run();
+	SmartDashboard::PutNumber("L: Distance", Robot::chassis->leftDriveEncoder->GetDistance());
+	SmartDashboard::PutNumber("R: Distance", Robot::chassis->rightDriveEncoder->GetDistance());
 }
 void Robot::TestPeriodic() {
 	lw->Run();
