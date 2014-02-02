@@ -47,22 +47,24 @@ void Chassis::DriveDistanceWithPIDInit(double distance){
 	RobotMap::chassisLeftDrivePID->SetPID(SmartDashboard::GetNumber("L: P"),SmartDashboard::GetNumber("L: I"),
 					SmartDashboard::GetNumber("L: D"));
 	RobotMap::chassisLeftDrivePID->SetOutputRange(-0.6,0.6);
-	RobotMap::chassisLeftDrivePID->SetTolerance(0.2);
+	RobotMap::chassisLeftDrivePID->SetAbsoluteTolerance(0.2);
 	RobotMap::chassisLeftDriveEncoder->SetDistancePerPulse(4 * M_PI / 360);
 	RobotMap::chassisRightDrivePID->SetPID(SmartDashboard::GetNumber("R: P"),SmartDashboard::GetNumber("R: I"),
 					SmartDashboard::GetNumber("R: D"));
-	RobotMap::chassisRightDrivePID->SetOutputRange(-0.6,0.6);
-	RobotMap::chassisRightDrivePID->SetTolerance(0.2);
+	RobotMap::chassisLeftDrivePID->SetOutputRange(-0.6,0.6);
+	RobotMap::chassisLeftDrivePID->SetAbsoluteTolerance(0.2);
 	RobotMap::chassisRightDriveEncoder->SetDistancePerPulse(4 * M_PI / 360);
 	// get current encoder values
 	leftDistance = leftDriveEncoder->GetDistance();
 	rightDistance = rightDriveEncoder->GetDistance();
 	// add distance to current encoder values
 	leftDistance += distance;
-	rightDistance += distance;
+	rightDistance -= distance;
+	SmartDashboard::PutNumber( "Left Setpoint", leftDistance );
+	SmartDashboard::PutNumber( "Right Setpoint", -rightDistance );
 	// set SetPoint with calculated target distance
 	RobotMap::chassisLeftDrivePID->SetSetpoint( leftDistance );
-	RobotMap::chassisRightDrivePID->SetSetpoint( -rightDistance );
+	RobotMap::chassisRightDrivePID->SetSetpoint( rightDistance );
 	// enable PID loops
 	RobotMap::chassisLeftDrivePID->Enable();
 	RobotMap::chassisRightDrivePID->Enable();

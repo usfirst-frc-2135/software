@@ -55,6 +55,8 @@ void Robot::RobotInit() {
 	SmartDashboard::PutNumber("R: Distance PP", 4 * M_PI / 360);
 	SmartDashboard::PutNumber("R: Distance", chassis->rightDriveEncoder->GetDistance());
 	SmartDashboard::PutNumber("Target Setpoint", 0.0);
+	SmartDashboard::PutNumber("Left Setpoint", 0.0);
+	SmartDashboard::PutNumber("Right Setpoint", 0.0);
 }
 	
 void Robot::AutonomousInit() {
@@ -80,7 +82,7 @@ void Robot::TeleopPeriodic() {
 	if (autonomousCommand != NULL)
 		Scheduler::GetInstance()->Run();
 	SmartDashboard::PutNumber("L: Distance", Robot::chassis->leftDriveEncoder->GetDistance());
-	SmartDashboard::PutNumber("R: Distance", Robot::chassis->rightDriveEncoder->GetDistance());
+	SmartDashboard::PutNumber("R: Distance", -Robot::chassis->rightDriveEncoder->GetDistance());
 }
 void Robot::TestPeriodic() {
 	lw->Run();
