@@ -318,12 +318,68 @@ Children:
           name: Reverse Channel (Solenoid)
           validators: *id025
           value: '4'
+    - Name: Sweeper Solenoid
+      Base: Double Solenoid
+      Children: []
+      Properties:
+        Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id018
+          default: '1'
+          name: Forward Channel (Solenoid)
+          validators: *id019
+          value: '7'
+        Forward Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id020
+          default: '1'
+          name: Forward Module (Solenoid)
+          validators: *id021
+          value: '1'
+        Reverse Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id022
+          default: '1'
+          name: Reverse Module (Solenoid)
+          validators: *id023
+          value: '1'
+        Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id024
+          default: '1'
+          name: Reverse Channel (Solenoid)
+          validators: *id025
+          value: '8'
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: Sweeper Off}
   - Name: Shooter
     Base: Subsystem
-    Children: []
+    Children:
+    - Name: Shooter Solenoid
+      Base: Double Solenoid
+      Children: []
+      Properties:
+        Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id018
+          default: '1'
+          name: Forward Channel (Solenoid)
+          validators: *id019
+          value: '5'
+        Forward Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id020
+          default: '1'
+          name: Forward Module (Solenoid)
+          validators: *id021
+          value: '1'
+        Reverse Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id022
+          default: '1'
+          name: Reverse Module (Solenoid)
+          validators: *id023
+          value: '1'
+        Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id024
+          default: '1'
+          name: Reverse Channel (Solenoid)
+          validators: *id025
+          value: '6'
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: None}
