@@ -20,7 +20,7 @@ void SweeperOn::Initialize() {
 	double speed;
 	printf( "2135: Sweeper On\n");
 	speed = SmartDashboard::GetNumber("Sweeper Speed");
-	Robot::sweeper->(speed);
+	Robot::sweeper->sweeperMotor->Set(speed);
 	
 }
 // Called repeatedly when this Command is scheduled to run
