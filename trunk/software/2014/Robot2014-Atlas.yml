@@ -1,7 +1,7 @@
 Version 1.0
 
 ---
-Name: Robot2014-TBD1
+Name: Robot2014-Atlas
 Base: Robot
 Children:
 - Name: Subsystems
@@ -93,7 +93,7 @@ Children:
           validators: &id016 [ChildDropdownSelected]
           value: Chassis Left Drive  Encoder
         Limit Output: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Limit Output, validators: null, value: false}
+          name: Limit Output, validators: null, value: true}
         F: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: F, validators: null,
           value: 0.0}
         Tolerance: !!robotbuilder.data.properties.DoubleProperty {default: 0.2, name: Tolerance,
@@ -201,7 +201,7 @@ Children:
           validators: *id016
           value: Chassis Right Drive Encoder
         Limit Output: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Limit Output, validators: null, value: false}
+          name: Limit Output, validators: null, value: true}
         F: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: F, validators: null,
           value: 0.0}
         Tolerance: !!robotbuilder.data.properties.DoubleProperty {default: 0.2, name: Tolerance,
@@ -631,6 +631,22 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Transmission}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
+  - Name: Sweeper Deploy
+    Base: Command
+    Children: []
+    Properties:
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Sweeper}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+  - Name: Sweeper Retract
+    Base: Command
+    Children: []
+    Properties:
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Sweeper}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
   - Name: Sweeper On
     Base: Command
     Children: []
@@ -663,28 +679,12 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Shooter}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Sweeper Deploy
-    Base: Command
-    Children: []
-    Properties:
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Sweeper}
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Sweeper Retract
-    Base: Command
-    Children: []
-    Properties:
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Sweeper}
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
   Properties: {}
 Properties:
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
   Wiring File: !!robotbuilder.data.properties.FileProperty {default: '', extension: html,
-    folder: false, name: Wiring File, validators: null, value: Robot2014-TBD1.html}
+    folder: false, name: Wiring File, validators: null, value: Robot2014-Atlas.html}
   C++ Windriver Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Windriver\workspace',
     extension: null, folder: true, name: C++ Windriver Workspace, validators: null,
     value: 'C:\usfirst-frc-team-2135\trunk\software\2014'}
@@ -698,6 +698,6 @@ Properties:
     validators: null, value: 2135}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
-  Java Project Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\NetBeansProjects',
+  Java Project Directory: !!robotbuilder.data.properties.FileProperty {default: \\psf\Home\NetBeansProjects,
     extension: null, folder: true, name: Java Project Directory, validators: null,
     value: 'C:\usfirst-frc-team-2135\trunk\software\2014'}
