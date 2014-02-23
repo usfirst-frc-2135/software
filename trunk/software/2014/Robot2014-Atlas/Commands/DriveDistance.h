@@ -22,6 +22,8 @@
  * @author ExampleAuthor
  */
 class DriveDistance: public Command {
+private:
+	Timer* m_pidTimer;
 public:
 	DriveDistance();
 	virtual void Initialize();
