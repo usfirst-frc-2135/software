@@ -36,10 +36,10 @@ void RobotMap::init() {
 	chassisLeftDriveEncoder->SetDistancePerPulse(0.03490658503988659);
         chassisLeftDriveEncoder->SetPIDSourceParameter(Encoder::kDistance);
         chassisLeftDriveEncoder->Start();
-	chassisLeftDrivePID = new PIDController(0.02, 0.0, 0.0,/* F: 0.0, */ chassisLeftDriveEncoder, chassisLeftDriveMotor, 0.02);
+	chassisLeftDrivePID = new PIDController(7.2, 0.0, 0.0,/* F: 0.0, */ chassisLeftDriveEncoder, chassisLeftDriveMotor, 0.02);
 	lw->AddActuator("Chassis", "Left Drive PID", chassisLeftDrivePID);
 	chassisLeftDrivePID->SetContinuous(false); chassisLeftDrivePID->SetAbsoluteTolerance(0.2); 
-        chassisLeftDrivePID->SetOutputRange(-0.6, 0.6);
+        chassisLeftDrivePID->SetOutputRange(-0.7, 0.7);
 	chassisRightDriveMotor = new Talon(1, 2);
 	lw->AddActuator("Chassis", "Right Drive Motor", (Talon*) chassisRightDriveMotor);
 	
@@ -48,23 +48,23 @@ void RobotMap::init() {
 	chassisRightDriveEncoder->SetDistancePerPulse(0.03490658503988659);
         chassisRightDriveEncoder->SetPIDSourceParameter(Encoder::kDistance);
         chassisRightDriveEncoder->Start();
-	chassisRightDrivePID = new PIDController(0.02, 0.0, 0.0,/* F: 0.0, */ chassisRightDriveEncoder, chassisRightDriveMotor, 0.02);
+	chassisRightDrivePID = new PIDController(7.2, 0.0, 0.0,/* F: 0.0, */ chassisRightDriveEncoder, chassisRightDriveMotor, 0.02);
 	lw->AddActuator("Chassis", "Right Drive PID", chassisRightDrivePID);
 	chassisRightDrivePID->SetContinuous(false); chassisRightDrivePID->SetAbsoluteTolerance(0.2); 
-        chassisRightDrivePID->SetOutputRange(-0.6, 0.6);
-	transmissionShifterSolenoid = new DoubleSolenoid(1, 7, 8);      
+        chassisRightDrivePID->SetOutputRange(-0.7, 0.7);
+	transmissionShifterSolenoid = new DoubleSolenoid(1, 1, 2);      
 	
 	
-	sweeperSweeperSolenoid = new DoubleSolenoid(1, 1, 2);      
+	sweeperSweeperSolenoid = new DoubleSolenoid(1, 3, 4);      
 	
 	
 	sweeperSweeperMotor = new Talon(1, 3);
 	lw->AddActuator("Sweeper", "Sweeper Motor", (Talon*) sweeperSweeperMotor);
 	
-	shooterLeftShooterSolenoid = new DoubleSolenoid(1, 3, 4);      
+	shooterLeftShooterSolenoid = new DoubleSolenoid(1, 5, 6);      
 	
 	
-	shooterRightShooterSolenoid = new DoubleSolenoid(1, 5, 6);      
+	shooterRightShooterSolenoid = new DoubleSolenoid(1, 7, 8);      
 	
 	
 	pneumaticsAirCompressor = new Compressor(1, 14, 1, 1);
@@ -76,4 +76,5 @@ void RobotMap::init() {
 	driveTrain = new RobotDrive(chassisLeftDriveMotor, chassisRightDriveMotor);
 	driveTrain->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 	driveTrain->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
+	driveTrain->SetExpiration(100.0);
 }

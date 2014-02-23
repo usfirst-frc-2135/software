@@ -68,12 +68,28 @@ void Chassis::DriveDistanceWithPIDInit(double distance){
 	// enable PID loops
 	RobotMap::chassisLeftDrivePID->Enable();
 	RobotMap::chassisRightDrivePID->Enable();
-	SmartDashboard::PutBoolean("PID State", false );
+	SmartDashboard::PutBoolean("Left PID State", false );
+	SmartDashboard::PutBoolean("Right PID State", false );
 }
 //
 //	Autonomous Drive to a specific distance - called from command execute
 //
 void Chassis::DriveDistanceWithPIDExecute(){
+	if(RobotMap::chassisLeftDrivePID->OnTarget())
+	{
+		SmartDashboard::PutBoolean("Left PID State", true );
+		RobotMap::chassisLeftDrivePID->Disable();
+	}
+	if(RobotMap::chassisRightDrivePID->OnTarget())
+	{
+		SmartDashboard::PutBoolean("Right PID State", true);
+		RobotMap::chassisRightDrivePID->Disable();
+	}
+	
+	if(!RobotMap::chassisLeftDrivePID->IsEnabled()) 
+		RobotMap::chassisLeftDriveMotor->Set(0, 0);
+	if(!RobotMap::chassisRightDrivePID->IsEnabled()) 
+		RobotMap::chassisRightDriveMotor->Set(0, 0);
 }
 //
 //	Autonomous Drive to a specific distance - detect when at setpoint
@@ -81,17 +97,21 @@ void Chassis::DriveDistanceWithPIDExecute(){
 bool Chassis::DriveDistanceWithPIDIsAtSetpoint(){
 	bool bothOnTarget;
 	// are both PIDs on target
-	bothOnTarget = RobotMap::chassisLeftDrivePID->OnTarget() &&
-					RobotMap::chassisRightDrivePID->OnTarget();
-	if (bothOnTarget)
-		SmartDashboard::PutBoolean("PID State", true );
+	bothOnTarget = false;
+	if (!RobotMap::chassisLeftDrivePID->IsEnabled() && 
+			!RobotMap::chassisRightDrivePID->IsEnabled()) {
+		Chassis::DriveDistanceWithPIDStop();
+		bothOnTarget=true;
+	}
+	
 	return bothOnTarget;
 }
 //
 //	Autonomous Drive to a specific distance - stop the PID loop
 //
 void Chassis::DriveDistanceWithPIDStop(){
+	SmartDashboard::PutBoolean("Left PID State", true);
+	SmartDashboard::PutBoolean("Right PID State", true);
 	RobotMap::chassisLeftDrivePID->Disable();
-	RobotMap::chassisRightDrivePID->Disable();
-	
+	RobotMap::chassisRightDrivePID->Disable();	
 }
