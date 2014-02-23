@@ -26,8 +26,8 @@ public:
 	static Encoder* chassisRightDriveEncoder;
 	static PIDController* chassisRightDrivePID;
 	static DoubleSolenoid* transmissionShifterSolenoid;
-	static SpeedController* sweeperSweeperMotor;
 	static DoubleSolenoid* sweeperSweeperSolenoid;
+	static SpeedController* sweeperSweeperMotor;
 	static DoubleSolenoid* shooterLeftShooterSolenoid;
 	static DoubleSolenoid* shooterRightShooterSolenoid;
 	static Compressor* pneumaticsAirCompressor;
