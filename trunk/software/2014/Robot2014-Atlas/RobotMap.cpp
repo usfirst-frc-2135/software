@@ -17,8 +17,8 @@ SpeedController* RobotMap::chassisRightDriveMotor = NULL;
 Encoder* RobotMap::chassisRightDriveEncoder = NULL;
 PIDController* RobotMap::chassisRightDrivePID = NULL;
 DoubleSolenoid* RobotMap::transmissionShifterSolenoid = NULL;
-SpeedController* RobotMap::sweeperSweeperMotor = NULL;
 DoubleSolenoid* RobotMap::sweeperSweeperSolenoid = NULL;
+SpeedController* RobotMap::sweeperSweeperMotor = NULL;
 DoubleSolenoid* RobotMap::shooterLeftShooterSolenoid = NULL;
 DoubleSolenoid* RobotMap::shooterRightShooterSolenoid = NULL;
 Compressor* RobotMap::pneumaticsAirCompressor = NULL;
@@ -55,11 +55,11 @@ void RobotMap::init() {
 	transmissionShifterSolenoid = new DoubleSolenoid(1, 7, 8);      
 	
 	
-	sweeperSweeperMotor = new Talon(1, 3);
-	lw->AddActuator("Sweeper", "Sweeper Motor", (Talon*) sweeperSweeperMotor);
-	
 	sweeperSweeperSolenoid = new DoubleSolenoid(1, 1, 2);      
 	
+	
+	sweeperSweeperMotor = new Talon(1, 3);
+	lw->AddActuator("Sweeper", "Sweeper Motor", (Talon*) sweeperSweeperMotor);
 	
 	shooterLeftShooterSolenoid = new DoubleSolenoid(1, 3, 4);      
 	
