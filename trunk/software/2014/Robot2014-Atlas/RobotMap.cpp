@@ -38,7 +38,7 @@ void RobotMap::init() {
         chassisLeftDriveEncoder->Start();
 	chassisLeftDrivePID = new PIDController(7.2, 0.0, 0.0,/* F: 0.0, */ chassisLeftDriveEncoder, chassisLeftDriveMotor, 0.02);
 	lw->AddActuator("Chassis", "Left Drive PID", chassisLeftDrivePID);
-	chassisLeftDrivePID->SetContinuous(false); chassisLeftDrivePID->SetAbsoluteTolerance(0.2); 
+	chassisLeftDrivePID->SetContinuous(false); chassisLeftDrivePID->SetAbsoluteTolerance(0.5); 
         chassisLeftDrivePID->SetOutputRange(-0.7, 0.7);
 	chassisRightDriveMotor = new Talon(1, 2);
 	lw->AddActuator("Chassis", "Right Drive Motor", (Talon*) chassisRightDriveMotor);
@@ -50,7 +50,7 @@ void RobotMap::init() {
         chassisRightDriveEncoder->Start();
 	chassisRightDrivePID = new PIDController(7.2, 0.0, 0.0,/* F: 0.0, */ chassisRightDriveEncoder, chassisRightDriveMotor, 0.02);
 	lw->AddActuator("Chassis", "Right Drive PID", chassisRightDrivePID);
-	chassisRightDrivePID->SetContinuous(false); chassisRightDrivePID->SetAbsoluteTolerance(0.2); 
+	chassisRightDrivePID->SetContinuous(false); chassisRightDrivePID->SetAbsoluteTolerance(0.5); 
         chassisRightDrivePID->SetOutputRange(-0.7, 0.7);
 	transmissionShifterSolenoid = new DoubleSolenoid(1, 1, 2);      
 	
