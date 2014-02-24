@@ -97,7 +97,7 @@ Children:
         F: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: F, validators: null,
           value: 0.0}
         Tolerance: !!robotbuilder.data.properties.DoubleProperty {default: 0.2, name: Tolerance,
-          validators: null, value: 0.2}
+          validators: null, value: 0.5}
         Continuous: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Continuous, validators: null, value: false}
         Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1,
@@ -205,7 +205,7 @@ Children:
         F: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: F, validators: null,
           value: 0.0}
         Tolerance: !!robotbuilder.data.properties.DoubleProperty {default: 0.2, name: Tolerance,
-          validators: null, value: 0.2}
+          validators: null, value: 0.5}
         Continuous: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Continuous, validators: null, value: false}
         Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1,
@@ -876,7 +876,7 @@ Properties:
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
   Wiring File: !!robotbuilder.data.properties.FileProperty {default: '', extension: html,
-    folder: false, name: Wiring File, validators: null, value: Robot2014-Atlas.html}
+    folder: false, name: Wiring File, validators: null, value: 'C:\usfirst-frc-team-2135\trunk\software\2014\Robot2014-Atlas.html'}
   C++ Windriver Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Windriver\workspace',
     extension: null, folder: true, name: C++ Windriver Workspace, validators: null,
     value: 'C:\usfirst-frc-team-2135\trunk\software\2014'}
