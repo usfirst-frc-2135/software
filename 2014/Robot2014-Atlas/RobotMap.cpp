@@ -76,5 +76,5 @@ void RobotMap::init() {
 	driveTrain = new RobotDrive(chassisLeftDriveMotor, chassisRightDriveMotor);
 	driveTrain->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 	driveTrain->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
-	driveTrain->SetExpiration(100.0);
+	driveTrain->SetExpiration(250.0);
 }
