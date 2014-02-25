@@ -324,7 +324,7 @@ Children:
   - Name: Shooter
     Base: Subsystem
     Children:
-    - Name: Left Shooter Solenoid
+    - Name: Shooter Release Solenoid
       Base: Double Solenoid
       Children: []
       Properties:
@@ -352,37 +352,31 @@ Children:
           name: Reverse Channel (Solenoid)
           validators: *id025
           value: '6'
-    - Name: Right Shooter Solenoid
-      Base: Double Solenoid
+    - Name: Shooter Retract Motor
+      Base: Speed Controller
       Children: []
       Properties:
-        Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id018
+        Output Module (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
           default: '1'
-          name: Forward Channel (Solenoid)
-          validators: *id019
-          value: '7'
-        Forward Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id020
-          default: '1'
-          name: Forward Module (Solenoid)
-          validators: *id021
+          name: Output Module (Digital)
+          validators: *id002
           value: '1'
-        Reverse Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id022
+        Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id003
+          default: Victor
+          name: Type
+          validators: null
+          value: Talon
+        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id004
           default: '1'
-          name: Reverse Module (Solenoid)
-          validators: *id023
-          value: '1'
-        Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id024
-          default: '1'
-          name: Reverse Channel (Solenoid)
-          validators: *id025
-          value: '8'
+          name: Output Channel (PWM)
+          validators: *id005
+          value: '4'
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Shooter Off}
+        name: Default Command, type: Command, validators: null, value: None}
   - Name: Pneumatics
     Base: Subsystem
     Children:
@@ -425,7 +419,7 @@ Children:
   - Name: Driver Joystick
     Base: Joystick
     Children:
-    - Name: Shifter button
+    - Name: Shifter
       Base: Joystick Button
       Children: []
       Properties:
@@ -450,7 +444,7 @@ Children:
           name: When to Run
           validators: null
           value: whileHeld
-    - Name: Driver Sweeper On Button
+    - Name: Driver Sweeper Acquire
       Base: Joystick Button
       Children: []
       Properties:
@@ -459,7 +453,7 @@ Children:
           name: Command
           type: Command
           validators: *id026
-          value: Sweeper On
+          value: Sweeper Acquire
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id027
           default: '1'
@@ -474,7 +468,7 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
-    - Name: Driver Sweeper Off Button
+    - Name: Driver Sweeper Reject
       Base: Joystick Button
       Children: []
       Properties:
@@ -483,7 +477,7 @@ Children:
           name: Command
           type: Command
           validators: *id026
-          value: Sweeper Off
+          value: Sweeper Reject
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id027
           default: '1'
@@ -498,7 +492,7 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
-    - Name: Driver Sweeper Deploy Button
+    - Name: Driver Sweeper Deploy
       Base: Joystick Button
       Children: []
       Properties:
@@ -522,7 +516,7 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
-    - Name: Driver Sweeper Retract Button
+    - Name: Driver Sweeper Retract
       Base: Joystick Button
       Children: []
       Properties:
@@ -546,7 +540,7 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
-    - Name: Driver Shooter On Button
+    - Name: Driver Shooter Release
       Base: Joystick Button
       Children: []
       Properties:
@@ -555,13 +549,13 @@ Children:
           name: Command
           type: Command
           validators: *id026
-          value: Shooter On
+          value: Shooter Energize
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id027
           default: '1'
           name: Button
           validators: null
-          value: '6'
+          value: '7'
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
           name: Joystick, validators: null, value: Driver Joystick}
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
@@ -570,7 +564,7 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
-    - Name: Driver Shooter Off button
+    - Name: Driver Shooter Retract
       Base: Joystick Button
       Children: []
       Properties:
@@ -579,13 +573,13 @@ Children:
           name: Command
           type: Command
           validators: *id026
-          value: Shooter Off
+          value: Shooter Fire
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id027
           default: '1'
           name: Button
           validators: null
-          value: '7'
+          value: '6'
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
           name: Joystick, validators: null, value: Driver Joystick}
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
@@ -604,7 +598,7 @@ Children:
   - Name: Operator Joystick
     Base: Joystick
     Children:
-    - Name: Sweeper On Button
+    - Name: Oper Sweeper Acquire
       Base: Joystick Button
       Children: []
       Properties:
@@ -613,7 +607,7 @@ Children:
           name: Command
           type: Command
           validators: *id026
-          value: Sweeper On
+          value: Sweeper Acquire
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id027
           default: '1'
@@ -628,7 +622,7 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
-    - Name: Sweeper Off Button
+    - Name: Oper Sweeper Reject
       Base: Joystick Button
       Children: []
       Properties:
@@ -637,7 +631,7 @@ Children:
           name: Command
           type: Command
           validators: *id026
-          value: Sweeper Off
+          value: Sweeper Reject
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id027
           default: '1'
@@ -652,7 +646,7 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
-    - Name: Sweeper Deploy Button
+    - Name: Oper Sweeper Deploy
       Base: Joystick Button
       Children: []
       Properties:
@@ -676,7 +670,7 @@ Children:
           name: When to Run
           validators: null
           value: whileHeld
-    - Name: Sweeper Retract Button
+    - Name: Oper Sweeper Retract
       Base: Joystick Button
       Children: []
       Properties:
@@ -700,7 +694,7 @@ Children:
           name: When to Run
           validators: null
           value: whileHeld
-    - Name: Shooter On Button
+    - Name: Oper Shooter Release
       Base: Joystick Button
       Children: []
       Properties:
@@ -709,13 +703,13 @@ Children:
           name: Command
           type: Command
           validators: *id026
-          value: Shooter On
+          value: Shooter Fire
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id027
           default: '1'
           name: Button
           validators: null
-          value: '6'
+          value: '7'
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
           name: Joystick, validators: null, value: Operator Joystick}
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
@@ -724,7 +718,7 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
-    - Name: Shooter Off Button
+    - Name: Oper Shooter Retract
       Base: Joystick Button
       Children: []
       Properties:
@@ -733,13 +727,13 @@ Children:
           name: Command
           type: Command
           validators: *id026
-          value: Shooter Off
+          value: Shooter Energize
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id027
           default: '1'
           name: Button
           validators: null
-          value: '7'
+          value: '6'
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
           name: Joystick, validators: null, value: Operator Joystick}
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
@@ -839,7 +833,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Sweeper}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Sweeper On
+  - Name: Sweeper Acquire
     Base: Command
     Children: []
     Properties:
@@ -847,7 +841,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Sweeper}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Sweeper Off
+  - Name: Sweeper Reject
     Base: Command
     Children: []
     Properties:
@@ -855,7 +849,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Sweeper}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Shooter On
+  - Name: Shooter Energize
     Base: Command
     Children: []
     Properties:
@@ -863,7 +857,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Shooter}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Shooter Off
+  - Name: Shooter Fire
     Base: Command
     Children: []
     Properties:
