@@ -34,7 +34,8 @@ bool DriveDistance::IsFinished() {
 	if ((m_pidTimer->HasPeriodPassed(4.0)) || 
 		(Robot::chassis->DriveDistanceWithPIDIsAtSetpoint())) {
 		Robot::chassis->DriveDistanceWithPIDStop();
-		printf("2135: PID timed out %f\n", m_pidTimer->Get());
+		if(m_pidTimer->HasPeriodPassed(4.0)) printf("2135: PID Timed Out");
+		else printf("2135: PID completed in %f seconds\n", m_pidTimer->Get());
 		return true;
 	}
 	else
