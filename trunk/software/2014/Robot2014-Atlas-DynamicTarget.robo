@@ -64,17 +64,6 @@
   <order_array_on_y>FALSE</order_array_on_y>
   <thickness>1</thickness>
 </Blob_Replace>
-<NetworkTables>
-  <delay>100</delay>
-  <filter_type_index>0</filter_type_index>
-  <hostname>10.21.35.2</hostname>
-  <port>1735</port>
-  <prefix>/SmartDashboard/</prefix>
-  <variables_to_send>BLOB_COUNT
-IMAGE_PROCESSED
-SHAPE_CONFIDENCE</variables_to_send>
-  <variable_type_index>0</variable_type_index>
-</NetworkTables>
 <Blob_Filter>
   <create_blob_array_variable>FALSE</create_blob_array_variable>
   <filters>
@@ -100,3 +89,15 @@ SHAPE_CONFIDENCE</variables_to_send>
   <sort_array_on_x>FALSE</sort_array_on_x>
   <sort_array_on_y>FALSE</sort_array_on_y>
 </Blob_Filter>
+<Blob_Count/>
+<NetworkTables>
+  <delay>100</delay>
+  <filter_type_index>0</filter_type_index>
+  <hostname>10.21.35.2</hostname>
+  <port>1735</port>
+  <prefix>/SmartDashboard/</prefix>
+  <variables_to_send>BLOB_COUNT
+IMAGE_PROCESSED
+SHAPE_CONFIDENCE</variables_to_send>
+  <variable_type_index>0</variable_type_index>
+</NetworkTables>
