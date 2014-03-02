@@ -28,7 +28,10 @@ public:
 	Sweeper();
 	void InitDefaultCommand();
 	void DriveSweeperMotorInit(double speed);
-	void SetSweeperOn();
-	void SetSweeperOff();
+	void Sweeper::DeploySweeper();
+	void Sweeper::RetractSweeper();
+	void Sweeper::SweeperAquire();
+	void Sweeper::SweeperReject();
+	void Sweeper::SweeperOff();
 };
 #endif

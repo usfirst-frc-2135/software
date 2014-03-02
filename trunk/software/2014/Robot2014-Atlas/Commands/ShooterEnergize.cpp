@@ -21,7 +21,7 @@ void ShooterEnergize::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void ShooterEnergize::Execute() {
-	Robot::shooter->SetShooterOn();
+	Robot::shooter->ShooterRetract();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterEnergize::IsFinished() {
