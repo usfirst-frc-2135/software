@@ -33,6 +33,8 @@ public:
 	Chassis();
 	void InitDefaultCommand();
 	void DriveWithJoystick( Joystick* driverJoystick );
+	void Chassis::DriveUsingLeftRightMotorOutputs(double left, double right);
+	void Chassis::ReverseDriveTrain();
 	void DriveDistanceWithPIDInit(double distance);
 	void DriveDistanceWithPIDExecute();
 	bool DriveDistanceWithPIDIsAtSetpoint();

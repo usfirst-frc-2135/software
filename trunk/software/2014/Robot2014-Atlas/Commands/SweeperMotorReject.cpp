@@ -20,7 +20,7 @@ void SweeperMotorReject::Initialize() {
 	double speed;
 	printf( "2135: Sweeper Motor Reject\n");
 	speed = SmartDashboard::GetNumber("Sweeper Speed");
-	Robot::sweeper->sweeperMotor->Set(speed);
+	Robot::sweeper->wheelMotor->Set(speed);
 }
 // Called repeatedly when this Command is scheduled to run
 void SweeperMotorReject::Execute() {
