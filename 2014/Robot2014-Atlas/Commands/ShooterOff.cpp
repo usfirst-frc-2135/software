@@ -17,11 +17,11 @@ ShooterOff::ShooterOff() {
 }
 // Called just before this Command runs the first time
 void ShooterOff::Initialize() {
-	
+	printf( "2135: Shooter Off\n");
 }
 // Called repeatedly when this Command is scheduled to run
 void ShooterOff::Execute() {
-	shooter->Set(shooterRetractMotor);
+	Robot::shooter->ShooterOff();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterOff::IsFinished() {
