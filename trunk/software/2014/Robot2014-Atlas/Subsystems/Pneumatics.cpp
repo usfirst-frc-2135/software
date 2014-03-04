@@ -26,11 +26,17 @@ void Pneumatics::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+//
 // Enable compressor
-void Pneumatics:: StartCompressor() {
+//
+void Pneumatics:: StartCompressor( void ) 
+{
 	compressor->Start();
 }
+//
 // Disable the compressor
-void Pneumatics:: StopCompressor()	{
+//
+void Pneumatics:: StopCompressor( void )
+{
 	compressor->Stop();
 }

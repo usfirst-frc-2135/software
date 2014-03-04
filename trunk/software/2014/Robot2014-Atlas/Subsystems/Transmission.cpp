@@ -27,13 +27,18 @@ void Transmission::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 //
-//Enable the high gear piston
-void Transmission::ShifterHigh(){
+//
+//	Enable the high gear solenoid
+//
+void Transmission::ShifterHigh( void )
+{
 	shifterSolenoid->Set( shifterSolenoid->kForward );
 	
 }
 //
-// Disable the high gear piston
-void Transmission::ShifterLow(){
+//	Disable the high gear solenoid
+//
+void Transmission::ShifterLow( void )
+{
 	shifterSolenoid->Set( shifterSolenoid->kReverse );
 }

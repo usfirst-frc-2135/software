@@ -21,7 +21,7 @@ void SweeperArmDeploy::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void SweeperArmDeploy::Execute() {
-	Robot::sweeper->DeploySweeper();
+	Robot::sweeper->SweeperDeploy();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool SweeperArmDeploy::IsFinished() {

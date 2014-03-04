@@ -35,36 +35,43 @@ void Chassis::InitDefaultCommand() {
 //
 //	Normal Teleop Drive using Joysticks in Arcade mode
 //
-void Chassis::DriveWithJoystick(Joystick *driverJoystick){
+void Chassis::DriveWithJoystick( Joystick *driverJoystick )
+{
 	driveTrain->ArcadeDrive( driverJoystick, true );
 }
-//Controlled drive used during autonomous or drive commands
-void Chassis::DriveUsingLeftRightMotorOutputs(double left, double right){
+//
+//	Controlled drive used during spin turns
+//
+void Chassis::DriveUsingLeftRightMotorOutputs( double left, double right )
+{
 	// printf ( "2135: SetLeftRightMotorOutputs left - %6.3f, right - %6.3f\n", left, right);
 	driveTrain->SetLeftRightMotorOutputs( left, right );
-//	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line1, "Drive %5.2f %5.2f", 
-//			left, right );
 }
-void Chassis::ReverseDriveTrain() {
-	driveTrain->SetInvertedMotor(RobotDrive::kRearLeftMotor, false);
-	driveTrain->SetInvertedMotor(RobotDrive::kRearRightMotor, false);
+//
+//	Reverse drive train for driving backwards
+//
+void Chassis::ReverseDriveTrain( void ) 
+{
+	driveTrain->SetInvertedMotor(driveTrain->kRearLeftMotor, false);
+	driveTrain->SetInvertedMotor(driveTrain->kRearRightMotor, false);
 }
 //
 //	Autonomous Drive to a specific distance - PID initialization
 //
-void Chassis::DriveDistanceWithPIDInit(double distance){
+void Chassis::DriveDistanceWithPIDInit( double distance ) 
+{
 	double leftDistance;
 	double rightDistance;
-	RobotMap::chassisLeftDrivePID->SetPID(SmartDashboard::GetNumber("L: P"),SmartDashboard::GetNumber("L: I"),
+	leftDrivePID->SetPID(SmartDashboard::GetNumber("L: P"),SmartDashboard::GetNumber("L: I"),
 					SmartDashboard::GetNumber("L: D"));
-	RobotMap::chassisLeftDrivePID->SetOutputRange(-0.6,0.6);
-	RobotMap::chassisLeftDrivePID->SetAbsoluteTolerance(0.2);
-	RobotMap::chassisLeftDriveEncoder->SetDistancePerPulse(4 * M_PI / 360);
-	RobotMap::chassisRightDrivePID->SetPID(SmartDashboard::GetNumber("R: P"),SmartDashboard::GetNumber("R: I"),
+	leftDrivePID->SetOutputRange(-0.6,0.6);
+	leftDrivePID->SetAbsoluteTolerance(0.2);
+	leftDriveEncoder->SetDistancePerPulse(4 * M_PI / 360);
+	rightDrivePID->SetPID(SmartDashboard::GetNumber("R: P"),SmartDashboard::GetNumber("R: I"),
 					SmartDashboard::GetNumber("R: D"));
-	RobotMap::chassisLeftDrivePID->SetOutputRange(-0.6,0.6);
-	RobotMap::chassisLeftDrivePID->SetAbsoluteTolerance(0.2);
-	RobotMap::chassisRightDriveEncoder->SetDistancePerPulse(4 * M_PI / 360);
+	rightDrivePID->SetOutputRange(-0.6,0.6);
+	rightDrivePID->SetAbsoluteTolerance(0.2);
+	rightDriveEncoder->SetDistancePerPulse(4 * M_PI / 360);
 	// get current encoder values
 	leftDistance = leftDriveEncoder->GetDistance();
 	rightDistance = rightDriveEncoder->GetDistance();
@@ -74,43 +81,42 @@ void Chassis::DriveDistanceWithPIDInit(double distance){
 	SmartDashboard::PutNumber( "Left Setpoint", leftDistance );
 	SmartDashboard::PutNumber( "Right Setpoint", -rightDistance );
 	// set SetPoint with calculated target distance
-	RobotMap::chassisLeftDrivePID->SetSetpoint( leftDistance );
-	RobotMap::chassisRightDrivePID->SetSetpoint( rightDistance );
+	leftDrivePID->SetSetpoint( leftDistance );
+	rightDrivePID->SetSetpoint( rightDistance );
 	// enable PID loops
-	RobotMap::chassisLeftDrivePID->Enable();
-	RobotMap::chassisRightDrivePID->Enable();
+	leftDrivePID->Enable();
+	rightDrivePID->Enable();
 	SmartDashboard::PutBoolean("Left PID State", false );
 	SmartDashboard::PutBoolean("Right PID State", false );
 }
 //
 //	Autonomous Drive to a specific distance - called from command execute
 //
-void Chassis::DriveDistanceWithPIDExecute(){
-	if(RobotMap::chassisLeftDrivePID->OnTarget())
-	{
+void Chassis::DriveDistanceWithPIDExecute( void ) 
+{
+	if (leftDrivePID->OnTarget()) {
 		SmartDashboard::PutBoolean("Left PID State", true );
-		RobotMap::chassisLeftDrivePID->Disable();
+		leftDrivePID->Disable();
 	}
-	if(RobotMap::chassisRightDrivePID->OnTarget())
-	{
+	if (rightDrivePID->OnTarget()) {
 		SmartDashboard::PutBoolean("Right PID State", true);
 		RobotMap::chassisRightDrivePID->Disable();
 	}
 	
-	if(!RobotMap::chassisLeftDrivePID->IsEnabled()) 
-		RobotMap::chassisLeftDriveMotor->Set(0, 0);
-	if(!RobotMap::chassisRightDrivePID->IsEnabled()) 
-		RobotMap::chassisRightDriveMotor->Set(0, 0);
+	if (!leftDrivePID->IsEnabled()) 
+		leftDriveMotor->Set(0, 0);
+	if (!rightDrivePID->IsEnabled()) 
+		rightDriveMotor->Set(0, 0);
 }
 //
 //	Autonomous Drive to a specific distance - detect when at setpoint
 //
-bool Chassis::DriveDistanceWithPIDIsAtSetpoint(){
+bool Chassis::DriveDistanceWithPIDIsAtSetpoint( void )
+{
 	bool bothOnTarget;
 	// are both PIDs on target
 	bothOnTarget = false;
-	if (!RobotMap::chassisLeftDrivePID->IsEnabled() && 
-			!RobotMap::chassisRightDrivePID->IsEnabled()) {
+	if (!leftDrivePID->IsEnabled() && !rightDrivePID->IsEnabled()) {
 		Chassis::DriveDistanceWithPIDStop();
 		bothOnTarget=true;
 	}
@@ -120,9 +126,10 @@ bool Chassis::DriveDistanceWithPIDIsAtSetpoint(){
 //
 //	Autonomous Drive to a specific distance - stop the PID loop
 //
-void Chassis::DriveDistanceWithPIDStop(){
+void Chassis::DriveDistanceWithPIDStop( void )
+{
 	SmartDashboard::PutBoolean("Left PID State", true);
 	SmartDashboard::PutBoolean("Right PID State", true);
-	RobotMap::chassisLeftDrivePID->Disable();
-	RobotMap::chassisRightDrivePID->Disable();	
+	leftDrivePID->Disable();
+	rightDrivePID->Disable();	
 }
