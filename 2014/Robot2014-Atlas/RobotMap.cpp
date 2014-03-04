@@ -19,11 +19,11 @@ PIDController* RobotMap::chassisRightDrivePID = NULL;
 DoubleSolenoid* RobotMap::transmissionShifterSolenoid = NULL;
 DoubleSolenoid* RobotMap::sweeperExtendSolenoid = NULL;
 SpeedController* RobotMap::sweeperWheelMotor = NULL;
-DoubleSolenoid* RobotMap::shooterReleaseSolenoid = NULL;
 SpeedController* RobotMap::shooterRetractMotor = NULL;
 DigitalInput* RobotMap::shooterRetractLimit1 = NULL;
 DigitalInput* RobotMap::shooterRetractLimit2 = NULL;
 Encoder* RobotMap::shooterRetractEncoder = NULL;
+DoubleSolenoid* RobotMap::shooterReleaseSolenoid = NULL;
 DoubleSolenoid* RobotMap::ballGateCloseSolenoid = NULL;
 DigitalInput* RobotMap::ballGateBallDetectLimit = NULL;
 Compressor* RobotMap::pneumaticsCompressor = NULL;
@@ -66,9 +66,6 @@ void RobotMap::init() {
 	sweeperWheelMotor = new Talon(1, 3);
 	lw->AddActuator("Sweeper", "Wheel Motor", (Talon*) sweeperWheelMotor);
 	
-	shooterReleaseSolenoid = new DoubleSolenoid(1, 5, 6);      
-	
-	
 	shooterRetractMotor = new Talon(1, 4);
 	lw->AddActuator("Shooter", "Retract Motor", (Talon*) shooterRetractMotor);
 	
@@ -83,6 +80,9 @@ void RobotMap::init() {
 	shooterRetractEncoder->SetDistancePerPulse(1.0);
         shooterRetractEncoder->SetPIDSourceParameter(Encoder::kRate);
         shooterRetractEncoder->Start();
+	shooterReleaseSolenoid = new DoubleSolenoid(1, 5, 6);      
+	
+	
 	ballGateCloseSolenoid = new DoubleSolenoid(1, 7, 8);      
 	
 	
