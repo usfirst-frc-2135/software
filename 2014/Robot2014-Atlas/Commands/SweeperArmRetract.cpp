@@ -21,7 +21,7 @@ void SweeperArmRetract::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void SweeperArmRetract::Execute() {
-	Robot::sweeper->RetractSweeper();
+	Robot::sweeper->SweeperRetract();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool SweeperArmRetract::IsFinished() {

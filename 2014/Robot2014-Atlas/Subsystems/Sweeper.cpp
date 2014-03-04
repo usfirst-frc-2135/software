@@ -27,27 +27,44 @@ void Sweeper::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-void Sweeper::DriveSweeperMotorInit(double speed){
-	RobotMap::sweeperWheelMotor->Set(0.0);
-}
-void Sweeper::DeploySweeper() {
+//
+//	Sweeper deploy solenoid
+//
+void Sweeper::SweeperDeploy( void ) 
+{
 	extendSolenoid->Set( extendSolenoid->kForward );
 }
-void Sweeper::RetractSweeper() {
+//
+//	Sweeper retract solenoid
+//
+void Sweeper::SweeperRetract( void ) 
+{
 	extendSolenoid->Set( extendSolenoid->kReverse );
 }
-void Sweeper::SweeperAquire() {
+//
+//	Sweeper motor stop
+//
+void Sweeper::SweeperOff( void ) 
+{
+	wheelMotor->Set( 0.0 );
+}
+//
+//	Sweeper motor acquire
+//
+void Sweeper::SweeperAquire( void ) 
+{
 	double speed;
 	speed = SmartDashboard::GetNumber( "Sweeper Speed" );
 	printf ( "Sweeper Speed: %f\n", speed );
 	wheelMotor->Set( -speed );
 }
-void Sweeper::SweeperReject() {
+//
+//	Sweeper motor reject
+//
+void Sweeper::SweeperReject( void ) 
+{
 	double speed;
 	speed = SmartDashboard::GetNumber("Sweeper Speed");
 	printf ( "Sweeper Speed: %f\n", speed );
 	wheelMotor->Set( speed );
-}
-void Sweeper::SweeperOff() {
-	wheelMotor->Set( 0.0 );
 }
