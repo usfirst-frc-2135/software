@@ -28,11 +28,11 @@ public:
 	static DoubleSolenoid* transmissionShifterSolenoid;
 	static DoubleSolenoid* sweeperExtendSolenoid;
 	static SpeedController* sweeperWheelMotor;
-	static DoubleSolenoid* shooterReleaseSolenoid;
 	static SpeedController* shooterRetractMotor;
 	static DigitalInput* shooterRetractLimit1;
 	static DigitalInput* shooterRetractLimit2;
 	static Encoder* shooterRetractEncoder;
+	static DoubleSolenoid* shooterReleaseSolenoid;
 	static DoubleSolenoid* ballGateCloseSolenoid;
 	static DigitalInput* ballGateBallDetectLimit;
 	static Compressor* pneumaticsCompressor;
