@@ -64,6 +64,7 @@ void Robot::RobotInit() {
 	SmartDashboard::PutNumber("Left Setpoint", 0.0);
 	SmartDashboard::PutNumber("Right Setpoint", 0.0);
 	SmartDashboard::PutNumber("Sweeper Speed", 1.0);
+	SmartDashboard::PutNumber("Shooter Speed",0.0);
 }
 	
 void Robot::AutonomousInit() {

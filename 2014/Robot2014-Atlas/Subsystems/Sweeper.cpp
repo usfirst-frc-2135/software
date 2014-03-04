@@ -38,12 +38,14 @@ void Sweeper::RetractSweeper() {
 }
 void Sweeper::SweeperAquire() {
 	double speed;
-	speed = SmartDashboard::GetNumber("Sweeper Speed");
+	speed = SmartDashboard::GetNumber( "Sweeper Speed" );
+	printf ( "Sweeper Speed: %f\n", speed );
 	wheelMotor->Set( -speed );
 }
 void Sweeper::SweeperReject() {
 	double speed;
 	speed = SmartDashboard::GetNumber("Sweeper Speed");
+	printf ( "Sweeper Speed: %f\n", speed );
 	wheelMotor->Set( speed );
 }
 void Sweeper::SweeperOff() {

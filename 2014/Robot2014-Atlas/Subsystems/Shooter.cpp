@@ -30,10 +30,17 @@ void Shooter::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void Shooter::ShooterEnergize() {
-	retractMotor->Set( 1.0 );
+	double speed;
+	speed = SmartDashboard::GetNumber("Shooter Speed");
+	//printf ( "Shooter Speed: %f\n", speed );
+	retractMotor->Set( speed );
+//retractMotor->Set( 1.0 );
 }
 void Shooter::ShooterExtend() {
-	retractMotor->Set( -1.0 );
+	double speed;
+	speed = SmartDashboard::GetNumber("Shooter Speed");
+	printf ( "Shooter Speed: %f\n", speed );
+	retractMotor->Set( -speed );
 }
 void Shooter::ShooterOff() {
 	retractMotor->Set( 0.0 );
