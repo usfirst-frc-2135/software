@@ -17,13 +17,11 @@ SweeperMotorReject::SweeperMotorReject() {
 }
 // Called just before this Command runs the first time
 void SweeperMotorReject::Initialize() {
-	double speed;
 	printf( "2135: Sweeper Motor Reject\n");
-	speed = SmartDashboard::GetNumber("Sweeper Speed");
-	Robot::sweeper->wheelMotor->Set(speed);
 }
 // Called repeatedly when this Command is scheduled to run
 void SweeperMotorReject::Execute() {
+	Robot::sweeper->SweeperReject();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool SweeperMotorReject::IsFinished() {

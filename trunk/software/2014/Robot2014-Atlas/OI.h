@@ -26,7 +26,7 @@ private:
 	JoystickButton* driverSweeperRetract;
 	JoystickButton* driverSweeperDeploy;
 	JoystickButton* driverSweeperReject;
-	JoystickButton* driverSweeperAcquire;
+	JoystickButton* driverSweeperAquire;
 	JoystickButton* driverSpinTurnSlowLeft;
 	JoystickButton* driverSpinTurnLeft;
 	JoystickButton* driverSpinTurnSlowRight;

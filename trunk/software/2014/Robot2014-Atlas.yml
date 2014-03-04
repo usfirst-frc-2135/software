@@ -691,7 +691,7 @@ Children:
           name: When to Run
           validators: null
           value: whileHeld
-    - Name: Driver Sweeper Acquire
+    - Name: Driver Sweeper Aquire
       Base: Joystick Button
       Children: []
       Properties:
@@ -700,7 +700,7 @@ Children:
           name: Command
           type: Command
           validators: *id030
-          value: Sweeper Motor Acquire
+          value: Sweeper Motor Aquire
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id031
           default: '1'
@@ -854,7 +854,7 @@ Children:
           name: Command
           type: Command
           validators: *id030
-          value: Sweeper Motor Acquire
+          value: Sweeper Motor Aquire
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id031
           default: '1'
@@ -1120,7 +1120,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Sweeper}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Sweeper Motor Acquire
+  - Name: Sweeper Motor Aquire
     Base: Command
     Children: []
     Properties:
