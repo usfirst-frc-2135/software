@@ -19,9 +19,10 @@ DriveDistance::DriveDistance() {
 // Called just before this Command runs the first time
 void DriveDistance::Initialize() {
 	double distance;
-	printf( "2135: Drive Distance\n");
+	printf( "2135: Drive Distance\n" );
 	distance = SmartDashboard::GetNumber("Target Setpoint");
 	Robot::chassis->DriveDistanceWithPIDInit(distance);
+	// Reset the PID safety timer to zero and start it
 	m_pidTimer->Reset();
 	m_pidTimer->Start();
 }
@@ -31,11 +32,13 @@ void DriveDistance::Execute() {
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistance::IsFinished() {
-	if ((m_pidTimer->HasPeriodPassed(4.0)) || 
-		(Robot::chassis->DriveDistanceWithPIDIsAtSetpoint())) {
+	if ( ( m_pidTimer->HasPeriodPassed(m_pidMaxTime) ) || 
+		( Robot::chassis->DriveDistanceWithPIDIsAtSetpoint() ) ) {
 		Robot::chassis->DriveDistanceWithPIDStop();
-		if(m_pidTimer->HasPeriodPassed(4.0)) printf("2135: PID Timed Out");
-		else printf("2135: PID completed in %f seconds\n", m_pidTimer->Get());
+		if ( m_pidTimer->HasPeriodPassed(m_pidMaxTime) ) 
+			printf( "2135: PID Timed Out\n" );
+		else 
+			printf( "2135: PID completed in %f seconds\n", m_pidTimer->Get() );
 		return true;
 	}
 	else

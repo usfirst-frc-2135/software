@@ -571,7 +571,7 @@ Children:
           name: When to Run
           validators: null
           value: whileHeld
-    - Name: Driver Invert DriveTrain
+    - Name: Driver Drivetrain Invert
       Base: Joystick Button
       Children: []
       Properties:
@@ -580,7 +580,7 @@ Children:
           name: Command
           type: Command
           validators: *id030
-          value: Invert DriveTrain
+          value: Drive Train Invert
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id031
           default: '1'
@@ -595,7 +595,7 @@ Children:
           name: When to Run
           validators: null
           value: whileHeld
-    - Name: Driver SpinTurn Right
+    - Name: Driver Drive Spin Right
       Base: Joystick Button
       Children: []
       Properties:
@@ -604,7 +604,7 @@ Children:
           name: Command
           type: Command
           validators: *id030
-          value: SpinTurn Right
+          value: Drive Spin Right
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id031
           default: '1'
@@ -619,7 +619,7 @@ Children:
           name: When to Run
           validators: null
           value: whileHeld
-    - Name: Driver SpinTurn Slow Right
+    - Name: Driver Drive Spin Right Slow
       Base: Joystick Button
       Children: []
       Properties:
@@ -628,7 +628,7 @@ Children:
           name: Command
           type: Command
           validators: *id030
-          value: SpinTurn Slow Right
+          value: Drive Spin Right Slow
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id031
           default: '1'
@@ -643,7 +643,7 @@ Children:
           name: When to Run
           validators: null
           value: whileHeld
-    - Name: Driver SpinTurn Left
+    - Name: Driver Drive Spin  Left
       Base: Joystick Button
       Children: []
       Properties:
@@ -652,7 +652,7 @@ Children:
           name: Command
           type: Command
           validators: *id030
-          value: SpinTurn Left
+          value: Drive Spin Left
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id031
           default: '1'
@@ -667,7 +667,7 @@ Children:
           name: When to Run
           validators: null
           value: whileHeld
-    - Name: Driver SpinTurn Slow Left
+    - Name: Driver Drive Spin Left Slow
       Base: Joystick Button
       Children: []
       Properties:
@@ -676,7 +676,7 @@ Children:
           name: Command
           type: Command
           validators: *id030
-          value: SpinTurn Slow Left
+          value: Drive Spin Left Slow
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id031
           default: '1'
@@ -691,7 +691,7 @@ Children:
           name: When to Run
           validators: null
           value: whileHeld
-    - Name: Driver Sweeper Aquire
+    - Name: Driver Sweeper Acquire
       Base: Joystick Button
       Children: []
       Properties:
@@ -700,7 +700,7 @@ Children:
           name: Command
           type: Command
           validators: *id030
-          value: Sweeper Motor Aquire
+          value: Sweeper Motor Acquire
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id031
           default: '1'
@@ -854,7 +854,7 @@ Children:
           name: Command
           type: Command
           validators: *id030
-          value: Sweeper Motor Aquire
+          value: Sweeper Motor Acquire
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id031
           default: '1'
@@ -1032,7 +1032,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Chassis}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Invert DriveTrain
+  - Name: Drive Train Invert
     Base: Command
     Children: []
     Properties:
@@ -1040,7 +1040,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Chassis}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: SpinTurn Right
+  - Name: Drive Spin Right
     Base: Command
     Children: []
     Properties:
@@ -1048,7 +1048,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Chassis}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: SpinTurn Left
+  - Name: Drive Spin Left
     Base: Command
     Children: []
     Properties:
@@ -1056,7 +1056,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Chassis}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: SpinTurn Slow Right
+  - Name: Drive Spin Right Slow
     Base: Command
     Children: []
     Properties:
@@ -1064,7 +1064,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Chassis}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: SpinTurn Slow Left
+  - Name: Drive Spin Left Slow
     Base: Command
     Children: []
     Properties:
@@ -1112,7 +1112,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Sweeper}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Sweeper Motor Aquire
+  - Name: Sweeper Motor Acquire
     Base: Command
     Children: []
     Properties:

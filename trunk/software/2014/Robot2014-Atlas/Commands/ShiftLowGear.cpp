@@ -17,12 +17,12 @@ ShiftLowGear::ShiftLowGear() {
 }
 // Called just before this Command runs the first time
 void ShiftLowGear::Initialize() {
-	printf( "2135: Shift Low Gear\n");
+	printf( "2135: Shift Low Gear\n" );
 	
 }
 // Called repeatedly when this Command is scheduled to run
 void ShiftLowGear::Execute() {
-	Robot::transmission->ShifterLow();
+	Robot::transmission->ShiftLow();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool ShiftLowGear::IsFinished() {

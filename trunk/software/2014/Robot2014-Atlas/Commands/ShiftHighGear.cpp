@@ -17,12 +17,12 @@ ShiftHighGear::ShiftHighGear() {
 }
 // Called just before this Command runs the first time
 void ShiftHighGear::Initialize() {
-	printf( "2135: Shift High Gear\n");
+	printf( "2135: Shift High Gear\n" );
 	
 }
 // Called repeatedly when this Command is scheduled to run
 void ShiftHighGear::Execute() {
-	Robot::transmission->ShifterHigh();
+	Robot::transmission->ShiftHigh();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool ShiftHighGear::IsFinished() {

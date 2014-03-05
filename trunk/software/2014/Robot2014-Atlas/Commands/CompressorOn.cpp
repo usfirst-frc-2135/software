@@ -17,7 +17,7 @@ CompressorOn::CompressorOn() {
 }
 // Called just before this Command runs the first time
 void CompressorOn::Initialize() {
-	printf( "2135: Compressor On\n");
+	printf( "2135: Compressor On\n" );
 	RobotMap::pneumaticsCompressor->Start();
 }
 // Called repeatedly when this Command is scheduled to run

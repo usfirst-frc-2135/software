@@ -68,7 +68,7 @@ void Robot::RobotInit() {
 }
 	
 void Robot::AutonomousInit() {
-	printf("2135: Autonomous Init\n");
+	printf( "2135: Autonomous Init\n" );
 	if (autonomousCommand != NULL)
 		autonomousCommand->Start();
 }
@@ -78,7 +78,7 @@ void Robot::AutonomousPeriodic() {
 }
 	
 void Robot::TeleopInit() {
-	printf("2135: Teleop Init\n");
+	printf( "2135: Teleop Init\n" );
 	// This makes sure that the autonomous stops running when
 	// teleop starts running. If you want the autonomous to 
 	// continue until interrupted by another command, remove

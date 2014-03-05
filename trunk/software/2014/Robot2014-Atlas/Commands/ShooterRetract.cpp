@@ -17,7 +17,7 @@ ShooterRetract::ShooterRetract() {
 }
 // Called just before this Command runs the first time
 void ShooterRetract::Initialize() {
-	printf( "2135: Shooter Retract\n");
+	printf( "2135: Shooter Retract\n" );
 	
 }
 // Called repeatedly when this Command is scheduled to run
