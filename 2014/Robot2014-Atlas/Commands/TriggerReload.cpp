@@ -17,11 +17,11 @@ TriggerReload::TriggerReload() {
 }
 // Called just before this Command runs the first time
 void TriggerReload::Initialize() {
-	
+	printf( "2135: Trigger Reload\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void TriggerReload::Execute() {
-	
+	Robot::triggerShooter->Reload();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool TriggerReload::IsFinished() {
