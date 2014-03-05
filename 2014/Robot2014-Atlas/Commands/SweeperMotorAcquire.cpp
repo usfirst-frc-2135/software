@@ -17,11 +17,11 @@ SweeperMotorAcquire::SweeperMotorAcquire() {
 }
 // Called just before this Command runs the first time
 void SweeperMotorAcquire::Initialize() {
-	printf( "2135: Sweeper Motor Acquire\n");
+	printf( "2135: Sweeper Motor Acquire\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void SweeperMotorAcquire::Execute() {
-	Robot::sweeper->SweeperAquire();
+	Robot::sweeper->SweeperAcquire();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool SweeperMotorAcquire::IsFinished() {

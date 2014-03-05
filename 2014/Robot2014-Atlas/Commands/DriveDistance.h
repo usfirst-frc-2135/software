@@ -23,6 +23,7 @@
  */
 class DriveDistance: public Command {
 private:
+	static const double m_pidMaxTime = 5.0;
 	Timer* m_pidTimer;
 public:
 	DriveDistance();

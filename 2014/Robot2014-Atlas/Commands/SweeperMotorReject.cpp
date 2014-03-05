@@ -17,7 +17,7 @@ SweeperMotorReject::SweeperMotorReject() {
 }
 // Called just before this Command runs the first time
 void SweeperMotorReject::Initialize() {
-	printf( "2135: Sweeper Motor Reject\n");
+	printf( "2135: Sweeper Motor Reject\n" );
 }
 // Called repeatedly when this Command is scheduled to run
 void SweeperMotorReject::Execute() {

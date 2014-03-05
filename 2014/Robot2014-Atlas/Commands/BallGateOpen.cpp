@@ -17,7 +17,7 @@ BallGateOpen::BallGateOpen() {
 }
 // Called just before this Command runs the first time
 void BallGateOpen::Initialize() {
-	printf( "2135: Ball Gate Open\n");
+	printf( "2135: Ball Gate Open\n" );
 	
 }
 // Called repeatedly when this Command is scheduled to run

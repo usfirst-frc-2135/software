@@ -29,7 +29,7 @@ public:
 	void InitDefaultCommand();
 	void SweeperDeploy( void );
 	void SweeperRetract( void );
-	void SweeperAquire( void );
+	void SweeperAcquire( void );
 	void SweeperReject( void );
 	void SweeperOff( void );
 };
