@@ -21,7 +21,7 @@ void ShooterReload::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void ShooterReload::Execute() {
-	
+	Robot::shooter->ShooterDeEnergize();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterReload::IsFinished() {

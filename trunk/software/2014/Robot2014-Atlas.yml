@@ -423,7 +423,13 @@ Children:
           value: '5'
         Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Reverse Direction, validators: null, value: false}
-    - Name: Release Solenoid
+    Properties:
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: Shooter Retract}
+  - Name: Trigger Shooter
+    Base: Subsystem
+    Children:
+    - Name: Trigger Solenoid
       Base: Double Solenoid
       Children: []
       Properties:
@@ -453,7 +459,7 @@ Children:
           value: '6'
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Shooter Retract}
+        name: Default Command, type: Command, validators: null, value: Trigger Reload}
   - Name: Ball Gate
     Base: Subsystem
     Children:
@@ -797,7 +803,7 @@ Children:
   - Name: Operator Joystick
     Base: Joystick
     Children:
-    - Name: Operator Shooter Release
+    - Name: Operator Trigger Fire
       Base: Joystick Button
       Children: []
       Properties:
@@ -806,7 +812,7 @@ Children:
           name: Command
           type: Command
           validators: *id030
-          value: Shooter Fire
+          value: Trigger Fire
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id031
           default: '1'
@@ -1152,6 +1158,14 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Shooter}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
+  - Name: Shooter Extend
+    Base: Command
+    Children: []
+    Properties:
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Shooter}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
   - Name: Shooter Retract
     Base: Command
     Children: []
@@ -1160,12 +1174,20 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Shooter}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Shooter Fire
+  - Name: Trigger Reload
     Base: Command
     Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Shooter}
+        name: Requires, type: Subsystem, validators: null, value: Trigger Shooter}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+  - Name: Trigger Fire
+    Base: Command
+    Children: []
+    Properties:
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Trigger Shooter}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
   - Name: Compressor On

@@ -32,7 +32,7 @@ public:
 	static DigitalInput* shooterRetractLimit1;
 	static DigitalInput* shooterRetractLimit2;
 	static Encoder* shooterRetractEncoder;
-	static DoubleSolenoid* shooterReleaseSolenoid;
+	static DoubleSolenoid* triggerShooterTriggerSolenoid;
 	static DoubleSolenoid* ballGateCloseSolenoid;
 	static DigitalInput* ballGateBallDetectLimit;
 	static Compressor* pneumaticsCompressor;
