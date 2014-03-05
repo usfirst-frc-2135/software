@@ -23,7 +23,7 @@ SpeedController* RobotMap::shooterRetractMotor = NULL;
 DigitalInput* RobotMap::shooterRetractLimit1 = NULL;
 DigitalInput* RobotMap::shooterRetractLimit2 = NULL;
 Encoder* RobotMap::shooterRetractEncoder = NULL;
-DoubleSolenoid* RobotMap::shooterReleaseSolenoid = NULL;
+DoubleSolenoid* RobotMap::triggerShooterTriggerSolenoid = NULL;
 DoubleSolenoid* RobotMap::ballGateCloseSolenoid = NULL;
 DigitalInput* RobotMap::ballGateBallDetectLimit = NULL;
 Compressor* RobotMap::pneumaticsCompressor = NULL;
@@ -80,7 +80,7 @@ void RobotMap::init() {
 	shooterRetractEncoder->SetDistancePerPulse(1.0);
         shooterRetractEncoder->SetPIDSourceParameter(Encoder::kRate);
         shooterRetractEncoder->Start();
-	shooterReleaseSolenoid = new DoubleSolenoid(1, 5, 6);      
+	triggerShooterTriggerSolenoid = new DoubleSolenoid(1, 5, 6);      
 	
 	
 	ballGateCloseSolenoid = new DoubleSolenoid(1, 7, 8);      
