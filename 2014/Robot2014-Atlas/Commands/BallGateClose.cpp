@@ -17,12 +17,11 @@ BallGateClose::BallGateClose() {
 }
 // Called just before this Command runs the first time
 void BallGateClose::Initialize() {
-	printf( "2135: Ball Gate Close\n" );
-	
+	printf( "2135: Ball Gate Close\n");
 }
 // Called repeatedly when this Command is scheduled to run
 void BallGateClose::Execute() {
-	
+	Robot::ballGate->BallGateCloseValve();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool BallGateClose::IsFinished() {
