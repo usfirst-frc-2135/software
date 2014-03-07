@@ -18,10 +18,10 @@ InvertDriveTrain::InvertDriveTrain() {
 // Called just before this Command runs the first time
 void InvertDriveTrain::Initialize() {
 	printf( "2135: Invert DriveTrain\n");
+	Robot::chassis->ReverseDriveTrain();
 }
 // Called repeatedly when this Command is scheduled to run
 void InvertDriveTrain::Execute() {
-	Robot::chassis->ReverseDriveTrain();
 }
 // Make this return true when this Command no longer needs to run execute()
 bool InvertDriveTrain::IsFinished() {
@@ -29,7 +29,7 @@ bool InvertDriveTrain::IsFinished() {
 }
 // Called once after isFinished returns true
 void InvertDriveTrain::End() {
-	
+	Robot::chassis->ReverseDriveTrain();	
 }
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
