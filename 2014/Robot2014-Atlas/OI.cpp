@@ -59,7 +59,7 @@ OI::OI() {
 	operatorTriggerFire->WhenPressed(new TriggerFire());
 	driverJoystick = new Joystick(1);
 	
-	driverSweeperRetract = new JoystickButton(driverJoystick, 3);
+	driverSweeperRetract = new JoystickButton(driverJoystick, 11);
 	driverSweeperRetract->WhenPressed(new SweeperArmRetract());
 	driverSweeperDeploy = new JoystickButton(driverJoystick, 7);
 	driverSweeperDeploy->WhenPressed(new SweeperArmDeploy());
@@ -67,13 +67,13 @@ OI::OI() {
 	driverSweeperReject->WhileHeld(new SweeperMotorReject());
 	driverSweeperAcquire = new JoystickButton(driverJoystick, 12);
 	driverSweeperAcquire->WhileHeld(new SweeperMotorAcquire());
-	driverDriveSpinLeftSlow = new JoystickButton(driverJoystick, 3);
+	driverDriveSpinLeftSlow = new JoystickButton(driverJoystick, 5);
 	driverDriveSpinLeftSlow->WhileHeld(new DriveSpinLeftSlow());
-	driverDriveSpinLeft = new JoystickButton(driverJoystick, 5);
+	driverDriveSpinLeft = new JoystickButton(driverJoystick, 3);
 	driverDriveSpinLeft->WhileHeld(new DriveSpinLeft());
-	driverDriveSpinRightSlow = new JoystickButton(driverJoystick, 4);
+	driverDriveSpinRightSlow = new JoystickButton(driverJoystick, 6);
 	driverDriveSpinRightSlow->WhileHeld(new DriveSpinRightSlow());
-	driverDriveSpinRight = new JoystickButton(driverJoystick, 6);
+	driverDriveSpinRight = new JoystickButton(driverJoystick, 4);
 	driverDriveSpinRight->WhileHeld(new DriveSpinRight());
 	driverDrivetrainInvert = new JoystickButton(driverJoystick, 2);
 	driverDrivetrainInvert->WhenPressed(new DriveTrainInvert());
