@@ -76,7 +76,7 @@ OI::OI() {
 	driverDriveSpinRight = new JoystickButton(driverJoystick, 6);
 	driverDriveSpinRight->WhileHeld(new DriveSpinRight());
 	driverDrivetrainInvert = new JoystickButton(driverJoystick, 2);
-	driverDrivetrainInvert->WhileHeld(new DriveTrainInvert());
+	driverDrivetrainInvert->WhenPressed(new DriveTrainInvert());
 	shifter = new JoystickButton(driverJoystick, 1);
 	shifter->WhileHeld(new ShiftHighGear());
      
