@@ -62,7 +62,7 @@ void Robot::RobotInit() {
 	SmartDashboard::PutNumber("R: Max Output", 0.6);
 	SmartDashboard::PutNumber("R: Distance PP", 4 * M_PI / 360);
 	SmartDashboard::PutNumber("R: Distance", chassis->rightDriveEncoder->GetDistance());
-	SmartDashboard::PutNumber("Target Setpoint", 0.0);
+	SmartDashboard::PutNumber("Target Setpoint", 48.0);
 	SmartDashboard::PutNumber("Left Setpoint", 0.0);
 	SmartDashboard::PutNumber("Right Setpoint", 0.0);
 	SmartDashboard::PutNumber("Sweeper Speed", 1.0);
