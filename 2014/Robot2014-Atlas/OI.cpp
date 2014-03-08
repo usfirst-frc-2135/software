@@ -59,10 +59,10 @@ OI::OI() {
 	operatorTriggerFire->WhenPressed(new TriggerFire());
 	driverJoystick = new Joystick(1);
 	
-	driverGateOpen = new JoystickButton(driverJoystick, 10);
-	driverGateOpen->WhileHeld(new BallGateOpen());
-	driverGateClose = new JoystickButton(driverJoystick, 9);
-	driverGateClose->WhenPressed(new BallGateClose());
+	driverBallGateClose = new JoystickButton(driverJoystick, 10);
+	driverBallGateClose->WhenPressed(new BallGateOpen());
+	driverBallGateOpen = new JoystickButton(driverJoystick, 9);
+	driverBallGateOpen->WhenPressed(new BallGateOpen());
 	driverSweeperRetract = new JoystickButton(driverJoystick, 11);
 	driverSweeperRetract->WhenPressed(new SweeperArmRetract());
 	driverSweeperDeploy = new JoystickButton(driverJoystick, 7);
@@ -82,7 +82,7 @@ OI::OI() {
 	driverDrivetrainInvert = new JoystickButton(driverJoystick, 2);
 	driverDrivetrainInvert->WhenPressed(new DriveTrainInvert());
 	shifter = new JoystickButton(driverJoystick, 1);
-	shifter->WhileHeld(new ShiftHighGear());
+	shifter->WhileHeld(new ShiftLowGear());
      
         // SmartDashboard Buttons
 	SmartDashboard::PutData("Auto Command", new AutoCommand());
@@ -94,8 +94,8 @@ OI::OI() {
 	SmartDashboard::PutData("Drive Spin Left", new DriveSpinLeft());
 	SmartDashboard::PutData("Drive Spin Right Slow", new DriveSpinRightSlow());
 	SmartDashboard::PutData("Drive Spin Left Slow", new DriveSpinLeftSlow());
-	SmartDashboard::PutData("Shift High Gear", new ShiftHighGear());
 	SmartDashboard::PutData("Shift Low Gear", new ShiftLowGear());
+	SmartDashboard::PutData("Shift High Gear", new ShiftHighGear());
 	SmartDashboard::PutData("Sweeper Arm Retract", new SweeperArmRetract());
 	SmartDashboard::PutData("Sweeper Arm Deploy", new SweeperArmDeploy());
 	SmartDashboard::PutData("Sweeper Motor Off", new SweeperMotorOff());

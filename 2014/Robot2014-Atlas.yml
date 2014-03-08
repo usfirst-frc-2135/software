@@ -567,7 +567,7 @@ Children:
           name: Command
           type: Command
           validators: &id030 [TypeDropdownSelected]
-          value: Shift High Gear
+          value: Shift Low Gear
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id031 ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
             '12']
@@ -799,7 +799,7 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
-    - Name: Driver Gate Close
+    - Name: Driver Ball Gate Open
       Base: Joystick Button
       Children: []
       Properties:
@@ -808,7 +808,7 @@ Children:
           name: Command
           type: Command
           validators: *id030
-          value: Ball Gate Close
+          value: Ball Gate Open
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id031
           default: '1'
@@ -823,7 +823,7 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
-    - Name: Driver Gate Open
+    - Name: Driver Ball Gate Close
       Base: Joystick Button
       Children: []
       Properties:
@@ -846,7 +846,7 @@ Children:
           default: whileHeld
           name: When to Run
           validators: null
-          value: whileHeld
+          value: whenPressed
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: &id033 ['1', '2', '3', '4']
@@ -1130,7 +1130,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Chassis}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Shift High Gear
+  - Name: Shift Low Gear
     Base: Command
     Children: []
     Properties:
@@ -1138,7 +1138,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Transmission}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Shift Low Gear
+  - Name: Shift High Gear
     Base: Command
     Children: []
     Properties:
