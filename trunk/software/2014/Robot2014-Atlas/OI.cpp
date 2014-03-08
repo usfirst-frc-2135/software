@@ -42,16 +42,16 @@ OI::OI() {
 	operatorJoystick = new Joystick(2);
 	
 	operatorBallGateClose = new JoystickButton(operatorJoystick, 10);
-	operatorBallGateClose->WhileHeld(new BallGateClose());
+	operatorBallGateClose->WhenPressed(new BallGateClose());
 	operatorBallGateOpen = new JoystickButton(operatorJoystick, 9);
-	operatorBallGateOpen->WhileHeld(new BallGateOpen());
+	operatorBallGateOpen->WhenPressed(new BallGateOpen());
 	operatorSweeperRetract = new JoystickButton(operatorJoystick, 11);
 	operatorSweeperRetract->WhenPressed(new SweeperArmRetract());
 	operatorSweeperDeploy = new JoystickButton(operatorJoystick, 7);
 	operatorSweeperDeploy->WhenPressed(new SweeperArmDeploy());
-	operatorSweeperReject = new JoystickButton(operatorJoystick, 8);
+	operatorSweeperReject = new JoystickButton(operatorJoystick, 12);
 	operatorSweeperReject->WhileHeld(new SweeperMotorReject());
-	operatorSweeperAquire = new JoystickButton(operatorJoystick, 12);
+	operatorSweeperAquire = new JoystickButton(operatorJoystick, 8);
 	operatorSweeperAquire->WhileHeld(new SweeperMotorAcquire());
 	operatorShooterRetract = new JoystickButton(operatorJoystick, 2);
 	operatorShooterRetract->WhenPressed(new ShooterRetract());
@@ -67,9 +67,9 @@ OI::OI() {
 	driverSweeperRetract->WhenPressed(new SweeperArmRetract());
 	driverSweeperDeploy = new JoystickButton(driverJoystick, 7);
 	driverSweeperDeploy->WhenPressed(new SweeperArmDeploy());
-	driverSweeperReject = new JoystickButton(driverJoystick, 8);
+	driverSweeperReject = new JoystickButton(driverJoystick, 12);
 	driverSweeperReject->WhileHeld(new SweeperMotorReject());
-	driverSweeperAcquire = new JoystickButton(driverJoystick, 12);
+	driverSweeperAcquire = new JoystickButton(driverJoystick, 8);
 	driverSweeperAcquire->WhileHeld(new SweeperMotorAcquire());
 	driverDriveSpinLeftSlow = new JoystickButton(driverJoystick, 5);
 	driverDriveSpinLeftSlow->WhileHeld(new DriveSpinLeftSlow());

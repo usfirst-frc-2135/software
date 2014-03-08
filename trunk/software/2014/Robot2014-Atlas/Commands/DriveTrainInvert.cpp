@@ -18,7 +18,7 @@ DriveTrainInvert::DriveTrainInvert() {
 // Called just before this Command runs the first time
 void DriveTrainInvert::Initialize() {
 	printf( "2135: Drivetrain Invert\n" );
-//	Robot::chassis->ReverseDriveTrain();
+	Robot::chassis->ReverseDriveTrain();
 }
 // Called repeatedly when this Command is scheduled to run
 void DriveTrainInvert::Execute() {
@@ -26,7 +26,7 @@ void DriveTrainInvert::Execute() {
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveTrainInvert::IsFinished() {
-	return false;
+	return true;
 }
 // Called once after isFinished returns true
 void DriveTrainInvert::End() {

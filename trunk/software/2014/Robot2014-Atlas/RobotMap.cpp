@@ -80,10 +80,10 @@ void RobotMap::init() {
 	shooterRetractEncoder->SetDistancePerPulse(1.0);
         shooterRetractEncoder->SetPIDSourceParameter(Encoder::kRate);
         shooterRetractEncoder->Start();
-	triggerShooterTriggerSolenoid = new DoubleSolenoid(1, 5, 6);      
+	triggerShooterTriggerSolenoid = new DoubleSolenoid(1, 7, 8);      
 	
 	
-	ballGateCloseSolenoid = new DoubleSolenoid(1, 7, 8);      
+	ballGateCloseSolenoid = new DoubleSolenoid(1, 5, 6);      
 	
 	
 	ballGateBallDetectLimit = new DigitalInput(1, 9);
@@ -96,5 +96,5 @@ void RobotMap::init() {
 	printf( "2135: RobotMap Init\n" );
 	driverStation = DriverStation::GetInstance();
 	driveTrain = new RobotDrive(chassisLeftDriveMotor, chassisRightDriveMotor);
-	driveTrain->SetExpiration(250.0);
+//	driveTrain->SetExpiration(0.5);
 }

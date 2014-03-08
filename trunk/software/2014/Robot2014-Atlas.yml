@@ -444,40 +444,6 @@ Children:
           default: '1'
           name: Forward Channel (Solenoid)
           validators: *id019
-          value: '5'
-        Forward Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id020
-          default: '1'
-          name: Forward Module (Solenoid)
-          validators: *id021
-          value: '1'
-        Reverse Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id022
-          default: '1'
-          name: Reverse Module (Solenoid)
-          validators: *id023
-          value: '1'
-        Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id024
-          default: '1'
-          name: Reverse Channel (Solenoid)
-          validators: *id025
-          value: '6'
-    Properties:
-      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Trigger Reload}
-  - Name: Ball Gate
-    Base: Subsystem
-    Children:
-    - Name: Close Solenoid
-      Base: Double Solenoid
-      Children: []
-      Properties:
-        Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id018
-          default: '1'
-          name: Forward Channel (Solenoid)
-          validators: *id019
           value: '7'
         Forward Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id020
@@ -497,6 +463,40 @@ Children:
           name: Reverse Channel (Solenoid)
           validators: *id025
           value: '8'
+    Properties:
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: Trigger Reload}
+  - Name: Ball Gate
+    Base: Subsystem
+    Children:
+    - Name: Close Solenoid
+      Base: Double Solenoid
+      Children: []
+      Properties:
+        Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id018
+          default: '1'
+          name: Forward Channel (Solenoid)
+          validators: *id019
+          value: '5'
+        Forward Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id020
+          default: '1'
+          name: Forward Module (Solenoid)
+          validators: *id021
+          value: '1'
+        Reverse Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id022
+          default: '1'
+          name: Reverse Module (Solenoid)
+          validators: *id023
+          value: '1'
+        Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id024
+          default: '1'
+          name: Reverse Channel (Solenoid)
+          validators: *id025
+          value: '6'
     - Name: Ball Detect Limit
       Base: Limit Switch
       Children: []
@@ -515,7 +515,7 @@ Children:
           value: '1'
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Ball Gate Close}
+        name: Default Command, type: Command, validators: null, value: Ball Gate Open}
   - Name: Pneumatics
     Base: Subsystem
     Children:
@@ -718,7 +718,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '12'
+          value: '8'
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
           name: Joystick, validators: null, value: Driver Joystick}
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
@@ -742,7 +742,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '8'
+          value: '12'
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
           name: Joystick, validators: null, value: Driver Joystick}
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
@@ -920,7 +920,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '12'
+          value: '8'
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
           name: Joystick, validators: null, value: Operator Joystick}
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
@@ -944,7 +944,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '8'
+          value: '12'
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
           name: Joystick, validators: null, value: Operator Joystick}
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
@@ -1024,7 +1024,7 @@ Children:
           default: whileHeld
           name: When to Run
           validators: null
-          value: whileHeld
+          value: whenPressed
     - Name: Operator Ball Gate Close
       Base: Joystick Button
       Children: []
@@ -1048,7 +1048,7 @@ Children:
           default: whileHeld
           name: When to Run
           validators: null
-          value: whileHeld
+          value: whenPressed
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: *id033
