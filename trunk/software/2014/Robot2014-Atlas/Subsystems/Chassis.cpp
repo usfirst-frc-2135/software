@@ -90,6 +90,7 @@ void Chassis::DriveDistanceWithPIDInit( double distance )
 	// set SetPoint with calculated target distance
 	leftDrivePID->SetSetpoint( leftDistance );
 	rightDrivePID->SetSetpoint( rightDistance );
+	drvTrain->SetSafetyEnabled(false);
 	// enable PID loops
 	leftDrivePID->Enable();
 	rightDrivePID->Enable();
@@ -107,7 +108,7 @@ void Chassis::DriveDistanceWithPIDExecute( void )
 	}
 	if (rightDrivePID->OnTarget()) {
 		SmartDashboard::PutBoolean("Right PID State", true);
-		RobotMap::chassisRightDrivePID->Disable();
+		rightDrivePID->Disable();
 	}
 	
 	if (!leftDrivePID->IsEnabled()) 
@@ -124,7 +125,7 @@ bool Chassis::DriveDistanceWithPIDIsAtSetpoint( void )
 	// are both PIDs on target
 	bothOnTarget = false;
 	if (!leftDrivePID->IsEnabled() && !rightDrivePID->IsEnabled()) {
-		Chassis::DriveDistanceWithPIDStop();
+		DriveDistanceWithPIDStop();
 		bothOnTarget=true;
 	}
 	
@@ -139,4 +140,5 @@ void Chassis::DriveDistanceWithPIDStop( void )
 	SmartDashboard::PutBoolean("Right PID State", true);
 	leftDrivePID->Disable();
 	rightDrivePID->Disable();	
+	drvTrain->SetSafetyEnabled(true);
 }

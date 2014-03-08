@@ -12,6 +12,7 @@
 
 #include "AutoCommand.h"
 #include "../Commands/DriveDistance.h"
+#include "../Commands/ShiftLowGear.h"
 
 AutoCommand::AutoCommand() {
 	// Add Commands here:
@@ -31,5 +32,6 @@ AutoCommand::AutoCommand() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 	printf( "2135: Autonomous Command\n" );
+	AddParallel(new ShiftLowGear());
 	AddSequential(new DriveDistance());
 }
