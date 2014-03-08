@@ -80,7 +80,7 @@ Children:
             validators: &id015 [DigitalChannel]
             value: '1'
           Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
-            name: Reverse Direction, validators: null, value: false}
+            name: Reverse Direction, validators: null, value: true}
       Properties:
         D: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: D, validators: null,
           value: 0.0}
@@ -188,7 +188,7 @@ Children:
             validators: *id015
             value: '3'
           Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
-            name: Reverse Direction, validators: null, value: false}
+            name: Reverse Direction, validators: null, value: true}
       Properties:
         D: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: D, validators: null,
           value: 0.0}
@@ -264,8 +264,8 @@ Children:
           value: '2'
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Shift Low Gear}
-  - Name: Sweeper
+        name: Default Command, type: Command, validators: null, value: Shift High Gear}
+  - Name: Sweeper Arm
     Base: Subsystem
     Children:
     - Name: Extend Solenoid
@@ -296,7 +296,13 @@ Children:
           name: Reverse Channel (Solenoid)
           validators: *id025
           value: '4'
-    - Name: Wheel Motor
+    Properties:
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: Sweeper Arm Retract}
+  - Name: Sweeper Motor
+    Base: Subsystem
+    Children:
+    - Name: Wheels
       Base: Speed Controller
       Children: []
       Properties:
@@ -320,7 +326,7 @@ Children:
           value: '3'
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Sweeper Arm Retract}
+        name: Default Command, type: Command, validators: null, value: Sweeper Motor Off}
   - Name: Shooter
     Base: Subsystem
     Children:
@@ -1099,7 +1105,7 @@ Children:
     Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Sweeper}
+        name: Requires, type: Subsystem, validators: null, value: Sweeper Arm}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
   - Name: Sweeper Arm Deploy
@@ -1107,7 +1113,7 @@ Children:
     Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Sweeper}
+        name: Requires, type: Subsystem, validators: null, value: Sweeper Arm}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
   - Name: Sweeper Motor Off
@@ -1115,7 +1121,7 @@ Children:
     Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Sweeper}
+        name: Requires, type: Subsystem, validators: null, value: Sweeper Motor}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
   - Name: Sweeper Motor Acquire
@@ -1123,7 +1129,7 @@ Children:
     Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Sweeper}
+        name: Requires, type: Subsystem, validators: null, value: Sweeper Motor}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
   - Name: Sweeper Motor Reject
@@ -1131,7 +1137,7 @@ Children:
     Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Sweeper}
+        name: Requires, type: Subsystem, validators: null, value: Sweeper Motor}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
   - Name: Ball Gate Close
@@ -1206,10 +1212,16 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Pneumatics}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
+  - Name: Auto Command
+    Base: Command Group
+    Children: []
+    Properties:
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
   Properties: {}
 Properties:
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-    name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
+    name: Autonomous Command, type: Command, validators: null, value: Auto Command}
   Wiring File: !!robotbuilder.data.properties.FileProperty {default: '', extension: html,
     folder: false, name: Wiring File, validators: null, value: 'C:\usfirst-frc-team-2135\trunk\software\2014\Robot2014-Atlas.html'}
   C++ Windriver Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Windriver\workspace',
