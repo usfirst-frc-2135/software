@@ -17,8 +17,8 @@ SpeedController* RobotMap::chassisRightDriveMotor = NULL;
 Encoder* RobotMap::chassisRightDriveEncoder = NULL;
 PIDController* RobotMap::chassisRightDrivePID = NULL;
 DoubleSolenoid* RobotMap::transmissionShifterSolenoid = NULL;
-DoubleSolenoid* RobotMap::sweeperExtendSolenoid = NULL;
-SpeedController* RobotMap::sweeperWheelMotor = NULL;
+DoubleSolenoid* RobotMap::sweeperArmExtendSolenoid = NULL;
+SpeedController* RobotMap::sweeperMotorWheels = NULL;
 SpeedController* RobotMap::shooterRetractMotor = NULL;
 DigitalInput* RobotMap::shooterRetractLimit1 = NULL;
 DigitalInput* RobotMap::shooterRetractLimit2 = NULL;
@@ -36,7 +36,7 @@ void RobotMap::init() {
 	chassisLeftDriveMotor = new Talon(1, 1);
 	lw->AddActuator("Chassis", "Left Drive Motor", (Talon*) chassisLeftDriveMotor);
 	
-	chassisLeftDriveEncoder = new Encoder(1, 1, 1, 2, false, Encoder::k4X);
+	chassisLeftDriveEncoder = new Encoder(1, 1, 1, 2, true, Encoder::k4X);
 	lw->AddSensor("Chassis", "Left Drive  Encoder", chassisLeftDriveEncoder);
 	chassisLeftDriveEncoder->SetDistancePerPulse(0.03490658503988659);
         chassisLeftDriveEncoder->SetPIDSourceParameter(Encoder::kDistance);
@@ -48,7 +48,7 @@ void RobotMap::init() {
 	chassisRightDriveMotor = new Talon(1, 2);
 	lw->AddActuator("Chassis", "Right Drive Motor", (Talon*) chassisRightDriveMotor);
 	
-	chassisRightDriveEncoder = new Encoder(1, 3, 1, 4, false, Encoder::k4X);
+	chassisRightDriveEncoder = new Encoder(1, 3, 1, 4, true, Encoder::k4X);
 	lw->AddSensor("Chassis", "Right Drive Encoder", chassisRightDriveEncoder);
 	chassisRightDriveEncoder->SetDistancePerPulse(0.03490658503988659);
         chassisRightDriveEncoder->SetPIDSourceParameter(Encoder::kDistance);
@@ -60,11 +60,11 @@ void RobotMap::init() {
 	transmissionShifterSolenoid = new DoubleSolenoid(1, 1, 2);      
 	
 	
-	sweeperExtendSolenoid = new DoubleSolenoid(1, 3, 4);      
+	sweeperArmExtendSolenoid = new DoubleSolenoid(1, 3, 4);      
 	
 	
-	sweeperWheelMotor = new Talon(1, 3);
-	lw->AddActuator("Sweeper", "Wheel Motor", (Talon*) sweeperWheelMotor);
+	sweeperMotorWheels = new Talon(1, 3);
+	lw->AddActuator("Sweeper Motor", "Wheels", (Talon*) sweeperMotorWheels);
 	
 	shooterRetractMotor = new Talon(1, 4);
 	lw->AddActuator("Shooter", "Retract Motor", (Talon*) shooterRetractMotor);
