@@ -799,6 +799,54 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
+    - Name: Driver Gate Close
+      Base: Joystick Button
+      Children: []
+      Properties:
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id030
+          value: Ball Gate Close
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id031
+          default: '1'
+          name: Button
+          validators: null
+          value: '9'
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: Driver Joystick}
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id032
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whenPressed
+    - Name: Driver Gate Open
+      Base: Joystick Button
+      Children: []
+      Properties:
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id030
+          value: Ball Gate Open
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id031
+          default: '1'
+          name: Button
+          validators: null
+          value: '10'
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: Driver Joystick}
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id032
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whileHeld
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: &id033 ['1', '2', '3', '4']
@@ -1012,12 +1060,10 @@ Children:
 - Name: Commands
   Base: Commands
   Children:
-  - Name: Autonomous Command
-    Base: Command
+  - Name: Auto Command
+    Base: Command Group
     Children: []
     Properties:
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Chassis}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
   - Name: Drive Stop
@@ -1084,7 +1130,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Chassis}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Shift Low Gear
+  - Name: Shift High Gear
     Base: Command
     Children: []
     Properties:
@@ -1092,7 +1138,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Transmission}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Shift High Gear
+  - Name: Shift Low Gear
     Base: Command
     Children: []
     Properties:
@@ -1210,12 +1256,6 @@ Children:
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Pneumatics}
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Auto Command
-    Base: Command Group
-    Children: []
-    Properties:
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
   Properties: {}
