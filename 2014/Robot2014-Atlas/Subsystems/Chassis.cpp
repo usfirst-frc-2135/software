@@ -24,7 +24,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	m_orientationNormal = 1.0;
 	drvTrain->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 	drvTrain->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
-	drvTrain->SetExpiration( 0.5 );
+	drvTrain->SetExpiration( 2.0 );
 }
     
 void Chassis::InitDefaultCommand() {
