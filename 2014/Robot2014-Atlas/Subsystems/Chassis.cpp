@@ -61,6 +61,7 @@ void Chassis::DriveUsingLeftRightMotorOutputs( double left, double right )
 void Chassis::ReverseDriveTrain( void ) 
 {
 	m_orientationNormal = -m_orientationNormal;
+	SmartDashboard::PutNumber( "Drive Invert", m_orientationNormal );
 }
 //
 //	Autonomous Drive to a specific distance - PID initialization
