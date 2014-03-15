@@ -80,6 +80,7 @@ void Robot::RobotInit() {
 	
 void Robot::AutonomousInit() {
 	printf( "2135: Autonomous Init\n" );
+	autonomousCommand = (Command *) autoChooser->GetSelected();
 	if (autonomousCommand != NULL)
 		autonomousCommand->Start();
 }
