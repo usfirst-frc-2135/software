@@ -35,7 +35,6 @@ void Shooter::ShooterEnergize( void )
 {
 	double speed;
 	speed = SmartDashboard::GetNumber("Shooter Speed");
-	//printf ( "Shooter Speed: %f\n", speed );
 	retractMotor->Set( speed );
 }
 //
