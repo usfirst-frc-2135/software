@@ -75,12 +75,17 @@ void Robot::RobotInit() {
 		prefs->PutDouble( "ShooterSpeed", 1.0 );
 		newSaveData = true;
 	}
-	if ( newSaveData )
-		prefs->Save();
+//	if ( newSaveData )
+//		prefs->Save();
 	m_autoSetpoint = prefs->GetDouble( "AutoDriveDistance", 66.0 );
 	m_pidMaxOutput = prefs->GetDouble( "PidMaxOutput", 0.6 );
 	m_sweeperSpeed = prefs->GetDouble( "SweeperSpeed", 1.0 );
 	m_shooterSpeed = prefs->GetDouble( "ShooterSpeed", 1.0 );
+	m_autoDefault = prefs->GetString( "AutoDefault", "MoveForward" );
+	printf( "AutodDriveDistance: %f\n", m_autoSetpoint );
+	printf( "PidMaxOutput:       %f\n", m_pidMaxOutput );
+	printf( "SweeperSpeed:       %f\n", m_sweeperSpeed );
+	printf( "ShooterSpeed:       %f\n", m_shooterSpeed );
 			
 	SmartDashboard::PutNumber("L: P", chassis->leftDrivePID->GetP());
 	SmartDashboard::PutNumber("L: I", chassis->leftDrivePID->GetI());
