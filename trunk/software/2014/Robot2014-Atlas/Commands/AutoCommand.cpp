@@ -31,7 +31,7 @@ AutoCommand::AutoCommand() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	printf( "2135: Autonomous Command\n" );
+	printf( "2135: Autonomous Command Group\n" );
 	AddParallel(new ShiftLowGear());
 	AddSequential(new DriveDistance());
 }
