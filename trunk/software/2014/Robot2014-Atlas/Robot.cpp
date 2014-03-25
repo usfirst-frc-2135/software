@@ -100,6 +100,7 @@ void Robot::RobotInit() {
 	autoChooser->AddDefault( "Move forward", new AutoCommand() );
 	autoChooser->AddObject( "Sit still", new DriveStop() );
 	SmartDashboard::PutData( "Auto Mode Chooser", autoChooser );
+	autonomousCommand = (Command *) autoChooser->GetSelected();
 }
 	
 void Robot::AutonomousInit() {
@@ -121,7 +122,8 @@ void Robot::TeleopInit() {
 	// teleop starts running. If you want the autonomous to 
 	// continue until interrupted by another command, remove
 	// this line or comment it out.
-	autonomousCommand->Cancel();
+	if (autonomousCommand != NULL)
+		autonomousCommand->Cancel();
 }
 	
 void Robot::TeleopPeriodic() {
