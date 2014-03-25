@@ -20,8 +20,8 @@ private:
 	JoystickButton* operatorSweeperDeploy;
 	JoystickButton* operatorSweeperReject;
 	JoystickButton* operatorSweeperAquire;
-	JoystickButton* operatorShooterRetract;
-	JoystickButton* operatorTriggerFire;
+	JoystickButton* operatorShooterReload;
+	JoystickButton* operatorShooterFire;
 	Joystick* driverJoystick;
 	JoystickButton* driverBallGateClose;
 	JoystickButton* driverBallGateOpen;
@@ -29,9 +29,7 @@ private:
 	JoystickButton* driverSweeperDeploy;
 	JoystickButton* driverSweeperReject;
 	JoystickButton* driverSweeperAcquire;
-	JoystickButton* driverDriveSpinLeftSlow;
 	JoystickButton* driverDriveSpinLeft;
-	JoystickButton* driverDriveSpinRightSlow;
 	JoystickButton* driverDriveSpinRight;
 	JoystickButton* driverDrivetrainInvert;
 	JoystickButton* shifter;
