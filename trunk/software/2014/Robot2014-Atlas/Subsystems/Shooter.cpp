@@ -30,22 +30,25 @@ void Shooter::InitDefaultCommand() {
 //
 //	Energize shooter with motor
 //
-void Shooter::ShooterFire( void ) 
+void Shooter::ShooterReload( double speed ) 
 {
-	double speed;
-	speed = SmartDashboard::GetNumber("Shooter Speed");
 	retractMotor->Set( speed );
 }
 //
-//	Extend shooter with motor
-//
-void Shooter::ShooterReload( void ) 
+void Shooter::ShooterEngage( void )
 {
-	double speed;
-	speed = SmartDashboard::GetNumber("Shooter Speed");
-	printf ( "Shooter Speed: %f\n", speed );
-	retractMotor->Set( -speed );
+	triggerSolenoid->Set( triggerSolenoid->kForward );
 }
 //
-//	Stop shooter motor
-//
+void Shooter::ShooterDisengage( void )
+{
+	triggerSolenoid->Set( triggerSolenoid->kReverse );
+}
+
+bool Shooter::IsShooterFullBack ( void )
+{
+	if ( retractLimit1->Get() || retractLimit2->Get()  ) 
+		return(true);
+	else return(false);
+}
+
