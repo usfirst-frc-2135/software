@@ -20,8 +20,6 @@ private:
 	JoystickButton* operatorSweeperDeploy;
 	JoystickButton* operatorSweeperReject;
 	JoystickButton* operatorSweeperAquire;
-	JoystickButton* operatorShooterReload;
-	JoystickButton* operatorShooterFire;
 	Joystick* driverJoystick;
 	JoystickButton* driverBallGateClose;
 	JoystickButton* driverBallGateOpen;
