@@ -22,15 +22,29 @@ void ShooterReload::Initialize() {
 	speed = SmartDashboard::GetNumber("Shooter Speed");
 	Robot::shooter->ShooterEngage();
 	Robot::shooter->ShooterReload(speed );
+	m_reloadTimer->Reset();
+	m_reloadTimer->Start();
 }
 // Called repeatedly when this Command is scheduled to run
 void ShooterReload::Execute() {
 	
 }
+
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterReload::IsFinished() {
-	return false;
+	if ( ( m_reloadTimer->HasPeriodPassed(m_reloadMaxTime) ) || 
+		( Robot::shooter->IsShooterFullBack() ) ) {
+		Robot::shooter->ShooterReload(0.0);
+		if ( m_reloadTimer->HasPeriodPassed(m_reloadMaxTime) ) 
+			printf( "2135: ShooterReload Timed Out\n" );
+		else 
+			printf( "2135: ShooterReload completed in %f seconds\n", m_reloadTimer->Get() );
+		return true;
+	}
+	else 
+		return false;
 }
+	
 // Called once after isFinished returns true
 void ShooterReload::End() {
 	
