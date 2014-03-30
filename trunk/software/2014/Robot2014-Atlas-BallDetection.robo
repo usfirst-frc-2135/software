@@ -1,0 +1,103 @@
+<head><version>2.59.3</version></head>
+<Adaptive_Threshold disabled>
+  <channel_type>1</channel_type>
+  <filter_size>7</filter_size>
+  <max_threshold>255</max_threshold>
+  <mean_offset>5</mean_offset>
+  <min_threshold>0</min_threshold>
+</Adaptive_Threshold>
+<Axis_Internet_Camera>
+  <auto_back_light>TRUE</auto_back_light>
+  <auto_exposure>FALSE</auto_exposure>
+  <auto_white_balance>TRUE</auto_white_balance>
+  <brightness_value>50</brightness_value>
+  <color_level_value>50</color_level_value>
+  <compression_index>5</compression_index>
+  <contrast_value>50</contrast_value>
+  <exposure_value>50</exposure_value>
+  <ip_address>10.21.35.11</ip_address>
+  <is_active>TRUE</is_active>
+  <password>FRC</password>
+  <port>80</port>
+  <resolution>2</resolution>
+  <sharpness_value>50</sharpness_value>
+  <username>FRC</username>
+</Axis_Internet_Camera>
+<Radial_Distortion>
+  <center_x>0.5</center_x>
+  <center_y>0.5</center_y>
+  <coeff_a>-1000.0</coeff_a>
+  <coeff_b>0.0</coeff_b>
+  <coeff_c>0.0</coeff_c>
+  <coeff_d>0.0</coeff_d>
+  <coeff_e>0.0</coeff_e>
+  <crop_image>FALSE</crop_image>
+  <scale>1000.0</scale>
+</Radial_Distortion>
+<Close disabled>
+  <close_borders>FALSE</close_borders>
+  <dilate_count>1</dilate_count>
+  <erode_count>1</erode_count>
+  <kernal_shape>4</kernal_shape>
+  <restrict_dilation>FALSE</restrict_dilation>
+  <symmetrical>TRUE</symmetrical>
+</Close>
+<RGB_Filter>
+  <channel>2</channel>
+  <hue_value>60</hue_value>
+  <hysteresis>0</hysteresis>
+  <min_value>107</min_value>
+  <result_type>2</result_type>
+</RGB_Filter>
+<Blob_Size>
+  <limit>1024</limit>
+  <mask>FALSE</mask>
+  <max_area>0</max_area>
+  <min_area>5</min_area>
+  <threshold>5</threshold>
+  <treat_as_color_image>FALSE</treat_as_color_image>
+</Blob_Size>
+<Blob_Replace>
+  <color_index>5</color_index>
+  <fill_shape>FALSE</fill_shape>
+  <order_array_on_x>FALSE</order_array_on_x>
+  <order_array_on_y>FALSE</order_array_on_y>
+  <thickness>1</thickness>
+</Blob_Replace>
+<Blob_Filter>
+  <create_blob_array_variable>FALSE</create_blob_array_variable>
+  <filters>
+    <tab>
+      <filter>
+        <count_threshold>1</count_threshold>
+        <create_array>0</create_array>
+        <filter_id>63</filter_id>
+        <invert_count>0</invert_count>
+        <invert_threshold>0</invert_threshold>
+        <ratio>5.00000</ratio>
+        <weight_threshold>0.75</weight_threshold>
+      </filter>
+    </tab>
+    <tab:2/>
+    <tab:3/>
+    <tab:4/>
+    <tab:5/>
+    <tab:6/>
+  </filters>
+  <largest_is_background>FALSE</largest_is_background>
+  <show_weights>FALSE</show_weights>
+  <sort_array_on_x>FALSE</sort_array_on_x>
+  <sort_array_on_y>FALSE</sort_array_on_y>
+</Blob_Filter>
+<Blob_Count/>
+<NetworkTables>
+  <delay>100</delay>
+  <filter_type_index>0</filter_type_index>
+  <hostname>10.21.35.2</hostname>
+  <port>1735</port>
+  <prefix>/SmartDashboard/</prefix>
+  <variables_to_send>BLOB_COUNT
+IMAGE_PROCESSED
+SHAPE_CONFIDENCE</variables_to_send>
+  <variable_type_index>0</variable_type_index>
+</NetworkTables>
