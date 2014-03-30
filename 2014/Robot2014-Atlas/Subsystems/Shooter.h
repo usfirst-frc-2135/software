@@ -34,6 +34,5 @@ public:
 	void ShooterDisengage( void );
 	void ShooterEngage( void );
 	bool Shooter::IsShooterFullBack ( void );
-
 };
 #endif
