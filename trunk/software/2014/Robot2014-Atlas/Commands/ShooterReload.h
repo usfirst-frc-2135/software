@@ -18,7 +18,7 @@
  */
 class ShooterReload: public Command {
 private:
-	static const double m_reloadMaxTime = 2.0;
+	static const double m_reloadMaxTime = 1.5;
 	Timer* m_reloadTimer;
 	double m_speed;
 public:
