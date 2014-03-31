@@ -48,7 +48,9 @@ void Shooter::ShooterDisengage( void )
 }
 bool Shooter::IsShooterFullBack ( void )
 {
-	if ( !retractLimit1->Get() && !retractLimit2->Get()  ) 
+	//if ( !retractLimit1->Get() && !retractLimit2->Get()  ) 
+	if ( retractLimit1->Get() )
 		return(true);
-	else return(false);
+	else 
+		return(false);
 }

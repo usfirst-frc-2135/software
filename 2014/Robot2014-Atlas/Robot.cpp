@@ -66,7 +66,7 @@ void Robot::RobotInit() {
 	m_autoSetpoint = prefs->GetDouble( "AutoDriveDistance", 66.0 );
 	m_pidMaxOutput = prefs->GetDouble( "PidMaxOutput", 0.6 );
 	m_sweeperSpeed = prefs->GetDouble( "SweeperSpeed", 1.0 );
-	m_shooterSpeed = prefs->GetDouble( "ShooterSpeed", 1.0 );
+	m_shooterSpeed = prefs->GetDouble( "ShooterSpeed", 0.6 );
 	m_autoDefault = prefs->GetString( "AutoDefault", "MoveForward" );
 	taskDelay(10);
 	printf( "AutodDriveDistance: %f\n", m_autoSetpoint );
@@ -131,6 +131,8 @@ void Robot::TeleopPeriodic() {
 		Scheduler::GetInstance()->Run();
 	SmartDashboard::PutNumber("L: Distance", Robot::chassis->leftDriveEncoder->GetDistance());
 	SmartDashboard::PutNumber("R: Distance", -Robot::chassis->rightDriveEncoder->GetDistance());
+	SmartDashboard::PutBoolean("Shooter Energized 1", Robot::shooter->retractLimit1->Get());
+	SmartDashboard::PutBoolean("Shooter Energized 2", Robot::shooter->retractLimit2->Get());
 }
 void Robot::TestPeriodic() {
 	lw->Run();
