@@ -803,6 +803,54 @@ Children:
   - Name: Operator Joystick
     Base: Joystick
     Children:
+    - Name: Operator Shooter Fire
+      Base: Joystick Button
+      Children: []
+      Properties:
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id030
+          value: Shooter Fire
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id031
+          default: '1'
+          name: Button
+          validators: null
+          value: '1'
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: Operator Joystick}
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id032
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whenPressed
+    - Name: Operator Shooter Reload
+      Base: Joystick Button
+      Children: []
+      Properties:
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id030
+          value: Shooter Reload
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id031
+          default: '1'
+          name: Button
+          validators: null
+          value: '2'
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: Operator Joystick}
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id032
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whenPressed
     - Name: Operator Sweeper Aquire
       Base: Joystick Button
       Children: []
@@ -947,54 +995,6 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
-    - Name: Operator Shooter Reload
-      Base: Joystick Button
-      Children: []
-      Properties:
-        Command: !!robotbuilder.data.properties.TypeSelectionProperty
-          default: None
-          name: Command
-          type: Command
-          validators: *id030
-          value: Shooter Reload
-        Button: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id031
-          default: '1'
-          name: Button
-          validators: null
-          value: '2'
-        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: Operator Joystick}
-        When to Run: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id032
-          default: whileHeld
-          name: When to Run
-          validators: null
-          value: whenPressed
-    - Name: Operator Shooter Fire
-      Base: Joystick Button
-      Children: []
-      Properties:
-        Command: !!robotbuilder.data.properties.TypeSelectionProperty
-          default: None
-          name: Command
-          type: Command
-          validators: *id030
-          value: Shooter Fire
-        Button: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id031
-          default: '1'
-          name: Button
-          validators: null
-          value: '1'
-        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: Operator Joystick}
-        When to Run: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id032
-          default: whileHeld
-          name: When to Run
-          validators: null
-          value: whenPressed
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: *id033
@@ -1007,6 +1007,12 @@ Children:
   Base: Commands
   Children:
   - Name: Auto Command
+    Base: Command Group
+    Children: []
+    Properties:
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+  - Name: Auto Drive and Shoot
     Base: Command Group
     Children: []
     Properties:

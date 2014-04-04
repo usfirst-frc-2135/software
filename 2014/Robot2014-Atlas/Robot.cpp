@@ -99,6 +99,7 @@ void Robot::RobotInit() {
 	autoChooser = new SendableChooser();
 	autoChooser->AddDefault( "Move forward", new AutoCommand() );
 	autoChooser->AddObject( "Sit still", new DriveStop() );
+	autoChooser->AddObject( "Auto drive and shoot", new AutoDriveAndShoot() );
 	SmartDashboard::PutData( "Auto Mode Chooser", autoChooser );
 	autonomousCommand = (Command *) autoChooser->GetSelected();
 }
