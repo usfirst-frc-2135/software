@@ -10,6 +10,7 @@
 #include "Robot.h"
 #include "DriverStationLCD.h"
 #include "Commands\AutoCommand.h"
+#include "Commands\AutoDriveAndShoot.h"
 #include "Commands\DriveStop.h"
 #include "Preferences.h"
 #define M_PI 3.14159265358979323846

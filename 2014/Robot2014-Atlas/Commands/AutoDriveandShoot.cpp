@@ -10,11 +10,11 @@
 
 
 
-#include "AutoDriveandShoot.h"
+#include "AutoDriveAndShoot.h"
 #include "../Commands/DriveDistance.h"
 #include "../Commands/ShiftLowGear.h"
 
-AutoDriveandShoot::AutoDriveandShoot() {
+AutoDriveAndShoot::AutoDriveAndShoot() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -31,7 +31,7 @@ AutoDriveandShoot::AutoDriveandShoot() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	printf( "2135: Autonomous Command Group\n" );
+	printf( "2135: Auto Drive And Shoot Group\n" );
 	AddParallel(new ShiftLowGear());
 	AddSequential(new DriveDistance());
 }

@@ -1012,7 +1012,7 @@ Children:
     Properties:
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: Auto Drive and Shoot
+  - Name: Auto Drive And Shoot
     Base: Command Group
     Children: []
     Properties:

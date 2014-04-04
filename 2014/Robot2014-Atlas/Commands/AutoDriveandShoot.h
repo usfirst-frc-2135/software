@@ -20,9 +20,9 @@
  *
  * @author ExampleAuthor
  */
-class AutoDriveandShoot: public CommandGroup {
+class AutoDriveAndShoot: public CommandGroup {
 public:	
-	AutoDriveandShoot();
+	AutoDriveAndShoot();
 };
 
 #endif
