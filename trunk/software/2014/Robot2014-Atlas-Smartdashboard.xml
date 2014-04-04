@@ -135,8 +135,11 @@
 	<widget field="Auto Command" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="670" y="10"/>
 	</widget>
+	<widget field="Auto Drive And Shoot" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="670" y="40"/>
+	</widget>
 	<widget field="Auto Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="680" y="50"/>
+		<location x="680" y="70"/>
 	</widget>
 </dashboard>
 <live-window>
