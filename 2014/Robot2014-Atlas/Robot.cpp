@@ -97,12 +97,14 @@ void Robot::RobotInit() {
 	SmartDashboard::PutNumber("Sweeper Speed", m_sweeperSpeed);
 	SmartDashboard::PutNumber("Shooter Speed", m_shooterSpeed);
 	
+	printf("2135: Building autonomous chooser\n");
 	autoChooser = new SendableChooser();
 	autoChooser->AddDefault( "Move forward", new AutoCommand() );
 	autoChooser->AddObject( "Sit still", new DriveStop() );
 	autoChooser->AddObject( "Auto drive and shoot", new AutoDriveAndShoot() );
 	SmartDashboard::PutData( "Auto Mode Chooser", autoChooser );
 	autonomousCommand = (Command *) autoChooser->GetSelected();
+	printf("2135: Building autonomous chooser complete\n");
 }
 	
 void Robot::AutonomousInit() {

@@ -13,7 +13,9 @@
 #include "../Commands/SweeperMotorAcquire.h"
 #include "../Commands/SweeperArmDeploy.h"
 #include "../Commands/BallGateClose.h"
-#include "../Commands/ShooterFire.h"
+#include "../Commands/ShooterFireAuto.h"
+#include "../Commands/DriveStop.h"
+#include "../Commands/ShooterReload.h"
 AutoDriveAndShoot::AutoDriveAndShoot() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
@@ -32,11 +34,13 @@ AutoDriveAndShoot::AutoDriveAndShoot() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 	printf( "2135: Auto Drive And Shoot Group\n" );
-	AddSequential(new ShiftLowGear());
-	AddParallel(new DriveDistance());
-	AddSequential(new BallGateClose());
-	AddParallel(new SweeperArmDeploy());
+	// first part of the autonomous t0
+	AddSequential(new DriveDistance());
+	// second part of the autonomous t1
+	AddParallel(new DriveStop());
 	AddParallel(new SweeperMotorAcquire());
-	AddSequential(new ShooterFire());
-	
+	AddParallel(new SweeperArmDeploy());
+	AddParallel(new BallGateClose());
+	AddSequential(new ShooterFireAuto());
+
 }
