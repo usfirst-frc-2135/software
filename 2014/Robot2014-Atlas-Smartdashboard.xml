@@ -151,22 +151,22 @@
 		<location x="400" y="240"/>
 	</widget>
 	<widget field="Cheesy Connected:" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="750" y="210"/>
+		<location x="750" y="290"/>
 	</widget>
 	<widget field="CheeseLeft Count:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="726" y="240"/>
+		<location x="726" y="320"/>
 	</widget>
 	<widget field="CheeseRight Count:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="720" y="260"/>
+		<location x="720" y="340"/>
 	</widget>
 	<widget field="CheeseLeft:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="758" y="280"/>
+		<location x="758" y="360"/>
 	</widget>
 	<widget field="CheeseRight:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="752" y="300"/>
+		<location x="752" y="380"/>
 	</widget>
 	<widget field="CheeseTotal Count:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="721" y="320"/>
+		<location x="721" y="400"/>
 	</widget>
 </dashboard>
 <live-window>
