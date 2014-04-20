@@ -132,6 +132,9 @@
 	<widget field="Ball Gate Close" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="555" y="390"/>
 	</widget>
+	<widget field="Shooter Fire Auto" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="541" y="240"/>
+	</widget>
 	<widget field="Auto Command" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="670" y="10"/>
 	</widget>
@@ -140,6 +143,30 @@
 	</widget>
 	<widget field="Auto Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
 		<location x="680" y="70"/>
+	</widget>
+	<widget field="Shooter Energized 1" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="400" y="220"/>
+	</widget>
+	<widget field="Shooter Energized 2" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="400" y="240"/>
+	</widget>
+	<widget field="Cheesy Connected:" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="750" y="210"/>
+	</widget>
+	<widget field="CheeseLeft Count:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="726" y="240"/>
+	</widget>
+	<widget field="CheeseRight Count:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="720" y="260"/>
+	</widget>
+	<widget field="CheeseLeft:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="758" y="280"/>
+	</widget>
+	<widget field="CheeseRight:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="752" y="300"/>
+	</widget>
+	<widget field="CheeseTotal Count:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="721" y="320"/>
 	</widget>
 </dashboard>
 <live-window>
