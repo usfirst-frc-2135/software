@@ -23,7 +23,8 @@
  */
 class ShooterFireAuto: public Command {
 private:
-	static const double m_shooterMaxTime = 2.0;
+	static const double m_shooterFirstHotTime = 2.5;
+	static const double m_shooterSecondHotTime = 6.5;
 	Timer* m_shooterTimer;
 public:
 	ShooterFireAuto();
