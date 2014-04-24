@@ -10,6 +10,7 @@
 
 
 #include "ShooterFireAuto.h"
+#include "../CheesyVisionServer.h"
 
 ShooterFireAuto::ShooterFireAuto() {
 	// Use requires() here to declare subsystem dependencies
@@ -33,10 +34,20 @@ void ShooterFireAuto::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterFireAuto::IsFinished() {
-	if ( m_shooterTimer->HasPeriodPassed(m_shooterMaxTime) ) {
-		printf( "2135: Shooter Timed Out\n" );
-		Robot::shooter->ShooterDisengage();
-		return true;
+	if (CheesyVisionServer::GetInstance()->GetLeftStatus() &&
+		CheesyVisionServer::GetInstance()->GetRightStatus()) {
+		if ( m_shooterTimer->HasPeriodPassed(m_shooterSecondHotTime) ) {
+			printf( "2135: Shooter Timed Out-Second\n" );
+			Robot::shooter->ShooterDisengage();
+			return true;
+		}
+	}
+	else {
+		if ( m_shooterTimer->HasPeriodPassed(m_shooterFirstHotTime) ) {
+			printf( "2135: Shooter Timed Out-First\n" );
+			Robot::shooter->ShooterDisengage();
+			return true;
+		}
 	}
 	return false;
 }

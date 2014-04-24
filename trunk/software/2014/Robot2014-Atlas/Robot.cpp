@@ -65,7 +65,7 @@ void Robot::RobotInit() {
 	if (!prefs->ContainsKey( "ShooterSpeed" )) {
 		printf( "2135: ShooterSpeed Found\n" );
 	}
-	m_autoSetpoint = prefs->GetDouble( "AutoDriveDistance", 72.0 );
+	m_autoSetpoint = prefs->GetDouble( "AutoDriveDistance", 95.0 );
 	m_pidMaxOutput = prefs->GetDouble( "PidMaxOutput", 0.6 );
 	m_sweeperSpeed = prefs->GetDouble( "SweeperSpeed", 1.0 );
 	m_shooterSpeed = prefs->GetDouble( "ShooterSpeed", 0.75 );
