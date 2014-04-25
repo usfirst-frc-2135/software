@@ -35,13 +35,16 @@ void DriveDistance::Execute() {
 }
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistance::IsFinished() {
+	double temp;
+	temp = m_pidTimer->Get();
+	
 	if ( ( m_pidTimer->HasPeriodPassed(m_pidMaxTime) ) || 
 		( Robot::chassis->DriveDistanceWithPIDIsAtSetpoint() ) ) {
 		Robot::chassis->DriveDistanceWithPIDStop();
 		if ( m_pidTimer->HasPeriodPassed(m_pidMaxTime) ) 
 			printf( "2135: PID Timed Out\n" );
 		else 
-			printf( "2135: PID completed in %f seconds\n", m_pidTimer->Get() );
+			printf( "2135: PID completed in %f seconds\n", temp );
 		return true;
 	}
 	else

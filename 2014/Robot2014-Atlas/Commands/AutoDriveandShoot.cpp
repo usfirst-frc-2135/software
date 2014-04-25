@@ -16,6 +16,7 @@
 #include "../Commands/ShooterFireAuto.h"
 #include "../Commands/DriveStop.h"
 #include "../Commands/ShooterReload.h"
+#include "../Commands/TimeDelay.h"
 AutoDriveAndShoot::AutoDriveAndShoot() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
@@ -36,6 +37,7 @@ AutoDriveAndShoot::AutoDriveAndShoot() {
 	printf( "2135: Auto Drive And Shoot Group\n" );
 	// first part of the autonomous t0
 	AddSequential(new DriveDistance());
+	AddSequential(new TimeDelay());
 	// second part of the autonomous t1
 	AddParallel(new DriveStop());
 	AddParallel(new SweeperMotorAcquire());
