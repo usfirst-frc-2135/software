@@ -151,7 +151,6 @@ void Robot::DisabledPeriodic() {
     SmartDashboard::PutNumber("CheeseLeft Count:", cheeseView->GetLeftCount());
     SmartDashboard::PutNumber("CheeseRight Count:", cheeseView->GetRightCount());
     SmartDashboard::PutNumber("CheeseTotal Count:", cheeseView->GetTotalCount());
-
     SmartDashboard::PutBoolean("Cheesy Connected:", cheeseView->HasClientConnection());
 	
 }
