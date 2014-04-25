@@ -23,7 +23,7 @@
  */
 class TimeDelay: public Command {
 private:
-	static const double m_delayMaxTime = 0.5;
+	static const double m_delayMaxTime = 1.0;
 	Timer* m_delayTimer;
 public:
 	TimeDelay();
