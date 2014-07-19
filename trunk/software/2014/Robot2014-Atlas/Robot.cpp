@@ -138,6 +138,8 @@ void Robot::TeleopPeriodic() {
 	SmartDashboard::PutNumber("R: Distance", -Robot::chassis->rightDriveEncoder->GetDistance());
 	SmartDashboard::PutBoolean("Shooter Energized 1", Robot::shooter->retractLimit1->Get());
 	SmartDashboard::PutBoolean("Shooter Energized 2", Robot::shooter->retractLimit2->Get());
+	SmartDashboard::PutNumber("L: Speed", Robot::chassis->GetLeftSpeed());
+	SmartDashboard::PutNumber("R: Speed", Robot::chassis->GetRightSpeed());
 }
 void Robot::DisabledInit() {
     CheesyVisionServer *cheeseView = CheesyVisionServer::GetInstance();

@@ -25,6 +25,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	drvTrain->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 	drvTrain->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 	drvTrain->SetExpiration( 2.0 );
+	m_speedTimer = new Timer;
+	m_speedTimer->Start();
 }
     
 void Chassis::InitDefaultCommand() {
@@ -142,4 +144,28 @@ void Chassis::DriveDistanceWithPIDStop( void )
 	leftDrivePID->Disable();
 	rightDrivePID->Disable();	
 	drvTrain->SetSafetyEnabled(true);
+}
+
+double Chassis::GetLeftSpeed (void) {
+	
+	double leftDistance;
+	double time;
+	double leftSpeed;
+	
+	leftDistance = leftDriveEncoder->GetDistance();
+	time = m_speedTimer->Get();
+	leftSpeed = leftDistance / time;
+	return leftSpeed;
+}
+
+double Chassis::GetRightSpeed (void) {
+	
+	double rightDistance;
+	double time;
+	double rightSpeed;
+	
+	rightDistance = rightDriveEncoder->GetDistance();
+	time = m_speedTimer->Get();
+	rightSpeed = rightDistance / time;
+	return rightSpeed;
 }
