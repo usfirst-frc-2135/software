@@ -81,9 +81,9 @@ void Chassis::DriveWithJoystick(Joystick *driverStick1, Joystick *driverStick2){
 	else {
 		driveTrain->ArcadeDrive( *driverStick1, 2, *driverStick1, 1, true );
 	}
-	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line1, "Drive:  %5.2f %5.2f", 
+	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line2, "Drive:  %5.2f %5.2f", 
 		driverStick1->GetAxis( Joystick::kYAxis ), driverStick1->GetAxis( Joystick::kXAxis ) );
-	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line1, 20, "%5.2f %5.2f %5.2f %5.2f", 
+	RobotMap::driverStationLCD->Printf( DriverStationLCD::kUser_Line2, 20, "%5.2f %5.2f %5.2f %5.2f", 
 		gyro->GetAngle(), 
 		RobotMap::accelerometer->GetAcceleration( ADXL345_I2C::kAxis_X ),
 		RobotMap::accelerometer->GetAcceleration( ADXL345_I2C::kAxis_Y ), 
@@ -93,5 +93,5 @@ void Chassis::DriveWithJoystick(Joystick *driverStick1, Joystick *driverStick2){
 void Chassis::DriveUsingLeftRightMotorOutputs(double left, double right){
 	// printf ( "2135: SetLeftRightMotorOutputs left - %6.3f, right - %6.3f\n", left, right);
 	driveTrain->SetLeftRightMotorOutputs( left, right );
-	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line1, "Drive:  %5.2f %5.2f", left, right );
+	RobotMap::driverStationLCD->PrintfLine( DriverStationLCD::kUser_Line2, "Drive:  %5.2f %5.2f", left, right );
 }
