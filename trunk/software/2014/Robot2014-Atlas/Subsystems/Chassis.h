@@ -45,6 +45,7 @@ public:
 	double GetLeftSpeed( void );
 	double GetRightSpeed( void );
 	double GetDistanceUltrasonic( void );
+	void UpdateDistance( void );
 	
 	
 };

@@ -187,3 +187,16 @@ double Chassis::GetDistanceUltrasonic( void )
 	distanceRange = ultrasonicDrive->GetRangeInches();
 	return distanceRange;	
 }
+
+void Chassis::UpdateDistance( void )
+{
+	double oldValues[4];
+	oldValues[0] = SmartDashboard::GetNumber("Distance0");
+	oldValues[1] = SmartDashboard::GetNumber("Distance1");
+	oldValues[2] = SmartDashboard::GetNumber("Distance2");
+	SmartDashboard::PutNumber("Distance0", SmartDashboard::GetNumber("Distance Range"));
+	SmartDashboard::PutNumber("Distance1", oldValues[0]);
+	SmartDashboard::PutNumber("Distance2", oldValues[1]);
+	SmartDashboard::PutNumber("Distance3", oldValues[2]);
+	
+}
