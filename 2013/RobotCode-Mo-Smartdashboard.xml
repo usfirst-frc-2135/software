@@ -1,0 +1,94 @@
+<xml version="1.0">
+<dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.camera.WPICameraExtension">
+		<location x="421" y="3"/>
+	</static-widget>
+	<widget field="Right Encoder Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="230" y="32"/>
+		<height>20</height>
+	</widget>
+	<widget field="Left Encoder Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="236" y="12"/>
+	</widget>
+	<widget field="Right Encoder Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="27" y="32"/>
+	</widget>
+	<widget field="Left Encoder Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="33" y="12"/>
+	</widget>
+	<widget field="Auto Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="272" y="446"/>
+	</widget>
+	<widget field="Camera Down" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="239" y="415"/>
+	</widget>
+	<widget field="Camera Up" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="253" y="383"/>
+	</widget>
+	<widget field="Compressor Set Off" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="211" y="351"/>
+	</widget>
+	<widget field="Compressor Set On" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="213" y="319"/>
+	</widget>
+	<widget field="Shooter On" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="251" y="255"/>
+	</widget>
+	<widget field="Shooter Off" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="249" y="287"/>
+	</widget>
+	<widget field="Azimuth Right" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="240" y="223"/>
+	</widget>
+	<widget field="Azimuth Left" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="246" y="191"/>
+	</widget>
+	<widget field="Azimuth Off" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="249" y="160"/>
+	</widget>
+	<widget field="Conveyor Down" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="21" y="479"/>
+	</widget>
+	<widget field="Conveyor Up" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="35" y="447"/>
+	</widget>
+	<widget field="Conveyor Off" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="32" y="415"/>
+	</widget>
+	<widget field="Shift High Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="26" y="383"/>
+	</widget>
+	<widget field="Shift Low Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="28" y="351"/>
+	</widget>
+	<widget field="Drive Train Off" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="27" y="319"/>
+	</widget>
+	<widget field="Drive Teleop" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="38" y="287"/>
+	</widget>
+	<widget field="Drive Spin Slow Right" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="13" y="255"/>
+	</widget>
+	<widget field="Drive Spin Right" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="38" y="223"/>
+	</widget>
+	<widget field="Drive Spin Slow Left" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="19" y="191"/>
+	</widget>
+	<widget field="Drive Spin Left" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="44" y="159"/>
+	</widget>
+	<widget field="Drive Straight Distance Low" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="14" y="127"/>
+	</widget>
+	<widget field="Drive Straight Distance" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="36" y="95"/>
+	</widget>
+	<widget field="Autonomous Command" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="36" y="63"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
