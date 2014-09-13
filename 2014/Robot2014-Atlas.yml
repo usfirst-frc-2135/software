@@ -20,7 +20,7 @@ Children:
           default: '1'
           name: Ping Channel (Digital)
           validators: [DigitalChannel]
-          value: '10'
+          value: '11'
         Ping Module (Digital): !!robotbuilder.data.properties.ChoicesProperty
           choices: ['1', '2']
           default: '1'
@@ -39,7 +39,7 @@ Children:
           default: '1'
           name: Echo Channel (Digital)
           validators: [DigitalChannel]
-          value: '11'
+          value: '10'
     - Name: Left Drive PID
       Base: PID Controller
       Children:
