@@ -40,6 +40,7 @@ void Shooter::ShooterReload( double speed )
 void Shooter::ShooterEngage( void )
 {
 	triggerSolenoid->Set( triggerSolenoid->kForward );
+	Robot::chassis->UpdateDistance();
 }
 //
 void Shooter::ShooterDisengage( void )

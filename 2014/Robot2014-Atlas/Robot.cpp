@@ -97,6 +97,10 @@ void Robot::RobotInit() {
 	SmartDashboard::PutNumber("Right Setpoint", 0.0);
 	SmartDashboard::PutNumber("Sweeper Speed", m_sweeperSpeed);
 	SmartDashboard::PutNumber("Shooter Speed", m_shooterSpeed);
+	SmartDashboard::PutNumber("Distance0", 0.0);
+	SmartDashboard::PutNumber("Distance1", 0.0);
+	SmartDashboard::PutNumber("Distance2", 0.0);
+	SmartDashboard::PutNumber("Distance3", 0.0);
 	
 	printf("2135: Building autonomous chooser\n");
 	autoChooser = new SendableChooser();
@@ -157,7 +161,7 @@ void Robot::DisabledPeriodic() {
     SmartDashboard::PutNumber("CheeseRight Count:", cheeseView->GetRightCount());
     SmartDashboard::PutNumber("CheeseTotal Count:", cheeseView->GetTotalCount());
     SmartDashboard::PutBoolean("Cheesy Connected:", cheeseView->HasClientConnection());
-	
+    SmartDashboard::PutNumber("Distance Range", Robot::chassis->GetDistanceUltrasonic());
 }
 void Robot::TestPeriodic() {
 	lw->Run();
