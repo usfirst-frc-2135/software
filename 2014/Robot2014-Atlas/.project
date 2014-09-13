@@ -3,7 +3,6 @@
 	<name>Robot2014-Atlas</name>
 	<comment></comment>
 	<projects>
-		<project>RobotCode-Mo</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
