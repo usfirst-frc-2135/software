@@ -28,8 +28,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	drvTrain->SetExpiration( 2.0 );
 	m_speedTimer = new Timer;
 	m_speedTimer->Start();
-	//ultrasonicDrive->SetAutomaticMode(true);
-	//ultrasonicDrive->SetEnabled(true);
+	ultrasonicDrive->SetAutomaticMode(true);
+	ultrasonicDrive->SetEnabled(true);
 }
     
 void Chassis::InitDefaultCommand() {
@@ -184,6 +184,6 @@ double Chassis::GetRightSpeed( void )
 double Chassis::GetDistanceUltrasonic( void )
 {
 	double distanceRange;
-	//distanceRange = ultrasonicDrive->GetRangeInches();
-	return 0.0;	
+	distanceRange = ultrasonicDrive->GetRangeInches();
+	return distanceRange;	
 }

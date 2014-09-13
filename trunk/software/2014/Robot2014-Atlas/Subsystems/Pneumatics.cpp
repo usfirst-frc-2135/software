@@ -41,3 +41,7 @@ void Pneumatics:: StopCompressor( void )
 {
 	compressor->Stop();
 }
+double Pneumatics:: GetCompressorStatus( void )
+{
+	return (spike1->Get());
+}

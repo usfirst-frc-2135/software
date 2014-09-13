@@ -97,7 +97,6 @@ void Robot::RobotInit() {
 	SmartDashboard::PutNumber("Right Setpoint", 0.0);
 	SmartDashboard::PutNumber("Sweeper Speed", m_sweeperSpeed);
 	SmartDashboard::PutNumber("Shooter Speed", m_shooterSpeed);
-	//SmartDashboard::PutNumber("Compressor", Robot::pneumatics->spike1->Get());
 	
 	printf("2135: Building autonomous chooser\n");
 	autoChooser = new SendableChooser();
@@ -120,7 +119,7 @@ void Robot::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
 	SmartDashboard::PutNumber("L: Distance", Robot::chassis->leftDriveEncoder->GetDistance());
 	SmartDashboard::PutNumber("R: Distance", -Robot::chassis->rightDriveEncoder->GetDistance());
-	//SmartDashboard::PutNumber("Distance Range", Robot::chassis->GetDistanceUltrasonic());
+	SmartDashboard::PutNumber("Distance Range", Robot::chassis->GetDistanceUltrasonic());
 }
 	
 void Robot::TeleopInit() {
@@ -142,7 +141,8 @@ void Robot::TeleopPeriodic() {
 	SmartDashboard::PutBoolean("Shooter Energized 2", Robot::shooter->retractLimit2->Get());
 	SmartDashboard::PutNumber("L: Speed", Robot::chassis->GetLeftSpeed());
 	SmartDashboard::PutNumber("R: Speed", Robot::chassis->GetRightSpeed());
-	//SmartDashboard::PutNumber("Distance Range", Robot::chassis->GetDistanceUltrasonic());
+	SmartDashboard::PutNumber("Distance Range", Robot::chassis->GetDistanceUltrasonic());
+	//SmartDashboard::PutNumber("Compressor", Robot::pneumatics->GetCompressorStatus());
 }
 void Robot::DisabledInit() {
     CheesyVisionServer *cheeseView = CheesyVisionServer::GetInstance();
