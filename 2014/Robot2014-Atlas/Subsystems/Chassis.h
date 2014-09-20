@@ -46,6 +46,8 @@ public:
 	double GetRightSpeed( void );
 	double GetDistanceUltrasonic( void );
 	void UpdateDistance( void );
+	double GetLeftSpeedAverage( void );
+	double GetRightSpeedAverage( void );
 	
 	
 };
