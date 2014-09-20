@@ -54,5 +54,7 @@ public:
 	virtual void DisabledInit();
 	virtual void DisabledPeriodic();
 	virtual void TestPeriodic();
+	void UpdateSmartDashboard();
+	void InitSmartDashboard();
 };
 #endif

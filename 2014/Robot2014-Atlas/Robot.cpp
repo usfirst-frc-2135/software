@@ -75,7 +75,47 @@ void Robot::RobotInit() {
 	printf( "PidMaxOutput:       %f\n", m_pidMaxOutput );
 	printf( "SweeperSpeed:       %f\n", m_sweeperSpeed );
 	printf( "ShooterSpeed:       %f\n", m_shooterSpeed );
-			
+	
+	printf("2135: Building autonomous chooser\n");
+	autoChooser = new SendableChooser();
+	autoChooser->AddDefault( "Move forward", new AutoCommand() );
+	autoChooser->AddObject( "Sit still", new DriveStop() );
+	autoChooser->AddObject( "Auto drive and shoot", new AutoDriveAndShoot() );
+	SmartDashboard::PutData( "Auto Mode Chooser", autoChooser );
+	autonomousCommand = (Command *) autoChooser->GetSelected();
+	printf("2135: Building autonomous chooser complete\n");
+}
+	
+void Robot::AutonomousInit() {
+	printf( "2135: Autonomous Init\n" );
+	autonomousCommand = (Command *) autoChooser->GetSelected();
+	if (autonomousCommand != NULL)
+		autonomousCommand->Start();
+}
+	
+void Robot::AutonomousPeriodic() {
+	Scheduler::GetInstance()->Run();
+	Robot::UpdateSmartDashboard();
+}
+	
+void Robot::TeleopInit() {
+	printf( "2135: Teleop Init\n" );
+	// This makes sure that the autonomous stops running when
+	// teleop starts running. If you want the autonomous to 
+	// continue until interrupted by another command, remove
+	// this line or comment it out.
+	if (autonomousCommand != NULL)
+		autonomousCommand->Cancel();
+}
+	
+void Robot::TeleopPeriodic() {
+	if (autonomousCommand != NULL)
+		Scheduler::GetInstance()->Run();
+	Robot::UpdateSmartDashboard();
+	
+}
+
+void Robot::InitSmartDashboard() {
 	SmartDashboard::PutNumber("L: P", chassis->leftDrivePID->GetP());
 	SmartDashboard::PutNumber("L: I", chassis->leftDrivePID->GetI());
 	SmartDashboard::PutNumber("L: D", chassis->leftDrivePID->GetD());
@@ -101,67 +141,35 @@ void Robot::RobotInit() {
 	SmartDashboard::PutNumber("Distance1", 0.0);
 	SmartDashboard::PutNumber("Distance2", 0.0);
 	SmartDashboard::PutNumber("Distance3", 0.0);
-	
-	printf("2135: Building autonomous chooser\n");
-	autoChooser = new SendableChooser();
-	autoChooser->AddDefault( "Move forward", new AutoCommand() );
-	autoChooser->AddObject( "Sit still", new DriveStop() );
-	autoChooser->AddObject( "Auto drive and shoot", new AutoDriveAndShoot() );
-	SmartDashboard::PutData( "Auto Mode Chooser", autoChooser );
-	autonomousCommand = (Command *) autoChooser->GetSelected();
-	printf("2135: Building autonomous chooser complete\n");
+	SmartDashboard::PutBoolean("Left PID State", false );
+	SmartDashboard::PutBoolean("Right PID State", false );
 }
-	
-void Robot::AutonomousInit() {
-	printf( "2135: Autonomous Init\n" );
-	autonomousCommand = (Command *) autoChooser->GetSelected();
-	if (autonomousCommand != NULL)
-		autonomousCommand->Start();
-}
-	
-void Robot::AutonomousPeriodic() {
-	Scheduler::GetInstance()->Run();
-	SmartDashboard::PutNumber("L: Distance", Robot::chassis->leftDriveEncoder->GetDistance());
-	SmartDashboard::PutNumber("R: Distance", -Robot::chassis->rightDriveEncoder->GetDistance());
+
+void Robot::UpdateSmartDashboard() {
 	SmartDashboard::PutNumber("Distance Range", Robot::chassis->GetDistanceUltrasonic());
-}
-	
-void Robot::TeleopInit() {
-	printf( "2135: Teleop Init\n" );
-	// This makes sure that the autonomous stops running when
-	// teleop starts running. If you want the autonomous to 
-	// continue until interrupted by another command, remove
-	// this line or comment it out.
-	if (autonomousCommand != NULL)
-		autonomousCommand->Cancel();
-}
-	
-void Robot::TeleopPeriodic() {
-	if (autonomousCommand != NULL)
-		Scheduler::GetInstance()->Run();
 	SmartDashboard::PutNumber("L: Distance", Robot::chassis->leftDriveEncoder->GetDistance());
 	SmartDashboard::PutNumber("R: Distance", -Robot::chassis->rightDriveEncoder->GetDistance());
 	SmartDashboard::PutBoolean("Shooter Energized 1", Robot::shooter->retractLimit1->Get());
 	SmartDashboard::PutBoolean("Shooter Energized 2", Robot::shooter->retractLimit2->Get());
 	SmartDashboard::PutNumber("L: Speed", Robot::chassis->GetLeftSpeed());
 	SmartDashboard::PutNumber("R: Speed", Robot::chassis->GetRightSpeed());
-	SmartDashboard::PutNumber("Distance Range", Robot::chassis->GetDistanceUltrasonic());
-	//SmartDashboard::PutNumber("Compressor", Robot::pneumatics->GetCompressorStatus());
+	// cheesy vision
+	CheesyVisionServer *cheeseView = CheesyVisionServer::GetInstance();
+	SmartDashboard::PutNumber("CheeseLeft:", cheeseView->GetLeftStatus());
+	SmartDashboard::PutNumber("CheeseRight:", cheeseView->GetRightStatus());
+	SmartDashboard::PutNumber("CheeseLeft Count:", cheeseView->GetLeftCount());
+	SmartDashboard::PutNumber("CheeseRight Count:", cheeseView->GetRightCount());
+	SmartDashboard::PutNumber("CheeseTotal Count:", cheeseView->GetTotalCount());
+	SmartDashboard::PutBoolean("Cheesy Connected:", cheeseView->HasClientConnection());	
 }
+
 void Robot::DisabledInit() {
     CheesyVisionServer *cheeseView = CheesyVisionServer::GetInstance();
     cheeseView->StartSamplingCounts();
     cheeseView->StartListening();	
 }
 void Robot::DisabledPeriodic() {
-    CheesyVisionServer *cheeseView = CheesyVisionServer::GetInstance();
-    SmartDashboard::PutNumber("CheeseLeft:", cheeseView->GetLeftStatus());
-    SmartDashboard::PutNumber("CheeseRight:", cheeseView->GetRightStatus());
-    SmartDashboard::PutNumber("CheeseLeft Count:", cheeseView->GetLeftCount());
-    SmartDashboard::PutNumber("CheeseRight Count:", cheeseView->GetRightCount());
-    SmartDashboard::PutNumber("CheeseTotal Count:", cheeseView->GetTotalCount());
-    SmartDashboard::PutBoolean("Cheesy Connected:", cheeseView->HasClientConnection());
-    SmartDashboard::PutNumber("Distance Range", Robot::chassis->GetDistanceUltrasonic());
+    Robot::UpdateSmartDashboard();
 }
 void Robot::TestPeriodic() {
 	lw->Run();
