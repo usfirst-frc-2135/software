@@ -181,6 +181,26 @@ double Chassis::GetRightSpeed( void )
 	timeOld = timeNew;
 	return ((rightSpeed) / 12);
 }
+double Chassis::GetLeftSpeedAverage( void )
+{
+	static double oldValues[4];
+	oldValues[3] = oldValues[2];
+	oldValues[2] = oldValues[1];
+	oldValues[1] = oldValues[0];
+	oldValues[0] = Robot::chassis->GetLeftSpeed();
+	
+	return (oldValues[3] + oldValues[2] + oldValues[1] + oldValues[0]) / 4;                  
+}
+double Chassis::GetRightSpeedAverage( void )
+{
+	static double oldValues[4];
+	oldValues[3] = oldValues[2];
+	oldValues[2] = oldValues[1];
+	oldValues[1] = oldValues[0];
+	oldValues[0] = Robot::chassis->GetRightSpeed();
+	
+	return (oldValues[3] + oldValues[2] + oldValues[1] + oldValues[0]) / 4;
+}
 double Chassis::GetDistanceUltrasonic( void )
 {
 	double distanceRange;
@@ -190,13 +210,16 @@ double Chassis::GetDistanceUltrasonic( void )
 
 void Chassis::UpdateDistance( void )
 {
-	double oldValues[4];
+	double oldValues[6];
 	oldValues[0] = SmartDashboard::GetNumber("Distance0");
 	oldValues[1] = SmartDashboard::GetNumber("Distance1");
 	oldValues[2] = SmartDashboard::GetNumber("Distance2");
+	oldValues[3] = SmartDashboard::GetNumber("Distance3");
+	oldValues[4] = SmartDashboard::GetNumber("Distance4");
 	SmartDashboard::PutNumber("Distance0", SmartDashboard::GetNumber("Distance Range"));
 	SmartDashboard::PutNumber("Distance1", oldValues[0]);
 	SmartDashboard::PutNumber("Distance2", oldValues[1]);
 	SmartDashboard::PutNumber("Distance3", oldValues[2]);
-	
+	SmartDashboard::PutNumber("Distance4", oldValues[3]);
+	SmartDashboard::PutNumber("Distance5", oldValues[4]);	
 }

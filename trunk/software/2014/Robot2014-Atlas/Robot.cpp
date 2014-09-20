@@ -84,6 +84,7 @@ void Robot::RobotInit() {
 	SmartDashboard::PutData( "Auto Mode Chooser", autoChooser );
 	autonomousCommand = (Command *) autoChooser->GetSelected();
 	printf("2135: Building autonomous chooser complete\n");
+	Robot::InitSmartDashboard();
 }
 	
 void Robot::AutonomousInit() {
@@ -141,6 +142,8 @@ void Robot::InitSmartDashboard() {
 	SmartDashboard::PutNumber("Distance1", 0.0);
 	SmartDashboard::PutNumber("Distance2", 0.0);
 	SmartDashboard::PutNumber("Distance3", 0.0);
+	SmartDashboard::PutNumber("Distance4", 0.0);
+	SmartDashboard::PutNumber("Distance5", 0.0);
 	SmartDashboard::PutBoolean("Left PID State", false );
 	SmartDashboard::PutBoolean("Right PID State", false );
 }
@@ -153,6 +156,8 @@ void Robot::UpdateSmartDashboard() {
 	SmartDashboard::PutBoolean("Shooter Energized 2", Robot::shooter->retractLimit2->Get());
 	SmartDashboard::PutNumber("L: Speed", Robot::chassis->GetLeftSpeed());
 	SmartDashboard::PutNumber("R: Speed", Robot::chassis->GetRightSpeed());
+	SmartDashboard::PutNumber("L: Avg Speed", Robot::chassis->GetLeftSpeedAverage());
+	SmartDashboard::PutNumber("R: Avg Speed", Robot::chassis->GetRightSpeedAverage());
 	// cheesy vision
 	CheesyVisionServer *cheeseView = CheesyVisionServer::GetInstance();
 	SmartDashboard::PutNumber("CheeseLeft:", cheeseView->GetLeftStatus());
