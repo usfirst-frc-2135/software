@@ -1016,7 +1016,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '12'
+          value: '6'
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
           name: Joystick, validators: null, value: Operator Joystick}
         When to Run: !!robotbuilder.data.properties.ChoicesProperty

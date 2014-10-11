@@ -115,7 +115,6 @@ void Robot::TeleopPeriodic() {
 	Robot::UpdateSmartDashboard();
 	
 }
-
 void Robot::InitSmartDashboard() {
 	SmartDashboard::PutNumber("L: P", chassis->leftDrivePID->GetP());
 	SmartDashboard::PutNumber("L: I", chassis->leftDrivePID->GetI());
@@ -147,7 +146,6 @@ void Robot::InitSmartDashboard() {
 	SmartDashboard::PutBoolean("Left PID State", false );
 	SmartDashboard::PutBoolean("Right PID State", false );
 }
-
 void Robot::UpdateSmartDashboard() {
 	SmartDashboard::PutNumber("Distance Range", Robot::chassis->GetDistanceUltrasonic());
 	SmartDashboard::PutNumber("L: Distance", Robot::chassis->leftDriveEncoder->GetDistance());
@@ -167,7 +165,6 @@ void Robot::UpdateSmartDashboard() {
 	SmartDashboard::PutNumber("CheeseTotal Count:", cheeseView->GetTotalCount());
 	SmartDashboard::PutBoolean("Cheesy Connected:", cheeseView->HasClientConnection());	
 }
-
 void Robot::DisabledInit() {
     CheesyVisionServer *cheeseView = CheesyVisionServer::GetInstance();
     cheeseView->StartSamplingCounts();
