@@ -30,7 +30,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	m_speedTimer->Start();
 	ultrasonicDrive->SetAutomaticMode(true);
 	ultrasonicDrive->SetEnabled(true);
-	accel = new ADXL345_I2C(1);
+	//accel = new ADXL345_I2C(1);
 }
     
 void Chassis::InitDefaultCommand() {
@@ -223,11 +223,9 @@ void Chassis::UpdateDistance( void )
 	SmartDashboard::PutNumber("Distance4", oldValues[3]);
 	SmartDashboard::PutNumber("Distance5", oldValues[4]);	
 }
-
 void Chassis::UpdateAccelerometer( void )
 {
-	SmartDashboard::PutNumber("AccelX", accel->GetAcceleration(ADXL345_I2C::kAxis_X));
-	SmartDashboard::PutNumber("AccelY", accel->GetAcceleration(ADXL345_I2C::kAxis_Y));
-	SmartDashboard::PutNumber("AccelZ", accel->GetAcceleration(ADXL345_I2C::kAxis_Z));
+	//SmartDashboard::PutNumber("AccelX", accel->GetAcceleration(ADXL345_I2C::kAxis_X));
+	//SmartDashboard::PutNumber("AccelY", accel->GetAcceleration(ADXL345_I2C::kAxis_Y));
+	//SmartDashboard::PutNumber("AccelZ", accel->GetAcceleration(ADXL345_I2C::kAxis_Z));
 }
-
