@@ -1,5 +1,17 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="R: Avg Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="511"/>
+	</widget>
+	<widget field="L: Avg Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="483"/>
+	</widget>
+	<widget field="Distance5" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="462"/>
+	</widget>
+	<widget field="Distance4" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="441"/>
+	</widget>
 	<widget field="Right PID State" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="152" y="0"/>
 	</widget>
