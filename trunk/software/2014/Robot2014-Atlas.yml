@@ -40,6 +40,22 @@ Children:
           name: Echo Channel (Digital)
           validators: [DigitalChannel]
           value: '10'
+    - Name: LED Relay
+      Base: Spike
+      Children: []
+      Properties:
+        Output Module (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['1', '2']
+          default: '1'
+          name: Output Module (Digital)
+          validators: [RelayOutput]
+          value: '1'
+        Output Channel (Relay): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['1', '2', '3', '4', '5', '6', '7', '8']
+          default: '1'
+          name: Output Channel (Relay)
+          validators: [RelayOutput]
+          value: '2'
     - Name: Left Drive PID
       Base: PID Controller
       Children:
