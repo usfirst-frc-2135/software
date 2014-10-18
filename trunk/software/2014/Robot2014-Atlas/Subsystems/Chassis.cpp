@@ -208,7 +208,6 @@ double Chassis::GetDistanceUltrasonic( void )
 	double distanceRange;
 	distanceRange = ultrasonicDrive->GetRangeInches();
 	return distanceRange;
-	
 }
 void Chassis::UpdateDistance( void )
 {
