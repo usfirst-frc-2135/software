@@ -42,6 +42,5 @@ public:
 	static void init();
 	static DriverStation* driverStation;
 	static RobotDrive* driveTrain;
-	static Relay* pneumaticsSpike1;
 };
 #endif
