@@ -65,16 +65,27 @@ void Robot::RobotInit() {
 	if (!prefs->ContainsKey( "ShooterSpeed" )) {
 		printf( "2135: ShooterSpeed Found\n" );
 	}
+	if (!prefs->ContainsKey( "ChassisMinRange" )) {
+		printf( "2135: ChassisMinRange Found\n" );
+	}
+	if (!prefs->ContainsKey( "ChassisMaxRange" )) {
+		printf( "2135: ChassisMaxRange Found\n " );
+	}
 	m_autoSetpoint = prefs->GetDouble( "AutoDriveDistance", 95.0 );
 	m_pidMaxOutput = prefs->GetDouble( "PidMaxOutput", 0.6 );
 	m_sweeperSpeed = prefs->GetDouble( "SweeperSpeed", 1.0 );
 	m_shooterSpeed = prefs->GetDouble( "ShooterSpeed", 0.75 );
 	m_autoDefault = prefs->GetString( "AutoDefault", "MoveForward" );
+	m_chassisMinRange = prefs->GetDouble("ChassisMinRange", 48.0);
+	m_chassisMaxRange = prefs->GetDouble("ChassisMaxRange", 54.0);
+	
 	taskDelay(10);
-	printf( "AutodDriveDistance: %f\n", m_autoSetpoint );
+	printf( "AutoDriveDistance: %f\n", m_autoSetpoint );
 	printf( "PidMaxOutput:       %f\n", m_pidMaxOutput );
 	printf( "SweeperSpeed:       %f\n", m_sweeperSpeed );
 	printf( "ShooterSpeed:       %f\n", m_shooterSpeed );
+	printf( "ChassisMinRange:    %f\n", m_chassisMinRange );
+	printf( "ChassisMaxRange:    %f\n", m_chassisMaxRange );
 	
 	printf("2135: Building autonomous chooser\n");
 	autoChooser = new SendableChooser();
@@ -137,6 +148,8 @@ void Robot::InitSmartDashboard() {
 	SmartDashboard::PutNumber("Right Setpoint", 0.0);
 	SmartDashboard::PutNumber("Sweeper Speed", m_sweeperSpeed);
 	SmartDashboard::PutNumber("Shooter Speed", m_shooterSpeed);
+	SmartDashboard::PutNumber("Chassis Min Range", m_chassisMinRange);
+	SmartDashboard::PutNumber("Chassis Max Range", m_chassisMaxRange);
 	SmartDashboard::PutNumber("Distance0", 0.0);
 	SmartDashboard::PutNumber("Distance1", 0.0);
 	SmartDashboard::PutNumber("Distance2", 0.0);
