@@ -158,6 +158,7 @@ void Robot::InitSmartDashboard() {
 	SmartDashboard::PutNumber("Distance5", 0.0);
 	SmartDashboard::PutBoolean("Left PID State", false );
 	SmartDashboard::PutBoolean("Right PID State", false );
+	SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
 }
 void Robot::UpdateSmartDashboard() {
 	SmartDashboard::PutNumber("Distance Range", Robot::chassis->GetDistanceUltrasonic());
@@ -169,6 +170,7 @@ void Robot::UpdateSmartDashboard() {
 	SmartDashboard::PutNumber("R: Speed", Robot::chassis->GetRightSpeed());
 	SmartDashboard::PutNumber("L: Avg Speed", Robot::chassis->GetLeftSpeedAverage());
 	SmartDashboard::PutNumber("R: Avg Speed", Robot::chassis->GetRightSpeedAverage());
+	SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
 	// cheesy vision
 	CheesyVisionServer *cheeseView = CheesyVisionServer::GetInstance();
 	SmartDashboard::PutNumber("CheeseLeft:", cheeseView->GetLeftStatus());
