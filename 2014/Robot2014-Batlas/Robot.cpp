@@ -28,7 +28,7 @@ OI* Robot::oi = 0;
 void Robot::RobotInit() {
 	printf( "\n2135: Batlas RobotInit - " __DATE__" "__TIME__"\n" );
 	ds = DriverStationLCD::GetInstance();
-	ds->PrintfLine(DriverStationLCD::kUser_Line1, "Atlas 2014 - Aerial Assist");
+	ds->PrintfLine(DriverStationLCD::kUser_Line1, "Batlas 2014 - Aerial Assist");
 	ds->UpdateLCD();
 	
 	RobotMap::init();
