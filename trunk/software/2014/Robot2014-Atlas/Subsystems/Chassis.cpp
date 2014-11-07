@@ -208,7 +208,6 @@ double Chassis::GetDistanceUltrasonic( void )
 		lEDRelay->Set(Relay::kOff);
 	return distanceRange;
 }
-
 void Chassis::UpdateDistance( void )
 {
 	double oldValues[6];
