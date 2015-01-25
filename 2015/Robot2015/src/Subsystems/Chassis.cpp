@@ -49,15 +49,19 @@ void Chassis::DriveDistanceWithPIDInit( double distance )
 {
 	double leftDistance;
 	double rightDistance;
+	double minlimit=Preferences::GetInstance()->GetDouble("Min Limit", -0.6);
+	double maxlimit=Preferences::GetInstance()->GetDouble("Max Limit", 0.6);
+	double abstolerance=Preferences::GetInstance()->GetDouble("Abs Tolerance", 0.2);
+
 	leftPID->SetPID(SmartDashboard::GetNumber("L: P"),SmartDashboard::GetNumber("L: I"),
 			SmartDashboard::GetNumber("L: D"));
-	leftPID->SetOutputRange(-0.6, 0.6);
-	leftPID->SetAbsoluteTolerance(0.2);
+	leftPID->SetOutputRange(minlimit, maxlimit);
+	leftPID->SetAbsoluteTolerance(abstolerance);
 	encoderL->SetDistancePerPulse(4 * M_PI / 360);
 	rightPID->SetPID(SmartDashboard::GetNumber("R: P"),SmartDashboard::GetNumber("R: I"),
 			SmartDashboard::GetNumber("R: D"));
-	rightPID->SetOutputRange(-0.6, 0.6);
-	rightPID->SetAbsoluteTolerance(0.2);
+	rightPID->SetOutputRange(minlimit, maxlimit);
+	rightPID->SetAbsoluteTolerance(abstolerance);
 	encoderR->SetDistancePerPulse(4 * M_PI / 360);
 	// get current encoder values
 	leftDistance = encoderL->GetDistance();
