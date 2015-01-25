@@ -1,0 +1,55 @@
+
+body {
+   background-color: #white;
+   width: 600px;
+}
+
+h1 {
+   text-align: center;
+}
+
+h2 {
+   margin-top: 10px;
+   padding-top: 10px;
+   margin-bottom: 0px;
+   padding-bottom: 0px;
+}
+
+h3 {
+   margin-top: 8px;
+   padding-top: 8px;
+   margin-bottom: 0px;
+   padding-bottom: 0px;
+}
+
+h4 {
+   margin-top: 6px;
+   padding-top: 6px;
+   margin-bottom: -4px;
+   padding-bottom: -4px;
+}
+
+img {
+}
+
+dt {
+   font-weight: bold;
+}
+
+p {
+   margin-top: 0px;
+   padding-top: 0px;
+   margin-bottom: 5px;
+   padding-bottom: 0px;
+}
+
+
+.lead {
+    font-style: italic;
+    margin-bottom: -0px;
+}
+
+.attribution {
+    font-size: 8px;
+    font-style: italic;
+}

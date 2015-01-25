@@ -1,0 +1,17 @@
+robotbuilder\exporters\JavaExportTest$1.class
+robotbuilder\data\properties\DoublePropertyTest.class
+robotbuilder\SavingAndLoadingTest.class
+robotbuilder\data\properties\IntegerPropertyTest.class
+robotbuilder\data\ExistsValidatorTest.class
+robotbuilder\SimpleHistoryTest.class
+robotbuilder\data\properties\PropertyTest.class
+robotbuilder\TestUtils.class
+robotbuilder\data\properties\FilePropertyTest.class
+robotbuilder\data\properties\TypeSelectionPropertyTest.class
+robotbuilder\data\properties\StringPropertyTest.class
+robotbuilder\data\properties\BooleanPropertyTest.class
+robotbuilder\data\properties\ChildSelectionPropertyTest.class
+robotbuilder\exporters\JavaExportTest.class
+robotbuilder\data\UniqueValidatorTest.class
+robotbuilder\data\properties\ChoicesPropertyTest.class
+robotbuilder\data\DistinctValidatorTest.class
