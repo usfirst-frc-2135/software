@@ -1,0 +1,88 @@
+#macro( table_with_components $title $label $port_name)
+    #set($ports = $helper.filterComponents($port_name, $robot))
+    #if( $ports.keySet().size() > 0 )
+        <h2>$title</h2>
+	    <table><tr>
+	        <th class="pound">#</th>
+	        <th>$label</th></tr>
+	      #to_rows($ports)
+	    </table>
+    #end
+#end ## macro
+
+#macro( module_table_with_components $title $label $module_name $port_name $module_number )
+    #set($ports = $helper.filterComponents($module_name, $port_name, $module_number, $robot))
+    #if( $ports.keySet().size() > 0 )
+        <h2>$title</h2>
+	    <table><tr>
+	        <th class="pound">#</th>
+	        <th>$label</th></tr>
+	      #to_rows($ports)
+	    </table>
+    #end
+#end ## macro
+
+## Filter components and make a table.
+#macro( to_rows $my_ports )
+    #foreach ($port in [0..25])
+        #if( $my_ports.containsKey("$port") )
+	    #tr($port, $my_ports.get("$port"))
+	#end
+    #end ##foreach
+#end ## macro
+
+## Generate a table row
+#macro( tr $port $name )
+<tr><td>$port</td><td>$name</td></tr>
+#end
+
+## Generate the DIO table for a module
+#macro( DIO $title $label )
+    #table_with_components($title, $label, "Channel (Digital)")
+#end ##macro
+
+## Generate the PWM table for a module
+#macro( PWM $title $label )
+    #table_with_components($title, $label, "Channel (PWM)")
+#end ##macro
+
+## Generate the CAN ID table for a module
+#macro( CAN $title )
+    #set($ports = $helper.filterComponents("CAN ID", $robot))
+    #if( $ports.keySet().size() > 0 )
+        <h2>$title</h2>
+	<table><tr>
+	<th class="pound">ID</th>
+	<th>Device</th></tr>
+	#to_rows($ports)
+	</table>
+    #end
+#end ##macro
+
+## Generate the PWM table for a module
+#macro( Relay $title $label )
+    #table_with_components($title, $label, "Channel (Relay)")
+#end ##macro
+
+## Generate the Analog table for a module
+#macro( Analog $title $label )
+    #table_with_components($title, $label, "Channel (Analog)")
+#end ##macro
+
+## Generate the Solenoid table for a PCM
+#macro( Solenoid $title $label $module )
+    #module_table_with_components($title, $label, "PCM (Solenoid)", "Channel (Solenoid)", $module)
+#end ##macro
+
+## Generate the Compressor
+#macro( Compressor $title )
+    #set($ports = $helper.filterComponents("PCM ID", $robot))
+    #if( $ports.keySet().size() > 0 )
+        <h2>$title</h2>
+	<table><tr>
+	<th class="pound">PCM</th>
+	<th>Device</th></tr>
+	#to_rows($ports)
+	</table>
+    #end
+#end ##macro
