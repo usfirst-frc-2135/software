@@ -27,7 +27,7 @@ void DriveTeleop::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveTeleop::Execute() {
-	
+	Robot::chassis->robotDrive->ArcadeDrive(Robot::oi->getJoystick1());
 }
 
 // Make this return true when this Command no longer needs to run execute()
