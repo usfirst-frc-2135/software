@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: robotbuilder.exporters.JavaExportTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.868 sec <<< FAILURE!
-testJavaExport(robotbuilder.exporters.JavaExportTest)  Time elapsed: 0.865 sec  <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.593 sec <<< FAILURE!
+testJavaExport(robotbuilder.exporters.JavaExportTest)  Time elapsed: 0.593 sec  <<< ERROR!
 java.io.IOException: Cannot run program "ant.bat" (in directory "test-resources\RobotBuilderTestProject"): CreateProcess error=2, The system cannot find the file specified
 	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
 	at java.lang.Runtime.exec(Runtime.java:620)
