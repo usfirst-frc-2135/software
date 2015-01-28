@@ -124,3 +124,24 @@ void Chassis::DriveDistanceWithPIDStop( void )
 	rightPID->Disable();
 	robotDrive->SetSafetyEnabled(true);
 }
+
+void Chassis::DriveWithJoystick( Joystick *joystick1 )
+{
+#if 0
+	robotDrive->ArcadeDrive( joystick1, true );
+#else
+	robotDrive->ArcadeDrive( joystick1->GetY() * m_orientationNormal, joystick1->GetX(), true );
+#endif
+}
+
+void Chassis::DriveUsingLeftRightMotorOutputs( double left, double right )
+{
+	robotDrive->SetLeftRightMotorOutputs(left, right);
+
+}
+
+void Chassis::ReverseDriveTrain( void )
+{
+	m_orientationNormal = -m_orientationNormal;
+	SmartDashboard::PutNumber("Drive Invert", m_orientationNormal);
+}
