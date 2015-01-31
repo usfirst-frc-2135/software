@@ -8,7 +8,7 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
+#include "Preferences.h"
 
 #include "AutonomousContainerSet.h"
 #include "Commands/DriveDistance.h"
@@ -24,19 +24,27 @@ AutonomousContainerSet::AutonomousContainerSet() {
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+	Preferences* pref = Preferences::GetInstance();
+	double driveToFirstContainerDistance = pref->GetDouble("AutoContainerSetFirstDistance", 15.0);
+	double driveToAutoZoneFirstDistance = pref->GetDouble("AutoContainerSetAutoZoneFirstDistance", 96.0);
+	double spinLeftToNextContainer = pref->GetDouble("AutoContainerSpinLeftDegrees",144.3);
+	double driveToSecondContainerDistance = pref->GetDouble("AutoContainerSetSecondDistance", 119.0);
+	double spinRightToAutoZoneSecondDegrees = pref->GetDouble("AutoContainerSetAutoZoneSecondDegrees", 144.3);
+	double driveToAutoZoneSecondDistance = pref->GetDouble("AutoContainerSetAutoZoneSecondDistance", 96);
+
 	AddSequential(new ClampOpen());
-	AddSequential(new DriveDistance(15)); // Drive forward to container
+	AddSequential(new DriveDistance(driveToFirstContainerDistance)); // Drive forward to container
 	AddSequential(new ClampClose()); // Grab the container
 	AddSequential(new ElevatorUp()); // Lift the container
-	AddSequential(new DriveDistance(96)); // Drive forward to auto zone
+	AddSequential(new DriveDistance(driveToAutoZoneFirstDistance)); // Drive forward to auto zone
 	AddSequential(new ElevatorDown()); // Drop the container
 	AddSequential(new ClampOpen()); // Release the container
-	AddSequential(new DriveSpinLeft(144.3)); // Aiming robot to next container
-	AddSequential(new DriveDistance(119)); // Drive forward to next container
+	AddSequential(new DriveSpinLeft(spinLeftToNextContainer)); // Aiming robot to next container
+	AddSequential(new DriveDistance(driveToSecondContainerDistance)); // Drive forward to next container
 	AddSequential(new ClampClose()); // Grab container
 	AddSequential(new ElevatorUp()); //Lift container
-	AddSequential(new DriveSpinRight(144.3)); // Aim to move to auto zone
-	AddSequential(new DriveDistance(96)); // Drive forward to auto zone
+	AddSequential(new DriveSpinRight(spinRightToAutoZoneSecondDegrees)); // Aim to move to auto zone
+	AddSequential(new DriveDistance(driveToAutoZoneSecondDistance)); // Drive forward to auto zone
 	// To run multiple commands at the same time,
 	// use AddParallel()
 	// e.g. AddParallel(new Command1());
