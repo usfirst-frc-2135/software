@@ -9,8 +9,8 @@
 // it from being updated in the future.
 
 
-#ifndef DRIVEDISTANCE_H
-#define DRIVEDISTANCE_H
+#ifndef CLAMP_OPEN_H
+#define CLAMP_OPEN_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,12 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class DriveDistance: public Command {
-private:
-	double m_inches;
+class ClampOpen: public Command {
 public:
-	DriveDistance(double inches);
-	DriveDistance();
+	ClampOpen();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

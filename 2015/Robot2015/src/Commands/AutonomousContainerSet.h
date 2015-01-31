@@ -9,29 +9,20 @@
 // it from being updated in the future.
 
 
-#ifndef DRIVEDISTANCE_H
-#define DRIVEDISTANCE_H
 
+#ifndef AUTONOMOUS_CONTAINER_SET_H
+#define AUTONOMOUS_CONTAINER_SET_H
 
-#include "Commands/Subsystem.h"
-#include "../Robot.h"
+#include "Commands/CommandGroup.h"
 
 /**
  *
  *
  * @author ExampleAuthor
  */
-class DriveDistance: public Command {
-private:
-	double m_inches;
-public:
-	DriveDistance(double inches);
-	DriveDistance();
-	virtual void Initialize();
-	virtual void Execute();
-	virtual bool IsFinished();
-	virtual void End();
-	virtual void Interrupted();
+class AutonomousContainerSet: public CommandGroup {
+public:	
+	AutonomousContainerSet();
 };
 
 #endif

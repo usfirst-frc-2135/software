@@ -9,8 +9,8 @@
 // it from being updated in the future.
 
 
-#ifndef DRIVEDISTANCE_H
-#define DRIVEDISTANCE_H
+#ifndef ELEVATOR_UP_H
+#define ELEVATOR_UP_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,12 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class DriveDistance: public Command {
-private:
-	double m_inches;
+class ElevatorUp: public Command {
 public:
-	DriveDistance(double inches);
-	DriveDistance();
+	ElevatorUp();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
