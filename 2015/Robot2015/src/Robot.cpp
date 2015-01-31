@@ -116,8 +116,8 @@ void Robot::InitSmartDashboard() {
 }
 
 void Robot::UpdateSmartDashboard(){
-	SmartDashboard::PutBoolean("Pressure Switch Value", Robot::pneumatics->compressor->GetPressureSwitchValue());
-	SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
+	//SmartDashboard::PutBoolean("Pressure Switch Value", Robot::pneumatics->compressor->GetPressureSwitchValue());
+	//SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
 }
 START_ROBOT_CLASS(Robot);
 
