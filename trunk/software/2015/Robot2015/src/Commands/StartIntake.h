@@ -9,8 +9,8 @@
 // it from being updated in the future.
 
 
-#ifndef IDLE_H_WHEEL_H
-#define IDLE_H_WHEEL_H
+#ifndef START_INTAKE_H
+#define START_INTAKE_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class IdleHWheel: public Command {
+class StartIntake: public Command {
 public:
-	IdleHWheel();
+	StartIntake();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
