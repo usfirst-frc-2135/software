@@ -24,11 +24,13 @@
 class DriveSpinLeft: public Command {
 public:
 	DriveSpinLeft();
+	DriveSpinLeft(double degrees);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
+	double m_degrees;
 };
 
 #endif
