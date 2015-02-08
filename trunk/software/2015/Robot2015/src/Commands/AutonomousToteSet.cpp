@@ -22,6 +22,7 @@ AutonomousToteSet::AutonomousToteSet() {
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+
 	AddSequential(new ClampOpen());
 	AddSequential(new DriveDistance(12));
 	AddSequential(new ClampClose());
@@ -51,4 +52,5 @@ AutonomousToteSet::AutonomousToteSet() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
+
 }
