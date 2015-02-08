@@ -11,12 +11,14 @@
 
 #include "DriveDistance.h"
 
+
 DriveDistance::DriveDistance(double inches) {
 	// Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
 	Requires(Robot::chassis);
 	m_inches = inches;
 }
+
 
 DriveDistance::DriveDistance() {
 	// Use requires() here to declare subsystem dependencies

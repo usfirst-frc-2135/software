@@ -177,6 +177,26 @@ Children:
           name: Maximum Input, validators: null, value: 5.0}
       Base: PID Controller
       Name: Right PID
+    - Children: []
+      Properties:
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id007
+          default: '2'
+          name: CAN ID
+          validators: *id008
+          value: '5'
+      Base: CAN TalonSRX
+      Name: Motor L2
+    - Children: []
+      Properties:
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id007
+          default: '2'
+          name: CAN ID
+          validators: *id008
+          value: '6'
+      Base: CAN TalonSRX
+      Name: Motor R2
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: Drive Teleop}
@@ -292,34 +312,47 @@ Children:
     - Children: []
       Properties:
         Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id019 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+          choices: &id022 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
             '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22',
             '23', '24', '25']
           default: '0'
           name: Input Channel (Digital)
-          validators: &id020 [DigitalChannel]
+          validators: &id023 [DigitalChannel]
           value: '6'
       Base: Limit Switch
       Name: Tote Full In
     - Children: []
       Properties:
-        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id007
-          default: '2'
-          name: CAN ID
-          validators: *id008
-          value: '5'
-      Base: CAN TalonSRX
+        Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: &id019 [Victor, Jaguar, Talon, VictorSP, TalonSRX, CAN TalonSRX]
+          default: Talon
+          name: Type
+          validators: null
+          value: Talon
+        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+          choices: &id020 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+            '11', '12', '13', '14', '15', '16', '17', '18', '19']
+          default: '0'
+          name: Output Channel (PWM)
+          validators: &id021 [PWMOutput]
+          value: '0'
+      Base: Speed Controller
       Name: Acquire L
     - Children: []
       Properties:
-        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id007
-          default: '2'
-          name: CAN ID
-          validators: *id008
-          value: '6'
-      Base: CAN TalonSRX
+        Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id019
+          default: Talon
+          name: Type
+          validators: null
+          value: Talon
+        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id020
+          default: '0'
+          name: Output Channel (PWM)
+          validators: *id021
+          value: '1'
+      Base: Speed Controller
       Name: Acquire R
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
@@ -358,42 +391,54 @@ Children:
     - Children: []
       Properties:
         Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id019
+          choices: *id022
           default: '0'
           name: Input Channel (Digital)
-          validators: *id020
+          validators: *id023
           value: '7'
       Base: Limit Switch
       Name: Tote Full In
     - Children: []
       Properties:
         Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id019
+          choices: *id022
           default: '0'
           name: Input Channel (Digital)
-          validators: *id020
+          validators: *id023
           value: '8'
       Base: Limit Switch
       Name: Tote Full Out
     - Children: []
       Properties:
-        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id007
-          default: '2'
-          name: CAN ID
-          validators: *id008
-          value: '7'
-      Base: CAN TalonSRX
+        Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id019
+          default: Talon
+          name: Type
+          validators: null
+          value: Talon
+        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id020
+          default: '0'
+          name: Output Channel (PWM)
+          validators: *id021
+          value: '2'
+      Base: Speed Controller
       Name: Acquire L
     - Children: []
       Properties:
-        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id007
-          default: '2'
-          name: CAN ID
-          validators: *id008
-          value: '8'
-      Base: CAN TalonSRX
+        Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id019
+          default: Talon
+          name: Type
+          validators: null
+          value: Talon
+        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id020
+          default: '0'
+          name: Output Channel (PWM)
+          validators: *id021
+          value: '3'
+      Base: Speed Controller
       Name: Acquire R
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
@@ -490,30 +535,30 @@ Children:
   - Children: []
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: &id021 ['0', '1', '2', '3', '4', '5']
+        choices: &id024 ['0', '1', '2', '3', '4', '5']
         default: 1
         name: Number
-        validators: &id022 [Joystick]
+        validators: &id025 [Joystick]
         value: '0'
     Base: Joystick
     Name: Joystick 1
   - Children: []
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: *id021
+        choices: *id024
         default: 1
         name: Number
-        validators: *id022
+        validators: *id025
         value: '1'
     Base: Joystick
     Name: Joystick 2
   - Children: []
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: *id021
+        choices: *id024
         default: 1
         name: Number
-        validators: *id022
+        validators: *id025
         value: '2'
     Base: Joystick
     Name: Joystick 3

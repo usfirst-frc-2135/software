@@ -24,6 +24,7 @@ AutonomousContainerSet::AutonomousContainerSet() {
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+
 	Preferences* pref = Preferences::GetInstance();
 	double driveToFirstContainerDistance = pref->GetDouble("AutoContainerSetFirstDistance", 15.0);
 	double driveToAutoZoneFirstDistance = pref->GetDouble("AutoContainerSetAutoZoneFirstDistance", 96.0);
@@ -56,4 +57,5 @@ AutonomousContainerSet::AutonomousContainerSet() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
+
 }

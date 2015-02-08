@@ -20,18 +20,20 @@ PIDController* RobotMap::chassisLeftPID = NULL;
 Encoder* RobotMap::chassisEncoderR = NULL;
 CANTalon* RobotMap::chassisMotorR = NULL;
 PIDController* RobotMap::chassisRightPID = NULL;
+CANTalon* RobotMap::chassisMotorL2 = NULL;
+CANTalon* RobotMap::chassisMotorR2 = NULL;
 Encoder* RobotMap::hWheelEncoderH = NULL;
 DoubleSolenoid* RobotMap::hWheelEngage = NULL;
 CANTalon* RobotMap::hWheelMotorH = NULL;
 DoubleSolenoid* RobotMap::intakeClamp = NULL;
 DigitalInput* RobotMap::intakeToteFullIn = NULL;
-CANTalon* RobotMap::intakeAcquireL = NULL;
-CANTalon* RobotMap::intakeAcquireR = NULL;
+SpeedController* RobotMap::intakeAcquireL = NULL;
+SpeedController* RobotMap::intakeAcquireR = NULL;
 DoubleSolenoid* RobotMap::stackerClamp = NULL;
 DigitalInput* RobotMap::stackerToteFullIn = NULL;
 DigitalInput* RobotMap::stackerToteFullOut = NULL;
-CANTalon* RobotMap::stackerAcquireL = NULL;
-CANTalon* RobotMap::stackerAcquireR = NULL;
+SpeedController* RobotMap::stackerAcquireL = NULL;
+SpeedController* RobotMap::stackerAcquireR = NULL;
 AnalogPotentiometer* RobotMap::elevatorHeightPot = NULL;
 CANTalon* RobotMap::elevatorMove = NULL;
 Compressor* RobotMap::pneumaticsCompressor = NULL;
@@ -64,6 +66,12 @@ void RobotMap::init() {
 	lw->AddActuator("Chassis", "Right PID", chassisRightPID);
 	chassisRightPID->SetContinuous(false); chassisRightPID->SetAbsoluteTolerance(0.2); 
         chassisRightPID->SetOutputRange(-1.0, 1.0);
+	chassisMotorL2 = new CANTalon(5);
+	
+	
+	chassisMotorR2 = new CANTalon(6);
+	
+	
 	hWheelEncoderH = new Encoder(4, 5, false, Encoder::k4X);
 	lw->AddSensor("H Wheel", "Encoder H", hWheelEncoderH);
 	hWheelEncoderH->SetDistancePerPulse(1.0);
@@ -80,11 +88,11 @@ void RobotMap::init() {
 	intakeToteFullIn = new DigitalInput(6);
 	lw->AddSensor("Intake", "Tote Full In", intakeToteFullIn);
 	
-	intakeAcquireL = new CANTalon(5);
+	intakeAcquireL = new Talon(0);
+	lw->AddActuator("Intake", "Acquire L", (Talon*) intakeAcquireL);
 	
-	
-	intakeAcquireR = new CANTalon(6);
-	
+	intakeAcquireR = new Talon(1);
+	lw->AddActuator("Intake", "Acquire R", (Talon*) intakeAcquireR);
 	
 	stackerClamp = new DoubleSolenoid(0, 4, 5);      
 	lw->AddActuator("Stacker", "Clamp", stackerClamp);
@@ -95,11 +103,11 @@ void RobotMap::init() {
 	stackerToteFullOut = new DigitalInput(8);
 	lw->AddSensor("Stacker", "Tote Full Out", stackerToteFullOut);
 	
-	stackerAcquireL = new CANTalon(7);
+	stackerAcquireL = new Talon(2);
+	lw->AddActuator("Stacker", "Acquire L", (Talon*) stackerAcquireL);
 	
-	
-	stackerAcquireR = new CANTalon(8);
-	
+	stackerAcquireR = new Talon(3);
+	lw->AddActuator("Stacker", "Acquire R", (Talon*) stackerAcquireR);
 	
 	elevatorHeightPot = new AnalogPotentiometer(0, 1.0, 0.0);
 	lw->AddSensor("Elevator", "Height Pot", elevatorHeightPot);
