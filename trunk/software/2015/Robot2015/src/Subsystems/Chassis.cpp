@@ -172,9 +172,6 @@ double Chassis::GetRightSpeed( void )
 	double timeNew;
 	double rightSpeed;
 	rightDistanceNew = encoderR->GetDistance();
-	//double distanceArray[] {d0, d1, d2, d3, d4};
-	//double timeArray[] {t0, t1, t2, t3, t4};
-	//distanceArray[4] = distanceArray[0];
 	timeNew = m_speedTimer->Get();
 	rightSpeed = ((rightDistanceNew - rightDistanceOld) / (timeNew - timeOld)) * -1;
 	rightDistanceOld = rightDistanceNew;
