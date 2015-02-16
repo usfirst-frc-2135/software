@@ -9,8 +9,8 @@
 // it from being updated in the future.
 
 
-#ifndef DRIVE_SPIN_LEFT_H
-#define DRIVE_SPIN_LEFT_H
+#ifndef DRIVE_TURN_H
+#define DRIVE_TURN_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,13 @@
  *
  * @author ExampleAuthor
  */
-class DriveSpinLeft: public Command {
+class DriveTurn: public Command {
+private:
+	double m_degrees;
+
 public:
-	DriveSpinLeft();
+	DriveTurn();
+	DriveTurn(double degrees);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

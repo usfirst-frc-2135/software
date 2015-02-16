@@ -9,26 +9,20 @@
 // it from being updated in the future.
 
 
-#ifndef DRIVE_SPIN_LEFT_H
-#define DRIVE_SPIN_LEFT_H
 
+#ifndef AUTO_TOTE_SET_H
+#define AUTO_TOTE_SET_H
 
-#include "Commands/Subsystem.h"
-#include "../Robot.h"
+#include "Commands/CommandGroup.h"
 
 /**
  *
  *
  * @author ExampleAuthor
  */
-class DriveSpinLeft: public Command {
-public:
-	DriveSpinLeft();
-	virtual void Initialize();
-	virtual void Execute();
-	virtual bool IsFinished();
-	virtual void End();
-	virtual void Interrupted();
+class AutoToteSet: public CommandGroup {
+public:	
+	AutoToteSet();
 };
 
 #endif

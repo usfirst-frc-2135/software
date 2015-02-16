@@ -25,13 +25,13 @@ CANTalon* RobotMap::hWheelMotorHL6 = NULL;
 CANTalon* RobotMap::hWheelMotorHR7 = NULL;
 DoubleSolenoid* RobotMap::intakeClamp = NULL;
 DigitalInput* RobotMap::intakeToteFullIn = NULL;
-SpeedController* RobotMap::intakeAcquireL = NULL;
-SpeedController* RobotMap::intakeAcquireR = NULL;
+SpeedController* RobotMap::intakeConveyorL = NULL;
+SpeedController* RobotMap::intakeConveyorR = NULL;
 DoubleSolenoid* RobotMap::stackerClamp = NULL;
 DigitalInput* RobotMap::stackerToteFullIn = NULL;
 DigitalInput* RobotMap::stackerToteFullOut = NULL;
-SpeedController* RobotMap::stackerAcquireL = NULL;
-SpeedController* RobotMap::stackerAcquireR = NULL;
+SpeedController* RobotMap::stackerConveyorL = NULL;
+SpeedController* RobotMap::stackerConveyorR = NULL;
 AnalogPotentiometer* RobotMap::elevatorHeightPot = NULL;
 CANTalon* RobotMap::elevatorMove = NULL;
 Compressor* RobotMap::pneumaticsCompressor = NULL;
@@ -93,11 +93,11 @@ void RobotMap::init() {
 	intakeToteFullIn = new DigitalInput(6);
 	lw->AddSensor("Intake", "Tote Full In", intakeToteFullIn);
 	
-	intakeAcquireL = new Talon(0);
-	lw->AddActuator("Intake", "Acquire L", (Talon*) intakeAcquireL);
+	intakeConveyorL = new Talon(0);
+	lw->AddActuator("Intake", "Conveyor L", (Talon*) intakeConveyorL);
 	
-	intakeAcquireR = new Talon(1);
-	lw->AddActuator("Intake", "Acquire R", (Talon*) intakeAcquireR);
+	intakeConveyorR = new Talon(1);
+	lw->AddActuator("Intake", "Conveyor R", (Talon*) intakeConveyorR);
 	
 	stackerClamp = new DoubleSolenoid(0, 4, 5);      
 	lw->AddActuator("Stacker", "Clamp", stackerClamp);
@@ -108,11 +108,11 @@ void RobotMap::init() {
 	stackerToteFullOut = new DigitalInput(8);
 	lw->AddSensor("Stacker", "Tote Full Out", stackerToteFullOut);
 	
-	stackerAcquireL = new Talon(2);
-	lw->AddActuator("Stacker", "Acquire L", (Talon*) stackerAcquireL);
+	stackerConveyorL = new Talon(2);
+	lw->AddActuator("Stacker", "Conveyor L", (Talon*) stackerConveyorL);
 	
-	stackerAcquireR = new Talon(3);
-	lw->AddActuator("Stacker", "Acquire R", (Talon*) stackerAcquireR);
+	stackerConveyorR = new Talon(3);
+	lw->AddActuator("Stacker", "Conveyor R", (Talon*) stackerConveyorR);
 	
 	elevatorHeightPot = new AnalogPotentiometer(0, 1.0, 0.0);
 	lw->AddSensor("Elevator", "Height Pot", elevatorHeightPot);
