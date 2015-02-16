@@ -142,47 +142,47 @@ void Robot::TestPeriodic() {
 void Robot::InitSmartDashboard() {
 
 	SmartDashboard::PutNumber("L: P", chassis->leftPID->GetP());
-//	SmartDashboard::PutNumber("L: I", chassis->leftPID->GetI());
-//	SmartDashboard::PutNumber("L: D", chassis->leftPID->GetD());
-//	SmartDashboard::PutNumber("L: Tolerance", 0.2);
-//	SmartDashboard::PutNumber("L: Min Output", -m_pidMaxOutput);
-//	SmartDashboard::PutNumber("L: Max Output", m_pidMaxOutput);
-//	SmartDashboard::PutNumber("L: Distance PP", 4 * M_PI / 360);
-//	SmartDashboard::PutNumber("L: Distance", chassis->encoderL->GetDistance());
-//
-	SmartDashboard::PutNumber("R: P", chassis->rightPID->GetP());
-//	SmartDashboard::PutNumber("R: I", chassis->rightPID->GetI());
-//	SmartDashboard::PutNumber("R: D", chassis->rightPID->GetD());
-//	SmartDashboard::PutNumber("R: Tolerance", 0.2);
-//	SmartDashboard::PutNumber("R: Min Output", -m_pidMaxOutput);
-//	SmartDashboard::PutNumber("R: Max Output", m_pidMaxOutput);
-//	SmartDashboard::PutNumber("R: Distance PP", 4 * M_PI / 360);
-//	SmartDashboard::PutNumber("R: Distance", chassis->encoderR->GetDistance());
+	SmartDashboard::PutNumber("L: I", chassis->leftPID->GetI());
+	SmartDashboard::PutNumber("L: D", chassis->leftPID->GetD());
+	SmartDashboard::PutNumber("L: Tolerance", 0.2);
+	SmartDashboard::PutNumber("L: Min Output", -m_pidMaxOutput);
+	SmartDashboard::PutNumber("L: Max Output", m_pidMaxOutput);
+	SmartDashboard::PutNumber("L: Distance PP", 4 * M_PI / 360);
+	SmartDashboard::PutNumber("L: Distance", chassis->encoderL->GetDistance());
 
-//	SmartDashboard::PutBoolean("Pressure Switch Value", false);
-//	SmartDashboard::PutNumber("Compressor Current", 0.0);
-//	SmartDashboard::PutNumber("Target Setpoint", m_autoSetpoint);
-//	SmartDashboard::PutNumber("Left Setpoint", 0.0);
-//	SmartDashboard::PutNumber("Right Setpoint", 0.0);
-//	SmartDashboard::PutNumber("Chassis Min Range", m_chassisMinRange);
-//	SmartDashboard::PutNumber("Chassis Max Range", m_chassisMaxRange);
-//	SmartDashboard::PutBoolean("Left PID State", false );
-//	SmartDashboard::PutBoolean("Right PID State", false );
-//	SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
+	SmartDashboard::PutNumber("R: P", chassis->rightPID->GetP());
+	SmartDashboard::PutNumber("R: I", chassis->rightPID->GetI());
+	SmartDashboard::PutNumber("R: D", chassis->rightPID->GetD());
+	SmartDashboard::PutNumber("R: Tolerance", 0.2);
+	SmartDashboard::PutNumber("R: Min Output", -m_pidMaxOutput);
+	SmartDashboard::PutNumber("R: Max Output", m_pidMaxOutput);
+	SmartDashboard::PutNumber("R: Distance PP", 4 * M_PI / 360);
+	SmartDashboard::PutNumber("R: Distance", chassis->encoderR->GetDistance());
+
+	SmartDashboard::PutBoolean("Pressure Switch Value", false);
+	SmartDashboard::PutNumber("Compressor Current", 0.0);
+	SmartDashboard::PutNumber("Target Setpoint", m_autoSetpoint);
+	SmartDashboard::PutNumber("Left Setpoint", 0.0);
+	SmartDashboard::PutNumber("Right Setpoint", 0.0);
+	SmartDashboard::PutNumber("Chassis Min Range", m_chassisMinRange);
+	SmartDashboard::PutNumber("Chassis Max Range", m_chassisMaxRange);
+	SmartDashboard::PutBoolean("Left PID State", false );
+	SmartDashboard::PutBoolean("Right PID State", false );
+	SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
 }
 
 void Robot::UpdateSmartDashboard(){
 //	SmartDashboard::PutNumber("L: Distance", Robot::chassis->encoderL->GetDistance());
 //	SmartDashboard::PutNumber("L: Speed", Robot::chassis->GetLeftSpeed());
 //	SmartDashboard::PutNumber("L: Avg Speed", Robot::chassis->GetLeftSpeedAverage());
-//
+
 //	SmartDashboard::PutNumber("R: Distance", Robot::chassis->encoderR->GetDistance());
 //	SmartDashboard::PutNumber("R: Speed", -Robot::chassis->GetRightSpeed());
 //	SmartDashboard::PutNumber("R: Avg Speed", Robot::chassis->GetRightSpeedAverage());
-//
+
 //	SmartDashboard::PutBoolean("Pressure Switch Value", Robot::pneumatics->compressor->GetPressureSwitchValue());
 //	SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
-//	SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
+	SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
 }
 
 
