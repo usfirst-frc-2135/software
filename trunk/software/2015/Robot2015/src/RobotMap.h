@@ -34,13 +34,13 @@ public:
 	static CANTalon* hWheelMotorHR7;
 	static DoubleSolenoid* intakeClamp;
 	static DigitalInput* intakeToteFullIn;
-	static SpeedController* intakeAcquireL;
-	static SpeedController* intakeAcquireR;
+	static SpeedController* intakeConveyorL;
+	static SpeedController* intakeConveyorR;
 	static DoubleSolenoid* stackerClamp;
 	static DigitalInput* stackerToteFullIn;
 	static DigitalInput* stackerToteFullOut;
-	static SpeedController* stackerAcquireL;
-	static SpeedController* stackerAcquireR;
+	static SpeedController* stackerConveyorL;
+	static SpeedController* stackerConveyorR;
 	static AnalogPotentiometer* elevatorHeightPot;
 	static CANTalon* elevatorMove;
 	static Compressor* pneumaticsCompressor;

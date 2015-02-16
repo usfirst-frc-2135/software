@@ -9,8 +9,8 @@
 // it from being updated in the future.
 
 
-#ifndef DRIVE_SPIN_LEFT_H
-#define DRIVE_SPIN_LEFT_H
+#ifndef STACKER_ACQUIRE_H
+#define STACKER_ACQUIRE_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class DriveSpinLeft: public Command {
+class StackerAcquire: public Command {
 public:
-	DriveSpinLeft();
+	StackerAcquire();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

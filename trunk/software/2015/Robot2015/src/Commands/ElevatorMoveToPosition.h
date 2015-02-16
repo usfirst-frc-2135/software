@@ -9,8 +9,8 @@
 // it from being updated in the future.
 
 
-#ifndef DRIVE_SPIN_LEFT_H
-#define DRIVE_SPIN_LEFT_H
+#ifndef ELEVATOR_MOVE_TO_POSITION_H
+#define ELEVATOR_MOVE_TO_POSITION_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class DriveSpinLeft: public Command {
+class ElevatorMoveToPosition: public Command {
 public:
-	DriveSpinLeft();
+	ElevatorMoveToPosition();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
