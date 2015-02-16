@@ -61,7 +61,7 @@ OI::OI() {
 	
 	joystick1 = new Joystick(0);
 	
-     
+    return;
 
         // SmartDashboard Buttons
 	SmartDashboard::PutData("Drive Teleop", new DriveTeleop());
