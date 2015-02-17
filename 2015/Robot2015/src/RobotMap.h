@@ -30,8 +30,8 @@ public:
 	static Ultrasonic* chassisUltrasonicDrive;
 	static Encoder* hWheelEncoderH;
 	static DoubleSolenoid* hWheelEngage;
-	static CANTalon* hWheelMotorHL6;
-	static CANTalon* hWheelMotorHR7;
+	static SpeedController* hWheelMotorH0;
+	static SpeedController* hWheelMotorH1;
 	static DoubleSolenoid* intakeClamp;
 	static DigitalInput* intakeToteFullIn;
 	static SpeedController* intakeConveyorL;
@@ -42,7 +42,8 @@ public:
 	static SpeedController* stackerConveyorL;
 	static SpeedController* stackerConveyorR;
 	static AnalogPotentiometer* elevatorHeightPot;
-	static CANTalon* elevatorMove;
+	static CANTalon* elevatorMotor6;
+	static CANTalon* elevatorMotor7;
 	static Compressor* pneumaticsCompressor;
 	static AnalogInput* pneumaticsAnalogInput1;
 
