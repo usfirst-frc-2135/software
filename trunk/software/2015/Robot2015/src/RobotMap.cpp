@@ -21,8 +21,8 @@ CANTalon* RobotMap::chassisMotorR5 = NULL;
 Ultrasonic* RobotMap::chassisUltrasonicDrive = NULL;
 Encoder* RobotMap::hWheelEncoderH = NULL;
 DoubleSolenoid* RobotMap::hWheelEngage = NULL;
-CANTalon* RobotMap::hWheelMotorHL6 = NULL;
-CANTalon* RobotMap::hWheelMotorHR7 = NULL;
+SpeedController* RobotMap::hWheelMotorH0 = NULL;
+SpeedController* RobotMap::hWheelMotorH1 = NULL;
 DoubleSolenoid* RobotMap::intakeClamp = NULL;
 DigitalInput* RobotMap::intakeToteFullIn = NULL;
 SpeedController* RobotMap::intakeConveyorL = NULL;
@@ -33,7 +33,8 @@ DigitalInput* RobotMap::stackerToteFullOut = NULL;
 SpeedController* RobotMap::stackerConveyorL = NULL;
 SpeedController* RobotMap::stackerConveyorR = NULL;
 AnalogPotentiometer* RobotMap::elevatorHeightPot = NULL;
-CANTalon* RobotMap::elevatorMove = NULL;
+CANTalon* RobotMap::elevatorMotor6 = NULL;
+CANTalon* RobotMap::elevatorMotor7 = NULL;
 Compressor* RobotMap::pneumaticsCompressor = NULL;
 AnalogInput* RobotMap::pneumaticsAnalogInput1 = NULL;
 
@@ -81,11 +82,11 @@ void RobotMap::init() {
 	hWheelEngage = new DoubleSolenoid(0, 0, 1);      
 	lw->AddActuator("H Wheel", "Engage", hWheelEngage);
 	
-	hWheelMotorHL6 = new CANTalon(6);
+	hWheelMotorH0 = new Talon(0);
+	lw->AddActuator("H Wheel", "Motor H0", (Talon*) hWheelMotorH0);
 	
-	
-	hWheelMotorHR7 = new CANTalon(7);
-	
+	hWheelMotorH1 = new Talon(1);
+	lw->AddActuator("H Wheel", "Motor H1", (Talon*) hWheelMotorH1);
 	
 	intakeClamp = new DoubleSolenoid(0, 2, 3);      
 	lw->AddActuator("Intake", "Clamp", intakeClamp);
@@ -93,10 +94,10 @@ void RobotMap::init() {
 	intakeToteFullIn = new DigitalInput(6);
 	lw->AddSensor("Intake", "Tote Full In", intakeToteFullIn);
 	
-	intakeConveyorL = new Talon(0);
+	intakeConveyorL = new Talon(2);
 	lw->AddActuator("Intake", "Conveyor L", (Talon*) intakeConveyorL);
 	
-	intakeConveyorR = new Talon(1);
+	intakeConveyorR = new Talon(3);
 	lw->AddActuator("Intake", "Conveyor R", (Talon*) intakeConveyorR);
 	
 	stackerClamp = new DoubleSolenoid(0, 4, 5);      
@@ -108,16 +109,19 @@ void RobotMap::init() {
 	stackerToteFullOut = new DigitalInput(8);
 	lw->AddSensor("Stacker", "Tote Full Out", stackerToteFullOut);
 	
-	stackerConveyorL = new Talon(2);
+	stackerConveyorL = new Talon(4);
 	lw->AddActuator("Stacker", "Conveyor L", (Talon*) stackerConveyorL);
 	
-	stackerConveyorR = new Talon(3);
+	stackerConveyorR = new Talon(5);
 	lw->AddActuator("Stacker", "Conveyor R", (Talon*) stackerConveyorR);
 	
 	elevatorHeightPot = new AnalogPotentiometer(0, 1.0, 0.0);
 	lw->AddSensor("Elevator", "Height Pot", elevatorHeightPot);
 	
-	elevatorMove = new CANTalon(9);
+	elevatorMotor6 = new CANTalon(6);
+	
+	
+	elevatorMotor7 = new CANTalon(7);
 	
 	
 	pneumaticsCompressor = new Compressor(0);
