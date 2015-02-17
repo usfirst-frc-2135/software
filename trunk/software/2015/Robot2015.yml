@@ -258,53 +258,66 @@ Children:
     - Children: []
       Properties:
         Forward PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id011 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+          choices: &id014 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
             '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
           default: '0'
           name: Forward PCM (Solenoid)
-          validators: &id012 [Solenoid]
+          validators: &id015 [Solenoid]
           value: '0'
         Reverse PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id013 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+          choices: &id016 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
             '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
           default: '0'
           name: Reverse PCM (Solenoid)
-          validators: &id014 [Solenoid]
+          validators: &id017 [Solenoid]
           value: '0'
         Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id015 ['0', '1', '2', '3', '4', '5', '6', '7']
+          choices: &id018 ['0', '1', '2', '3', '4', '5', '6', '7']
           default: '0'
           name: Reverse Channel (Solenoid)
-          validators: &id016 [Solenoid]
+          validators: &id019 [Solenoid]
           value: '1'
         Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id017 ['0', '1', '2', '3', '4', '5', '6', '7']
+          choices: &id020 ['0', '1', '2', '3', '4', '5', '6', '7']
           default: '0'
           name: Forward Channel (Solenoid)
-          validators: &id018 [Solenoid]
+          validators: &id021 [Solenoid]
           value: '0'
       Base: Double Solenoid
       Name: Engage
     - Children: []
       Properties:
-        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id001
-          default: '2'
-          name: CAN ID
-          validators: *id002
-          value: '6'
-      Base: CAN TalonSRX
-      Name: Motor HL6
+        Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: &id011 [Victor, Jaguar, Talon, VictorSP, TalonSRX, CAN TalonSRX]
+          default: Talon
+          name: Type
+          validators: null
+          value: Talon
+        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+          choices: &id012 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+            '11', '12', '13', '14', '15', '16', '17', '18', '19']
+          default: '0'
+          name: Output Channel (PWM)
+          validators: &id013 [PWMOutput]
+          value: '0'
+      Base: Speed Controller
+      Name: Motor H0
     - Children: []
       Properties:
-        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id001
-          default: '2'
-          name: CAN ID
-          validators: *id002
-          value: '7'
-      Base: CAN TalonSRX
-      Name: Motor HR7
+        Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id011
+          default: Talon
+          name: Type
+          validators: null
+          value: Talon
+        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id012
+          default: '0'
+          name: Output Channel (PWM)
+          validators: *id013
+          value: '1'
+      Base: Speed Controller
+      Name: Motor H1
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: H Wheel Idle}
@@ -314,28 +327,28 @@ Children:
     - Children: []
       Properties:
         Forward PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id011
+          choices: *id014
           default: '0'
           name: Forward PCM (Solenoid)
-          validators: *id012
+          validators: *id015
           value: '0'
         Reverse PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id013
+          choices: *id016
           default: '0'
           name: Reverse PCM (Solenoid)
-          validators: *id014
+          validators: *id017
           value: '0'
         Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id015
+          choices: *id018
           default: '0'
           name: Reverse Channel (Solenoid)
-          validators: *id016
+          validators: *id019
           value: '3'
         Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id017
+          choices: *id020
           default: '0'
           name: Forward Channel (Solenoid)
-          validators: *id018
+          validators: *id021
           value: '2'
       Base: Double Solenoid
       Name: Clamp
@@ -354,34 +367,33 @@ Children:
     - Children: []
       Properties:
         Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id019 [Victor, Jaguar, Talon, VictorSP, TalonSRX, CAN TalonSRX]
+          choices: *id011
           default: Talon
           name: Type
           validators: null
           value: Talon
         Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id020 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-            '11', '12', '13', '14', '15', '16', '17', '18', '19']
+          choices: *id012
           default: '0'
           name: Output Channel (PWM)
-          validators: &id021 [PWMOutput]
-          value: '0'
+          validators: *id013
+          value: '2'
       Base: Speed Controller
       Name: Conveyor L
     - Children: []
       Properties:
         Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id019
+          choices: *id011
           default: Talon
           name: Type
           validators: null
           value: Talon
         Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id020
+          choices: *id012
           default: '0'
           name: Output Channel (PWM)
-          validators: *id021
-          value: '1'
+          validators: *id013
+          value: '3'
       Base: Speed Controller
       Name: Conveyor R
     Properties:
@@ -393,28 +405,28 @@ Children:
     - Children: []
       Properties:
         Forward PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id011
+          choices: *id014
           default: '0'
           name: Forward PCM (Solenoid)
-          validators: *id012
+          validators: *id015
           value: '0'
         Reverse PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id013
+          choices: *id016
           default: '0'
           name: Reverse PCM (Solenoid)
-          validators: *id014
+          validators: *id017
           value: '0'
         Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id015
+          choices: *id018
           default: '0'
           name: Reverse Channel (Solenoid)
-          validators: *id016
+          validators: *id019
           value: '5'
         Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id017
+          choices: *id020
           default: '0'
           name: Forward Channel (Solenoid)
-          validators: *id018
+          validators: *id021
           value: '4'
       Base: Double Solenoid
       Name: Clamp
@@ -441,33 +453,33 @@ Children:
     - Children: []
       Properties:
         Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id019
+          choices: *id011
           default: Talon
           name: Type
           validators: null
           value: Talon
         Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id020
+          choices: *id012
           default: '0'
           name: Output Channel (PWM)
-          validators: *id021
-          value: '2'
+          validators: *id013
+          value: '4'
       Base: Speed Controller
       Name: Conveyor L
     - Children: []
       Properties:
         Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id019
+          choices: *id011
           default: Talon
           name: Type
           validators: null
           value: Talon
         Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id020
+          choices: *id012
           default: '0'
           name: Output Channel (PWM)
-          validators: *id021
-          value: '3'
+          validators: *id013
+          value: '5'
       Base: Speed Controller
       Name: Conveyor R
     Properties:
@@ -497,9 +509,19 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '9'
+          value: '6'
       Base: CAN TalonSRX
-      Name: Move
+      Name: Motor 6
+    - Children: []
+      Properties:
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: '2'
+          name: CAN ID
+          validators: *id002
+          value: '7'
+      Base: CAN TalonSRX
+      Name: Motor 7
     Properties:
       Limit Output: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Limit Output, validators: null, value: false}
@@ -534,7 +556,7 @@ Children:
         name: Output
         type: PIDOutput
         validators: [ChildDropdownSelected]
-        value: Elevator Move
+        value: Elevator Motor 6
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: Elevator Idle}
       Maximum Input: !!robotbuilder.data.properties.DoubleProperty {default: 5, name: Maximum Input,
