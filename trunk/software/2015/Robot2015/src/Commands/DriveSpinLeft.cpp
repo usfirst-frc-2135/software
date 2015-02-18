@@ -27,6 +27,7 @@ void DriveSpinLeft::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveSpinLeft::Execute() {
+	Robot::chassis->DriveUsingLeftRightMotorOutputs( -0.5, 0.5 );
 	
 }
 

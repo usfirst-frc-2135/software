@@ -33,3 +33,8 @@ void HWheel::InitDefaultCommand() {
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+void HWheel::HWheelRun(double speed) {
+	motorHL->Set(speed);
+	motorHR->Set(speed);
+}

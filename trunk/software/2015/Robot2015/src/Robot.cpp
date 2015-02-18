@@ -172,16 +172,16 @@ void Robot::InitSmartDashboard() {
 }
 
 void Robot::UpdateSmartDashboard(){
-//	SmartDashboard::PutNumber("L: Distance", Robot::chassis->encoderL->GetDistance());
-//	SmartDashboard::PutNumber("L: Speed", Robot::chassis->GetLeftSpeed());
-//	SmartDashboard::PutNumber("L: Avg Speed", Robot::chassis->GetLeftSpeedAverage());
+	SmartDashboard::PutNumber("L: Distance", Robot::chassis->encoderL->GetDistance());
+	SmartDashboard::PutNumber("L: Speed", Robot::chassis->DriveGetLeftSpeed());
+	SmartDashboard::PutNumber("L: Avg Speed", Robot::chassis->DriveGetLeftSpeedAverage());
 
-//	SmartDashboard::PutNumber("R: Distance", Robot::chassis->encoderR->GetDistance());
-//	SmartDashboard::PutNumber("R: Speed", -Robot::chassis->GetRightSpeed());
-//	SmartDashboard::PutNumber("R: Avg Speed", Robot::chassis->GetRightSpeedAverage());
+	SmartDashboard::PutNumber("R: Distance", Robot::chassis->encoderR->GetDistance());
+	SmartDashboard::PutNumber("R: Speed", -Robot::chassis->DriveGetRightSpeed());
+	SmartDashboard::PutNumber("R: Avg Speed", Robot::chassis->DriveGetRightSpeedAverage());
 
-//	SmartDashboard::PutBoolean("Pressure Switch Value", Robot::pneumatics->compressor->GetPressureSwitchValue());
-//	SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
+	SmartDashboard::PutBoolean("Pressure Switch Value", Robot::pneumatics->compressor->GetPressureSwitchValue());
+	SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
 	SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
 }
 

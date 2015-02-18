@@ -53,7 +53,7 @@ void Pneumatics::StopCompressor( void )
 
 double Pneumatics::CheckTemperature( void )
 {
-	double m_voltage = analogInput1->GetAverageVoltage();
+	m_voltage = analogInput1->GetAverageVoltage();
 	m_temp = 100 * (m_voltage) - 50;
 	return m_temp;
 }

@@ -27,7 +27,8 @@ void HWheelIdle::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void HWheelIdle::Execute() {
-	
+	//Robot::hWheel->HWheelRun(0.0);
+	Robot::hWheel->HWheelRun(Robot::oi->getJoystick2()->GetX());
 }
 
 // Make this return true when this Command no longer needs to run execute()

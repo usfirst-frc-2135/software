@@ -33,7 +33,7 @@ public:
 	static OI *oi;
 	LiveWindow *lw;
 
-SendableChooser		*autoChooser;
+	SendableChooser		*autoChooser;
 
 	Preferences		*prefs;
 	double			m_autoSetpoint;
