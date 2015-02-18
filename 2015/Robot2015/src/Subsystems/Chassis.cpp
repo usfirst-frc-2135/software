@@ -43,6 +43,9 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
 	motorR5->SetControlMode(CANSpeedController::kFollower);
 	motorR5->Set(4);
+
+	m_speedTimer = new Timer;
+	m_speedTimer->Start();
 }
 
 void Chassis::InitDefaultCommand() {
