@@ -22,7 +22,8 @@ IntakeAcquireBoth::IntakeAcquireBoth() {
 
 // Called just before this Command runs the first time
 void IntakeAcquireBoth::Initialize() {
-	
+	printf("2135: Intake Acquire Both\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run

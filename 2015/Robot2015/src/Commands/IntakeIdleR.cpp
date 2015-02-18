@@ -22,7 +22,8 @@ IntakeIdleR::IntakeIdleR() {
 
 // Called just before this Command runs the first time
 void IntakeIdleR::Initialize() {
-	
+	printf("2135: Intake Idle Right\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run

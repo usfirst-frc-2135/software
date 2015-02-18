@@ -22,7 +22,8 @@ DriveSpinLeft::DriveSpinLeft() {
 
 // Called just before this Command runs the first time
 void DriveSpinLeft::Initialize() {
-	
+	printf("2135: Drive Spin Left\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run

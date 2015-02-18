@@ -22,7 +22,8 @@ StackerHold::StackerHold() {
 
 // Called just before this Command runs the first time
 void StackerHold::Initialize() {
-	
+	printf("2135: Stacker Hold\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run

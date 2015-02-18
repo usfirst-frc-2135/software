@@ -32,7 +32,8 @@ DriveTurn::DriveTurn(double degrees) {
 
 // Called just before this Command runs the first time
 void DriveTurn::Initialize() {
-	
+	printf("2135: Drive Turn to Heading\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run

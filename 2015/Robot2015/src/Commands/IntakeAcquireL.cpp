@@ -22,7 +22,8 @@ IntakeAcquireL::IntakeAcquireL() {
 
 // Called just before this Command runs the first time
 void IntakeAcquireL::Initialize() {
-	
+	printf("2135: Intake Acquire Left\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run

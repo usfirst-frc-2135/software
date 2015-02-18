@@ -31,6 +31,8 @@ DriveDistance::DriveDistance() {
 
 // Called just before this Command runs the first time
 void DriveDistance::Initialize() {
+	printf("2135: Drive Distance\n");
+
 	m_inches = SmartDashboard::GetNumber("Target Setpoint");
 	Robot::chassis->DriveDistanceWithPIDInit(m_inches);
 }

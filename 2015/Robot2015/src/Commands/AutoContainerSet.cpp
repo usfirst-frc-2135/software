@@ -35,6 +35,7 @@ AutoContainerSet::AutoContainerSet() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 
+	printf("2135: Auto Container Set\n");
 	Preferences* pref = Preferences::GetInstance();
 	double driveToFirstContainerDistance = pref->GetDouble("AutoContainerSetFirstDistance", 15.0);
 	double driveToAutoZoneFirstDistance = pref->GetDouble("AutoContainerSetAutoZoneFirstDistance", 96.0);

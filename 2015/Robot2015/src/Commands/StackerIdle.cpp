@@ -22,6 +22,7 @@ StackerIdle::StackerIdle() {
 
 // Called just before this Command runs the first time
 void StackerIdle::Initialize() {
+	printf("2135: Stacker Idle\n");
 	
 }
 

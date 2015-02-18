@@ -22,7 +22,8 @@ IntakeHold::IntakeHold() {
 
 // Called just before this Command runs the first time
 void IntakeHold::Initialize() {
-	
+	printf("2135: Intake Hold\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run

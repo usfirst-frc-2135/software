@@ -22,7 +22,8 @@ StackerAcquire::StackerAcquire() {
 
 // Called just before this Command runs the first time
 void StackerAcquire::Initialize() {
-	
+	printf("2135: Stacker Acquire\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run

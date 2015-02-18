@@ -22,6 +22,7 @@ AutoCommand::AutoCommand() {
 
 // Called just before this Command runs the first time
 void AutoCommand::Initialize() {
+	printf("2135: Auto Command\n");
 	
 }
 

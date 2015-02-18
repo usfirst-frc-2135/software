@@ -22,7 +22,7 @@ StackerRelease::StackerRelease() {
 
 // Called just before this Command runs the first time
 void StackerRelease::Initialize() {
-	
+	printf("2135: Stacker Release\n");
 }
 
 // Called repeatedly when this Command is scheduled to run

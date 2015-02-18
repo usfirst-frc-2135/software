@@ -22,7 +22,8 @@ IntakeExpelBoth::IntakeExpelBoth() {
 
 // Called just before this Command runs the first time
 void IntakeExpelBoth::Initialize() {
-	
+	printf("2135: Intake Expel Both\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run
