@@ -35,6 +35,7 @@ AutoToteSet::AutoToteSet() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
+	printf("2135: Auto Tote Set\n");
 
 	AddSequential(new IntakeRelease());
 	AddSequential(new DriveDistance(12));

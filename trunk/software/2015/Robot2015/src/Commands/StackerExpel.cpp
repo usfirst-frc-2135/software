@@ -22,7 +22,8 @@ StackerExpel::StackerExpel() {
 
 // Called just before this Command runs the first time
 void StackerExpel::Initialize() {
-	
+	printf("2135: Stacker Expel\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run

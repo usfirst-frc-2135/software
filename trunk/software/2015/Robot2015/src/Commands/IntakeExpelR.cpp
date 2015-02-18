@@ -22,7 +22,8 @@ IntakeExpelR::IntakeExpelR() {
 
 // Called just before this Command runs the first time
 void IntakeExpelR::Initialize() {
-	
+	printf("2135: Intake Expel Right\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run

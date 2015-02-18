@@ -22,7 +22,8 @@ ElevatorDown::ElevatorDown() {
 
 // Called just before this Command runs the first time
 void ElevatorDown::Initialize() {
-	
+	printf("2135: Elevator Down\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run

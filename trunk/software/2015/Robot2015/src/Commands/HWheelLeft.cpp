@@ -22,7 +22,8 @@ HWheelLeft::HWheelLeft() {
 
 // Called just before this Command runs the first time
 void HWheelLeft::Initialize() {
-	
+	printf("2135: H Wheel Move Left\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run
