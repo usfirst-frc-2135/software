@@ -66,7 +66,7 @@ OI::OI() {
 	elevatorOperateUp = new JoystickButton(joystick1, 2);
 	elevatorOperateUp->WhileHeld(new ElevatorUp());
      
-return;
+
         // SmartDashboard Buttons
 	SmartDashboard::PutData("Drive Teleop", new DriveTeleop());
 
