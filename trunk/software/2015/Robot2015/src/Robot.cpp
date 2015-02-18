@@ -92,7 +92,6 @@ void Robot::RobotInit() {
 	//autoChooser->AddObject("Score one tote", new );
 
 	Robot::InitSmartDashboard();
-	Robot::UpdateSmartDashboard();
 }
 
 /**
@@ -172,6 +171,7 @@ void Robot::InitSmartDashboard() {
 }
 
 void Robot::UpdateSmartDashboard(){
+
 	SmartDashboard::PutNumber("L: Distance", Robot::chassis->encoderL->GetDistance());
 	SmartDashboard::PutNumber("L: Speed", Robot::chassis->DriveGetLeftSpeed());
 	SmartDashboard::PutNumber("L: Avg Speed", Robot::chassis->DriveGetLeftSpeedAverage());
@@ -180,8 +180,8 @@ void Robot::UpdateSmartDashboard(){
 	SmartDashboard::PutNumber("R: Speed", -Robot::chassis->DriveGetRightSpeed());
 	SmartDashboard::PutNumber("R: Avg Speed", Robot::chassis->DriveGetRightSpeedAverage());
 
-	SmartDashboard::PutBoolean("Pressure Switch Value", Robot::pneumatics->compressor->GetPressureSwitchValue());
-	SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
+//	SmartDashboard::PutBoolean("Pressure Switch Value", Robot::pneumatics->compressor->GetPressureSwitchValue());
+//	SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
 	SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
 }
 

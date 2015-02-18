@@ -61,10 +61,6 @@ OI::OI() {
 	
 	joystick1 = new Joystick(0);
 	
-	elevatorOperateDown = new JoystickButton(joystick1, 3);
-	elevatorOperateDown->WhileHeld(new ElevatorDown());
-	elevatorOperateUp = new JoystickButton(joystick1, 2);
-	elevatorOperateUp->WhileHeld(new ElevatorUp());
      
 
         // SmartDashboard Buttons
