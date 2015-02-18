@@ -309,7 +309,7 @@ Children:
           default: '0'
           name: Reverse Channel (Solenoid)
           validators: &id019 [Solenoid]
-          value: '1'
+          value: '7'
         Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
           choices: &id020 ['0', '1', '2', '3', '4', '5', '6', '7']
           default: '0'
@@ -387,13 +387,13 @@ Children:
           default: '0'
           name: Reverse Channel (Solenoid)
           validators: *id019
-          value: '3'
+          value: '6'
         Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id020
           default: '0'
           name: Forward Channel (Solenoid)
           validators: *id021
-          value: '2'
+          value: '1'
       Base: Double Solenoid
       Name: Clamp
     Properties:
@@ -479,7 +479,7 @@ Children:
           default: '0'
           name: Forward Channel (Solenoid)
           validators: *id021
-          value: '4'
+          value: '2'
       Base: Double Solenoid
       Name: Clamp
     Properties:
