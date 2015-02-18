@@ -40,17 +40,17 @@ public:
 	RobotDrive* robotDrive;
 	Chassis();
 	void InitDefaultCommand();
-	bool DriveDistanceWithPIDIsAtSetpoint ();
-	void DriveDistanceWithPIDExecute ();
 	void DriveDistanceWithPIDInit( double distance );
+	void DriveDistanceWithPIDExecute ();
+	bool DriveDistanceWithPIDIsAtSetpoint ();
 	void DriveDistanceWithPIDStop ();
 	void DriveWithJoystick(Joystick *joystick1);
 	void DriveUsingLeftRightMotorOutputs(double left, double right);
-	void ReverseDriveTrain();
-	double GetLeftSpeed( void );
-	double GetRightSpeed( void );
-	double GetLeftSpeedAverage( void );
-	double GetRightSpeedAverage( void );
+	void DriveTrainReverse();
+	double DriveGetLeftSpeed( void );
+	double DriveGetRightSpeed( void );
+	double DriveGetLeftSpeedAverage( void );
+	double DriveGetRightSpeedAverage( void );
 };
 
 #endif

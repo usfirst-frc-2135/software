@@ -62,9 +62,9 @@ void Chassis::DriveDistanceWithPIDInit( double distance )
 {
 	double leftDistance;
 	double rightDistance;
-	double minlimit=Preferences::GetInstance()->GetDouble("Min Limit", -0.6);
-	double maxlimit=Preferences::GetInstance()->GetDouble("Max Limit", 0.6);
-	double abstolerance=Preferences::GetInstance()->GetDouble("Abs Tolerance", 0.2);
+	double minlimit = Preferences::GetInstance()->GetDouble("Min Limit", -0.6);
+	double maxlimit = Preferences::GetInstance()->GetDouble("Max Limit", 0.6);
+	double abstolerance = Preferences::GetInstance()->GetDouble("Abs Tolerance", 0.2);
 
 	leftPID->SetPID(SmartDashboard::GetNumber("L: P"),SmartDashboard::GetNumber("L: I"),
 			SmartDashboard::GetNumber("L: D"));
@@ -153,58 +153,66 @@ void Chassis::DriveUsingLeftRightMotorOutputs( double left, double right )
 	robotDrive->SetLeftRightMotorOutputs(left, right);
 }
 
-void Chassis::ReverseDriveTrain( void )
+void Chassis::DriveTrainReverse( void )
 {
 	m_orientationNormal = -m_orientationNormal;
 	SmartDashboard::PutNumber("Drive Invert", m_orientationNormal);
 }
 
-double Chassis::GetLeftSpeed( void )
+double Chassis::DriveGetLeftSpeed( void )
 {
 	double static leftDistanceOld;
 	double leftDistanceNew;
 	double static timeOld;
 	double timeNew;
 	double leftSpeed;
+
 	leftDistanceNew = encoderL->GetDistance();
 	timeNew = m_speedTimer->Get();
 	leftSpeed = (leftDistanceNew - leftDistanceOld) / (timeNew - timeOld);
 	leftDistanceOld = leftDistanceNew;
 	timeOld = timeNew;
+
 	return ((leftSpeed) / 12);
 }
 
-double Chassis::GetRightSpeed( void )
+double Chassis::DriveGetRightSpeed( void )
 {
 	double static rightDistanceOld;
 	double rightDistanceNew;
 	double static timeOld;
 	double timeNew;
 	double rightSpeed;
+
 	rightDistanceNew = encoderR->GetDistance();
 	timeNew = m_speedTimer->Get();
 	rightSpeed = ((rightDistanceNew - rightDistanceOld) / (timeNew - timeOld)) * -1;
 	rightDistanceOld = rightDistanceNew;
 	timeOld = timeNew;
+
 	return ((rightSpeed) / 12);
 }
 
-double Chassis::GetLeftSpeedAverage( void )
+double Chassis::DriveGetLeftSpeedAverage( void )
 {
 	static double oldValues[4];
+
 	oldValues[3] = oldValues[2];
 	oldValues[2] = oldValues[1];
 	oldValues[1] = oldValues[0];
-	oldValues[0] = Robot::chassis->GetLeftSpeed();
+	oldValues[0] = Robot::chassis->DriveGetLeftSpeed();
+
 	return (oldValues[3] + oldValues[2] + oldValues[1] + oldValues[0]) / 4;
 }
 
-double Chassis::GetRightSpeedAverage( void )
+double Chassis::DriveGetRightSpeedAverage( void )
 {
 	static double oldValues[4];
+
 	oldValues[3] = oldValues[2];
 	oldValues[2] = oldValues[1];
 	oldValues[1] = oldValues[0];
-	oldValues[0] = Robot::chassis->GetRightSpeed();
+	oldValues[0] = Robot::chassis->DriveGetRightSpeed();
+
 	return (oldValues[3] + oldValues[2] + oldValues[1] + oldValues[0]) / 4;
 }

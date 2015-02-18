@@ -42,3 +42,7 @@ void Stacker::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void Stacker::StackerRun(double speed) {
+	conveyorL->Set(speed);
+	conveyorR->Set(speed);
+}

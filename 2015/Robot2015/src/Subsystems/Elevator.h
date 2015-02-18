@@ -29,8 +29,7 @@ class Elevator: public PIDSubsystem {
 	double ReturnPIDInput();
 	void UsePIDOutput(double output);
 	void InitDefaultCommand();
-	void ElevatorOperate(double speed);
-	void ElevatorJoystickOperate(Joystick *joystick2);
+	void ElevatorRun(double speed);
 };
 
 #endif

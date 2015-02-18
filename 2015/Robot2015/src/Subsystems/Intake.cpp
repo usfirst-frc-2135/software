@@ -41,3 +41,7 @@ void Intake::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void Intake::IntakeRun(double speed) {
+	conveyorL->Set(speed);
+	conveyorR->Set(speed);
+}
