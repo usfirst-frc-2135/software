@@ -89,10 +89,10 @@ void Robot::RobotInit() {
 
 	printf("2135: RobotInit build autonomous chooser\n");
 	autoChooser = new SendableChooser();
-	autoChooser->AddDefault("Move forward", new AutoCommand());
-	autoChooser->AddObject("Container set", new AutoContainerSet());
-	autoChooser->AddObject("Stack tote", new AutoStackTote());
-	autoChooser->AddObject("Tote set", new AutoToteSet());
+	autoChooser->AddDefault("0 - Move forward", new AutoCommand());
+	autoChooser->AddObject("1 - Container set", new AutoContainerSet());
+	autoChooser->AddObject("2 - Stack tote", new AutoStackTote());
+	autoChooser->AddObject("3 - Tote set", new AutoToteSet());
 	SmartDashboard::PutData("Auto modes", autoChooser);
 	//autoChooser->AddObject("Score one tote", new );
 
