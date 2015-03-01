@@ -28,12 +28,21 @@ void ElevatorUp::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorUp::Execute() {
+	printf("2135: ElevatorUp Execute\n");
 	Robot::elevator->ElevatorRun(0.5);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ElevatorUp::IsFinished() {
-	return false;
+	if (Robot::elevator->heightPot->Get() < 0.9)
+	{
+		printf("2135: ElevatorUp IsFinished False\n");
+		return false;
+	}
+	else {
+		printf("2135: ElevatorUp IsFinished True\n");
+		return true;
+	}
 }
 
 // Called once after isFinished returns true
