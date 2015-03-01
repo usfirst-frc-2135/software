@@ -26,9 +26,8 @@
 #include "Commands/ElevatorIdle.h"
 #include "Commands/ElevatorMoveToPosition.h"
 #include "Commands/ElevatorUp.h"
-#include "Commands/HWheelIdle.h"
-#include "Commands/HWheelLeft.h"
-#include "Commands/HWheelRight.h"
+#include "Commands/HWheelDeploy.h"
+#include "Commands/HWheelDrive.h"
 #include "Commands/IntakeAcquireBoth.h"
 #include "Commands/IntakeAcquireL.h"
 #include "Commands/IntakeAcquireR.h"
@@ -57,10 +56,42 @@ OI::OI() {
 
 	joystick3 = new Joystick(2);
 	
+	operatorElevatorDown = new JoystickButton(joystick3, 12);
+	operatorElevatorDown->WhileHeld(new ElevatorDown());
+	operatorElevatorUp = new JoystickButton(joystick3, 11);
+	operatorElevatorUp->WhileHeld(new ElevatorUp());
+	operatorStackerRelease = new JoystickButton(joystick3, 10);
+	operatorStackerRelease->WhileHeld(new StackerRelease());
+	operatorStackerHold = new JoystickButton(joystick3, 9);
+	operatorStackerHold->WhileHeld(new StackerHold());
+	operatorStackerExpel = new JoystickButton(joystick3, 8);
+	operatorStackerExpel->WhileHeld(new StackerExpel());
+	operatorStackerAcquire = new JoystickButton(joystick3, 7);
+	operatorStackerAcquire->WhileHeld(new StackerAcquire());
+	operatorIntakeRelease = new JoystickButton(joystick3, 6);
+	operatorIntakeRelease->WhileHeld(new IntakeRelease());
+	operatorIntakeHold = new JoystickButton(joystick3, 5);
+	operatorIntakeHold->WhileHeld(new IntakeHold());
+	operatorIntakeExpelR = new JoystickButton(joystick3, 4);
+	operatorIntakeExpelR->WhileHeld(new IntakeExpelR());
+	operatorIntakeExpelL = new JoystickButton(joystick3, 3);
+	operatorIntakeExpelL->WhileHeld(new IntakeExpelL());
+	operatorIntakeAcquireR = new JoystickButton(joystick3, 2);
+	operatorIntakeAcquireR->WhileHeld(new IntakeAcquireR());
+	operatorIntakeAcquireL = new JoystickButton(joystick3, 1);
+	operatorIntakeAcquireL->WhileHeld(new IntakeAcquireL());
 	joystick2 = new Joystick(1);
 	
+	driverHWheelDeploy = new JoystickButton(joystick2, 1);
+	driverHWheelDeploy->WhileHeld(new HWheelDeploy());
 	joystick1 = new Joystick(0);
 	
+	driverTurn = new JoystickButton(joystick1, 1);
+	driverTurn->WhileHeld(new DriveTurn());
+	driverSpinRight = new JoystickButton(joystick1, 6);
+	driverSpinRight->WhileHeld(new DriveSpinRight());
+	driverSpinLeft = new JoystickButton(joystick1, 5);
+	driverSpinLeft->WhileHeld(new DriveSpinLeft());
      
 
         // SmartDashboard Buttons
@@ -76,11 +107,9 @@ OI::OI() {
 
 	SmartDashboard::PutData("Drive Turn", new DriveTurn());
 
-	SmartDashboard::PutData("H Wheel Idle", new HWheelIdle());
+	SmartDashboard::PutData("H Wheel Deploy", new HWheelDeploy());
 
-	SmartDashboard::PutData("H Wheel Left", new HWheelLeft());
-
-	SmartDashboard::PutData("H Wheel Right", new HWheelRight());
+	SmartDashboard::PutData("H Wheel Drive", new HWheelDrive());
 
 	SmartDashboard::PutData("Elevator Idle", new ElevatorIdle());
 

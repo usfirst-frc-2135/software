@@ -28,8 +28,7 @@ void ElevatorIdle::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorIdle::Execute() {
-	//Robot::elevator->ElevatorRun(0.0);
-	Robot::elevator->ElevatorRun(Robot::oi->getJoystick2()->GetY());
+	Robot::elevator->motor6->Set(0.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -9,8 +9,8 @@
 // it from being updated in the future.
 
 
-#ifndef HWHEEL_LEFT_H
-#define HWHEEL_LEFT_H
+#ifndef H_WHEEL_DEPLOY_H
+#define H_WHEEL_DEPLOY_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class HWheelLeft: public Command {
+class HWheelDeploy: public Command {
 public:
-	HWheelLeft();
+	HWheelDeploy();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
