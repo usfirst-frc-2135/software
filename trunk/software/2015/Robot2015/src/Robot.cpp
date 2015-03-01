@@ -176,6 +176,8 @@ void Robot::InitSmartDashboard() {
 	SmartDashboard::PutBoolean("Right PID State", false );
 	SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
 	SmartDashboard::PutNumber("Potentiometer", Robot::elevator->heightPot->Get());
+	SmartDashboard::PutBoolean("ToteFullIn", Robot::stacker->toteFullIn->Get());
+	SmartDashboard::PutBoolean("ToteFullOut", Robot::stacker->toteFullOut->Get());
 }
 
 void Robot::UpdateSmartDashboard(){
@@ -192,6 +194,8 @@ void Robot::UpdateSmartDashboard(){
 //	SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
 	SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
 	SmartDashboard::PutNumber("Potentiometer", Robot::elevator->heightPot->Get());
+	SmartDashboard::PutBoolean("ToteFullIn", Robot::stacker->toteFullIn->Get());
+	SmartDashboard::PutBoolean("ToteFullOut", Robot::stacker->toteFullOut->Get());
 }
 
 

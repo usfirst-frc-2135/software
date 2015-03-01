@@ -43,6 +43,13 @@ void Stacker::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void Stacker::StackerRun(double speed) {
-	conveyorL->Set(speed);
-	conveyorR->Set(speed);
+	if (Robot::stacker->toteFullIn->Get() == false || Robot::stacker->toteFullOut->Get() == true)
+		{
+			conveyorL->Set(0.0);
+			conveyorR->Set(0.0);
+		}
+		else {
+			conveyorL->Set(speed);
+			conveyorR->Set(speed);
+		}
 }

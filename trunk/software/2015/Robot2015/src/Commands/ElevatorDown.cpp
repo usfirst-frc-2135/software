@@ -28,7 +28,6 @@ void ElevatorDown::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorDown::Execute() {
-	printf("2135: ElevatorDown Execute\n");
 	Robot::elevator->ElevatorRun(-0.5);
 }
 
@@ -36,11 +35,9 @@ void ElevatorDown::Execute() {
 bool ElevatorDown::IsFinished() {
 	if (Robot::elevator->heightPot->Get() > 0.1)
 	{
-		printf("2135: ElevatorDown IsFinished False\n");
 			return false;
 	}
 	else {
-		printf("2135: ElevatorDown IsFinished True\n");
 		return true;
 	}
 
