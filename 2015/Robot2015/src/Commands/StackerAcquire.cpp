@@ -28,12 +28,19 @@ void StackerAcquire::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void StackerAcquire::Execute() {
+	Robot::stacker->StackerRun(0.5);
 	
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool StackerAcquire::IsFinished() {
-	return false;
+	if (Robot::stacker->toteFullIn->Get() == false)
+	{
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 // Called once after isFinished returns true
