@@ -28,7 +28,6 @@ void StackerExpel::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void StackerExpel::Execute() {
-	printf("2135: StackerExpel Execute\n");
 	Robot::stacker->StackerRun(-0.5);
 }
 
@@ -36,11 +35,9 @@ void StackerExpel::Execute() {
 bool StackerExpel::IsFinished() {
 	if (Robot::stacker->toteFullOut->Get() == false)
 	{
-		printf("2135: StackerExpel IsFinished True\n");
 		return true;
 	}
 	else {
-		printf("2135: StackerExpel IsFinished False\n");
 		return false;
 	}
 }
