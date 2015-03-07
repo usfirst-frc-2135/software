@@ -38,6 +38,9 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	robotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 
 	SmartDashboard::PutNumber("Drive Invert", m_orientationNormal);
+	// we had to set both drive motors to 0.0 because it fixed the problem with
+	// follower mode. now it comes up as soon as the roboRIO turns on
+	robotDrive->SetLeftRightMotorOutputs(0.0, 0.0);
 	motorL3->SetControlMode(CANSpeedController::kFollower);
 	motorL3->Set(2);
 
