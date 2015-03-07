@@ -117,6 +117,13 @@ void Robot::AutonomousInit() {
 	autonomousCommand = (Command *) autoChooser->GetSelected();
 	if (autonomousCommand != NULL)
 		autonomousCommand->Start();
+	// follower mode in AutonomousInit is a backup if setting both drive
+	// motors in Chassis to 0.0 does not work
+	Robot::chassis->motorL3->SetControlMode(CANSpeedController::kFollower);
+	Robot::chassis->motorL3->Set(2);
+
+	Robot::chassis->motorR5->SetControlMode(CANSpeedController::kFollower);
+	Robot::chassis->motorR5->Set(4);
 }
 
 void Robot::AutonomousPeriodic() {
@@ -133,11 +140,11 @@ void Robot::TeleopInit() {
 		autonomousCommand->Cancel();
 	// follower mode is not working when the Chassis constructor is called
 	// so we are calling the follower mode in the teleop init
-	//Robot::chassis->motorL3->SetControlMode(CANSpeedController::kFollower);
-	//Robot::chassis->motorL3->Set(2);
+	Robot::chassis->motorL3->SetControlMode(CANSpeedController::kFollower);
+	Robot::chassis->motorL3->Set(2);
 
-	//Robot::chassis->motorR5->SetControlMode(CANSpeedController::kFollower);
-	//Robot::chassis->motorR5->Set(4);
+	Robot::chassis->motorR5->SetControlMode(CANSpeedController::kFollower);
+	Robot::chassis->motorR5->Set(4);
 	printf("Teleop Init\n");
 }
 
