@@ -131,6 +131,13 @@ void Robot::TeleopInit() {
 	// these lines or comment it out.
 	if (autonomousCommand != NULL)
 		autonomousCommand->Cancel();
+	// follower mode is not working when the Chassis constructor is called
+	// so we are calling the follower mode in the teleop init
+	//Robot::chassis->motorL3->SetControlMode(CANSpeedController::kFollower);
+	//Robot::chassis->motorL3->Set(2);
+
+	//Robot::chassis->motorR5->SetControlMode(CANSpeedController::kFollower);
+	//Robot::chassis->motorR5->Set(4);
 	printf("Teleop Init\n");
 }
 
