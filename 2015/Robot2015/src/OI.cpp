@@ -22,7 +22,9 @@
 #include "Commands/DriveStop.h"
 #include "Commands/DriveTeleop.h"
 #include "Commands/DriveTurn.h"
+#include "Commands/ElevatorDisablePID.h"
 #include "Commands/ElevatorDown.h"
+#include "Commands/ElevatorEnablePID.h"
 #include "Commands/ElevatorIdle.h"
 #include "Commands/ElevatorMoveToPosition.h"
 #include "Commands/ElevatorUp.h"
@@ -89,6 +91,10 @@ OI::OI() {
 	driverHWheelDeploy->WhileHeld(new HWheelDeploy());
 	joystick1 = new Joystick(0);
 	
+	driverDisableElevatorPID = new JoystickButton(joystick1, 12);
+	driverDisableElevatorPID->WhileHeld(new ElevatorDisablePID());
+	driverEnableElevatorPID = new JoystickButton(joystick1, 11);
+	driverEnableElevatorPID->WhileHeld(new ElevatorEnablePID());
 	driverTurn = new JoystickButton(joystick1, 1);
 	driverTurn->WhileHeld(new DriveTurn());
 	driverSpinRight = new JoystickButton(joystick1, 6);
@@ -123,6 +129,10 @@ OI::OI() {
 	SmartDashboard::PutData("Elevator Down", new ElevatorDown());
 
 	SmartDashboard::PutData("Elevator Move To Position", new ElevatorMoveToPosition());
+
+	SmartDashboard::PutData("Elevator Enable PID", new ElevatorEnablePID());
+
+	SmartDashboard::PutData("Elevator Disable PID", new ElevatorDisablePID());
 
 	SmartDashboard::PutData("Intake Idle L", new IntakeIdleL());
 
