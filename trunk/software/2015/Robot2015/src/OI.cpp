@@ -28,6 +28,7 @@
 #include "Commands/ElevatorUp.h"
 #include "Commands/HWheelDeploy.h"
 #include "Commands/HWheelDrive.h"
+#include "Commands/HWheelIdle.h"
 #include "Commands/IntakeAcquireBoth.h"
 #include "Commands/IntakeAcquireL.h"
 #include "Commands/IntakeAcquireR.h"
@@ -82,6 +83,8 @@ OI::OI() {
 	operatorIntakeAcquireL->WhileHeld(new IntakeAcquireL());
 	joystick2 = new Joystick(1);
 	
+	driverHWheelEnable = new JoystickButton(joystick2, 1);
+	driverHWheelEnable->WhileHeld(new HWheelDrive());
 	driverHWheelDeploy = new JoystickButton(joystick2, 1);
 	driverHWheelDeploy->WhileHeld(new HWheelDeploy());
 	joystick1 = new Joystick(0);
@@ -106,6 +109,8 @@ OI::OI() {
 	SmartDashboard::PutData("Drive Spin Right", new DriveSpinRight());
 
 	SmartDashboard::PutData("Drive Turn", new DriveTurn());
+
+	SmartDashboard::PutData("H Wheel Idle", new HWheelIdle());
 
 	SmartDashboard::PutData("H Wheel Deploy", new HWheelDeploy());
 

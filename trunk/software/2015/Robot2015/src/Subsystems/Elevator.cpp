@@ -62,6 +62,7 @@ void Elevator::InitDefaultCommand() {
 }
 
 void Elevator::ElevatorRun(double speed) {
+#if 0
 	if (heightPot->Get() < 0.9 && heightPot->Get() > 0.1)
 	{
 		motor6->Set(speed);
@@ -69,4 +70,6 @@ void Elevator::ElevatorRun(double speed) {
 	else {
 		motor6->Set(0.0);
 	}
+#endif
+	motor6->Set(speed);
 }

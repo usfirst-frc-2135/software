@@ -146,7 +146,7 @@ void Chassis::DriveDistanceWithPIDStop( void )
 	SmartDashboard::PutBoolean("Right PID State", true);
 	leftPID->Disable();
 	rightPID->Disable();
-	robotDrive->SetSafetyEnabled(true);
+	robotDrive->SetSafetyEnabled(false);
 }
 
 void Chassis::DriveWithJoystick( Joystick *joystick1 )
