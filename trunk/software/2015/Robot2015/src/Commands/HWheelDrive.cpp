@@ -22,7 +22,8 @@ HWheelDrive::HWheelDrive() {
 
 // Called just before this Command runs the first time
 void HWheelDrive::Initialize() {
-	
+	printf("2135: HWheel Drive\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run

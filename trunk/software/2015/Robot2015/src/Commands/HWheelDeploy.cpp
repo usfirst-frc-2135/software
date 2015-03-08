@@ -22,7 +22,8 @@ HWheelDeploy::HWheelDeploy() {
 
 // Called just before this Command runs the first time
 void HWheelDeploy::Initialize() {
-	
+	printf("2135: HWheel Deploy\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run
