@@ -33,6 +33,7 @@ void ElevatorDown::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ElevatorDown::IsFinished() {
+#if 0
 	if (Robot::elevator->heightPot->Get() > 0.1)
 	{
 			return false;
@@ -40,7 +41,8 @@ bool ElevatorDown::IsFinished() {
 	else {
 		return true;
 	}
-
+#endif
+	return false;
 }
 
 // Called once after isFinished returns true
