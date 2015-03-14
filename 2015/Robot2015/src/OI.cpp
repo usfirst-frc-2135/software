@@ -59,25 +59,23 @@ OI::OI() {
 
 	joystick3 = new Joystick(2);
 	
-	operatorElevatorDown = new JoystickButton(joystick3, 12);
-	operatorElevatorDown->WhileHeld(new ElevatorDown());
-	operatorElevatorUp = new JoystickButton(joystick3, 11);
+	operatorElevatorUp = new JoystickButton(joystick3, 4);
 	operatorElevatorUp->WhileHeld(new ElevatorUp());
 	operatorStackerRelease = new JoystickButton(joystick3, 10);
 	operatorStackerRelease->WhileHeld(new StackerRelease());
-	operatorStackerHold = new JoystickButton(joystick3, 9);
+	operatorStackerHold = new JoystickButton(joystick3, 7);
 	operatorStackerHold->WhileHeld(new StackerHold());
-	operatorStackerExpel = new JoystickButton(joystick3, 8);
+	operatorStackerExpel = new JoystickButton(joystick3, 9);
 	operatorStackerExpel->WhileHeld(new StackerExpel());
-	operatorStackerAcquire = new JoystickButton(joystick3, 7);
+	operatorStackerAcquire = new JoystickButton(joystick3, 8);
 	operatorStackerAcquire->WhileHeld(new StackerAcquire());
-	operatorIntakeRelease = new JoystickButton(joystick3, 6);
+	operatorIntakeRelease = new JoystickButton(joystick3, 5);
 	operatorIntakeRelease->WhileHeld(new IntakeRelease());
-	operatorIntakeHold = new JoystickButton(joystick3, 5);
+	operatorIntakeHold = new JoystickButton(joystick3, 3);
 	operatorIntakeHold->WhileHeld(new IntakeHold());
-	operatorIntakeExpelR = new JoystickButton(joystick3, 4);
+	operatorIntakeExpelR = new JoystickButton(joystick3, 6);
 	operatorIntakeExpelR->WhileHeld(new IntakeExpelR());
-	operatorIntakeExpelL = new JoystickButton(joystick3, 3);
+	operatorIntakeExpelL = new JoystickButton(joystick3, 11);
 	operatorIntakeExpelL->WhileHeld(new IntakeExpelL());
 	operatorIntakeAcquireR = new JoystickButton(joystick3, 2);
 	operatorIntakeAcquireR->WhileHeld(new IntakeAcquireR());
@@ -89,6 +87,8 @@ OI::OI() {
 	driverHWheelEnable->WhileHeld(new HWheelDrive());
 	driverHWheelDeploy = new JoystickButton(joystick2, 1);
 	driverHWheelDeploy->WhileHeld(new HWheelDeploy());
+	operatorElevatorDown = new JoystickButton(joystick2, 1);
+	operatorElevatorDown->WhileHeld(new ElevatorDown());
 	joystick1 = new Joystick(0);
 	
 	driverDisableElevatorPID = new JoystickButton(joystick1, 12);
