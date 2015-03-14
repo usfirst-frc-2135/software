@@ -83,9 +83,9 @@ OI::OI() {
 	operatorIntakeAcquireL->WhileHeld(new IntakeAcquireL());
 	joystick2 = new Joystick(1);
 	
-	driverHWheelEnable = new JoystickButton(joystick2, 1);
+	driverHWheelEnable = new JoystickButton(joystick2, 3);
 	driverHWheelEnable->WhileHeld(new HWheelDrive());
-	driverHWheelDeploy = new JoystickButton(joystick2, 1);
+	driverHWheelDeploy = new JoystickButton(joystick2, 2);
 	driverHWheelDeploy->WhileHeld(new HWheelDeploy());
 	operatorElevatorDown = new JoystickButton(joystick2, 1);
 	operatorElevatorDown->WhileHeld(new ElevatorDown());
