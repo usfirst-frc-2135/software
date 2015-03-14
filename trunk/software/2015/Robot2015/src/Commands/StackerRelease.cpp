@@ -27,7 +27,7 @@ void StackerRelease::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void StackerRelease::Execute() {
-	
+	Robot::stacker->clamp->Set(DoubleSolenoid::kForward);
 }
 
 // Make this return true when this Command no longer needs to run execute()

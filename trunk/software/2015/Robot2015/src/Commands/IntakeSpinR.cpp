@@ -28,6 +28,9 @@ void IntakeSpinR::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeSpinR::Execute() {
+	Robot::intake->conveyorL->Set(0.5);
+	Robot::intake->conveyorR->Set(-0.5);
+
 	
 }
 

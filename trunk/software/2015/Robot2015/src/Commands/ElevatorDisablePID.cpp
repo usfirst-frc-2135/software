@@ -27,7 +27,7 @@ void ElevatorDisablePID::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorDisablePID::Execute() {
-	
+	Robot::elevator->Disable();
 }
 
 // Make this return true when this Command no longer needs to run execute()
