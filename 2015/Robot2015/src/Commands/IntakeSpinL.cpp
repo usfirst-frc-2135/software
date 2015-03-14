@@ -28,7 +28,8 @@ void IntakeSpinL::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeSpinL::Execute() {
-	
+	Robot::intake->conveyorR->Set(0.5);
+	Robot::intake->conveyorL->Set(-0.5);
 }
 
 // Make this return true when this Command no longer needs to run execute()

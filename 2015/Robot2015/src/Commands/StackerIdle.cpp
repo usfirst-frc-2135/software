@@ -28,8 +28,7 @@ void StackerIdle::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void StackerIdle::Execute() {
-	//Robot::stacker->StackerRun(0.0);
-	Robot::stacker->StackerRun(Robot::oi->getJoystick3()->GetY());
+	Robot::stacker->StackerRun(0.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()

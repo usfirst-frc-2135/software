@@ -34,13 +34,14 @@ void StackerAcquire::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool StackerAcquire::IsFinished() {
-	if (Robot::stacker->toteFullIn->Get() == false)
-	{
-		return true;
-	}
-	else {
-		return false;
-	}
+//	if (Robot::stacker->toteFullIn->Get() == false)
+//	{
+//		return true;
+//	}
+//	else {
+//		return false;
+//	}
+	return false;
 }
 
 // Called once after isFinished returns true

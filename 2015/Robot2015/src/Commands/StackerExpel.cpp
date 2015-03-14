@@ -33,13 +33,14 @@ void StackerExpel::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool StackerExpel::IsFinished() {
-	if (Robot::stacker->toteFullOut->Get() == false)
-	{
-		return true;
-	}
-	else {
-		return false;
-	}
+//	if (Robot::stacker->toteFullOut->Get() == false)
+//	{
+//		return true;
+//	}
+//	else {
+//		return false;
+//	}
+	return false;
 }
 
 // Called once after isFinished returns true
