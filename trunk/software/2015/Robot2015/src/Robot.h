@@ -37,7 +37,12 @@ public:
 
 	Preferences		*prefs;
 	double			m_autoSetpoint;
-	double			m_pidMaxOutput;
+	double			m_drivePidMax;
+	double          m_drivePidMin;
+	double          m_spinTurnSpeed;
+	double          m_elevatorSpeed;
+	double			m_elevatorPidMin;
+	double			m_elevatorPidMax;
 	double			m_chassisMinRange;
 	double			m_chassisMaxRange;
 
