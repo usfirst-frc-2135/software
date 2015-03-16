@@ -35,12 +35,12 @@ public:
 	static SpeedController* intakeConveyorL;
 	static SpeedController* intakeConveyorR;
 	static DigitalInput* intakeToteFullIn;
-	static DoubleSolenoid* intakeClamp;
+	static Solenoid* intakeClamp;
 	static SpeedController* stackerConveyorL;
 	static SpeedController* stackerConveyorR;
 	static DigitalInput* stackerToteFullIn;
 	static DigitalInput* stackerToteFullOut;
-	static DoubleSolenoid* stackerClamp;
+	static Solenoid* stackerClamp;
 	static CANTalon* elevatorMotor6;
 	static CANTalon* elevatorMotor7;
 	static AnalogPotentiometer* elevatorHeightPot;

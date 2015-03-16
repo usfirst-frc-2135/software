@@ -28,7 +28,7 @@ void StackerHold::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void StackerHold::Execute() {
-	Robot::stacker->clamp->Set(DoubleSolenoid::kReverse);
+	Robot::stacker->clamp->Set(true);
 
 }
 
