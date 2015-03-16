@@ -28,6 +28,10 @@ private:
 	JoystickButton* operatorIntakeAcquireR;
 	JoystickButton* operatorIntakeAcquireL;
 	Joystick* joystick2;
+	JoystickButton* operatorElevatorPosition4;
+	JoystickButton* operatorElevatorPosition3;
+	JoystickButton* operatorElevatorPosition2;
+	JoystickButton* operatorElevatorPosition1;
 	JoystickButton* driverHWheelEnable;
 	JoystickButton* driverHWheelDeploy;
 	JoystickButton* operatorElevatorDown;
