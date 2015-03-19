@@ -11,11 +11,11 @@
 
 
 #include "AutoContainerSet.h"
-#include "Commands/DriveDistance.h"
-#include "Commands/DriveTurn.h"
-#include "Commands/IntakeHold.h"
-#include "Commands/IntakeRelease.h"
-#include "Commands/ElevatorMoveToPosition.h"
+#include "DriveDistance.h"
+#include "DriveTurn.h"
+#include "IntakeHold.h"
+#include "IntakeRelease.h"
+#include "ElevatorMoveToPosition.h"
 
 AutoContainerSet::AutoContainerSet() {
 	// Add Commands here:

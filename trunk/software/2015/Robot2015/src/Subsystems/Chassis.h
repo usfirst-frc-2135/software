@@ -38,6 +38,7 @@ public:
 	RobotDrive* robotDrive;
 	Chassis();
 	void InitDefaultCommand();
+	void DriveSetNeutralMode( void );
 	void DriveDistanceWithPIDInit( double distance );
 	void DriveDistanceWithPIDExecute ();
 	bool DriveDistanceWithPIDIsAtSetpoint ();
