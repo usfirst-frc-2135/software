@@ -51,6 +51,14 @@ void Pneumatics::StopCompressor( void )
 	compressor->Stop();
 }
 
+//
+// Enable the closed loop control
+//
+void Pneumatics::EnableClosedLoopControl( void )
+{
+	compressor->SetClosedLoopControl(true);
+}
+
 double Pneumatics::CheckTemperature( void )
 {
 	m_voltage = analogInput1->GetAverageVoltage();

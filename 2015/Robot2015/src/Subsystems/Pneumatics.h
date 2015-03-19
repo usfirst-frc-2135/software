@@ -35,6 +35,7 @@ public:
 	void InitDefaultCommand();
 	void StartCompressor( void );
 	void StopCompressor( void );
+	void EnableClosedLoopControl( void );
 	double CheckTemperature( void );
 };
 

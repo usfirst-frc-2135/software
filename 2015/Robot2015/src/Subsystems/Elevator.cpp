@@ -33,6 +33,12 @@ Elevator::Elevator() : PIDSubsystem("Elevator", 1.0, 0.0, 0.0) {
 	// Enable() - Enables the PID controller.
 }
 
+void Elevator::SetNeutralMode( void )
+{
+	motor6->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
+	motor7->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
+}
+
 double Elevator::ReturnPIDInput() {
 	// Return your input value for the PID loop
 	// e.g. a sensor, like a potentiometer:

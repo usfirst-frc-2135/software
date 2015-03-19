@@ -51,6 +51,14 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	m_speedTimer->Start();
 }
 
+void Chassis::DriveSetNeutralMode( void )
+{
+	motorL2->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
+	motorL3->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
+	motorR4->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
+	motorR5->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
+}
+
 void Chassis::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
