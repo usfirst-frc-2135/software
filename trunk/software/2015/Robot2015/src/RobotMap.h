@@ -44,6 +44,8 @@ public:
 	static CANTalon* elevatorMotor6;
 	static CANTalon* elevatorMotor7;
 	static AnalogPotentiometer* elevatorHeightPot;
+	static DigitalInput* elevatorUpperLimit;
+	static DigitalInput* elevatorLowerLimit;
 	static Compressor* pneumaticsCompressor;
 	static AnalogInput* pneumaticsAnalogInput1;
 

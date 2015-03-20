@@ -28,7 +28,12 @@ void ElevatorDown::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorDown::Execute() {
-	Robot::elevator->ElevatorRun(0.5);
+	if (Robot::elevator->lowerLimit->Get() == true) {
+		Robot::elevator->ElevatorRun(0.5);
+	}
+	else {
+		Robot::elevator->ElevatorRun(0.0);
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -42,7 +47,13 @@ bool ElevatorDown::IsFinished() {
 		return true;
 	}
 #endif
-	return false;
+	if (Robot::elevator->lowerLimit->Get() == false)
+	{
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 // Called once after isFinished returns true

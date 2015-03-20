@@ -35,6 +35,8 @@ Solenoid* RobotMap::stackerClamp = NULL;
 CANTalon* RobotMap::elevatorMotor6 = NULL;
 CANTalon* RobotMap::elevatorMotor7 = NULL;
 AnalogPotentiometer* RobotMap::elevatorHeightPot = NULL;
+DigitalInput* RobotMap::elevatorUpperLimit = NULL;
+DigitalInput* RobotMap::elevatorLowerLimit = NULL;
 Compressor* RobotMap::pneumaticsCompressor = NULL;
 AnalogInput* RobotMap::pneumaticsAnalogInput1 = NULL;
 
@@ -72,7 +74,7 @@ void RobotMap::init() {
 	chassisMotorR5 = new CANTalon(5);
 	
 	
-	chassisUltrasonicDrive = new Ultrasonic(9, 10);
+	chassisUltrasonicDrive = new Ultrasonic(11, 12);
 	lw->AddSensor("Chassis", "Ultrasonic Drive", chassisUltrasonicDrive);
 	
 	hWheelMotorHL = new Talon(0);
@@ -109,7 +111,7 @@ void RobotMap::init() {
 	stackerToteFullIn = new DigitalInput(7);
 	lw->AddSensor("Stacker", "Tote Full In", stackerToteFullIn);
 	
-	stackerToteFullOut = new DigitalInput(8);
+	stackerToteFullOut = new DigitalInput(13);
 	lw->AddSensor("Stacker", "Tote Full Out", stackerToteFullOut);
 	
 	stackerClamp = new Solenoid(0, 1);
@@ -123,6 +125,12 @@ void RobotMap::init() {
 	
 	elevatorHeightPot = new AnalogPotentiometer(0, 1.0, 0.0);
 	lw->AddSensor("Elevator", "Height Pot", elevatorHeightPot);
+	
+	elevatorUpperLimit = new DigitalInput(9);
+	lw->AddSensor("Elevator", "Upper Limit", elevatorUpperLimit);
+	
+	elevatorLowerLimit = new DigitalInput(8);
+	lw->AddSensor("Elevator", "Lower Limit", elevatorLowerLimit);
 	
 	pneumaticsCompressor = new Compressor(0);
 	
