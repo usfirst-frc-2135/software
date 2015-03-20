@@ -240,7 +240,7 @@ void Robot::InitSmartDashboard() {
 
 void Robot::UpdateSmartDashboard() {
 	static int counter = 0;
-	if(counter < 20) {
+	if (counter++ < 20) {
 		return;
 	}
 	else {
@@ -268,7 +268,6 @@ void Robot::UpdateSmartDashboard() {
 		SmartDashboard::PutBoolean("LowerLimit", Robot::elevator->lowerLimit->Get());
 		counter = 0;
 	}
-	counter++;
 }
 
 START_ROBOT_CLASS(Robot);
