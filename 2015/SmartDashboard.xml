@@ -1,0 +1,112 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="ToteFullOut" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="460" y="160"/>
+	</widget>
+	<widget field="ToteFullIn" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="462" y="130"/>
+	</widget>
+	<widget field="Right PID State" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="266" y="250"/>
+	</widget>
+	<widget field="Left PID State" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="102" y="250"/>
+	</widget>
+	<widget field="LowerLimit" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="460" y="40"/>
+	</widget>
+	<widget field="UpperLimit" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="460" y="10"/>
+	</widget>
+	<widget field="Temperature" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="602" y="70"/>
+	</widget>
+	<widget field="Target Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="110" y="280"/>
+	</widget>
+	<widget field="Right Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="196" y="220"/>
+	</widget>
+	<widget field="R: Tolerance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="203" y="40"/>
+	</widget>
+	<widget field="R: Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="220" y="340"/>
+	</widget>
+	<widget field="R: P" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="244" y="130"/>
+	</widget>
+	<widget field="R: Min Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="197" y="100"/>
+	</widget>
+	<widget field="R: Max Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="193" y="70"/>
+	</widget>
+	<widget field="R: I" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="246" y="160"/>
+	</widget>
+	<widget field="R: Distance PP" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="194" y="10"/>
+	</widget>
+	<widget field="R: Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="210" y="310"/>
+	</widget>
+	<widget field="R: D" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="243" y="190"/>
+	</widget>
+	<widget field="R: Avg Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="200" y="370"/>
+	</widget>
+	<widget field="Pressure Switch Value" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="559" y="40"/>
+	</widget>
+	<widget field="Potentiometer" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="376" y="70"/>
+	</widget>
+	<widget field="Left Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="32" y="220"/>
+	</widget>
+	<widget field="L: Tolerance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="35" y="40"/>
+	</widget>
+	<widget field="L: Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="52" y="340"/>
+		<height>20</height>
+	</widget>
+	<widget field="L: P" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="76" y="130"/>
+	</widget>
+	<widget field="L: Min Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="30" y="100"/>
+	</widget>
+	<widget field="L: Max Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="25" y="70"/>
+	</widget>
+	<widget field="L: I" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="78" y="160"/>
+	</widget>
+	<widget field="L: Distance PP" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="26" y="10"/>
+	</widget>
+	<widget field="L: Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="41" y="310"/>
+	</widget>
+	<widget field="L: D" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="75" y="190"/>
+	</widget>
+	<widget field="L: Avg Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="30" y="370"/>
+	</widget>
+	<widget field="Drive Invert" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="126" y="400"/>
+	</widget>
+	<widget field="Compressor Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="567" y="10"/>
+	</widget>
+	<widget field="Auto modes" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="593" y="110"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
