@@ -36,6 +36,7 @@ private:
 	JoystickButton* driverHWheelDeploy;
 	JoystickButton* operatorElevatorDown;
 	Joystick* joystick1;
+	JoystickButton* driverDriveSlow;
 	JoystickButton* driverDisableElevatorPID;
 	JoystickButton* driverEnableElevatorPID;
 	JoystickButton* driverTurn;

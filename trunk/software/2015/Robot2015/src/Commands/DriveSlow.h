@@ -9,8 +9,8 @@
 // it from being updated in the future.
 
 
-#ifndef DRIVE_TELEOP_H
-#define DRIVE_TELEOP_H
+#ifndef DRIVE_SLOW_H
+#define DRIVE_SLOW_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,10 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class DriveTeleop: public Command {
+class DriveSlow: public Command {
 public:
-	static double scaleFactor;
-	DriveTeleop();
+	DriveSlow();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
