@@ -123,12 +123,12 @@ void Robot::RobotInit() {
 
 	printf("2135: RobotInit build autonomous chooser\n");
 	autoChooser = new SendableChooser();
-	autoChooser->AddObject("0 - Move forward timed", new DriveDistanceTimed());
-	autoChooser->AddDefault("1 - Sit still", new DriveStop());
-	autoChooser->AddObject("2 - Container set", new AutoContainerSet());
-	autoChooser->AddObject("3 - Stack tote", new AutoStackTote());
-	autoChooser->AddObject("4 - Tote set", new AutoToteSet());
-	autoChooser->AddObject("5 - Move forward", new DriveDistance());
+	autoChooser->AddDefault("0 - Sit still", new DriveStop());
+	autoChooser->AddObject("1 - Move forward timed", new DriveDistanceTimed());
+	autoChooser->AddObject("2 - Move forward encoder", new DriveDistance());
+	autoChooser->AddObject("3 - Container set", new AutoContainerSet());
+	autoChooser->AddObject("4 - Stack tote", new AutoStackTote());
+	autoChooser->AddObject("5 - Tote set", new AutoToteSet());
 	SmartDashboard::PutData("Auto modes", autoChooser);
 	//autoChooser->AddObject("Score one tote", new );
 
@@ -240,10 +240,8 @@ void Robot::InitSmartDashboard() {
 
 void Robot::UpdateSmartDashboard() {
 	static int counter = 0;
-	if (counter++ < 20) {
-		return;
-	}
-	else {
+	if (counter++ > 20)
+	{
 		SmartDashboard::PutNumber("L: Distance",
 				Robot::chassis->encoderL->GetDistance());
 		SmartDashboard::PutNumber("L: Speed", Robot::chassis->DriveGetLeftSpeed());
@@ -256,6 +254,8 @@ void Robot::UpdateSmartDashboard() {
 				-Robot::chassis->DriveGetRightSpeed());
 		SmartDashboard::PutNumber("R: Avg Speed",
 				Robot::chassis->DriveGetRightSpeedAverage());
+		SmartDashboard::PutNumber("Throttle",
+				fabs(Robot::oi->getJoystick1()->GetThrottle()));
 
 //	SmartDashboard::PutBoolean("Pressure Switch Value", Robot::pneumatics->compressor->GetPressureSwitchValue());
 //	SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
