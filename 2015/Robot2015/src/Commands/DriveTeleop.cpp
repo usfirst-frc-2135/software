@@ -10,7 +10,7 @@
 
 
 #include "DriveTeleop.h"
-double DriveTeleop::scaleFactor = 1.0;
+
 DriveTeleop::DriveTeleop() {
 	// Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
@@ -28,7 +28,7 @@ void DriveTeleop::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveTeleop::Execute() {
-	Robot::chassis->robotDrive->ArcadeDrive(Robot::oi->getJoystick1()->GetX(), Robot::oi->getJoystick1()->GetY(), true);
+	Robot::chassis->DriveWithJoystick(Robot::oi->getJoystick1());
 }
 
 // Make this return true when this Command no longer needs to run execute()

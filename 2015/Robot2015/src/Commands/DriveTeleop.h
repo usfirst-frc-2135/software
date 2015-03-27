@@ -23,7 +23,6 @@
  */
 class DriveTeleop: public Command {
 public:
-	static double scaleFactor;
 	DriveTeleop();
 	virtual void Initialize();
 	virtual void Execute();
