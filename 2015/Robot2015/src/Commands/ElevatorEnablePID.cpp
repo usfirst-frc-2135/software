@@ -22,18 +22,19 @@ ElevatorEnablePID::ElevatorEnablePID() {
 
 // Called just before this Command runs the first time
 void ElevatorEnablePID::Initialize() {
+	printf("2135: Elevator PID Enable\n");
+	Robot::elevator->Enable();
 	
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorEnablePID::Execute() {
-	Robot::elevator->Enable();
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ElevatorEnablePID::IsFinished() {
-	return false;
+	return true;
 }
 
 // Called once after isFinished returns true

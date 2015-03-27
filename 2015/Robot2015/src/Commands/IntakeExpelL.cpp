@@ -28,7 +28,7 @@ void IntakeExpelL::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeExpelL::Execute() {
-	Robot::intake->conveyorL->Set(0.5);
+	Robot::intake->conveyorL->Set(-0.5);
 
 }
 

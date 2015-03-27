@@ -62,48 +62,56 @@ void Robot::RobotInit() {
 	} else {
 		printf("2135: ERROR - AutoDriveDistance Not Found\n");
 	}
+
 	if (prefs->ContainsKey("PidMinOutput")) {
 		m_drivePidMin = prefs->GetDouble("DrivePidMin", -0.6);
 		printf("2135: DrivePidMin Found\n");
 	} else {
 		printf("2135: ERROR - DrivePidMin Not Found\n");
 	}
+
 	if (prefs->ContainsKey("PidMaxOutput")) {
 		m_drivePidMax = prefs->GetDouble("DrivePidMax", 0.6);
 		printf("2135: DrivePidMax Found\n");
 	} else {
 		printf("2135: ERROR - DrivePidMax Not Found\n");
 	}
+
 	if (prefs->ContainsKey("SpinTurnSpeed")) {
 		m_spinTurnSpeed = prefs->GetDouble("SpinTurnSpeed", 0.5);
 		printf("2135: SpinTurnSpeed Found\n");
 	} else {
 		printf("2135: ERROR - SpinTurnSpeed Not Found\n");
 	}
+
 	if (prefs->ContainsKey("ElevatorSpeed")) {
 		m_elevatorSpeed = prefs->GetDouble("ElevatorSpeed", 0.5);
 		printf("2135: ElevatorSpeed Found\n");
 	} else {
 		printf("2135: ERROR - ElevatorSpeed Not Found\n");
 	}
+
 	if (prefs->ContainsKey("ElevatorPidMin")) {
 		m_elevatorPidMin = prefs->GetDouble("ElevatorPidMin", 0.1);
 		printf("2135: ElevatorPidMin Found\n");
 	} else {
 		printf("2135: ERROR - ElevatorPidMin Not Found\n");
 	}
+
 	if (prefs->ContainsKey("ElevatorPidMax")) {
 		m_elevatorPidMax = prefs->GetDouble("ElevatorPidMax", 0.9);
 		printf("2135: ElevatorPidMax Found\n");
 	} else {
 		printf("2135: ERROR - ElevatorPidMax Not Found\n");
 	}
+
 	if (prefs->ContainsKey("ChassisMinRange")) {
 		m_chassisMinRange = prefs->GetDouble("ChassisMinRange", 48.0);
 		printf("2135: ChassisMinRange Found\n");
 	} else {
 		printf("2135: ERROR - ChassisMinRange Not Found\n");
 	}
+
 	if (prefs->ContainsKey("ChassisMaxRange")) {
 		m_chassisMaxRange = prefs->GetDouble("ChassisMaxRange", 54.0);
 		printf("2135: ChassisMaxRange Found\n");
@@ -124,11 +132,11 @@ void Robot::RobotInit() {
 	printf("2135: RobotInit build autonomous chooser\n");
 	autoChooser = new SendableChooser();
 	autoChooser->AddDefault("0 - Sit still", new DriveStop());
-	autoChooser->AddObject("1 - Move forward timed", new DriveDistanceTimed());
-	autoChooser->AddObject("2 - Move forward encoder", new DriveDistance());
-	autoChooser->AddObject("3 - Container set", new AutoContainerSet());
-	autoChooser->AddObject("4 - Stack tote", new AutoStackTote());
-	autoChooser->AddObject("5 - Tote set", new AutoToteSet());
+	autoChooser->AddObject( "1 - Move forward timed", new DriveDistanceTimed());
+	autoChooser->AddObject( "2 - Move forward encoder", new DriveDistance());
+	autoChooser->AddObject( "3 - Container set", new AutoContainerSet());
+	autoChooser->AddObject( "4 - Stack tote", new AutoStackTote());
+	autoChooser->AddObject( "5 - Tote set", new AutoToteSet());
 	SmartDashboard::PutData("Auto modes", autoChooser);
 	//autoChooser->AddObject("Score one tote", new );
 
@@ -227,48 +235,54 @@ void Robot::InitSmartDashboard() {
 	SmartDashboard::PutNumber("Right Setpoint", 0.0);
 	SmartDashboard::PutBoolean("Left PID State", false);
 	SmartDashboard::PutBoolean("Right PID State", false);
-	SmartDashboard::PutNumber("Temperature",
-			Robot::pneumatics->CheckTemperature());
-	SmartDashboard::PutNumber("Potentiometer",
-			Robot::elevator->heightPot->Get());
+	SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
+	SmartDashboard::PutNumber("Potentiometer", Robot::elevator->heightPot->Get());
 	SmartDashboard::PutBoolean("ToteFullIn", Robot::stacker->toteFullIn->Get());
-	SmartDashboard::PutBoolean("ToteFullOut",
-			Robot::stacker->toteFullOut->Get());
+	SmartDashboard::PutBoolean("ToteFullOut", Robot::stacker->toteFullOut->Get());
 	SmartDashboard::PutBoolean("UpperLimit", Robot::elevator->upperLimit->Get());
 	SmartDashboard::PutBoolean("LowerLimit", Robot::elevator->lowerLimit->Get());
 }
 
 void Robot::UpdateSmartDashboard() {
 	static int counter = 0;
-	if (counter++ > 20)
+
+	switch (counter++)
 	{
-		SmartDashboard::PutNumber("L: Distance",
-				Robot::chassis->encoderL->GetDistance());
-		SmartDashboard::PutNumber("L: Speed", Robot::chassis->DriveGetLeftSpeed());
-		SmartDashboard::PutNumber("L: Avg Speed",
-				Robot::chassis->DriveGetLeftSpeedAverage());
-
-		SmartDashboard::PutNumber("R: Distance",
-				Robot::chassis->encoderR->GetDistance());
-		SmartDashboard::PutNumber("R: Speed",
-				-Robot::chassis->DriveGetRightSpeed());
-		SmartDashboard::PutNumber("R: Avg Speed",
-				Robot::chassis->DriveGetRightSpeedAverage());
-		SmartDashboard::PutNumber("Throttle",
-				fabs(Robot::oi->getJoystick1()->GetThrottle()));
-
-//	SmartDashboard::PutBoolean("Pressure Switch Value", Robot::pneumatics->compressor->GetPressureSwitchValue());
-//	SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
-		SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
-		SmartDashboard::PutNumber("Potentiometer", Robot::elevator->heightPot->Get());
+	case 0:
+		SmartDashboard::PutNumber("L: Distance",  Robot::chassis->encoderL->GetDistance());
+		SmartDashboard::PutNumber("R: Distance",  Robot::chassis->encoderR->GetDistance());
+		break;
+	case 5:
+		SmartDashboard::PutNumber("L: Speed",     Robot::chassis->DriveGetLeftSpeed());
+		SmartDashboard::PutNumber("R: Speed",	 -Robot::chassis->DriveGetRightSpeed());
+		break;
+	case 10:
+		SmartDashboard::PutNumber("L: Avg Speed", Robot::chassis->DriveGetLeftSpeedAverage());
+		SmartDashboard::PutNumber("R: Avg Speed", Robot::chassis->DriveGetRightSpeedAverage());
+		break;
+	case 15:
+		SmartDashboard::PutNumber("Throttle", fabs(Robot::oi->getJoystick1()->GetThrottle()));
+		break;
+	case 20:
 		SmartDashboard::PutBoolean("ToteFullIn", Robot::stacker->toteFullIn->Get());
-		SmartDashboard::PutBoolean("ToteFullOut",
-				Robot::stacker->toteFullOut->Get());
+		SmartDashboard::PutBoolean("ToteFullOut", Robot::stacker->toteFullOut->Get());
+		break;
+	case 25:
 		SmartDashboard::PutBoolean("UpperLimit", Robot::elevator->upperLimit->Get());
 		SmartDashboard::PutBoolean("LowerLimit", Robot::elevator->lowerLimit->Get());
-		counter = 0;
+		SmartDashboard::PutNumber("Potentiometer", Robot::elevator->heightPot->Get());
+		break;
+	case 30:
+		//	SmartDashboard::PutBoolean("Pressure Switch Value", Robot::pneumatics->compressor->GetPressureSwitchValue());
+		//	SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
+		SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
+		break;
+	default:
+		break;
 	}
+
+	if (counter == 35)
+		counter = 0;
 }
 
 START_ROBOT_CLASS(Robot);
-
