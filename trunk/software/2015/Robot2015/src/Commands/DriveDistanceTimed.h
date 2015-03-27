@@ -22,6 +22,9 @@
  * @author ExampleAuthor
  */
 class DriveDistanceTimed: public Command {
+private:
+	Timer m_timer;
+	double m_driveTime;
 public:
 	DriveDistanceTimed();
 	virtual void Initialize();
@@ -29,8 +32,6 @@ public:
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
-	Timer time;
-	double m_driveTime;
 };
 
 #endif

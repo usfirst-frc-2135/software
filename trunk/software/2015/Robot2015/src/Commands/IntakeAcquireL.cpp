@@ -28,7 +28,7 @@ void IntakeAcquireL::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeAcquireL::Execute() {
-	Robot::intake->conveyorL->Set(-0.5);
+	Robot::intake->conveyorL->Set(0.5);
 }
 
 // Make this return true when this Command no longer needs to run execute()

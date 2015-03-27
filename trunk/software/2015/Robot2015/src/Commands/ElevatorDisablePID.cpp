@@ -22,17 +22,17 @@ ElevatorDisablePID::ElevatorDisablePID() {
 
 // Called just before this Command runs the first time
 void ElevatorDisablePID::Initialize() {
-	
+	printf("2135: Elevator PID Disable\n");
+	Robot::elevator->Disable();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorDisablePID::Execute() {
-	Robot::elevator->Disable();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ElevatorDisablePID::IsFinished() {
-	return false;
+	return true;
 }
 
 // Called once after isFinished returns true
