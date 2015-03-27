@@ -167,7 +167,7 @@ void Chassis::DriveWithJoystickScaled( Joystick * joystick1 )
 {
 	double	xAxis, yAxis;
 
-	m_scaleFactor = abs(Robot::oi->getJoystick1()->GetThrottle());
+	m_scaleFactor = fabs(Robot::oi->getJoystick1()->GetThrottle());
 	xAxis = joystick1->GetX() * m_scaleFactor;
 	yAxis = joystick1->GetY() * m_scaleFactor;
 	robotDrive->ArcadeDrive( yAxis * m_orientationNormal, xAxis, true );
@@ -177,6 +177,7 @@ void Chassis::DriveUsingLeftRightMotorOutputs( double left, double right )
 {
 	robotDrive->SetLeftRightMotorOutputs(left, right);
 }
+
 
 void Chassis::DriveTrainReverse( void )
 {
