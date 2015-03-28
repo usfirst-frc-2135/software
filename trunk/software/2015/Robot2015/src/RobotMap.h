@@ -31,7 +31,7 @@ public:
 	static SpeedController* hWheelMotorHL;
 	static SpeedController* hWheelMotorHR;
 	static Encoder* hWheelEncoderH;
-	static DoubleSolenoid* hWheelEngage;
+	static Solenoid* hWheelEngage;
 	static SpeedController* intakeConveyorL;
 	static SpeedController* intakeConveyorR;
 	static DigitalInput* intakeToteFullIn;

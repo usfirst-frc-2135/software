@@ -22,7 +22,7 @@ Ultrasonic* RobotMap::chassisUltrasonicDrive = NULL;
 SpeedController* RobotMap::hWheelMotorHL = NULL;
 SpeedController* RobotMap::hWheelMotorHR = NULL;
 Encoder* RobotMap::hWheelEncoderH = NULL;
-DoubleSolenoid* RobotMap::hWheelEngage = NULL;
+Solenoid* RobotMap::hWheelEngage = NULL;
 SpeedController* RobotMap::intakeConveyorL = NULL;
 SpeedController* RobotMap::intakeConveyorR = NULL;
 DigitalInput* RobotMap::intakeToteFullIn = NULL;
@@ -87,7 +87,7 @@ void RobotMap::init() {
 	lw->AddSensor("H Wheel", "Encoder H", hWheelEncoderH);
 	hWheelEncoderH->SetDistancePerPulse(1.0);
         hWheelEncoderH->SetPIDSourceParameter(Encoder::kRate);
-	hWheelEngage = new DoubleSolenoid(0, 6, 7);      
+	hWheelEngage = new Solenoid(0, 1);
 	lw->AddActuator("H Wheel", "Engage", hWheelEngage);
 	
 	intakeConveyorL = new Talon(2);
@@ -114,7 +114,7 @@ void RobotMap::init() {
 	stackerToteFullOut = new DigitalInput(13);
 	lw->AddSensor("Stacker", "Tote Full Out", stackerToteFullOut);
 	
-	stackerClamp = new Solenoid(0, 1);
+	stackerClamp = new Solenoid(0, 2);
 	lw->AddActuator("Stacker", "Clamp", stackerClamp);
 	
 	elevatorMotor6 = new CANTalon(6);
