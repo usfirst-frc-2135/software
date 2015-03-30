@@ -57,63 +57,63 @@ void Robot::RobotInit() {
 	printf("2135: RobotInit initialize from preferences file\n");
 	prefs = Preferences::GetInstance();
 	if (prefs->ContainsKey("AutoDriveDistance")) {
-		m_autoSetpoint = prefs->GetDouble("AutoDriveDistance", 95.0);
+		chassis -> SetAutoSetPoint (prefs->GetDouble("AutoDriveDistance", 95.0));
 		printf("2135: AutoDriveDistance Found\n");
 	} else {
 		printf("2135: ERROR - AutoDriveDistance Not Found\n");
 	}
 
 	if (prefs->ContainsKey("PidMinOutput")) {
-		m_drivePidMin = prefs->GetDouble("DrivePidMin", -0.6);
+		chassis-> SetDrivePidMin (prefs->GetDouble("DrivePidMin", -0.6));
 		printf("2135: DrivePidMin Found\n");
 	} else {
 		printf("2135: ERROR - DrivePidMin Not Found\n");
 	}
 
 	if (prefs->ContainsKey("PidMaxOutput")) {
-		m_drivePidMax = prefs->GetDouble("DrivePidMax", 0.6);
+		chassis-> SetDrivePidMax (prefs->GetDouble("DrivePidMax", 0.6));
 		printf("2135: DrivePidMax Found\n");
 	} else {
 		printf("2135: ERROR - DrivePidMax Not Found\n");
 	}
 
 	if (prefs->ContainsKey("SpinTurnSpeed")) {
-		m_spinTurnSpeed = prefs->GetDouble("SpinTurnSpeed", 0.5);
+		chassis->SetSpinTurnSpeed (prefs->GetDouble("SpinTurnSpeed", 0.5));
 		printf("2135: SpinTurnSpeed Found\n");
 	} else {
 		printf("2135: ERROR - SpinTurnSpeed Not Found\n");
 	}
 
 	if (prefs->ContainsKey("ElevatorSpeed")) {
-		m_elevatorSpeed = prefs->GetDouble("ElevatorSpeed", 0.5);
+		elevator-> SetElevatorSpeed (prefs->GetDouble("ElevatorSpeed", 0.5));
 		printf("2135: ElevatorSpeed Found\n");
 	} else {
 		printf("2135: ERROR - ElevatorSpeed Not Found\n");
 	}
 
 	if (prefs->ContainsKey("ElevatorPidMin")) {
-		m_elevatorPidMin = prefs->GetDouble("ElevatorPidMin", 0.1);
+		elevator-> SetElevatorPidMin (prefs->GetDouble("ElevatorPidMin", 0.1));
 		printf("2135: ElevatorPidMin Found\n");
 	} else {
 		printf("2135: ERROR - ElevatorPidMin Not Found\n");
 	}
 
 	if (prefs->ContainsKey("ElevatorPidMax")) {
-		m_elevatorPidMax = prefs->GetDouble("ElevatorPidMax", 0.9);
+		elevator-> SetElevatorPidMax(prefs->GetDouble("ElevatorPidMax", 0.9));
 		printf("2135: ElevatorPidMax Found\n");
 	} else {
 		printf("2135: ERROR - ElevatorPidMax Not Found\n");
 	}
 
 	if (prefs->ContainsKey("ChassisMinRange")) {
-		m_chassisMinRange = prefs->GetDouble("ChassisMinRange", 48.0);
+		chassis-> SetChassisMinRange (prefs->GetDouble("ChassisMinRange", 48.0));
 		printf("2135: ChassisMinRange Found\n");
 	} else {
 		printf("2135: ERROR - ChassisMinRange Not Found\n");
 	}
 
 	if (prefs->ContainsKey("ChassisMaxRange")) {
-		m_chassisMaxRange = prefs->GetDouble("ChassisMaxRange", 54.0);
+		chassis-> SetChassisMaxRange (prefs->GetDouble("ChassisMaxRange", 54.0));
 		printf("2135: ChassisMaxRange Found\n");
 	} else {
 		printf("2135: ERROR - ChassisMaxRange Not Found\n");
