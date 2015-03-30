@@ -242,3 +242,86 @@ double Chassis::DriveGetRightSpeedAverage( void )
 
 	return (oldValues[3] + oldValues[2] + oldValues[1] + oldValues[0]) / 4;
 }
+
+void Chassis::SetAutoSetPoint(double value )
+{
+	m_autoSetpoint = value;
+	printf("AutoDriveDistance: %f\n", m_autoSetpoint);
+}
+
+void Chassis::SetDrivePidMin(double value)
+{
+	m_drivePidMin = value;
+	printf("DrivePidMin:       %f\n", m_drivePidMin);
+}
+
+void Chassis::SetDrivePidMax(double value )
+{
+	m_drivePidMax = value;
+	printf("DrivePidMax:       %f\n", m_drivePidMax);
+}
+
+void Chassis::SetSpinTurnSpeed(double value )
+{
+	m_spinTurnSpeed = value;
+	printf("SpinTurnSpeed:     %f\n", m_spinTurnSpeed);
+}
+
+void Chassis::SetChassisMinRange(double value )
+{
+	m_chassisMinRange = value;
+	printf("ChassisMinRange:   %f\n", m_chassisMinRange);
+}
+
+void Chassis::SetChassisMaxRange(double value )
+{
+	m_chassisMaxRange = value;
+	printf("ChassisMaxRange:   %f\n", m_chassisMaxRange);
+}
+
+double Chassis::GetAutoSetPoint(void)
+{
+	return m_autoSetpoint;
+}
+
+double Chassis::GetDrivePidMin(void)
+{
+
+}
+
+double Chassis::GetDrivePidMax(void )
+{
+
+}
+
+double Chassis::GetSpinTurnSpeed(void )
+{
+
+}
+
+double Chassis::GetElevatorSpeed(void )
+{
+
+}
+
+double Chassis::GetElevatorPidMin(void )
+{
+
+}
+
+double Chassis::GetElevatorPidMax(void )
+{
+
+}
+
+double Chassis::GetChassisMinRange(void )
+{
+
+}
+
+double Chassis::GetChassisMaxRange(void )
+{
+
+}
+
+

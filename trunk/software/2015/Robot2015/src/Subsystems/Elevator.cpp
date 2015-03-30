@@ -81,3 +81,24 @@ void Elevator::ElevatorRun(double speed) {
 #endif
 	motor6->Set(speed);
 }
+
+
+void Elevator::SetElevatorSpeed(double value )
+{
+	m_elevatorSpeed = value;
+	printf("ElevatorSpeed:     %f\n", m_elevatorSpeed);
+}
+
+void Elevator::SetElevatorPidMin(double value )
+{
+	m_elevatorPidMin = value;
+	printf("ElevatorPidMin:    %f\n", m_elevatorPidMin);
+}
+
+void Elevator::SetElevatorPidMax(double value )
+{
+	m_elevatorPidMax = value;
+	printf("ElevatorPidMax:    %f\n", m_elevatorPidMax);
+
+}
+
