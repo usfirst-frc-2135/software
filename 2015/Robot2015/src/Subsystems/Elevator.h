@@ -38,6 +38,9 @@ private:
 	void UsePIDOutput(double output);
 	void InitDefaultCommand();
 	void ElevatorRun(double speed);
+	void SetElevatorSpeed(double value);
+	void SetElevatorPidMin(double value);
+	void SetElevatorPidMax(double value);
 };
 
 #endif

@@ -119,15 +119,6 @@ void Robot::RobotInit() {
 		printf("2135: ERROR - ChassisMaxRange Not Found\n");
 	}
 
-	printf("AutoDriveDistance: %f\n", m_autoSetpoint);
-	printf("DrivePidMax:       %f\n", m_drivePidMax);
-	printf("DrivePidMin:       %f\n", m_drivePidMin);
-	printf("SpinTurnSpeed:     %f\n", m_spinTurnSpeed);
-	printf("ElevatorSpeed:     %f\n", m_elevatorSpeed);
-	printf("ElevatorPidMin:    %f\n", m_elevatorPidMin);
-	printf("ElevatorPidMax:    %f\n", m_elevatorPidMax);
-	printf("ChassisMinRange:   %f\n", m_chassisMinRange);
-	printf("ChassisMaxRange:   %f\n", m_chassisMaxRange);
 
 	printf("2135: RobotInit build autonomous chooser\n");
 	autoChooser = new SendableChooser();
@@ -214,8 +205,8 @@ void Robot::InitSmartDashboard() {
 	SmartDashboard::PutNumber("L: I", chassis->leftPID->GetI());
 	SmartDashboard::PutNumber("L: D", chassis->leftPID->GetD());
 	SmartDashboard::PutNumber("L: Tolerance", 0.2);
-	SmartDashboard::PutNumber("L: Min Output", m_drivePidMin);
-	SmartDashboard::PutNumber("L: Max Output", m_drivePidMax);
+	SmartDashboard::PutNumber("L: Min Output", chassis->GetDrivePidMin());
+	SmartDashboard::PutNumber("L: Max Output", chassis->GetDrivePidMax());
 	SmartDashboard::PutNumber("L: Distance PP", 4 * M_PI / 360);
 	SmartDashboard::PutNumber("L: Distance", chassis->encoderL->GetDistance());
 
@@ -223,14 +214,14 @@ void Robot::InitSmartDashboard() {
 	SmartDashboard::PutNumber("R: I", chassis->rightPID->GetI());
 	SmartDashboard::PutNumber("R: D", chassis->rightPID->GetD());
 	SmartDashboard::PutNumber("R: Tolerance", 0.2);
-	SmartDashboard::PutNumber("R: Min Output", m_drivePidMin);
-	SmartDashboard::PutNumber("R: Max Output", m_drivePidMax);
+	SmartDashboard::PutNumber("R: Min Output", chassis->GetDrivePidMin());
+	SmartDashboard::PutNumber("R: Max Output", chassis->GetDrivePidMax());
 	SmartDashboard::PutNumber("R: Distance PP", 4 * M_PI / 360);
 	SmartDashboard::PutNumber("R: Distance", chassis->encoderR->GetDistance());
 
 	SmartDashboard::PutBoolean("Pressure Switch Value", false);
 	SmartDashboard::PutNumber("Compressor Current", 0.0);
-	SmartDashboard::PutNumber("Target Setpoint", m_autoSetpoint);
+	SmartDashboard::PutNumber("Target Setpoint", chassis->GetAutoSetPoint());
 	SmartDashboard::PutNumber("Left Setpoint", 0.0);
 	SmartDashboard::PutNumber("Right Setpoint", 0.0);
 	SmartDashboard::PutBoolean("Left PID State", false);

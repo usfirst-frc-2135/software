@@ -60,6 +60,23 @@ public:
 	double DriveGetRightSpeed( void );
 	double DriveGetLeftSpeedAverage( void );
 	double DriveGetRightSpeedAverage( void );
+	void SetAutoSetPoint(double value);
+	void SetDrivePidMax(double value);
+	void SetDrivePidMin(double value);
+	void SetSpinTurnSpeed(double value);
+	void SetChassisMinRange(double value);
+	void SetChassisMaxRange(double value);
+	double GetAutoSetPoint(void);
+	double GetDrivePidMax(void);
+	double GetDrivePidMin(void);
+	double GetSpinTurnSpeed(void);
+	double GetElevatorSpeed(void);
+	double GetElevatorPidMin(void);
+	double GetElevatorPidMax(void);
+	double GetChassisMinRange(void);
+	double GetChassisMaxRange(void);
+
+
 };
 
 #endif
