@@ -27,8 +27,7 @@ void DriveStop::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveStop::Execute() {
-	Robot::chassis->DriveUsingLeftRightMotorOutputs ( 0.0, 0.0 );
-	
+	Robot::chassis->DriveStop();
 }
 
 // Make this return true when this Command no longer needs to run execute()

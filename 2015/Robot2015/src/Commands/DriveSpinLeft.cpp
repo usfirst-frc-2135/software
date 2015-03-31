@@ -10,6 +10,7 @@
 
 
 #include "DriveSpinLeft.h"
+#include "../Subsystems/Chassis.h"
 
 DriveSpinLeft::DriveSpinLeft() {
 	// Use requires() here to declare subsystem dependencies
@@ -29,7 +30,7 @@ void DriveSpinLeft::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DriveSpinLeft::Execute() {
 	
-	Robot::chassis->DriveSpinTurn (chassis::kSpinLeft);
+	Robot::chassis->DriveSpinTurn(Chassis::kSpinTurnLeft);
 
 }
 
