@@ -76,10 +76,10 @@ OI::OI() {
 	operatorStackerRelease->WhileHeld(new StackerRelease());
 	operatorStackerHold = new JoystickButton(joystick3, 7);
 	operatorStackerHold->WhileHeld(new StackerHold());
-	operatorStackerExpel = new JoystickButton(joystick3, 9);
-	operatorStackerExpel->WhileHeld(new StackerExpel());
-	operatorStackerAcquire = new JoystickButton(joystick3, 8);
-	operatorStackerAcquire->WhileHeld(new StackerAcquire());
+	operatorIntakeExpelBoth = new JoystickButton(joystick3, 9);
+	operatorIntakeExpelBoth->WhileHeld(new IntakeExpelBoth());
+	operatorIntakeAcquireBoth = new JoystickButton(joystick3, 8);
+	operatorIntakeAcquireBoth->WhileHeld(new IntakeAcquireBoth());
 	operatorIntakeRelease = new JoystickButton(joystick3, 5);
 	operatorIntakeRelease->WhileHeld(new IntakeRelease());
 	operatorIntakeHold = new JoystickButton(joystick3, 3);
