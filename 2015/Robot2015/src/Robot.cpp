@@ -142,14 +142,14 @@ void Robot::TestPeriodic() {
 void Robot::InitFromPreferencesFile( void )
 {
 	if (prefs->ContainsKey("DriveScaleFactor")) {
-		chassis->SetDriveScaleFactor( prefs->GetDouble("DriveScaleFactor", 1.0) );
+		chassis->SetDriveScaleFactor( prefs->GetDouble("DriveScaleFactor", 0.81) );
 		printf("2135: DriveScaleFactor Found\n");
 	} else {
 		printf("2135: ERROR - DriveScaleFactor Not Found\n");
 	}
 
 	if (prefs->ContainsKey("DriveDistance")) {
-		chassis->SetDriveDistance( prefs->GetDouble("DriveDistance", 95.0) );
+		chassis->SetDriveDistance( prefs->GetDouble("DriveDistance", 72.1) );
 		printf("2135: DriveDistance Found\n");
 	} else {
 		printf("2135: ERROR - DriveDistance Not Found\n");
@@ -163,56 +163,56 @@ void Robot::InitFromPreferencesFile( void )
 	}
 
 	if (prefs->ContainsKey("DrivePidSpeedMin")) {
-		chassis-> SetDrivePidSpeedMin( prefs->GetDouble("DrivePidSpeedMin", -0.6) );
+		chassis-> SetDrivePidSpeedMin( prefs->GetDouble("DrivePidSpeedMin", -0.51) );
 		printf("2135: DrivePidSpeedMin Found\n");
 	} else {
 		printf("2135: ERROR - DrivePidSpeedMin Not Found\n");
 	}
 
 	if (prefs->ContainsKey("DrivePidSpeedMax")) {
-		chassis-> SetDrivePidSpeedMax ( prefs->GetDouble("DrivePidSpeedMax", 0.6) );
+		chassis-> SetDrivePidSpeedMax ( prefs->GetDouble("DrivePidSpeedMax", 0.51) );
 		printf("2135: DrivePidSpeedMax Found\n");
 	} else {
 		printf("2135: ERROR - DrivePidSpeedMax Not Found\n");
 	}
 
 	if (prefs->ContainsKey("DriveSpinSpeed")) {
-		chassis->SetDriveSpinTurnSpeed ( prefs->GetDouble("DriveSpinSpeed", 0.5) );
+		chassis->SetDriveSpinTurnSpeed ( prefs->GetDouble("DriveSpinSpeed", 0.31) );
 		printf("2135: DriveSpinSpeed Found\n");
 	} else {
 		printf("2135: ERROR - SpinTurnSpeed Not Found\n");
 	}
 
 	if (prefs->ContainsKey("ElevatorSpeed")) {
-		elevator-> SetElevatorSpeed ( prefs->GetDouble("ElevatorSpeed", 0.5) );
+		elevator-> SetElevatorSpeed ( prefs->GetDouble("ElevatorSpeed", 0.51) );
 		printf("2135: ElevatorSpeed Found\n");
 	} else {
 		printf("2135: ERROR - ElevatorSpeed Not Found\n");
 	}
 
 	if (prefs->ContainsKey("ElevatorPidMin")) {
-		elevator-> SetElevatorPidMin ( prefs->GetDouble("ElevatorPidMin", 10.0) );
+		elevator-> SetElevatorPidMin ( prefs->GetDouble("ElevatorPidMin", 10.1) );
 		printf("2135: ElevatorPidMin Found\n");
 	} else {
 		printf("2135: ERROR - ElevatorPidMin Not Found\n");
 	}
 
 	if (prefs->ContainsKey("ElevatorPidMax")) {
-		elevator-> SetElevatorPidMax( prefs->GetDouble("ElevatorPidMax", 35.0) );
+		elevator-> SetElevatorPidMax( prefs->GetDouble("ElevatorPidMax", 35.1) );
 		printf("2135: ElevatorPidMax Found\n");
 	} else {
 		printf("2135: ERROR - ElevatorPidMax Not Found\n");
 	}
 
 	if (prefs->ContainsKey("IntakeSpeed")) {
-		intake-> SetIntakeSpeed( prefs->GetDouble("IntakeSpeed", 0.5) );
+		intake-> SetIntakeSpeed( prefs->GetDouble("IntakeSpeed", 0.51) );
 		printf("2135: IntakeSpeed Found\n");
 	} else {
 		printf("2135: ERROR - IntakeSpeed Not Found\n");
 	}
 
 	if (prefs->ContainsKey("HWheelSpeed")) {
-		hWheel-> SetHWheelSpeed( prefs->GetDouble("HWheelSpeed", 0.3) );
+		hWheel-> SetHWheelSpeed( prefs->GetDouble("HWheelSpeed", 0.31) );
 		printf("2135: HWheelSpeed Found\n");
 	} else {
 		printf("2135: ERROR - HWheelSpeed Not Found\n");
