@@ -21,8 +21,8 @@ private:
 	JoystickButton* operatorElevatorUp;
 	JoystickButton* operatorStackerRelease;
 	JoystickButton* operatorStackerHold;
-	JoystickButton* operatorStackerExpel;
-	JoystickButton* operatorStackerAcquire;
+	JoystickButton* operatorIntakeExpelBoth;
+	JoystickButton* operatorIntakeAcquireBoth;
 	JoystickButton* operatorIntakeRelease;
 	JoystickButton* operatorIntakeHold;
 	JoystickButton* operatorIntakeExpelR;
