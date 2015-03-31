@@ -28,7 +28,7 @@ void HWheelDrive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void HWheelDrive::Execute() {
-	Robot::hWheel->HDriveWithJoystick(Robot::oi->getJoystick2());
+	Robot::hWheel->HDriveWithJoystick(Robot::oi->getJoystick4());
 }
 
 // Make this return true when this Command no longer needs to run execute()

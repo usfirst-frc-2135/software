@@ -28,7 +28,7 @@ void StackerHold::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void StackerHold::Execute() {
-	Robot::stacker->clamp->Set(true);
+	Robot::stacker->StackerHold( true );
 
 }
 

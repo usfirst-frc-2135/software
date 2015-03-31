@@ -23,6 +23,7 @@ CompressorOn::CompressorOn() {
 // Called just before this Command runs the first time
 void CompressorOn::Initialize() {
 	printf("2135: Compressor On\n");
+	Robot::pneumatics->StartCompressor();
 
 }
 

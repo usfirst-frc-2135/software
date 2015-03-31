@@ -22,9 +22,8 @@ ElevatorEnablePID::ElevatorEnablePID() {
 
 // Called just before this Command runs the first time
 void ElevatorEnablePID::Initialize() {
-	printf("2135: Elevator PID Enable\n");
-	Robot::elevator->Enable();
-	
+	printf("2135: Elevator PID Enable - commented out!\n");
+	//Robot::elevator->Enable();
 }
 
 // Called repeatedly when this Command is scheduled to run

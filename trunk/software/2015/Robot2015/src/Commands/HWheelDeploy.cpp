@@ -22,8 +22,8 @@ HWheelDeploy::HWheelDeploy() {
 
 // Called just before this Command runs the first time
 void HWheelDeploy::Initialize() {
-	printf("2135: HWheel Deploy begin\n");
-	Robot::hWheel->engage->Set(true);
+	printf("2135: HWheel Deploy\n");
+	Robot::hWheel->HWheelEngage( HWheel::kHWheelDeploy );
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -38,8 +38,7 @@ bool HWheelDeploy::IsFinished() {
 
 // Called once after isFinished returns true
 void HWheelDeploy::End() {
-	printf("2135: HWheel Deploy end\n");
-	Robot::hWheel->engage->Set(false);
+	Robot::hWheel->HWheelEngage( HWheel::kHWheelRetract );
 }
 
 // Called when another command which requires one or more of the same

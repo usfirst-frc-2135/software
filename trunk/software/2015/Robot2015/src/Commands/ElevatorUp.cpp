@@ -28,32 +28,13 @@ void ElevatorUp::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorUp::Execute() {
-	if (Robot::elevator->upperLimit->Get() == true) {
-		Robot::elevator->ElevatorRun(-0.5);
-	}
-	else {
-		Robot::elevator->ElevatorRun(0.0);
-	}
+
+	Robot::elevator->ElevatorRun( Elevator::kElevatorUp );
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ElevatorUp::IsFinished() {
-#if 0
-	if (Robot::elevator->heightPot->Get() < 0.9)
-	{
-		return false;
-	}
-	else {
-		return true;
-	}
-#endif
-	if (Robot::elevator->upperLimit->Get() == false)
-	{
-		return true;
-	}
-	else {
-		return false;
-	}
+	return false;
 }
 
 // Called once after isFinished returns true

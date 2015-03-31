@@ -25,8 +25,8 @@ class DriveDistance: public Command {
 private:
 	double m_inches;
 public:
-	DriveDistance(double inches);
 	DriveDistance();
+	DriveDistance( double inches );
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

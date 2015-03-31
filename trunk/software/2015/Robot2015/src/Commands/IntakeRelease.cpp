@@ -28,7 +28,7 @@ void IntakeRelease::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeRelease::Execute() {
-	Robot::intake->clamp->Set(false);
+	Robot::intake->IntakeHold( false );
 
 }
 
