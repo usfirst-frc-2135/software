@@ -102,3 +102,18 @@ void Elevator::SetElevatorPidMax(double value )
 
 }
 
+double Elevator::GetElevatorSpeed(void )
+{
+	return m_elevatorSpeed;
+}
+
+double Elevator::GetElevatorPidMin(void )
+{
+	return m_elevatorPidMin;
+}
+
+double Elevator::GetElevatorPidMax(void )
+{
+	return m_elevatorPidMax;
+}
+

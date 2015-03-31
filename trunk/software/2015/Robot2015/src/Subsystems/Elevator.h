@@ -41,6 +41,10 @@ private:
 	void SetElevatorSpeed(double value);
 	void SetElevatorPidMin(double value);
 	void SetElevatorPidMax(double value);
+	double GetElevatorSpeed(void);
+	double GetElevatorPidMin(void);
+	double GetElevatorPidMax(void);
+
 };
 
 #endif

@@ -286,42 +286,28 @@ double Chassis::GetAutoSetPoint(void)
 
 double Chassis::GetDrivePidMin(void)
 {
-
+	return m_drivePidMin;
 }
 
 double Chassis::GetDrivePidMax(void )
 {
-
+	return m_drivePidMax;
 }
 
 double Chassis::GetSpinTurnSpeed(void )
 {
-
+	return m_spinTurnSpeed;
 }
 
-double Chassis::GetElevatorSpeed(void )
-{
-
-}
-
-double Chassis::GetElevatorPidMin(void )
-{
-
-}
-
-double Chassis::GetElevatorPidMax(void )
-{
-
-}
 
 double Chassis::GetChassisMinRange(void )
 {
-
+	return m_chassisMinRange;
 }
 
 double Chassis::GetChassisMaxRange(void )
 {
-
+	return m_chassisMaxRange;
 }
 
 
