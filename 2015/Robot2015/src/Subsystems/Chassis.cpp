@@ -310,4 +310,11 @@ double Chassis::GetChassisMaxRange(void )
 	return m_chassisMaxRange;
 }
 
+void Chassis::DriveSpinTurn(enum SpinDirection) {
+	if {SpinDirection == kSpinTurnRight}
+	DriveUsingLeftRightMotorOutputs( -m_SpinTurnSpeed, +m_SpinTurnSpeed );
+	else
+	DriveUsingLeftRightMotorOutputs( +m_SpinTurnSpeed, -m_SpinTurnSpeed );
+
+}
 
