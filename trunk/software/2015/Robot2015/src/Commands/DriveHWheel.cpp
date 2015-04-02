@@ -22,7 +22,7 @@ DriveHWheel::DriveHWheel() {
 
 // Called just before this Command runs the first time
 void DriveHWheel::Initialize() {
-	
+	printf("2135: DriveHWheel\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
