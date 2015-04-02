@@ -70,7 +70,7 @@ void RobotMap::init() {
 	chassisMotorR5 = new CANTalon(5);
 	
 	
-	chassisMotorHL = new Talon(0);
+	chassisMotorHL = new Talon(4);
 	lw->AddActuator("Chassis", "Motor HL", (Talon*) chassisMotorHL);
 	
 	chassisMotorHR = new Talon(1);
