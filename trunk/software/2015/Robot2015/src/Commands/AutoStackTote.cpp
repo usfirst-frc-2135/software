@@ -13,7 +13,7 @@
 #include "AutoStackTote.h"
 #include "ElevatorMoveToPosition.h"
 #include "IntakeAcquireBoth.h"
-#include "IntakeRelease.h"
+#include "GripperRelease.h"
 #include "ElevatorMoveToPosition.h"
 
 AutoStackTote::AutoStackTote() {
@@ -37,7 +37,7 @@ AutoStackTote::AutoStackTote() {
 
 	AddSequential(new ElevatorMoveToPosition());
 	AddSequential(new IntakeAcquireBoth());
-	AddSequential(new IntakeRelease());
+	AddSequential(new GripperRelease());
 	AddSequential(new ElevatorMoveToPosition());
 
 }

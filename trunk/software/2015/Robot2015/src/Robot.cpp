@@ -20,7 +20,7 @@
 Chassis* Robot::chassis = 0;
 HWheel* Robot::hWheel = 0;
 Intake* Robot::intake = 0;
-Stacker* Robot::stacker = 0;
+Gripper* Robot::gripper = 0;
 Elevator* Robot::elevator = 0;
 Pneumatics* Robot::pneumatics = 0;
 OI* Robot::oi = 0;
@@ -36,7 +36,7 @@ void Robot::RobotInit() {
 	chassis = new Chassis();
 	hWheel = new HWheel();
 	intake = new Intake();
-	stacker = new Stacker();
+	gripper = new Gripper();
 	elevator = new Elevator();
 	pneumatics = new Pneumatics();
 
@@ -254,8 +254,6 @@ void Robot::InitSmartDashboard( void ) {
 
 	SmartDashboard::PutBoolean("UpperLimit", Robot::elevator->upperLimit->Get());
 	SmartDashboard::PutBoolean("LowerLimit", Robot::elevator->lowerLimit->Get());
-	SmartDashboard::PutBoolean("ToteFullIn", Robot::stacker->toteFullIn->Get());
-	SmartDashboard::PutBoolean("ToteFullOut", Robot::stacker->toteFullOut->Get());
 
 	SmartDashboard::PutBoolean("Pressure Switch Value", false);
 	SmartDashboard::PutNumber("Compressor Current", 0.0);
@@ -284,8 +282,6 @@ void Robot::UpdateSmartDashboard( void ) {
 		SmartDashboard::PutNumber("Throttle", fabs(Robot::oi->getJoystick1()->GetThrottle()));
 		break;
 	case 20:
-//		SmartDashboard::PutBoolean("ToteFullIn", Robot::stacker->toteFullIn->Get());
-//		SmartDashboard::PutBoolean("ToteFullOut", Robot::stacker->toteFullOut->Get());
 		break;
 	case 25:
 		SmartDashboard::PutBoolean("UpperLimit", Robot::elevator->upperLimit->Get());

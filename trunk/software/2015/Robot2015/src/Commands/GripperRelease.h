@@ -9,8 +9,8 @@
 // it from being updated in the future.
 
 
-#ifndef STACKER_RELEASE_H
-#define STACKER_RELEASE_H
+#ifndef GRIPPER_RELEASE_H
+#define GRIPPER_RELEASE_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class StackerRelease: public Command {
+class GripperRelease: public Command {
 public:
-	StackerRelease();
+	GripperRelease();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
