@@ -120,8 +120,8 @@ OI::OI() {
 	driverSpinLeft->WhileHeld(new DriveSpinLeft());
 	driveTrainInvert = new JoystickButton(joystick1, 2);
 	driveTrainInvert->WhenPressed(new DriveReverseDirection());
-	driverDriveSlow = new JoystickButton(joystick1, 1);
-	driverDriveSlow->WhileHeld(new DriveSlow());
+	driverDriveTeleop = new JoystickButton(joystick1, 1);
+	driverDriveTeleop->WhileHeld(new DriveTeleop());
      
 
         // SmartDashboard Buttons

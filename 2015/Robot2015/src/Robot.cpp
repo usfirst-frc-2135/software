@@ -145,7 +145,7 @@ void Robot::TestPeriodic() {
 void Robot::InitFromPreferencesFile( void )
 {
 	if (prefs->ContainsKey("DriveScaleFactor")) {
-		chassis->SetDriveScaleFactor( prefs->GetDouble("DriveScaleFactor", 0.81) );
+		chassis->SetDriveScaleFactor( prefs->GetDouble("DriveScaleFactor", 0.71) );
 		printf("2135: DriveScaleFactor Found\n");
 	} else {
 		printf("2135: ERROR - DriveScaleFactor Not Found\n");
