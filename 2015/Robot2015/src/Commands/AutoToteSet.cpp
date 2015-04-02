@@ -13,8 +13,8 @@
 #include "AutoToteSet.h"
 #include "DriveDistance.h"
 #include "DriveTurn.h"
-#include "IntakeHold.h"
-#include "IntakeRelease.h"
+#include "GripperHold.h"
+#include "GripperRelease.h"
 #include "ElevatorMoveToPosition.h"
 #include "AutoStackTote.h"
 
@@ -37,21 +37,21 @@ AutoToteSet::AutoToteSet() {
 	// arm.
 	printf("2135: Auto Tote Set\n");
 
-	AddSequential(new IntakeRelease());
+	AddSequential(new GripperRelease());
 	AddSequential(new DriveDistance(12));
-	AddSequential(new IntakeHold());
+	AddSequential(new GripperHold());
 	AddSequential(new AutoStackTote());
-	AddSequential(new IntakeRelease());
+	AddSequential(new GripperRelease());
 	AddSequential(new DriveDistance(77.9));
-	AddSequential(new IntakeHold());
+	AddSequential(new GripperHold());
 	AddSequential(new AutoStackTote());
-	AddSequential(new IntakeRelease());
+	AddSequential(new GripperRelease());
 	AddSequential(new DriveDistance(77.9));
-	AddSequential(new IntakeHold());
+	AddSequential(new GripperHold());
 	AddSequential(new AutoStackTote());
-	AddSequential(new IntakeRelease());
+	AddSequential(new GripperRelease());
 	AddSequential(new DriveDistance(23.9));
-	AddSequential(new IntakeHold());
+	AddSequential(new GripperHold());
 	AddSequential(new ElevatorMoveToPosition());
 	AddSequential(new DriveTurn(90));
 	AddSequential(new DriveDistance(107));

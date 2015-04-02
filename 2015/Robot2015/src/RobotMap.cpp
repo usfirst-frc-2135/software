@@ -27,12 +27,7 @@ Solenoid* RobotMap::hWheelEngage = NULL;
 SpeedController* RobotMap::intakeConveyorL = NULL;
 SpeedController* RobotMap::intakeConveyorR = NULL;
 DigitalInput* RobotMap::intakeToteFullIn = NULL;
-Solenoid* RobotMap::intakeClamp = NULL;
-SpeedController* RobotMap::stackerConveyorL = NULL;
-SpeedController* RobotMap::stackerConveyorR = NULL;
-DigitalInput* RobotMap::stackerToteFullIn = NULL;
-DigitalInput* RobotMap::stackerToteFullOut = NULL;
-Solenoid* RobotMap::stackerClamp = NULL;
+Solenoid* RobotMap::gripperClamp = NULL;
 CANTalon* RobotMap::elevatorMotor6 = NULL;
 CANTalon* RobotMap::elevatorMotor7 = NULL;
 AnalogPotentiometer* RobotMap::elevatorHeightPot = NULL;
@@ -102,23 +97,8 @@ void RobotMap::init() {
 	intakeToteFullIn = new DigitalInput(6);
 	lw->AddSensor("Intake", "Tote Full In", intakeToteFullIn);
 	
-	intakeClamp = new Solenoid(0, 0);
-	lw->AddActuator("Intake", "Clamp", intakeClamp);
-	
-	stackerConveyorL = new Talon(4);
-	lw->AddActuator("Stacker", "Conveyor L", (Talon*) stackerConveyorL);
-	
-	stackerConveyorR = new Talon(5);
-	lw->AddActuator("Stacker", "Conveyor R", (Talon*) stackerConveyorR);
-	
-	stackerToteFullIn = new DigitalInput(7);
-	lw->AddSensor("Stacker", "Tote Full In", stackerToteFullIn);
-	
-	stackerToteFullOut = new DigitalInput(13);
-	lw->AddSensor("Stacker", "Tote Full Out", stackerToteFullOut);
-	
-	stackerClamp = new Solenoid(0, 2);
-	lw->AddActuator("Stacker", "Clamp", stackerClamp);
+	gripperClamp = new Solenoid(0, 0);
+	lw->AddActuator("Gripper", "Clamp", gripperClamp);
 	
 	elevatorMotor6 = new CANTalon(6);
 	

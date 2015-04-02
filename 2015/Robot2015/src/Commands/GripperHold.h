@@ -9,8 +9,8 @@
 // it from being updated in the future.
 
 
-#ifndef STACKER_ACQUIRE_H
-#define STACKER_ACQUIRE_H
+#ifndef GRIPPER_HOLD_H
+#define GRIPPER_HOLD_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class StackerAcquire: public Command {
+class GripperHold: public Command {
 public:
-	StackerAcquire();
+	GripperHold();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

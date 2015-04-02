@@ -19,12 +19,10 @@ private:
 	JoystickButton* driverHWheelDeploy;
 	Joystick* joystick3;
 	JoystickButton* operatorElevatorUp;
-	JoystickButton* operatorStackerRelease;
-	JoystickButton* operatorStackerHold;
-	JoystickButton* operatorIntakeExpelBoth;
-	JoystickButton* operatorIntakeAcquireBoth;
-	JoystickButton* operatorIntakeRelease;
-	JoystickButton* operatorIntakeHold;
+	JoystickButton* operatorStackerExpel;
+	JoystickButton* operatorStackerAcquire;
+	JoystickButton* operatorGripperRelease;
+	JoystickButton* operatorGripperHold;
 	JoystickButton* operatorIntakeExpelR;
 	JoystickButton* operatorIntakeExpelL;
 	JoystickButton* operatorIntakeAcquireR;

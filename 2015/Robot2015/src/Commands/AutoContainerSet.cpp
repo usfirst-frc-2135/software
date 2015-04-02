@@ -13,9 +13,9 @@
 #include "AutoContainerSet.h"
 #include "DriveDistance.h"
 #include "DriveTurn.h"
-#include "IntakeHold.h"
-#include "IntakeRelease.h"
 #include "ElevatorMoveToPosition.h"
+#include "GripperHold.h"
+#include "GripperRelease.h"
 
 AutoContainerSet::AutoContainerSet() {
 	// Add Commands here:
@@ -44,16 +44,16 @@ AutoContainerSet::AutoContainerSet() {
 	double driveTurnToAutoZoneSecondDegrees = pref->GetDouble("AutoContainerSetAutoZoneSecondDegrees", 144.3);
 	double driveToAutoZoneSecondDistance = pref->GetDouble("AutoContainerSetAutoZoneSecondDistance", 96);
 
-	AddSequential(new IntakeRelease());
+	AddSequential(new GripperRelease());
 	AddSequential(new DriveDistance(driveToFirstContainerDistance)); // Drive forward to container
-	AddSequential(new IntakeHold()); 				// Grab the container
+	AddSequential(new GripperHold()); 				// Grab the container
 	AddSequential(new ElevatorMoveToPosition()); 	// Lift the container
 	AddSequential(new DriveDistance(driveToAutoZoneFirstDistance)); // Drive forward to auto zone
 	AddSequential(new ElevatorMoveToPosition()); 	// Drop the container
-	AddSequential(new IntakeRelease()); 			// Release the container
+	AddSequential(new GripperRelease()); 			// Release the container
 	AddSequential(new DriveTurn(driveTurnToNextContainer)); // Aiming robot to next container
 	AddSequential(new DriveDistance(driveToSecondContainerDistance)); // Drive forward to next container
-	AddSequential(new IntakeHold()); 				// Grab container
+	AddSequential(new GripperHold()); 				// Grab container
 	AddSequential(new ElevatorMoveToPosition()); 	//Lift container
 	AddSequential(new DriveTurn(driveTurnToAutoZoneSecondDegrees)); // Aim to move to auto zone
 	AddSequential(new DriveDistance(driveToAutoZoneSecondDistance)); // Drive forward to auto zone
