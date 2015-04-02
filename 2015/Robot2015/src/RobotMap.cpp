@@ -19,11 +19,9 @@ Encoder* RobotMap::chassisEncoderR = NULL;
 CANTalon* RobotMap::chassisMotorR4 = NULL;
 PIDController* RobotMap::chassisRightPID = NULL;
 CANTalon* RobotMap::chassisMotorR5 = NULL;
-Ultrasonic* RobotMap::chassisUltrasonicDrive = NULL;
-SpeedController* RobotMap::hWheelMotorHL = NULL;
-SpeedController* RobotMap::hWheelMotorHR = NULL;
-Encoder* RobotMap::hWheelEncoderH = NULL;
-Solenoid* RobotMap::hWheelEngage = NULL;
+SpeedController* RobotMap::chassisMotorHL = NULL;
+SpeedController* RobotMap::chassisMotorHR = NULL;
+Solenoid* RobotMap::chassisEngage = NULL;
 SpeedController* RobotMap::intakeConveyorL = NULL;
 SpeedController* RobotMap::intakeConveyorR = NULL;
 DigitalInput* RobotMap::intakeToteFullIn = NULL;
@@ -72,21 +70,14 @@ void RobotMap::init() {
 	chassisMotorR5 = new CANTalon(5);
 	
 	
-	chassisUltrasonicDrive = new Ultrasonic(11, 12);
-	lw->AddSensor("Chassis", "Ultrasonic Drive", chassisUltrasonicDrive);
+	chassisMotorHL = new Talon(0);
+	lw->AddActuator("Chassis", "Motor HL", (Talon*) chassisMotorHL);
 	
-	hWheelMotorHL = new Talon(0);
-	lw->AddActuator("H Wheel", "Motor HL", (Talon*) hWheelMotorHL);
+	chassisMotorHR = new Talon(1);
+	lw->AddActuator("Chassis", "Motor HR", (Talon*) chassisMotorHR);
 	
-	hWheelMotorHR = new Talon(1);
-	lw->AddActuator("H Wheel", "Motor HR", (Talon*) hWheelMotorHR);
-	
-	hWheelEncoderH = new Encoder(4, 5, false, Encoder::k4X);
-	lw->AddSensor("H Wheel", "Encoder H", hWheelEncoderH);
-	hWheelEncoderH->SetDistancePerPulse(1.0);
-        hWheelEncoderH->SetPIDSourceParameter(Encoder::kRate);
-	hWheelEngage = new Solenoid(0, 1);
-	lw->AddActuator("H Wheel", "Engage", hWheelEngage);
+	chassisEngage = new Solenoid(0, 1);
+	lw->AddActuator("Chassis", "Engage", chassisEngage);
 	
 	intakeConveyorL = new Talon(2);
 	lw->AddActuator("Intake", "Conveyor L", (Talon*) intakeConveyorL);

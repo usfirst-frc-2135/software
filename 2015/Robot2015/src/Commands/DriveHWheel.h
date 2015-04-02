@@ -9,8 +9,8 @@
 // it from being updated in the future.
 
 
-#ifndef H_WHEEL_DRIVE_H
-#define H_WHEEL_DRIVE_H
+#ifndef DRIVE_H_WHEEL_H
+#define DRIVE_H_WHEEL_H
 
 
 #include "Commands/Subsystem.h"
@@ -21,9 +21,9 @@
  *
  * @author ExampleAuthor
  */
-class HWheelDrive: public Command {
+class DriveHWheel: public Command {
 public:
-	HWheelDrive();
+	DriveHWheel();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

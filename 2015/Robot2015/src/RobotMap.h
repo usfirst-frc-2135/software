@@ -27,11 +27,9 @@ public:
 	static CANTalon* chassisMotorR4;
 	static PIDController* chassisRightPID;
 	static CANTalon* chassisMotorR5;
-	static Ultrasonic* chassisUltrasonicDrive;
-	static SpeedController* hWheelMotorHL;
-	static SpeedController* hWheelMotorHR;
-	static Encoder* hWheelEncoderH;
-	static Solenoid* hWheelEngage;
+	static SpeedController* chassisMotorHL;
+	static SpeedController* chassisMotorHR;
+	static Solenoid* chassisEngage;
 	static SpeedController* intakeConveyorL;
 	static SpeedController* intakeConveyorR;
 	static DigitalInput* intakeToteFullIn;
