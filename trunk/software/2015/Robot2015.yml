@@ -1316,12 +1316,6 @@ Children:
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command Group
     Name: Auto Recycling Bin
-  - Children: []
-    Properties:
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: false}
-    Base: Command Group
-    Name: Auto Drive Distance
   Properties: {}
   Base: Commands
   Name: Commands
