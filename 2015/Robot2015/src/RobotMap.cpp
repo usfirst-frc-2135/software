@@ -24,7 +24,6 @@ SpeedController* RobotMap::chassisMotorHR = NULL;
 Solenoid* RobotMap::chassisEngage = NULL;
 SpeedController* RobotMap::intakeConveyorL = NULL;
 SpeedController* RobotMap::intakeConveyorR = NULL;
-DigitalInput* RobotMap::intakeToteFullIn = NULL;
 Solenoid* RobotMap::gripperClamp = NULL;
 CANTalon* RobotMap::elevatorMotor6 = NULL;
 CANTalon* RobotMap::elevatorMotor7 = NULL;
@@ -84,9 +83,6 @@ void RobotMap::init() {
 	
 	intakeConveyorR = new Talon(3);
 	lw->AddActuator("Intake", "Conveyor R", (Talon*) intakeConveyorR);
-	
-	intakeToteFullIn = new DigitalInput(6);
-	lw->AddSensor("Intake", "Tote Full In", intakeToteFullIn);
 	
 	gripperClamp = new Solenoid(0, 0);
 	lw->AddActuator("Gripper", "Clamp", gripperClamp);

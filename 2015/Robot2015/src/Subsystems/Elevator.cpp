@@ -94,14 +94,14 @@ void Elevator::ElevatorRun( bool direction ) {
 #endif
 
 	if (direction == kElevatorDown) {
-		safeToRun = Robot::elevator->lowerLimit->Get() == true;
+		safeToRun = Robot::elevator->lowerLimit->Get() == false;
 		if (safeToRun)
 			motor6->Set(m_elevatorSpeed);
 		else
 			motor6->Set(0.0);
 	}
 	else {
-		safeToRun = Robot::elevator->upperLimit->Get() == true;
+		safeToRun = Robot::elevator->upperLimit->Get() == false;
 		if (safeToRun)
 			motor6->Set(-m_elevatorSpeed);
 		else

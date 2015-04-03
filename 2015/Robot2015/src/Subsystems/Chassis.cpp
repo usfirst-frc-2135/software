@@ -357,16 +357,16 @@ void Chassis::DriveDistanceWithPIDStop( void )
 }
 
 void Chassis::HWheelRun(double speed) {
-	motorHL->Set(speed);
-	motorHR->Set(speed);
+	motorHL->Set(-speed);
+	motorHR->Set(-speed);
 }
 
 void Chassis::HDriveWithJoystick( Joystick *joystick )
 {
 	HWheelEngage(kHWheelDeploy);
 	DriveStop();
-	motorHL->Set(joystick->GetX());
-	motorHR->Set(joystick->GetX());
+	motorHL->Set(-joystick->GetX());
+	motorHR->Set(-joystick->GetX());
 }
 
 void Chassis::HWheelEngage( bool engaged )

@@ -32,7 +32,6 @@ public:
 	static Solenoid* chassisEngage;
 	static SpeedController* intakeConveyorL;
 	static SpeedController* intakeConveyorR;
-	static DigitalInput* intakeToteFullIn;
 	static Solenoid* gripperClamp;
 	static CANTalon* elevatorMotor6;
 	static CANTalon* elevatorMotor7;
