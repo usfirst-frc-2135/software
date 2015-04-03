@@ -66,9 +66,8 @@ void Robot::RobotInit() {
 	autoChooser->AddDefault("0 - Sit still", new DriveStop());
 	autoChooser->AddObject( "1 - Move forward timed", new DriveDistanceTimed());
 	autoChooser->AddObject( "2 - Move forward encoder", new DriveDistance());
-	autoChooser->AddObject( "3 - Container set", new AutoContainerSet());
-	autoChooser->AddObject( "4 - Stack tote", new AutoStackTote());
-	autoChooser->AddObject( "5 - Tote set", new AutoToteSet());
+	autoChooser->AddObject( "3 - Recycling Bin", new AutoRecyclingBin());
+	autoChooser->AddObject( "4 - Container set", new AutoContainerSet());
 	SmartDashboard::PutData("Auto modes", autoChooser);
 	//autoChooser->AddObject("Score one tote", new );
 
@@ -250,8 +249,8 @@ void Robot::InitSmartDashboard( void ) {
 
 	SmartDashboard::PutNumber("Potentiometer", Robot::elevator->heightPot->Get());
 
-	SmartDashboard::PutBoolean("UpperLimit", Robot::elevator->upperLimit->Get());
-	SmartDashboard::PutBoolean("LowerLimit", Robot::elevator->lowerLimit->Get());
+	SmartDashboard::PutBoolean("UpperLimit", -Robot::elevator->upperLimit->Get());
+	SmartDashboard::PutBoolean("LowerLimit", -Robot::elevator->lowerLimit->Get());
 
 	SmartDashboard::PutBoolean("Pressure Switch Value", false);
 	SmartDashboard::PutNumber("Compressor Current", 0.0);
@@ -267,35 +266,35 @@ void Robot::UpdateSmartDashboard( void ) {
 	case 0:
 //		SmartDashboard::PutNumber("L: Distance",  Robot::chassis->encoderL->GetDistance());
 //		SmartDashboard::PutNumber("R: Distance",  Robot::chassis->encoderR->GetDistance());
+		SmartDashboard::PutNumber("Potentiometer", Robot::elevator->heightPot->Get());
 		break;
 	case 5:
 //		SmartDashboard::PutNumber("L: Speed",     Robot::chassis->DriveGetLeftSpeed());
 //		SmartDashboard::PutNumber("R: Speed",	 -Robot::chassis->DriveGetRightSpeed());
+		SmartDashboard::PutBoolean("UpperLimit", -Robot::elevator->upperLimit->Get());
 		break;
 	case 10:
 //		SmartDashboard::PutNumber("L: Avg Speed", Robot::chassis->DriveGetLeftSpeedAverage());
 //		SmartDashboard::PutNumber("R: Avg Speed", Robot::chassis->DriveGetRightSpeedAverage());
+		SmartDashboard::PutBoolean("LowerLimit", -Robot::elevator->lowerLimit->Get());
 		break;
 	case 15:
-		SmartDashboard::PutNumber("Throttle", fabs(Robot::oi->getJoystick1()->GetThrottle()));
+		// SmartDashboard::PutNumber("Throttle", fabs(Robot::oi->getJoystick1()->GetThrottle()));
 		break;
 	case 20:
+		//	SmartDashboard::PutBoolean("Pressure Switch Value", Robot::pneumatics->compressor->GetPressureSwitchValue());
 		break;
 	case 25:
-		SmartDashboard::PutBoolean("UpperLimit", Robot::elevator->upperLimit->Get());
-		SmartDashboard::PutBoolean("LowerLimit", Robot::elevator->lowerLimit->Get());
-		SmartDashboard::PutNumber("Potentiometer", Robot::elevator->heightPot->Get());
+		//	SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
 		break;
 	case 30:
-		//	SmartDashboard::PutBoolean("Pressure Switch Value", Robot::pneumatics->compressor->GetPressureSwitchValue());
-		//	SmartDashboard::PutNumber("Compressor Current", Robot::pneumatics->compressor->GetCompressorCurrent());
-		SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
+		// SmartDashboard::PutNumber("Temperature", Robot::pneumatics->CheckTemperature());
 		break;
 	default:
 		break;
 	}
 
-	if (counter == 35)
+	if (counter == 25)
 		counter = 0;
 }
 
