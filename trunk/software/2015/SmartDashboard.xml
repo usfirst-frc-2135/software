@@ -1,13 +1,10 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Drive Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="115" y="280"/>
+	</widget>
 	<widget field="Throttle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="146" y="430"/>
-	</widget>
-	<widget field="ToteFullOut" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="460" y="160"/>
-	</widget>
-	<widget field="ToteFullIn" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="462" y="130"/>
+		<location x="406" y="110"/>
 	</widget>
 	<widget field="Right PID State" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="266" y="250"/>
@@ -23,9 +20,6 @@
 	</widget>
 	<widget field="Temperature" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="602" y="70"/>
-	</widget>
-	<widget field="Target Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="110" y="280"/>
 	</widget>
 	<widget field="Right Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="196" y="220"/>
@@ -112,4 +106,8 @@
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="Drive H Wheel"/>
+	<hidden field="ToteFullOut"/>
+	<hidden field="ToteFullIn"/>
+	<hidden field="Target Setpoint"/>
 </xml>
