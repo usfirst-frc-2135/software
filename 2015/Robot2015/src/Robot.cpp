@@ -8,10 +8,8 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 #include "Robot.h"
-#include "Commands/AutoCommand.h"
+#include "Commands/AutoRecyclingBin.h"
 #include "Commands/AutoContainerSet.h"
-#include "Commands/AutoStackTote.h"
-#include "Commands/AutoToteSet.h"
 #include "Commands/DriveStop.h"
 #include "Commands/DriveDistance.h"
 #include "Commands/DriveDistanceTimed.h"

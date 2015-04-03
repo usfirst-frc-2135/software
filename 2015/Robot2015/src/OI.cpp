@@ -12,7 +12,6 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/AutoCommand.h"
 #include "Commands/AutoContainerSet.h"
-#include "Commands/AutoDriveDistance.h"
 #include "Commands/AutoRecyclingBin.h"
 #include "Commands/AutoStackTote.h"
 #include "Commands/AutoToteSet.h"
