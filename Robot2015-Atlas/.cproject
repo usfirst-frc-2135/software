@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.penfieldrobotics.criotools.projtype.debug.818191619">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.penfieldrobotics.criotools.projtype.debug.818191619" moduleId="org.eclipse.cdt.core.settings" name="cRIODebug">
+				<externalSettings>
+					<externalSetting>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/Robot2015-Atlas"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/Robot2015-Atlas/cRIODebug"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="Robot2015-Atlas" srcPrefixMapping="" srcRootPath=""/>
+					</externalSetting>
+				</externalSettings>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="so" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" description="" id="com.penfieldrobotics.criotools.projtype.debug.818191619" name="cRIODebug" parent="com.penfieldrobotics.criotools.projtype.debug" postbuildStep="powerpc-wrs-vxworks-nm &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFileName}&quot; | tclsh &quot;${WIND_BASE}/host/resource/hutils/tcl/munch.tcl&quot; -c ppc | sed &quot;s/extern void\(.*\);/extern void \1 __attribute__((externally_visible));/&quot; &gt; &quot;${ProjDirPath}/${ConfigName}/ctdt.c&quot;  &amp;&amp; powerpc-wrs-vxworks-gcc -c &quot;${ProjDirPath}/${ConfigName}/ctdt.c&quot; -o ctdt.o -DCPU=PPC603 -DTOOL_FAMILY=gnu -DTOOL=gnu -D_WRS_KERNEL -fmessage-length=0  -mcpu=603 -mstrict-align -mlongcall &amp;&amp;  powerpc-wrs-vxworks-g++ &quot;${ProjDirPath}/${ConfigName}/ctdt.o&quot; &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFileName}&quot; -o &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFileName}.out&quot; -DCPU=PPC603 -DTOOL_FAMILY=gnu -DTOOL=gnu -D_WRS_KERNEL -fmessage-length=0  -mcpu=603 -mstrict-align -mlongcall -r -Wl,-X -static -T &quot;${WIND_BASE}\..\share\ldscripts\dkm.ld&quot; &amp;&amp;  powerpc-wrs-vxworks-stripsyms.bat &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFileName}.out&quot; &quot;${WIND_BASE}\..\lib\libstdc++.a&quot; &quot;${WIND_BASE}\..\lib\libsupc++.a&quot; &quot;${WIND_BASE}\..\..\lib\gcc\powerpc-wrs-vxworks\4.8.2\libgcc.a&quot;">
+					<folderInfo id="com.penfieldrobotics.criotools.projtype.debug.818191619." name="/" resourcePath="">
+						<toolChain id="com.penfieldrobotics.criotools.projtype.debug.tools.1697794931" name="Thunder cRIO Tools" superClass="com.penfieldrobotics.criotools.projtype.debug.tools">
+							<option id="com.penfieldrobotics.criotools.crosstools.prefix.275042312" name="Prefix" superClass="com.penfieldrobotics.criotools.crosstools.prefix" value="powerpc-wrs-vxworks-" valueType="string"/>
+							<option id="com.penfieldrobotics.criotools.crosstools.path.1188348466" name="Path" superClass="com.penfieldrobotics.criotools.crosstools.path" value="&quot;${WIND_BASE}/../../bin/&quot;" valueType="string"/>
+							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="com.penfieldrobotics.criotools.crosstools.tgtplatform.1870032212" isAbstract="false" name="Thunder cRIO Tools Target Platform" superClass="com.penfieldrobotics.criotools.crosstools.tgtplatform"/>
+							<builder buildPath="${workspace_loc:/Robot2015-Atlas}/cRIODebug" id="com.penfieldrobotics.criotools.crosstools.builder.2105772850" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Thunder cRIO Tools Builder" superClass="com.penfieldrobotics.criotools.crosstools.builder"/>
+							<tool id="com.penfieldrobotics.criotools.crosstools.ccompiler.2046680446" name="Thunder cRIO Tools C Compiler" superClass="com.penfieldrobotics.criotools.crosstools.ccompiler">
+								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.2055154113" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.debugging.level.538916592" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.include.paths.600775230" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;C:\Users\PHS-User\workspace\Robot2015-Atlas\include&quot;"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.533399031" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+							</tool>
+							<tool id="com.penfieldrobotics.criotools.crosstools.cppcompiler.1385347406" name="Thunder cRIO Tools C++ Compiler" superClass="com.penfieldrobotics.criotools.crosstools.cppcompiler">
+								<option id="gnu.cpp.compiler.option.optimization.level.2097486613" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.debugging.level.426417343" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.include.paths.1087540983" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;C:\Users\PHS-User\workspace\Robot2015-Atlas\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${WIND_BASE}/../include/WPILib&quot;"/>
+								</option>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.985396191" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="CPU=PPC603"/>
+									<listOptionValue builtIn="false" value="TOOL_FAMILY=gnu"/>
+									<listOptionValue builtIn="false" value="TOOL=gnu"/>
+									<listOptionValue builtIn="false" value="_WRS_KERNEL"/>
+								</option>
+								<option id="gnu.cpp.compiler.option.other.other.1514183876" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -mcpu=603 -mstrict-align -mlongcall" valueType="string"/>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1600047209" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+							</tool>
+							<tool id="com.penfieldrobotics.criotools.crosstools.partiallinker.1502136376" name="Thunder cRIO Tools Partial Linker" superClass="com.penfieldrobotics.criotools.crosstools.partiallinker">
+								<option defaultValue="true" id="gnu.cpp.link.option.shared.1442674855" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" value="false" valueType="boolean"/>
+								<option id="gnu.cpp.link.option.libs.1474048635" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="wpilib"/>
+									<listOptionValue builtIn="false" value="supc++"/>
+									<listOptionValue builtIn="false" value="stdc++"/>
+									<listOptionValue builtIn="false" value="gcc"/>
+								</option>
+								<option id="gnu.cpp.link.option.paths.339318023" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="&quot;${WIND_BASE}/../lib&quot;"/>
+								</option>
+								<option id="gnu.cpp.link.option.other.199033173" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other" valueType="stringList">
+									<listOptionValue builtIn="false" value="-X"/>
+								</option>
+								<option id="gnu.cpp.link.option.flags.1220963996" name="Linker flags" superClass="gnu.cpp.link.option.flags" value=" -mcpu=603 -mstrict-align -mlongcall -static -r" valueType="string"/>
+								<option id="gnu.cpp.link.option.nostdlibs.472397656" name="No startup or default libs (-nostdlib)" superClass="gnu.cpp.link.option.nostdlibs" value="true" valueType="boolean"/>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.119011871" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="include"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="Robot2015-Atlas.com.penfieldrobotics.criotools.projtype.545994494" name="Shared Library" projectType="com.penfieldrobotics.criotools.projtype"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="com.penfieldrobotics.criotools.projtype.debug.818191619;com.penfieldrobotics.criotools.projtype.debug.818191619.;com.penfieldrobotics.criotools.crosstools.cppcompiler.1385347406;cdt.managedbuild.tool.gnu.cpp.compiler.input.1600047209">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.penfieldrobotics.criotools.projtype.debug.818191619;com.penfieldrobotics.criotools.projtype.debug.818191619.;com.penfieldrobotics.criotools.crosstools.ccompiler.2046680446;cdt.managedbuild.tool.gnu.c.compiler.input.533399031">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="cRIODebug">
+			<resource resourceType="PROJECT" workspacePath="/Robot2015-Atlas"/>
+		</configuration>
+	</storageModule>
+</cproject>
