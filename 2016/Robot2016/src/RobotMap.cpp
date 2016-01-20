@@ -30,32 +30,33 @@ void RobotMap::init() {
     LiveWindow *lw = LiveWindow::GetInstance();
 
     chassisMotorL2.reset(new CANTalon(2));
-    lw->AddActuator("Chassis", "MotorL2", chassisMotorL2);
+    lw->AddActuator("ChassisL", "MotorL2", chassisMotorL2);
     
     chassisLeftEncoder.reset(new Encoder(0, 1, false, Encoder::k4X));
-    lw->AddSensor("Chassis", "LeftEncoder", chassisLeftEncoder);
+    lw->AddSensor("ChassisL", "LeftEncoder", chassisLeftEncoder);
     chassisLeftEncoder->SetDistancePerPulse(1.0);
-    chassisLeftEncoder->SetPIDSourceType(PIDSourceType::kRate);
+    chassisLeftEncoder->SetPIDSourceType(PIDSourceType::kDisplacement);
     chassisLeftPID.reset(new PIDController(1.0, 0.0, 0.0,/* F: 0.0, */ chassisLeftEncoder.get(), chassisMotorL2.get(), 0.02));
-    lw->AddActuator("Chassis", "LeftPID", chassisLeftPID);
+    lw->AddActuator("ChassisL", "LeftPID", chassisLeftPID);
     chassisLeftPID->SetContinuous(false); chassisLeftPID->SetAbsoluteTolerance(0.2); 
         chassisLeftPID->SetOutputRange(-1.0, 1.0);
     chassisMotorR4.reset(new CANTalon(4));
-    lw->AddActuator("Chassis", "MotorR4", chassisMotorR4);
+    lw->AddActuator("ChassisR", "MotorR4", chassisMotorR4);
     
     chassisRightEncoder.reset(new Encoder(2, 3, false, Encoder::k4X));
-    lw->AddSensor("Chassis", "RightEncoder", chassisRightEncoder);
+    lw->AddSensor("ChassisR", "RightEncoder", chassisRightEncoder);
     chassisRightEncoder->SetDistancePerPulse(1.0);
-    chassisRightEncoder->SetPIDSourceType(PIDSourceType::kRate);
+    chassisRightEncoder->SetPIDSourceType(PIDSourceType::kDisplacement);
     chassisRightPID.reset(new PIDController(1.0, 0.0, 0.0,/* F: 0.0, */ chassisRightEncoder.get(), chassisMotorR4.get(), 0.02));
-    lw->AddActuator("Chassis", "RightPID", chassisRightPID);
+    lw->AddActuator("ChassisR", "RightPID", chassisRightPID);
     chassisRightPID->SetContinuous(false); chassisRightPID->SetAbsoluteTolerance(0.2); 
         chassisRightPID->SetOutputRange(-1.0, 1.0);
+
     chassisMotorL3.reset(new CANTalon(3));
-    lw->AddActuator("Chassis", "MotorL3", chassisMotorL3);
+    lw->AddActuator("ChassisL", "MotorL3", chassisMotorL3);
     
     chassisMotorR5.reset(new CANTalon(5));
-    lw->AddActuator("Chassis", "MotorR5", chassisMotorR5);
+    lw->AddActuator("ChassisR", "MotorR5", chassisMotorR5);
     
 
 
