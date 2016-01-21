@@ -15,6 +15,7 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/AutonomousCommand.h"
 #include "Commands/DriveDistance.h"
+#include "Commands/DriveDistanceTimed.h"
 #include "Commands/DriveStop.h"
 #include "Commands/DriveTeleop.h"
 
@@ -30,6 +31,7 @@ OI::OI() {
     
 
     // SmartDashboard Buttons
+    SmartDashboard::PutData("Drive Distance Timed: defaultTime", new DriveDistanceTimed(3.0));
     SmartDashboard::PutData("DriveDistance", new DriveDistance());
     SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
 

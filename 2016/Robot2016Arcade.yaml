@@ -312,6 +312,29 @@ Children:
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: Drive Stop
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: time, type: double}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Chassis}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id015
+        - !!robotbuilder.data.properties.ParameterSet
+          name: defaultTime
+          parameters:
+          - {name: time, type: double, value: '3.0'}
+        name: Parameter presets
+        validators: null
+        value: *id015
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: Drive Distance Timed
   Properties: {}
   Base: Commands
   Name: Commands
