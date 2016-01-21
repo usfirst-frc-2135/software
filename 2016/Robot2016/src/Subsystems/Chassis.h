@@ -50,7 +50,8 @@ public:
 	bool DriveDistanceWithPIDIsAtSetpoint(void);
 	void DriveDistanceWithPIDStop(void);
 	void DriveUsingLeftRightMotorOutputs(double, double);
-	void DriveStop (void);
+	void DriveWithJoystick(std::shared_ptr<Joystick>);
+	void DriveStop(void);
 };
 
 #endif
