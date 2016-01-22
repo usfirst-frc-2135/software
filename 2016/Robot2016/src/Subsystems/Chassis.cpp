@@ -115,7 +115,7 @@ void Chassis::DriveDistanceWithPIDInit( double distance ) {
 }
 
 
-void Chassis::DriveDistanceWithPIDExecute()
+void Chassis::DriveDistanceWithPIDExecute( void )
 {
 	if (leftPID->OnTarget()) {
 		leftPID->Disable();

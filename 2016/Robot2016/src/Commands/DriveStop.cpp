@@ -25,12 +25,12 @@ DriveStop::DriveStop(): Command() {
 
 // Called just before this Command runs the first time
 void DriveStop::Initialize() {
-
+	printf("2135: Drive Stop\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveStop::Execute() {
-
+	Robot::chassis->DriveStop();
 }
 
 // Make this return true when this Command no longer needs to run execute()
