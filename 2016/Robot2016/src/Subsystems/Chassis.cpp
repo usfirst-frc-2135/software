@@ -42,6 +42,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorL3->Set(2);
     motorR5->SetControlMode(CANSpeedController::kFollower);
     motorR5->Set(4);
+    motorR4->SetInverted(true);
 
     m_drivePidSpeedMin = -0.5;
     m_drivePidSpeedMax = 0.5;
@@ -83,13 +84,12 @@ void Chassis::DriveDistanceWithPIDInit( double distance )
 	double rightDistance;
 	double abstolerance = 0.2;
 
-	// TODO: LOOKS INCORRECT - Examine what SetPID will do
-	leftPID->SetPID( 0, 0, 0 );
+	leftPID->SetPID( 1.0, 0.0, 0.0 );
 	leftPID->SetOutputRange( m_drivePidSpeedMin, m_drivePidSpeedMax );
 	leftPID->SetAbsoluteTolerance( abstolerance );
 	leftEncoder->SetDistancePerPulse( 4 * M_PI / 360 );
 
-	rightPID->SetPID( 0, 0, 0 );
+	rightPID->SetPID( 1.0, 0.0, 0.0 );
 	rightPID->SetOutputRange( m_drivePidSpeedMin, m_drivePidSpeedMax );
 	rightPID->SetAbsoluteTolerance( abstolerance );
 	rightEncoder->SetDistancePerPulse( 4 * M_PI / 360 );
