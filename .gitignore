@@ -1,1 +1,3 @@
+# filter the following file types from git diff processing
+
 *~
