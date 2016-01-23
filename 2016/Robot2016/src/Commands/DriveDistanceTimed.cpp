@@ -34,7 +34,7 @@ void DriveDistanceTimed::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveDistanceTimed::Execute() {
-	Robot::chassis->DriveUsingLeftRightMotorOutputs(0.5, 0.5);
+	Robot::chassis->MoveUsingLeftRightMotorOutputs(0.5, 0.5);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -45,7 +45,7 @@ bool DriveDistanceTimed::IsFinished() {
 // Called once after isFinished returns true
 void DriveDistanceTimed::End() {
 	m_timer.Stop();
-	Robot::chassis->DriveStop();
+	Robot::chassis->MoveStop();
 }
 
 // Called when another command which requires one or more of the same

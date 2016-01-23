@@ -35,17 +35,17 @@ void DriveDistance::Initialize() {
     printf("2135: Drive Distance\n");
     m_inches = 60.0;
     printf("2135: %f inches\n", m_inches);
-    Robot::chassis->DriveDistanceWithPIDInit(m_inches);
+    Robot::chassis->MoveDistanceWithPIDInit(m_inches);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveDistance::Execute() {
-	Robot::chassis->DriveDistanceWithPIDExecute();
+	Robot::chassis->MoveDistanceWithPIDExecute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistance::IsFinished() {
-	if((Robot::chassis->DriveDistanceWithPIDIsAtSetpoint()) == true) {
+	if((Robot::chassis->MoveDistanceWithPIDIsAtSetpoint()) == true) {
         printf("PID is finished\n");
         return true;
 	}
@@ -54,13 +54,13 @@ bool DriveDistance::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveDistance::End() {
-	Robot::chassis->DriveDistanceWithPIDStop();
+	Robot::chassis->MoveDistanceWithPIDStop();
 	printf("PID is stopped\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveDistance::Interrupted() {
-	Robot::chassis->DriveDistanceWithPIDStop();
+	Robot::chassis->MoveDistanceWithPIDStop();
 	printf("PID is interrupted\n");
 }

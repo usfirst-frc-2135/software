@@ -30,7 +30,7 @@ void DriveStop::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveStop::Execute() {
-	Robot::chassis->DriveStop();
+	Robot::chassis->MoveStop();
 }
 
 // Make this return true when this Command no longer needs to run execute()

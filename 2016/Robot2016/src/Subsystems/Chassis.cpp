@@ -42,7 +42,6 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorL3->Set(2);
     motorR5->SetControlMode(CANSpeedController::kFollower);
     motorR5->Set(4);
-    motorR4->SetInverted(true);
 
     m_drivePidSpeedMin = -0.5;
     m_drivePidSpeedMax = 0.5;
@@ -62,27 +61,28 @@ void Chassis::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-// TODO: Recommend changing chassis subsystem methods that start with "Drive" to "Move" to remove abiguity with "Drive..." commands
-void Chassis::DriveWithJoystick(std::shared_ptr<Joystick> joystick)
+void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 {
-	robotDrive->ArcadeDrive( joystick->GetY(), joystick->GetX(), true );
+	robotDrive->ArcadeDrive( joystick->GetY()*(-1.0), joystick->GetX()*(-1.0), true );
 }
 
-void Chassis::DriveUsingLeftRightMotorOutputs(double left, double right)
+void Chassis::MoveUsingLeftRightMotorOutputs(double left, double right)
 {
 	robotDrive->SetLeftRightMotorOutputs( left, right );
 }
 
-void Chassis::DriveStop(void)
+void Chassis::MoveStop(void)
 {
 	robotDrive->SetLeftRightMotorOutputs( 0.0, 0.0 );
 }
 
-void Chassis::DriveDistanceWithPIDInit( double distance )
+void Chassis::MoveDistanceWithPIDInit( double distance )
 {
 	double leftDistance;
 	double rightDistance;
 	double abstolerance = 0.2;
+
+	motorR4->SetInverted(true);
 
 	leftPID->SetPID( 1.0, 0.0, 0.0 );
 	leftPID->SetOutputRange( m_drivePidSpeedMin, m_drivePidSpeedMax );
@@ -115,7 +115,7 @@ void Chassis::DriveDistanceWithPIDInit( double distance )
 	printf("2135: Left and Right PIDs are enabled\n");
 }
 
-void Chassis::DriveDistanceWithPIDExecute( void )
+void Chassis::MoveDistanceWithPIDExecute( void )
 {
 	if (leftPID->OnTarget())
 	{
@@ -144,24 +144,27 @@ void Chassis::DriveDistanceWithPIDExecute( void )
 	}
 }
 
-bool Chassis::DriveDistanceWithPIDIsAtSetpoint(void)
+bool Chassis::MoveDistanceWithPIDIsAtSetpoint(void)
 {
 	bool bothOnTarget;
 	// are both PIDs on target
 	bothOnTarget = false;
 	if (!leftPID->IsEnabled() && !rightPID->IsEnabled())
 	{
-		DriveDistanceWithPIDStop();
+		MoveDistanceWithPIDStop();
 		bothOnTarget = true;
 	}
 
 	return bothOnTarget;
 }
 
-void Chassis::DriveDistanceWithPIDStop( void )
+void Chassis::MoveDistanceWithPIDStop( void )
 {
 	leftPID->Disable();
 	rightPID->Disable();
 	// TODO: This probably should re-enable motor safety after the PID stops
 	robotDrive->SetSafetyEnabled(false);
+
+	motorR4->SetInverted(false);
+
 }
