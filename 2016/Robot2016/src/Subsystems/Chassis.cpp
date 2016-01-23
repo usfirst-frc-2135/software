@@ -35,8 +35,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     robotDrive = new RobotDrive(motorL2, motorR4);
     printf("2135: Finish Creating New Robot Drive\n");
 
-    // TODO: This needs to be enabled eventually for safety
-    robotDrive->SetSafetyEnabled(false);
+    robotDrive->SetSafetyEnabled(true);
 
     motorL3->SetControlMode(CANSpeedController::kFollower);
     motorL3->Set(2);
@@ -162,8 +161,7 @@ void Chassis::MoveDistanceWithPIDStop( void )
 {
 	leftPID->Disable();
 	rightPID->Disable();
-	// TODO: This probably should re-enable motor safety after the PID stops
-	robotDrive->SetSafetyEnabled(false);
+	robotDrive->SetSafetyEnabled(true);
 
 	motorR4->SetInverted(false);
 
