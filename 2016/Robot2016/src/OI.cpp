@@ -19,6 +19,7 @@
 #include "Commands/DriveStop.h"
 #include "Commands/DriveTeleop.h"
 #include "Commands/Intake.h"
+#include "Commands/IntakeSmartDashboard.h"
 #include "Commands/Shoot.h"
 #include "Commands/ShootSmartDashboard.h"
 
@@ -36,8 +37,9 @@ OI::OI() {
     fire->WhileHeld(new ShootSmartDashboard());
 
     // SmartDashboard Buttons
+    SmartDashboard::PutData("IntakeSmartDashboard", new IntakeSmartDashboard());
     SmartDashboard::PutData("ShootSmartDashboard", new ShootSmartDashboard());
-    SmartDashboard::PutData("Shoot", new Shoot(0.75, 0.25));
+    SmartDashboard::PutData("Shoot", new Shoot(0.25, 0.75));
     SmartDashboard::PutData("Intake", new Intake(0.5));
     SmartDashboard::PutData("Drive Distance Timed: defaultTime", new DriveDistanceTimed(3.0));
     SmartDashboard::PutData("DriveDistance", new DriveDistance());
