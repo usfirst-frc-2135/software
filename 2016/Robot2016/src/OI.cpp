@@ -37,7 +37,7 @@ OI::OI() {
 
     // SmartDashboard Buttons
     SmartDashboard::PutData("ShootSmartDashboard", new ShootSmartDashboard());
-    SmartDashboard::PutData("Shoot", new Shoot(0.75, 0.25));
+    SmartDashboard::PutData("Shoot", new Shoot(0.25, 0.75));
     SmartDashboard::PutData("Intake", new Intake(0.5));
     SmartDashboard::PutData("Drive Distance Timed: defaultTime", new DriveDistanceTimed(3.0));
     SmartDashboard::PutData("DriveDistance", new DriveDistance());
