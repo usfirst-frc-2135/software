@@ -1,0 +1,75 @@
+Robot subsystems to implement:
+
+All SmartDashboard controls (not status) should be readable
+from the preferences file.
+
+(TBD: whether there is a separate indexer motor between the sweeper
+and shooter motors. Any arm work to manipulate Portcullis, Drawbridge,
+or Sally Port is in the is category.)
+
+1) Chassis subsystem
+	- Uses 2 motor controllers (second Talon slaved) for each 
+		chassis side to each transmission. Set forward/backward 
+		direction properly. This will probably be a two speed
+		transmission that includes a shift mechanism. Also under
+		consideration is a power takeoff option (PTO) which
+		would have an additional pneumatic control to the shifter.
+		Motor safety must be enabled.
+	- DriveTeleop/DriveStop methods (no parameters)
+		Needs to have a scaling factor like we implemented on 
+		Archie. Should have an orientation change button like Atlas.
+	- DriveDistanceTimed method (parameter: timetodrive, speed)
+		Needs to have a speed for how fast to drive. Uses timer to 
+		determine when to stop. Timer should have max value for
+		safety.
+	- DriveDistanceWithPid method (parameter: distance, maxspeed)
+		Uses PID control loop implemented in prior years. Needs to 
+		be tuned AND use I and D factors better than prior years.
+		Should have a maximum timer to prevent runaway conditions.
+	- ShifterChange method (parameter: high/low gear)
+	- PtoControl method (parameter: enable/disable)
+	- SmartDashboard controls: P, I, D, PID setpoint, L/R distance,
+		PID active/stopped, high/low gear.
+	- Extra credit: get the PID control implemented using the CAN 
+		Talon PID inputs instead of going through the RoboRIO.
+		
+2) Sweeper subsystem
+	- MotorEnable method (parameter: acquire/expel/off)
+		Will have a single motor controller at a fixed speed (TBD) 
+		to pull in boulders to a point within the chassis frame. 
+		Set forward/backward direction properly.
+	- ArmPosition method (parameter: extend/retract)
+		Will have a double solenoid used to pull the sweeper 
+		assembly within frame perimeter (retract) and then out 
+		for gathering boulders (deploy).
+	- SmartDashboard controls: sweeper motor speed.
+
+3) Shooter
+	- Uses two motor controllers controlled independently with 
+		variable and programmable motor speeds. A firing mechanism 
+		is likely to consist of a pneumatic pusher that lifts the 
+		boulder into the wheels.
+	- MotorControl method (parameters: shoot/off/others TBD)
+		Runs motors at fixed predetermined values for the duration
+		of being called.
+	- FrameControl method (parameters: up/down)
+		Controls double solenoid to raise/lower the entire shooter
+		frame into position or down for low profile.
+	- Extra credit: add PID control to the motors to drive them at
+		a constant speed regardless of voltage and load. This will
+		greatly increase the ability to get up to speed and recover
+		from a ball being shot.
+	SmartDashboard controls: shooter motor speeds for upper and
+		lower wheels.
+		
+4) Climber (still lots of design work here)
+	- Uses at least a single motor controller to winch the robot
+		up using a folding arm. Will need at least a sensor for 
+		fully extended and fully retracted positions.
+	- MotorControl method (parameters: extend/retract/off)
+		Runs motors at fixed predetermined speeds until a limit
+		switch is encountered in each direction. Similar to
+		elevator system last year. Should have a timer to protect
+		against a broken limit switch.
+	- Extra credit: get the CAN Talon limit switch inputs to 
+		determine when to stop instead of RoboRIO logic.
