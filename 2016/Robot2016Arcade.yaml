@@ -470,7 +470,7 @@ Children:
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: ShootSmartDashboard
+    Name: IntakeSmartDashboard
   Properties: {}
   Base: Commands
   Name: Commands
