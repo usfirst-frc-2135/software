@@ -17,6 +17,7 @@
 #include "Commands/ArmMotorEnable.h"
 #include "Commands/AutonomousCommand.h"
 #include "Commands/Climb.h"
+#include "Commands/CompressorEnable.h"
 #include "Commands/DriveDistancePID.h"
 #include "Commands/DriveDistanceTimed.h"
 #include "Commands/DriveShifterChange.h"
