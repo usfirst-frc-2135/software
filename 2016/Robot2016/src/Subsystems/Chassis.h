@@ -39,6 +39,7 @@ private:
 	double m_drivePidSpeedMin;
 	double m_drivePidSpeedMax;
 	double m_driveDistance;
+	double m_orientationNormal;
 public:
 	RobotDrive* robotDrive;
 	Chassis();
@@ -53,6 +54,7 @@ public:
 	void MoveUsingLeftRightMotorOutputs(double, double);
 	void MoveWithJoystick(std::shared_ptr<Joystick>);
 	void MoveStop(void);
+	void ReverseDriveTrain(void);
 };
 
 #endif

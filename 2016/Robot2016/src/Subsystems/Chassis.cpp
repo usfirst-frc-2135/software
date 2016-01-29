@@ -50,6 +50,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_drivePidSpeedMin = -0.5;
     m_drivePidSpeedMax = 0.5;
     m_driveDistance = 0.0;
+    m_orientationNormal = -1.0;
 }
 
 void Chassis::InitDefaultCommand() {
@@ -68,7 +69,18 @@ void Chassis::InitDefaultCommand() {
 
 void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 {
-	robotDrive->ArcadeDrive( joystick->GetY()*(-1.0), joystick->GetX()*(-1.0), true );
+	double yValue;
+	double xValue;
+
+	xValue = joystick->GetX();
+	yValue = joystick->GetY() * m_orientationNormal;
+
+	// TODO: Add maximum speed control here
+	// yValue = yValue * speedControl
+	// xValue = xValue * speedControl
+
+	robotDrive->ArcadeDrive( yValue, xValue * (-1), true );
+	//robotDrive->ArcadeDrive( joystick->GetY() , joystick->GetX(), true );
 }
 
 void Chassis::MoveUsingLeftRightMotorOutputs(double left, double right)
@@ -79,6 +91,12 @@ void Chassis::MoveUsingLeftRightMotorOutputs(double left, double right)
 void Chassis::MoveStop(void)
 {
 	robotDrive->SetLeftRightMotorOutputs( 0.0, 0.0 );
+}
+
+void Chassis::ReverseDriveTrain(void)
+{
+	m_orientationNormal = -m_orientationNormal;
+	SmartDashboard::PutNumber("Drive Invert", m_orientationNormal);
 }
 
 void Chassis::MoveDistanceWithPIDInit( double distance )
