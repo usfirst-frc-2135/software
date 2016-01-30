@@ -71,13 +71,15 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 {
 	double yValue;
 	double xValue;
+	double speedControl;
 
 	xValue = joystick->GetX();
 	yValue = joystick->GetY() * m_orientationNormal;
 
-	// TODO: Add maximum speed control here
-	// yValue = yValue * speedControl
-	// xValue = xValue * speedControl
+	speedControl = SmartDashboard::GetNumber("Speed Control", 1.0);
+
+	yValue = yValue * speedControl;
+	xValue = xValue * speedControl;
 
 	robotDrive->ArcadeDrive( yValue, xValue * (-1), true );
 	//robotDrive->ArcadeDrive( joystick->GetY() , joystick->GetX(), true );
