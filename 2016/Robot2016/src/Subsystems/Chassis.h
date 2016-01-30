@@ -55,6 +55,7 @@ public:
 	void MoveWithJoystick(std::shared_ptr<Joystick>);
 	void MoveStop(void);
 	void ReverseDriveTrain(void);
+	void ShifterChange(bool);
 };
 
 #endif

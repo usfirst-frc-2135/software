@@ -82,7 +82,15 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	robotDrive->ArcadeDrive( yValue, xValue * (-1), true );
 	//robotDrive->ArcadeDrive( joystick->GetY() , joystick->GetX(), true );
 }
-
+void Chassis::ShifterChange(bool highGear)
+{
+	if (highGear == true) {
+		shifterSolenoid->Set(DoubleSolenoid::Value::kReverse);
+	}
+	else {
+		shifterSolenoid->Set(DoubleSolenoid::Value::kForward);
+	}
+}
 void Chassis::MoveUsingLeftRightMotorOutputs(double left, double right)
 {
 	robotDrive->SetLeftRightMotorOutputs( left, right );

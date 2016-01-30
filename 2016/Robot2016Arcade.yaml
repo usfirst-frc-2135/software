@@ -899,7 +899,7 @@ Children:
         value:
         - !!robotbuilder.data.properties.ParameterDescriptor {name: highGear, type: boolean}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Chassis}
+        name: Requires, type: Subsystem, validators: null, value: None}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
         name: Parameter presets
