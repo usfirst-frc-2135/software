@@ -49,26 +49,29 @@ void Shooter::InitDefaultCommand() {
 
 void Shooter::LoadPreferences(Preferences *prefs) {
 	printf("2135: Shooter Preferences\n");
+	m_upperSpeed = LoadPreferencesVariable (prefs, "ShooterUpperSpeed", 0.5);
+	m_lowerSpeed = LoadPreferencesVariable (prefs, "ShooterLowerSpeed", 0.5);
 
-	//Initialize and read file
-	//ShooterUpperSpeed
-		if (prefs->ContainsKey( "ShooterUpperSpeed" ) ) {
-			m_upperSpeed = prefs->GetDouble("ShooterUpperSpeed", 0.5);
-		}
-		else {
-			printf("2135: ShooterUpperSpeed Not Found - ERROR\n");
-		}
-		printf("2135: ShooterUpperSpeed: %f\n", m_upperSpeed);
-
-	//ShooterLowerSpeed
-		if (prefs->ContainsKey( "ShooterLowerSpeed" ) ) {
-			m_lowerSpeed = prefs->GetDouble("ShooterLowerSpeed", 0.5);
-		}
-		else {
-			printf("2135: ShooterLowerSpeed not found - ERROR\n");
-		}
-		printf("2135: ShooterLowerSpeed: %f\n", m_lowerSpeed);
+	SmartDashboard::PutNumber("LowShotUpperMotor", LoadPreferencesVariable (prefs, "LowShotUpperMotor", 0.75));
+	SmartDashboard::PutNumber("LowShotLowerMotor", LoadPreferencesVariable (prefs, "LowShotLowerMotor", 0.5));
+	SmartDashboard::PutNumber("MidShotUpperMotor", LoadPreferencesVariable (prefs, "MidShotUpperMotor", 0.85));
+	SmartDashboard::PutNumber("MidShotLowerMotor", LoadPreferencesVariable (prefs, "MidShotLowerMotor", 0.6));
+	SmartDashboard::PutNumber("HighShotUpperMotor", LoadPreferencesVariable (prefs, "HighShotUpperMotor", 0.95));
+	SmartDashboard::PutNumber("HighShotLowerMotor", LoadPreferencesVariable (prefs, "HighShotLowerMotor", 0.7));
 }
+
+double Shooter::LoadPreferencesVariable (Preferences *prefs, std::string name, double defaultValue) {
+	double shooterTemp = defaultValue;
+	if (prefs->ContainsKey(name)) {
+		shooterTemp = prefs->GetDouble(name, defaultValue);
+	}
+	else {
+		printf("2135: %s not found - ERROR\n", name.c_str());
+	}
+	printf("2135: %s : %f\n", name.c_str(), shooterTemp);
+	return shooterTemp;
+}
+
 
 void Shooter::ShootSpeeds(double upperSpeed, double lowerSpeed) {
 	lowerMotor->Set(lowerSpeed);

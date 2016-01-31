@@ -1,5 +1,35 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="LowShotUpperMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="433" y="222"/>
+	</widget>
+	<widget field="Shoot Presets: LOW" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="442" y="182"/>
+	</widget>
+	<widget field="LowShotLowerMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="434" y="243"/>
+	</widget>
+	<widget field="Shoot Presets: HIGH" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="3" y="192"/>
+	</widget>
+	<widget field="MidShotUpperMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="217" y="224"/>
+	</widget>
+	<widget field="Shoot Presets: MID" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="220" y="189"/>
+	</widget>
+	<widget field="MidShotLowerMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="216" y="244"/>
+	</widget>
+	<widget field="HighShotUpperMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="6" y="221"/>
+	</widget>
+	<widget field="HighShotLowerMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="7" y="248"/>
+	</widget>
+	<widget field="Shoot Presets: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="123" y="160"/>
+	</widget>
 	<widget field="ChassisDriveTimedSpeed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="311" y="39"/>
 	</widget>
