@@ -99,6 +99,14 @@ void Chassis::LoadPreferences(Preferences *prefs)
 		printf("2135: ChassisDriveDistance Not Found - ERROR\n");
 	}
 	printf("2135: ChassisDriveDistance: %f\n", m_driveDistance);
+	//ChassisDriveTimed
+	if (prefs->ContainsKey( "ChassisDriveTimed" ) ) {
+		m_driveDistanceTimed = prefs->GetDouble("ChassisDriveTimed", 0.0);
+		}
+		else {
+		printf("2135: ChassisDriveTimed Not Found - ERROR\n");
+		}
+		printf("2135: ChassisDriveTimed: %f\n", m_driveDistanceTimed);
 }
 
 void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)

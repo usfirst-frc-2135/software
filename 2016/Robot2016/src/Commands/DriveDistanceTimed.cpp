@@ -31,15 +31,6 @@ void DriveDistanceTimed::Initialize() {
 	m_timer.Reset();
 	m_timer.Start();
 
-	//ChassisDriveTimed
-	//if (prefs->ContainsKey( "ChassisDriveTimed" ) ) {
-	//	m_timer = prefs->GetDouble("ChassisDriveTimed", 0.0);
-	//}
-	//	else {
-	//	printf("2135: ChassisDriveTimed Not Found - ERROR\n");
-	//	}
-	//	printf("2135: ChassisDriveTimed: %f\n", m_time);
-
 }
 
 // Called repeatedly when this Command is scheduled to run

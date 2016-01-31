@@ -51,6 +51,7 @@ void Robot::RobotInit() {
 	prefs = Preferences::GetInstance();
 	chassis->LoadPreferences(prefs);
 	sweeper->LoadPreferences(prefs);
+	shooter->LoadPreferences(prefs);
 
   }
 
