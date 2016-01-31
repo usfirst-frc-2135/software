@@ -28,6 +28,8 @@ DriveDistanceTimed::DriveDistanceTimed(double time, double maxSpeed): Command() 
 // Called just before this Command runs the first time
 void DriveDistanceTimed::Initialize() {
 	printf("2135: Drive Distance Timed\n");
+	m_time = SmartDashboard::GetNumber("ChassisDriveTimed", 5.0);
+	m_maxSpeed = SmartDashboard::GetNumber("ChassisDriveTimedSpeed", 1.0);
 	m_timer.Reset();
 	m_timer.Start();
 
@@ -35,12 +37,12 @@ void DriveDistanceTimed::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveDistanceTimed::Execute() {
-	Robot::chassis->MoveUsingLeftRightMotorOutputs(0.5, 0.5);
+	Robot::chassis->MoveUsingLeftRightMotorOutputs(m_maxSpeed, m_maxSpeed);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistanceTimed::IsFinished() {
-    return (m_timer.HasPeriodPassed(5));
+    return (m_timer.HasPeriodPassed(m_time));
 }
 
 // Called once after isFinished returns true
