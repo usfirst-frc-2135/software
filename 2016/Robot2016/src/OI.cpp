@@ -26,6 +26,7 @@
 #include "Commands/DriveTrainInvert.h"
 #include "Commands/Shoot.h"
 #include "Commands/ShootFrameControl.h"
+#include "Commands/ShootJoystick.h"
 #include "Commands/ShootPresets.h"
 
 
@@ -59,7 +60,7 @@ OI::OI() {
     frameUp.reset(new JoystickButton(operatorJoystick.get(), 2));
     frameUp->WhenPressed(new ShootFrameControl(true));
     fire.reset(new JoystickButton(operatorJoystick.get(), 1));
-    fire->WhileHeld(new Shoot(0, 0));
+    fire->WhileHeld(new ShootJoystick());
     driverJoystick.reset(new Joystick(0));
     
     driverInvertDirection.reset(new JoystickButton(driverJoystick.get(), 2));
