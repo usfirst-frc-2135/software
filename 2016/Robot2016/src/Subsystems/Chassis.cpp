@@ -67,6 +67,28 @@ void Chassis::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void Chassis::LoadPreferences(Preferences *prefs)
+{
+	printf("2135: Chassis Preferences\n");
+
+	//Initialize and read preferences file
+	if (prefs->ContainsKey( "ChassisMinRange" ) ) {
+		m_drivePidSpeedMin = prefs->GetDouble("ChassisMinRange", -0.7);
+	}
+	else {
+		printf("2135: ChassisMinRange Not Found - ERROR\n");
+	}
+	printf("2135: ChassisMinRange:     %f\n", m_drivePidSpeedMin);
+
+	if (prefs->ContainsKey( "ChassisMaxRange" ) ) {
+		m_drivePidSpeedMax = prefs->GetDouble("ChassisMaxRange", 0.7);
+	}
+	else {
+		printf("2135: ChassisMaxRange Not Found - ERROR\n");
+	}
+	printf("2135: ChassisMaxRange:     %f\n", m_drivePidSpeedMax);
+}
+
 void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 {
 	double yValue;

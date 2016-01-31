@@ -46,6 +46,10 @@ void Robot::RobotInit() {
 	SmartDashboard::PutNumber("Upper Shooter Speed", 0.0);
 	SmartDashboard::PutNumber("Lower Shooter Speed", 0.0);
 	SmartDashboard::PutNumber("Speed Control", 1.0);
+
+	//Initialize preferences file on cRIO
+	prefs = Preferences::GetInstance();
+	chassis->LoadPreferences(prefs);
   }
 
 /**

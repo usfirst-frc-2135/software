@@ -56,6 +56,7 @@ public:
 	void MoveStop(void);
 	void ReverseDriveTrain(void);
 	void ShifterChange(bool);
+	void LoadPreferences(Preferences *prefs);
 };
 
 #endif
