@@ -51,6 +51,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_drivePidSpeedMax = 0.5;
     m_driveDistance = 0.0;
     m_orientationNormal = -1.0;
+    m_driveDistanceTimed = 3.0;
 }
 
 void Chassis::InitDefaultCommand() {
@@ -72,21 +73,32 @@ void Chassis::LoadPreferences(Preferences *prefs)
 	printf("2135: Chassis Preferences\n");
 
 	//Initialize and read preferences file
+	//ChassisMinRange
 	if (prefs->ContainsKey( "ChassisMinRange" ) ) {
 		m_drivePidSpeedMin = prefs->GetDouble("ChassisMinRange", -0.7);
 	}
 	else {
 		printf("2135: ChassisMinRange Not Found - ERROR\n");
 	}
-	printf("2135: ChassisMinRange:     %f\n", m_drivePidSpeedMin);
+	printf("2135: ChassisMinRange: %f\n", m_drivePidSpeedMin);
 
+	//ChassisMaxRange
 	if (prefs->ContainsKey( "ChassisMaxRange" ) ) {
 		m_drivePidSpeedMax = prefs->GetDouble("ChassisMaxRange", 0.7);
 	}
 	else {
 		printf("2135: ChassisMaxRange Not Found - ERROR\n");
 	}
-	printf("2135: ChassisMaxRange:     %f\n", m_drivePidSpeedMax);
+	printf("2135: ChassisMaxRange: %f\n", m_drivePidSpeedMax);
+
+	//ChassisDriveDistance
+	if (prefs->ContainsKey( "ChassisDriveDistance" ) ) {
+		m_driveDistance = prefs->GetDouble("ChassisDriveDistance", 0.0);
+	}
+	else {
+		printf("2135: ChassisDriveDistance Not Found - ERROR\n");
+	}
+	printf("2135: ChassisDriveDistance: %f\n", m_driveDistance);
 }
 
 void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)

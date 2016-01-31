@@ -50,6 +50,8 @@ void Robot::RobotInit() {
 	//Initialize preferences file on cRIO
 	prefs = Preferences::GetInstance();
 	chassis->LoadPreferences(prefs);
+	sweeper->LoadPreferences(prefs);
+
   }
 
 /**

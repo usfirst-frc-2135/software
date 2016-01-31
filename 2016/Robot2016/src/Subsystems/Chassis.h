@@ -40,6 +40,7 @@ private:
 	double m_drivePidSpeedMax;
 	double m_driveDistance;
 	double m_orientationNormal;
+	double m_driveDistanceTimed;
 public:
 	RobotDrive* robotDrive;
 	Chassis();
