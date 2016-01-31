@@ -1,27 +1,27 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="Speed Control" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
 		<location x="0" y="199"/>
-	</widget>
-	<widget field="Drive Invert" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="178"/>
-	</widget>
+	</static-widget>
 	<widget field="Drive Distance PID: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="0" y="144"/>
-	</widget>
-	<widget field="Shoot" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="0" y="110"/>
-	</widget>
-	<widget field="Autonomous Command" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="0" y="76"/>
-	</widget>
-	<widget field="Drive Distance Timed: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="0" y="42"/>
+		<location x="0" y="165"/>
 	</widget>
 	<widget field="Lower Shooter Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="21"/>
+		<location x="0" y="144"/>
+	</widget>
+	<widget field="Autonomous Command" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="110"/>
+	</widget>
+	<widget field="Drive Distance Timed: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="76"/>
 	</widget>
 	<widget field="Upper Shooter Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="55"/>
+	</widget>
+	<widget field="Shoot" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="21"/>
+	</widget>
+	<widget field="Speed Control" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="0"/>
 	</widget>
 </dashboard>
