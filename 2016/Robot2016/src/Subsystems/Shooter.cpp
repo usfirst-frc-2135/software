@@ -79,3 +79,11 @@ void Shooter::ShootSpeeds(double upperSpeed, double lowerSpeed) {
 
 }
 
+void Shooter::setFireSolenoid(bool fire) {
+	if (fire == true) {
+		fireSolenoid->Set(DoubleSolenoid::kForward);
+	}
+	else {
+		fireSolenoid->Set(DoubleSolenoid::kReverse);
+	}
+}
