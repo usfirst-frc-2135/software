@@ -22,7 +22,6 @@ std::shared_ptr<Encoder> RobotMap::chassisRightEncoder;
 std::shared_ptr<PIDController> RobotMap::chassisRightPID;
 std::shared_ptr<CANTalon> RobotMap::chassisMotorL3;
 std::shared_ptr<CANTalon> RobotMap::chassisMotorR5;
-std::shared_ptr<DoubleSolenoid> RobotMap::chassisShifterSolenoid;
 std::shared_ptr<CANTalon> RobotMap::sweeperMotor;
 std::shared_ptr<DoubleSolenoid> RobotMap::sweeperExtension;
 std::shared_ptr<CANTalon> RobotMap::shooterLowerMotor;
@@ -64,9 +63,6 @@ void RobotMap::init() {
     
     chassisMotorR5.reset(new CANTalon(5));
     lw->AddActuator("Chassis", "MotorR5", chassisMotorR5);
-    
-    chassisShifterSolenoid.reset(new DoubleSolenoid(0, 0, 1));
-    lw->AddActuator("Chassis", "Shifter Solenoid", chassisShifterSolenoid);
     
     sweeperMotor.reset(new CANTalon(8));
     lw->AddActuator("Sweeper", "Motor", sweeperMotor);

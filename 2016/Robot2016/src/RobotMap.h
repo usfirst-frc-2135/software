@@ -31,7 +31,6 @@ public:
 	static std::shared_ptr<PIDController> chassisRightPID;
 	static std::shared_ptr<CANTalon> chassisMotorL3;
 	static std::shared_ptr<CANTalon> chassisMotorR5;
-	static std::shared_ptr<DoubleSolenoid> chassisShifterSolenoid;
 	static std::shared_ptr<CANTalon> sweeperMotor;
 	static std::shared_ptr<DoubleSolenoid> sweeperExtension;
 	static std::shared_ptr<CANTalon> shooterLowerMotor;
