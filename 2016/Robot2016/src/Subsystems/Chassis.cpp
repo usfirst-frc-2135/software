@@ -39,7 +39,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     robotDrive = new RobotDrive(motorL2, motorR4);
     printf("2135: Finish Creating New Robot Drive\n");
 
-    robotDrive->SetSafetyEnabled(true);
+    robotDrive->SetSafetyEnabled(false);
 
     motorL3->SetControlMode(CANSpeedController::kFollower);
     motorL3->Set(2);
