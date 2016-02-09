@@ -45,12 +45,29 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorL3->Set(2);
     motorR5->SetControlMode(CANSpeedController::kFollower);
     motorR5->Set(4);
+    motorR4->SetClosedLoopOutputDirection(true);
 
     m_drivePidSpeedMin = -0.5;
     m_drivePidSpeedMax = 0.5;
     m_driveDistance = 0.0;
     m_orientationNormal = -1.0;
     m_driveDistanceTimed = 3.0;
+    m_rotations = 0.0;
+
+    motorL2->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
+    motorL2->SetSensorDirection(true);
+
+    motorR4->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
+    motorR4->SetSensorDirection(false);
+
+    motorL2->ConfigEncoderCodesPerRev(4 * M_COUNTS_PER_ROTATION);
+    motorR4->ConfigEncoderCodesPerRev(4 * M_COUNTS_PER_ROTATION);
+
+    motorL2->ConfigPeakOutputVoltage(+4, -4);
+    motorL2->ConfigNominalOutputVoltage(+0, -0);
+
+    motorR4->ConfigPeakOutputVoltage(+4, -4);
+    motorR4->ConfigNominalOutputVoltage(+0, -0);
 }
 
 void Chassis::InitDefaultCommand() {
@@ -158,69 +175,107 @@ void Chassis::ReverseDriveTrain(void)
 
 void Chassis::MoveDistanceWithPIDInit( double distance )
 {
-	double leftDistance;
-	double rightDistance;
-	double abstolerance = 0.2;
+//	double leftDistance;
+//	double rightDistance;
+//	double abstolerance = 0.2;
+	double rotations = distance / (M_WHEEL_DIA * M_PI);
 
-	motorR4->SetInverted(true);
+//	motorR4->SetInverted(false);
 
-	leftPID->SetPID( 1.0, 0.0, 0.0 );
-	leftPID->SetOutputRange( m_drivePidSpeedMin, m_drivePidSpeedMax );
-	leftPID->SetAbsoluteTolerance( abstolerance );
-	leftEncoder->SetDistancePerPulse( 4 * M_PI / 360 );
+//	leftPID->SetPID( 1.0, 0.0, 0.0 );
+//	leftPID->SetOutputRange( m_drivePidSpeedMin, m_drivePidSpeedMax );
+//	leftPID->SetAbsoluteTolerance( abstolerance );
+//	leftEncoder->SetDistancePerPulse( 4 * M_PI / 360 );
+//
+//	rightPID->SetPID( 1.0, 0.0, 0.0 );
+//	rightPID->SetOutputRange( m_drivePidSpeedMin, m_drivePidSpeedMax );
+//	rightPID->SetAbsoluteTolerance( abstolerance );
+//	rightEncoder->SetDistancePerPulse( 4 * M_PI / 360 );
+//
+//	// get current encoder values
+//	leftDistance = leftEncoder->GetDistance();
+//	rightDistance = rightEncoder->GetDistance();
+//	printf("2135: Encoder Distance %f %f\n", leftDistance, rightDistance);
+//
+//	//add distance to current encoder values
+//	leftDistance += distance;
+//	rightDistance += distance;
+//	printf("2135: Encoder Distance %f %f\n", leftDistance, rightDistance);
+//
+//	//set SetPoint with calculated target distance
+//	leftPID->SetSetpoint(leftDistance);
+//	rightPID->SetSetpoint(rightDistance);
+//	robotDrive->SetSafetyEnabled(false);
+//
+//	//enable PID loops
+//	leftPID->Enable();
+//	rightPID->Enable();
+//	printf("2135: Left and Right PIDs are enabled\n");
 
-	rightPID->SetPID( 1.0, 0.0, 0.0 );
-	rightPID->SetOutputRange( m_drivePidSpeedMin, m_drivePidSpeedMax );
-	rightPID->SetAbsoluteTolerance( abstolerance );
-	rightEncoder->SetDistancePerPulse( 4 * M_PI / 360 );
+	motorL2->SetPID( 0.2, 0.0, 0.0 );
+	motorR4->SetPID( 0.2, 0.0, 0.0 );
 
-	// get current encoder values
-	leftDistance = leftEncoder->GetDistance();
-	rightDistance = rightEncoder->GetDistance();
-	printf("2135: Encoder Distance %f %f\n", leftDistance, rightDistance);
+	motorL2->SetVoltageRampRate(10.0);
+	motorL2->SetControlMode(CANSpeedController::ControlMode::kPosition);
 
-	//add distance to current encoder values
-	leftDistance += distance;
-	rightDistance += distance;
-	printf("2135: Encoder Distance %f %f\n", leftDistance, rightDistance);
+	motorR4->SetVoltageRampRate(10.0);
+	motorR4->SetControlMode(CANSpeedController::ControlMode::kPosition);
 
-	//set SetPoint with calculated target distance
-	leftPID->SetSetpoint(leftDistance);
-	rightPID->SetSetpoint(rightDistance);
-	robotDrive->SetSafetyEnabled(false);
+	motorL2->SetEncPosition(0);
+	motorR4->SetEncPosition(0);
 
-	//enable PID loops
-	leftPID->Enable();
-	rightPID->Enable();
-	printf("2135: Left and Right PIDs are enabled\n");
+	motorL2->Set(rotations);
+	motorR4->Set(rotations);
+
+	m_rotations = rotations;
+
 }
+
+
 
 void Chassis::MoveDistanceWithPIDExecute( void )
 {
-	if (leftPID->OnTarget())
-	{
-		leftPID->Disable();
+	SmartDashboard::PutNumber("Left Encoder Position", motorL2->GetEncPosition());
+	SmartDashboard::PutNumber("Right Encoder Position", motorR4->GetEncPosition());
+
+	if (m_rotations == motorL2->GetEncPosition()) {
+//		motorL2->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 		printf("2135: Left PID is Disabled\n");
-	}
-	if (rightPID->OnTarget())
-	{
-		rightPID->Disable();
-		printf("2135: Right PID is Disabled\n");
-	}
-	if (!leftPID->IsEnabled())
-	{
-		motorL2->Set(0, 0);
-	}
-	if (!rightPID->IsEnabled())
-	{
-		motorR4->Set(0, 0);
+		motorL2->Set(0.0);
 	}
 
+	if (m_rotations == motorR4->GetEncPosition()) {
+//		motorR4->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+		printf("2135: Right PID is Disabled\n");
+		motorR4->Set(0.0);
+	}
+
+//	if (leftPID->OnTarget())
+//	{
+//		leftPID->Disable();
+//		printf("2135: Left PID is Disabled\n");
+//	}
+//	if (rightPID->OnTarget())
+//	{
+//		rightPID->Disable();
+//		printf("2135: Right PID is Disabled\n");
+//	}
+//	if (!leftPID->IsEnabled())
+//	{
+//		motorL2->Set(0, 0);
+//	}
+//	if (!rightPID->IsEnabled())
+//	{
+//		motorR4->Set(0, 0);
+//	}
+//
 	static int counter = 0;
 	if (counter++ % 50 == 0)
 	{
-		printf("2135: LeftPID  %d %d\n", RobotMap::chassisLeftEncoder->Get(), leftPID->IsEnabled());
-		printf("2135: RightPID %d %d\n", RobotMap::chassisRightEncoder->Get(), rightPID->IsEnabled());
+		//printf("2135: LeftPID  %d %d\n", RobotMap::chassisLeftEncoder->Get(), leftPID->IsEnabled());
+		//printf("2135: RightPID %d %d\n", RobotMap::chassisRightEncoder->Get(), rightPID->IsEnabled());
+		printf("2135: LeftPID  %d\n", motorL2->GetEncPosition());
+		printf("2135: RightPID %d\n", motorR4->GetEncPosition());
 	}
 }
 
@@ -229,8 +284,13 @@ bool Chassis::MoveDistanceWithPIDIsAtSetpoint(void)
 	bool bothOnTarget;
 	// are both PIDs on target
 	bothOnTarget = false;
-	if (!leftPID->IsEnabled() && !rightPID->IsEnabled())
-	{
+//	if (!leftPID->IsEnabled() && !rightPID->IsEnabled())
+//	{
+//		MoveDistanceWithPIDStop();
+//		bothOnTarget = true;
+//	}
+
+	if(m_rotations == motorL2->GetEncPosition() && m_rotations == motorR4->GetEncPosition()) {
 		MoveDistanceWithPIDStop();
 		bothOnTarget = true;
 	}
@@ -240,10 +300,14 @@ bool Chassis::MoveDistanceWithPIDIsAtSetpoint(void)
 
 void Chassis::MoveDistanceWithPIDStop( void )
 {
-	leftPID->Disable();
-	rightPID->Disable();
+//	leftPID->Disable();
+//	rightPID->Disable();
+
+	motorL2->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+	motorR4->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	robotDrive->SetSafetyEnabled(true);
 
-	motorR4->SetInverted(false);
+	//motorR4->SetInverted(true);
+
 
 }
