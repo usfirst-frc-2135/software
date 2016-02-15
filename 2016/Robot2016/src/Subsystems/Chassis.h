@@ -14,7 +14,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-#define M_WHEEL_DIA	8	// number of inches in diameter of drive wheels
+#define M_WHEEL_DIA	6	// number of inches in diameter of drive wheels
 #define M_COUNTS_PER_ROTATION 360	// number of counts per rotation
 
 /**

@@ -54,6 +54,7 @@ void Robot::RobotInit() {
 	SmartDashboard::PutNumber("Speed Control", 1.0);
 	SmartDashboard::PutNumber("Left Encoder Position", 0.0);
 	SmartDashboard::PutNumber("Right Encoder Position", 0.0);
+	SmartDashboard::PutNumber("Drive Distance", 60.0);
 
 	//Initialize preferences file on cRIO
 	prefs = Preferences::GetInstance();

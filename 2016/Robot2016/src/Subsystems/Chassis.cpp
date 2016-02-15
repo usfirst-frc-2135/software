@@ -60,13 +60,13 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorR4->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
     motorR4->SetSensorDirection(false);
 
-    motorL2->ConfigEncoderCodesPerRev(4 * M_COUNTS_PER_ROTATION);
-    motorR4->ConfigEncoderCodesPerRev(4 * M_COUNTS_PER_ROTATION);
+    motorL2->ConfigEncoderCodesPerRev(M_COUNTS_PER_ROTATION);
+    motorR4->ConfigEncoderCodesPerRev(M_COUNTS_PER_ROTATION);
 
-    motorL2->ConfigPeakOutputVoltage(+4, -4);
+    motorL2->ConfigPeakOutputVoltage( +5, -5);
     motorL2->ConfigNominalOutputVoltage(+0, -0);
 
-    motorR4->ConfigPeakOutputVoltage(+4, -4);
+    motorR4->ConfigPeakOutputVoltage( +5, -5);
     motorR4->ConfigNominalOutputVoltage(+0, -0);
 }
 
@@ -136,6 +136,39 @@ void Chassis::LoadPreferences(Preferences *prefs)
 		printf("2135: ChassisDriveTimedSpeed Not Found - ERROR\n");
 	}
 	printf("2135: ChassisDriveTimedSpeed: %f\n", driveTimedSpeed);
+
+	//ChassisVoltageRampRate
+	double voltageRampRate;
+	if (prefs->ContainsKey( "ChassisVoltageRampRate" ) ) {
+		voltageRampRate = prefs->GetDouble("ChassisVoltageRampRate", 8.0);
+		SmartDashboard::PutNumber("ChassisVoltageRampRate", voltageRampRate);
+	}
+	else {
+		printf("2135: ChassisVoltageRampRate Not Found - ERROR\n");
+	}
+	printf("2135: ChassisVoltageRampRate: %f\n", voltageRampRate);
+
+	//ChassisPeakOutputVoltage
+	double peakOutputVoltage;
+	if (prefs->ContainsKey( "ChassisPeakOutputVoltage" ) ) {
+		peakOutputVoltage = prefs->GetDouble("ChassisPeakOutputVoltage", 5.0);
+		SmartDashboard::PutNumber("ChassisPeakOutputVoltage", peakOutputVoltage);
+	}
+	else {
+		printf("2135: ChassisPeakOutputVoltage Not Found - ERROR\n");
+	}
+	printf("2135: ChassisPeakOutputVoltage: %f\n", peakOutputVoltage);
+
+	//ChassisProportional
+	double proportional;
+	if (prefs->ContainsKey( "ChassisProportional" ) ) {
+		proportional = prefs->GetDouble("ChassisProportional", 0.3);
+		SmartDashboard::PutNumber("ChassisProportional", proportional);
+	}
+	else {
+		printf("2135: ChassisProportional Not Found - ERROR\n");
+	}
+	printf("2135: ChassisProportional: %f\n", proportional);
 }
 
 
@@ -175,10 +208,18 @@ void Chassis::ReverseDriveTrain(void)
 
 void Chassis::MoveDistanceWithPIDInit( double distance )
 {
+	double voltageRampRate = SmartDashboard::GetNumber("ChassisVoltageRampRate", 8.0);
+	double peakOutputVoltage = SmartDashboard::GetNumber("ChassisPeakOutputVoltage", 5.0);
+	double proportional = SmartDashboard::GetNumber("ChassisProportional", 0.3);
+
+	motorL2->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
+	motorR4->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
+
 //	double leftDistance;
 //	double rightDistance;
 //	double abstolerance = 0.2;
-	double rotations = distance / (M_WHEEL_DIA * M_PI);
+	double rotations;
+	rotations = distance / (M_WHEEL_DIA * M_PI);
 
 //	motorR4->SetInverted(false);
 
@@ -212,13 +253,13 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 //	rightPID->Enable();
 //	printf("2135: Left and Right PIDs are enabled\n");
 
-	motorL2->SetPID( 0.2, 0.0, 0.0 );
-	motorR4->SetPID( 0.2, 0.0, 0.0 );
+	motorL2->SetPID( proportional, 0.0, 0.0 );
+	motorR4->SetPID( proportional, 0.0, 0.0 );
 
-	motorL2->SetVoltageRampRate(10.0);
+	motorL2->SetVoltageRampRate(voltageRampRate);
 	motorL2->SetControlMode(CANSpeedController::ControlMode::kPosition);
 
-	motorR4->SetVoltageRampRate(10.0);
+	motorR4->SetVoltageRampRate(voltageRampRate);
 	motorR4->SetControlMode(CANSpeedController::ControlMode::kPosition);
 
 	motorL2->SetEncPosition(0);
@@ -228,14 +269,13 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 	motorR4->Set(rotations);
 
 	m_rotations = rotations;
-
 }
 
 
 
 void Chassis::MoveDistanceWithPIDExecute( void )
 {
-	SmartDashboard::PutNumber("Left Encoder Position", motorL2->GetEncPosition());
+	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
 	SmartDashboard::PutNumber("Right Encoder Position", motorR4->GetEncPosition());
 
 	if (m_rotations == motorL2->GetEncPosition()) {

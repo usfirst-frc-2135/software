@@ -1,5 +1,29 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="ChassisPeakOutputVoltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="714" y="309"/>
+	</widget>
+	<widget field="Drive Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="716" y="378"/>
+	</widget>
+	<widget field="ChassisProportional" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="715" y="355"/>
+	</widget>
+	<widget field="ChassisVoltageRampRate" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="715" y="331"/>
+	</widget>
+	<widget field="Shoot: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="290"/>
+	</widget>
+	<widget field="Right Encoder Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="186" y="390"/>
+	</widget>
+	<widget field="Left Encoder Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="186" y="366"/>
+	</widget>
+	<widget field="Auto Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="43" y="337"/>
+	</widget>
 	<widget field="LowShotUpperMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="433" y="222"/>
 	</widget>
