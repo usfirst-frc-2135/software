@@ -43,6 +43,7 @@ public:
 	void LoadPreferences(Preferences *prefs);
 	double LoadPreferencesVariable(Preferences *prefs, std::string name, double defaultValue);
 	void setFireSolenoid(bool);
+	void Initialize(void);
 
 };
 

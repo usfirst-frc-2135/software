@@ -53,6 +53,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_orientationNormal = -1.0;
     m_driveDistanceTimed = 3.0;
     m_rotations = 0.0;
+    speedControl = 1.0;
 
     motorL2->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
     motorL2->SetSensorDirection(true);
@@ -171,17 +172,30 @@ void Chassis::LoadPreferences(Preferences *prefs)
 	printf("2135: ChassisProportional: %f\n", proportional);
 }
 
+void Chassis::Initialize(void)
+{
+	printf("2135: Chassis Initialized\n");
+	SmartDashboard::PutNumber("Speed Control", 1.0);
+	speedControl = SmartDashboard::GetNumber("Speed Control", 1.0);
+
+	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
+
+	SmartDashboard::PutNumber("Right Encoder Position", motorR4->GetEncPosition());
+
+	SmartDashboard::PutNumber("Drive Distance", 60.0);
+}
+
 
 void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 {
 	double yValue;
 	double xValue;
-	double speedControl;
+//	double speedControl;
 
 	xValue = joystick->GetX();
 	yValue = joystick->GetY() * m_orientationNormal;
 
-	speedControl = SmartDashboard::GetNumber("Speed Control", 1.0);
+//	speedControl = SmartDashboard::GetNumber("Speed Control", 1.0);
 
 	yValue = yValue * speedControl;
 	xValue = xValue * speedControl;
@@ -275,8 +289,6 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 
 void Chassis::MoveDistanceWithPIDExecute( void )
 {
-	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
-	SmartDashboard::PutNumber("Right Encoder Position", motorR4->GetEncPosition());
 
 	if (m_rotations == motorL2->GetEncPosition()) {
 //		motorL2->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);

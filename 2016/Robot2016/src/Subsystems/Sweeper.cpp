@@ -56,3 +56,6 @@ void Sweeper::LoadPreferences(Preferences *prefs) {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void Sweeper::Initialize(void) {
+	printf("2135: Sweeper Initialized\n");
+}

@@ -75,6 +75,12 @@ double Shooter::LoadPreferencesVariable (Preferences *prefs, std::string name, d
 	return shooterTemp;
 }
 
+void Shooter::Initialize(void) {
+	printf("2135: Shooter Initialized\n");
+	SmartDashboard::PutNumber("Upper Shooter Speed", 0.0);
+	SmartDashboard::PutNumber("Lower Shooter Speed", 0.0);
+}
+
 
 void Shooter::ShootSpeeds(double upperSpeed, double lowerSpeed) {
 	lowerMotor->Set(lowerSpeed);

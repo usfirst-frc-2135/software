@@ -40,3 +40,7 @@ void Pneumatics::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void Pneumatics::Initialize(void) {
+	printf("2135: Pneumatics Initialized\n");
+}
+
