@@ -170,6 +170,17 @@ void Chassis::LoadPreferences(Preferences *prefs)
 		printf("2135: ChassisProportional Not Found - ERROR\n");
 	}
 	printf("2135: ChassisProportional: %f\n", proportional);
+
+	//ChassisAbsoluteValue
+	double abstolerance;
+	if (prefs->ContainsKey( "ChassisAbsoluteValue" ) ) {
+		abstolerance = prefs->GetDouble("ChassisAbsoluteValue", 0.2);
+		SmartDashboard::PutNumber("ChassisAbsoluteValue", abstolerance);
+	}
+	else {
+		printf("2135: ChassisAbsoluteValue Not Found - ERROR\n");
+	}
+	printf("2135: ChassisAbsoluteValue: %f\n", abstolerance);
 }
 
 void Chassis::Initialize(void)
@@ -225,13 +236,14 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 	double voltageRampRate = SmartDashboard::GetNumber("ChassisVoltageRampRate", 8.0);
 	double peakOutputVoltage = SmartDashboard::GetNumber("ChassisPeakOutputVoltage", 5.0);
 	double proportional = SmartDashboard::GetNumber("ChassisProportional", 0.3);
+	double abstolerance = SmartDashboard::GetNumber("ChassisAbsoluteValue", 0.2);
 
 	motorL2->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
 	motorR4->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
 
 //	double leftDistance;
 //	double rightDistance;
-//	double abstolerance = 0.2;
+
 	double rotations;
 	rotations = distance / (M_WHEEL_DIA * M_PI);
 
@@ -266,6 +278,9 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 //	leftPID->Enable();
 //	rightPID->Enable();
 //	printf("2135: Left and Right PIDs are enabled\n");
+
+	motorL2->SetAllowableClosedLoopErr(abstolerance);
+	motorR4->SetAllowableClosedLoopErr(abstolerance);
 
 	motorL2->SetPID( proportional, 0.0, 0.0 );
 	motorR4->SetPID( proportional, 0.0, 0.0 );
