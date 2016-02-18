@@ -59,3 +59,13 @@ void Sweeper::LoadPreferences(Preferences *prefs) {
 void Sweeper::Initialize(void) {
 	printf("2135: Sweeper Initialized\n");
 }
+
+// TODO: Check the Arm Extend code please
+void Sweeper::ArmExtend(bool extend) {
+	if(extend == true) {
+		extension->Set(extension->kForward);
+	}
+	else {
+		extension->Set(extension->kReverse);
+	}
+}

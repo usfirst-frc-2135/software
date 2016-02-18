@@ -26,12 +26,12 @@ ArmExtend::ArmExtend(bool extend): Command() {
 
 // Called just before this Command runs the first time
 void ArmExtend::Initialize() {
-
+	printf("2135: Sweeper Arm Extend\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ArmExtend::Execute() {
-
+	Robot::sweeper->ArmExtend(true);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -41,11 +41,11 @@ bool ArmExtend::IsFinished() {
 
 // Called once after isFinished returns true
 void ArmExtend::End() {
-
+	Robot::sweeper->ArmExtend(false);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ArmExtend::Interrupted() {
-
+	Robot::sweeper->ArmExtend(false);
 }
