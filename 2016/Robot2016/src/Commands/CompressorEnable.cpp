@@ -26,7 +26,8 @@ CompressorEnable::CompressorEnable(bool on): Command() {
 
 // Called just before this Command runs the first time
 void CompressorEnable::Initialize() {
-
+	printf("2135: Compressor Enabled\n");
+	Robot::pneumatics->CompressorEnabled(true);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -41,11 +42,11 @@ bool CompressorEnable::IsFinished() {
 
 // Called once after isFinished returns true
 void CompressorEnable::End() {
-
+	Robot::pneumatics->CompressorEnabled(false);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void CompressorEnable::Interrupted() {
-
+	Robot::pneumatics->CompressorEnabled(false);
 }

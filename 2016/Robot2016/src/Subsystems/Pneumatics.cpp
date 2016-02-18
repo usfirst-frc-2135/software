@@ -41,6 +41,15 @@ void Pneumatics::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void Pneumatics::Initialize(void) {
-	printf("2135: Pneumatics Initialized\n");
+
 }
 
+//TODO: Check pneumatics code for compressor enabled
+void Pneumatics::CompressorEnabled(bool enabled) {
+	if (enabled == true) {
+		compressor->Start();
+	}
+	else {
+		compressor->Stop();
+	}
+}
