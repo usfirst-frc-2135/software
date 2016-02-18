@@ -212,6 +212,9 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	xValue = xValue * speedControl;
 
 	robotDrive->ArcadeDrive( yValue, xValue * (-1), true );
+
+	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
+	SmartDashboard::PutNumber("Right Encoder Position", motorR4->GetEncPosition());
 	//robotDrive->ArcadeDrive( joystick->GetY() , joystick->GetX(), true );
 }
 
@@ -316,6 +319,9 @@ void Chassis::MoveDistanceWithPIDExecute( void )
 		printf("2135: Right PID is Disabled\n");
 		motorR4->Set(0.0);
 	}
+
+	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
+	SmartDashboard::PutNumber("Right Encoder Position", motorR4->GetEncPosition());
 
 //	if (leftPID->OnTarget())
 //	{
