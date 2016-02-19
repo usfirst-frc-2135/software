@@ -39,6 +39,7 @@ public:
 	void LoadPreferences(Preferences *prefs);
 	void Initialize(void);
 	void ArmExtend(bool extend);
+	void SweeperSpeed (double);
 
 };
 

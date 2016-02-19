@@ -69,3 +69,9 @@ void Sweeper::ArmExtend(bool extend) {
 		extension->Set(extension->kReverse);
 	}
 }
+
+// TODO: Check Sweeper Acquire/Expel Code
+// TODO: See if preferences is connected to the shooter speed.
+void Sweeper::SweeperSpeed(double speed) {
+	motor->Set(speed);
+}
