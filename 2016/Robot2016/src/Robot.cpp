@@ -113,5 +113,18 @@ void Robot::TestPeriodic() {
 	lw->Run();
 }
 
+double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
+	Preferences* prefs = Preferences::GetInstance();
+	double temp = defaultValue;
+	if (prefs->ContainsKey(name)) {
+		temp = prefs->GetDouble(name, defaultValue);
+	}
+	else {
+		printf("2135: %s not found - ERROR\n", name.c_str());
+	}
+	printf("2135: %s : %f\n", name.c_str(), temp);
+	return temp;
+}
+
 START_ROBOT_CLASS(Robot);
 

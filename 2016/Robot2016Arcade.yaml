@@ -505,7 +505,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Direction,
-            type: int, value: '0'}
+            type: int, value: '1'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id020
           default: '1'
@@ -523,7 +523,7 @@ Children:
           default: whileHeld
           name: When to Run
           validators: null
-          value: whenPressed
+          value: whileHeld
       Base: Joystick Button
       Name: Acquire
     - Children: []
@@ -536,7 +536,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Direction,
-            type: int, value: '0'}
+            type: int, value: '2'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id020
           default: '1'
@@ -554,7 +554,7 @@ Children:
           default: whileHeld
           name: When to Run
           validators: null
-          value: whenPressed
+          value: whileHeld
       Base: Joystick Button
       Name: Expel
     - Children: []

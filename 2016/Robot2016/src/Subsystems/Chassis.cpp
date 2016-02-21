@@ -91,96 +91,31 @@ void Chassis::LoadPreferences(Preferences *prefs)
 
 	//Initialize and read preferences file
 	//ChassisMinRange
-	if (prefs->ContainsKey( "ChassisMinRange" ) ) {
-		m_drivePidSpeedMin = prefs->GetDouble("ChassisMinRange", -0.7);
-	}
-	else {
-		printf("2135: ChassisMinRange Not Found - ERROR\n");
-	}
-	printf("2135: ChassisMinRange: %f\n", m_drivePidSpeedMin);
+	m_drivePidSpeedMin = Robot::LoadPreferencesVariable("ChassisMinRange", -0.7);
 
 	//ChassisMaxRange
-	if (prefs->ContainsKey( "ChassisMaxRange" ) ) {
-		m_drivePidSpeedMax = prefs->GetDouble("ChassisMaxRange", 0.7);
-	}
-	else {
-		printf("2135: ChassisMaxRange Not Found - ERROR\n");
-	}
-	printf("2135: ChassisMaxRange: %f\n", m_drivePidSpeedMax);
+	m_drivePidSpeedMax = Robot::LoadPreferencesVariable("ChassisMaxRange", 0.7);
 
 	//ChassisDriveDistance
-	if (prefs->ContainsKey( "ChassisDriveDistance" ) ) {
-		m_driveDistance = prefs->GetDouble("ChassisDriveDistance", 0.0);
-	}
-	else {
-		printf("2135: ChassisDriveDistance Not Found - ERROR\n");
-	}
-	printf("2135: ChassisDriveDistance: %f\n", m_driveDistance);
+	m_driveDistance = Robot::LoadPreferencesVariable("ChassisDriveDistance", 0.0);
 
 	//ChassisDriveTimed
-	if (prefs->ContainsKey( "ChassisDriveTimed" ) ) {
-		m_driveDistanceTimed = prefs->GetDouble("ChassisDriveTimed", 0.0);
-		SmartDashboard::PutNumber("ChassisDriveTimed", m_driveDistanceTimed);
-	}
-	else {
-		printf("2135: ChassisDriveTimed Not Found - ERROR\n");
-	}
-	printf("2135: ChassisDriveTimed: %f\n", m_driveDistanceTimed);
+	m_driveDistanceTimed = Robot::LoadPreferencesVariable("ChassisDriveTimed", 0.0);
 
 	//ChassisDriveTimed
-	double driveTimedSpeed;
-	if (prefs->ContainsKey( "ChassisDriveTimedSpeed" ) ) {
-		driveTimedSpeed = prefs->GetDouble("ChassisDriveTimedSpeed", 0.0);
-		SmartDashboard::PutNumber("ChassisDriveTimedSpeed", driveTimedSpeed);
-	}
-	else {
-		printf("2135: ChassisDriveTimedSpeed Not Found - ERROR\n");
-	}
-	printf("2135: ChassisDriveTimedSpeed: %f\n", driveTimedSpeed);
+	SmartDashboard::PutNumber("ChassisDriveTimedSpeed", Robot::LoadPreferencesVariable("ChassisDriveTimedSpeed", 0.0));
 
 	//ChassisVoltageRampRate
-	double voltageRampRate;
-	if (prefs->ContainsKey( "ChassisVoltageRampRate" ) ) {
-		voltageRampRate = prefs->GetDouble("ChassisVoltageRampRate", 8.0);
-		SmartDashboard::PutNumber("ChassisVoltageRampRate", voltageRampRate);
-	}
-	else {
-		printf("2135: ChassisVoltageRampRate Not Found - ERROR\n");
-	}
-	printf("2135: ChassisVoltageRampRate: %f\n", voltageRampRate);
+	SmartDashboard::PutNumber("ChassisVolageRampRate", Robot::LoadPreferencesVariable("ChassisVoltageRampRate", 8.0));
 
 	//ChassisPeakOutputVoltage
-	double peakOutputVoltage;
-	if (prefs->ContainsKey( "ChassisPeakOutputVoltage" ) ) {
-		peakOutputVoltage = prefs->GetDouble("ChassisPeakOutputVoltage", 5.0);
-		SmartDashboard::PutNumber("ChassisPeakOutputVoltage", peakOutputVoltage);
-	}
-	else {
-		printf("2135: ChassisPeakOutputVoltage Not Found - ERROR\n");
-	}
-	printf("2135: ChassisPeakOutputVoltage: %f\n", peakOutputVoltage);
+	SmartDashboard::PutNumber("ChassisPeakOutputVoltage", Robot::LoadPreferencesVariable("ChassisPeakOutputVoltage", 5.0));
 
 	//ChassisProportional
-	double proportional;
-	if (prefs->ContainsKey( "ChassisProportional" ) ) {
-		proportional = prefs->GetDouble("ChassisProportional", 0.3);
-		SmartDashboard::PutNumber("ChassisProportional", proportional);
-	}
-	else {
-		printf("2135: ChassisProportional Not Found - ERROR\n");
-	}
-	printf("2135: ChassisProportional: %f\n", proportional);
+	SmartDashboard::PutNumber("ChassisProportional", Robot::LoadPreferencesVariable("ChassisProportional", 0.3));
 
 	//ChassisAbsoluteValue
-	double abstolerance;
-	if (prefs->ContainsKey( "ChassisAbsoluteValue" ) ) {
-		abstolerance = prefs->GetDouble("ChassisAbsoluteValue", 0.2);
-		SmartDashboard::PutNumber("ChassisAbsoluteValue", abstolerance);
-	}
-	else {
-		printf("2135: ChassisAbsoluteValue Not Found - ERROR\n");
-	}
-	printf("2135: ChassisAbsoluteValue: %f\n", abstolerance);
+	SmartDashboard::PutNumber("ChassisAbsoluteValue", Robot::LoadPreferencesVariable("ChassisAbsoluteValue", 0.2));
 }
 
 void Chassis::Initialize(void)

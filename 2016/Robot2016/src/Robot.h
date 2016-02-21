@@ -52,5 +52,6 @@ public:
 	virtual void TeleopInit();
 	virtual void TeleopPeriodic();
 	virtual void TestPeriodic();
+	static double LoadPreferencesVariable(std::string name, double defaultValue);
 };
 #endif

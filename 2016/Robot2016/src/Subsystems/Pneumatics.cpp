@@ -44,7 +44,6 @@ void Pneumatics::Initialize(void) {
 
 }
 
-//TODO: Check pneumatics code for compressor enabled
 void Pneumatics::CompressorEnabled(bool enabled) {
 	if (enabled == true) {
 		compressor->Start();

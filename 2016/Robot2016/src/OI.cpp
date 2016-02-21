@@ -53,9 +53,9 @@ OI::OI() {
     frameUp.reset(new JoystickButton(operatorJoystick.get(), 5));
     frameUp->WhenPressed(new ShootFrameControl(true));
     expel.reset(new JoystickButton(operatorJoystick.get(), 4));
-    expel->WhenPressed(new ArmMotorEnable(0));
+    expel->WhileHeld(new ArmMotorEnable(2));
     acquire.reset(new JoystickButton(operatorJoystick.get(), 3));
-    acquire->WhenPressed(new ArmMotorEnable(0));
+    acquire->WhileHeld(new ArmMotorEnable(1));
     retractArm.reset(new JoystickButton(operatorJoystick.get(), 2));
     retractArm->WhenPressed(new ArmExtend(false));
     extendArm.reset(new JoystickButton(operatorJoystick.get(), 1));
