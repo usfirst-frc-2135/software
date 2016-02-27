@@ -896,7 +896,7 @@ Children:
     Base: Command
     Name: Drive Distance Timed
   - Children: []
-    Properties:
+    Properties: &id028
       Parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
         name: Parameters
@@ -1138,6 +1138,107 @@ Children:
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: Compressor Enable
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: time, type: double}
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: distance, type: double}
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: maxSpeed, type: double}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterSet
+          name: DEFAULT
+          parameters:
+          - {name: time, type: double, value: '5'}
+          - {name: distance, type: double, value: '0'}
+          - {name: maxSpeed, type: double, value: '0'}
+      Commands: !!robotbuilder.data.properties.ListProperty
+        default: []
+        name: Commands
+        validators: [List]
+        value:
+        - &id029 !!robotbuilder.data.CommandGroupEntry
+          command:
+            base: &id027
+              help: A command specifies an action that the robot can perform.
+              name: Command
+              properties:
+              - !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+                name: Requires, type: Subsystem, validators: null, value: None}
+              - !!robotbuilder.data.properties.BooleanProperty {default: true, name: Button on SmartDashboard,
+                validators: null, value: true}
+              - !!robotbuilder.data.properties.ParametersProperty
+                default: []
+                name: Parameters
+                validators: null
+                value: []
+              - !!robotbuilder.data.properties.ParameterSetProperty
+                default: &id025 []
+                name: Parameter presets
+                validators: null
+                value: *id025
+              supports: {}
+              type: Command
+            name: Drive Wait
+            properties: &id030
+              Parameters: !!robotbuilder.data.properties.ParametersProperty
+                default: []
+                name: Parameters
+                validators: null
+                value:
+                - !!robotbuilder.data.properties.ParameterDescriptor {name: time,
+                  type: double}
+              Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+                name: Requires, type: Subsystem, validators: null, value: Chassis}
+              Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+                default: &id026 []
+                name: Parameter presets
+                validators: null
+                value: *id026
+              Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {
+                default: true, name: Button on SmartDashboard, validators: null, value: false}
+          hasMatch: true
+          order: Sequential
+          parameters:
+            default: []
+            name: ParametersProperty
+            validators: null
+            value:
+            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: time,
+              type: double, value: '0'}
+          previous: null
+        - !!robotbuilder.data.CommandGroupEntry
+          command:
+            base: *id027
+            name: Drive Distance PID
+            properties: *id028
+          hasMatch: true
+          order: Sequential
+          parameters:
+            default: []
+            name: ParametersProperty
+            validators: null
+            value:
+            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: distance,
+              type: double, value: '0'}
+            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: maxSpeed,
+              type: double, value: '0'}
+          previous: *id029
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command Group
+    Name: Drive Distance Delayed
+  - Children: []
+    Properties: *id030
+    Base: Command
+    Name: Drive Wait
   Properties: {}
   Base: Commands
   Name: Commands
