@@ -53,7 +53,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_orientationNormal = -1.0;
     m_driveDistanceTimed = 3.0;
     m_rotations = 0.0;
-    speedControl = 1.0;
+    m_speedControl = 1.0;
 
     motorL2->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
     motorL2->SetSensorDirection(true);
@@ -116,13 +116,15 @@ void Chassis::LoadPreferences(Preferences *prefs)
 
 	//ChassisAbsoluteValue
 	SmartDashboard::PutNumber("ChassisAbsoluteValue", Robot::LoadPreferencesVariable("ChassisAbsoluteValue", 0.2));
+
+	//SpeedControl
+	m_speedControl = Robot::LoadPreferencesVariable("SpeedControl", 1.0);
+	SmartDashboard::PutNumber("SpeedControl", m_speedControl);
 }
 
 void Chassis::Initialize(void)
 {
 	printf("2135: Chassis Initialized\n");
-	SmartDashboard::PutNumber("Speed Control", 1.0);
-	speedControl = SmartDashboard::GetNumber("Speed Control", 1.0);
 
 	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
 
@@ -142,9 +144,10 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	yValue = joystick->GetY() * m_orientationNormal;
 
 //	speedControl = SmartDashboard::GetNumber("Speed Control", 1.0);
-
-	yValue = yValue * speedControl;
-	xValue = xValue * speedControl;
+	if (m_scaled) {
+		yValue = yValue * m_speedControl;
+		xValue = xValue * m_speedControl;
+	}
 
 	robotDrive->ArcadeDrive( yValue, xValue * (-1), true );
 
@@ -167,6 +170,11 @@ void Chassis::ReverseDriveTrain(void)
 {
 	m_orientationNormal = -m_orientationNormal;
 	SmartDashboard::PutNumber("Drive Invert", m_orientationNormal);
+}
+
+void Chassis::MoveLowShift(bool scaled)
+{
+	m_scaled = scaled;
 }
 
 void Chassis::MoveDistanceWithPIDInit( double distance )

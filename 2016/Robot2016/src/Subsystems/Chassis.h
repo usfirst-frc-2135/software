@@ -44,7 +44,8 @@ private:
 	double m_orientationNormal;
 	double m_driveDistanceTimed;
 	double m_rotations;
-	double speedControl;
+	double m_speedControl;
+	bool m_scaled;
 
 public:
 	RobotDrive* robotDrive;
@@ -63,6 +64,7 @@ public:
 	void ReverseDriveTrain(void);
 	void LoadPreferences(Preferences *prefs);
 	void Initialize(void);
+	void MoveLowShift(bool scaled);
 
 };
 
