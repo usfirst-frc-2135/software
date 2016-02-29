@@ -40,11 +40,11 @@ void Pneumatics::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Pneumatics::Initialize(void) {
-
+void Pneumatics::Initialize(Preferences *prefs) {
+	printf("2135: Pnuematics Initialize\n");
 }
 
-void Pneumatics::CompressorEnabled(bool enabled) {
+void Pneumatics::CompressorEnable(bool enabled) {
 	if (enabled == true) {
 		compressor->Start();
 	}

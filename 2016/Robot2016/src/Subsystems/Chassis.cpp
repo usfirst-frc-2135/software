@@ -54,6 +54,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_driveDistanceTimed = 3.0;
     m_rotations = 0.0;
     m_speedControl = 1.0;
+    m_scaled = 1.0;
 
     motorL2->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
     motorL2->SetSensorDirection(true);
@@ -85,9 +86,9 @@ void Chassis::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Chassis::LoadPreferences(Preferences *prefs)
+void Chassis::Initialize(Preferences *prefs)
 {
-	printf("2135: Chassis Preferences\n");
+	printf("2135: Chassis Initialize\n");
 
 	//Initialize and read preferences file
 	//ChassisMinRange
@@ -120,11 +121,6 @@ void Chassis::LoadPreferences(Preferences *prefs)
 	//SpeedControl
 	m_speedControl = Robot::LoadPreferencesVariable("SpeedControl", 1.0);
 	SmartDashboard::PutNumber("SpeedControl", m_speedControl);
-}
-
-void Chassis::Initialize(void)
-{
-	printf("2135: Chassis Initialized\n");
 
 	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
 

@@ -51,8 +51,8 @@ void Shooter::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Shooter::LoadPreferences(Preferences *prefs) {
-	printf("2135: Shooter Preferences\n");
+void Shooter::Initialize(Preferences *prefs) {
+	printf("2135: Shooter Initialize\n");
 	m_upperSpeed = Robot::LoadPreferencesVariable("ShooterUpperSpeed", 0.5);
 	m_lowerSpeed = Robot::LoadPreferencesVariable("ShooterLowerSpeed", 0.5);
 
@@ -62,11 +62,7 @@ void Shooter::LoadPreferences(Preferences *prefs) {
 	SmartDashboard::PutNumber("MidShotLowerMotor", Robot::LoadPreferencesVariable ("MidShotLowerMotor", 0.6));
 	SmartDashboard::PutNumber("HighShotUpperMotor", Robot::LoadPreferencesVariable ("HighShotUpperMotor", 0.95));
 	SmartDashboard::PutNumber("HighShotLowerMotor", Robot::LoadPreferencesVariable ("HighShotLowerMotor", 0.7));
-}
 
-
-void Shooter::Initialize(void) {
-	printf("2135: Shooter Initialized\n");
 	SmartDashboard::PutNumber("Upper Shooter Speed", 0.0);
 	SmartDashboard::PutNumber("Lower Shooter Speed", 0.0);
 }

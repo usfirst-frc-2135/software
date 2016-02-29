@@ -51,16 +51,13 @@ void Robot::RobotInit() {
 
 	//Initialize preferences file on cRIO
 	prefs = Preferences::GetInstance();
-	chassis->LoadPreferences(prefs);
-	sweeper->LoadPreferences(prefs);
-	shooter->LoadPreferences(prefs);
 
 	//Initialize SmartDashboard and Subsystems
-	chassis->Initialize();
-	climber->Initialize();
-	pneumatics->Initialize();
-	shooter->Initialize();
-	sweeper->Initialize();
+	chassis->Initialize(prefs);
+	sweeper->Initialize(prefs);
+	shooter->Initialize(prefs);
+	climber->Initialize(prefs);
+	pneumatics->Initialize(prefs);
 
 	//autoChooser
 	chooser = new SendableChooser();
@@ -114,16 +111,21 @@ void Robot::TestPeriodic() {
 }
 
 double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
-	Preferences* prefs = Preferences::GetInstance();
-	double temp = defaultValue;
+	Preferences	*prefs;
+	double 		value;
+
+	prefs = Preferences::GetInstance();
+
 	if (prefs->ContainsKey(name)) {
-		temp = prefs->GetDouble(name, defaultValue);
+		value = prefs->GetDouble(name, defaultValue);
 	}
 	else {
+		value = defaultValue;
 		printf("2135: %s not found - ERROR\n", name.c_str());
 	}
-	printf("2135: %s : %f\n", name.c_str(), temp);
-	return temp;
+	printf("2135: %s : %f\n", name.c_str(), value);
+
+	return value;
 }
 
 START_ROBOT_CLASS(Robot);

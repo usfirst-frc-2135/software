@@ -40,7 +40,7 @@ void Climber::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Climber::Initialize(void){
-	printf("2135: Climber Initialized\n");
+void Climber::Initialize(Preferences *prefs){
+	printf("2135: Climber Initialize\n");
 }
 
