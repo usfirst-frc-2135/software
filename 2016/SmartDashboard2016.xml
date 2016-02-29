@@ -1,5 +1,26 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="SpeedControl" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="710" y="410"/>
+	</widget>
+	<widget field="Drive Invert" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="269"/>
+	</widget>
+	<widget field="ChassisVolageRampRate" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="83"/>
+	</widget>
+	<widget field="DriveDistance" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="216" y="97"/>
+	</widget>
+	<widget field="Drive Distance Timed: defaultTime" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="411"/>
+	</widget>
+	<widget field="Intake" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="358"/>
+	</widget>
+	<widget field="ShootSmartDashboard" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="25" y="324"/>
+	</widget>
 	<widget field="ChassisAbsoluteValue" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="710" y="290"/>
 	</widget>
@@ -28,7 +49,7 @@
 		<location x="186" y="366"/>
 	</widget>
 	<widget field="Auto Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="4" y="330"/>
+		<location x="447" y="291"/>
 	</widget>
 	<widget field="LowShotUpperMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="433" y="222"/>
@@ -92,6 +113,98 @@
 	</widget>
 </dashboard>
 <live-window>
+	<widget field="Climber" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<widget field="Motor" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
+			<location x="6" y="16"/>
+			<height>141</height>
+			<width>293</width>
+		</widget>
+		<location x="0" y="116"/>
+		<width>305</width>
+		<height>164</height>
+	</widget>
+	<widget field="Shooter" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<widget field="Fire Solenoid" type="Double Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.RelayController">
+			<location x="6" y="16"/>
+			<height>20</height>
+			<width>293</width>
+		</widget>
+		<widget field="Upper Motor" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
+			<location x="6" y="36"/>
+			<height>141</height>
+			<width>293</width>
+		</widget>
+		<widget field="Lower Motor" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
+			<location x="6" y="177"/>
+			<height>141</height>
+			<width>293</width>
+		</widget>
+		<location x="0" y="72"/>
+		<width>305</width>
+		<height>325</height>
+	</widget>
+	<widget field="Sweeper" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<widget field="Motor" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
+			<location x="6" y="16"/>
+			<height>141</height>
+			<width>293</width>
+		</widget>
+		<widget field="Extension" type="Double Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.RelayController">
+			<location x="6" y="157"/>
+			<height>20</height>
+			<width>293</width>
+		</widget>
+		<location x="0" y="48"/>
+		<width>305</width>
+		<height>184</height>
+	</widget>
+	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="24"/>
+	</widget>
+	<widget field="Chassis" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<widget field="LeftPID" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
+			<location x="6" y="16"/>
+			<height>156</height>
+			<width>293</width>
+		</widget>
+		<widget field="Left Encoder" type="Quadrature Encoder" class="edu.wpi.first.smartdashboard.livewindow.elements.EncoderDisplay">
+			<location x="6" y="172"/>
+			<height>98</height>
+			<width>293</width>
+		</widget>
+		<widget field="MotorR4" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
+			<location x="6" y="270"/>
+			<height>141</height>
+			<width>293</width>
+		</widget>
+		<widget field="MotorL2" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
+			<location x="6" y="411"/>
+			<height>141</height>
+			<width>293</width>
+		</widget>
+		<widget field="RightPID" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
+			<location x="6" y="552"/>
+			<height>156</height>
+			<width>293</width>
+		</widget>
+		<widget field="MotorL3" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
+			<location x="6" y="708"/>
+			<height>141</height>
+			<width>293</width>
+		</widget>
+		<widget field="Right Encoder" type="Quadrature Encoder" class="edu.wpi.first.smartdashboard.livewindow.elements.EncoderDisplay">
+			<location x="6" y="849"/>
+			<height>98</height>
+			<width>293</width>
+		</widget>
+		<widget field="MotorR5" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
+			<location x="6" y="947"/>
+			<height>141</height>
+			<width>293</width>
+		</widget>
+		<location x="0" y="0"/>
+		<width>305</width>
+		<height>1095</height>
+	</widget>
 </live-window>
-	<hidden field="ChassisVolageRampRate"/>
 </xml>
