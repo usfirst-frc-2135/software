@@ -27,7 +27,6 @@ ShootPresets::ShootPresets(int direction): Command() {
 // Called just before this Command runs the first time
 void ShootPresets::Initialize() {
 
-
 	//For Low Shot
 	if (m_direction == 3) {
 		m_upperMotorSpeed = SmartDashboard::GetNumber("LowShotUpperMotor", 0.75);

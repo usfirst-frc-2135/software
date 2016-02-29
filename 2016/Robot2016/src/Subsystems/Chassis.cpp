@@ -9,8 +9,6 @@
 // it from being updated in the future.
 
 
-
-
 #include "Chassis.h"
 #include "../RobotMap.h"
 #include "../Commands/DriveTeleop.h"
@@ -129,7 +127,6 @@ void Chassis::Initialize(Preferences *prefs)
 	SmartDashboard::PutNumber("Drive Distance", 60.0);
 }
 
-
 void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 {
 	double yValue;
@@ -241,7 +238,6 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 
 	m_rotations = rotations;
 }
-
 
 void Chassis::MoveDistanceWithPIDExecute( void )
 {

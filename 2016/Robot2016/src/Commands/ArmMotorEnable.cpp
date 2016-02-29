@@ -29,23 +29,23 @@ ArmMotorEnable::ArmMotorEnable(int Direction): Command() {
 void ArmMotorEnable::Initialize() {
 	m_sweeperSpeed = SmartDashboard::GetNumber("SweeperSpeed", 0.50);
 
-		if (m_Direction == 0) {								//Default
-			m_sweeperSpeed = 0;
-		}
+	if (m_Direction == 0) {								//Default
+		m_sweeperSpeed = 0;
+	}
 
-		else if (m_Direction == 1) { 						//Acquire
-			printf("2135: Arm Motor Enable Acquire\n");
-			m_sweeperSpeed = m_sweeperSpeed * 1;
-		}
+	else if (m_Direction == 1) { 						//Acquire
+		printf("2135: Arm Motor Enable Acquire\n");
+		m_sweeperSpeed = m_sweeperSpeed * 1;
+	}
 
-		else if (m_Direction == 2) {						//Expel
-			printf("2135: Arm Motor Enable Expel\n");
-			m_sweeperSpeed = m_sweeperSpeed * (-1);
-		}
+	else if (m_Direction == 2) {						//Expel
+		printf("2135: Arm Motor Enable Expel\n");
+		m_sweeperSpeed = m_sweeperSpeed * (-1);
+	}
 
-		else {
-			m_sweeperSpeed = 0;
-		}
+	else {
+		m_sweeperSpeed = 0;
+	}
 }
 
 // Called repeatedly when this Command is scheduled to run

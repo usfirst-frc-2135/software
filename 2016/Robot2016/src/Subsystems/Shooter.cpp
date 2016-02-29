@@ -67,7 +67,6 @@ void Shooter::Initialize(Preferences *prefs) {
 	SmartDashboard::PutNumber("Lower Shooter Speed", 0.0);
 }
 
-
 void Shooter::SetMotorSpeeds(double upperSpeed, double lowerSpeed) {
 	lowerMotor->Set(lowerSpeed);
 	upperMotor->Set(upperSpeed);
