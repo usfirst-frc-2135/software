@@ -50,7 +50,7 @@ void ArmMotorEnable::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ArmMotorEnable::Execute() {
-	Robot::sweeper->SweeperSpeed(m_sweeperSpeed);
+	Robot::sweeper->SetMotorSpeed(m_sweeperSpeed);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -60,11 +60,11 @@ bool ArmMotorEnable::IsFinished() {
 
 // Called once after isFinished returns true
 void ArmMotorEnable::End() {
-	Robot::sweeper->SweeperSpeed(0.0);
+	Robot::sweeper->SetMotorSpeed(0.0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ArmMotorEnable::Interrupted() {
-	Robot::sweeper->SweeperSpeed(0.0);
+	Robot::sweeper->SetMotorSpeed(0.0);
 }

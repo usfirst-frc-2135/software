@@ -34,7 +34,7 @@ void ShootJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ShootJoystick::Execute() {
-	Robot::shooter->ShootSpeeds(upJoystickShootSpeed, lowJoystickShootSpeed);
+	Robot::shooter->SetMotorSpeeds(upJoystickShootSpeed, lowJoystickShootSpeed);
 	Robot::shooter->setFireSolenoid(true);
 }
 
@@ -45,13 +45,13 @@ bool ShootJoystick::IsFinished() {
 
 // Called once after isFinished returns true
 void ShootJoystick::End() {
-	Robot::shooter->ShootSpeeds(0,0);
+	Robot::shooter->SetMotorSpeeds(0,0);
 	Robot::shooter->setFireSolenoid(false);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShootJoystick::Interrupted() {
-	Robot::shooter->ShootSpeeds(0,0);
+	Robot::shooter->SetMotorSpeeds(0,0);
 	Robot::shooter->setFireSolenoid(false);
 }

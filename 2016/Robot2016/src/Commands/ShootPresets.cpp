@@ -36,14 +36,14 @@ void ShootPresets::Initialize() {
 	}
 
 	//For Mid Shot
-	else if(m_direction == 2){
+	else if (m_direction == 2) {
 		m_upperMotorSpeed = SmartDashboard::GetNumber("MidShotUpperMotor", 0.85);
 		m_lowerMotorSpeed = SmartDashboard::GetNumber("MidShotLowerMotor", 0.6);
 		printf("2135: Mid Shot speed set\n");
 	}
 
 	//For High Shot
-	else if(m_direction == 1){
+	else if (m_direction == 1) {
 		m_upperMotorSpeed = SmartDashboard::GetNumber("HighShotUpperMotor", 0.95);
 		m_lowerMotorSpeed = SmartDashboard::GetNumber("HighShotLowerMotor", 0.7);
 		printf("2135: High Shot speed set\n");
@@ -58,7 +58,7 @@ void ShootPresets::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ShootPresets::Execute() {
-	Robot::shooter->ShootSpeeds(m_upperMotorSpeed, m_lowerMotorSpeed);
+	Robot::shooter->SetMotorSpeeds(m_upperMotorSpeed, m_lowerMotorSpeed);
 	Robot::shooter->setFireSolenoid(true);
 }
 
@@ -69,13 +69,13 @@ bool ShootPresets::IsFinished() {
 
 // Called once after isFinished returns true
 void ShootPresets::End() {
-	Robot::shooter->ShootSpeeds(0.0, 0.0);
+	Robot::shooter->SetMotorSpeeds(0.0, 0.0);
 	Robot::shooter->setFireSolenoid(false);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShootPresets::Interrupted() {
-	Robot::shooter->ShootSpeeds(0.0, 0.0);
+	Robot::shooter->SetMotorSpeeds(0.0, 0.0);
 	Robot::shooter->setFireSolenoid(false);
 }

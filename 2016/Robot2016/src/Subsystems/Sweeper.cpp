@@ -45,13 +45,13 @@ void Sweeper::Initialize(Preferences *prefs) {
 	printf("2135: Sweeper Initialize\n");
 
 	//Initialize and read file
-	//SweeperSpeed
-	SmartDashboard::PutNumber("SweeperSpeed", Robot::LoadPreferencesVariable("SweeperSpeed", 0.50));
+	//SetMotorSpeed
+	SmartDashboard::PutNumber("SetMotorSpeed", Robot::LoadPreferencesVariable("SetMotorSpeed", 0.50));
 
 }
 
-void Sweeper::ArmExtend(bool extend) {
-	if(extend == true) {
+void Sweeper::Extend(bool extend) {
+	if (extend) {
 		extension->Set(extension->kForward);
 	}
 	else {
@@ -60,6 +60,6 @@ void Sweeper::ArmExtend(bool extend) {
 }
 
 
-void Sweeper::SweeperSpeed(double speed) {
+void Sweeper::SetMotorSpeed(double speed) {
 	motor->Set(speed);
 }

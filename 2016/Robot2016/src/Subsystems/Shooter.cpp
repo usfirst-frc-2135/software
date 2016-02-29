@@ -68,14 +68,14 @@ void Shooter::Initialize(Preferences *prefs) {
 }
 
 
-void Shooter::ShootSpeeds(double upperSpeed, double lowerSpeed) {
+void Shooter::SetMotorSpeeds(double upperSpeed, double lowerSpeed) {
 	lowerMotor->Set(lowerSpeed);
 	upperMotor->Set(upperSpeed);
 
 }
 
 void Shooter::setFireSolenoid(bool fire) {
-	if (fire == true) {
+	if (fire) {
 		fireSolenoid->Set(DoubleSolenoid::kForward);
 	}
 	else {

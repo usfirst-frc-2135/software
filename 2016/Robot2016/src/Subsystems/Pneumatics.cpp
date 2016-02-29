@@ -42,10 +42,11 @@ void Pneumatics::InitDefaultCommand() {
 
 void Pneumatics::Initialize(Preferences *prefs) {
 	printf("2135: Pnuematics Initialize\n");
+	CompressorEnable(true);
 }
 
-void Pneumatics::CompressorEnable(bool enabled) {
-	if (enabled == true) {
+void Pneumatics::CompressorEnable(bool enableRequest) {
+	if (enableRequest) {
 		compressor->Start();
 	}
 	else {

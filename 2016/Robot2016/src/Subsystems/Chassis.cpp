@@ -162,15 +162,15 @@ void Chassis::MoveStop(void)
 	robotDrive->SetLeftRightMotorOutputs( 0.0, 0.0 );
 }
 
+void Chassis::MoveLowShift(bool scaled)
+{
+	m_scaled = scaled;
+}
+
 void Chassis::ReverseDriveTrain(void)
 {
 	m_orientationNormal = -m_orientationNormal;
 	SmartDashboard::PutNumber("Drive Invert", m_orientationNormal);
-}
-
-void Chassis::MoveLowShift(bool scaled)
-{
-	m_scaled = scaled;
 }
 
 void Chassis::MoveDistanceWithPIDInit( double distance )
@@ -243,7 +243,6 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 }
 
 
-
 void Chassis::MoveDistanceWithPIDExecute( void )
 {
 
@@ -302,7 +301,7 @@ bool Chassis::MoveDistanceWithPIDIsAtSetpoint(void)
 //		bothOnTarget = true;
 //	}
 
-	if(m_rotations == motorL2->GetEncPosition() && m_rotations == motorR4->GetEncPosition()) {
+	if (m_rotations == motorL2->GetEncPosition() && m_rotations == motorR4->GetEncPosition()) {
 		MoveDistanceWithPIDStop();
 		bothOnTarget = true;
 	}
@@ -320,6 +319,4 @@ void Chassis::MoveDistanceWithPIDStop( void )
 	robotDrive->SetSafetyEnabled(true);
 
 	//motorR4->SetInverted(true);
-
-
 }

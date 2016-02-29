@@ -41,7 +41,7 @@ void DriveDistancePID::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistancePID::IsFinished() {
-	if((Robot::chassis->MoveDistanceWithPIDIsAtSetpoint()) == true) {
+	if ((Robot::chassis->MoveDistanceWithPIDIsAtSetpoint()) == true) {
         printf("PID is finished\n");
         return true;
 	}
