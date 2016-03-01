@@ -222,7 +222,17 @@ Children:
           validators: *id002
           value: '8'
       Base: CAN Talon
-      Name: Motor
+      Name: Motor Acquire 1
+    - Children: []
+      Properties:
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: '2'
+          name: CAN ID
+          validators: *id002
+          value: '10'
+      Base: CAN Talon
+      Name: Motor Acquire 2
     - Children: []
       Properties:
         Forward PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
@@ -317,6 +327,34 @@ Children:
           value: '4'
       Base: Double Solenoid
       Name: Fire Solenoid
+    - Children: []
+      Properties:
+        Forward PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id011
+          default: '0'
+          name: Forward PCM (Solenoid)
+          validators: *id012
+          value: '0'
+        Reverse PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id013
+          default: '0'
+          name: Reverse PCM (Solenoid)
+          validators: *id014
+          value: '0'
+        Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id015
+          default: '0'
+          name: Reverse Channel (Solenoid)
+          validators: *id016
+          value: '7'
+        Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id017
+          default: '0'
+          name: Forward Channel (Solenoid)
+          validators: *id018
+          value: '6'
+      Base: Double Solenoid
+      Name: Frame Solenoid
     Properties:
       Default command parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []

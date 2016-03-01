@@ -31,11 +31,13 @@ public:
 	static std::shared_ptr<PIDController> chassisRightPID;
 	static std::shared_ptr<CANTalon> chassisMotorL3;
 	static std::shared_ptr<CANTalon> chassisMotorR5;
-	static std::shared_ptr<CANTalon> sweeperMotor;
+	static std::shared_ptr<CANTalon> sweeperMotorAcquire1;
+	static std::shared_ptr<CANTalon> sweeperMotorAcquire2;
 	static std::shared_ptr<DoubleSolenoid> sweeperExtension;
 	static std::shared_ptr<CANTalon> shooterLowerMotor;
 	static std::shared_ptr<CANTalon> shooterUpperMotor;
 	static std::shared_ptr<DoubleSolenoid> shooterFireSolenoid;
+	static std::shared_ptr<DoubleSolenoid> shooterFrameSolenoid;
 	static std::shared_ptr<CANTalon> climberMotor;
 	static std::shared_ptr<Compressor> pneumaticsCompressor;
 

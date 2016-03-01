@@ -26,7 +26,8 @@ ShootFrameControl::ShootFrameControl(bool frameUp): Command() {
 
 // Called just before this Command runs the first time
 void ShootFrameControl::Initialize() {
-
+	printf("2135: Shooter Frame Extend\n");
+	Robot::shooter->SetFrameControl(m_frameUp);
 }
 
 // Called repeatedly when this Command is scheduled to run

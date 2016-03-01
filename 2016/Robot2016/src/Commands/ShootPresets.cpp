@@ -58,7 +58,7 @@ void ShootPresets::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ShootPresets::Execute() {
 	Robot::shooter->SetMotorSpeeds(m_upperMotorSpeed, m_lowerMotorSpeed);
-	Robot::shooter->setFireSolenoid(true);
+	Robot::shooter->SetFireSolenoid(true);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -69,12 +69,12 @@ bool ShootPresets::IsFinished() {
 // Called once after isFinished returns true
 void ShootPresets::End() {
 	Robot::shooter->SetMotorSpeeds(0.0, 0.0);
-	Robot::shooter->setFireSolenoid(false);
+	Robot::shooter->SetFireSolenoid(false);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShootPresets::Interrupted() {
 	Robot::shooter->SetMotorSpeeds(0.0, 0.0);
-	Robot::shooter->setFireSolenoid(false);
+	Robot::shooter->SetFireSolenoid(false);
 }
