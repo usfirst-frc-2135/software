@@ -43,10 +43,10 @@ OI::OI() {
     retractClimb->WhenPressed(new Climb(false));
     extendClimb.reset(new JoystickButton(operatorJoystick.get(), 11));
     extendClimb->WhenPressed(new Climb(true));
-    shootHigh.reset(new JoystickButton(operatorJoystick.get(), 10));
+    shootReverse.reset(new JoystickButton(operatorJoystick.get(), 10));
+    shootReverse->WhileHeld(new ShootPresets(4));
+    shootHigh.reset(new JoystickButton(operatorJoystick.get(), 9));
     shootHigh->WhileHeld(new ShootPresets(1));
-    shootMid.reset(new JoystickButton(operatorJoystick.get(), 9));
-    shootMid->WhileHeld(new ShootPresets(2));
     shootLow.reset(new JoystickButton(operatorJoystick.get(), 8));
     shootLow->WhileHeld(new ShootPresets(3));
     fire.reset(new JoystickButton(operatorJoystick.get(), 7));
@@ -75,6 +75,7 @@ OI::OI() {
     SmartDashboard::PutData("Shoot Presets: HIGH", new ShootPresets(1));
     SmartDashboard::PutData("Shoot Presets: MID", new ShootPresets(2));
     SmartDashboard::PutData("Shoot Presets: LOW", new ShootPresets(3));
+    SmartDashboard::PutData("Shoot Presets: REVERSE", new ShootPresets(4));
     SmartDashboard::PutData("Shoot: DEFAULT", new Shoot(1, 1));
     SmartDashboard::PutData("Drive Distance PID: DEFAULT", new DriveDistancePID(0, 0));
     SmartDashboard::PutData("Drive Distance Timed: DEFAULT", new DriveDistanceTimed(3.0, 0));

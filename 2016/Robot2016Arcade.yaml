@@ -758,7 +758,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: direction,
-            type: int, value: '2'}
+            type: int, value: '1'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id020
           default: '1'
@@ -778,7 +778,7 @@ Children:
           validators: null
           value: whileHeld
       Base: Joystick Button
-      Name: Shoot Mid
+      Name: Shoot High
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
@@ -789,7 +789,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: direction,
-            type: int, value: '1'}
+            type: int, value: '4'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id020
           default: '1'
@@ -809,7 +809,7 @@ Children:
           validators: null
           value: whileHeld
       Base: Joystick Button
-      Name: Shoot High
+      Name: Shoot Reverse
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
@@ -1134,6 +1134,10 @@ Children:
           name: LOW
           parameters:
           - {name: direction, type: int, value: '3'}
+        - !!robotbuilder.data.properties.ParameterSet
+          name: REVERSE
+          parameters:
+          - {name: direction, type: int, value: '4'}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command

@@ -48,6 +48,13 @@ void ShootPresets::Initialize() {
 		printf("2135: High Shot speed set\n");
 	}
 
+	//For Reverse Direction
+	else if (m_direction == 4) {
+		m_upperMotorSpeed = -0.75;
+		m_lowerMotorSpeed = -0.75;
+		printf("2135: Reverse Direction speed set\n");
+	}
+
 	else {
 		m_upperMotorSpeed = 0;
 		m_lowerMotorSpeed = 0;
