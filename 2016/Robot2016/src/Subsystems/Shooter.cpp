@@ -83,7 +83,6 @@ void Shooter::SetFireSolenoid(bool fire) {
 	}
 }
 
-//TODO: Please check this and see if its right
 void Shooter::SetFrameControl(bool frameUp) {
 	if (frameUp) {
 		frameSolenoid->Set(frameSolenoid->kForward);
