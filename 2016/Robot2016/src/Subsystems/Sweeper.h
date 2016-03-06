@@ -40,6 +40,7 @@ public:
 	void Initialize(Preferences *prefs);
 	void Extend(bool extend);
 	void SetMotorSpeed(double);
+	void SetIndexerSpeed(double);
 
 };
 

@@ -63,5 +63,8 @@ void Sweeper::Extend(bool extend) {
 
 void Sweeper::SetMotorSpeed(double speed) {
 	motorAcquire1->Set(speed);
+}
+
+void Sweeper::SetIndexerSpeed(double speed) {
 	motorAcquire2->Set(speed);
 }
