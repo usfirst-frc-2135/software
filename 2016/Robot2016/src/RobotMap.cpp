@@ -66,28 +66,28 @@ void RobotMap::init() {
     chassisMotorR5.reset(new CANTalon(5));
     lw->AddActuator("Chassis", "MotorR5", chassisMotorR5);
     
-    sweeperMotorAcquire1.reset(new CANTalon(8));
+    sweeperMotorAcquire1.reset(new CANTalon(6));
     lw->AddActuator("Sweeper", "Motor Acquire 1", sweeperMotorAcquire1);
     
-    sweeperMotorAcquire2.reset(new CANTalon(10));
+    sweeperMotorAcquire2.reset(new CANTalon(7));
     lw->AddActuator("Sweeper", "Motor Acquire 2", sweeperMotorAcquire2);
     
-    sweeperExtension.reset(new DoubleSolenoid(0, 2, 3));
+    sweeperExtension.reset(new DoubleSolenoid(0, 1, 6));
     lw->AddActuator("Sweeper", "Extension", sweeperExtension);
     
-    shooterLowerMotor.reset(new CANTalon(6));
+    shooterLowerMotor.reset(new CANTalon(8));
     lw->AddActuator("Shooter", "Lower Motor", shooterLowerMotor);
     
-    shooterUpperMotor.reset(new CANTalon(7));
+    shooterUpperMotor.reset(new CANTalon(9));
     lw->AddActuator("Shooter", "Upper Motor", shooterUpperMotor);
     
-    shooterFireSolenoid.reset(new DoubleSolenoid(0, 4, 5));
+    shooterFireSolenoid.reset(new DoubleSolenoid(0, 3, 4));
     lw->AddActuator("Shooter", "Fire Solenoid", shooterFireSolenoid);
     
-    shooterFrameSolenoid.reset(new DoubleSolenoid(0, 6, 7));
+    shooterFrameSolenoid.reset(new DoubleSolenoid(0, 2, 5));
     lw->AddActuator("Shooter", "Frame Solenoid", shooterFrameSolenoid);
     
-    climberMotor.reset(new CANTalon(9));
+    climberMotor.reset(new CANTalon(10));
     lw->AddActuator("Climber", "Motor", climberMotor);
     
     pneumaticsCompressor.reset(new Compressor(0));
