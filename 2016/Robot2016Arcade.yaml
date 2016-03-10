@@ -1568,7 +1568,7 @@ Children:
         value:
         - !!robotbuilder.data.properties.ParameterDescriptor {name: Direction, type: int}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Sweeper}
+        name: Requires, type: Subsystem, validators: null, value: None}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
         name: Parameter presets
