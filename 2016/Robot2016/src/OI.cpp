@@ -17,7 +17,7 @@
 #include "Commands/ArmMotorEnable.h"
 #include "Commands/AutonomousCommand.h"
 #include "Commands/Climb.h"
-#include "Commands/CompressorEnable.h"
+#include "Commands/CompressorControl.h"
 #include "Commands/DriveDistanceDelayed.h"
 #include "Commands/DriveDistancePID.h"
 #include "Commands/DriveDistanceTimed.h"
@@ -59,11 +59,11 @@ OI::OI() {
     frameUp.reset(new JoystickButton(controlBoardA.get(), 8));
     frameUp->WhenPressed(new ShootFrameControl(true));
     indexerExpel.reset(new JoystickButton(controlBoardA.get(), 6));
-    indexerExpel->WhileHeld(new IndexerMotorEnable(2));
+    indexerExpel->WhileHeld(new IndexerMotorEnable(-1));
     indexerAcquire.reset(new JoystickButton(controlBoardA.get(), 5));
     indexerAcquire->WhileHeld(new IndexerMotorEnable(1));
     sweeperExpel.reset(new JoystickButton(controlBoardA.get(), 4));
-    sweeperExpel->WhileHeld(new ArmMotorEnable(2));
+    sweeperExpel->WhileHeld(new ArmMotorEnable(-1));
     sweeperAcquire.reset(new JoystickButton(controlBoardA.get(), 3));
     sweeperAcquire->WhileHeld(new ArmMotorEnable(1));
     retractArm.reset(new JoystickButton(controlBoardA.get(), 2));
@@ -103,6 +103,13 @@ OI::OI() {
     SmartDashboard::PutData("Shoot Presets: LOW", new ShootPresets(3));
     SmartDashboard::PutData("Shoot Presets: REVERSE", new ShootPresets(4));
     SmartDashboard::PutData("Shoot: DEFAULT", new Shoot(1, 1));
+    SmartDashboard::PutData("Shoot Frame Control: DEFAULT", new ShootFrameControl(false));
+    SmartDashboard::PutData("Shoot Frame Control: EXTEND", new ShootFrameControl(true));
+    SmartDashboard::PutData("Shoot Frame Control: RETRACT", new ShootFrameControl(false));
+    SmartDashboard::PutData("Arm Extend: DEFAULT", new ArmExtend(false));
+    SmartDashboard::PutData("Arm Extend: EXTENDED", new ArmExtend(true));
+    SmartDashboard::PutData("Arm Extend: RETRACTED", new ArmExtend(false));
+    SmartDashboard::PutData("Drive Distance Delayed: DEFAULT", new DriveDistanceDelayed(5, 0, 0));
     SmartDashboard::PutData("Drive Distance PID: DEFAULT", new DriveDistancePID(0, 0));
     SmartDashboard::PutData("Drive Distance Timed: DEFAULT", new DriveDistanceTimed(3.0, 0));
     SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
