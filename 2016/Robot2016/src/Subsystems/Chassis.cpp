@@ -65,10 +65,10 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorR4->ConfigPeakOutputVoltage( +5, -5);
     motorR4->ConfigNominalOutputVoltage(+0, -0);
 
-    m_drivePidSpeedMin = -0.5;
-    m_drivePidSpeedMax = 0.5;
+    m_drivePidSpeedMin = -0.75;
+    m_drivePidSpeedMax = 0.75;
     m_driveDistance = 0.0;
-    m_orientationNormal = -1.0;
+    m_driveDirection = -1.0;
     m_driveDistanceTimed = 3.0;
     m_rotations = 0.0;
     m_speedControl = 1.0;
@@ -139,7 +139,7 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	double xValue;
 
 	xValue = joystick->GetX() * -1;
-	yValue = joystick->GetY() * m_orientationNormal;
+	yValue = joystick->GetY() * m_driveDirection;
 
 	if (m_scaled) {
 		yValue = yValue * m_speedControl;
@@ -169,8 +169,8 @@ void Chassis::MoveLowShift(bool scaled)
 
 void Chassis::ReverseDriveTrain(void)
 {
-	m_orientationNormal = -m_orientationNormal;
-	SmartDashboard::PutNumber("Drive Invert", m_orientationNormal);
+	m_driveDirection = -m_driveDirection;
+	SmartDashboard::PutNumber("Drive Invert", m_driveDirection);
 }
 
 void Chassis::MoveDistanceWithPIDInit( double distance )
@@ -224,8 +224,8 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 	motorL2->SetAllowableClosedLoopErr(abstolerance);
 	motorR4->SetAllowableClosedLoopErr(abstolerance);
 
-	motorL2->SetPID( proportional, 0.0, 0.0 );
-	motorR4->SetPID( proportional, 0.0, 0.0 );
+	motorL2->SetPID( (double) proportional, 0.0, 0.0 );
+	motorR4->SetPID( (double) proportional, 0.0, 0.0 );
 
 	motorL2->SetVoltageRampRate(voltageRampRate);
 	motorL2->SetControlMode(CANSpeedController::ControlMode::kPosition);
@@ -244,7 +244,8 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 
 void Chassis::MoveDistanceWithPIDExecute( void )
 {
-
+	// TODO: These will never be equal as double precision numbers
+	//	Needs to be ( abs(motorL2->GetEncPosition() - m_rotations) <= m_absoluteTolerance)
 	if (m_rotations == motorL2->GetEncPosition()) {
 //		motorL2->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 		printf("2135: Left PID is Disabled\n");

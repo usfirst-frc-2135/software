@@ -26,18 +26,16 @@ IndexerMotorEnable::IndexerMotorEnable(int Direction): Command() {
 
 // Called just before this Command runs the first time
 void IndexerMotorEnable::Initialize() {
-	m_indexerSpeed = SmartDashboard::GetNumber("IndexerSpeed", 0.50);
+	m_indexerSpeed = SmartDashboard::GetNumber("IndexerSpeed", 0.90);
 
 	if (m_Direction == 1) { 							// Acquire
 		printf("2135: Indexer Motor Enable Acquire\n");
 		m_indexerSpeed *= 1;
 	}
-
 	else if (m_Direction == -1) {						// Expel
 		printf("2135: Indexer Motor Enable Expel\n");
 		m_indexerSpeed *= -1;
 	}
-
 	else {
 		m_indexerSpeed = 0;								// Default
 	}

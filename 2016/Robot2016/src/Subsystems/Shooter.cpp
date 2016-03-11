@@ -33,8 +33,8 @@ Shooter::Shooter() : Subsystem("Shooter") {
     lowerMotor->SetSafetyEnabled(false);
     upperMotor->SetSafetyEnabled(false);
 
-    m_upperSpeed = 0.8;
-    m_lowerSpeed = 0.5;
+    m_upperSpeed = 0.85;
+    m_lowerSpeed = 0.6;
 
     lowerMotor->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     upperMotor->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
@@ -56,8 +56,8 @@ void Shooter::InitDefaultCommand() {
 
 void Shooter::Initialize(Preferences *prefs) {
 	printf("2135: Shooter Initialize\n");
-	m_upperSpeed = Robot::LoadPreferencesVariable("ShooterUpperSpeed", 0.5);
-	m_lowerSpeed = Robot::LoadPreferencesVariable("ShooterLowerSpeed", 0.5);
+	m_upperSpeed = Robot::LoadPreferencesVariable("ShooterUpperSpeed", 0.95);
+	m_lowerSpeed = Robot::LoadPreferencesVariable("ShooterLowerSpeed", 0.7);
 
 	SmartDashboard::PutNumber("LowShotUpperMotor", Robot::LoadPreferencesVariable ("LowShotUpperMotor", 0.75));
 	SmartDashboard::PutNumber("LowShotLowerMotor", Robot::LoadPreferencesVariable ("LowShotLowerMotor", 0.5));

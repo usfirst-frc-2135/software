@@ -33,12 +33,10 @@ void ArmMotorEnable::Initialize() {
 		printf("2135: Arm Motor Enable Acquire\n");
 		m_sweeperSpeed *= 1;
 	}
-
 	else if (m_Direction == -1) {						// Expel
 		printf("2135: Arm Motor Enable Expel\n");
 		m_sweeperSpeed *= -1;
 	}
-
 	else {
 		m_sweeperSpeed = 0;								// Default
 	}
