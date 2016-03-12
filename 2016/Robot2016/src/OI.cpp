@@ -28,6 +28,7 @@
 #include "Commands/DriveWait.h"
 #include "Commands/FireBoulder.h"
 #include "Commands/IndexerMotorEnable.h"
+#include "Commands/LoadShooter.h"
 #include "Commands/Shoot.h"
 #include "Commands/ShootFrameControl.h"
 #include "Commands/ShootPresets.h"
@@ -59,9 +60,9 @@ OI::OI() {
     frameUp.reset(new JoystickButton(controlBoardA.get(), 8));
     frameUp->WhenPressed(new ShootFrameControl(true));
     indexerExpel.reset(new JoystickButton(controlBoardA.get(), 6));
-    indexerExpel->WhileHeld(new IndexerMotorEnable(-1));
+    indexerExpel->WhileHeld(new LoadShooter(-1, -1));
     indexerAcquire.reset(new JoystickButton(controlBoardA.get(), 5));
-    indexerAcquire->WhileHeld(new IndexerMotorEnable(1));
+    indexerAcquire->WhileHeld(new LoadShooter(1, 1));
     sweeperExpel.reset(new JoystickButton(controlBoardA.get(), 4));
     sweeperExpel->WhileHeld(new ArmMotorEnable(-1));
     sweeperAcquire.reset(new JoystickButton(controlBoardA.get(), 3));
@@ -77,7 +78,7 @@ OI::OI() {
     retractArmDstick.reset(new JoystickButton(driverJoystick.get(), 10));
     retractArmDstick->WhenPressed(new ArmExtend(false));
     indexerAcquireDstick.reset(new JoystickButton(driverJoystick.get(), 9));
-    indexerAcquireDstick->WhileHeld(new IndexerMotorEnable(0));
+    indexerAcquireDstick->WhileHeld(new LoadShooter(1, 1));
     sweeperAcquireDstick.reset(new JoystickButton(driverJoystick.get(), 8));
     sweeperAcquireDstick->WhileHeld(new ArmMotorEnable(0));
     extendArmDstick.reset(new JoystickButton(driverJoystick.get(), 7));

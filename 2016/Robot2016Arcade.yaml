@@ -697,8 +697,10 @@ Children:
           name: Parameters
           validators: null
           value:
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: lowerMotorSpeed,
+            type: double, value: '1'}
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Direction,
-            type: int, value: '0'}
+            type: int, value: '1'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id020
           default: '1'
@@ -710,7 +712,7 @@ Children:
           name: Command
           type: Command
           validators: *id021
-          value: Indexer Motor Enable
+          value: Load Shooter
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id022
           default: whileHeld
@@ -924,6 +926,8 @@ Children:
           name: Parameters
           validators: null
           value:
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: lowerMotorSpeed,
+            type: double, value: '1'}
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Direction,
             type: int, value: '1'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
@@ -937,7 +941,7 @@ Children:
           name: Command
           type: Command
           validators: *id021
-          value: Indexer Motor Enable
+          value: Load Shooter
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id022
           default: whileHeld
@@ -955,6 +959,8 @@ Children:
           name: Parameters
           validators: null
           value:
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: lowerMotorSpeed,
+            type: double, value: '-1'}
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Direction,
             type: int, value: '-1'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
@@ -968,7 +974,7 @@ Children:
           name: Command
           type: Command
           validators: *id021
-          value: Indexer Motor Enable
+          value: Load Shooter
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id022
           default: whileHeld
@@ -1420,7 +1426,7 @@ Children:
       Commands: !!robotbuilder.data.properties.ListProperty
         default: []
         name: Commands
-        validators: [List]
+        validators: &id033 [List]
         value:
         - &id028 !!robotbuilder.data.CommandGroupEntry
           command:
@@ -1622,7 +1628,7 @@ Children:
     Base: Command
     Name: Shoot Frame Control
   - Children: []
-    Properties:
+    Properties: &id032
       Parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
         name: Parameters
@@ -1759,6 +1765,124 @@ Children:
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: Compressor Control
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: lowerMotorSpeed,
+          type: double}
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: Direction, type: int}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id030
+        - !!robotbuilder.data.properties.ParameterSet
+          name: DEFAULT
+          parameters:
+          - {name: lowerMotorSpeed, type: double, value: '0'}
+          - {name: Direction, type: int, value: '0'}
+        - !!robotbuilder.data.properties.ParameterSet
+          name: FORWARD
+          parameters:
+          - {name: lowerMotorSpeed, type: double, value: '1'}
+          - {name: Direction, type: int, value: '1'}
+        - !!robotbuilder.data.properties.ParameterSet
+          name: REVERSE
+          parameters:
+          - {name: lowerMotorSpeed, type: double, value: '-1'}
+          - {name: Direction, type: int, value: '-1'}
+        name: Parameter presets
+        validators: null
+        value: *id030
+      Commands: !!robotbuilder.data.properties.ListProperty
+        default: &id034
+        - !!robotbuilder.data.CommandGroupEntry
+          command:
+            base:
+              help: A command specifies an action that the robot can perform.
+              name: Command
+              properties:
+              - !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+                name: Requires, type: Subsystem, validators: null, value: None}
+              - !!robotbuilder.data.properties.BooleanProperty {default: true, name: Button on SmartDashboard,
+                validators: null, value: true}
+              - !!robotbuilder.data.properties.ParametersProperty
+                default: []
+                name: Parameters
+                validators: null
+                value: []
+              - !!robotbuilder.data.properties.ParameterSetProperty
+                default: &id031 []
+                name: Parameter presets
+                validators: null
+                value: *id031
+              supports: {}
+              type: Command
+            name: Indexer Motor Enable
+            properties:
+              Parameters: !!robotbuilder.data.properties.ParametersProperty
+                default: []
+                name: Parameters
+                validators: null
+                value:
+                - !!robotbuilder.data.properties.ParameterDescriptor {name: Direction,
+                  type: int}
+              Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+                name: Requires, type: Subsystem, validators: null, value: None}
+              Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+                default: []
+                name: Parameter presets
+                validators: null
+                value:
+                - !!robotbuilder.data.properties.ParameterSet
+                  name: DEFAULT
+                  parameters:
+                  - {name: Direction, type: int, value: '0'}
+                - !!robotbuilder.data.properties.ParameterSet
+                  name: FORWARD
+                  parameters:
+                  - {name: Direction, type: int, value: '1'}
+                - !!robotbuilder.data.properties.ParameterSet
+                  name: REVERSE
+                  parameters:
+                  - {name: Direction, type: int, value: '-1'}
+              Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {
+                default: true, name: Button on SmartDashboard, validators: null, value: false}
+          hasMatch: true
+          order: Parallel
+          parameters:
+            default: []
+            name: ParametersProperty
+            validators: null
+            value:
+            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Direction,
+              type: int, value: '1'}
+          previous: null
+        - !!robotbuilder.data.CommandGroupEntry
+          command:
+            base: *id026
+            name: Shoot
+            properties: *id032
+          hasMatch: true
+          order: Parallel
+          parameters:
+            default: []
+            name: ParametersProperty
+            validators: null
+            value:
+            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: upperMotorSpeed,
+              type: double, value: '0'}
+            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: lowerMotorSpeed,
+              type: double, value: '0'}
+          previous: null
+        name: Commands
+        validators: *id033
+        value: *id034
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command Group
+    Name: Load Shooter
   Properties: {}
   Base: Commands
   Name: Commands
