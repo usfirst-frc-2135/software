@@ -38,6 +38,9 @@ Shooter::Shooter() : Subsystem("Shooter") {
 
     lowerMotor->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     upperMotor->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+
+
+    SetFrameControl(false);
 }
 
 void Shooter::InitDefaultCommand() {

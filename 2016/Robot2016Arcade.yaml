@@ -1107,7 +1107,7 @@ Children:
         default: 1
         name: Number
         validators: *id024
-        value: '2'
+        value: '1'
     Base: Joystick
     Name: Control Board A
   - Children:
@@ -1239,7 +1239,7 @@ Children:
         default: 1
         name: Number
         validators: *id024
-        value: '3'
+        value: '2'
     Base: Joystick
     Name: Control Board B
   Properties: {}
