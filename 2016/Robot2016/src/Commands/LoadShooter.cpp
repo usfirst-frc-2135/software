@@ -36,5 +36,5 @@ LoadShooter::LoadShooter(double lowerMotorSpeed, int Direction): CommandGroup() 
     // a CommandGroup containing them would require both the chassis and the
     // arm.
         AddParallel(new IndexerMotorEnable(Direction));
-        AddParallel(new Shoot(0, lowerMotorSpeed));
+        //AddParallel(new Shoot(0, lowerMotorSpeed));
  }

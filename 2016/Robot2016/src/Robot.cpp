@@ -68,7 +68,7 @@ void Robot::RobotInit() {
 
 	printf("2135: Building autonomous chooser complete\n");
 
-//	CameraServer::GetInstance()->StartAutomaticCapture("cam1");
+//	CameraServer::GetInstance()->StartAutomaticCapture("cam0");
   }
 
 /**

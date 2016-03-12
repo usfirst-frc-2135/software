@@ -94,7 +94,7 @@ OI::OI() {
     driveInvertDirection.reset(new JoystickButton(driverJoystick.get(), 2));
     driveInvertDirection->WhenPressed(new DriveTrainInvert(false));
     driveShift.reset(new JoystickButton(driverJoystick.get(), 1));
-    driveShift->WhileHeld(new DriveShiftLow(true));
+    driveShift->WhileHeld(new DriveShiftLow(false));
 
     // SmartDashboard Buttons
     SmartDashboard::PutData("Fire Boulder", new FireBoulder());
