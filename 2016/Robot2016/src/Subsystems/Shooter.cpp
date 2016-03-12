@@ -81,10 +81,10 @@ void Shooter::SetMotorSpeeds(double upperSpeed, double lowerSpeed) {
 
 void Shooter::SetFireSolenoid(bool fire) {
 	if (fire) {
-		fireSolenoid->Set(DoubleSolenoid::kForward);
+		fireSolenoid->Set(DoubleSolenoid::kReverse);
 	}
 	else {
-		fireSolenoid->Set(DoubleSolenoid::kReverse);
+		fireSolenoid->Set(DoubleSolenoid::kForward);
 	}
 }
 
