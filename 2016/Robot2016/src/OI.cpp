@@ -21,6 +21,7 @@
 #include "Commands/DriveDistanceDelayed.h"
 #include "Commands/DriveDistancePID.h"
 #include "Commands/DriveDistanceTimed.h"
+#include "Commands/DriveShiftHigh.h"
 #include "Commands/DriveShiftLow.h"
 #include "Commands/DriveStop.h"
 #include "Commands/DriveTeleop.h"
@@ -94,7 +95,7 @@ OI::OI() {
     driveInvertDirection.reset(new JoystickButton(driverJoystick.get(), 2));
     driveInvertDirection->WhenPressed(new DriveTrainInvert(false));
     driveShift.reset(new JoystickButton(driverJoystick.get(), 1));
-    driveShift->WhileHeld(new DriveShiftLow(false));
+    driveShift->WhileHeld(new DriveShiftHigh(false));
 
     // SmartDashboard Buttons
     SmartDashboard::PutData("Fire Boulder", new FireBoulder());

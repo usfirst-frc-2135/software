@@ -447,8 +447,8 @@ Children:
           name: Parameters
           validators: null
           value:
-          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: lowSpeed,
-            type: boolean, value: 'true'}
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: scaled,
+            type: boolean, value: 'false'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id020 ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
             '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
@@ -462,7 +462,7 @@ Children:
           name: Command
           type: Command
           validators: &id021 [TypeDropdownSelected]
-          value: Drive Shift Low
+          value: Drive Shift High
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id022 [whileHeld, whenPressed, whenReleased]
           default: whileHeld
@@ -1426,7 +1426,7 @@ Children:
       Commands: !!robotbuilder.data.properties.ListProperty
         default: []
         name: Commands
-        validators: &id033 [List]
+        validators: &id030 [List]
         value:
         - &id028 !!robotbuilder.data.CommandGroupEntry
           command:
@@ -1776,7 +1776,10 @@ Children:
           type: double}
         - !!robotbuilder.data.properties.ParameterDescriptor {name: Direction, type: int}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id030
+        default: []
+        name: Parameter presets
+        validators: null
+        value:
         - !!robotbuilder.data.properties.ParameterSet
           name: DEFAULT
           parameters:
@@ -1792,11 +1795,11 @@ Children:
           parameters:
           - {name: lowerMotorSpeed, type: double, value: '-1'}
           - {name: Direction, type: int, value: '-1'}
-        name: Parameter presets
-        validators: null
-        value: *id030
       Commands: !!robotbuilder.data.properties.ListProperty
-        default: &id034
+        default: []
+        name: Commands
+        validators: *id030
+        value:
         - !!robotbuilder.data.CommandGroupEntry
           command:
             base:
@@ -1876,13 +1879,33 @@ Children:
             - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: lowerMotorSpeed,
               type: double, value: '0'}
           previous: null
-        name: Commands
-        validators: *id033
-        value: *id034
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command Group
     Name: Load Shooter
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: scaled, type: boolean}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: None}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id033
+        - !!robotbuilder.data.properties.ParameterSet
+          name: DEFAULT
+          parameters:
+          - {name: scaled, type: boolean, value: 'false'}
+        name: Parameter presets
+        validators: null
+        value: *id033
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: Drive Shift High
   Properties: {}
   Base: Commands
   Name: Commands

@@ -72,7 +72,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_driveDistanceTimed = 3.0;
     m_rotations = 0.0;
     m_speedControl = 1.0;
-    m_scaled = false;
+    m_scaled = true;
 }
 
 void Chassis::InitDefaultCommand() {
@@ -123,7 +123,7 @@ void Chassis::Initialize(Preferences *prefs)
 	SmartDashboard::PutNumber("ChassisAbsoluteValue", Robot::LoadPreferencesVariable("ChassisAbsoluteValue", 0.2));
 
 	//SpeedControl
-	m_speedControl = Robot::LoadPreferencesVariable("SpeedControl", 1.0);
+	m_speedControl = Robot::LoadPreferencesVariable("SpeedControl", 0.9);
 	SmartDashboard::PutNumber("SpeedControl", m_speedControl);
 
 	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
