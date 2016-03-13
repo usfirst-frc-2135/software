@@ -1,129 +1,129 @@
 <xml version="1.0">
 <dashboard>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.WebcamViewerExtension">
-		<location x="413" y="-3"/>
-		<width>948</width>
-		<height>690</height>
-	</static-widget>
+	<widget field="Drive Invert" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="76" y="200"/>
+	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
-		<location x="107" y="462"/>
+		<location x="630" y="0"/>
+		<width>418</width>
+		<height>341</height>
 	</static-widget>
 	<widget field="Shoot Frame Control: EXTEND" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="398" y="102"/>
+		<location x="228" y="120"/>
 	</widget>
 	<widget field="Arm Extend: EXTENDED" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="209" y="272"/>
+		<location x="228" y="27"/>
 	</widget>
 	<widget field="Shoot Presets: HIGH" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="216" y="238"/>
+		<location x="253" y="280"/>
 	</widget>
 	<widget field="Shoot Presets: REVERSE" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="216" y="204"/>
+		<location x="234" y="310"/>
 	</widget>
 	<widget field="Shoot Presets: MID" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="209" y="170"/>
+		<location x="259" y="250"/>
 	</widget>
 	<widget field="Arm Extend: RETRACTED" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="209" y="136"/>
+		<location x="220" y="57"/>
 	</widget>
 	<widget field="Autonomous Command" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="209" y="102"/>
+		<location x="432" y="7"/>
 	</widget>
 	<widget field="Drive Distance Timed: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="367" y="68"/>
+		<location x="231" y="397"/>
 	</widget>
 	<widget field="Fire Boulder" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="209" y="34"/>
+		<location x="485" y="37"/>
 	</widget>
 	<widget field="Drive Distance Delayed: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="367" y="34"/>
+		<location x="220" y="340"/>
 	</widget>
 	<widget field="Shoot Frame Control: RETRACT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="367" y="0"/>
+		<location x="220" y="150"/>
 	</widget>
 	<widget field="Shoot: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="209" y="0"/>
+		<location x="303" y="427"/>
 	</widget>
 	<widget field="Arm Extend: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="0" y="633"/>
+		<location x="235" y="0"/>
 	</widget>
 	<widget field="Drive Distance PID: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="21" y="543"/>
+		<location x="242" y="367"/>
 	</widget>
 	<widget field="Auto Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="247" y="331"/>
+		<location x="470" y="115"/>
 	</widget>
 	<widget field="Shoot Frame Control: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="0" y="509"/>
+		<location x="222" y="90"/>
 	</widget>
 	<widget field="Shoot Presets: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="0" y="475"/>
+		<location x="234" y="190"/>
 	</widget>
 	<widget field="Shoot Presets: LOW" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="0" y="441"/>
+		<location x="255" y="220"/>
 	</widget>
 	<widget field="SpeedControl" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="420"/>
+		<location x="69" y="180"/>
 	</widget>
 	<widget field="LowShotUpperMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="399"/>
+		<location x="36" y="310"/>
 	</widget>
 	<widget field="Speed Control" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="378"/>
+		<location x="66" y="160"/>
 	</widget>
 	<widget field="ChassisDriveTimed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="357"/>
+		<location x="45" y="220"/>
 	</widget>
 	<widget field="ChassisProportional" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="336"/>
+		<location x="40" y="140"/>
 	</widget>
 	<widget field="HighShotUpperMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="315"/>
+		<location x="34" y="410"/>
 	</widget>
 	<widget field="HighShotLowerMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="294"/>
+		<location x="34" y="390"/>
 	</widget>
 	<widget field="SetMotorSpeed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="273"/>
+		<location x="60" y="270"/>
 	</widget>
 	<widget field="ChassisVolageRampRate" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="252"/>
+		<location x="16" y="60"/>
 	</widget>
 	<widget field="ChassisPeakOutputVoltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="231"/>
+		<location x="5" y="100"/>
 	</widget>
 	<widget field="Upper Shooter Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="210"/>
+		<location x="31" y="430"/>
 	</widget>
 	<widget field="MidShotUpperMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="189"/>
+		<location x="40" y="370"/>
 	</widget>
 	<widget field="Right Encoder Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="168"/>
+		<location x="27" y="20"/>
 	</widget>
 	<widget field="MidShotLowerMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="147"/>
+		<location x="40" y="350"/>
 	</widget>
 	<widget field="ChassisAbsoluteValue" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="126"/>
+		<location x="30" y="80"/>
 	</widget>
 	<widget field="Drive Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="105"/>
+		<location x="65" y="240"/>
 	</widget>
 	<widget field="Left Encoder Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="84"/>
+		<location x="33" y="0"/>
 	</widget>
 	<widget field="ChassisDriveTimedSpeed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="63"/>
+		<location x="15" y="120"/>
 	</widget>
 	<widget field="Lower Shooter Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="42"/>
+		<location x="31" y="330"/>
 	</widget>
 	<widget field="ChassisVoltageRampRate" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="21"/>
+		<location x="12" y="40"/>
 	</widget>
 	<widget field="LowShotLowerMotor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="0"/>
+		<location x="36" y="290"/>
 	</widget>
 </dashboard>
 <live-window>
