@@ -76,8 +76,12 @@ void Robot::RobotInit() {
 
 	printf("2135: Building autonomous chooser complete\n");
 
+<<<<<<< HEAD
 	// Start up the camera
 	CameraServer::GetInstance()->StartAutomaticCapture("cam1");
+=======
+//	CameraServer::GetInstance()->StartAutomaticCapture("cam0");
+>>>>>>> branch 'master' of https://github.com/usfirst-frc-2135/software.git
   }
 
 /**

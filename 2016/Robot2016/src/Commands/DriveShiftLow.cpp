@@ -26,7 +26,7 @@ DriveShiftLow::DriveShiftLow(bool lowSpeed): Command() {
 // Called just before this Command runs the first time
 void DriveShiftLow::Initialize() {
 	printf("2135: Drive Shift Low Initialized\n");
-	Robot::chassis->MoveLowShift(true);
+	Robot::chassis->MoveLowShift(false);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -42,12 +42,12 @@ bool DriveShiftLow::IsFinished() {
 // Called once after isFinished returns true
 void DriveShiftLow::End() {
 	printf("2135: Drive Shift Low Ended\n");
-	Robot::chassis->MoveLowShift(false);
+	Robot::chassis->MoveLowShift(true);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveShiftLow::Interrupted() {
 	printf("2135: Robot is Interrupted\n");
-	Robot::chassis->MoveLowShift(false);
+	Robot::chassis->MoveLowShift(true);
 }
