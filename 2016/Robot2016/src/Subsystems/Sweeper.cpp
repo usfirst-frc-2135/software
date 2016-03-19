@@ -47,8 +47,6 @@ void Sweeper::Initialize(Preferences *prefs) {
 	printf("2135: Sweeper Initialize\n");
 
 	//Initialize and read file
-	//SetMotorSpeed
-	SmartDashboard::PutNumber("SetMotorSpeed", Robot::LoadPreferencesVariable("SetMotorSpeed", 0.90));
 
 	// Ensure Talons are in proper coast/brake mode
     motorAcquire1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
