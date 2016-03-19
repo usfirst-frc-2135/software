@@ -11,7 +11,7 @@
 
 #include "Robot.h"
 #include "Commands/DriveStop.h"
-#include "Commands/DriveDistancePID.h"
+#include "Commands/DriveDistanceDelayed.h"
 #include "Commands/DriveDistanceTimed.h"
 
 
@@ -61,9 +61,9 @@ void Robot::RobotInit() {
 
 	//autoChooser
 	chooser = new SendableChooser();
-	chooser->AddDefault("Sit still", new DriveStop);
-	chooser->AddObject("Drive distance", new DriveDistancePID(15, 0.75));
-	chooser->AddObject("Drive timed", new DriveDistanceTimed(15, 0.75));
+	chooser->AddDefault("Sit still", (void*) SITSTILL);
+	chooser->AddObject("Drive distance", (void*) DRIVEDISTANCE);
+	chooser->AddObject("Drive timed", (void*) DRIVETIMED);
 	SmartDashboard::PutData("Auto Mode Chooser", chooser);
 
 	printf("2135: Building autonomous chooser complete\n");
@@ -76,7 +76,9 @@ void Robot::RobotInit() {
  * You can use it to reset subsystems before shutting down.
  */
 void Robot::DisabledInit() {
-
+	printf("2135: DisabledInit Running\n");
+	if (autonomousCommand.get() != nullptr)
+				autonomousCommand->Cancel();
 }
 
 void Robot::DisabledPeriodic() {
@@ -84,10 +86,17 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
-	autonomousCommand.reset((Command *) chooser->GetSelected());
-	if (autonomousCommand.get() != nullptr)
+	printf("2135: Starting Autonomous Command\n");
+	switch((int)(chooser->GetSelected())) {
+		default:
+		case SITSTILL: autonomousCommand.reset(new DriveStop); break;
+		case DRIVEDISTANCE: autonomousCommand.reset(new DriveDistanceDelayed(0.0, 0.0, 0.0)); break;
+		case DRIVETIMED: autonomousCommand.reset(new DriveDistanceTimed(15, 0.75)); break;
+	}
+	if (autonomousCommand.get() != nullptr) {
 		autonomousCommand->Start();
-
+		printf("2135: Autonomous Command Started\n");
+	}
 }
 
 void Robot::AutonomousPeriodic() {

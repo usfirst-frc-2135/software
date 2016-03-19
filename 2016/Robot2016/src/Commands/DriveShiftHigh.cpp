@@ -25,7 +25,7 @@ DriveShiftHigh::DriveShiftHigh(bool scaled): Command() {
 // Called just before this Command runs the first time
 void DriveShiftHigh::Initialize() {
 	printf("2135: Drive Shift High Initialized\n");
-	Robot::chassis->MoveLowShift(true);
+	Robot::chassis->MoveLowShift(false);
 }
 
 // Called repeatedly when this Command is scheduled to run
