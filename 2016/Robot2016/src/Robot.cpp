@@ -67,8 +67,8 @@ void Robot::RobotInit() {
 	SmartDashboard::PutData("Auto Mode Chooser", chooser);
 
 	// Display scheduler status
-	SmartDashboard::PutData(Scheduler::GetInstance());
-//	SmartDashboard::PutData(chassis);
+//	SmartDashboard::PutData(Scheduler::GetInstance());
+//	SmartDashboard::PutData(chassis.get());
 //	SmartDashboard::PutData(sweeper);
 //	SmartDashboard::PutData(shooter);
 //	SmartDashboard::PutData(climber);
