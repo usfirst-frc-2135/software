@@ -65,8 +65,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorR4->ConfigPeakOutputVoltage( +5, -5);
     motorR4->ConfigNominalOutputVoltage(+0, -0);
 
-    m_drivePidSpeedMin = -0.75;
-    m_drivePidSpeedMax = 0.75;
+
     m_driveDistance = 0.0;
     m_driveDirection = -1.0;
     m_driveDistanceTimed = 3.0;
@@ -95,12 +94,6 @@ void Chassis::Initialize(Preferences *prefs)
 	printf("2135: Chassis Initialize\n");
 
 	//Initialize and read preferences file
-	//ChassisMinRange
-	m_drivePidSpeedMin = Robot::LoadPreferencesVariable("ChassisMinRange", -0.7);
-
-	//ChassisMaxRange
-	m_drivePidSpeedMax = Robot::LoadPreferencesVariable("ChassisMaxRange", 0.7);
-
 	//ChassisDriveDistance
 	m_driveDistance = Robot::LoadPreferencesVariable("ChassisDriveDistance", 0.0);
 
