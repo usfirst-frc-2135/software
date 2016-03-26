@@ -42,7 +42,7 @@ private:
 	double m_driveDistanceTimed;	// UNUSED?
 	double m_driveDirection;		// Allows chassis drive direction change
 	double m_rotations;				// Number of rotations for drive distance
-	double m_speedControl;			// Scaling applied to joystick for SW shifting
+	double m_driveScalingFactor;			// Scaling applied to joystick for SW shifting
 	bool m_scaled;					// Indicates scaling is applied
 
 public:

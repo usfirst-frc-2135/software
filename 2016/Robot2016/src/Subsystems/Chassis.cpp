@@ -70,7 +70,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_driveDirection = -1.0;
     m_driveDistanceTimed = 3.0;
     m_rotations = 0.0;
-    m_speedControl = 0.9;
+    m_driveScalingFactor = 0.9;
     m_scaled = true;
 }
 
@@ -113,13 +113,13 @@ void Chassis::Initialize(Preferences *prefs)
 	//ChassisProportional
 	SmartDashboard::PutNumber("ChassisProportional", Robot::LoadPreferencesVariable("ChassisProportional", 0.3));
 
-	//ChassisAbsoluteValue
-	SmartDashboard::PutNumber("ChassisAbsoluteValue", Robot::LoadPreferencesVariable("ChassisAbsoluteValue", 0.2));
+	//ChassisAbsoluteTolerance
+	SmartDashboard::PutNumber("ChassisAbsoluteTolerance", Robot::LoadPreferencesVariable("ChassisAbsoluteTolerance", 0.2));
 
-	//SpeedControl
-	m_speedControl = Robot::LoadPreferencesVariable("SpeedControl", 0.75);
+	//DriveScalingFactor
+	m_driveScalingFactor = Robot::LoadPreferencesVariable("DriveScalingFactor", 0.75);
 
-	SmartDashboard::PutNumber("SpeedControl", m_speedControl);
+	SmartDashboard::PutNumber("DriveScalingFactor", m_driveScalingFactor);
 
 	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
 
@@ -137,8 +137,8 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	yValue = joystick->GetY() * m_driveDirection;
 
 	if (m_scaled) {
-		yValue = yValue * m_speedControl;
-		xValue = xValue * m_speedControl;
+		yValue = yValue * m_driveScalingFactor;
+		xValue = xValue * m_driveScalingFactor;
 	}
 
 	robotDrive->ArcadeDrive( yValue, xValue, true );
@@ -173,7 +173,7 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 	double voltageRampRate = SmartDashboard::GetNumber("ChassisVoltageRampRate", 8.0);
 	double peakOutputVoltage = SmartDashboard::GetNumber("ChassisPeakOutputVoltage", 5.0);
 	double proportional = SmartDashboard::GetNumber("ChassisProportional", 0.3);
-	double abstolerance = SmartDashboard::GetNumber("ChassisAbsoluteValue", 0.2);
+	double abstolerance = SmartDashboard::GetNumber("ChassisAbsoluteTolerance", 0.2);
 
 	motorL2->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
 	motorR4->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
