@@ -62,7 +62,7 @@ void Robot::RobotInit() {
 	// Build and display autoChooser
 	chooser = new SendableChooser();
 	chooser->AddDefault("Sit still", (void*) SITSTILL);
-	chooser->AddObject("Drive distance", (void*) DRIVEDISTANCE);
+	chooser->AddObject("Drive Low Bar", (void*) DRIVELOWBAR);
 	chooser->AddObject("Drive timed", (void*) DRIVETIMED);
 	SmartDashboard::PutData("Auto Mode Chooser", chooser);
 
@@ -99,8 +99,8 @@ void Robot::AutonomousInit() {
 	switch((int)(chooser->GetSelected())) {
 		default:
 		case SITSTILL: autonomousCommand.reset(new DriveStop); break;
-		case DRIVEDISTANCE: autonomousCommand.reset(new DriveDistanceDelayed(0.0, 0.0, 0.0)); break;
-		case DRIVETIMED: autonomousCommand.reset(new DriveDistanceTimed(15, 0.75)); break;
+		case DRIVELOWBAR: autonomousCommand.reset(new DriveDistanceDelayed()); break;
+		case DRIVETIMED: autonomousCommand.reset(new DriveDistanceTimed()); break;
 	}
 	if (autonomousCommand.get() != nullptr) {
 		autonomousCommand->Start();

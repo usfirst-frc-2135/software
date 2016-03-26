@@ -44,6 +44,7 @@ private:
 	double m_rotations;				// Number of rotations for drive distance
 	double m_driveScalingFactor;			// Scaling applied to joystick for SW shifting
 	bool m_scaled;					// Indicates scaling is applied
+	double m_autoDriveWaitTime;		// Indicates wait time for robot during auton
 
 public:
 	RobotDrive* robotDrive;
