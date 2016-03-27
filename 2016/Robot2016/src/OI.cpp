@@ -21,6 +21,7 @@
 #include "Commands/DriveDistanceDelayed.h"
 #include "Commands/DriveDistancePID.h"
 #include "Commands/DriveDistanceTimed.h"
+#include "Commands/DriveFast.h"
 #include "Commands/DriveShiftHigh.h"
 #include "Commands/DriveShiftLow.h"
 #include "Commands/DriveStop.h"
