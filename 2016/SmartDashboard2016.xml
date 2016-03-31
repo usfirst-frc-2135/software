@@ -1,8 +1,32 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Drive Invert" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="233" y="438"/>
+	</widget>
+	<widget field="ChassisVoltRampRate" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="197" y="382"/>
+	</widget>
+	<widget field="Forward Drive Fast" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="206" y="348"/>
+	</widget>
+	<widget field="AutoDriveWaitTime" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="190" y="327"/>
+	</widget>
+	<widget field="ChassisVolageRampRatePID" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="437" y="102"/>
+	</widget>
+	<widget field="Backward Drive Fast" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="206" y="293"/>
+	</widget>
+	<widget field="ChassisProportionalPID" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="190" y="272"/>
+	</widget>
+	<widget field="ChassisPeakOutputVoltagePID" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="438"/>
+	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
 		<location x="774" y="53"/>
-		<width>428</width>
+		<width>512</width>
 		<height>276</height>
 	</static-widget>
 	<widget field="Shoot Frame Control: EXTEND" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
