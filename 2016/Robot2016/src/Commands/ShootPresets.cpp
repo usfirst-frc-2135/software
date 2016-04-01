@@ -31,15 +31,15 @@ void ShootPresets::Initialize() {
 
 	//For Low Shot
 	if (m_direction == 3) {
-		m_upperMotorSpeed = SmartDashboard::GetNumber("LowShotUpperMotor", 0.75);
-		m_lowerMotorSpeed = SmartDashboard::GetNumber("LowShotLowerMotor", 0.5);
+		m_upperMotorSpeed = SmartDashboard::GetNumber("ShootLow_Upper", 0.75);
+		m_lowerMotorSpeed = SmartDashboard::GetNumber("ShootLow_Lower", 0.5);
 		printf("2135: Low Shot speed set\n");
 	}
 
 	//For High Shot
 	else if (m_direction == 1) {
-		m_upperMotorSpeed = SmartDashboard::GetNumber("HighShotUpperMotor", 0.95);
-		m_lowerMotorSpeed = SmartDashboard::GetNumber("HighShotLowerMotor", 0.7);
+		m_upperMotorSpeed = SmartDashboard::GetNumber("ShootHigh_Upper", 0.95);
+		m_lowerMotorSpeed = SmartDashboard::GetNumber("ShootHigh_Lower", 0.7);
 		printf("2135: High Shot speed set\n");
 	}
 

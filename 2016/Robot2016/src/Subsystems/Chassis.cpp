@@ -98,39 +98,39 @@ void Chassis::Initialize(Preferences *prefs)
 
 	//Initialize and read preferences file
 
-	//ChassisDriveDistance
-	m_driveDistance = Robot::LoadPreferencesVariable("ChassisDriveDistance", 0.0);
+	//AutoDriveDistance
+	m_driveDistance = Robot::LoadPreferencesVariable("AutoDriveDistance", 0.0);
 
-	//ChassisDriveTimed
-	m_driveDistanceTimed = Robot::LoadPreferencesVariable("ChassisDriveTimed", 0.0);
-	SmartDashboard::PutNumber("ChassisDriveTimed", m_driveDistanceTimed);
+	//AutoDriveTimed
+	m_driveDistanceTimed = Robot::LoadPreferencesVariable("AutoDriveTimed", 0.0);
+	SmartDashboard::PutNumber("AutoDriveTimed", m_driveDistanceTimed);
 
-	//AutoDriveWaitTime
-	m_autoDriveWaitTime = Robot::LoadPreferencesVariable("AutoDriveWaitTime", 0.0);
-	SmartDashboard::PutNumber("AutoDriveWaitTime", m_autoDriveWaitTime);
+	//AutoDriveTimedWait
+	m_autoDriveWaitTime = Robot::LoadPreferencesVariable("AutoDriveTimedWait", 0.0);
+	SmartDashboard::PutNumber("AutoDriveTimedWait", m_autoDriveWaitTime);
 
-	//ChassisVoltRampRate
-	SmartDashboard::PutNumber("ChassisVoltRampRate", Robot::LoadPreferencesVariable("ChassisVoltRampRate", 0.0));
+	//ChassDriveVoltRampRate
+	SmartDashboard::PutNumber("ChassDriveVoltRampRate", Robot::LoadPreferencesVariable("ChassDriveVoltRampRate", 0.0));
 
-	//ChassisDriveTimedSpeed
-	SmartDashboard::PutNumber("ChassisDriveTimedSpeed", Robot::LoadPreferencesVariable("ChassisDriveTimedSpeed", 0.0));
+	//AutoDriveTimedSpeed
+	SmartDashboard::PutNumber("AutoDriveTimedSpeed", Robot::LoadPreferencesVariable("AutoDriveTimedSpeed", 0.0));
 
-	//ChassisVoltageRampRatePID
-	SmartDashboard::PutNumber("ChassisVolageRampRatePID", Robot::LoadPreferencesVariable("ChassisVoltageRampRatePID", 8.0));
+	//ChassPIDVoltRampRate
+	SmartDashboard::PutNumber("ChassPIDVoltRampRate", Robot::LoadPreferencesVariable("ChassPIDVoltRampRate", 8.0));
 
-	//ChassisPeakOutputVoltagePID
-	SmartDashboard::PutNumber("ChassisPeakOutputVoltagePID", Robot::LoadPreferencesVariable("ChassisPeakOutputVoltagePID", 5.0));
+	//ChassPIDPeakOutVolts
+	SmartDashboard::PutNumber("ChassPIDPeakOutVolts", Robot::LoadPreferencesVariable("ChassPIDPeakOutVolts", 5.0));
 
-	//ChassisProportionalPID
-	SmartDashboard::PutNumber("ChassisProportionalPID", Robot::LoadPreferencesVariable("ChassisProportionalPID", 0.3));
+	//ChassPIDProportional
+	SmartDashboard::PutNumber("ChassPIDProportional", Robot::LoadPreferencesVariable("ChassPIDProportional", 0.3));
 
-	//ChassisAbsoluteTolerance
-	SmartDashboard::PutNumber("ChassisAbsoluteTolerance", Robot::LoadPreferencesVariable("ChassisAbsoluteTolerance", 0.2));
+	//ChassPIDAbsTolerance
+	SmartDashboard::PutNumber("ChassPIDAbsTolerance", Robot::LoadPreferencesVariable("ChassPIDAbsTolerance", 0.2));
 
-	//DriveScalingFactor
-	m_driveScalingFactor = Robot::LoadPreferencesVariable("DriveScalingFactor", 0.75);
+	//ChassDriveScaling
+	m_driveScalingFactor = Robot::LoadPreferencesVariable("ChassDriveScaling", 0.75);
 
-	SmartDashboard::PutNumber("DriveScalingFactor", m_driveScalingFactor);
+	SmartDashboard::PutNumber("ChassDriveScaling", m_driveScalingFactor);
 
 	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
 
@@ -185,10 +185,10 @@ void Chassis::ReverseDriveTrain(void)
 
 void Chassis::MoveDistanceWithPIDInit( double distance )
 {
-	double voltageRampRate = SmartDashboard::GetNumber("ChassisVoltageRampRatePID", 8.0);
-	double peakOutputVoltage = SmartDashboard::GetNumber("ChassisPeakOutputVoltagePID", 5.0);
-	double proportional = SmartDashboard::GetNumber("ChassisProportionalPID", 0.3);
-	double abstolerance = SmartDashboard::GetNumber("ChassisAbsoluteTolerance", 0.2);
+	double voltageRampRate = SmartDashboard::GetNumber("ChassPIDVoltRampRate", 8.0);
+	double peakOutputVoltage = SmartDashboard::GetNumber("ChassPIDPeakOutVolts", 5.0);
+	double proportional = SmartDashboard::GetNumber("ChassPIDProportional", 0.3);
+	double abstolerance = SmartDashboard::GetNumber("ChassPIDAbsTolerance", 0.2);
 
 	motorL2->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
 	motorR4->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));

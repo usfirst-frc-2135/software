@@ -27,7 +27,7 @@ ArmMotorEnable::ArmMotorEnable(int Direction): Command() {
 
 // Called just before this Command runs the first time
 void ArmMotorEnable::Initialize() {
-	m_sweeperSpeed = SmartDashboard::GetNumber("SweeperSpeed", 0.90);
+	m_sweeperSpeed = SmartDashboard::GetNumber("SweepSpeed", 0.90);
 
 	if (m_Direction == 1) { 							// Acquire
 		printf("2135: Arm Motor Enable Acquire\n");

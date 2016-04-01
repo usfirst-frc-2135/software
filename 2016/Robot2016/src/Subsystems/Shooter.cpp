@@ -57,10 +57,10 @@ void Shooter::InitDefaultCommand() {
 void Shooter::Initialize(Preferences *prefs) {
 	printf("2135: Shooter Initialize\n");
 
-	SmartDashboard::PutNumber("LowShotUpperMotor", Robot::LoadPreferencesVariable ("LowShotUpperMotor", 0.75));
-	SmartDashboard::PutNumber("LowShotLowerMotor", Robot::LoadPreferencesVariable ("LowShotLowerMotor", 0.5));
-	SmartDashboard::PutNumber("HighShotUpperMotor", Robot::LoadPreferencesVariable ("HighShotUpperMotor", 0.95));
-	SmartDashboard::PutNumber("HighShotLowerMotor", Robot::LoadPreferencesVariable ("HighShotLowerMotor", 0.7));
+	SmartDashboard::PutNumber("ShootLow_Upper", Robot::LoadPreferencesVariable ("ShootLow_Upper", 0.75));
+	SmartDashboard::PutNumber("ShootLow_Lower", Robot::LoadPreferencesVariable ("ShootLow_Lower", 0.5));
+	SmartDashboard::PutNumber("ShootHigh_Upper", Robot::LoadPreferencesVariable ("ShootHigh_Upper", 0.95));
+	SmartDashboard::PutNumber("ShootHigh_Lower", Robot::LoadPreferencesVariable ("ShootHigh_Lower", 0.7));
 
 	SmartDashboard::PutNumber("Upper Shooter Speed", 0.0);
 	SmartDashboard::PutNumber("Lower Shooter Speed", 0.0);

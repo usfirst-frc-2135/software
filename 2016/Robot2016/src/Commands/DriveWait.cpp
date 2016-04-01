@@ -26,7 +26,7 @@ DriveWait::DriveWait(): Command() {
 // Called just before this Command runs the first time
 void DriveWait::Initialize() {
 	printf("2135: Drive Wait Initialized\n");
-	m_time = SmartDashboard::GetNumber("AutoDriveWaitTime", 3.0);
+	m_time = SmartDashboard::GetNumber("AutoDriveTimedWait", 3.0);
 	m_timer.Reset();
 	m_timer.Start();
 	Robot::chassis->MoveStop();

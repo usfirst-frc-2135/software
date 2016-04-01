@@ -26,8 +26,8 @@ DriveDistanceTimed::DriveDistanceTimed(): Command() {
 // Called just before this Command runs the first time
 void DriveDistanceTimed::Initialize() {
 	printf("2135: Drive Distance Timed\n");
-	m_time = SmartDashboard::GetNumber("ChassisDriveTimed", 3.0);
-	m_maxSpeed = SmartDashboard::GetNumber("ChassisDriveTimedSpeed", 1.0);
+	m_time = SmartDashboard::GetNumber("AutoDriveTimed", 3.0);
+	m_maxSpeed = SmartDashboard::GetNumber("AutoDriveTimedSpeed", 1.0);
 	m_timer.Reset();
 	m_timer.Start();
 	Robot::sweeper->Extend(true);
