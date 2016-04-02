@@ -128,8 +128,8 @@ void Chassis::Initialize(Preferences *prefs)
 	SmartDashboard::PutNumber("Left Encoder", (motorL2->GetEncPosition() * -1));
 	SmartDashboard::PutNumber("Right Encoder", motorR4->GetEncPosition());
 
-	SmartDashboard::PutData("Fwd Drive Fast", new DriveFast(true));
-	SmartDashboard::PutData("Rev Drive Fast", new DriveFast(false));
+//	SmartDashboard::PutData("Fwd Drive Fast", new DriveFast(true));
+//	SmartDashboard::PutData("Rev Drive Fast", new DriveFast(false));
 }
 
 

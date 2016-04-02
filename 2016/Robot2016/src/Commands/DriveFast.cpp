@@ -36,8 +36,6 @@ void DriveFast::Execute() {
 	else {
 		Robot::chassis->MoveUsingLeftRightMotorOutputs(-1.0, -1.0);
 	}
-
-	SmartDashboard::PutNumber("Encoder Rate", Robot::chassis->leftEncoder->GetRate());
 }
 
 // Make this return true when this Command no longer needs to run execute()
