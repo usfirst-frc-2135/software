@@ -31,8 +31,6 @@
 #include "Commands/FireBoulder.h"
 #include "Commands/IndexerMotorEnable.h"
 #include "Commands/LoadShooter.h"
-#include "Commands/LowerMotorTimed.h"
-#include "Commands/MoveWhiskers.h"
 #include "Commands/Shoot.h"
 #include "Commands/ShootFrameControl.h"
 #include "Commands/ShootPresets.h"
