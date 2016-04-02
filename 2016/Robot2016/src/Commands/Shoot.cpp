@@ -27,8 +27,8 @@ Shoot::Shoot(double upperMotorSpeed, double lowerMotorSpeed): Command() {
 
 // Called just before this Command runs the first time
 void Shoot::Initialize() {
-	m_upperMotorSpeed = (SmartDashboard::GetNumber("Upper Shooter Speed", 0.0));
-	m_lowerMotorSpeed = (SmartDashboard::GetNumber("Lower Shooter Speed", 0.0));
+	m_upperMotorSpeed = (SmartDashboard::GetNumber("Shoot Upper", 0.0));
+	m_lowerMotorSpeed = (SmartDashboard::GetNumber("Shoot Lower", 0.0));
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -28,7 +28,7 @@ DriveDistancePID::DriveDistancePID(double distance, double maxSpeed): Command() 
 // Called just before this Command runs the first time
 void DriveDistancePID::Initialize() {
     printf("2135: Drive Distance PID\n");
-    m_distance = SmartDashboard::GetNumber("Drive Distance", 60.0);
+    m_distance = SmartDashboard::GetNumber("AutoDriveDistance", 12.0);
     printf("2135: %f inches\n", m_distance);
     Robot::chassis->MoveDistanceWithPIDInit(m_distance);
 

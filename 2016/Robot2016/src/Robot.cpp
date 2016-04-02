@@ -62,7 +62,7 @@ void Robot::RobotInit() {
 	// Build and display autoChooser
 	chooser = new SendableChooser();
 	chooser->AddDefault("Sit still", (void*) SITSTILL);
-	chooser->AddObject("Drive Low Bar", (void*) DRIVELOWBAR);
+	chooser->AddObject("Drive low bar", (void*) DRIVELOWBAR);
 	chooser->AddObject("Drive timed", (void*) DRIVETIMED);
 	SmartDashboard::PutData("Auto Mode Chooser", chooser);
 
@@ -87,7 +87,7 @@ void Robot::RobotInit() {
 void Robot::DisabledInit() {
 	printf("2135: DisabledInit Running\n");
 	if (autonomousCommand.get() != nullptr)
-				autonomousCommand->Cancel();
+		autonomousCommand->Cancel();
 }
 
 void Robot::DisabledPeriodic() {
@@ -95,13 +95,21 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+
 	printf("2135: Starting Autonomous Command\n");
-	switch((int)(chooser->GetSelected())) {
+	switch ((int)(chooser->GetSelected())) {
 		default:
-		case SITSTILL: autonomousCommand.reset(new DriveStop); break;
-		case DRIVELOWBAR: autonomousCommand.reset(new DriveDistanceDelayed()); break;
-		case DRIVETIMED: autonomousCommand.reset(new DriveDistanceTimed()); break;
+		case SITSTILL:
+			autonomousCommand.reset(new DriveStop);
+			break;
+		case DRIVELOWBAR:
+			autonomousCommand.reset(new DriveDistanceDelayed());
+			break;
+		case DRIVETIMED:
+			autonomousCommand.reset(new DriveDistanceTimed());
+			break;
 	}
+
 	if (autonomousCommand.get() != nullptr) {
 		autonomousCommand->Start();
 		printf("2135: Autonomous Command Started\n");

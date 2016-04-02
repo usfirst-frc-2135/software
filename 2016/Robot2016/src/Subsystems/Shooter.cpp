@@ -62,8 +62,8 @@ void Shooter::Initialize(Preferences *prefs) {
 	SmartDashboard::PutNumber("ShootHigh_Upper", Robot::LoadPreferencesVariable ("ShootHigh_Upper", 0.95));
 	SmartDashboard::PutNumber("ShootHigh_Lower", Robot::LoadPreferencesVariable ("ShootHigh_Lower", 0.7));
 
-	SmartDashboard::PutNumber("Upper Shooter Speed", 0.0);
-	SmartDashboard::PutNumber("Lower Shooter Speed", 0.0);
+	SmartDashboard::PutNumber("Shoot Upper", 0.0);
+	SmartDashboard::PutNumber("Shoot Lower", 0.0);
 }
 
 void Shooter::SetMotorSpeeds(double upperSpeed, double lowerSpeed) {
@@ -74,10 +74,10 @@ void Shooter::SetMotorSpeeds(double upperSpeed, double lowerSpeed) {
 
 void Shooter::SetFireSolenoid(bool fire) {
 	if (fire) {
-		fireSolenoid->Set(DoubleSolenoid::kReverse);
+		fireSolenoid->Set(DoubleSolenoid::kForward);
 	}
 	else {
-		fireSolenoid->Set(DoubleSolenoid::kForward);
+		fireSolenoid->Set(DoubleSolenoid::kReverse);
 	}
 }
 

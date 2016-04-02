@@ -66,15 +66,10 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorR4->ConfigPeakOutputVoltage( +5, -5);
     motorR4->ConfigNominalOutputVoltage(+0, -0);
 
-
-
-
-    m_driveDistance = 0.0;
     m_driveDirection = -1.0;
-    m_driveDistanceTimed = 3.0;
-    m_rotations = 0.0;
     m_driveScalingFactor = 0.9;
     m_scaled = true;
+    m_rotations = 0.0;
 }
 
 void Chassis::InitDefaultCommand() {
@@ -99,24 +94,26 @@ void Chassis::Initialize(Preferences *prefs)
 	//Initialize and read preferences file
 
 	//AutoDriveDistance
-	m_driveDistance = Robot::LoadPreferencesVariable("AutoDriveDistance", 0.0);
+	Robot::LoadPreferencesVariable("AutoDriveDistance", 12.0);
 
 	//AutoDriveTimed
-	m_driveDistanceTimed = Robot::LoadPreferencesVariable("AutoDriveTimed", 0.0);
-	SmartDashboard::PutNumber("AutoDriveTimed", m_driveDistanceTimed);
+	SmartDashboard::PutNumber("AutoDriveTimed", Robot::LoadPreferencesVariable("AutoDriveTimed", 3.0));
+
+	//AutoDriveTimedSpeed
+	SmartDashboard::PutNumber("AutoDriveTimedSpeed", Robot::LoadPreferencesVariable("AutoDriveTimedSpeed", 0.8));
 
 	//AutoDriveTimedWait
-	m_autoDriveWaitTime = Robot::LoadPreferencesVariable("AutoDriveTimedWait", 0.0);
-	SmartDashboard::PutNumber("AutoDriveTimedWait", m_autoDriveWaitTime);
+	SmartDashboard::PutNumber("AutoDriveTimedWait", Robot::LoadPreferencesVariable("AutoDriveTimedWait", 2.0));
+
+	//ChassDriveScaling
+	m_driveScalingFactor = Robot::LoadPreferencesVariable("ChassDriveScaling", 0.85);
+	SmartDashboard::PutNumber("ChassDriveScaling", m_driveScalingFactor);
 
 	//ChassDriveVoltRampRate
 	SmartDashboard::PutNumber("ChassDriveVoltRampRate", Robot::LoadPreferencesVariable("ChassDriveVoltRampRate", 0.0));
 
-	//AutoDriveTimedSpeed
-	SmartDashboard::PutNumber("AutoDriveTimedSpeed", Robot::LoadPreferencesVariable("AutoDriveTimedSpeed", 0.0));
-
-	//ChassPIDVoltRampRate
-	SmartDashboard::PutNumber("ChassPIDVoltRampRate", Robot::LoadPreferencesVariable("ChassPIDVoltRampRate", 8.0));
+	//ChassPIDAbsTolerance
+	SmartDashboard::PutNumber("ChassPIDAbsTolerance", Robot::LoadPreferencesVariable("ChassPIDAbsTolerance", 0.2));
 
 	//ChassPIDPeakOutVolts
 	SmartDashboard::PutNumber("ChassPIDPeakOutVolts", Robot::LoadPreferencesVariable("ChassPIDPeakOutVolts", 5.0));
@@ -124,58 +121,56 @@ void Chassis::Initialize(Preferences *prefs)
 	//ChassPIDProportional
 	SmartDashboard::PutNumber("ChassPIDProportional", Robot::LoadPreferencesVariable("ChassPIDProportional", 0.3));
 
-	//ChassPIDAbsTolerance
-	SmartDashboard::PutNumber("ChassPIDAbsTolerance", Robot::LoadPreferencesVariable("ChassPIDAbsTolerance", 0.2));
+	//ChassPIDVoltRampRate
+	SmartDashboard::PutNumber("ChassPIDVoltRampRate", Robot::LoadPreferencesVariable("ChassPIDVoltRampRate", 8.0));
 
-	//ChassDriveScaling
-	m_driveScalingFactor = Robot::LoadPreferencesVariable("ChassDriveScaling", 0.75);
+	SmartDashboard::PutNumber("Drive Invert", m_driveDirection);
+	SmartDashboard::PutNumber("Left Encoder", (motorL2->GetEncPosition() * -1));
+	SmartDashboard::PutNumber("Right Encoder", motorR4->GetEncPosition());
 
-	SmartDashboard::PutNumber("ChassDriveScaling", m_driveScalingFactor);
-
-	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
-
-	SmartDashboard::PutNumber("Right Encoder Position", motorR4->GetEncPosition());
-
-	SmartDashboard::PutNumber("Drive Distance", 60.0);
-
-	SmartDashboard::PutData("Forward Drive Fast", new DriveFast(true));
-	SmartDashboard::PutData("Backward Drive Fast", new DriveFast(false));
+	SmartDashboard::PutData("Fwd Drive Fast", new DriveFast(true));
+	SmartDashboard::PutData("Rev Drive Fast", new DriveFast(false));
 }
 
 
 void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 {
-	double yValue;
 	double xValue;
+	double yValue;
 
 	xValue = joystick->GetX() * -1;
 	yValue = joystick->GetY() * m_driveDirection;
 
 	if (m_scaled) {
-		yValue = yValue * m_driveScalingFactor;
 		xValue = xValue * m_driveScalingFactor;
+		yValue = yValue * m_driveScalingFactor;
 	}
 
 	robotDrive->ArcadeDrive( yValue, xValue, true );
 
-	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
-	SmartDashboard::PutNumber("Right Encoder Position", motorR4->GetEncPosition());
+	UpdateEncoderDisplays();
 }
+
 
 void Chassis::MoveUsingLeftRightMotorOutputs(double left, double right)
 {
 	robotDrive->SetLeftRightMotorOutputs( left, right );
+
+	UpdateEncoderDisplays();
 }
+
 
 void Chassis::MoveStop(void)
 {
 	robotDrive->SetLeftRightMotorOutputs( 0.0, 0.0 );
 }
 
+
 void Chassis::MoveLowShift(bool scaled)
 {
 	m_scaled = scaled;
 }
+
 
 void Chassis::ReverseDriveTrain(void)
 {
@@ -183,53 +178,26 @@ void Chassis::ReverseDriveTrain(void)
 	SmartDashboard::PutNumber("Drive Invert", m_driveDirection);
 }
 
+
 void Chassis::MoveDistanceWithPIDInit( double distance )
 {
-	double voltageRampRate = SmartDashboard::GetNumber("ChassPIDVoltRampRate", 8.0);
-	double peakOutputVoltage = SmartDashboard::GetNumber("ChassPIDPeakOutVolts", 5.0);
-	double proportional = SmartDashboard::GetNumber("ChassPIDProportional", 0.3);
-	double abstolerance = SmartDashboard::GetNumber("ChassPIDAbsTolerance", 0.2);
+	double voltageRampRate;
+	double peakOutputVoltage;
+	double proportional;
+	double abstolerance;
+	double rotations;
+
+	voltageRampRate = SmartDashboard::GetNumber("ChassPIDVoltRampRate", 8.0);
+	peakOutputVoltage = SmartDashboard::GetNumber("ChassPIDPeakOutVolts", 5.0);
+	proportional = SmartDashboard::GetNumber("ChassPIDProportional", 0.3);
+	abstolerance = SmartDashboard::GetNumber("ChassPIDAbsTolerance", 0.2);
 
 	motorL2->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
 	motorR4->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
 
-//	double leftDistance;
-//	double rightDistance;
-
-	double rotations;
 	rotations = distance / (M_WHEEL_DIA * M_PI);
 
-//	motorR4->SetInverted(false);
-
-//	leftPID->SetPID( 1.0, 0.0, 0.0 );
-//	leftPID->SetOutputRange( m_drivePidSpeedMin, m_drivePidSpeedMax );
-//	leftPID->SetAbsoluteTolerance( abstolerance );
-//	leftEncoder->SetDistancePerPulse( 4 * M_PI / 360 );
-//
-//	rightPID->SetPID( 1.0, 0.0, 0.0 );
-//	rightPID->SetOutputRange( m_drivePidSpeedMin, m_drivePidSpeedMax );
-//	rightPID->SetAbsoluteTolerance( abstolerance );
-//	rightEncoder->SetDistancePerPulse( 4 * M_PI / 360 );
-//
-//	// get current encoder values
-//	leftDistance = leftEncoder->GetDistance();
-//	rightDistance = rightEncoder->GetDistance();
-//	printf("2135: Encoder Distance %f %f\n", leftDistance, rightDistance);
-//
-//	//add distance to current encoder values
-//	leftDistance += distance;
-//	rightDistance += distance;
-//	printf("2135: Encoder Distance %f %f\n", leftDistance, rightDistance);
-//
-//	//set SetPoint with calculated target distance
-//	leftPID->SetSetpoint(leftDistance);
-//	rightPID->SetSetpoint(rightDistance);
-//	robotDrive->SetSafetyEnabled(false);
-//
-//	//enable PID loops
-//	leftPID->Enable();
-//	rightPID->Enable();
-//	printf("2135: Left and Right PIDs are enabled\n");
+	printf("2135: Encoder Distance %f rotations\n", rotations);
 
 	motorL2->SetAllowableClosedLoopErr(abstolerance);
 	motorR4->SetAllowableClosedLoopErr(abstolerance);
@@ -250,67 +218,37 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 	motorR4->Set(rotations);
 
 	m_rotations = rotations;
+
+	printf("2135: Left and Right PIDs are enabled\n");
 }
+
 
 void Chassis::MoveDistanceWithPIDExecute( void )
 {
 	// TODO: These will never be equal as double precision numbers
 	//	Needs to be ( abs(motorL2->GetEncPosition() - m_rotations) <= m_absoluteTolerance)
 	if (m_rotations == motorL2->GetEncPosition()) {
-//		motorL2->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 		printf("2135: Left PID is Disabled\n");
 		motorL2->Set(0.0);
 	}
 
 	if (m_rotations == motorR4->GetEncPosition()) {
-//		motorR4->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 		printf("2135: Right PID is Disabled\n");
 		motorR4->Set(0.0);
 	}
 
-	SmartDashboard::PutNumber("Left Encoder Position", (motorL2->GetEncPosition() * -1));
-	SmartDashboard::PutNumber("Right Encoder Position", motorR4->GetEncPosition());
-
-//	if (leftPID->OnTarget())
-//	{
-//		leftPID->Disable();
-//		printf("2135: Left PID is Disabled\n");
-//	}
-//	if (rightPID->OnTarget())
-//	{
-//		rightPID->Disable();
-//		printf("2135: Right PID is Disabled\n");
-//	}
-//	if (!leftPID->IsEnabled())
-//	{
-//		motorL2->Set(0, 0);
-//	}
-//	if (!rightPID->IsEnabled())
-//	{
-//		motorR4->Set(0, 0);
-//	}
-//
-	static int counter = 0;
-	if (counter++ % 50 == 0)
-	{
-		//printf("2135: LeftPID  %d %d\n", RobotMap::chassisLeftEncoder->Get(), leftPID->IsEnabled());
-		//printf("2135: RightPID %d %d\n", RobotMap::chassisRightEncoder->Get(), rightPID->IsEnabled());
-		printf("2135: LeftPID  %d\n", motorL2->GetEncPosition());
-		printf("2135: RightPID %d\n", motorR4->GetEncPosition());
-	}
+	UpdateEncoderDisplays();
 }
 
-bool Chassis::MoveDistanceWithPIDIsAtSetpoint(void)
+
+bool Chassis::MoveDistanceWithPIDIsAtSetpoint( void)
 {
 	bool bothOnTarget;
+
 	// are both PIDs on target
 	bothOnTarget = false;
-//	if (!leftPID->IsEnabled() && !rightPID->IsEnabled())
-//	{
-//		MoveDistanceWithPIDStop();
-//		bothOnTarget = true;
-//	}
 
+	// This should not ever match since these are floating point numbers
 	if (m_rotations == motorL2->GetEncPosition() && m_rotations == motorR4->GetEncPosition()) {
 		MoveDistanceWithPIDStop();
 		bothOnTarget = true;
@@ -319,19 +257,39 @@ bool Chassis::MoveDistanceWithPIDIsAtSetpoint(void)
 	return bothOnTarget;
 }
 
+
 void Chassis::MoveDistanceWithPIDStop( void )
 {
-//	leftPID->Disable();
-//	rightPID->Disable();
-
 	motorL2->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	motorR4->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	robotDrive->SetSafetyEnabled(true);
-
-	//motorR4->SetInverted(true);
 }
 
-void Chassis::SetVoltRampRate(double voltageRampRate) {
+
+void Chassis::SetVoltRampRate(double voltageRampRate)
+{
 	motorL2->SetVoltageRampRate(voltageRampRate);
 	motorR4->SetVoltageRampRate(voltageRampRate);
+}
+
+
+void Chassis::UpdateEncoderDisplays( void )
+{
+	static int updateCounter;			// Counter for updating encoder values
+
+	// Update SmartDashboard values - Each counter tick is 20msec
+	if (updateCounter % 5 == 0)
+	{
+		SmartDashboard::PutNumber("Left Encoder", (motorL2->GetEncPosition() * -1));
+		SmartDashboard::PutNumber("Right Encoder", motorR4->GetEncPosition());
+	}
+
+	// Print to display
+	if (updateCounter % 50 == 0)
+	{
+//		printf("2135: Left Encoder  %d\n", (motorL2->GetEncPosition() * -1));
+//		printf("2135: Right Encoder %d\n", motorR4->GetEncPosition());
+	}
+
+	updateCounter++;
 }
