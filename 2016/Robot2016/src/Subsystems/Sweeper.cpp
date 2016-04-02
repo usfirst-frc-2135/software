@@ -55,10 +55,8 @@ void Sweeper::Initialize(Preferences *prefs) {
     motorAcquire2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 
     // Initialize motor speeds
-    SetMotorEnable(false, true);					// Sweeper motor off
-    SetIndexerEnable(false, true);					// Indexer motor off
-
-    m_sweeperSpeed = Robot::LoadPreferencesVariable("SweepSpeed", 0.9);
+    SetMotorSpeed(0);					// Sweeper motor off
+    SetIndexerSpeed(0);					// Indexer motor off
 }
 
 void Sweeper::Extend(bool extend) {
@@ -71,31 +69,10 @@ void Sweeper::Extend(bool extend) {
 }
 
 
-void Sweeper::SetMotorEnable(bool enabled, bool acquire) {
-	if (enabled == true) {
-		if (acquire == true) {
-			motorAcquire1->Set(m_sweeperSpeed);
-		}
-		else {
-			motorAcquire1->Set(m_sweeperSpeed * -1);
-		}
-	}
-	else {
-		motorAcquire1->Set(0.0);
-	}
+void Sweeper::SetMotorSpeed(double speed) {
+	motorAcquire1->Set(speed);
 }
 
-void Sweeper::SetIndexerEnable(bool enabled, bool acquire) {
-	if (enabled == true) {
-		if (acquire == true) {
-			motorAcquire2->Set(m_sweeperSpeed);
-		}
-		else {
-			motorAcquire2->Set(m_sweeperSpeed * -1);
-		}
-	}
-	else {
-		motorAcquire2->Set(0.0);
-	}
+void Sweeper::SetIndexerSpeed(double speed) {
+	motorAcquire2->Set(speed);
 }
-
