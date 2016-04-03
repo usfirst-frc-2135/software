@@ -357,6 +357,34 @@ Children:
           value: '3'
       Base: Double Solenoid
       Name: Fire Solenoid
+    - Children: []
+      Properties:
+        Forward PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id011
+          default: '0'
+          name: Forward PCM (Solenoid)
+          validators: *id012
+          value: '0'
+        Reverse PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id013
+          default: '0'
+          name: Reverse PCM (Solenoid)
+          validators: *id014
+          value: '0'
+        Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id015
+          default: '0'
+          name: Reverse Channel (Solenoid)
+          validators: *id016
+          value: '7'
+        Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id017
+          default: '0'
+          name: Forward Channel (Solenoid)
+          validators: *id018
+          value: '0'
+      Base: Double Solenoid
+      Name: Whisker solenoid
     Properties:
       Default command parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
@@ -1314,7 +1342,7 @@ Children:
       Commands: !!robotbuilder.data.properties.ListProperty
         default: []
         name: Commands
-        validators: &id032 [List]
+        validators: &id033 [List]
         value:
         - &id027 !!robotbuilder.data.CommandGroupEntry
           command:
@@ -1570,7 +1598,7 @@ Children:
     Base: Command
     Name: Arm Motor Enable
   - Children: []
-    Properties: &id034
+    Properties: &id035
       Parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
         name: Parameters
@@ -1632,7 +1660,38 @@ Children:
     Base: Command
     Name: Shoot Frame Control
   - Children: []
-    Properties: &id036
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: setting, type: boolean}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: None}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id032
+        - !!robotbuilder.data.properties.ParameterSet
+          name: DEFAULT
+          parameters:
+          - {name: setting, type: boolean, value: 'false'}
+        - !!robotbuilder.data.properties.ParameterSet
+          name: OPEN
+          parameters:
+          - {name: setting, type: boolean, value: 'false'}
+        - !!robotbuilder.data.properties.ParameterSet
+          name: CLOSED
+          parameters:
+          - {name: setting, type: boolean, value: 'true'}
+        name: Parameter presets
+        validators: null
+        value: *id032
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: Shoot Whisker Control
+  - Children: []
+    Properties: &id037
       Parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
         name: Parameters
@@ -1798,11 +1857,11 @@ Children:
       Commands: !!robotbuilder.data.properties.ListProperty
         default: []
         name: Commands
-        validators: *id032
+        validators: *id033
         value:
         - !!robotbuilder.data.CommandGroupEntry
           command:
-            base: &id035
+            base: &id036
               help: A command specifies an action that the robot can perform.
               name: Command
               properties:
@@ -1816,14 +1875,14 @@ Children:
                 validators: null
                 value: []
               - !!robotbuilder.data.properties.ParameterSetProperty
-                default: &id033 []
+                default: &id034 []
                 name: Parameter presets
                 validators: null
-                value: *id033
+                value: *id034
               supports: {}
               type: Command
             name: Indexer Motor Enable
-            properties: *id034
+            properties: *id035
           hasMatch: true
           order: Parallel
           parameters:
@@ -1836,9 +1895,9 @@ Children:
           previous: null
         - !!robotbuilder.data.CommandGroupEntry
           command:
-            base: *id035
+            base: *id036
             name: Shoot
-            properties: *id036
+            properties: *id037
           hasMatch: true
           order: Parallel
           parameters:
