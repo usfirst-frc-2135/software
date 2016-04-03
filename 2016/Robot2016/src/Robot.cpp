@@ -54,16 +54,21 @@ void Robot::RobotInit() {
 
 	//Initialize SmartDashboard and Subsystems
 	chassis->Initialize(prefs);
+	fflush(stdout);
 	sweeper->Initialize(prefs);
+	fflush(stdout);
 	shooter->Initialize(prefs);
+	fflush(stdout);
 	climber->Initialize(prefs);
+	fflush(stdout);
 	pneumatics->Initialize(prefs);
+	fflush(stdout);
 
 	// Build and display autoChooser
 	chooser = new SendableChooser();
-	chooser->AddDefault("Sit still", (void*) SITSTILL);
 	chooser->AddObject("Drive low bar", (void*) DRIVELOWBAR);
 	chooser->AddObject("Drive timed", (void*) DRIVETIMED);
+	chooser->AddDefault("Sit still", (void*) SITSTILL);
 	SmartDashboard::PutData("Auto Mode Chooser", chooser);
 
 	// Display scheduler status
@@ -75,6 +80,7 @@ void Robot::RobotInit() {
 //	SmartDashboard::PutData(pneumatics);
 
 	printf("2135: Building autonomous chooser complete\n");
+	fflush(stdout);
 
 	// Start up the camera
 //	CameraServer::GetInstance()->StartAutomaticCapture("cam1");
@@ -148,9 +154,9 @@ double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
 	}
 	else {
 		value = defaultValue;
-		printf("2135: ERROR - %s not found\n", name.c_str());
+		printf("2135: ERROR - %-20s not found\n", name.c_str());
 	}
-	printf("2135: %15s : %f\n", name.c_str(), value);
+	printf("2135: PREF %-20s : %6.3f\n", name.c_str(), value);
 
 	return value;
 }
