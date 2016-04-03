@@ -1,69 +1,72 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="SweepSpeed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="72" y="220"/>
+	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
-		<location x="854" y="35"/>
-		<width>392</width>
+		<location x="233" y="130"/>
+		<width>387</width>
 		<height>291</height>
 	</static-widget>
 	<widget field="ChassDriveScaling" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="47" y="10"/>
+		<location x="47" y="30"/>
 	</widget>
 	<widget field="ShootLow_Upper" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="50" y="340"/>
+		<location x="52" y="350"/>
 	</widget>
 	<widget field="ChassPIDAbsTolerance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="23" y="70"/>
+		<location x="23" y="80"/>
 	</widget>
 	<widget field="ChassPIDPeakOutVolts" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="24" y="90"/>
+		<location x="24" y="100"/>
 	</widget>
 	<widget field="AutoDriveTimedWait" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="276" y="10"/>
+		<location x="256" y="70"/>
 	</widget>
 	<widget field="ShootHigh_Lower" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="50" y="300"/>
+		<location x="50" y="320"/>
 	</widget>
 	<widget field="Shoot Lower" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="74" y="240"/>
+		<location x="74" y="270"/>
 	</widget>
 	<widget field="ChassPIDVoltRampRate" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="20" y="130"/>
+		<location x="20" y="120"/>
 	</widget>
 	<widget field="Drive Invert" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="76" y="50"/>
+		<location x="76" y="10"/>
 	</widget>
 	<widget field="ChassDriveVoltRampRate" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="12" y="30"/>
+		<location x="12" y="50"/>
 	</widget>
 	<widget field="Left Encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="73" y="180"/>
+		<location x="73" y="170"/>
 	</widget>
 	<widget field="Auto Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="350" y="81"/>
+		<location x="480" y="16"/>
 	</widget>
 	<widget field="ShootLow_Lower" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="50" y="360"/>
+		<location x="52" y="370"/>
 	</widget>
 	<widget field="AutoDriveTimed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="300" y="50"/>
+		<location x="278" y="30"/>
 	</widget>
 	<widget field="ShootHigh_Upper" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="50" y="280"/>
+		<location x="50" y="300"/>
 	</widget>
 	<widget field="Fire Boulder" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="85" y="390"/>
+		<location x="85" y="397"/>
 	</widget>
 	<widget field="Right Encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="67" y="160"/>
+		<location x="67" y="190"/>
 	</widget>
 	<widget field="ChassPIDProportional" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="30" y="110"/>
+		<location x="30" y="140"/>
 	</widget>
 	<widget field="Shoot Upper" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="74" y="220"/>
+		<location x="74" y="250"/>
 	</widget>
 	<widget field="AutoDriveTimedSpeed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="268" y="30"/>
+		<location x="248" y="50"/>
 	</widget>
 </dashboard>
 <live-window>
