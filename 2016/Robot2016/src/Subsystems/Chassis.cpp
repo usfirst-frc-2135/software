@@ -109,6 +109,10 @@ void Chassis::Initialize(Preferences *prefs)
 	m_driveScalingFactor = Robot::LoadPreferencesVariable("ChassDriveScaling", 0.85);
 	SmartDashboard::PutNumber("ChassDriveScaling", m_driveScalingFactor);
 
+	//ChassDriveSpinSetting
+	m_driveSpinSetting = Robot::LoadPreferencesVariable("ChassDriveSpinSetting", 0.4);
+	SmartDashboard::PutNumber("ChassDriveSpinSetting", m_driveSpinSetting);
+
 	//ChassDriveVoltRampRate
 	SmartDashboard::PutNumber("ChassDriveVoltRampRate", Robot::LoadPreferencesVariable("ChassDriveVoltRampRate", 0.0));
 
@@ -163,9 +167,9 @@ void Chassis::MoveUsingLeftRightMotorOutputs(double left, double right)
 void Chassis::MoveSpin(bool spinLeft)
 {
 	if (spinLeft)
-		robotDrive->SetLeftRightMotorOutputs( -0.4, 0.4 );
+		robotDrive->SetLeftRightMotorOutputs( -m_driveSpinSetting, m_driveSpinSetting );
 	else
-		robotDrive->SetLeftRightMotorOutputs( 0.4, -0.4 );
+		robotDrive->SetLeftRightMotorOutputs( m_driveSpinSetting, -m_driveSpinSetting );
 
 	UpdateEncoderDisplays();
 }

@@ -42,6 +42,7 @@ private:
 	double m_rotations;				// Number of rotations for drive distance
 	double m_driveScalingFactor;	// Scaling applied to joystick for SW shifting
 	bool m_scaled;					// Indicates scaling is applied
+	double m_driveSpinSetting;		// Spin turn power setting
 
 	void UpdateEncoderDisplays( void );
 
