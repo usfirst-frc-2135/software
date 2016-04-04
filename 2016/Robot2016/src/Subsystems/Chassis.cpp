@@ -69,6 +69,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_driveDirection = -1.0;
     m_driveScalingFactor = 0.9;
     m_scaled = true;
+    m_driveSpinSetting = 0.4;
     m_rotations = 0.0;
 }
 

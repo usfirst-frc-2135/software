@@ -391,12 +391,10 @@ Children:
         name: Default command parameters
         validators: null
         value:
-        - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: upperMotorSpeed,
-          type: double, value: '0'}
-        - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: lowerMotorSpeed,
-          type: double, value: '0'}
+        - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: direction,
+          type: int, value: '0'}
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Shoot}
+        name: Default Command, type: Command, validators: null, value: Shoot Presets}
       Constants: !!robotbuilder.data.properties.ConstantsProperty
         default: []
         name: Constants
@@ -1686,33 +1684,6 @@ Children:
         name: Parameters
         validators: null
         value:
-        - !!robotbuilder.data.properties.ParameterDescriptor {name: upperMotorSpeed,
-          type: double}
-        - !!robotbuilder.data.properties.ParameterDescriptor {name: lowerMotorSpeed,
-          type: double}
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Shooter}
-      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
-        name: Parameter presets
-        validators: null
-        value:
-        - !!robotbuilder.data.properties.ParameterSet
-          name: DEFAULT
-          parameters:
-          - {name: upperMotorSpeed, type: double, value: '1'}
-          - {name: lowerMotorSpeed, type: double, value: '1'}
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: false}
-    Base: Command
-    Name: Shoot
-  - Children: []
-    Properties:
-      Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Parameters
-        validators: null
-        value:
         - !!robotbuilder.data.properties.ParameterDescriptor {name: direction, type: int}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Shooter}
@@ -1726,17 +1697,17 @@ Children:
           parameters:
           - {name: direction, type: int, value: '0'}
         - !!robotbuilder.data.properties.ParameterSet
-          name: HIGH
+          name: LOW
           parameters:
           - {name: direction, type: int, value: '1'}
         - !!robotbuilder.data.properties.ParameterSet
-          name: LOW
+          name: HIGH
           parameters:
-          - {name: direction, type: int, value: '3'}
+          - {name: direction, type: int, value: '2'}
         - !!robotbuilder.data.properties.ParameterSet
           name: REVERSE
           parameters:
-          - {name: direction, type: int, value: '4'}
+          - {name: direction, type: int, value: '-1'}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
