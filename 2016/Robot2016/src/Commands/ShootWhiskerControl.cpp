@@ -25,7 +25,8 @@ ShootWhiskerControl::ShootWhiskerControl(bool setting): Command() {
 
 // Called just before this Command runs the first time
 void ShootWhiskerControl::Initialize() {
-
+	printf("2135: Shooter Whisker Open\n");
+	Robot::shooter->SetWhiskerControl(m_setting);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -35,7 +36,7 @@ void ShootWhiskerControl::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShootWhiskerControl::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true

@@ -598,7 +598,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: extend,
-            type: boolean, value: 'false'}
+            type: boolean, value: 'true'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id020
           default: '1'
@@ -660,7 +660,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Direction,
-            type: int, value: '0'}
+            type: int, value: '1'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id020
           default: '1'
@@ -691,7 +691,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Direction,
-            type: int, value: '0'}
+            type: int, value: '-1'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id020
           default: '1'

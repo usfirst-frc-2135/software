@@ -78,13 +78,13 @@ OI::OI() {
     frameDownDstick.reset(new JoystickButton(driverJoystick.get(), 10));
     frameDownDstick->WhenPressed(new ShootFrameControl(false));
     sweeperExpelDstick.reset(new JoystickButton(driverJoystick.get(), 9));
-    sweeperExpelDstick->WhileHeld(new ArmMotorEnable(0));
+    sweeperExpelDstick->WhileHeld(new ArmMotorEnable(-1));
     sweeperAcquireDstick.reset(new JoystickButton(driverJoystick.get(), 8));
-    sweeperAcquireDstick->WhileHeld(new ArmMotorEnable(0));
+    sweeperAcquireDstick->WhileHeld(new ArmMotorEnable(1));
     retractArmDstick.reset(new JoystickButton(driverJoystick.get(), 7));
     retractArmDstick->WhenPressed(new ArmExtend(false));
     extendArmDstick.reset(new JoystickButton(driverJoystick.get(), 6));
-    extendArmDstick->WhenPressed(new ArmExtend(false));
+    extendArmDstick->WhenPressed(new ArmExtend(true));
     spinRight.reset(new JoystickButton(driverJoystick.get(), 5));
     spinRight->WhileHeld(new DriveSpin(false));
     spinLeft.reset(new JoystickButton(driverJoystick.get(), 4));

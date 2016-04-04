@@ -39,6 +39,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 
     SetFrameControl(false);
     SetFireSolenoid(true);
+    SetWhiskerControl(false);
 }
 
 void Shooter::InitDefaultCommand() {

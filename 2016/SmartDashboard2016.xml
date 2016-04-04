@@ -1,12 +1,15 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="ChassDriveSpinSetting" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="431"/>
+	</widget>
 	<widget field="SweepSpeed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="72" y="220"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
 		<location x="233" y="130"/>
 		<width>387</width>
-		<height>291</height>
+		<height>307</height>
 	</static-widget>
 	<widget field="ChassDriveScaling" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="47" y="30"/>
