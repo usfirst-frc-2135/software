@@ -160,6 +160,17 @@ void Chassis::MoveUsingLeftRightMotorOutputs(double left, double right)
 }
 
 
+void Chassis::MoveSpin(bool spinLeft)
+{
+	if (spinLeft)
+		robotDrive->SetLeftRightMotorOutputs( -0.4, 0.4 );
+	else
+		robotDrive->SetLeftRightMotorOutputs( 0.4, -0.4 );
+
+	UpdateEncoderDisplays();
+}
+
+
 void Chassis::MoveStop(void)
 {
 	robotDrive->SetLeftRightMotorOutputs( 0.0, 0.0 );

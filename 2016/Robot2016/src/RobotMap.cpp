@@ -29,7 +29,7 @@ std::shared_ptr<CANTalon> RobotMap::shooterLowerMotor;
 std::shared_ptr<CANTalon> RobotMap::shooterUpperMotor;
 std::shared_ptr<DoubleSolenoid> RobotMap::shooterFrameSolenoid;
 std::shared_ptr<DoubleSolenoid> RobotMap::shooterFireSolenoid;
-std::shared_ptr<DoubleSolenoid> RobotMap::shooterWhiskersolenoid;
+std::shared_ptr<DoubleSolenoid> RobotMap::shooterWhiskerSolenoid;
 std::shared_ptr<CANTalon> RobotMap::climberMotor;
 std::shared_ptr<Compressor> RobotMap::pneumaticsCompressor;
 
@@ -88,8 +88,8 @@ void RobotMap::init() {
     shooterFireSolenoid.reset(new DoubleSolenoid(0, 3, 4));
     lw->AddActuator("Shooter", "Fire Solenoid", shooterFireSolenoid);
     
-    shooterWhiskersolenoid.reset(new DoubleSolenoid(0, 0, 7));
-    lw->AddActuator("Shooter", "Whisker solenoid", shooterWhiskersolenoid);
+    shooterWhiskerSolenoid.reset(new DoubleSolenoid(0, 0, 7));
+    lw->AddActuator("Shooter", "Whisker Solenoid", shooterWhiskerSolenoid);
     
     climberMotor.reset(new CANTalon(10));
     lw->AddActuator("Climber", "Motor", climberMotor);
