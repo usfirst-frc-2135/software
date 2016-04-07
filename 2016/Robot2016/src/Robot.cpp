@@ -106,7 +106,7 @@ void Robot::AutonomousInit() {
 	switch ((int)(chooser->GetSelected())) {
 		default:
 		case SITSTILL:
-			autonomousCommand.reset(new DriveStop);
+			autonomousCommand.reset(new DriveStop());
 			break;
 		case DRIVELOWBAR:
 			autonomousCommand.reset(new DriveDistanceDelayed());
