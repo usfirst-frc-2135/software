@@ -30,7 +30,6 @@ void DriveDistanceTimed::Initialize() {
 	m_maxSpeed = SmartDashboard::GetNumber("AutoDriveTimedSpeed", 0.8);
 	m_timer.Reset();
 	m_timer.Start();
-	Robot::sweeper->Extend(true);
 
 	printf("2135: m_time = %f\n", m_time);
 }
