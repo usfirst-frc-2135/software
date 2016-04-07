@@ -53,7 +53,7 @@ void Sweeper::Initialize(Preferences *prefs) {
 
 	// Ensure Talons are in proper coast/brake mode
     motorAcquire1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
-    motorAcquire2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+    motorAcquire2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 
     // Initialize motor speeds
     m_sweeperSpeed = Robot::LoadPreferencesVariable("SweepSpeed", 0.9);
