@@ -51,15 +51,15 @@ OI::OI() {
     whiskerOpen.reset(new JoystickButton(controlBoardB.get(), 3));
     whiskerOpen->WhenPressed(new ShootWhiskerControl(true));
     shootReverse.reset(new JoystickButton(controlBoardB.get(), 2));
-    shootReverse->WhileHeld(new ShootPresets(4));
+    shootReverse->WhileHeld(new ShootPresets(-1));
     fire.reset(new JoystickButton(controlBoardB.get(), 1));
     fire->WhileHeld(new FireBoulder());
     controlBoardA.reset(new Joystick(1));
     
     shootLow.reset(new JoystickButton(controlBoardA.get(), 11));
-    shootLow->WhileHeld(new ShootPresets(3));
+    shootLow->WhileHeld(new ShootPresets(1));
     shootHigh.reset(new JoystickButton(controlBoardA.get(), 10));
-    shootHigh->WhileHeld(new ShootPresets(1));
+    shootHigh->WhileHeld(new ShootPresets(2));
     frameDown.reset(new JoystickButton(controlBoardA.get(), 9));
     frameDown->WhenPressed(new ShootFrameControl(false));
     frameUp.reset(new JoystickButton(controlBoardA.get(), 8));
