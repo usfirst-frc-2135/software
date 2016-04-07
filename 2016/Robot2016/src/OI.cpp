@@ -15,6 +15,8 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/ArmExtend.h"
 #include "Commands/ArmMotorEnable.h"
+#include "Commands/AutoDriveTimed.h"
+#include "Commands/AutoLowBar.h"
 #include "Commands/Climb.h"
 #include "Commands/CompressorControl.h"
 #include "Commands/DriveDistanceDelayed.h"

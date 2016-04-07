@@ -30,12 +30,11 @@ void DriveWait::Initialize() {
 	m_time = SmartDashboard::GetNumber("AutoDriveTimedWait", 2.0);
 	m_timer.Reset();
 	m_timer.Start();
-	Robot::chassis->MoveStop();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveWait::Execute() {
-
+	Robot::chassis->MoveStop();
 }
 
 // Make this return true when this Command no longer needs to run execute()
