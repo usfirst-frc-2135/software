@@ -71,6 +71,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_scaled = true;
     m_driveSpinSetting = 0.4;
     m_rotations = 0.0;
+    m_brakeMode = false;
 }
 
 void Chassis::InitDefaultCommand() {
@@ -132,6 +133,8 @@ void Chassis::Initialize(Preferences *prefs)
 	SmartDashboard::PutNumber("Drive Invert", m_driveDirection);
 	SmartDashboard::PutNumber("Left Encoder", (motorL2->GetEncPosition() * -1));
 	SmartDashboard::PutNumber("Right Encoder", motorR4->GetEncPosition());
+	SmartDashboard::PutBoolean("BrakeMode", m_brakeMode);
+
 
 //	SmartDashboard::PutData("Fwd Drive Fast", new DriveFast(true));
 //	SmartDashboard::PutData("Rev Drive Fast", new DriveFast(false));
@@ -288,7 +291,23 @@ void Chassis::SetVoltRampRate(double voltageRampRate)
 	motorR4->SetVoltageRampRate(voltageRampRate);
 }
 
-
+void Chassis::ToggleBrakeMode( void )
+{
+	if (m_brakeMode == true) {
+		motorL2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+		motorL3->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+		motorR4->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+		motorR5->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+	}
+	else {
+		motorL2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+		motorL3->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+		motorR4->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+		motorR5->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+	}
+	m_brakeMode = !m_brakeMode;
+	SmartDashboard::PutBoolean("BrakeMode", m_brakeMode);
+}
 void Chassis::UpdateEncoderDisplays( void )
 {
 	static int updateCounter;			// Counter for updating encoder values

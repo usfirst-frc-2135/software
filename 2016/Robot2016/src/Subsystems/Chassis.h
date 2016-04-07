@@ -43,6 +43,7 @@ private:
 	double m_driveScalingFactor;	// Scaling applied to joystick for SW shifting
 	bool m_scaled;					// Indicates scaling is applied
 	double m_driveSpinSetting;		// Spin turn power setting
+	bool m_brakeMode;				// Brake or Coast mode for talons
 
 	void UpdateEncoderDisplays( void );
 
@@ -66,6 +67,7 @@ public:
 	bool MoveDistanceWithPIDIsAtSetpoint(void);
 	void MoveDistanceWithPIDStop(void);
 	void SetVoltRampRate(double voltageRampRate);
+	void ToggleBrakeMode(void);
 };
 
 #endif
