@@ -53,7 +53,7 @@ OI::OI() {
     shootReverse.reset(new JoystickButton(controlBoardB.get(), 2));
     shootReverse->WhileHeld(new ShootPresets(-1));
     fire.reset(new JoystickButton(controlBoardB.get(), 1));
-    fire->WhileHeld(new FireBoulder());
+    fire->WhenPressed(new FireBoulder());
     controlBoardA.reset(new Joystick(1));
     
     shootLow.reset(new JoystickButton(controlBoardA.get(), 11));
