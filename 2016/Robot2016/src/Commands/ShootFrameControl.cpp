@@ -29,13 +29,13 @@ ShootFrameControl::ShootFrameControl(bool frameUp): Command() {
 void ShootFrameControl::Initialize() {
 	m_timer.Reset();
 	m_timer.Start();
-	m_timeout = SmartDashboard::GetNumber("ShootFrameTimeout", 1.0);
+	m_timeout = SmartDashboard::GetNumber("ShootFrameTimeout", 0.6);
 	m_frameState = FRAME_START;
 
 	printf("2135: Shooter Frame Extend\n");
 	if (m_frameUp == true)
 	{
-		Robot::shooter->SetMotorSpeeds(0.0, 0.5);		// Run lower shooter motor
+		Robot::shooter->SetMotorSpeeds(0.0, -0.80);		// Run lower shooter motor
 	}
 }
 
