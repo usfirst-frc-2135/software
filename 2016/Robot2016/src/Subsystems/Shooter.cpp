@@ -75,15 +75,18 @@ void Shooter::SetMotorSpeeds(double upperSpeed, double lowerSpeed) {
 }
 
 void Shooter::SetFireSolenoid(bool fire) {
-	if (fire) {
-		fireSolenoid->Set(DoubleSolenoid::kForward);
-	}
-	else {
-		fireSolenoid->Set(DoubleSolenoid::kReverse);
+	if (m_frameUpState) {
+		if (fire) {
+			fireSolenoid->Set(DoubleSolenoid::kForward);
+		}
+		else {
+			fireSolenoid->Set(DoubleSolenoid::kReverse);
+		}
 	}
 }
 
 void Shooter::SetFrameControl(bool frameUp) {
+	m_frameUpState = frameUp;
 	if (frameUp) {
 		frameSolenoid->Set(frameSolenoid->kForward);
 	}
