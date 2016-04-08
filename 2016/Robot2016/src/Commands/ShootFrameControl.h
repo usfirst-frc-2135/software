@@ -43,6 +43,8 @@ private:
 
     Timer m_timer;
     double m_timeout;
+    enum FrameState { FRAME_START, FRAME_NEXT, FRAME_READY };
+    FrameState m_frameState;
 };
 
 #endif

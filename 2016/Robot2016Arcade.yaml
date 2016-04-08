@@ -1744,7 +1744,7 @@ Children:
         value:
         - !!robotbuilder.data.properties.ParameterDescriptor {name: frameUp, type: boolean}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: None}
+        name: Requires, type: Subsystem, validators: null, value: Shooter}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
         name: Parameter presets
