@@ -47,5 +47,4 @@ void FireBoulder::End() {
 // subsystems is scheduled to run
 void FireBoulder::Interrupted() {
 	Robot::shooter->SetFireSolenoid(false);
-
 }
