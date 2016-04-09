@@ -41,7 +41,7 @@ AutoLowBar::AutoLowBar() {
 
 	waitTime = Robot::LoadPreferencesVariable("AutoLowBarWait", 2.0);
 	SmartDashboard::PutNumber("AutoLowBarWait", waitTime);
-	driveTime = Robot::LoadPreferencesVariable("AutoLowBarTime", 3.5);
+	driveTime = Robot::LoadPreferencesVariable("AutoLowBarTime", 1.75);
 	SmartDashboard::PutNumber("AutoLowBarTime", driveTime);
 	driveSpeed = Robot::LoadPreferencesVariable("AutoLowBarSpeed", 0.8);
 	SmartDashboard::PutNumber("AutoLowBarSpeed", driveSpeed);
