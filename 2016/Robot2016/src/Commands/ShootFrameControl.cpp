@@ -30,7 +30,8 @@ ShootFrameControl::ShootFrameControl(bool frameUp): Command() {
 void ShootFrameControl::Initialize() {
 	m_timer.Reset();
 	m_timer.Start();
-	m_timeout = SmartDashboard::GetNumber("ShootFrameTimeout", 0.6);
+	m_timeout = Robot::LoadPreferencesVariable("ShootFrameTimeout", 0.5);
+	SmartDashboard::PutNumber("ShootFrameTimeout", m_timeout);
 	m_frameState = FRAME_START;
 
 	printf("2135: Shooter Frame Extend\n");
@@ -49,16 +50,23 @@ void ShootFrameControl::Execute() {
 				if (m_timer.HasPeriodPassed(m_timeout)) {
 					m_frameState = FRAME_NEXT;
 					Robot::shooter->SetWhiskerControl(true);		// Whiskers closed
-					Robot::shooter->SetFrameControl(m_frameUp);		// Frame up
+					Robot::shooter->SetMotorSpeeds(0.0, 0.0);		// Motors off
 					m_timer.Reset();
 					m_timer.Start();
 				}
 				break;
 			case FRAME_NEXT:
-				if (m_timer.HasPeriodPassed(m_timeout)) {
+				if (m_timer.HasPeriodPassed(0.5)) {
+					m_frameState = FRAME_MOVE;
+					Robot::shooter->SetFrameControl(m_frameUp);		// Frame up
+					m_timer.Reset();
+					m_timer.Start();
+				}
+				break;
+			case FRAME_MOVE:
+				if (m_timer.HasPeriodPassed(0.5)) {
 					m_frameState = FRAME_READY;
 					Robot::shooter->SetFireSolenoid(false);			// Basket down
-					Robot::shooter->SetMotorSpeeds(0.0, 0.0);		// Motors off
 				}
 				break;
 			case FRAME_READY:
@@ -70,7 +78,7 @@ void ShootFrameControl::Execute() {
 		switch (m_frameState)
 			{
 			case FRAME_START:
-				if (m_timer.HasPeriodPassed(m_timeout)) {
+				if (m_timer.HasPeriodPassed(0.5)) {
 					m_frameState = FRAME_NEXT;
 					Robot::shooter->SetWhiskerControl(false);		// Whiskers open
 					Robot::shooter->SetFireSolenoid(true);			// Basket up
@@ -79,7 +87,7 @@ void ShootFrameControl::Execute() {
 				}
 				break;
 			case FRAME_NEXT:
-				if (m_timer.HasPeriodPassed(m_timeout)) {
+				if (m_timer.HasPeriodPassed(0.5)) {
 					m_frameState = FRAME_READY;
 					Robot::shooter->SetFrameControl(m_frameUp);		// Frame down
 				}
