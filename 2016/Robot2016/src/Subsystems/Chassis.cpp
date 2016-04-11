@@ -99,10 +99,10 @@ void Chassis::Initialize(Preferences *prefs)
 	Robot::LoadPreferencesVariable("AutoDriveDistance", 12.0);
 
 	//AutoDriveTimed
-	SmartDashboard::PutNumber("AutoDriveTimed", Robot::LoadPreferencesVariable("AutoDriveTimed", 3.0));
+	SmartDashboard::PutNumber("AutoDriveTimed", Robot::LoadPreferencesVariable("AutoDriveTimed", 2.25));
 
 	//AutoDriveTimedSpeed
-	SmartDashboard::PutNumber("AutoDriveTimedSpeed", Robot::LoadPreferencesVariable("AutoDriveTimedSpeed", 0.8));
+	SmartDashboard::PutNumber("AutoDriveTimedSpeed", Robot::LoadPreferencesVariable("AutoDriveTimedSpeed", 0.9));
 
 	//AutoDriveTimedWait
 	SmartDashboard::PutNumber("AutoDriveTimedWait", Robot::LoadPreferencesVariable("AutoDriveTimedWait", 2.0));

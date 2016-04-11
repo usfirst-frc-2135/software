@@ -28,8 +28,8 @@ DriveDistanceTimed::DriveDistanceTimed(): Command() {
 // Called just before this Command runs the first time
 void DriveDistanceTimed::Initialize() {
 	printf("2135: Drive Distance Timed\n");
-	m_time = SmartDashboard::GetNumber("AutoDriveTimed", 3.0);
-	m_maxSpeed = SmartDashboard::GetNumber("AutoDriveTimedSpeed", 0.8);
+	m_time = SmartDashboard::GetNumber("AutoDriveTimed", 2.25);
+	m_maxSpeed = SmartDashboard::GetNumber("AutoDriveTimedSpeed", 0.9);
 	m_timer.Reset();
 	m_timer.Start();
 

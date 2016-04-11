@@ -34,8 +34,8 @@ Shooter::Shooter() : Subsystem("Shooter") {
     lowerMotor->SetSafetyEnabled(false);
     upperMotor->SetSafetyEnabled(false);
 
-    lowerMotor->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
-    upperMotor->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+    lowerMotor->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+    upperMotor->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 
     SetFrameControl(false);
     SetFireSolenoid(true);
