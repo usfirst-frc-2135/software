@@ -25,15 +25,8 @@ class DriveDistanceTimed: public Command {
 private:
 	Timer m_timer;
 	double m_driveTime;
-	bool m_direction;
 public:
-	enum DriveDirection {
-		kDriveForward = true,
-		kDriveReverse = false
-	};
-
 	DriveDistanceTimed();
-	DriveDistanceTimed(double time, bool direction);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

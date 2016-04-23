@@ -11,7 +11,6 @@
 
 
 #include "AutoRecyclingBin.h"
-#include "../Commands/DriveDistanceTimed.h"
 
 AutoRecyclingBin::AutoRecyclingBin() {
 	// Add Commands here:
@@ -30,6 +29,4 @@ AutoRecyclingBin::AutoRecyclingBin() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddSequential(new DriveDistanceTimed(1.25, DriveDistanceTimed::kDriveForward));
-	AddSequential(new DriveDistanceTimed(1.5, DriveDistanceTimed::kDriveReverse));
 }

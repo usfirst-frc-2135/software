@@ -72,9 +72,6 @@ void Robot::RobotInit() {
 	Robot::InitSmartDashboard();
 }
 
-// testing commits to github
-
-
 /**
  * This function is called when the disabled button is hit.
  * You can use it to reset subsystems before shutting down.
@@ -189,6 +186,7 @@ void Robot::InitFromPreferencesFile( void )
 		printf("2135: ElevatorSpeed Found\n");
 	} else {
 		printf("2135: ERROR - ElevatorSpeed Not Found\n");
+		elevator->SetElevatorSpeed(0.51);
 	}
 
 	if (prefs->ContainsKey("ElevatorPidMin")) {
@@ -265,8 +263,8 @@ void Robot::UpdateSmartDashboard( void ) {
 	switch (counter++)
 	{
 	case 0:
-//		SmartDashboard::PutNumber("L: Distance",  Robot::chassis->encoderL->GetDistance());
-//		SmartDashboard::PutNumber("R: Distance",  Robot::chassis->encoderR->GetDistance());
+		SmartDashboard::PutNumber("L: Distance",  Robot::chassis->encoderL->GetDistance());
+		SmartDashboard::PutNumber("R: Distance",  Robot::chassis->encoderR->GetDistance());
 		SmartDashboard::PutNumber("Potentiometer", Robot::elevator->heightPot->Get());
 		break;
 	case 5:

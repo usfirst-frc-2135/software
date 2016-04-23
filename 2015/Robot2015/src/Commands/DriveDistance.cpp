@@ -34,7 +34,7 @@ DriveDistance::DriveDistance(double inches) {
 void DriveDistance::Initialize() {
 	printf("2135: Drive Distance\n");
 
-	m_inches = SmartDashboard::GetNumber("Drive Distance");
+	m_inches = SmartDashboard::GetNumber("Drive Distance", 0);
 	printf("2135:   %f inches\n", m_inches);
 	Robot::chassis->DriveDistanceWithPIDInit(m_inches);
 }
@@ -47,17 +47,20 @@ void DriveDistance::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistance::IsFinished() {
 	return (Robot::chassis->DriveDistanceWithPIDIsAtSetpoint());
+	printf("PID is finished\n");
 }
 
 // Called once after isFinished returns true
 void DriveDistance::End() {
 	Robot::chassis->DriveDistanceWithPIDStop();
-	
+	printf("PID is stopped\n");
+
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveDistance::Interrupted() {
 	Robot::chassis->DriveDistanceWithPIDStop();
+	printf("PID is interrupted\n");
 }
 
