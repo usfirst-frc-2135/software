@@ -34,6 +34,8 @@ private:
 	bool m_frameUpState;
 	bool m_fireState;
 
+	void UpdateEncoderDisplays();
+
 public:
 	Shooter();
 	void InitDefaultCommand();

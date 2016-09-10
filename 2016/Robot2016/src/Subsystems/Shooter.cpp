@@ -37,6 +37,12 @@ Shooter::Shooter() : Subsystem("Shooter") {
     lowerMotor->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
     upperMotor->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 
+    upperMotor->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
+    upperMotor->SetSensorDirection(false);
+
+    lowerMotor->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
+    upperMotor->SetSensorDirection(true);
+
     SetFrameControl(false);
     SetFireSolenoid(true);
     SetWhiskerControl(false);
@@ -66,12 +72,16 @@ void Shooter::Initialize(Preferences *prefs) {
 
 	SmartDashboard::PutNumber("Shoot Upper", 0.0);
 	SmartDashboard::PutNumber("Shoot Lower", 0.0);
+
+	SmartDashboard::PutNumber("Upper Encoder Velocity", upperMotor->GetEncVel());
+	SmartDashboard::PutNumber("Lower Encoder Velocity", lowerMotor->GetEncVel());
 }
 
 void Shooter::SetMotorSpeeds(double upperSpeed, double lowerSpeed) {
 	lowerMotor->Set(lowerSpeed);
 	upperMotor->Set(upperSpeed);
 
+	UpdateEncoderDisplays();
 }
 
 void Shooter::SetFireSolenoid(bool fire) {
@@ -107,4 +117,18 @@ void Shooter::SetWhiskerControl(bool setting) {
 	else {
 		whiskerSolenoid->Set(whiskerSolenoid->kReverse);
 	}
+}
+
+void Shooter::UpdateEncoderDisplays( void )
+{
+	static int updateCounter;			// Counter for updating encoder values
+
+	// Update SmartDashboard values - Each counter tick is 20msec
+	if (updateCounter % 5 == 0)
+	{
+		SmartDashboard::PutNumber("Upper Encoder Velocity", upperMotor->GetEncVel());
+		SmartDashboard::PutNumber("Lower Encoder Velocity", lowerMotor->GetEncVel());
+	}
+
+	updateCounter++;
 }
