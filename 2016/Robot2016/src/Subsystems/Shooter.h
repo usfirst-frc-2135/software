@@ -45,6 +45,7 @@ public:
 	void Initialize(Preferences *prefs);
 	void SetMotorSpeeds(double upperSpeed, double lowerSpeed);
 	void SetFireSolenoid(bool fire);
+	void SetFireSolenoidUnsafe (bool fire);
 	bool GetFireSolenoid(void);
 	void SetFrameControl(bool frameUp);
 	void SetWhiskerControl(bool setting);

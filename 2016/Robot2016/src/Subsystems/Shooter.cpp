@@ -96,6 +96,15 @@ void Shooter::SetFireSolenoid(bool fire) {
 	}
 }
 
+void Shooter::SetFireSolenoidUnsafe(bool fire) {
+	if (fire){
+		fireSolenoid->Set(DoubleSolenoid::kForward);
+	}
+	else{
+		fireSolenoid->Set(DoubleSolenoid::kReverse);
+	}
+}
+
 bool Shooter::GetFireSolenoid(void) {
 	return m_fireState;
 }

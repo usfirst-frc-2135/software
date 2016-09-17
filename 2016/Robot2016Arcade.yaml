@@ -1071,9 +1071,7 @@ Children:
           default: []
           name: Parameters
           validators: null
-          value:
-          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: direction,
-            type: int, value: '1'}
+          value: []
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id020
           default: '1'
@@ -1085,7 +1083,7 @@ Children:
           name: Command
           type: Command
           validators: *id021
-          value: Shoot Presets
+          value: Fire Reset
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id022
           default: whileHeld
@@ -1093,7 +1091,7 @@ Children:
           validators: null
           value: whileHeld
       Base: Joystick Button
-      Name: Shoot Low
+      Name: Basket Down
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: *id023
@@ -1904,6 +1902,24 @@ Children:
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: Compressor Control
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: None}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id036 []
+        name: Parameter presets
+        validators: null
+        value: *id036
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: Fire Reset
   Properties: {}
   Base: Commands
   Name: Commands

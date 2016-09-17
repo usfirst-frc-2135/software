@@ -31,6 +31,7 @@
 #include "Commands/DriveTrainInvert.h"
 #include "Commands/DriveWait.h"
 #include "Commands/FireBoulder.h"
+#include "Commands/FireReset.h"
 #include "Commands/IndexerMotorEnable.h"
 #include "Commands/ShootFrameControl.h"
 #include "Commands/ShootPresets.h"
@@ -56,8 +57,8 @@ OI::OI() {
     fire->WhenPressed(new FireBoulder());
     controlBoardA.reset(new Joystick(1));
     
-    shootLow.reset(new JoystickButton(controlBoardA.get(), 11));
-    shootLow->WhileHeld(new ShootPresets(1));
+    basketDown.reset(new JoystickButton(controlBoardA.get(), 11));
+    basketDown->WhileHeld(new FireReset());
     shootHigh.reset(new JoystickButton(controlBoardA.get(), 10));
     shootHigh->WhileHeld(new ShootPresets(2));
     frameDown.reset(new JoystickButton(controlBoardA.get(), 9));

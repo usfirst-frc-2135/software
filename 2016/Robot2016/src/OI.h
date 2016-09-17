@@ -24,7 +24,7 @@ private:
 	std::shared_ptr<JoystickButton> shootReverse;
 	std::shared_ptr<JoystickButton> fire;
 	std::shared_ptr<Joystick> controlBoardA;
-	std::shared_ptr<JoystickButton> shootLow;
+	std::shared_ptr<JoystickButton> basketDown;
 	std::shared_ptr<JoystickButton> shootHigh;
 	std::shared_ptr<JoystickButton> frameDown;
 	std::shared_ptr<JoystickButton> frameUp;
