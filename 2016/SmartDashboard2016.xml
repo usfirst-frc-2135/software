@@ -1,7 +1,22 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Lower Encoder Velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="233" y="290"/>
+	</widget>
+	<widget field="Upper Encoder Velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="233" y="270"/>
+	</widget>
+	<widget field="Upper Encoder Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="233" y="320"/>
+	</widget>
+	<widget field="Lower Encoder Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="233" y="340"/>
+	</widget>
+	<widget field="Auto Modes" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="0" y="0"/>
+	</widget>
 	<widget field="ShootFrameTimeout" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="444"/>
+		<location x="38" y="420"/>
 	</widget>
 	<widget field="BrakeMode" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="270" y="80"/>
@@ -76,7 +91,7 @@
 		<location x="50" y="270"/>
 	</widget>
 	<widget field="Fire Boulder" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="85" y="410"/>
+		<location x="295" y="377"/>
 	</widget>
 	<widget field="Right Encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="67" y="210"/>
