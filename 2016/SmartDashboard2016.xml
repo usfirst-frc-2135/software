@@ -1,5 +1,10 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Light On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="274" y="169"/>
+		<width>115</width>
+		<height>68</height>
+	</widget>
 	<widget field="Lower Encoder Velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="233" y="290"/>
 	</widget>

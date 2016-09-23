@@ -25,6 +25,7 @@ LightToggle::LightToggle(): Command() {
 
 // Called just before this Command runs the first time
 void LightToggle::Initialize() {
+	printf("2135: Light Toggle\n");
 	Robot::light->TogglePowerEnable();
 }
 
@@ -35,7 +36,7 @@ void LightToggle::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool LightToggle::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true

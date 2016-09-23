@@ -80,6 +80,7 @@ void Robot::RobotInit() {
  */
 void Robot::DisabledInit() {
 	printf("2135: DisabledInit Running\n");
+	light->Initialize(prefs);
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
 }
