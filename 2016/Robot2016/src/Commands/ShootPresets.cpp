@@ -34,6 +34,7 @@ void ShootPresets::Initialize() {
 	if (m_direction == SHOT_LOW) {
 		m_upperMotorSpeed = SmartDashboard::GetNumber("ShootLow_Upper", 0.75);
 		m_lowerMotorSpeed = SmartDashboard::GetNumber("ShootLow_Lower", 0.5);
+		Robot::shooter->SetMotorDirection(true);
 		printf("2135: Low Shot speed set\n");
 	}
 
@@ -41,6 +42,7 @@ void ShootPresets::Initialize() {
 	else if (m_direction == SHOT_HIGH) {
 		m_upperMotorSpeed = SmartDashboard::GetNumber("ShootHigh_Upper", 0.95);
 		m_lowerMotorSpeed = SmartDashboard::GetNumber("ShootHigh_Lower", 0.7);
+		Robot::shooter->SetMotorDirection(true);
 		printf("2135: High Shot speed set\n");
 	}
 
@@ -48,6 +50,7 @@ void ShootPresets::Initialize() {
 	else if (m_direction == SHOT_REVERSE) {
 		m_upperMotorSpeed = -0.75;
 		m_lowerMotorSpeed = -0.75;
+		Robot::shooter->SetMotorDirection(false);
 		printf("2135: Reverse Direction speed set\n");
 	}
 
