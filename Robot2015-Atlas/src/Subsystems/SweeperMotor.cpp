@@ -32,7 +32,12 @@ void SweeperMotor::InitDefaultCommand() {
 void SweeperMotor::Acquire( void ) 
 {
 	double speed;
+#if 0 // SmartDashboard::
 	speed = SmartDashboard::GetNumber( "Sweeper Speed" );
+#else // SmartDashboard::
+	speed = 1.0;
+#endif // SmartDashboard::
+
 	wheels->Set( speed );
 }
 //
@@ -41,7 +46,11 @@ void SweeperMotor::Acquire( void )
 void SweeperMotor::Reject( void ) 
 {
 	double speed;
-	speed = SmartDashboard::GetNumber("Sweeper Speed");
+#if 0 // SmartDashboard::
+	speed = SmartDashboard::GetNumber( "Sweeper Speed" );
+#else // SmartDashboard::
+	speed = 1.0;
+#endif // SmartDashboard::
 	wheels->Set( -speed );
 }
 //

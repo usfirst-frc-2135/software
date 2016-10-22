@@ -47,11 +47,11 @@ void Chassis::InitDefaultCommand() {
 //
 void Chassis::DriveWithJoystick( Joystick *driverJoystick )
 {
-#if 0
+#if 1 // Slow not child mode
 	drvTrain->ArcadeDrive( driverJoystick, true );
 #else
-	drvTrain->ArcadeDrive( driverJoystick->GetY() * m_orientationNormal, driverJoystick->GetX(), true );
-#endif
+	drvTrain->ArcadeDrive( driverJoystick->GetY() * m_orientationNormal * 0.75, driverJoystick->GetX() * 0.75, true );
+#endif // SmartDashboard::
 }
 //
 //	Controlled drive used during spin turns
@@ -67,7 +67,9 @@ void Chassis::DriveUsingLeftRightMotorOutputs( double left, double right )
 void Chassis::ReverseDriveTrain( void ) 
 {
 	m_orientationNormal = -m_orientationNormal;
+#if 0 // SmartDashboard::
 	SmartDashboard::PutNumber("Drive Invert", m_orientationNormal);
+#endif // SmartDashboard::
 }
 //
 //	Autonomous Drive to a specific distance - PID initialization
@@ -76,13 +78,21 @@ void Chassis::DriveDistanceWithPIDInit( double distance )
 {
 	double leftDistance;
 	double rightDistance;
+#if 0 // SmartDashboard::
 	leftDrivePID->SetPID(SmartDashboard::GetNumber("L: P"),SmartDashboard::GetNumber("L: I"),
 			SmartDashboard::GetNumber("L: D"));
+#else // SmartDashboard::
+	leftDrivePID->SetPID(0.1,0.0,0.0);
+#endif // SmartDashboard::
 	leftDrivePID->SetOutputRange(-0.6, 0.6);
 	leftDrivePID->SetAbsoluteTolerance(0.2);
 	leftDriveEncoder->SetDistancePerPulse(4 * M_PI / 360);
+#if 0 // SmartDashboard::
 	rightDrivePID->SetPID(SmartDashboard::GetNumber("R: P"),SmartDashboard::GetNumber("R: I"),
 			SmartDashboard::GetNumber("R: D"));
+#else // SmartDashboard::
+	rightDrivePID->SetPID(0.1,0.0,0.0);
+#endif // SmartDashboard::
 	rightDrivePID->SetOutputRange(-0.6, 0.6);
 	rightDrivePID->SetAbsoluteTolerance(0.2);
 	rightDriveEncoder->SetDistancePerPulse(4 * M_PI / 360);
@@ -92,8 +102,10 @@ void Chassis::DriveDistanceWithPIDInit( double distance )
 	// add distance to current encoder values
 	leftDistance += distance;
 	rightDistance -= distance;
+#if 0 // SmartDashboard::
 	SmartDashboard::PutNumber("Left Setpoint", leftDistance);
 	SmartDashboard::PutNumber("Right Setpoint", -rightDistance);
+#endif // SmartDashboard::
 	// set SetPoint with calculated target distance
 	leftDrivePID->SetSetpoint(leftDistance);
 	rightDrivePID->SetSetpoint(rightDistance);
@@ -101,8 +113,10 @@ void Chassis::DriveDistanceWithPIDInit( double distance )
 	// enable PID loops
 	leftDrivePID->Enable();
 	rightDrivePID->Enable();
+#if 0 // SmartDashboard::
 	SmartDashboard::PutBoolean("Left PID State", false);
 	SmartDashboard::PutBoolean("Right PID State", false);
+#endif // SmartDashboard::
 }
 //
 //	Autonomous Drive to a specific distance - called from command execute
@@ -110,11 +124,15 @@ void Chassis::DriveDistanceWithPIDInit( double distance )
 void Chassis::DriveDistanceWithPIDExecute( void ) 
 {
 	if (leftDrivePID->OnTarget()) {
+#if 0 // SmartDashboard::
 		SmartDashboard::PutBoolean("Left PID State", true);
+#endif // SmartDashboard::
 		leftDrivePID->Disable();
 	}
 	if (rightDrivePID->OnTarget()) {
+#if 0 // SmartDashboard::
 		SmartDashboard::PutBoolean("Right PID State", true);
+#endif // SmartDashboard::
 		rightDrivePID->Disable();
 	}
 	if (!leftDrivePID->IsEnabled())
@@ -141,8 +159,10 @@ bool Chassis::DriveDistanceWithPIDIsAtSetpoint( void )
 //
 void Chassis::DriveDistanceWithPIDStop( void )
 {
+#if 0 // SmartDashboard::
 	SmartDashboard::PutBoolean("Left PID State", true);
 	SmartDashboard::PutBoolean("Right PID State", true);
+#endif // SmartDashboard::
 	leftDrivePID->Disable();
 	rightDrivePID->Disable();
 	drvTrain->SetSafetyEnabled(true);
@@ -199,8 +219,13 @@ double Chassis::GetRightSpeedAverage( void )
 double Chassis::GetDistanceUltrasonic( void )
 {
 	double distanceRange;
+#if 0 // SmartDashboard::
 	m_minRange = SmartDashboard::GetNumber("Chassis Min Range");
 	m_maxRange = SmartDashboard::GetNumber("Chassis Max Range");
+#else // SmartDashboard::
+	m_minRange = 48.0;
+	m_maxRange = 54.0;
+#endif // SmartDashboard::
 	distanceRange = ultrasonicDrive->GetRangeInches();
 	if (distanceRange > m_minRange && distanceRange < m_maxRange)
 		lEDRelay->Set(Relay::kForward);
@@ -210,6 +235,7 @@ double Chassis::GetDistanceUltrasonic( void )
 }
 void Chassis::UpdateDistance( void )
 {
+#if 0 // SmartDashboard::
 	double oldValues[6];
 	oldValues[0] = SmartDashboard::GetNumber("Distance0");
 	oldValues[1] = SmartDashboard::GetNumber("Distance1");
@@ -222,10 +248,13 @@ void Chassis::UpdateDistance( void )
 	SmartDashboard::PutNumber("Distance3", oldValues[2]);
 	SmartDashboard::PutNumber("Distance4", oldValues[3]);
 	SmartDashboard::PutNumber("Distance5", oldValues[4]);
+#endif // SmartDashboard::
 }
 void Chassis::UpdateAccelerometer( void )
 {
+#if 0 // SmartDashboard::
 	//SmartDashboard::PutNumber("AccelX", accel->GetAcceleration(ADXL345_I2C::kAxis_X));
 	//SmartDashboard::PutNumber("AccelY", accel->GetAcceleration(ADXL345_I2C::kAxis_Y));
 	//SmartDashboard::PutNumber("AccelZ", accel->GetAcceleration(ADXL345_I2C::kAxis_Z));
+#endif // SmartDashboard::
 }
