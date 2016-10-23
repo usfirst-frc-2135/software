@@ -32,7 +32,7 @@ void SweeperMotor::InitDefaultCommand() {
 void SweeperMotor::Acquire( void ) 
 {
 	double speed;
-#if 0 // SmartDashboard::
+#if SMARTDASHBOARD_ENABLE // SmartDashboard::
 	speed = SmartDashboard::GetNumber( "Sweeper Speed" );
 #else // SmartDashboard::
 	speed = 1.0;
@@ -46,7 +46,7 @@ void SweeperMotor::Acquire( void )
 void SweeperMotor::Reject( void ) 
 {
 	double speed;
-#if 0 // SmartDashboard::
+#if SMARTDASHBOARD_ENABLE // SmartDashboard::
 	speed = SmartDashboard::GetNumber( "Sweeper Speed" );
 #else // SmartDashboard::
 	speed = 1.0;

@@ -19,7 +19,7 @@ ShooterReload::ShooterReload() {
 // Called just before this Command runs the first time
 void ShooterReload::Initialize() {
 	printf( "2135: Shooter Reload\n" );
-#if 0 // SmartDashboard::
+#if SMARTDASHBOARD_ENABLE // SmartDashboard::
 	m_speed = SmartDashboard::GetNumber("Shooter Speed");
 #else // SmartDashboard::
 	m_speed = 0.85;

@@ -72,8 +72,8 @@ void Robot::RobotInit() {
 	if (!prefs->ContainsKey( "ChassisMaxRange" )) {
 		printf( "2135: ChassisMaxRange Found\n " );
 	}
-	if (!prefs->ContainsKey( "ChassisLowGear")) {
-		printf ("2135: ChassisLowGear Found\n");
+	if (!prefs->ContainsKey( "LowSpeedOnly")) {
+		printf ("2135: LowSpeedOnly Found\n");
 	}
 
 
@@ -84,7 +84,7 @@ void Robot::RobotInit() {
 	m_autoDefault = prefs->GetString( "AutoDefault", "MoveForward" );
 	m_chassisMinRange = prefs->GetDouble("ChassisMinRange", 48.0);
 	m_chassisMaxRange = prefs->GetDouble("ChassisMaxRange", 54.0);
-	m_chassisLowGear = prefs->GetDouble("ChassisLowGear", 0.0);
+	m_lowSpeedOnly = prefs->GetDouble("LowSpeedOnly", 0.0);
 	
 	taskDelay(10);
 	printf( "AutoDriveDistance: %f\n", m_autoSetpoint );
@@ -93,12 +93,12 @@ void Robot::RobotInit() {
 	printf( "ShooterSpeed:       %f\n", m_shooterSpeed );
 	printf( "ChassisMinRange:    %f\n", m_chassisMinRange );
 	printf( "ChassisMaxRange:    %f\n", m_chassisMaxRange );
-	printf( "ChassisLowGear:     %f\n", m_chassisLowGear);
+	printf( "LowSpeedOnly:       %f\n", m_lowSpeedOnly);
 
 
 	
 	printf("2135: Building autonomous chooser\n");
-#if 0 // SmartDashboard::
+#if SMARTDASHBOARD_ENABLE // SmartDashboard::
 	autoChooser = new SendableChooser();
 	autoChooser->AddDefault( "Move forward", new AutoCommand() );
 	autoChooser->AddObject( "Sit still", new DriveStop() );
@@ -110,13 +110,13 @@ void Robot::RobotInit() {
 #endif // SmartDashboard::
 	printf("2135: Building autonomous chooser complete\n");
 	Robot::InitSmartDashboard();
-	ds->PrintfLine(DriverStationLCD::kUser_Line2, "Got Here1");
-	ds->UpdateLCD();
+	chassis->Initialize(m_lowSpeedOnly);
+	transmission->Initialize(m_lowSpeedOnly);
 }
 	
 void Robot::AutonomousInit() {
 	printf( "2135: Autonomous Init\n" );
-#if 0 // SmartDashboard::
+#if SMARTDASHBOARD_ENABLE // SmartDashboard::
 	autonomousCommand = (Command *) autoChooser->GetSelected();
 #else // SmartDashboard::
 	autonomousCommand = NULL;
@@ -147,7 +147,7 @@ void Robot::TeleopPeriodic() {
 	Robot::UpdateSmartDashboard();
 }
 void Robot::InitSmartDashboard() {
-#if 0 // SmartDashboard::
+#if SMARTDASHBOARD_ENABLE // SmartDashboard::
 	SmartDashboard::PutNumber("L: P", chassis->leftDrivePID->GetP());
 	SmartDashboard::PutNumber("L: I", chassis->leftDrivePID->GetI());
 	SmartDashboard::PutNumber("L: D", chassis->leftDrivePID->GetD());
@@ -183,7 +183,7 @@ void Robot::InitSmartDashboard() {
 #endif // SmartDashboard::
 }
 void Robot::UpdateSmartDashboard() {
-#if 0 // SmartDashboard::
+#if SMARTDASHBOARD_ENABLE // SmartDashboard::
 	SmartDashboard::PutNumber("Distance Range", Robot::chassis->GetDistanceUltrasonic());
 	SmartDashboard::PutNumber("L: Distance", Robot::chassis->leftDriveEncoder->GetDistance());
 	SmartDashboard::PutNumber("R: Distance", -Robot::chassis->rightDriveEncoder->GetDistance());
@@ -205,7 +205,7 @@ void Robot::UpdateSmartDashboard() {
 #endif // SmartDashboard::
 }
 void Robot::DisabledInit() {
-#if 0 // SmartDashboard::
+#if SMARTDASHBOARD_ENABLE // SmartDashboard::
 
     CheesyVisionServer *cheeseView = CheesyVisionServer::GetInstance();
     cheeseView->StartSamplingCounts();

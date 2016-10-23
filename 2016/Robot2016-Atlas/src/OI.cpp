@@ -81,10 +81,10 @@ OI::OI() {
 	driverDrivetrainInvert = new JoystickButton(driverJoystick, 2);
 	driverDrivetrainInvert->WhenPressed(new DriveTrainInvert());
 	shifter = new JoystickButton(driverJoystick, 1);
-	shifter->WhileHeld(new ShiftHighGear());
+	shifter->WhileHeld(new ShiftLowGear());
      
         // SmartDashboard Buttons
-#if 0 // SmartDashboard::
+#if SMARTDASHBOARD_ENABLE // SmartDashboard::
 	SmartDashboard::PutData("Auto Command", new AutoCommand());
 	SmartDashboard::PutData("Auto Drive And Shoot", new AutoDriveAndShoot());
 	SmartDashboard::PutData("Drive Stop", new DriveStop());

@@ -23,7 +23,7 @@ void DriveDistance::Initialize() {
 	printf( "2135: Drive Distance\n" );
 	Robot::transmission->ShiftLow();
 	printf( "2135: Shift Low Gear\n" );
-#if 0 // SmartDashboard::
+#if SMARTDASHBOARD_ENABLE // SmartDashboard::
 	distance = SmartDashboard::GetNumber("Target Setpoint");
 #else // SmartDashboard::
 	distance = 65.0;
