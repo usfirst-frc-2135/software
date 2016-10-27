@@ -53,7 +53,7 @@ void AutoDriveTimed::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDriveTimed::IsFinished() {
-	if (m_mode == WAITMODE){
+	if (m_mode == WAITMODE) {
 		return false;
 	}
 	else if (m_mode == DRIVEMODE) {
