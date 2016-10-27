@@ -30,7 +30,7 @@ ShootFrameControl::ShootFrameControl(bool frameUp): Command() {
 void ShootFrameControl::Initialize() {
 	m_timer.Reset();
 	m_timer.Start();
-	m_timeout = Robot::LoadPreferencesVariable("ShootFrameTimeout", 0.5);
+	m_timeout = Robot::LoadPreferencesVariable("ShootFrameTimeout", 0.4);
 	SmartDashboard::PutNumber("ShootFrameTimeout", m_timeout);
 	m_frameState = FRAME_START;
 

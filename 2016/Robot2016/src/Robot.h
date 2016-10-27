@@ -21,6 +21,7 @@
 #include "Commands/DriveStop.h"
 #include "Subsystems/Chassis.h"
 #include "Subsystems/Climber.h"
+#include "Subsystems/Light.h"
 #include "Subsystems/Pneumatics.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/Sweeper.h"
@@ -41,6 +42,7 @@ public:
     static std::shared_ptr<Chassis> chassis;
     static std::shared_ptr<Sweeper> sweeper;
     static std::shared_ptr<Shooter> shooter;
+    static std::shared_ptr<Light> light;
     static std::shared_ptr<Climber> climber;
     static std::shared_ptr<Pneumatics> pneumatics;
 

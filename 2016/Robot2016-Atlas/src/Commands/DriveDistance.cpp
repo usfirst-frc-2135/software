@@ -23,7 +23,11 @@ void DriveDistance::Initialize() {
 	printf( "2135: Drive Distance\n" );
 	Robot::transmission->ShiftLow();
 	printf( "2135: Shift Low Gear\n" );
+#if SMARTDASHBOARD_ENABLE // SmartDashboard::
 	distance = SmartDashboard::GetNumber("Target Setpoint");
+#else // SmartDashboard::
+	distance = 65.0;
+#endif // SmartDashboard::
 	Robot::chassis->DriveDistanceWithPIDInit(distance);
 	// Reset the PID safety timer to zero and start it
 	m_pidTimer->Reset();

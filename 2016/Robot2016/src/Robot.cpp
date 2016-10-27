@@ -20,6 +20,7 @@
 std::shared_ptr<Chassis> Robot::chassis;
 std::shared_ptr<Sweeper> Robot::sweeper;
 std::shared_ptr<Shooter> Robot::shooter;
+std::shared_ptr<Light> Robot::light;
 std::shared_ptr<Climber> Robot::climber;
 std::shared_ptr<Pneumatics> Robot::pneumatics;
 std::unique_ptr<OI> Robot::oi;
@@ -32,6 +33,7 @@ void Robot::RobotInit() {
     chassis.reset(new Chassis());
     sweeper.reset(new Sweeper());
     shooter.reset(new Shooter());
+    light.reset(new Light());
     climber.reset(new Climber());
     pneumatics.reset(new Pneumatics());
 
@@ -78,6 +80,7 @@ void Robot::RobotInit() {
  */
 void Robot::DisabledInit() {
 	printf("2135: DisabledInit Running\n");
+	light->Initialize(prefs);
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
 }

@@ -9,13 +9,11 @@
 // it from being updated in th future.
 #include "AutoDriveAndShoot.h"
 #include "../Commands/DriveDistance.h"
-#include "../Commands/ShiftLowGear.h"
 #include "../Commands/SweeperMotorAcquire.h"
 #include "../Commands/SweeperArmDeploy.h"
 #include "../Commands/BallGateClose.h"
 #include "../Commands/ShooterFireAuto.h"
 #include "../Commands/DriveStop.h"
-#include "../Commands/ShooterReload.h"
 #include "../Commands/TimeDelay.h"
 AutoDriveAndShoot::AutoDriveAndShoot() {
 	// Add Commands here:
