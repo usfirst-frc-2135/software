@@ -74,36 +74,46 @@ void Shooter::Initialize(Preferences *prefs) {
 	SmartDashboard::PutNumber("Upper PID Error", upperMotor->GetClosedLoopError());
 	SmartDashboard::PutNumber("Lower PID Error", lowerMotor->GetClosedLoopError());
 
-	double upperP = Robot::LoadPreferencesVariable ("Shooter_Upper_P", 0.007296);
-	double lowerP = Robot::LoadPreferencesVariable ("Shooter_Lower_P", 0.007296);
+	upperP = Robot::LoadPreferencesVariable ("Shooter_Upper_P", 0.007296);
+	lowerP = Robot::LoadPreferencesVariable ("Shooter_Lower_P", 0.007296);
 
-	double upperI = Robot::LoadPreferencesVariable ("Shooter_Upper_I", 0.0);
-	double lowerI = Robot::LoadPreferencesVariable ("Shooter_Lower_I", 0.0);
+	upperI = Robot::LoadPreferencesVariable ("Shooter_Upper_I", 0.0);
+	lowerI = Robot::LoadPreferencesVariable ("Shooter_Lower_I", 0.0);
 
-	double upperD = Robot::LoadPreferencesVariable ("Shooter_Upper_D", 0.0);
-	double lowerD = Robot::LoadPreferencesVariable ("Shooter_Lower_D", 0.0);
+	upperD = Robot::LoadPreferencesVariable ("Shooter_Upper_D", 0.0);
+	lowerD = Robot::LoadPreferencesVariable ("Shooter_Lower_D", 0.0);
 
+	upperMotor->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 	upperMotor->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
 	upperMotor->ConfigEncoderCodesPerRev(4096);
 	upperMotor->SetSensorDirection(false);
 	upperMotor->SetEncPosition(0);
-	upperMotor->SetF(.033901);
-	upperMotor->SetPID(upperP,upperI,upperD);
-	upperMotor->SetControlMode(CANSpeedController::ControlMode::kSpeed);
-	upperMotor->ConfigPeakOutputVoltage(12.0,0.0);
 
+	lowerMotor->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 	lowerMotor->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
 	lowerMotor->ConfigEncoderCodesPerRev(4096);
 	lowerMotor->SetSensorDirection(true);
 	lowerMotor->SetEncPosition(0);
-	lowerMotor->SetF(.033901);
-	lowerMotor->SetPID(lowerP,lowerI,lowerD);
-	lowerMotor->SetControlMode(CANSpeedController::ControlMode::kSpeed);
-	lowerMotor->ConfigPeakOutputVoltage(0.0,-12.0);
 
+    lowerMotor->SetStatusFrameRateMs(CANTalon::StatusFrameRateQuadEncoder,20);
+    upperMotor->SetStatusFrameRateMs(CANTalon::StatusFrameRateQuadEncoder,20);
+
+	m_timer.Reset();
+	m_timer.Start();
+
+	m_encoder_timer.Reset();
+	m_encoder_timer.Start();
 }
 
 void Shooter::SetMotorSpeeds(double upperSpeed, double lowerSpeed) {
+	fprintf(m_logFile,
+			"%f,%i,%i,%d,%d\n",
+			m_encoder_timer.Get(),
+			upperMotor->GetEncVel(),
+			lowerMotor->GetEncVel(),
+			upperMotor->GetClosedLoopError(),
+			lowerMotor->GetClosedLoopError());
+
 	lowerMotor->Set(lowerSpeed*M_VELOCITY_PER_VBUS_PRCNT);
 	upperMotor->Set(upperSpeed*M_VELOCITY_PER_VBUS_PRCNT);
 
@@ -120,6 +130,28 @@ void Shooter::SetMotorDirection(bool isForward) {
 		lowerMotor->ConfigPeakOutputVoltage(12.0, 0.0);
 		upperMotor->ConfigPeakOutputVoltage(0.0, -12.0);
 	}
+}
+
+void Shooter::SetControlMode(void) {
+	if (m_isPID == true) {
+		upperMotor->SetF(.033901);
+		upperMotor->SetPID(upperP,upperI,upperD);
+		upperMotor->SetControlMode(CANSpeedController::ControlMode::kSpeed);
+		upperMotor->ConfigPeakOutputVoltage(12.0,0.0);
+
+		lowerMotor->SetF(.033901);
+		lowerMotor->SetPID(lowerP,lowerI,lowerD);
+		lowerMotor->SetControlMode(CANSpeedController::ControlMode::kSpeed);
+		lowerMotor->ConfigPeakOutputVoltage(0.0,-12.0);
+	}
+
+	else {
+		upperMotor->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+		lowerMotor->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+	}
+
+	m_isPID = !m_isPID;
+	SmartDashboard::PutBoolean("PIDMode", m_isPID);
 }
 
 void Shooter::SetFireSolenoid(bool fire) {
