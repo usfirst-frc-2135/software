@@ -39,7 +39,7 @@ void Pneumatics::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void Pneumatics::Initialize(Preferences *prefs) {
-	printf("2135: Pnuematics Initialize\n");
+	printf("2135: Pneumatics Initialize\n");
 	CompressorEnable(true);
 }
 

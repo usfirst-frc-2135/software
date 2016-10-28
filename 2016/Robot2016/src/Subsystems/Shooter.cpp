@@ -135,7 +135,7 @@ void Shooter::SetFireSolenoid(bool fire) {
 }
 
 void Shooter::SetFireSolenoidUnsafe(bool fire) {
-	if (fire){
+	if (fire) {
 		fireSolenoid->Set(DoubleSolenoid::kForward);
 	}
 	else{
