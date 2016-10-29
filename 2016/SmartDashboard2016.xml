@@ -1,5 +1,11 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Lower PID Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="462"/>
+	</widget>
+	<widget field="Upper PID Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="441"/>
+	</widget>
 	<widget field="Light On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="274" y="169"/>
 		<width>115</width>

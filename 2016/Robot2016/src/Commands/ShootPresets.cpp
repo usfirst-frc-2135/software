@@ -29,6 +29,7 @@ ShootPresets::ShootPresets(int direction): Command() {
 
 // Called just before this Command runs the first time
 void ShootPresets::Initialize() {
+	Robot::shooter->ShootStartMode();
 
 	//For Low Shot
 	if (m_direction == SHOT_LOW) {
@@ -76,10 +77,12 @@ bool ShootPresets::IsFinished() {
 // Called once after isFinished returns true
 void ShootPresets::End() {
 	Robot::shooter->SetMotorSpeeds(0.0, 0.0);
+	Robot::shooter->ShootFinishMode();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShootPresets::Interrupted() {
 	Robot::shooter->SetMotorSpeeds(0.0, 0.0);
+	Robot::shooter->ShootFinishMode();
 }

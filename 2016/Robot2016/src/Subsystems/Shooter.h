@@ -57,6 +57,8 @@ public:
 	void SetMotorSpeeds(double upperSpeed, double lowerSpeed);
 	void SetMotorDirection(bool isForward);
 	void SetControlMode(void);
+	void ShootStartMode(void);
+	void ShootFinishMode(void);
 	void SetFireSolenoid(bool fire);
 	void SetFireSolenoidUnsafe (bool fire);
 	bool GetFireSolenoid(void);

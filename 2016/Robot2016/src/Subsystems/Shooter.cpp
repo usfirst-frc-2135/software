@@ -37,11 +37,13 @@ Shooter::Shooter() : Subsystem("Shooter") {
     lowerMotor->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
     upperMotor->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 
-
-
     SetFrameControl(false);
     SetFireSolenoid(true);
     SetWhiskerControl(false);
+
+    m_isPID = false;
+
+    m_logFile = fopen("/home/lvuser/EncoderLog.csv", "w");
 }
 
 void Shooter::InitDefaultCommand() {
@@ -73,6 +75,8 @@ void Shooter::Initialize(Preferences *prefs) {
 	SmartDashboard::PutNumber("Lower Encoder Velocity", lowerMotor->GetEncVel());
 	SmartDashboard::PutNumber("Upper PID Error", upperMotor->GetClosedLoopError());
 	SmartDashboard::PutNumber("Lower PID Error", lowerMotor->GetClosedLoopError());
+
+	SmartDashboard::PutBoolean("PIDMode", m_isPID);
 
 	upperP = Robot::LoadPreferencesVariable ("Shooter_Upper_P", 0.007296);
 	lowerP = Robot::LoadPreferencesVariable ("Shooter_Lower_P", 0.007296);
@@ -106,13 +110,13 @@ void Shooter::Initialize(Preferences *prefs) {
 }
 
 void Shooter::SetMotorSpeeds(double upperSpeed, double lowerSpeed) {
-	fprintf(m_logFile,
-			"%f,%i,%i,%d,%d\n",
-			m_encoder_timer.Get(),
-			upperMotor->GetEncVel(),
-			lowerMotor->GetEncVel(),
-			upperMotor->GetClosedLoopError(),
-			lowerMotor->GetClosedLoopError());
+//	fprintf(m_logFile,
+//			"%f,%i,%i,%d,%d\n",
+//			m_encoder_timer.Get(),
+//			upperMotor->GetEncVel(),
+//			lowerMotor->GetEncVel(),
+//			upperMotor->GetClosedLoopError(),
+//			lowerMotor->GetClosedLoopError());
 
 	lowerMotor->Set(lowerSpeed*M_VELOCITY_PER_VBUS_PRCNT);
 	upperMotor->Set(upperSpeed*M_VELOCITY_PER_VBUS_PRCNT);
@@ -133,7 +137,13 @@ void Shooter::SetMotorDirection(bool isForward) {
 }
 
 void Shooter::SetControlMode(void) {
+	m_isPID = !m_isPID;
+	SmartDashboard::PutBoolean("PIDMode", m_isPID);
+}
+
+void Shooter::ShootStartMode(void) {
 	if (m_isPID == true) {
+		printf("2135: Shooter PID Mode\n");
 		upperMotor->SetF(.033901);
 		upperMotor->SetPID(upperP,upperI,upperD);
 		upperMotor->SetControlMode(CANSpeedController::ControlMode::kSpeed);
@@ -144,14 +154,14 @@ void Shooter::SetControlMode(void) {
 		lowerMotor->SetControlMode(CANSpeedController::ControlMode::kSpeed);
 		lowerMotor->ConfigPeakOutputVoltage(0.0,-12.0);
 	}
+}
 
-	else {
+void Shooter::ShootFinishMode(void) {
+	if (m_isPID == true) {
+		printf("2135: Shooter %%Vbus Mode\n");
 		upperMotor->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 		lowerMotor->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	}
-
-	m_isPID = !m_isPID;
-	SmartDashboard::PutBoolean("PIDMode", m_isPID);
 }
 
 void Shooter::SetFireSolenoid(bool fire) {
@@ -203,6 +213,8 @@ void Shooter::UpdateEncoderDisplays( void )
 	static int updateCounter;			// Counter for updating encoder values
 
 	// Update SmartDashboard values - Each counter tick is 20msec
+//	printf("2135: Upper Motor Speed: %i \n", upperMotor->GetEncVel());
+//	printf("2135: Lower Motor Speed: %i \n", lowerMotor->GetEncVel());
 	if (updateCounter % 5 == 0)
 	{
 		SmartDashboard::PutNumber("Upper Encoder Velocity", (double) upperMotor->GetEncVel());

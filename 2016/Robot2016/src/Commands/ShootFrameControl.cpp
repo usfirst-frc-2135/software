@@ -37,7 +37,7 @@ void ShootFrameControl::Initialize() {
 	printf("2135: Shooter Frame Extend\n");
 	if (m_frameUp == true)
 	{
-		Robot::shooter->SetMotorSpeeds(-0.80, -0.80);		// Run lower shooter motor
+		Robot::shooter->SetMotorSpeeds(0.0, -0.80);		// Run lower shooter motor
 	}
 }
 
