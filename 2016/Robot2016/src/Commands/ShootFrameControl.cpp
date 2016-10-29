@@ -48,15 +48,31 @@ void ShootFrameControl::Execute() {
 			{
 			case FRAME_START:
 				if (m_timer.HasPeriodPassed(m_timeout)) {
+					m_frameState = FRAME_INTAKE_STOP;
+					Robot::shooter->SetFireSolenoidUnsafe(false);			// Basket down
+					Robot::shooter->SetMotorSpeeds(0.0, -0.80);		// Lower motor running
+					m_timer.Reset();
+					m_timer.Start();
+				}
+				break;
+			case FRAME_INTAKE_STOP:
+				if (m_timer.HasPeriodPassed(0.5)) {
+					m_frameState = FRAME_BASKET;
+					Robot::shooter->SetMotorSpeeds(0.0, 0.0);		// Lower motor stopped
+					m_timer.Reset();
+					m_timer.Start();
+				}
+				break;
+			case FRAME_BASKET:
+				if (m_timer.HasPeriodPassed(0.2)) {
 					m_frameState = FRAME_NEXT;
-					Robot::shooter->SetWhiskerControl(true);		// Whiskers closed
-					Robot::shooter->SetMotorSpeeds(0.0, 0.0);		// Motors off
+					Robot::shooter->SetFireSolenoidUnsafe(true);			// Basket up
 					m_timer.Reset();
 					m_timer.Start();
 				}
 				break;
 			case FRAME_NEXT:
-				if (m_timer.HasPeriodPassed(0.5)) {
+				if (m_timer.HasPeriodPassed(0.3)) {
 					m_frameState = FRAME_MOVE;
 					Robot::shooter->SetFrameControl(m_frameUp);		// Frame up
 					m_timer.Reset();
@@ -80,7 +96,6 @@ void ShootFrameControl::Execute() {
 			case FRAME_START:
 				if (m_timer.HasPeriodPassed(0.5)) {
 					m_frameState = FRAME_NEXT;
-					Robot::shooter->SetWhiskerControl(false);		// Whiskers open
 					Robot::shooter->SetFireSolenoid(true);			// Basket up
 					m_timer.Reset();
 					m_timer.Start();

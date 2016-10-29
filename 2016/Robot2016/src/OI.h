@@ -24,10 +24,10 @@ private:
 	std::shared_ptr<JoystickButton> shootHigh;
 	std::shared_ptr<JoystickButton> fire;
 	std::shared_ptr<Joystick> controlBoardA;
-	std::shared_ptr<JoystickButton> frameDown;
-	std::shared_ptr<JoystickButton> frameUp;
 	std::shared_ptr<JoystickButton> targetLight;
 	std::shared_ptr<JoystickButton> basketDown;
+	std::shared_ptr<JoystickButton> frameDown;
+	std::shared_ptr<JoystickButton> frameUp;
 	std::shared_ptr<JoystickButton> indexerExpel;
 	std::shared_ptr<JoystickButton> indexerAcquire;
 	std::shared_ptr<JoystickButton> sweeperExpel;

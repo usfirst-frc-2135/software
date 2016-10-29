@@ -59,14 +59,14 @@ OI::OI() {
     fire->WhenPressed(new FireBoulder());
     controlBoardA.reset(new Joystick(1));
     
-    frameDown.reset(new JoystickButton(controlBoardA.get(), 11));
-    frameDown->WhenPressed(new ShootFrameControl(false));
-    frameUp.reset(new JoystickButton(controlBoardA.get(), 10));
-    frameUp->WhenPressed(new ShootFrameControl(true));
-    targetLight.reset(new JoystickButton(controlBoardA.get(), 9));
+    targetLight.reset(new JoystickButton(controlBoardA.get(), 11));
     targetLight->WhenPressed(new LightToggle());
-    basketDown.reset(new JoystickButton(controlBoardA.get(), 8));
+    basketDown.reset(new JoystickButton(controlBoardA.get(), 10));
     basketDown->WhileHeld(new FireReset());
+    frameDown.reset(new JoystickButton(controlBoardA.get(), 9));
+    frameDown->WhenPressed(new ShootFrameControl(false));
+    frameUp.reset(new JoystickButton(controlBoardA.get(), 8));
+    frameUp->WhenPressed(new ShootFrameControl(true));
     indexerExpel.reset(new JoystickButton(controlBoardA.get(), 6));
     indexerExpel->WhileHeld(new IndexerMotorEnable(-1));
     indexerAcquire.reset(new JoystickButton(controlBoardA.get(), 5));
