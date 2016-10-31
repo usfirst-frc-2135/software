@@ -32,7 +32,7 @@
 
 class Robot : public IterativeRobot {
 public:
-	enum AutoChoice {AUTOLOWBAR, DRIVELOWBAR, DRIVETIMED, SITSTILL};
+	enum AutoChoice {AUTOLOWBAR, AUTODRIVETIMED, SITSTILL};
 	SendableChooser *chooser;
 	std::unique_ptr<Command> autonomousCommand;
 	static std::unique_ptr<OI> oi;

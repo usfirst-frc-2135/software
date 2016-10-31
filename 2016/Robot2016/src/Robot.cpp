@@ -11,8 +11,7 @@
 
 #include "Robot.h"
 #include "Commands/DriveStop.h"
-#include "Commands/DriveDistanceDelayed.h"
-#include "Commands/DriveDistanceTimed.h"
+#include "Commands/AutoDriveTimed.h"
 #include "Commands/AutoLowBar.h"
 
 
@@ -54,8 +53,7 @@ void Robot::RobotInit() {
 	// Build and display autoChooser
 	chooser = new SendableChooser();
 	chooser->AddObject("Auto low bar", (void*) AUTOLOWBAR);
-	chooser->AddObject("Drive low bar", (void*) DRIVELOWBAR);
-	chooser->AddObject("Drive timed", (void*) DRIVETIMED);
+	chooser->AddObject("Auto drive timed", (void*) AUTODRIVETIMED);
 	chooser->AddDefault("Sit still", (void*) SITSTILL);
 	SmartDashboard::PutData("Auto Mode Chooser", chooser);
 
@@ -111,11 +109,12 @@ void Robot::AutonomousInit() {
 		case SITSTILL:
 			autonomousCommand.reset(new DriveStop());
 			break;
-		case DRIVELOWBAR:
-			autonomousCommand.reset(new DriveDistanceDelayed());
-			break;
-		case DRIVETIMED:
-			autonomousCommand.reset(new DriveDistanceTimed());
+		case AUTODRIVETIMED:
+			double driveTime;
+			double driveSpeed;
+			driveTime = SmartDashboard::GetNumber("AutoDriveTimed", 2.25);
+			driveSpeed = SmartDashboard::GetNumber("AutoDriveTimedSpeed", 0.9);
+			autonomousCommand.reset(new AutoDriveTimed(0.0, driveTime, driveSpeed));
 			break;
 		case AUTOLOWBAR:
 			autonomousCommand.reset(new AutoLowBar());
