@@ -8,9 +8,6 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
-
-
 #include "Shooter.h"
 #include "../RobotMap.h"
 #include "../Robot.h"
@@ -61,8 +58,6 @@ void Shooter::InitDefaultCommand() {
 void Shooter::Initialize(Preferences *prefs) {
 	printf("2135: Shooter Initialize\n");
 
-	SmartDashboard::PutNumber("ShootLow_Upper", Robot::LoadPreferencesVariable ("ShootLow_Upper", 0.75));
-	SmartDashboard::PutNumber("ShootLow_Lower", Robot::LoadPreferencesVariable ("ShootLow_Lower", 0.5));
 	SmartDashboard::PutNumber("ShootHigh_Upper", Robot::LoadPreferencesVariable ("ShootHigh_Upper", 0.95));
 	SmartDashboard::PutNumber("ShootHigh_Lower", Robot::LoadPreferencesVariable ("ShootHigh_Lower", 0.7));
 
@@ -76,14 +71,14 @@ void Shooter::Initialize(Preferences *prefs) {
 
 	SmartDashboard::PutBoolean("PIDMode", m_isPID);
 
-	upperP = Robot::LoadPreferencesVariable ("Shooter_Upper_P", 0.007296);
-	lowerP = Robot::LoadPreferencesVariable ("Shooter_Lower_P", 0.007296);
+	m_upperP = Robot::LoadPreferencesVariable ("Shooter_Upper_P", 0.007296);
+	m_lowerP = Robot::LoadPreferencesVariable ("Shooter_Lower_P", 0.007296);
 
-	upperI = Robot::LoadPreferencesVariable ("Shooter_Upper_I", 0.0);
-	lowerI = Robot::LoadPreferencesVariable ("Shooter_Lower_I", 0.0);
+	m_upperI = Robot::LoadPreferencesVariable ("Shooter_Upper_I", 0.0);
+	m_lowerI = Robot::LoadPreferencesVariable ("Shooter_Lower_I", 0.0);
 
-	upperD = Robot::LoadPreferencesVariable ("Shooter_Upper_D", 0.0);
-	lowerD = Robot::LoadPreferencesVariable ("Shooter_Lower_D", 0.0);
+	m_upperD = Robot::LoadPreferencesVariable ("Shooter_Upper_D", 0.0);
+	m_lowerD = Robot::LoadPreferencesVariable ("Shooter_Lower_D", 0.0);
 
 	upperMotor->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 	upperMotor->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
@@ -97,8 +92,8 @@ void Shooter::Initialize(Preferences *prefs) {
 	lowerMotor->SetSensorDirection(true);
 	lowerMotor->SetEncPosition(0);
 
-    lowerMotor->SetStatusFrameRateMs(CANTalon::StatusFrameRateQuadEncoder,20);
-    upperMotor->SetStatusFrameRateMs(CANTalon::StatusFrameRateQuadEncoder,20);
+    lowerMotor->SetStatusFrameRateMs(CANTalon::StatusFrameRateQuadEncoder, 20);
+    upperMotor->SetStatusFrameRateMs(CANTalon::StatusFrameRateQuadEncoder, 20);
 
 	m_timer.Reset();
 	m_timer.Start();
@@ -108,13 +103,9 @@ void Shooter::Initialize(Preferences *prefs) {
 }
 
 void Shooter::SetMotorSpeeds(double upperSpeed, double lowerSpeed) {
-//	fprintf(m_logFile,
-//			"%f,%i,%i,%d,%d\n",
-//			m_encoder_timer.Get(),
-//			upperMotor->GetEncVel(),
-//			lowerMotor->GetEncVel(),
-//			upperMotor->GetClosedLoopError(),
-//			lowerMotor->GetClosedLoopError());
+//	fprintf(m_logFile, "%f,%i,%i,%d,%d\n", m_encoder_timer.Get(),
+//		upperMotor->GetEncVel(), lowerMotor->GetEncVel(),
+//		upperMotor->GetClosedLoopError(), lowerMotor->GetClosedLoopError());
 
 	lowerMotor->Set(lowerSpeed*M_VELOCITY_PER_VBUS_PRCNT);
 	upperMotor->Set(upperSpeed*M_VELOCITY_PER_VBUS_PRCNT);
@@ -142,15 +133,15 @@ void Shooter::SetControlMode(void) {
 void Shooter::ShootStartMode(void) {
 	if (m_isPID == true) {
 		printf("2135: Shooter PID Mode\n");
-		upperMotor->SetF(.033901);
-		upperMotor->SetPID(upperP,upperI,upperD);
+		upperMotor->SetF(0.033901);
+		upperMotor->SetPID(m_upperP, m_upperI, m_upperD);
 		upperMotor->SetControlMode(CANSpeedController::ControlMode::kSpeed);
-		upperMotor->ConfigPeakOutputVoltage(12.0,0.0);
+		upperMotor->ConfigPeakOutputVoltage(12.0, 0.0);
 
-		lowerMotor->SetF(.033901);
-		lowerMotor->SetPID(lowerP,lowerI,lowerD);
+		lowerMotor->SetF(0.033901);
+		lowerMotor->SetPID(m_lowerP, m_lowerI, m_lowerD);
 		lowerMotor->SetControlMode(CANSpeedController::ControlMode::kSpeed);
-		lowerMotor->ConfigPeakOutputVoltage(0.0,-12.0);
+		lowerMotor->ConfigPeakOutputVoltage(0.0, -12.0);
 	}
 }
 

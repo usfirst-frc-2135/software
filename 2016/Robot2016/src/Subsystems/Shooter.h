@@ -34,12 +34,12 @@ private:
 	bool m_frameUpState;
 	bool m_fireState;
 	bool m_isPID;
-	double upperP;
-	double lowerP;
-	double upperI;
-	double lowerI;
-	double upperD;
-	double lowerD;
+	double m_upperP;
+	double m_upperI;
+	double m_upperD;
+	double m_lowerP;
+	double m_lowerI;
+	double m_lowerD;
 	const double M_VELOCITY_PER_VBUS_PRCNT = 4652.95789;
 	FILE* m_logFile;
 	Timer m_encoder_timer;
@@ -62,8 +62,6 @@ public:
 	void SetFireSolenoidUnsafe (bool fire);
 	bool GetFireSolenoid(void);
 	void SetFrameControl(bool frameUp);
-	void SetWhiskerControl(bool setting);
-
 };
 
 #endif

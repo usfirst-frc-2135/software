@@ -56,7 +56,7 @@ void Sweeper::Initialize(Preferences *prefs) {
     motorAcquire2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 
     // Initialize motor speeds
-    m_sweeperSpeed = Robot::LoadPreferencesVariable("SweepSpeed", 0.9);
+    m_sweeperSpeed = Robot::LoadPreferencesVariable("SweepSpeed", 0.8);
     SmartDashboard::PutNumber("SweepSpeed", m_sweeperSpeed );
 
     SetMotorSpeed(0);					// Sweeper motor off
