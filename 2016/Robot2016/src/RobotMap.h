@@ -38,7 +38,6 @@ public:
 	static std::shared_ptr<CANTalon> shooterUpperMotor;
 	static std::shared_ptr<DoubleSolenoid> shooterFrameSolenoid;
 	static std::shared_ptr<DoubleSolenoid> shooterFireSolenoid;
-	static std::shared_ptr<DoubleSolenoid> shooterWhiskerSolenoid;
 	static std::shared_ptr<DigitalOutput> lightPowerEnable;
 	static std::shared_ptr<CANTalon> climberMotor;
 	static std::shared_ptr<Compressor> pneumaticsCompressor;

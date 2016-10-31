@@ -357,34 +357,6 @@ Children:
           value: '3'
       Base: Double Solenoid
       Name: Fire Solenoid
-    - Children: []
-      Properties:
-        Forward PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id011
-          default: '0'
-          name: Forward PCM (Solenoid)
-          validators: *id012
-          value: '0'
-        Reverse PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id013
-          default: '0'
-          name: Reverse PCM (Solenoid)
-          validators: *id014
-          value: '0'
-        Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id015
-          default: '0'
-          name: Reverse Channel (Solenoid)
-          validators: *id016
-          value: '7'
-        Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id017
-          default: '0'
-          name: Forward Channel (Solenoid)
-          validators: *id018
-          value: '0'
-      Base: Double Solenoid
-      Name: Whisker Solenoid
     Properties:
       Default command parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
@@ -1204,7 +1176,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '4'
+          value: '3'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -1262,7 +1234,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '8'
+          value: '7'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -1326,10 +1298,10 @@ Children:
       Commands: !!robotbuilder.data.properties.ListProperty
         default: []
         name: Commands
-        validators: &id029 [List]
+        validators: [List]
         value:
         - &id028 !!robotbuilder.data.CommandGroupEntry
-          command: &id030
+          command:
             base: &id026
               help: A command specifies an action that the robot can perform.
               name: Command
@@ -1351,7 +1323,7 @@ Children:
               supports: {}
               type: Command
             name: Arm Extend
-            properties: &id035
+            properties: &id029
               Parameters: !!robotbuilder.data.properties.ParametersProperty
                 default: []
                 name: Parameters
@@ -1419,126 +1391,6 @@ Children:
         default: []
         name: Parameters
         validators: null
-        value: []
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Chassis}
-      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
-        name: Parameter presets
-        validators: null
-        value: []
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: false}
-    Base: Command
-    Name: Drive Stop
-  - Children: []
-    Properties: &id032
-      Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Parameters
-        validators: null
-        value: []
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Chassis}
-      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
-        name: Parameter presets
-        validators: null
-        value:
-        - !!robotbuilder.data.properties.ParameterSet
-          name: DEFAULT
-          parameters:
-          - {name: time, type: double, value: '3.0'}
-          - {name: maxSpeed, type: double, value: '0'}
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: false}
-    Base: Command
-    Name: Drive Distance Timed
-  - Children: []
-    Properties:
-      Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Parameters
-        validators: null
-        value: []
-      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
-        name: Parameter presets
-        validators: null
-        value:
-        - !!robotbuilder.data.properties.ParameterSet
-          name: DEFAULT
-          parameters:
-          - {name: time, type: double, value: '5'}
-          - {name: distance, type: double, value: '0'}
-          - {name: maxSpeed, type: double, value: '0'}
-      Commands: !!robotbuilder.data.properties.ListProperty
-        default: []
-        name: Commands
-        validators: *id029
-        value:
-        - &id031 !!robotbuilder.data.CommandGroupEntry
-          command: *id030
-          hasMatch: true
-          order: Sequential
-          parameters:
-            default: []
-            name: ParametersProperty
-            validators: null
-            value:
-            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: extend,
-              type: boolean, value: 'false'}
-          previous: null
-        - &id033 !!robotbuilder.data.CommandGroupEntry
-          command:
-            base: *id026
-            name: Drive Wait
-            properties: &id034
-              Parameters: !!robotbuilder.data.properties.ParametersProperty
-                default: []
-                name: Parameters
-                validators: null
-                value: []
-              Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-                name: Requires, type: Subsystem, validators: null, value: Chassis}
-              Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-                default: []
-                name: Parameter presets
-                validators: null
-                value: []
-              Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {
-                default: true, name: Button on SmartDashboard, validators: null, value: false}
-          hasMatch: true
-          order: Sequential
-          parameters:
-            default: []
-            name: ParametersProperty
-            validators: null
-            value: []
-          previous: *id031
-        - !!robotbuilder.data.CommandGroupEntry
-          command:
-            base: *id026
-            name: Drive Distance Timed
-            properties: *id032
-          hasMatch: true
-          order: Sequential
-          parameters:
-            default: []
-            name: ParametersProperty
-            validators: null
-            value: []
-          previous: *id033
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: false}
-    Base: Command Group
-    Name: Drive Distance Delayed
-  - Children: []
-    Properties:
-      Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Parameters
-        validators: null
         value:
         - !!robotbuilder.data.properties.ParameterDescriptor {name: distance, type: double}
         - !!robotbuilder.data.properties.ParameterDescriptor {name: maxSpeed, type: double}
@@ -1559,7 +1411,39 @@ Children:
     Base: Command
     Name: Drive Distance PID
   - Children: []
-    Properties: *id034
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Chassis}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: Drive Stop
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Chassis}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: Drive Wait
   - Children: []
@@ -1638,25 +1522,6 @@ Children:
         name: Parameters
         validators: null
         value:
-        - !!robotbuilder.data.properties.ParameterDescriptor {name: isForward, type: boolean}
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: None}
-      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
-        name: Parameter presets
-        validators: null
-        value: []
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: false}
-    Base: Command
-    Name: DriveFast
-  - Children: []
-    Properties:
-      Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Parameters
-        validators: null
-        value:
         - !!robotbuilder.data.properties.ParameterDescriptor {name: invert, type: boolean}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Chassis}
@@ -1692,7 +1557,7 @@ Children:
     Base: Command
     Name: Drive Brake Toggle
   - Children: []
-    Properties: *id035
+    Properties: *id029
     Base: Command
     Name: Arm Extend
   - Children: []
@@ -1813,37 +1678,6 @@ Children:
         name: Parameters
         validators: null
         value:
-        - !!robotbuilder.data.properties.ParameterDescriptor {name: setting, type: boolean}
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: None}
-      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
-        name: Parameter presets
-        validators: null
-        value:
-        - !!robotbuilder.data.properties.ParameterSet
-          name: DEFAULT
-          parameters:
-          - {name: setting, type: boolean, value: 'false'}
-        - !!robotbuilder.data.properties.ParameterSet
-          name: OPEN
-          parameters:
-          - {name: setting, type: boolean, value: 'false'}
-        - !!robotbuilder.data.properties.ParameterSet
-          name: CLOSED
-          parameters:
-          - {name: setting, type: boolean, value: 'true'}
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: false}
-    Base: Command
-    Name: Shoot Whisker Control
-  - Children: []
-    Properties:
-      Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Parameters
-        validators: null
-        value:
         - !!robotbuilder.data.properties.ParameterDescriptor {name: direction, type: int}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Shooter}
@@ -1856,10 +1690,6 @@ Children:
           name: DEFAULT
           parameters:
           - {name: direction, type: int, value: '0'}
-        - !!robotbuilder.data.properties.ParameterSet
-          name: LOW
-          parameters:
-          - {name: direction, type: int, value: '1'}
         - !!robotbuilder.data.properties.ParameterSet
           name: HIGH
           parameters:
@@ -1898,24 +1728,6 @@ Children:
         validators: null
         value: []
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: None}
-      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
-        name: Parameter presets
-        validators: null
-        value: []
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
-    Base: Command
-    Name: Fire Boulder
-  - Children: []
-    Properties:
-      Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Parameters
-        validators: null
-        value: []
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Light}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
@@ -1926,6 +1738,24 @@ Children:
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: Light Toggle
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: None}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: Fire Boulder
   - Children: []
     Properties:
       Parameters: !!robotbuilder.data.properties.ParametersProperty
@@ -1984,8 +1814,8 @@ Children:
   Base: Commands
   Name: Commands
 Properties:
-  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\workspace',
-    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: 'C:\Users\PHS-User\git\software\2016'}
+  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS_User\workspace',
+    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: .\}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
   Autonomous command parameters: !!robotbuilder.data.properties.ParametersProperty
@@ -2003,7 +1833,7 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS_User\',
     extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\PHS-User\Desktop'}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Drive Stop}
