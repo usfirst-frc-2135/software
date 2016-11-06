@@ -28,17 +28,13 @@ ShootFrameControl::ShootFrameControl(bool frameUp): Command() {
 
 // Called just before this Command runs the first time
 void ShootFrameControl::Initialize() {
+	printf("2135: Shooter Frame Extend %s\n", (m_frameUp) ? "UP" : "DOWN");
+
 	m_timer.Reset();
 	m_timer.Start();
 	m_timeout = Robot::LoadPreferencesVariable("ShootFrameTimeout", 0.4);
 	SmartDashboard::PutNumber("ShootFrameTimeout", m_timeout);
 	m_frameState = FRAME_START;
-
-	printf("2135: Shooter Frame Extend\n");
-	if (m_frameUp == true)
-	{
-		Robot::shooter->SetMotorSpeeds(0.0, -0.80);		// Run lower shooter motor
-	}
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -46,43 +42,48 @@ void ShootFrameControl::Execute() {
 	if (m_frameUp == true) {
 		switch (m_frameState)
 			{
-			case FRAME_START:
-				if (m_timer.HasPeriodPassed(m_timeout)) {
-					m_frameState = FRAME_INTAKE_STOP;
-					Robot::shooter->SetFireSolenoidUnsafe(false);			// Basket down
-					Robot::shooter->SetMotorSpeeds(0.0, -0.80);		// Lower motor running
+			case FRAME_START:	// Basket is up, shooter motors stopped, frame is down
+				m_frameState = FRAME_STEP_1;
+				Robot::shooter->SetFireSolenoidUnsafe(false);	// Put basket down
+				m_timer.Reset();
+				m_timer.Start();
+				break;
+			case FRAME_STEP_1:
+				if (m_timer.HasPeriodPassed(0.250)) {			// Wait for basket to drop
+					m_frameState = FRAME_STEP_2;
+					Robot::shooter->SetMotorSpeeds(0.0, -0.80);	// Start lower motor
 					m_timer.Reset();
 					m_timer.Start();
 				}
 				break;
-			case FRAME_INTAKE_STOP:
-				if (m_timer.HasPeriodPassed(0.5)) {
-					m_frameState = FRAME_BASKET;
-					Robot::shooter->SetMotorSpeeds(0.0, 0.0);		// Lower motor stopped
+			case FRAME_STEP_2:
+				if (m_timer.HasPeriodPassed(m_timeout)) {		// Wait for boulder to come in
+					m_frameState = FRAME_STEP_3;
+					Robot::shooter->SetMotorSpeeds(0.0, 0.0);	// Stop lower motor
 					m_timer.Reset();
 					m_timer.Start();
 				}
 				break;
-			case FRAME_BASKET:
-				if (m_timer.HasPeriodPassed(0.2)) {
-					m_frameState = FRAME_NEXT;
-					Robot::shooter->SetFireSolenoidUnsafe(true);			// Basket up
+			case FRAME_STEP_3:
+				if (m_timer.HasPeriodPassed(0.2)) {				// Wait for motors to stop
+					m_frameState = FRAME_STEP_4;
+					Robot::shooter->SetFireSolenoidUnsafe(true); // Raise the basket
 					m_timer.Reset();
 					m_timer.Start();
 				}
 				break;
-			case FRAME_NEXT:
-				if (m_timer.HasPeriodPassed(0.3)) {
-					m_frameState = FRAME_MOVE;
-					Robot::shooter->SetFrameControl(m_frameUp);		// Frame up
+			case FRAME_STEP_4:
+				if (m_timer.HasPeriodPassed(0.3)) {				// Wait for basket up
+					m_frameState = FRAME_STEP_5;
+					Robot::shooter->SetFrameControl(m_frameUp);	// Put the frame up
 					m_timer.Reset();
 					m_timer.Start();
 				}
 				break;
-			case FRAME_MOVE:
-				if (m_timer.HasPeriodPassed(0.5)) {
+			case FRAME_STEP_5:
+				if (m_timer.HasPeriodPassed(0.5)) {				// Wait for frame to rise
 					m_frameState = FRAME_READY;
-					Robot::shooter->SetFireSolenoid(false);			// Basket down
+					Robot::shooter->SetFireSolenoid(false);		// Put basket down
 				}
 				break;
 			case FRAME_READY:
@@ -93,21 +94,19 @@ void ShootFrameControl::Execute() {
 	else {
 		switch (m_frameState)
 			{
-			case FRAME_START:
-				if (m_timer.HasPeriodPassed(0.5)) {
-					m_frameState = FRAME_NEXT;
-					Robot::shooter->SetFireSolenoid(true);			// Basket up
-					m_timer.Reset();
-					m_timer.Start();
-				}
+			case FRAME_START:	// Basket is up, shooter motors stopped, frame is up
+				m_frameState = FRAME_STEP_1;
+				Robot::shooter->SetFireSolenoid(true);			// Basket up
+				m_timer.Reset();
+				m_timer.Start();
 				break;
-			case FRAME_NEXT:
-				if (m_timer.HasPeriodPassed(0.5)) {
+			case FRAME_STEP_1:
+				if (m_timer.HasPeriodPassed(0.5)) {				// Wait for basket
 					m_frameState = FRAME_READY;
-					Robot::shooter->SetFrameControl(m_frameUp);		// Frame down
+					Robot::shooter->SetFrameControl(m_frameUp);	// Put frame down
 				}
 				break;
-			case FRAME_READY:
+			case FRAME_READY:									// Done
 			default:
 				break;
 		}
