@@ -22,8 +22,8 @@ std::shared_ptr<Encoder> RobotMap::chassisRightEncoder;
 std::shared_ptr<PIDController> RobotMap::chassisRightPID;
 std::shared_ptr<CANTalon> RobotMap::chassisMotorL3;
 std::shared_ptr<CANTalon> RobotMap::chassisMotorR5;
-std::shared_ptr<CANTalon> RobotMap::sweeperMotorAcquire1;
-std::shared_ptr<CANTalon> RobotMap::sweeperMotorAcquire2;
+std::shared_ptr<CANTalon> RobotMap::sweeperMotorAcquire;
+std::shared_ptr<CANTalon> RobotMap::sweeperIndexerAcquire;
 std::shared_ptr<DoubleSolenoid> RobotMap::sweeperExtension;
 std::shared_ptr<CANTalon> RobotMap::shooterLowerMotor;
 std::shared_ptr<CANTalon> RobotMap::shooterUpperMotor;
@@ -67,11 +67,11 @@ void RobotMap::init() {
     chassisMotorR5.reset(new CANTalon(5));
     lw->AddActuator("Chassis", "MotorR5", chassisMotorR5);
     
-    sweeperMotorAcquire1.reset(new CANTalon(6));
-    lw->AddActuator("Sweeper", "Motor Acquire 1", sweeperMotorAcquire1);
+    sweeperMotorAcquire.reset(new CANTalon(6));
+    lw->AddActuator("Sweeper", "Motor Acquire", sweeperMotorAcquire);
     
-    sweeperMotorAcquire2.reset(new CANTalon(7));
-    lw->AddActuator("Sweeper", "Motor Acquire 2", sweeperMotorAcquire2);
+    sweeperIndexerAcquire.reset(new CANTalon(7));
+    lw->AddActuator("Sweeper", "Indexer Acquire", sweeperIndexerAcquire);
     
     sweeperExtension.reset(new DoubleSolenoid(0, 1, 6));
     lw->AddActuator("Sweeper", "Extension", sweeperExtension);

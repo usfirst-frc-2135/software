@@ -222,7 +222,7 @@ Children:
           validators: *id002
           value: '6'
       Base: CAN Talon
-      Name: Motor Acquire 1
+      Name: Motor Acquire
     - Children: []
       Properties:
         CAN ID: !!robotbuilder.data.properties.ChoicesProperty
@@ -232,7 +232,7 @@ Children:
           validators: *id002
           value: '7'
       Base: CAN Talon
-      Name: Motor Acquire 2
+      Name: Indexer Acquire
     - Children: []
       Properties:
         Forward PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
@@ -1428,24 +1428,6 @@ Children:
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: Drive Stop
-  - Children: []
-    Properties:
-      Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Parameters
-        validators: null
-        value: []
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Chassis}
-      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
-        name: Parameter presets
-        validators: null
-        value: []
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: false}
-    Base: Command
-    Name: Drive Wait
   - Children: []
     Properties:
       Parameters: !!robotbuilder.data.properties.ParametersProperty

@@ -57,14 +57,6 @@ void Robot::RobotInit() {
 	chooser->AddDefault("Sit still", (void*) SITSTILL);
 	SmartDashboard::PutData("Auto Mode Chooser", chooser);
 
-	// Display scheduler status
-//	SmartDashboard::PutData(Scheduler::GetInstance());
-//	SmartDashboard::PutData(chassis.get());
-//	SmartDashboard::PutData(sweeper);
-//	SmartDashboard::PutData(shooter);
-//	SmartDashboard::PutData(climber);
-//	SmartDashboard::PutData(pneumatics);
-
 	printf("2135: Building autonomous chooser complete\n");
 	fflush(stdout);
 

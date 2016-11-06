@@ -26,13 +26,7 @@ FireBoulder::FireBoulder(): Command() {
 void FireBoulder::Initialize() {
 	printf("2135: Fire Boulder\n");
 
-	if (Robot::shooter->GetFireSolenoid()) {
-		Robot::shooter->SetFireSolenoid(false);
-	}
-	else {
-		Robot::shooter->SetFireSolenoid(true);
-	}
-
+	Robot::shooter->SetFireSolenoid(true);
 }
 
 // Called repeatedly when this Command is scheduled to run

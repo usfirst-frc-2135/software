@@ -40,11 +40,11 @@ private:
 	double m_lowerP;
 	double m_lowerI;
 	double m_lowerD;
-	const double M_VELOCITY_PER_VBUS_PRCNT = 4652.95789;
+	const double M_VELOCITY_PER_VBUS_PRCNT = 4652.95789;  // Max rs775pro RPM 18730/4
 	FILE* m_logFile;
 	Timer m_encoder_timer;
 
-	void UpdateEncoderDisplays();
+	void UpdateEncoderDisplays(bool force_update);
 
 public:
 	Shooter();
@@ -60,7 +60,6 @@ public:
 	void ShootFinishMode(void);
 	void SetFireSolenoid(bool fire);
 	void SetFireSolenoidUnsafe (bool fire);
-	bool GetFireSolenoid(void);
 	void SetFrameControl(bool frameUp);
 };
 

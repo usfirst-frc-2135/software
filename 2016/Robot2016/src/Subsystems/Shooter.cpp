@@ -60,14 +60,8 @@ void Shooter::Initialize(Preferences *prefs) {
 
 	SmartDashboard::PutNumber("ShootHigh_Upper", Robot::LoadPreferencesVariable ("ShootHigh_Upper", 0.95));
 	SmartDashboard::PutNumber("ShootHigh_Lower", Robot::LoadPreferencesVariable ("ShootHigh_Lower", 0.7));
-
 	SmartDashboard::PutNumber("Shoot Upper", 0.0);
 	SmartDashboard::PutNumber("Shoot Lower", 0.0);
-
-	SmartDashboard::PutNumber("Upper Encoder Velocity", upperMotor->GetEncVel());
-	SmartDashboard::PutNumber("Lower Encoder Velocity", lowerMotor->GetEncVel());
-	SmartDashboard::PutNumber("Upper PID Error", upperMotor->GetClosedLoopError());
-	SmartDashboard::PutNumber("Lower PID Error", lowerMotor->GetClosedLoopError());
 
 	SmartDashboard::PutBoolean("PIDMode", m_isPID);
 
@@ -100,20 +94,25 @@ void Shooter::Initialize(Preferences *prefs) {
 
 	m_encoder_timer.Reset();
 	m_encoder_timer.Start();
+
+	UpdateEncoderDisplays(true);
 }
 
 void Shooter::SetMotorSpeeds(double upperSpeed, double lowerSpeed) {
-//	fprintf(m_logFile, "%f,%i,%i,%d,%d\n", m_encoder_timer.Get(),
-//		upperMotor->GetEncVel(), lowerMotor->GetEncVel(),
-//		upperMotor->GetClosedLoopError(), lowerMotor->GetClosedLoopError());
+#if 0
+	fprintf(m_logFile, "%f,%i,%i,%d,%d\n", m_encoder_timer.Get(),
+		upperMotor->GetEncVel(), lowerMotor->GetEncVel(),
+		upperMotor->GetClosedLoopError(), lowerMotor->GetClosedLoopError());
+#endif
 
 	lowerMotor->Set(lowerSpeed*M_VELOCITY_PER_VBUS_PRCNT);
 	upperMotor->Set(upperSpeed*M_VELOCITY_PER_VBUS_PRCNT);
 
-	UpdateEncoderDisplays();
+	UpdateEncoderDisplays(false);
 }
 
 void Shooter::SetMotorDirection(bool isForward) {
+	// Constrain motors to adjust their speed in only desired direction
 	if (isForward) {
 		lowerMotor->ConfigPeakOutputVoltage(0.0, -12.0);
 		upperMotor->ConfigPeakOutputVoltage(12.0, 0.0);
@@ -169,13 +168,9 @@ void Shooter::SetFireSolenoidUnsafe(bool fire) {
 	if (fire) {
 		fireSolenoid->Set(DoubleSolenoid::kForward);
 	}
-	else{
+	else {
 		fireSolenoid->Set(DoubleSolenoid::kReverse);
 	}
-}
-
-bool Shooter::GetFireSolenoid(void) {
-	return m_fireState;
 }
 
 void Shooter::SetFrameControl(bool frameUp) {
@@ -188,14 +183,14 @@ void Shooter::SetFrameControl(bool frameUp) {
 	}
 }
 
-void Shooter::UpdateEncoderDisplays( void )
+void Shooter::UpdateEncoderDisplays( bool force_update )
 {
 	static int updateCounter;			// Counter for updating encoder values
 
 	// Update SmartDashboard values - Each counter tick is 20msec
 //	printf("2135: Upper Motor Speed: %i \n", upperMotor->GetEncVel());
 //	printf("2135: Lower Motor Speed: %i \n", lowerMotor->GetEncVel());
-	if (updateCounter % 5 == 0)
+	if (force_update || (updateCounter % 5 == 0))
 	{
 		SmartDashboard::PutNumber("Upper Encoder Velocity", (double) upperMotor->GetEncVel());
 		SmartDashboard::PutNumber("Lower Encoder Velocity", (double) lowerMotor->GetEncVel());
@@ -203,8 +198,8 @@ void Shooter::UpdateEncoderDisplays( void )
 		SmartDashboard::PutNumber("Upper Encoder Position", (double) upperMotor->GetEncPosition());
 		SmartDashboard::PutNumber("Lower Encoder Position", (double) lowerMotor->GetEncPosition());
 
-		SmartDashboard::PutNumber("Upper PID Error", upperMotor->GetClosedLoopError());
-		SmartDashboard::PutNumber("Lower PID Error", lowerMotor->GetClosedLoopError());
+		SmartDashboard::PutNumber("Upper PID Error", (double) upperMotor->GetClosedLoopError());
+		SmartDashboard::PutNumber("Lower PID Error", (double) lowerMotor->GetClosedLoopError());
 	}
 
 	updateCounter++;

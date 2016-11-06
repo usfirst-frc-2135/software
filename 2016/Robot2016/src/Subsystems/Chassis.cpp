@@ -70,6 +70,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_scaled = true;
     m_driveSpinSetting = 0.4;
     m_rotations = 0.0;
+    m_absTolerance = 0.2;
     m_brakeMode = false;
 }
 
@@ -95,7 +96,7 @@ void Chassis::Initialize(Preferences *prefs)
 	//Initialize and read preferences file
 
 	//AutoDriveDistance
-	Robot::LoadPreferencesVariable("AutoDriveDistance", 12.0);
+	SmartDashboard::PutNumber("AutoDriveDistance", Robot::LoadPreferencesVariable("AutoDriveDistance", 12.0));
 
 	//AutoDriveTimed
 	SmartDashboard::PutNumber("AutoDriveTimed", Robot::LoadPreferencesVariable("AutoDriveTimed", 2.25));
@@ -118,7 +119,8 @@ void Chassis::Initialize(Preferences *prefs)
 	SmartDashboard::PutNumber("ChassDriveVoltRampRate", Robot::LoadPreferencesVariable("ChassDriveVoltRampRate", 0.0));
 
 	//ChassPIDAbsTolerance
-	SmartDashboard::PutNumber("ChassPIDAbsTolerance", Robot::LoadPreferencesVariable("ChassPIDAbsTolerance", 0.2));
+	m_absTolerance = Robot::LoadPreferencesVariable("ChassPIDAbsTolerance", 0.2);
+	SmartDashboard::PutNumber("ChassPIDAbsTolerance", m_absTolerance);
 
 	//ChassPIDPeakOutVolts
 	SmartDashboard::PutNumber("ChassPIDPeakOutVolts", Robot::LoadPreferencesVariable("ChassPIDPeakOutVolts", 5.0));
@@ -134,9 +136,6 @@ void Chassis::Initialize(Preferences *prefs)
 	SmartDashboard::PutNumber("Right Encoder", motorR4->GetEncPosition());
 	SmartDashboard::PutBoolean("BrakeMode", m_brakeMode);
 
-
-//	SmartDashboard::PutData("Fwd Drive Fast", new DriveFast(true));
-//	SmartDashboard::PutData("Rev Drive Fast", new DriveFast(false));
 }
 
 
@@ -202,13 +201,12 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 	double voltageRampRate;
 	double peakOutputVoltage;
 	double proportional;
-	double abstolerance;
 	double rotations;
 
 	voltageRampRate = SmartDashboard::GetNumber("ChassPIDVoltRampRate", 8.0);
 	peakOutputVoltage = SmartDashboard::GetNumber("ChassPIDPeakOutVolts", 5.0);
 	proportional = SmartDashboard::GetNumber("ChassPIDProportional", 0.3);
-	abstolerance = SmartDashboard::GetNumber("ChassPIDAbsTolerance", 0.2);
+	m_absTolerance = SmartDashboard::GetNumber("ChassPIDAbsTolerance", 0.2);
 
 	motorL2->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
 	motorR4->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
@@ -217,8 +215,8 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 
 	printf("2135: Encoder Distance %f rotations\n", rotations);
 
-	motorL2->SetAllowableClosedLoopErr(abstolerance);
-	motorR4->SetAllowableClosedLoopErr(abstolerance);
+	motorL2->SetAllowableClosedLoopErr(m_absTolerance);
+	motorR4->SetAllowableClosedLoopErr(m_absTolerance);
 
 	motorL2->SetPID( (double) proportional, 0.0, 0.0 );
 	motorR4->SetPID( (double) proportional, 0.0, 0.0 );
@@ -243,14 +241,13 @@ void Chassis::MoveDistanceWithPIDInit( double distance )
 
 void Chassis::MoveDistanceWithPIDExecute( void )
 {
-	// TODO: These will never be equal as double precision numbers
-	//	Needs to be ( abs(motorL2->GetEncPosition() - m_rotations) <= m_absoluteTolerance)
-	if (m_rotations == motorL2->GetEncPosition()) {
+	// See if we have reached the target rotations within the tolerance and shut off motor
+	if (abs(motorL2->GetEncPosition() - m_rotations) <= m_absTolerance) {
 		printf("2135: Left PID is Disabled\n");
 		motorL2->Set(0.0);
 	}
 
-	if (m_rotations == motorR4->GetEncPosition()) {
+	if (abs(motorR4->GetEncPosition() - m_rotations) <= m_absTolerance) {
 		printf("2135: Right PID is Disabled\n");
 		motorR4->Set(0.0);
 	}
@@ -266,8 +263,9 @@ bool Chassis::MoveDistanceWithPIDIsAtSetpoint( void)
 	// are both PIDs on target
 	bothOnTarget = false;
 
-	// This should not ever match since these are floating point numbers
-	if (m_rotations == motorL2->GetEncPosition() && m_rotations == motorR4->GetEncPosition()) {
+	// Both targets must have been reached
+	if ((abs(motorL2->GetEncPosition() - m_rotations) <= m_absTolerance) &&
+			(abs(motorR4->GetEncPosition() - m_rotations) <= m_absTolerance)) {
 		MoveDistanceWithPIDStop();
 		bothOnTarget = true;
 	}
