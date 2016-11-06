@@ -124,7 +124,7 @@ void Shooter::SetMotorDirection(bool isForward) {
 	}
 }
 
-void Shooter::SetControlMode(void) {
+void Shooter::ToggleControlMode(void) {
 	m_isPID = !m_isPID;
 	SmartDashboard::PutBoolean("PIDMode", m_isPID);
 }

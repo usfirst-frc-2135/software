@@ -55,7 +55,7 @@ public:
 	void Initialize(Preferences *prefs);
 	void SetMotorSpeeds(double upperSpeed, double lowerSpeed);
 	void SetMotorDirection(bool isForward);
-	void SetControlMode(void);
+	void ToggleControlMode(void);
 	void ShootStartMode(void);
 	void ShootFinishMode(void);
 	void SetFireSolenoid(bool fire);

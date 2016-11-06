@@ -24,7 +24,7 @@ ShootPIDControl::ShootPIDControl(): Command() {
 
 // Called just before this Command runs the first time
 void ShootPIDControl::Initialize() {
-	Robot::shooter->SetControlMode();
+	Robot::shooter->ToggleControlMode();
 }
 
 // Called repeatedly when this Command is scheduled to run
