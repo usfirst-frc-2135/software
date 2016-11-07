@@ -26,7 +26,7 @@ FireReset::FireReset(): Command() {
 void FireReset::Initialize() {
 	printf("2135: Fire Reset\n");
 
-	Robot::shooter->SetFireSolenoidUnsafe(false);
+	Robot::shooter->SetFireSolenoid(false);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -41,13 +41,13 @@ bool FireReset::IsFinished() {
 
 // Called once after isFinished returns true
 void FireReset::End() {
-	Robot::shooter->SetFireSolenoidUnsafe(true);
+	Robot::shooter->SetFireSolenoid(true);
 	printf("2135: Fire Reset end\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void FireReset::Interrupted() {
-	Robot::shooter->SetFireSolenoidUnsafe(true);
+	Robot::shooter->SetFireSolenoid(true);
 	printf("2135: Fire Reset end\n");
 }

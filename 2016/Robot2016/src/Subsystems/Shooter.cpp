@@ -79,15 +79,14 @@ void Shooter::Initialize(Preferences *prefs) {
 	upperMotor->ConfigEncoderCodesPerRev(4096);
 	upperMotor->SetSensorDirection(false);
 	upperMotor->SetEncPosition(0);
+    upperMotor->SetStatusFrameRateMs(CANTalon::StatusFrameRateQuadEncoder, 20);
 
 	lowerMotor->SetControlMode(CANTalon::ControlMode::kPercentVbus);
 	lowerMotor->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
 	lowerMotor->ConfigEncoderCodesPerRev(4096);
 	lowerMotor->SetSensorDirection(true);
 	lowerMotor->SetEncPosition(0);
-
     lowerMotor->SetStatusFrameRateMs(CANTalon::StatusFrameRateQuadEncoder, 20);
-    upperMotor->SetStatusFrameRateMs(CANTalon::StatusFrameRateQuadEncoder, 20);
 
 	m_timer.Reset();
 	m_timer.Start();
@@ -105,8 +104,13 @@ void Shooter::SetMotorSpeeds(double upperSpeed, double lowerSpeed) {
 		upperMotor->GetClosedLoopError(), lowerMotor->GetClosedLoopError());
 #endif
 
-	lowerMotor->Set(lowerSpeed*M_VELOCITY_PER_VBUS_PRCNT);
-	upperMotor->Set(upperSpeed*M_VELOCITY_PER_VBUS_PRCNT);
+	if (m_isPID)
+	{
+		lowerSpeed *= M_VELOCITY_PER_VBUS_PRCNT;
+		upperSpeed *= M_VELOCITY_PER_VBUS_PRCNT;
+	}
+	lowerMotor->Set(lowerSpeed);
+	upperMotor->Set(upperSpeed);
 
 	UpdateEncoderDisplays(false);
 }
@@ -166,6 +170,8 @@ void Shooter::ToggleControlMode(void) {
 }
 
 void Shooter::ShootStartMode(void) {
+
+	// If starting and in PID mode, then change Talons to PID mode
 	if (m_isPID == true) {
 		printf("2135: Shooter PID Mode\n");
 		upperMotor->SetF(0.033901);
@@ -181,6 +187,8 @@ void Shooter::ShootStartMode(void) {
 }
 
 void Shooter::ShootFinishMode(void) {
+
+	// If leaving and in PID mode, return to percent VBus mode
 	if (m_isPID == true) {
 		printf("2135: Shooter %%Vbus Mode\n");
 		upperMotor->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
@@ -189,18 +197,6 @@ void Shooter::ShootFinishMode(void) {
 }
 
 void Shooter::SetFireSolenoid(bool fire) {
-	if (m_frameUpState) {
-		m_fireState = fire;
-		if (fire) {
-			fireSolenoid->Set(DoubleSolenoid::kForward);
-		}
-		else {
-			fireSolenoid->Set(DoubleSolenoid::kReverse);
-		}
-	}
-}
-
-void Shooter::SetFireSolenoidUnsafe(bool fire) {
 	if (fire) {
 		fireSolenoid->Set(DoubleSolenoid::kForward);
 	}
@@ -210,7 +206,6 @@ void Shooter::SetFireSolenoidUnsafe(bool fire) {
 }
 
 void Shooter::SetFrameControl(bool frameUp) {
-	m_frameUpState = frameUp;
 	if (frameUp) {
 		frameSolenoid->Set(frameSolenoid->kForward);
 	}

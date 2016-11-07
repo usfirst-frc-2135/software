@@ -44,7 +44,7 @@ void ShootFrameControl::Execute() {
 			{
 			case FRAME_START:	// Basket is up, shooter motors stopped, frame is down
 				m_frameState = FRAME_STEP_1;
-				Robot::shooter->SetFireSolenoidUnsafe(false);	// Put basket down
+				Robot::shooter->SetFireSolenoid(false);	// Put basket down
 				m_timer.Reset();
 				m_timer.Start();
 				break;
@@ -67,7 +67,7 @@ void ShootFrameControl::Execute() {
 			case FRAME_STEP_3:
 				if (m_timer.HasPeriodPassed(0.2)) {				// Wait for motors to stop
 					m_frameState = FRAME_STEP_4;
-					Robot::shooter->SetFireSolenoidUnsafe(true); // Raise the basket
+					Robot::shooter->SetFireSolenoid(true); // Raise the basket
 					m_timer.Reset();
 					m_timer.Start();
 				}
@@ -83,7 +83,7 @@ void ShootFrameControl::Execute() {
 			case FRAME_STEP_5:
 				if (m_timer.HasPeriodPassed(0.5)) {				// Wait for frame to rise
 					m_frameState = FRAME_READY;
-					Robot::shooter->SetFireSolenoid(false);		// Put basket down
+					Robot::shooter->SetFireSolenoid(false);	// Put basket down
 				}
 				break;
 			case FRAME_READY:
@@ -96,7 +96,7 @@ void ShootFrameControl::Execute() {
 			{
 			case FRAME_START:	// Basket is up, shooter motors stopped, frame is up
 				m_frameState = FRAME_STEP_1;
-				Robot::shooter->SetFireSolenoid(true);			// Basket up
+				Robot::shooter->SetFireSolenoid(true);	// Basket up
 				m_timer.Reset();
 				m_timer.Start();
 				break;
