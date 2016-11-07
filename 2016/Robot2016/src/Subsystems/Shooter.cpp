@@ -125,7 +125,43 @@ void Shooter::SetMotorDirection(bool isForward) {
 }
 
 void Shooter::ToggleControlMode(void) {
+
+	// Toggle the current mode
 	m_isPID = !m_isPID;
+
+	// If entering PID mode, verify that encoders are working
+	if (m_isPID)
+	{
+		CANTalon::FeedbackDeviceStatus lower_status;
+		CANTalon::FeedbackDeviceStatus upper_status;
+
+		lower_status = lowerMotor->IsSensorPresent(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
+		upper_status = upperMotor->IsSensorPresent(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
+
+		switch(lower_status) {
+		case CANTalon::FeedbackStatusPresent:
+			break;
+		case CANTalon::FeedbackStatusNotPresent:
+		case CANTalon::FeedbackStatusUnknown:
+		default:
+			m_isPID = false;
+			printf("2135: Shooter lower encoder missing!\n");
+			break;
+		}
+
+		switch(upper_status) {
+		case CANTalon::FeedbackStatusPresent:
+			break;
+		case CANTalon::FeedbackStatusNotPresent:
+		case CANTalon::FeedbackStatusUnknown:
+		default:
+			m_isPID = false;
+			printf("2135: Shooter upper encoder missing!\n");
+			break;
+		}
+	}
+
+	// Display the result
 	SmartDashboard::PutBoolean("PIDMode", m_isPID);
 }
 

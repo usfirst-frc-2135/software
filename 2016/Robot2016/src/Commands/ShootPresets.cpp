@@ -51,6 +51,7 @@ void ShootPresets::Initialize() {
 		m_lowerMotorSpeed = 0;
 	}
 
+	// Show actual value to user
 	SmartDashboard::PutNumber("Shoot Upper", m_upperMotorSpeed);
 	SmartDashboard::PutNumber("Shoot Lower", m_lowerMotorSpeed);
 }
