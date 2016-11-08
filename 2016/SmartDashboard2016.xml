@@ -11,7 +11,7 @@
 		<height>64</height>
 	</widget>
 	<widget field="AutoDriveDistance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="716" y="144"/>
+		<location x="716" y="112"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
 		<location x="32" y="448"/>
@@ -125,6 +125,21 @@
 	<widget field="AutoDriveTimedSpeed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="687" y="80"/>
 	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="138" y="473"/>
+		<width>93</width>
+		<property name="Text" value="CONNECTED"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
+		<location x="32" y="448"/>
+		<width>304</width>
+		<height>64</height>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
+		<location x="1012" y="12"/>
+		<width>636</width>
+		<height>500</height>
+	</static-widget>
 </dashboard>
 <live-window>
 </live-window>
