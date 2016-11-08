@@ -51,7 +51,7 @@ void ShootFrameControl::Execute() {
 			case FRAME_STEP_1:
 				if (m_timer.HasPeriodPassed(0.250)) {			// Wait for basket to drop
 					m_frameState = FRAME_STEP_2;
-					Robot::shooter->SetMotorSpeeds(0.0, -0.80);	// Start lower motor
+					Robot::shooter->SetMotorSpeeds(-0.80, -0.80);	// Start lower motor
 					m_timer.Reset();
 					m_timer.Start();
 				}
