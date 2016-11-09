@@ -25,7 +25,7 @@ ArmExtend::ArmExtend(bool extend): Command() {
 
 // Called just before this Command runs the first time
 void ArmExtend::Initialize() {
-	printf("2135: Sweeper Arm Extend\n");
+	printf("2135: Sweeper Arm %s - Start\n", (m_extend) ? "Deploy" : "Retract");
 	Robot::sweeper->Extend(m_extend);
 }
 

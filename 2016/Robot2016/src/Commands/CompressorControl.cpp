@@ -26,7 +26,7 @@ CompressorControl::CompressorControl(bool on): Command() {
 
 // Called just before this Command runs the first time
 void CompressorControl::Initialize() {
-	printf("2135: Compressor Control\n");
+	printf("2135: Compressor Control - Start\n");
 	Robot::pneumatics->CompressorEnable(true);
 }
 

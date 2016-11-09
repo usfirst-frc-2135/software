@@ -25,7 +25,7 @@ DriveShiftHigh::DriveShiftHigh(bool scaled): Command() {
 
 // Called just before this Command runs the first time
 void DriveShiftHigh::Initialize() {
-	printf("2135: Drive Shift High Initialized\n");
+	printf("2135: Drive Shift High - Start\n");
 	Robot::chassis->MoveLowShift(false);
 }
 
@@ -41,13 +41,13 @@ bool DriveShiftHigh::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveShiftHigh::End() {
-	printf("2135: Drive Shift High Ended\n");
+	printf("2135: Drive Shift High - Ended\n");
 	Robot::chassis->MoveLowShift(true);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveShiftHigh::Interrupted() {
-	printf("2135: Robot is Interrupted\n");
+	printf("2135: Drive Shift High - Interrupted\n");
 	Robot::chassis->MoveLowShift(true);
 }

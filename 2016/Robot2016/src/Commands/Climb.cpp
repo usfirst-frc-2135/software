@@ -26,7 +26,7 @@ Climb::Climb(bool extend): Command() {
 
 // Called just before this Command runs the first time
 void Climb::Initialize() {
-
+	printf("2135: Climb - Start\n");
 }
 
 // Called repeatedly when this Command is scheduled to run

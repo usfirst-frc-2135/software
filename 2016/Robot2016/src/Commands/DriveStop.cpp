@@ -25,7 +25,7 @@ DriveStop::DriveStop(): Command() {
 
 // Called just before this Command runs the first time
 void DriveStop::Initialize() {
-	printf("2135: Drive Stop\n");
+	printf("2135: Drive Stop - Start\n");
 }
 
 // Called repeatedly when this Command is scheduled to run

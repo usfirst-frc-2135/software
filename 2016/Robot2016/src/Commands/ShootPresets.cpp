@@ -28,6 +28,7 @@ ShootPresets::ShootPresets(int direction): Command() {
 
 // Called just before this Command runs the first time
 void ShootPresets::Initialize() {
+	printf("2135: Shoot Presets %d direction - Start\n", m_direction);
 	Robot::shooter->ShootStartMode();
 
 	//For High Shot
@@ -35,7 +36,6 @@ void ShootPresets::Initialize() {
 		m_upperMotorSpeed = SmartDashboard::GetNumber("ShootHigh_Upper", 0.95);
 		m_lowerMotorSpeed = SmartDashboard::GetNumber("ShootHigh_Lower", 0.7);
 		Robot::shooter->SetMotorDirection(true);
-		printf("2135: High Shot speed set\n");
 	}
 
 	//For Reverse Direction
@@ -43,7 +43,6 @@ void ShootPresets::Initialize() {
 		m_upperMotorSpeed = -0.75;
 		m_lowerMotorSpeed = -0.75;
 		Robot::shooter->SetMotorDirection(false);
-		printf("2135: Reverse Direction speed set\n");
 	}
 
 	else {
@@ -68,6 +67,7 @@ bool ShootPresets::IsFinished() {
 
 // Called once after isFinished returns true
 void ShootPresets::End() {
+	printf("2135: Shoot Presets - End\n");
 	Robot::shooter->SetMotorSpeeds(0.0, 0.0);
 	Robot::shooter->ShootFinishMode();
 }
@@ -75,6 +75,7 @@ void ShootPresets::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShootPresets::Interrupted() {
+	printf("2135: Shoot Presets - Interrupted\n");
 	Robot::shooter->SetMotorSpeeds(0.0, 0.0);
 	Robot::shooter->ShootFinishMode();
 }

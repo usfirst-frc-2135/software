@@ -25,12 +25,8 @@ IndexerMotorEnable::IndexerMotorEnable(int Direction): Command() {
 
 // Called just before this Command runs the first time
 void IndexerMotorEnable::Initialize() {
-	if (m_Direction == Robot::sweeper->INDEXER_FORWARD) { 							// Acquire
-		printf("2135: Indexer Motor Enable Acquire\n");
-	}
-	else if (m_Direction == Robot::sweeper->INDEXER_REVERSE) {						// Expel
-		printf("2135: Indexer Motor Enable Expel\n");
-	}
+	printf("2135: Indexer Motor Enable %s - Start\n",
+		(m_Direction == Robot::sweeper->INDEXER_FORWARD) ? "Acquire" : "Expel");
 }
 
 // Called repeatedly when this Command is scheduled to run

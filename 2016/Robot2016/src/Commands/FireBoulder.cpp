@@ -24,7 +24,7 @@ FireBoulder::FireBoulder(): Command() {
 
 // Called just before this Command runs the first time
 void FireBoulder::Initialize() {
-	printf("2135: Fire Boulder\n");
+	printf("2135: Fire Boulder - Start\n");
 
 	Robot::shooter->SetFireSolenoid(true);
 }

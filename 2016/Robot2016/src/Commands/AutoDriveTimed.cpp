@@ -29,7 +29,8 @@ AutoDriveTimed::AutoDriveTimed(double waitTime, double driveTime, double driveSp
 
 // Called just before this Command runs the first time
 void AutoDriveTimed::Initialize() {
-	printf("2135: Auto Drive Timed Enabled\n");
+	printf("2135: Auto Drive Timed - Wait %f Drive %f Speed %f\n",
+		m_waitTime, m_driveTime, m_driveSpeed);
 	m_mode = WAITMODE;
 	m_timer.Reset();
 	m_timer.Start();
@@ -63,6 +64,7 @@ bool AutoDriveTimed::IsFinished() {
 
 // Called once after isFinished returns true
 void AutoDriveTimed::End() {
+	printf("Auto Drive Timed - End\n");
 	m_timer.Stop();
 	Robot::chassis->MoveStop();
 }
@@ -70,6 +72,7 @@ void AutoDriveTimed::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoDriveTimed::Interrupted() {
+	printf("Auto Drive Timed - Interrupted\n");
 	m_timer.Stop();
 	Robot::chassis->MoveStop();
 }

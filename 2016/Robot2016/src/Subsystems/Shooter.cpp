@@ -173,7 +173,7 @@ void Shooter::ShootStartMode(void) {
 
 	// If starting and in PID mode, then change Talons to PID mode
 	if (m_isPID == true) {
-		printf("2135: Shooter PID Mode\n");
+		printf("2135: Shooter - Start PID Mode\n");
 		upperMotor->SetF(0.033901);
 		upperMotor->SetPID(m_upperP, m_upperI, m_upperD);
 		upperMotor->SetControlMode(CANSpeedController::ControlMode::kSpeed);
@@ -184,13 +184,16 @@ void Shooter::ShootStartMode(void) {
 		lowerMotor->SetControlMode(CANSpeedController::ControlMode::kSpeed);
 		lowerMotor->ConfigPeakOutputVoltage(0.0, -12.0);
 	}
+	else {
+		printf("2135: Shooter - Remain in %%Vbus Mode\n");
+	}
 }
 
 void Shooter::ShootFinishMode(void) {
 
 	// If leaving and in PID mode, return to percent VBus mode
 	if (m_isPID == true) {
-		printf("2135: Shooter %%Vbus Mode\n");
+		printf("2135: Shooter - Return to %%Vbus Mode\n");
 		upperMotor->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 		lowerMotor->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	}

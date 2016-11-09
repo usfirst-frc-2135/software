@@ -24,6 +24,7 @@ DriveBrakeToggle::DriveBrakeToggle(): Command() {
 
 // Called just before this Command runs the first time
 void DriveBrakeToggle::Initialize() {
+	printf("2135: Drive Brake Toggle - Start\n");
 	Robot::chassis->ToggleBrakeMode();
 }
 

@@ -25,7 +25,7 @@ DriveTeleop::DriveTeleop(): Command() {
 
 // Called just before this Command runs the first time
 void DriveTeleop::Initialize() {
-	printf("2135: DriveTeleop\n");
+	printf("2135: DriveTeleop - Start\n");
 	Robot::chassis->SetVoltRampRate(SmartDashboard::GetNumber("ChassDriveVoltRampRate", 0.0));
 }
 
@@ -41,11 +41,11 @@ bool DriveTeleop::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveTeleop::End() {
-	printf("2135: DriveTeleop End\n");
+	printf("2135: DriveTeleop - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveTeleop::Interrupted() {
-
+	printf("2135: DriveTeleop - Interrupted\n");
 }

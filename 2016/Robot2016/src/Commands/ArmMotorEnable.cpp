@@ -26,12 +26,8 @@ ArmMotorEnable::ArmMotorEnable(int Direction): Command() {
 
 // Called just before this Command runs the first time
 void ArmMotorEnable::Initialize() {
-	if (m_Direction == Robot::sweeper->SWEEPER_FORWARD) { 							// Acquire
-		printf("2135: Arm Motor Enable Acquire\n");
-	}
-	else if (m_Direction == Robot::sweeper->SWEEPER_REVERSE) {						// Expel
-		printf("2135: Arm Motor Enable Expel\n");
-	}
+	printf("2135: Arm Motor Enable %s - Start\n",
+		(m_Direction == Robot::sweeper->SWEEPER_FORWARD) ? "Acquire" : "Expel");
 }
 
 // Called repeatedly when this Command is scheduled to run

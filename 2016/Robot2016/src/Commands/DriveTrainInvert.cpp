@@ -26,7 +26,7 @@ DriveTrainInvert::DriveTrainInvert(bool invert): Command() {
 
 // Called just before this Command runs the first time
 void DriveTrainInvert::Initialize() {
-	printf("2135: DriveTrain Invert\n");
+	printf("2135: DriveTrain Invert - Start\n");
 	Robot::chassis->ReverseDriveTrain();
 }
 

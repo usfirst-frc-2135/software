@@ -27,9 +27,8 @@ DriveDistancePID::DriveDistancePID(double distance, double maxSpeed): Command() 
 
 // Called just before this Command runs the first time
 void DriveDistancePID::Initialize() {
-    printf("2135: Drive Distance PID\n");
     m_distance = SmartDashboard::GetNumber("AutoDriveDistance", 12.0);
-    printf("2135: %f inches\n", m_distance);
+    printf("2135: Drive Distance PID %f rotations - Start\n", m_distance);
     Robot::chassis->MoveDistanceWithPIDInit(m_distance);
 
 }
@@ -42,7 +41,7 @@ void DriveDistancePID::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistancePID::IsFinished() {
 	if ((Robot::chassis->MoveDistanceWithPIDIsAtSetpoint())) {
-        printf("PID is finished\n");
+        printf("2135: Drive Distance PID - Finished\n");
         return true;
 	}
     return false;
@@ -50,13 +49,13 @@ bool DriveDistancePID::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveDistancePID::End() {
+    printf("2135: Drive Distance PID - End\n");
 	Robot::chassis->MoveDistanceWithPIDStop();
-	printf("PID is stopped\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveDistancePID::Interrupted() {
+    printf("2135: Drive Distance PID - Interrupted\n");
 	Robot::chassis->MoveDistanceWithPIDStop();
-	printf("PID is interrupted\n");
 }

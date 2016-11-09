@@ -28,7 +28,7 @@ ShootFrameControl::ShootFrameControl(bool frameUp): Command() {
 
 // Called just before this Command runs the first time
 void ShootFrameControl::Initialize() {
-	printf("2135: Shooter Frame Control %s\n", (m_frameUp) ? "UP" : "DOWN");
+	printf("2135: Shoot Frame Control %s - Start\n", (m_frameUp) ? "UP" : "DOWN");
 
 	m_timer.Reset();
 	m_timer.Start();
@@ -121,13 +121,13 @@ bool ShootFrameControl::IsFinished() {
 
 // Called once after isFinished returns true
 void ShootFrameControl::End() {
-	printf("2135: Shooter Frame Control %s completed\n", (m_frameUp) ? "UP" : "DOWN");
+	printf("2135: Shoot Frame Control %s - End\n", (m_frameUp) ? "UP" : "DOWN");
 	m_timer.Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShootFrameControl::Interrupted() {
-	printf("2135: Shooter Frame Control %s completed\n", (m_frameUp) ? "UP" : "DOWN");
+	printf("2135: Shoot Frame Control %s - Interrupted\n", (m_frameUp) ? "UP" : "DOWN");
 	m_timer.Stop();
 }

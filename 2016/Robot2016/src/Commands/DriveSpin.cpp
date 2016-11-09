@@ -26,10 +26,7 @@ DriveSpin::DriveSpin(bool directionLeft): Command() {
 
 // Called just before this Command runs the first time
 void DriveSpin::Initialize() {
-	const char	*directionStr;
-
-	directionStr = (m_directionLeft == true) ? "LEFT" : "RIGHT";
-	printf("2135: DriveSpin %s\n", directionStr);
+	printf("2135: Drive Spin %s - Start\n", (m_directionLeft == true) ? "LEFT" : "RIGHT");
 }
 
 // Called repeatedly when this Command is scheduled to run

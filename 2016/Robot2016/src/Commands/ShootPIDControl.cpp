@@ -24,6 +24,7 @@ ShootPIDControl::ShootPIDControl(): Command() {
 
 // Called just before this Command runs the first time
 void ShootPIDControl::Initialize() {
+	printf("2135: Shoot PID Control - Start\n");
 	Robot::shooter->ToggleControlMode();
 }
 

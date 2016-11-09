@@ -46,7 +46,10 @@ AutoLowBar::AutoLowBar() {
 	driveSpeed = Robot::LoadPreferencesVariable("AutoLowBarSpeed", 0.8);
 	SmartDashboard::PutNumber("AutoLowBarSpeed", driveSpeed);
 
+	printf("2135: Auto Low Bar - Wait %f Drive %f Speed %f\n",
+		waitTime, driveTime, driveSpeed);
     AddSequential(new ArmExtend(true));
     AddSequential(new AutoDriveTimed(waitTime, driveTime, driveSpeed));
+	printf("2135: Auto Low Bar - Ended\n");
 
  }
