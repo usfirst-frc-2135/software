@@ -59,6 +59,7 @@ void Robot::RobotInit() {
 
 	printf("2135: Building autonomous chooser complete\n");
 	fflush(stdout);
+	m_faultsCleared = false;
 
 	// Start up the camera
 //	CameraServer::GetInstance()->StartAutomaticCapture("cam1");
@@ -71,6 +72,7 @@ void Robot::RobotInit() {
 void Robot::DisabledInit() {
 	printf("2135: DisabledInit Running\n");
 	light->Initialize(prefs);
+	m_faultsCleared = false;
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
 }
@@ -78,8 +80,10 @@ void Robot::DisabledInit() {
 void Robot::DisabledPeriodic() {
 	Scheduler::GetInstance()->Run();
 	// While disabled, if the roborio user button is pressed, dump faults
-	if (GetUserButton())
+	if (GetUserButton() && !m_faultsCleared) {
+		m_faultsCleared = true;
 		HandleFaults();
+	}
 }
 
 void Robot::AutonomousInit() {
