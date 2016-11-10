@@ -56,5 +56,7 @@ public:
 	virtual void TeleopPeriodic();
 	virtual void TestPeriodic();
 	static double LoadPreferencesVariable(std::string name, double defaultValue);
+	void HandleFaults(void);
+	void PrintFaults(const char *talonName, uint16_t faults, uint16_t stickyFaults);
 };
 #endif

@@ -77,6 +77,9 @@ void Robot::DisabledInit() {
 
 void Robot::DisabledPeriodic() {
 	Scheduler::GetInstance()->Run();
+	// While disabled, if the roborio user button is pressed, dump faults
+	if (GetUserButton())
+		HandleFaults();
 }
 
 void Robot::AutonomousInit() {
@@ -171,6 +174,84 @@ double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
 	printf("2135: PREF %-20s : %6.3f\n", name.c_str(), value);
 
 	return value;
+}
+
+void Robot::HandleFaults(void) {
+	uint16_t	faults;
+	uint16_t	stickyFaults;
+
+	faults = RobotMap::chassisMotorL2->GetFaults();
+	stickyFaults = RobotMap::chassisMotorL2->GetStickyFaults();
+	RobotMap::chassisMotorL2->ClearStickyFaults();
+	PrintFaults("chassisMotorL2", faults, stickyFaults);
+
+	faults = RobotMap::chassisMotorL3->GetFaults();
+	stickyFaults = RobotMap::chassisMotorL2->GetStickyFaults();
+	RobotMap::chassisMotorL3->ClearStickyFaults();
+	PrintFaults("chassisMotorL3", faults, stickyFaults);
+
+	faults = RobotMap::chassisMotorR4->GetFaults();
+	stickyFaults = RobotMap::chassisMotorR4->GetStickyFaults();
+	RobotMap::chassisMotorR4->ClearStickyFaults();
+	PrintFaults("chassisMotorR4", faults, stickyFaults);
+
+	faults = RobotMap::chassisMotorR5->GetFaults();
+	stickyFaults = RobotMap::chassisMotorR5->GetStickyFaults();
+	RobotMap::chassisMotorR5->ClearStickyFaults();
+	PrintFaults("chassisMotorR5", faults, stickyFaults);
+
+	faults = RobotMap::sweeperMotorAcquire->GetFaults();
+	stickyFaults = RobotMap::sweeperMotorAcquire->GetStickyFaults();
+	RobotMap::sweeperMotorAcquire->ClearStickyFaults();
+	PrintFaults("sweeperMotorAcquire(6)", faults, stickyFaults);
+
+	faults = RobotMap::sweeperIndexerAcquire->GetFaults();
+	stickyFaults = RobotMap::sweeperIndexerAcquire->GetStickyFaults();
+	RobotMap::sweeperIndexerAcquire->ClearStickyFaults();
+	PrintFaults("sweeperIndexerAcquire(7)", faults, stickyFaults);
+
+	faults = RobotMap::shooterLowerMotor->GetFaults();
+	stickyFaults = RobotMap::shooterLowerMotor->GetStickyFaults();
+	RobotMap::shooterLowerMotor->ClearStickyFaults();
+	PrintFaults("shooterLowerMotor(8)", faults, stickyFaults);
+
+	faults = RobotMap::shooterUpperMotor->GetFaults();
+	stickyFaults = RobotMap::shooterUpperMotor->GetStickyFaults();
+	RobotMap::shooterUpperMotor->ClearStickyFaults();
+	PrintFaults("shooterUpperMotor(9)", faults, stickyFaults);
+
+	RobotMap::pneumaticsPDP->ClearStickyFaults();
+}
+
+void Robot::PrintFaults(const char *talonName, uint16_t faults, uint16_t stickyFaults) {
+
+	printf("2135: %s\n", talonName);
+
+	if (faults & CANSpeedController::kTemperatureFault)
+		printf("\tkTemperatureFault\n");
+	if (faults & CANSpeedController::kBusVoltageFault)
+		printf("\tkBusVoltageFault\n");
+	if (faults & CANSpeedController::kFwdLimitSwitch)
+		printf("\tkFwdLimitSwitch\n");
+	if (faults & CANSpeedController::kRevLimitSwitch)
+		printf("\tkRevLimitSwitch\n");
+	if (faults & CANSpeedController::kFwdSoftLimit)
+		printf("\tkFwdLimitSwitch\n");
+	if (faults & CANSpeedController::kRevSoftLimit)
+		printf("\tkRevLimitSwitch\n");
+
+	if (stickyFaults & CANSpeedController::kTemperatureFault)
+		printf("\tSticky - kTemperatureFault\n");
+	if (stickyFaults & CANSpeedController::kBusVoltageFault)
+		printf("\tSticky - kBusVoltageFault\n");
+	if (stickyFaults & CANSpeedController::kFwdLimitSwitch)
+		printf("\tSticky - kFwdLimitSwitch\n");
+	if (stickyFaults & CANSpeedController::kRevLimitSwitch)
+		printf("\tSticky - kRevLimitSwitch\n");
+	if (stickyFaults & CANSpeedController::kFwdSoftLimit)
+		printf("\tSticky - kFwdLimitSwitch\n");
+	if (stickyFaults & CANSpeedController::kRevSoftLimit)
+		printf("\tSticky - kRevLimitSwitch\n");
 }
 
 START_ROBOT_CLASS(Robot);
