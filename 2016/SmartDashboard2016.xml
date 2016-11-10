@@ -105,7 +105,7 @@
 		<location x="102" y="288"/>
 	</widget>
 	<widget field="Auto Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="780" y="461"/>
+		<location x="728" y="295"/>
 	</widget>
 	<widget field="AutoDriveTimed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="730" y="48"/>
@@ -143,7 +143,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="Fire Boulder"/>
-	<hidden field="ShootLow_Lower"/>
-	<hidden field="ShootLow_Upper"/>
 </xml>
