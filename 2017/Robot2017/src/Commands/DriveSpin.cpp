@@ -26,12 +26,12 @@ DriveSpin::DriveSpin(bool directionLeft): Command() {
 
 // Called just before this Command runs the first time
 void DriveSpin::Initialize() {
-
+	printf("2135: Drive Spin %s - Start\n", (m_directionLeft == true) ? "LEFT" : "RIGHT");
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveSpin::Execute() {
-
+	Robot::chassis->MoveSpin(m_directionLeft);
 }
 
 // Make this return true when this Command no longer needs to run execute()

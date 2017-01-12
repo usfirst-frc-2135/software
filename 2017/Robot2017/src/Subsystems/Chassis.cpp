@@ -64,3 +64,31 @@ void Chassis::SetVoltRampRate(double voltageRampRate)
 	motorL2->SetVoltageRampRate(voltageRampRate);
 	motorR4->SetVoltageRampRate(voltageRampRate);
 }
+
+void Chassis::MoveLowShift(bool scaled)
+{
+	m_scaled = scaled;
+
+}
+
+void Chassis::MoveSpin(bool spinLeft)
+{
+	if (spinLeft)
+		robotDrive->SetLeftRightMotorOutputs( -m_driveSpinSetting, m_driveSpinSetting );
+	else
+		robotDrive->SetLeftRightMotorOutputs( m_driveSpinSetting, -m_driveSpinSetting );
+
+
+}
+
+void Chassis::MoveStop(void)
+{
+	robotDrive->SetLeftRightMotorOutputs( 0.0, 0.0 );
+}
+
+void Chassis::ReverseDriveTrain(void)
+{
+	m_driveDirection = -m_driveDirection;
+	SmartDashboard::PutNumber("Drive Invert", m_driveDirection);
+
+}
