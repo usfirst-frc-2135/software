@@ -70,6 +70,7 @@ void Robot::CameraPipelineProcess(){
 		outputStream.PutFrame(*(cameraPipeline.getmaskOutput()));
 
 	}
+
 }
 /**
  * This function is called when the disabled button is hit.
@@ -103,7 +104,8 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-	//SmartDashboard::PutNumber("blobx", table->GetNumberArray())
+	SmartDashboard::PutNumber("Blob x", table->GetNumberArray("x", llvm::ArrayRef<double>()).front());
+	SmartDashboard::PutNumber("Blob y", table->GetNumberArray("y", llvm::ArrayRef<double>()).front());
 }
 
 void Robot::TestPeriodic() {
