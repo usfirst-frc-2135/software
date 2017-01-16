@@ -18,6 +18,7 @@ std::shared_ptr<CANTalon> RobotMap::chassisMotorL2;
 std::shared_ptr<CANTalon> RobotMap::chassisMotorL3;
 std::shared_ptr<CANTalon> RobotMap::chassisMotorR4;
 std::shared_ptr<CANTalon> RobotMap::chassisMotorR5;
+std::shared_ptr<AnalogGyro> RobotMap::chassisAnalogGyro1;
 std::shared_ptr<CANTalon> RobotMap::climberMotorUp;
 std::shared_ptr<CANTalon> RobotMap::intakeMotorIn;
 std::shared_ptr<CANTalon> RobotMap::shooterMotorOut;
@@ -41,6 +42,9 @@ void RobotMap::init() {
     chassisMotorR5.reset(new CANTalon(5));
     lw->AddActuator("Chassis", "MotorR5", chassisMotorR5);
     
+    chassisAnalogGyro1.reset(new AnalogGyro(0));
+    lw->AddSensor("Chassis", "AnalogGyro1", chassisAnalogGyro1);
+    chassisAnalogGyro1->SetSensitivity(0.007);
     climberMotorUp.reset(new CANTalon(6));
     lw->AddActuator("Climber", "MotorUp", climberMotorUp);
     
