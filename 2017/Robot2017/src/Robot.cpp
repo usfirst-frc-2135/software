@@ -109,6 +109,12 @@ void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 //	SmartDashboard::PutNumber("Blob x", table->GetNumberArray("x", llvm::ArrayRef<double>()).front());
 //	SmartDashboard::PutNumber("Blob y", table->GetNumberArray("y", llvm::ArrayRef<double>()).front());
+//	printf("2135: %f\n", table->GetNumberArray("x", llvm::ArrayRef<double>()).front());
+
+	std::vector<double> arr = table->GetNumberArray("x", llvm::ArrayRef<double>());
+	for (unsigned int i = 0; i < arr.size(); i++) {
+		printf("2135: %f\n", arr[i]);
+	}
 
 	SmartDashboard::PutNumber("Gyro Value", Robot::chassis->ReadGyro());
 }
