@@ -1,0 +1,127 @@
+<grip:Pipeline>
+  <sources>
+    <grip:MultiImageFile>
+      <property name="path[2]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH2ftD0Angle0Brightness.jpg"/>
+      <property name="path[5]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH3ftD0Angle0Brightness.jpg"/>
+      <property name="path[8]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH4ftD2Angle0Brightness.jpg"/>
+      <property name="path[12]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH5ftD3Angle0Brightness.jpg"/>
+      <property name="path[15]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH8ftD0Angle0Brightness.jpg"/>
+      <property name="index" value="2"/>
+      <property name="path[0]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH1ftD0Angle0Brightness.jpg"/>
+      <property name="path[3]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH2ftD1Angle0Brightness.jpg"/>
+      <property name="path[6]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH3ftD2Angle0Brightness.jpg"/>
+      <property name="path[9]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH4ftD3Angle0Brightness.jpg"/>
+      <property name="path[10]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH5ftD0Angle0Brightness.jpg"/>
+      <property name="path[13]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH6ftD0Angle0Brightness.jpg"/>
+      <property name="path[16]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH9ftD0Angle0Brightness.jpg"/>
+      <property name="numImages" value="17"/>
+      <property name="path[1]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH1ftD1Angle0Brightness.jpg"/>
+      <property name="path[4]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH2ftD2Angle0Brightness.jpg"/>
+      <property name="path[7]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH4ftD0Angle0Brightness.jpg"/>
+      <property name="path[11]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH5ftD2Angle0Brightness.jpg"/>
+      <property name="path[14]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH7ftD0Angle0Brightness.jpg"/>
+    </grip:MultiImageFile>
+  </sources>
+  <steps>
+    <grip:Step name="HSL Threshold">
+      <grip:Input step="0" socket="0"/>
+      <grip:Input step="0" socket="1">
+        <value>
+          <double>77.6978417266187</double>
+          <double>92.45733788395904</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="0" socket="2">
+        <value>
+          <double>171.98741007194243</double>
+          <double>255.0</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="0" socket="3">
+        <value>
+          <double>43.57014388489208</double>
+          <double>255.0</double>
+        </value>
+      </grip:Input>
+      <grip:Output step="0" socket="0" previewed="false"/>
+    </grip:Step>
+    <grip:Step name="Find Contours">
+      <grip:Input step="1" socket="0"/>
+      <grip:Input step="1" socket="1">
+        <value>false</value>
+      </grip:Input>
+      <grip:Output step="1" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="Filter Contours">
+      <grip:Input step="2" socket="0"/>
+      <grip:Input step="2" socket="1">
+        <value>125.0</value>
+      </grip:Input>
+      <grip:Input step="2" socket="2">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="2" socket="3">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="2" socket="4">
+        <value>1000.0</value>
+      </grip:Input>
+      <grip:Input step="2" socket="5">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="2" socket="6">
+        <value>1000.0</value>
+      </grip:Input>
+      <grip:Input step="2" socket="7">
+        <value>
+          <int>0</int>
+          <int>100</int>
+        </value>
+      </grip:Input>
+      <grip:Input step="2" socket="8">
+        <value>1000000.0</value>
+      </grip:Input>
+      <grip:Input step="2" socket="9">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="2" socket="10">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="2" socket="11">
+        <value>1000.0</value>
+      </grip:Input>
+      <grip:Output step="2" socket="0" previewed="true"/>
+    </grip:Step>
+  </steps>
+  <connections>
+    <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="true"/>
+      <grip:Input step="2" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="false"/>
+      <grip:Input step="1" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output source="0" socket="0" previewed="false"/>
+      <grip:Input step="0" socket="0"/>
+    </grip:Connection>
+  </connections>
+  <settings>
+    <teamNumber>0</teamNumber>
+    <publishAddress>roboRIO-0-FRC.local</publishAddress>
+    <deployAddress>roboRIO-0-FRC.local</deployAddress>
+    <deployDir>/home/lvuser</deployDir>
+    <deployUser>lvuser</deployUser>
+    <deployJavaHome>/usr/local/frc/JRE/</deployJavaHome>
+    <deployJvmOptions>-Xmx50m -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError -XX:MaxNewSize=16m</deployJvmOptions>
+  </settings>
+  <codeGenerationSettings>
+    <language>C++</language>
+    <className>GripContoursPipeline</className>
+    <implementWpilibPipeline>true</implementWpilibPipeline>
+    <saveDir>C:\Users\PHS-User\GRIP</saveDir>
+    <packageName>org.frc.team</packageName>
+    <moduleName>grip</moduleName>
+  </codeGenerationSettings>
+</grip:Pipeline>
