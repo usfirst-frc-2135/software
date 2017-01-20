@@ -13,7 +13,7 @@ GripContoursPipeline::GripContoursPipeline() {
 * Sources need to be set before calling this method. 
 *
 */
-void GripContoursPipeline::process(cv::Mat source0){
+void GripContoursPipeline::Process(cv::Mat& source0){
 	//Step HSL_Threshold0:
 	//input
 	cv::Mat hslThresholdInput = source0;

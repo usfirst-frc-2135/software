@@ -66,7 +66,7 @@ void Robot::CameraPipelineProcess(){
 	while(true) {
 		cvsink.GrabFrame(source);
 		cameraPipeline.Process(source);
-		outputStream.PutFrame(*(cameraPipeline.getfilterContoursOutput()));
+		outputStream.PutFrame(source);
 
 	}
 
@@ -111,7 +111,7 @@ void Robot::TeleopPeriodic() {
 //	SmartDashboard::PutNumber("Blob y", table->GetNumberArray("y", llvm::ArrayRef<double>()).front());
 //	printf("2135: %f\n", table->GetNumberArray("x", llvm::ArrayRef<double>()).front());
 
-	std::vector<double> arr = table->GetNumberArray("x", llvm::ArrayRef<double>());
+	std::vector<double> arr = table->GetNumberArray("area", llvm::ArrayRef<double>());
 	for (unsigned int i = 0; i < arr.size(); i++) {
 		printf("2135: %f\n", arr[i]);
 	}

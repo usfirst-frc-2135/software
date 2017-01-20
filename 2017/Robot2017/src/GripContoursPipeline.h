@@ -35,7 +35,8 @@ class GripContoursPipeline : public frc::VisionPipeline {
 
 	public:
 		GripContoursPipeline();
-		void process(cv::Mat source0);
+		//void Process(cv::Mat source0);
+		virtual void Process(cv::Mat& mat);
 		cv::Mat* gethslThresholdOutput();
 		std::vector<std::vector<cv::Point> >* getfindContoursOutput();
 		std::vector<std::vector<cv::Point> >* getfilterContoursOutput();
