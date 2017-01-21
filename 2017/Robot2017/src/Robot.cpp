@@ -63,13 +63,24 @@ void Robot::CameraPipelineProcess(){
 
 	cv::Mat source;
 
+	SmartDashboard::PutNumber("Camera Brightness %", 50);
+
 	while(true) {
+		int camBrightness = SmartDashboard::GetNumber("Camera Brightness %", 50);
+		camera.SetBrightness(camBrightness);
+
 		cvsink.GrabFrame(source);
 		cameraPipeline.Process(source);
-		outputStream.PutFrame(source);
+		outputStream.PutFrame(*(cameraPipeline.gethslThresholdOutput()));
+
+		std::vector<std::vector<cv::Point> >* filterContours = cameraPipeline.getfilterContoursOutput();
+
+		SmartDashboard::PutNumberArray("Contour x", table->GetNumberArray("x", llvm::ArrayRef<double>()));
+		SmartDashboard::PutNumberArray("Contour y", table->GetNumberArray("y", llvm::ArrayRef<double>()));
+		SmartDashboard::PutNumberArray("Contour area", table->GetNumberArray("area", llvm::ArrayRef<double>()));
+
 
 	}
-
 }
 /**
  * This function is called when the disabled button is hit.
@@ -107,9 +118,6 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-//	SmartDashboard::PutNumber("Blob x", table->GetNumberArray("x", llvm::ArrayRef<double>()).front());
-//	SmartDashboard::PutNumber("Blob y", table->GetNumberArray("y", llvm::ArrayRef<double>()).front());
-//	printf("2135: %f\n", table->GetNumberArray("x", llvm::ArrayRef<double>()).front());
 
 	std::vector<double> arr = table->GetNumberArray("area", llvm::ArrayRef<double>());
 	for (unsigned int i = 0; i < arr.size(); i++) {
