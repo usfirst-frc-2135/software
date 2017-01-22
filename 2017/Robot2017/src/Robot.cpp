@@ -56,28 +56,45 @@ void Robot::CameraPipelineProcess(){
 	grip::GripContoursPipeline cameraPipeline;
 
 	cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture();
-	camera.SetResolution(imgWidth, imgHeight);
+//	camera.SetResolution(imgWidth, imgHeight);
 
 	cs::CvSink cvsink = CameraServer::GetInstance()->GetVideo();
 	cs::CvSource outputStream = CameraServer::GetInstance()->PutVideo("Contours Video", imgWidth, imgHeight);
 
 	cv::Mat source;
+	cv::Mat rectSource;
 
-	SmartDashboard::PutNumber("Camera Brightness %", 50);
+	SmartDashboard::PutNumber("Camera Brightness %", 0);
+	SmartDashboard::PutNumber("Camera Exposure %", 0);
+	SmartDashboard::PutNumber("Hue Start", 77.697841);
+	SmartDashboard::PutNumber("Hue End", 92.45733788395904);
+	SmartDashboard::PutNumber("Saturation Start", 171.98741007194243);
+	SmartDashboard::PutNumber("Saturation End", 255.0);
+	SmartDashboard::PutNumber("Luminance Start", 43.57014388489208);
+	SmartDashboard::PutNumber("Luminance End", 255.0);
 
 	while(true) {
-		int camBrightness = SmartDashboard::GetNumber("Camera Brightness %", 50);
+		int camBrightness = SmartDashboard::GetNumber("Camera Brightness %", 0);
 		camera.SetBrightness(camBrightness);
+		int camExposure = SmartDashboard::GetNumber("Camera Exposure %", 0);
+		camera.SetExposureManual(camExposure);
 
 		cvsink.GrabFrame(source);
 		cameraPipeline.Process(source);
-		outputStream.PutFrame(*(cameraPipeline.gethslThresholdOutput()));
+		rectSource = *(cameraPipeline.gethslThresholdOutput());
 
 		std::vector<std::vector<cv::Point> >* filterContours = cameraPipeline.getfilterContoursOutput();
 
-		SmartDashboard::PutNumberArray("Contour x", table->GetNumberArray("x", llvm::ArrayRef<double>()));
-		SmartDashboard::PutNumberArray("Contour y", table->GetNumberArray("y", llvm::ArrayRef<double>()));
-		SmartDashboard::PutNumberArray("Contour area", table->GetNumberArray("area", llvm::ArrayRef<double>()));
+		for(unsigned int i = 0; i < filterContours->size(); i++){
+			std::vector<cv::Point>& contour = (*filterContours)[i];
+			cv::rectangle(rectSource, cv::boundingRect(contour), cv::Scalar(255, 255, 255));
+		}
+
+		outputStream.PutFrame(rectSource);
+
+//		SmartDashboard::PutNumberArray("Contour x", table->GetNumberArray("centerX", llvm::ArrayRef<double>()));
+//		SmartDashboard::PutNumberArray("Contour y", table->GetNumberArray("centerY", llvm::ArrayRef<double>()));
+//		SmartDashboard::PutNumberArray("Contour area", table->GetNumberArray("area", llvm::ArrayRef<double>()));
 
 
 	}
