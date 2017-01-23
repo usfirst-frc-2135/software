@@ -54,17 +54,16 @@ public:
 	virtual void TeleopPeriodic();
 	virtual void TestPeriodic();
 
-	std::shared_ptr<NetworkTable> table;
-
 	Robot();
+
+	std::shared_ptr<NetworkTable> table;
 
 private:
 	static int const imgWidth = 320;
 	static int const imgHeight = 240;
 
 	std::thread visionThread;
-
-	static void CameraPipelineProcess();
+	static void CameraVisionThread();
 
 };
 #endif
