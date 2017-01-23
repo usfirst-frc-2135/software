@@ -84,18 +84,92 @@ void Robot::CameraPipelineProcess(){
 		rectSource = *(cameraPipeline.gethslThresholdOutput());
 
 		std::vector<std::vector<cv::Point> >* filterContours = cameraPipeline.getfilterContoursOutput();
+		std::vector<cv::Rect> rectHoldList;
 
-		for(unsigned int i = 0; i < filterContours->size(); i++){
+		bool foundMatch = false;
+
+		int counter = 0;
+
+		for(unsigned int i = 0; i < filterContours->size(); i++) {
 			std::vector<cv::Point>& contour = (*filterContours)[i];
 			cv::rectangle(rectSource, cv::boundingRect(contour), cv::Scalar(255, 255, 255));
+
+			counter++;
+
+			// Calculate the bounding rectangle for the contour
+			cv::Rect rectContour = cv::boundingRect(contour);
+
+			// If the bounding rect is the correct rectangle target shape, save it in the hold list
+			float rectWidth = (float)rectContour.width;
+			float rectHeight = (float)rectContour.height;
+			float rectRatio = (rectWidth / rectHeight) * 5/2;
+
+			if ((rectRatio < 1.2) && (rectRatio > 0.8)) {
+				printf("2135: Boundary Rect in Hold List: %d\n", counter);
+				rectHoldList.push_back(rectContour);
+			}
 		}
 
-		outputStream.PutFrame(rectSource);
+		for(unsigned int itr = 0; itr < rectHoldList.size(); itr++) {
+			cv::Rect& rectA = rectHoldList[itr];
+
+			for(unsigned int itr2 = 0; itr < rectHoldList.size(); itr2++) {
+				cv::Rect&  rectB = rectHoldList[itr2];
+
+				if (rectA == rectB) {
+					continue;
+				}
+
+				// Set up the points for the bounding box around RectA and RectB
+				std::vector<cv::Point> groupPoints;
+				cv::Point groupPoint1(rectA.x, rectA.y);
+				cv::Point groupPoint2(rectA.x, rectA.y + rectA.height);
+				cv::Point groupPoint3(rectA.x + rectA.width, rectA.y + rectA.height);
+				cv::Point groupPoint4(rectA.x + rectA.width + rectA.y);
+				cv::Point groupPoint5(rectB.x, rectB.y);
+				cv::Point groupPoint6(rectB.x, rectB.y + rectB.height);
+				cv::Point groupPoint7(rectB.x + rectB.width, rectB.y + rectB.height);
+				cv::Point groupPoint8(rectB.x + rectB.width + rectB.y);
+
+				// Set up the list of points to get a bounding rect surrounding both RectA and RectB
+				groupPoints.push_back(groupPoint1);
+				groupPoints.push_back(groupPoint2);
+				groupPoints.push_back(groupPoint3);
+				groupPoints.push_back(groupPoint4);
+				groupPoints.push_back(groupPoint5);
+				groupPoints.push_back(groupPoint6);
+				groupPoints.push_back(groupPoint7);
+				groupPoints.push_back(groupPoint8);
+
+				cv::Rect groupRect = cv::boundingRect(groupPoints);
+
+				// Checking the groupRect height:width ratio to verify bounding Rect
+				float groupRectWidth = (float)groupRect.width;
+				float groupRectHeight = (float)groupRect.height;
+				float groupRectRatio = ((groupRectWidth / groupRectHeight) * (10.25 / 5));
+
+				if ((groupRectRatio < 1.2) && (groupRectRatio > 0.8)) {
+					// Found a possible match
+					printf("2135: Found a group ratio\n");
+					foundMatch = true;
+					break;
+				}
+				else continue;
+			} // End itr2
+
+			if (foundMatch) {
+				break;
+			}
+		} // End itr1
+
+//		if (foundMatch) {
+			outputStream.PutFrame(rectSource);
+//		}
+//		else printf("2135: No peg target match found\n");
 
 //		SmartDashboard::PutNumberArray("Contour x", table->GetNumberArray("centerX", llvm::ArrayRef<double>()));
 //		SmartDashboard::PutNumberArray("Contour y", table->GetNumberArray("centerY", llvm::ArrayRef<double>()));
 //		SmartDashboard::PutNumberArray("Contour area", table->GetNumberArray("area", llvm::ArrayRef<double>()));
-
 
 	}
 }
@@ -138,7 +212,7 @@ void Robot::TeleopPeriodic() {
 
 	std::vector<double> arr = table->GetNumberArray("area", llvm::ArrayRef<double>());
 	for (unsigned int i = 0; i < arr.size(); i++) {
-		printf("2135: %f\n", arr[i]);
+//		printf("2135: %f\n", arr[i]);
 	}
 
 	SmartDashboard::PutNumber("Gyro Value", Robot::chassis->ReadGyro());
