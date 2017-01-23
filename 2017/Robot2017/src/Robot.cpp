@@ -66,14 +66,15 @@ void Robot::CameraPipelineProcess(){
 
 	SmartDashboard::PutNumber("Camera Brightness %", 0);
 	SmartDashboard::PutNumber("Camera Exposure %", 0);
-	SmartDashboard::PutNumber("Hue Start", 77.697841);
-	SmartDashboard::PutNumber("Hue End", 92.45733788395904);
-	SmartDashboard::PutNumber("Saturation Start", 171.98741007194243);
+	SmartDashboard::PutNumber("Hue Start", 0.0);
+	SmartDashboard::PutNumber("Hue End", 102.0);
+	SmartDashboard::PutNumber("Saturation Start", 202.0);
 	SmartDashboard::PutNumber("Saturation End", 255.0);
-	SmartDashboard::PutNumber("Luminance Start", 43.57014388489208);
+	SmartDashboard::PutNumber("Luminance Start", 24.0);
 	SmartDashboard::PutNumber("Luminance End", 255.0);
 
 	while(true) {
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 		int camBrightness = SmartDashboard::GetNumber("Camera Brightness %", 0);
 		camera.SetBrightness(camBrightness);
 		int camExposure = SmartDashboard::GetNumber("Camera Exposure %", 0);
@@ -93,6 +94,7 @@ void Robot::CameraPipelineProcess(){
 		for(unsigned int i = 0; i < filterContours->size(); i++) {
 			std::vector<cv::Point>& contour = (*filterContours)[i];
 			cv::rectangle(rectSource, cv::boundingRect(contour), cv::Scalar(255, 255, 255));
+//			outputStream.PutFrame(rectSource);
 
 			counter++;
 
@@ -164,6 +166,7 @@ void Robot::CameraPipelineProcess(){
 
 //		if (foundMatch) {
 			outputStream.PutFrame(rectSource);
+			printf("2135: outputStream Frame\n");
 //		}
 //		else printf("2135: No peg target match found\n");
 

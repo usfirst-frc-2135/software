@@ -16,11 +16,11 @@ GripContoursPipeline::GripContoursPipeline() {
 void GripContoursPipeline::Process(cv::Mat& source0){
 	//Step HSL_Threshold0:
 	//input
-	double hueStart = SmartDashboard::GetNumber("Hue Start", 77.697841);
-	double hueEnd = SmartDashboard::GetNumber("Hue End", 92.45733788395904);
-	double saturationStart = SmartDashboard::GetNumber("Saturation Start", 171.98741007194243);
+	double hueStart = SmartDashboard::GetNumber("Hue Start", 0.0);
+	double hueEnd = SmartDashboard::GetNumber("Hue End", 102.0);
+	double saturationStart = SmartDashboard::GetNumber("Saturation Start", 202.0);
 	double saturationEnd = SmartDashboard::GetNumber("Saturation End", 255.0);
-	double luminanceStart = SmartDashboard::GetNumber("Luminance Start", 43.57014388489208);
+	double luminanceStart = SmartDashboard::GetNumber("Luminance Start", 24.0);
 	double luminanceEnd = SmartDashboard::GetNumber("Luminance End", 255.0);
 
 	cv::Mat hslThresholdInput = source0;
