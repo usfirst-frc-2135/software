@@ -185,7 +185,7 @@ void Robot::CameraVisionThread(){
 			float rectRatio = (rectWidth / rectHeight) * 5.0/2.0;
 
 			// If the rect is the correct rectangle target shape, save it in the hold list
-			if ((rectRatio > 0.5) && (rectRatio < 2.0)) {
+			if ((rectRatio > 0.8) && (rectRatio < 1.2)) {
 				printf("2135: Boundary Rect in Hold List: %d\n", validRectList.size());
 				validRectList.push_back(rect);
 			}
@@ -194,77 +194,80 @@ void Robot::CameraVisionThread(){
 		// Print the number of valid rects stored in list
 		printf("2135: Boundary rects in list: %d\n", validRectList.size());
 
-		// Loop through validated rect list
-		for (unsigned int itr = 0; itr < validRectList.size(); itr++) {
-			// Initialize first rect before comparing the two
-			cv::Rect& rectA = validRectList[itr];
+		// Need two contours in the hold list in order to make a group
+		if (validRectList.size() > 1) {
+			// Loop through validated rect list
+			for (unsigned int itr = 0; itr < validRectList.size(); itr++) {
+				// Initialize first rect before comparing the two
+				cv::Rect& rectA = validRectList[itr];
 
-			// Loop through remaining valid rects to validate the pair
-			for (unsigned int itr2 = 0; itr < validRectList.size(); itr2++) {
-				// Initialize second rect
-				cv::Rect&  rectB = validRectList[itr2];
+				// Loop through remaining valid rects to validate the pair
+				for (unsigned int itr2 = (itr + 1); itr < validRectList.size(); itr2++) {
+					// Initialize second rect
+					cv::Rect&  rectB = validRectList[itr2];
 
-				// Don't compare rect against itself--skip it
-				if (rectA == rectB) {
-					continue;
-				}
+					// Don't compare rect against itself--skip it
+					if (rectA == rectB) {
+						continue;
+					}
 
-				// Set up the points for the bounding box around RectA and RectB
-				std::vector<cv::Point> groupPoints;
-				cv::Point groupPoint1(rectA.x, rectA.y);
-				cv::Point groupPoint2(rectA.x, rectA.y + rectA.height);
-				cv::Point groupPoint3(rectA.x + rectA.width, rectA.y + rectA.height);
-				cv::Point groupPoint4(rectA.x + rectA.width + rectA.y);
-				cv::Point groupPoint5(rectB.x, rectB.y);
-				cv::Point groupPoint6(rectB.x, rectB.y + rectB.height);
-				cv::Point groupPoint7(rectB.x + rectB.width, rectB.y + rectB.height);
-				cv::Point groupPoint8(rectB.x + rectB.width + rectB.y);
+					// Set up the points for the bounding box around RectA and RectB
+					std::vector<cv::Point> groupPoints;
+					cv::Point groupPoint1(rectA.x, rectA.y);
+					cv::Point groupPoint2(rectA.x, rectA.y + rectA.height);
+					cv::Point groupPoint3(rectA.x + rectA.width, rectA.y + rectA.height);
+					cv::Point groupPoint4(rectA.x + rectA.width + rectA.y);
+					cv::Point groupPoint5(rectB.x, rectB.y);
+					cv::Point groupPoint6(rectB.x, rectB.y + rectB.height);
+					cv::Point groupPoint7(rectB.x + rectB.width, rectB.y + rectB.height);
+					cv::Point groupPoint8(rectB.x + rectB.width + rectB.y);
 
-				// Set up a contour withthe list of points to get a bounding rect surrounding both
-				groupPoints.push_back(groupPoint1);
-				groupPoints.push_back(groupPoint2);
-				groupPoints.push_back(groupPoint3);
-				groupPoints.push_back(groupPoint4);
-				groupPoints.push_back(groupPoint5);
-				groupPoints.push_back(groupPoint6);
-				groupPoints.push_back(groupPoint7);
-				groupPoints.push_back(groupPoint8);
+					// Set up a contour withthe list of points to get a bounding rect surrounding both
+					groupPoints.push_back(groupPoint1);
+					groupPoints.push_back(groupPoint2);
+					groupPoints.push_back(groupPoint3);
+					groupPoints.push_back(groupPoint4);
+					groupPoints.push_back(groupPoint5);
+					groupPoints.push_back(groupPoint6);
+					groupPoints.push_back(groupPoint7);
+					groupPoints.push_back(groupPoint8);
 
-				// Get the boundingRect around both valid individual targets
-				cv::Rect groupRect = cv::boundingRect(groupPoints);
+					// Get the boundingRect around both valid individual targets
+					cv::Rect groupRect = cv::boundingRect(groupPoints);
 
-				// Checking the groupRect height:width ratio to verify bounding Rect
-				float groupRectWidth = (float)groupRect.width;
-				float groupRectHeight = (float)groupRect.height;
-				float groupRectRatio = ((groupRectWidth / groupRectHeight) * (5.0 / 10.25));
+					// Checking the groupRect height:width ratio to verify bounding Rect
+					float groupRectWidth = (float)groupRect.width;
+					float groupRectHeight = (float)groupRect.height;
+					float groupRectRatio = ((groupRectWidth / groupRectHeight) * (5.0 / 10.25));
 
-				// Validate the grouped targets as being of the correct aspect ratio
-				if ((groupRectRatio > 0.5) && (groupRectRatio < 2.0)) {
-					// Found a possible match
-					printf("2135: Found a group ratio\n");
-					// Add the valid group rect to the frame being processed
-					cv::rectangle(processFrame, groupRect, cv::Scalar(0, 0, 255));
-					foundMatch = true;
+					// Validate the grouped targets as being of the correct aspect ratio
+					if ((groupRectRatio > 0.8) && (groupRectRatio < 1.2)) {
+						// Found a possible match
+						printf("!!! ---> 2135: Found a group ratio: %3f\n", groupRectRatio);
+						// Add the valid group rect to the frame being processed
+						cv::rectangle(processFrame, groupRect, cv::Scalar(0, 0, 255));
+						foundMatch = true;
+						break;
+					}
+					else continue;
+				} // End itr2
+
+				if (foundMatch) {
 					break;
 				}
-				else continue;
-			} // End itr2
+			} // End itr1
 
-			if (foundMatch) {
-				break;
-			}
-		} // End itr1
+	//		if (foundMatch) {
+				// Display the final processed frame
+				printf("2135: Display processed frame\n");
+				outputStream.PutFrame(processFrame);
+	//		}
+	//		else printf("2135: No peg target match found\n");
 
-//		if (foundMatch) {
-			// Display the final processed frame
-			printf("2135: Display processed frame\n");
-			outputStream.PutFrame(processFrame);
-//		}
-//		else printf("2135: No peg target match found\n");
-
-//		SmartDashboard::PutNumberArray("Contour x", table->GetNumberArray("centerX", llvm::ArrayRef<double>()));
-//		SmartDashboard::PutNumberArray("Contour y", table->GetNumberArray("centerY", llvm::ArrayRef<double>()));
-//		SmartDashboard::PutNumberArray("Contour area", table->GetNumberArray("area", llvm::ArrayRef<double>()));
+	//		SmartDashboard::PutNumberArray("Contour x", table->GetNumberArray("centerX", llvm::ArrayRef<double>()));
+	//		SmartDashboard::PutNumberArray("Contour y", table->GetNumberArray("centerY", llvm::ArrayRef<double>()));
+	//		SmartDashboard::PutNumberArray("Contour area", table->GetNumberArray("area", llvm::ArrayRef<double>()));
+		}
 	}
 }
 
