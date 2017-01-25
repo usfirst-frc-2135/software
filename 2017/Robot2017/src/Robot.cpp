@@ -247,6 +247,12 @@ void Robot::CameraVisionThread(){
 						// Add the valid group rect to the frame being processed
 						cv::rectangle(processFrame, groupRect, cv::Scalar(0, 0, 255));
 						foundMatch = true;
+						// Find the center point of groupRect to get peg location
+						float centerX = (float)(groupRect.x) + (float)(groupRect.width)/2.0;
+						float centerY = (float)(groupRect.y) + (float)(groupRect.height)/2.0;
+						printf("+++ 2135: Group rect center point (%d, %d)\n", (int)centerX, (int)centerY);
+						// Find the height, width, x, y of the groupRect
+						printf("---> 2135: Group rect height: %d, width: %d, x: %d, y: %d\n", groupRect.height, groupRect.width, groupRect.x, groupRect.y);
 						break;
 					}
 					else continue;
