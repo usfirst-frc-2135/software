@@ -185,14 +185,15 @@ void Robot::CameraVisionThread(){
 			float rectRatio = (rectWidth / rectHeight) * 5.0/2.0;
 
 			// If the rect is the correct rectangle target shape, save it in the hold list
-			if ((rectRatio > 0.8) && (rectRatio < 1.2)) {
-				printf("2135: Boundary Rect in Hold List: %d\n", validRectList.size());
+			if ((rectRatio > 0.5) && (rectRatio < 2.0)) {
+//				printf("2135: Boundary Rect in Hold List: %d\n", validRectList.size());
+				printf("---> X = %d, Y = %d, W = %d, H = %d\n", rect.x, rect.y, rect.width, rect.height);
 				validRectList.push_back(rect);
 			}
 		}
 
 		// Print the number of valid rects stored in list
-		printf("2135: Boundary rects in list: %d\n", validRectList.size());
+//		printf("2135: Boundary rects in list: %d\n", validRectList.size());
 
 		// Need two contours in the hold list in order to make a group
 		if (validRectList.size() > 1) {
@@ -216,13 +217,13 @@ void Robot::CameraVisionThread(){
 					cv::Point groupPoint1(rectA.x, rectA.y);
 					cv::Point groupPoint2(rectA.x, rectA.y + rectA.height);
 					cv::Point groupPoint3(rectA.x + rectA.width, rectA.y + rectA.height);
-					cv::Point groupPoint4(rectA.x + rectA.width + rectA.y);
+					cv::Point groupPoint4(rectA.x + rectA.width, rectA.y);
 					cv::Point groupPoint5(rectB.x, rectB.y);
 					cv::Point groupPoint6(rectB.x, rectB.y + rectB.height);
 					cv::Point groupPoint7(rectB.x + rectB.width, rectB.y + rectB.height);
-					cv::Point groupPoint8(rectB.x + rectB.width + rectB.y);
+					cv::Point groupPoint8(rectB.x + rectB.width, rectB.y);
 
-					// Set up a contour withthe list of points to get a bounding rect surrounding both
+					// Set up a contour with the list of points to get a bounding rect surrounding both
 					groupPoints.push_back(groupPoint1);
 					groupPoints.push_back(groupPoint2);
 					groupPoints.push_back(groupPoint3);
@@ -241,9 +242,10 @@ void Robot::CameraVisionThread(){
 					float groupRectRatio = ((groupRectWidth / groupRectHeight) * (5.0 / 10.25));
 
 					// Validate the grouped targets as being of the correct aspect ratio
-					if ((groupRectRatio > 0.8) && (groupRectRatio < 1.2)) {
+					if ((groupRectRatio > 0.5) && (groupRectRatio < 2.0)) {
 						// Found a possible match
-						printf("!!! ---> 2135: Found a group ratio: %3f\n", groupRectRatio);
+		//				printf("!!! ---> 2135: Found a group ratio: %3f\n", groupRectRatio);
+						printf("Group ---> X = %d, Y = %d, W = %d, H = %d\n", groupRect.x, groupRect.y, groupRect.width, groupRect.height);
 						// Add the valid group rect to the frame being processed
 						cv::rectangle(processFrame, groupRect, cv::Scalar(0, 0, 255));
 						foundMatch = true;
@@ -252,7 +254,7 @@ void Robot::CameraVisionThread(){
 						float centerY = (float)(groupRect.y) + (float)(groupRect.height)/2.0;
 						printf("+++ 2135: Group rect center point (%d, %d)\n", (int)centerX, (int)centerY);
 						// Find the height, width, x, y of the groupRect
-						printf("---> 2135: Group rect height: %d, width: %d, x: %d, y: %d\n", groupRect.height, groupRect.width, groupRect.x, groupRect.y);
+		//				printf("---> 2135: Group rect height: %d, width: %d, x: %d, y: %d\n", groupRect.height, groupRect.width, groupRect.x, groupRect.y);
 						break;
 					}
 					else continue;
@@ -265,7 +267,7 @@ void Robot::CameraVisionThread(){
 
 	//		if (foundMatch) {
 				// Display the final processed frame
-				printf("2135: Display processed frame\n");
+	//			printf("2135: Display processed frame\n");
 				outputStream.PutFrame(processFrame);
 	//		}
 	//		else printf("2135: No peg target match found\n");
