@@ -191,9 +191,13 @@ void Robot::CameraVisionThread(){
 				validRectList.push_back(rect);
 
 				// Finding the distance of the camera from the peg - individual rect (in)
-				float sqrtThree = sqrt(3);
-				float screenWidthRect = (2.0 / (float)(rect.width)) * 160.0;
-				float pegDistanceRect = (screenWidthRect / 2.0) * sqrtThree;
+//				float sqrtThree = sqrt(3);
+//				float screenWidthRect = (2.0 / (float)(rect.width)) * 160.0;
+//				float pegDistanceRect = (screenWidthRect / 2.0) * sqrtThree;
+
+				// RectWidthInches * FOVpixels / (2 * RectWidthPixels * tan(24 degrees) --- 24 is a more accurate theta
+				double angleRadian = 25.0 * 3.1415 / 180.0;
+				float pegDistanceRect = (2.0 * 160.0) / (2.0 * (float)rect.width * (float)tan(angleRadian));
 				printf("======= Rect Distance to Peg: %3f\n", pegDistanceRect);
 			}
 		}
@@ -253,9 +257,13 @@ void Robot::CameraVisionThread(){
 		//				printf("!!! ---> 2135: Found a group ratio: %3f\n", groupRectRatio);
 						printf("Group ---> X = %d, Y = %d, W = %d, H = %d\n", groupRect.x, groupRect.y, groupRect.width, groupRect.height);
 						// Finding the distance of the camera from the peg - group rect (in)
-						float sqrtThree = sqrt(3);
-						float screenWidthGroup = (10.25 / (float)(groupRect.width)) * 160.0;
-						float pegDistanceGroup = (screenWidthGroup / 2.0) * sqrtThree;
+//						float sqrtThree = sqrt(3);
+//						float screenWidthGroup = (10.25 / (float)(groupRect.width)) * 160.0;
+//						float pegDistanceGroup = (screenWidthGroup / 2.0) * sqrtThree;
+
+						// RectWidthInches * FOVpixels / (2 * RectWidthPixels * tan(24 degrees) --- 24 is a more accurate theta
+						double angleRadian = 25.0 * 3.1415 / 180.0;
+						float pegDistanceGroup = (10.25 * 160.0) / (2.0 * (float)groupRect.width * (float)tan(angleRadian));
 						printf("======= Group Rect Distance to Peg: %3f\n", pegDistanceGroup);
 						// Add the valid group rect to the frame being processed
 						cv::rectangle(processFrame, groupRect, cv::Scalar(0, 0, 255));
