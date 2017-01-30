@@ -61,6 +61,7 @@ public:
 private:
 	static int const imgWidth = 320;
 	static int const imgHeight = 240;
+	static float constexpr imgWidthFloat = 320.0;
 
 	std::thread visionThread;
 	static void CameraVisionThread();

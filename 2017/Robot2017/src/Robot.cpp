@@ -111,7 +111,7 @@ void Robot::CameraVisionThread(){
 
 	// Our camera input source - start it up
 	cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture();
-//	camera.SetResolution(imgWidth, imgHeight);
+	camera.SetResolution(imgWidth, imgHeight);
 
 	// Our vision processing pipeline
 	grip::GripContoursPipeline cameraPipeline;
@@ -195,18 +195,45 @@ void Robot::CameraVisionThread(){
 //				float screenWidthRect = (2.0 / (float)(rect.width)) * 160.0;
 //				float pegDistanceRect = (screenWidthRect / 2.0) * sqrtThree;
 
-				// RectWidthInches * FOVpixels / (2 * RectWidthPixels * tan(24 degrees) --- 24 is a more accurate theta
+				// RectWidthInches * FOVpixels / (2 * RectWidthPixels * tan(25 degrees) --- 25 is a more accurate theta
 				double angleRadian = 25.0 * 3.1415 / 180.0;
-				float pegDistanceRect = (2.0 * 160.0) / (2.0 * (float)rect.width * (float)tan(angleRadian));
-				printf("======= Rect Distance to Peg: %3f\n", pegDistanceRect);
+				float pegRectDistance = (2.0 * imgWidthFloat) / (2.0 * (float)rect.width * (float)tan(angleRadian));
+				printf("======= Rect Distance to Peg: %3f\n", pegRectDistance);
 			}
 		}
 
 		// Print the number of valid rects stored in list
 //		printf("2135: Boundary rects in list: %d\n", validRectList.size());
 
+		if (validRectList.size() == 1) {
+			// Find the adjustment angle to align this rectangle to center of the frame
+			cv::Rect& rect = validRectList[0];
+			bool turnRight = true;
+			float pixelsToCenter;
+			float rectCenterX = (float)rect.x + ((float)(rect.width)/2.0);
+
+			if (imgWidthFloat/2.0 > rectCenterX) {
+				pixelsToCenter = imgWidthFloat/2.0 - rectCenterX;
+				turnRight = false;
+				//turn left
+			}
+			else {
+				pixelsToCenter = rectCenterX - imgWidthFloat/2.0;
+				//turn right
+			}
+
+			// RectWidthInches * FOVpixels / (2 * RectWidthPixels * tan(25 degrees) --- 25 is a more accurate theta
+			double angleRadian = 25.0 * 3.1415 / 180.0;
+			float pegRectDistance = (10.25 * imgWidthFloat) / (2.0 * (float)rect.width * (float)tan(angleRadian));
+			printf("======= Rect Distance to Peg: %3f\n", pegRectDistance);
+
+			float inchesToCenter = (10.25 * pixelsToCenter) / ((float)rect.width);
+			float angleToAdjustRadians = (float)atan(inchesToCenter / pegRectDistance);
+			float angleToAdjustDegrees = angleToAdjustRadians * 180.0 / 3.1415;
+			printf("::::::::: Angle to Adjust SingleRect %3f --> TurnRight = %d\n", angleToAdjustDegrees, turnRight);
+		}
 		// Need two contours in the hold list in order to make a group
-		if (validRectList.size() > 1) {
+		else if (validRectList.size() > 1) {
 			// Loop through validated rect list
 			for (unsigned int itr = 0; itr < validRectList.size(); itr++) {
 				// Initialize first rect before comparing the two
@@ -261,17 +288,37 @@ void Robot::CameraVisionThread(){
 //						float screenWidthGroup = (10.25 / (float)(groupRect.width)) * 160.0;
 //						float pegDistanceGroup = (screenWidthGroup / 2.0) * sqrtThree;
 
-						// RectWidthInches * FOVpixels / (2 * RectWidthPixels * tan(24 degrees) --- 24 is a more accurate theta
+						// RectWidthInches * FOVpixels / (2 * RectWidthPixels * tan(25 degrees) --- 25 is a more accurate theta
 						double angleRadian = 25.0 * 3.1415 / 180.0;
-						float pegDistanceGroup = (10.25 * 160.0) / (2.0 * (float)groupRect.width * (float)tan(angleRadian));
-						printf("======= Group Rect Distance to Peg: %3f\n", pegDistanceGroup);
+						float pegGroupDistance = (10.25 * imgWidthFloat) / (2.0 * (float)groupRect.width * (float)tan(angleRadian));
+						printf("======= Group Rect Distance to Peg: %3f\n", pegGroupDistance);
+
 						// Add the valid group rect to the frame being processed
 						cv::rectangle(processFrame, groupRect, cv::Scalar(0, 0, 255));
 						foundMatch = true;
+
 						// Find the center point of groupRect to get peg location
-						float centerX = (float)(groupRect.x) + (float)(groupRect.width)/2.0;
-						float centerY = (float)(groupRect.y) + (float)(groupRect.height)/2.0;
-						printf("+++ 2135: Group rect center point (%d, %d)\n", (int)centerX, (int)centerY);
+						float groupCenterX = (float)(groupRect.x) + (float)(groupRect.width)/2.0;
+						float groupCenterY = (float)(groupRect.y) + (float)(groupRect.height)/2.0;
+						printf("+++ 2135: Group rect center point (%d, %d)\n", (int)groupCenterX, (int)groupCenterY);
+
+						// Find the adjustment angle to align peg to center of the frame
+						bool turnRight = true;
+						float pixelsToCenter;
+						if (imgWidthFloat/2.0 > groupCenterX) {
+							pixelsToCenter = imgWidthFloat/2.0 - groupCenterX;
+							turnRight = false;
+							//turn left
+						}
+						else {
+							pixelsToCenter = groupCenterX - imgWidthFloat/2.0;
+							//turn right
+						}
+						float inchesToCenter = (10.25 * pixelsToCenter) / ((float)groupRect.width);
+						float angleToAdjustRadians = (float)atan(inchesToCenter / pegGroupDistance);
+						float angleToAdjustDegrees = angleToAdjustRadians * 180.0 / 3.1415;
+						printf("::::::::: Angle to Adjust %3f --> TurnRight = %d\n", angleToAdjustDegrees, turnRight);
+
 						// Find the height, width, x, y of the groupRect
 		//				printf("---> 2135: Group rect height: %d, width: %d, x: %d, y: %d\n", groupRect.height, groupRect.width, groupRect.x, groupRect.y);
 						break;
