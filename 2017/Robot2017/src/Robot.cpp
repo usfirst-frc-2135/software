@@ -108,6 +108,7 @@ Robot::Robot():visionThread(CameraVisionThread) {
 
 void Robot::CameraVisionThread(){
 	// Declare vision thread variables
+	float imgWidthFloat = (float)imgWidth;
 
 	// Our camera input source - start it up
 	cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture();
@@ -191,13 +192,7 @@ void Robot::CameraVisionThread(){
 				validRectList.push_back(rect);
 
 				// Finding the distance of the camera from the peg - individual rect (in)
-//				float sqrtThree = sqrt(3);
-//				float screenWidthRect = (2.0 / (float)(rect.width)) * 160.0;
-//				float pegDistanceRect = (screenWidthRect / 2.0) * sqrtThree;
-
-				// RectWidthInches * FOVpixels / (2 * RectWidthPixels * tan(25 degrees) --- 25 is a more accurate theta
-				double angleRadian = 25.0 * 3.1415 / 180.0;
-				float pegRectDistance = (2.0 * imgWidthFloat) / (2.0 * (float)rect.width * (float)tan(angleRadian));
+				float pegRectDistance = Robot::CalcDistToTarget((float)2.0 , imgWidthFloat, (float)rect.width);
 				printf("======= Rect Distance to Peg: %3f\n", pegRectDistance);
 			}
 		}
@@ -222,13 +217,11 @@ void Robot::CameraVisionThread(){
 				//turn right
 			}
 
-			// RectWidthInches * FOVpixels / (2 * RectWidthPixels * tan(25 degrees) --- 25 is a more accurate theta
-			double angleRadian = 25.0 * 3.1415 / 180.0;
-			float pegRectDistance = (10.25 * imgWidthFloat) / (2.0 * (float)rect.width * (float)tan(angleRadian));
-			printf("======= Rect Distance to Peg: %3f\n", pegRectDistance);
+			float rectDistance = Robot::CalcDistToTarget((float)10.25 , imgWidthFloat, (float)rect.width);
+			printf("======= Rect Distance to Peg: %3f\n", rectDistance);
 
 			float inchesToCenter = (10.25 * pixelsToCenter) / ((float)rect.width);
-			float angleToAdjustRadians = (float)atan(inchesToCenter / pegRectDistance);
+			float angleToAdjustRadians = (float)atan(inchesToCenter / rectDistance);
 			float angleToAdjustDegrees = angleToAdjustRadians * 180.0 / 3.1415;
 			printf("::::::::: Angle to Adjust SingleRect %3f --> TurnRight = %d\n", angleToAdjustDegrees, turnRight);
 		}
@@ -284,13 +277,7 @@ void Robot::CameraVisionThread(){
 		//				printf("!!! ---> 2135: Found a group ratio: %3f\n", groupRectRatio);
 						printf("Group ---> X = %d, Y = %d, W = %d, H = %d\n", groupRect.x, groupRect.y, groupRect.width, groupRect.height);
 						// Finding the distance of the camera from the peg - group rect (in)
-//						float sqrtThree = sqrt(3);
-//						float screenWidthGroup = (10.25 / (float)(groupRect.width)) * 160.0;
-//						float pegDistanceGroup = (screenWidthGroup / 2.0) * sqrtThree;
-
-						// RectWidthInches * FOVpixels / (2 * RectWidthPixels * tan(25 degrees) --- 25 is a more accurate theta
-						double angleRadian = 25.0 * 3.1415 / 180.0;
-						float pegGroupDistance = (10.25 * imgWidthFloat) / (2.0 * (float)groupRect.width * (float)tan(angleRadian));
+						float pegGroupDistance = Robot::CalcDistToTarget((float)10.25 , imgWidthFloat, (float)groupRect.width);
 						printf("======= Group Rect Distance to Peg: %3f\n", pegGroupDistance);
 
 						// Add the valid group rect to the frame being processed
@@ -343,6 +330,15 @@ void Robot::CameraVisionThread(){
 	//		SmartDashboard::PutNumberArray("Contour area", table->GetNumberArray("area", llvm::ArrayRef<double>()));
 		}
 	}
+}
+
+float Robot::CalcDistToTarget(const float& rectWidthInches, const float& FOVPixels, const float& rectWidthPixels) {
+	// Calculate the distance to the target given
+	// RectWidthInches * FOVpixels / (2 * RectWidthPixels * tan(25 degrees)
+	// Only need to change horizontal FOV angle here
+	double FOVangle = 25.0;									// Using FOV horizontal angle = 25 degrees
+	double angleRadian = FOVangle * 3.1415 / 180.0;			// Convert angle to radians
+	return ((rectWidthInches * FOVPixels) / (2.0 * rectWidthPixels * (float)tan(angleRadian)));
 }
 
 START_ROBOT_CLASS(Robot);

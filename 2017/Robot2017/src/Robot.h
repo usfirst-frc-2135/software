@@ -63,10 +63,10 @@ public:
 private:
 	static int const imgWidth = 320;
 	static int const imgHeight = 240;
-	static float constexpr imgWidthFloat = 320.0;
 
 	std::thread visionThread;
 	static void CameraVisionThread();
-
+	static float CalcDistToTarget(const float& rectWidthInches, const float& FOVPixels, const float& rectWidthPixels);
+	static float CalcCenteringAngle(const float& rectWidthPixels, const float& rectDistance);
 };
 #endif
