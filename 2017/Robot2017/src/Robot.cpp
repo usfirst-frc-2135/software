@@ -137,21 +137,21 @@ void Robot::CameraVisionThread(){
 	SmartDashboard::PutNumber("Luminance Start", 24.0);
 	SmartDashboard::PutNumber("Luminance End", 255.0);
 
+	// Get the current brightness from the dashboard
+	//	TODO: getting values from the dashboard is reinputFrame intensive--only do it occasionally
+	//		Maybe only do it when we do TelopInit or AutonInit
+	int camBrightness = SmartDashboard::GetNumber("Camera Brightness %", 0);
+	camera.SetBrightness(camBrightness);
+
+	// Get the current exposure from the dashboard
+	//	TODO: only do this occasionally - resource intensive
+	int camExposure = SmartDashboard::GetNumber("Camera Exposure %", 0);
+	camera.SetExposureManual(camExposure);
+
 	// Main loop for our vision thread
 	while (true) {
 		// DEBUG ONLY: Wait one second before starting each processing loop
 		std::this_thread::sleep_for(std::chrono::seconds(1));
-
-		// Get the current brightness from the dashboard
-		//	TODO: getting values from the dashboard is reinputFrame intensive--only do it occasionally
-		//		Maybe only do it when we do TelopInit or AutonInit
-		int camBrightness = SmartDashboard::GetNumber("Camera Brightness %", 0);
-		camera.SetBrightness(camBrightness);
-
-		// Get the current exposure from the dashboard
-		//	TODO: only do this occasionally - resource intensive
-		int camExposure = SmartDashboard::GetNumber("Camera Exposure %", 0);
-		camera.SetExposureManual(camExposure);
 
 		// Get a frame from the camera input stream
 		inputStream.GrabFrame(inputFrame);
@@ -166,7 +166,7 @@ void Robot::CameraVisionThread(){
 		// Declare a temporary holding list for validated rects
 		std::vector<cv::Rect> validRectList;
 
-		// Match flag initilaization
+		// Match flag initialization
 		bool foundMatch = false;
 
 		// Loop through the contours list and add bounding rects to the video stream
@@ -181,9 +181,7 @@ void Robot::CameraVisionThread(){
 			cv::rectangle(processFrame, rect, cv::Scalar(255, 255, 255));
 
 			// Translate width and height to floating point and calculate normalized aspect ratio
-			float rectWidth = (float)rect.width;
-			float rectHeight = (float)rect.height;
-			float rectRatio = (rectWidth / rectHeight) * 5.0/2.0;
+			float rectRatio = ((float)rect.width / (float)rect.height) * 5.0/2.0;
 
 			// If the rect is the correct rectangle target shape, save it in the hold list
 			if ((rectRatio > 0.5) && (rectRatio < 2.0)) {
@@ -191,9 +189,9 @@ void Robot::CameraVisionThread(){
 				printf("---> X = %d, Y = %d, W = %d, H = %d\n", rect.x, rect.y, rect.width, rect.height);
 				validRectList.push_back(rect);
 
-				// Finding the distance of the camera from the peg - individual rect (in)
-				float pegRectDistance = Robot::CalcDistToTarget((float)2.0 , imgWidthFloat, (float)rect.width);
-				printf("======= Rect Distance to Peg: %3f\n", pegRectDistance);
+				// Finding the distance from the camera to the peg targets - individual rect (in)
+// TEST				float pegRectDistance = Robot::CalcDistToTarget((float)2.0 , imgWidthFloat, (float)rect.width);
+// TEST				printf("======= Rect Distance to Peg: %3f\n", pegRectDistance);
 			}
 		}
 
@@ -201,29 +199,16 @@ void Robot::CameraVisionThread(){
 //		printf("2135: Boundary rects in list: %d\n", validRectList.size());
 
 		if (validRectList.size() == 1) {
-			// Find the adjustment angle to align this rectangle to center of the frame
+			// Find the adjustment angle to align this rectangle to the center of the frame
 			cv::Rect& rect = validRectList[0];
-			bool turnRight = true;
-			float pixelsToCenter;
-			float rectCenterX = (float)rect.x + ((float)(rect.width)/2.0);
 
-			if (imgWidthFloat/2.0 > rectCenterX) {
-				pixelsToCenter = imgWidthFloat/2.0 - rectCenterX;
-				turnRight = false;
-				//turn left
-			}
-			else {
-				pixelsToCenter = rectCenterX - imgWidthFloat/2.0;
-				//turn right
-			}
-
-			float rectDistance = Robot::CalcDistToTarget((float)10.25 , imgWidthFloat, (float)rect.width);
+			float rectDistance = Robot::CalcDistToTarget((float)2.0 , imgWidthFloat, (float)rect.width);
 			printf("======= Rect Distance to Peg: %3f\n", rectDistance);
 
-			float inchesToCenter = (10.25 * pixelsToCenter) / ((float)rect.width);
-			float angleToAdjustRadians = (float)atan(inchesToCenter / rectDistance);
-			float angleToAdjustDegrees = angleToAdjustRadians * 180.0 / 3.1415;
-			printf("::::::::: Angle to Adjust SingleRect %3f --> TurnRight = %d\n", angleToAdjustDegrees, turnRight);
+			bool turnRight; // Will get set in CalcCenteringAngle
+			float rectAngleAdjust = Robot::CalcCenteringAngle(rect, turnRight, imgWidthFloat, rectDistance);
+			printf("::::::::: Angle to Adjust SingleRect %3f --> TurnRight = %d\n", rectAngleAdjust, turnRight);
+			// TODO: Use this distance and angle to move the robot to center the target on the frame
 		}
 		// Need two contours in the hold list in order to make a group
 		else if (validRectList.size() > 1) {
@@ -244,39 +229,29 @@ void Robot::CameraVisionThread(){
 
 					// Set up the points for the bounding box around RectA and RectB
 					std::vector<cv::Point> groupPoints;
-					cv::Point groupPoint1(rectA.x, rectA.y);
-					cv::Point groupPoint2(rectA.x, rectA.y + rectA.height);
-					cv::Point groupPoint3(rectA.x + rectA.width, rectA.y + rectA.height);
-					cv::Point groupPoint4(rectA.x + rectA.width, rectA.y);
-					cv::Point groupPoint5(rectB.x, rectB.y);
-					cv::Point groupPoint6(rectB.x, rectB.y + rectB.height);
-					cv::Point groupPoint7(rectB.x + rectB.width, rectB.y + rectB.height);
-					cv::Point groupPoint8(rectB.x + rectB.width, rectB.y);
 
 					// Set up a contour with the list of points to get a bounding rect surrounding both
-					groupPoints.push_back(groupPoint1);
-					groupPoints.push_back(groupPoint2);
-					groupPoints.push_back(groupPoint3);
-					groupPoints.push_back(groupPoint4);
-					groupPoints.push_back(groupPoint5);
-					groupPoints.push_back(groupPoint6);
-					groupPoints.push_back(groupPoint7);
-					groupPoints.push_back(groupPoint8);
+					groupPoints.push_back(cv::Point(rectA.x, rectA.y));
+					groupPoints.push_back(cv::Point(rectA.x, rectA.y + rectA.height));
+					groupPoints.push_back(cv::Point(rectA.x + rectA.width, rectA.y + rectA.height));
+					groupPoints.push_back(cv::Point(rectA.x + rectA.width, rectA.y));
+					groupPoints.push_back(cv::Point(rectB.x, rectB.y));
+					groupPoints.push_back(cv::Point(rectB.x, rectB.y + rectB.height));
+					groupPoints.push_back(cv::Point(rectB.x + rectB.width, rectB.y + rectB.height));
+					groupPoints.push_back(cv::Point(rectB.x + rectB.width, rectB.y));
 
 					// Get the boundingRect around both valid individual targets
 					cv::Rect groupRect = cv::boundingRect(groupPoints);
 
 					// Checking the groupRect height:width ratio to verify bounding Rect
-					float groupRectWidth = (float)groupRect.width;
-					float groupRectHeight = (float)groupRect.height;
-					float groupRectRatio = ((groupRectWidth / groupRectHeight) * (5.0 / 10.25));
+					float groupRectRatio = (((float)groupRect.width / (float)groupRect.height) * (5.0 / 10.25));
 
 					// Validate the grouped targets as being of the correct aspect ratio
 					if ((groupRectRatio > 0.5) && (groupRectRatio < 2.0)) {
 						// Found a possible match
 		//				printf("!!! ---> 2135: Found a group ratio: %3f\n", groupRectRatio);
 						printf("Group ---> X = %d, Y = %d, W = %d, H = %d\n", groupRect.x, groupRect.y, groupRect.width, groupRect.height);
-						// Finding the distance of the camera from the peg - group rect (in)
+						// Finding the distance from the camera to the peg - group rect (in)
 						float pegGroupDistance = Robot::CalcDistToTarget((float)10.25 , imgWidthFloat, (float)groupRect.width);
 						printf("======= Group Rect Distance to Peg: %3f\n", pegGroupDistance);
 
@@ -284,29 +259,10 @@ void Robot::CameraVisionThread(){
 						cv::rectangle(processFrame, groupRect, cv::Scalar(0, 0, 255));
 						foundMatch = true;
 
-						// Find the center point of groupRect to get peg location
-						float groupCenterX = (float)(groupRect.x) + (float)(groupRect.width)/2.0;
-						float groupCenterY = (float)(groupRect.y) + (float)(groupRect.height)/2.0;
-						printf("+++ 2135: Group rect center point (%d, %d)\n", (int)groupCenterX, (int)groupCenterY);
-
-						// Find the adjustment angle to align peg to center of the frame
-						bool turnRight = true;
-						float pixelsToCenter;
-						if (imgWidthFloat/2.0 > groupCenterX) {
-							pixelsToCenter = imgWidthFloat/2.0 - groupCenterX;
-							turnRight = false;
-							//turn left
-						}
-						else {
-							pixelsToCenter = groupCenterX - imgWidthFloat/2.0;
-							//turn right
-						}
-						float inchesToCenter = (10.25 * pixelsToCenter) / ((float)groupRect.width);
-						float angleToAdjustRadians = (float)atan(inchesToCenter / pegGroupDistance);
-						float angleToAdjustDegrees = angleToAdjustRadians * 180.0 / 3.1415;
-						printf("::::::::: Angle to Adjust %3f --> TurnRight = %d\n", angleToAdjustDegrees, turnRight);
-
-						// Find the height, width, x, y of the groupRect
+						bool turnRightGroup;
+						float groupAngleAdjust = Robot::CalcCenteringAngle(groupRect, turnRightGroup, imgWidthFloat, pegGroupDistance);
+						printf("::::::::: Angle to Adjust %3f --> TurnRight = %d\n", groupAngleAdjust, turnRightGroup);
+						//TODO: Use this data to drive the robot
 		//				printf("---> 2135: Group rect height: %d, width: %d, x: %d, y: %d\n", groupRect.height, groupRect.width, groupRect.x, groupRect.y);
 						break;
 					}
@@ -317,17 +273,7 @@ void Robot::CameraVisionThread(){
 					break;
 				}
 			} // End itr1
-
-	//		if (foundMatch) {
-				// Display the final processed frame
-	//			printf("2135: Display processed frame\n");
-				outputStream.PutFrame(processFrame);
-	//		}
-	//		else printf("2135: No peg target match found\n");
-
-	//		SmartDashboard::PutNumberArray("Contour x", table->GetNumberArray("centerX", llvm::ArrayRef<double>()));
-	//		SmartDashboard::PutNumberArray("Contour y", table->GetNumberArray("centerY", llvm::ArrayRef<double>()));
-	//		SmartDashboard::PutNumberArray("Contour area", table->GetNumberArray("area", llvm::ArrayRef<double>()));
+			outputStream.PutFrame(processFrame);
 		}
 	}
 }
@@ -339,6 +285,31 @@ float Robot::CalcDistToTarget(const float& rectWidthInches, const float& FOVPixe
 	double FOVangle = 25.0;									// Using FOV horizontal angle = 25 degrees
 	double angleRadian = FOVangle * 3.1415 / 180.0;			// Convert angle to radians
 	return ((rectWidthInches * FOVPixels) / (2.0 * rectWidthPixels * (float)tan(angleRadian)));
+}
+
+float Robot::CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const float& imgWidthScreen, const float& distToTarget) {
+	float pixelsToCenter;
+	float rectCenterX = (float)rect.x + (float)(rect.width)/2.0;
+	turnRight = true;
+
+	// Determine if the rectangle needs to go left or right to align the peg to the center of the screen
+	if (imgWidthScreen/2.0 > rectCenterX) {
+		pixelsToCenter = imgWidthScreen/2.0 - rectCenterX;
+		turnRight = false; // Turn left
+	}
+	else {
+		pixelsToCenter = rectCenterX - imgWidthScreen/2.0;
+		// Turn right
+	}
+
+	// Get the inches to center by finding out the missing values from a target width
+	float inchesToCenter = 10.25 * pixelsToCenter / (float)(rect.width);
+	//TODO: Double Check that 10.25 is the right constant or pass a value in the function
+	// Get the radians you have to turn to get to align the peg with the center of the screen by using the inverse of tan.
+	float angleToAdjustRadians = (float)atan(inchesToCenter / distToTarget);
+	// Convert the radians to degrees
+	float angleToAdjustDegrees = angleToAdjustRadians * 180.0 / 3.1415;
+	return angleToAdjustDegrees;
 }
 
 START_ROBOT_CLASS(Robot);

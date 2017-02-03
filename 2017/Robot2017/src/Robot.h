@@ -67,6 +67,6 @@ private:
 	std::thread visionThread;
 	static void CameraVisionThread();
 	static float CalcDistToTarget(const float& rectWidthInches, const float& FOVPixels, const float& rectWidthPixels);
-	static float CalcCenteringAngle(const float& rectWidthPixels, const float& rectDistance);
+	static float CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const float& imgWidthScreen, const float& distToTarget);
 };
 #endif
