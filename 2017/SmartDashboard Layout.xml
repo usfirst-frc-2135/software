@@ -1,0 +1,44 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="Gyro Value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="563" y="272"/>
+		<width>317</width>
+		<height>215</height>
+		<property name="Upper Limit" value="180.0"/>
+		<property name="Tick Interval" value="30.0"/>
+	</widget>
+	<widget field="Servo Angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="560" y="28"/>
+		<width>307</width>
+		<height>228</height>
+		<property name="Upper Limit" value="180.0"/>
+		<property name="Tick Interval" value="30.0"/>
+	</widget>
+	<widget field="Hue Start" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="108" y="112"/>
+	</widget>
+	<widget field="Luminance Start" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="60" y="272"/>
+	</widget>
+	<widget field="Camera Exposure %" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="29" y="48"/>
+	</widget>
+	<widget field="Camera Brightness %" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="21" y="16"/>
+	</widget>
+	<widget field="Saturation End" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="70" y="224"/>
+	</widget>
+	<widget field="Hue End" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="114" y="144"/>
+	</widget>
+	<widget field="Saturation Start" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="64" y="192"/>
+	</widget>
+	<widget field="Luminance End" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="66" y="304"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
