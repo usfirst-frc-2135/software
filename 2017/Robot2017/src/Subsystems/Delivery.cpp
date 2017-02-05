@@ -43,7 +43,7 @@ void Delivery::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Delivery::Initialize(void)
+void Delivery::Initialize(Preferences *prefs)
 {
 
 }

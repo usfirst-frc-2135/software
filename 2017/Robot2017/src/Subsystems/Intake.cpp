@@ -44,7 +44,7 @@ void Intake::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Intake::Initialize(void)
+void Intake::Initialize(Preferences *prefs)
 {
 
 }

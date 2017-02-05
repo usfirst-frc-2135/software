@@ -358,5 +358,23 @@ float Robot::CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const flo
 	return angleToAdjustDegrees;
 }
 
+//double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
+//	Preferences *prefs;
+//	double value;
+//
+//	prefs = Preferences::GetInstance();
+//
+//	if (prefs->ContainsKey(name)) {
+//		value = prefs->GetDouble(name, defaultValue);
+//		printf("2135: PREF %-20s : %6.3f\n", name.c_str(), value);
+//	}
+//	else {
+//		value = defaultValue;
+//		printf("2135: ERROR - %-20s not found\n", name.c_str());
+//	}
+//
+//	return value;
+//}
+
 START_ROBOT_CLASS(Robot);
 

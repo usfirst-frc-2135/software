@@ -41,7 +41,7 @@ void Agitator::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Agitator::Initialize(void)
+void Agitator::Initialize(Preferences *prefs)
 {
 
 }
