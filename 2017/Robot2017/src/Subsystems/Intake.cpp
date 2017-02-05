@@ -44,3 +44,22 @@ void Intake::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void Intake::Initialize(void)
+{
+
+}
+
+void Intake::UpdateSmartDashboardValues(void)
+{
+
+}
+
+void Intake::ArmExtend(bool extend)
+{
+
+}
+
+void Intake::SetMotorSpeed(bool enabled)
+{
+
+}

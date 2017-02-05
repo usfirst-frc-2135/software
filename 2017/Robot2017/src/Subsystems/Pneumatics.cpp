@@ -42,3 +42,17 @@ void Pneumatics::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void Pneumatics::Initialize(void)
+{
+
+}
+
+void Pneumatics::UpdateSmartDashboardValues(void)
+{
+
+}
+
+void Pneumatics::CompressorEnable(bool enabled)
+{
+
+}

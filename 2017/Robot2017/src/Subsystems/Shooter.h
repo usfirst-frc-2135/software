@@ -37,6 +37,10 @@ public:
 
 	// Put added public methods here in same order as in file
 
+	void Initialize(void);
+	void UpdateSmartDashboardValues(void);
+	void BallGateDeploy(bool insert);
+	void SetMotorSpeed(bool enabled);
 };
 
 #endif

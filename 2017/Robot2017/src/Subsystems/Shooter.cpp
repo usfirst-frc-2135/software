@@ -44,3 +44,22 @@ void Shooter::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void Shooter::Initialize(void)
+{
+
+}
+
+void Shooter::UpdateSmartDashboardValues(void)
+{
+
+}
+
+void Shooter::BallGateDeploy(bool insert)
+{
+
+}
+
+void Shooter::SetMotorSpeed(bool enabled)
+{
+
+}
