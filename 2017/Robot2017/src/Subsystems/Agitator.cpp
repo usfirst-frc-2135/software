@@ -53,5 +53,10 @@ void Agitator::UpdateSmartDashboardValues(void)
 
 void Agitator::SetMotorSpeed(bool enabled)
 {
+	if (enabled) {
 
+	}
+	else {
+
+	}
 }

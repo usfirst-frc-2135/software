@@ -54,5 +54,10 @@ void Pneumatics::UpdateSmartDashboardValues(void)
 
 void Pneumatics::CompressorEnable(bool enabled)
 {
-
+	if (enabled) {
+		compressor->Start();
+	}
+	else {
+		compressor->Stop();
+	}
 }

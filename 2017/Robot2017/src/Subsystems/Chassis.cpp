@@ -116,7 +116,12 @@ void Chassis::MoveDriveHeadingDistance(double inches, double angle)
 
 void Chassis::ShiftSpeed(bool lowGear)
 {
-
+	if (lowGear) {
+		shifter->Set(shifter->kForward);
+	}
+	else {
+		shifter->Set(shifter->kReverse);
+	}
 }
 
 void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)

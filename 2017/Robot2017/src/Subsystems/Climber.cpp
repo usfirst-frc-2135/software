@@ -50,7 +50,12 @@ void Climber::UpdateSmartDashboardValues(void)
 
 void Climber::SetMotorSpeed(bool enabled)
 {
+	if (enabled) {
 
+	}
+	else {
+
+	}
 }
 
 // Put methods for controlling this subsystem

@@ -55,10 +55,20 @@ void Delivery::UpdateSmartDashboardValues(void)
 
 void Delivery::GearRelease(bool open)
 {
-
+	if (open) {
+		gearRelease->Set(gearRelease->kForward);
+	}
+	else {
+		gearRelease->Set(gearRelease->kReverse);
+	}
 }
 
 void Delivery::DoorClose(bool open)
 {
-
+	if (open) {
+		doorOpen->Set(doorOpen->kForward);
+	}
+	else {
+		doorOpen->Set(doorOpen->kReverse);
+	}
 }

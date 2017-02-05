@@ -56,10 +56,20 @@ void Intake::UpdateSmartDashboardValues(void)
 
 void Intake::ArmExtend(bool extend)
 {
-
+	if (extend) {
+		armDeploy->Set(armDeploy->kForward);
+	}
+	else {
+		armDeploy->Set(armDeploy->kReverse);
+	}
 }
 
 void Intake::SetMotorSpeed(bool enabled)
 {
+	if (enabled) {
 
+	}
+	else {
+
+	}
 }
