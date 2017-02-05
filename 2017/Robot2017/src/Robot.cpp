@@ -88,8 +88,6 @@ void Robot::TeleopInit() {
 
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
-
-
 }
 
 void Robot::TeleopPeriodic() {
@@ -145,7 +143,7 @@ Robot::Robot():visionThread(CameraVisionThread) {
 
 // Vision processing thread
 
-void Robot::CameraVisionThread(){
+void Robot::CameraVisionThread() {
 	// Declare vision thread variables
 	float imgWidthFloat = (float)imgWidth;
 
