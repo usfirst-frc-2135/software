@@ -177,7 +177,7 @@ void Robot::CameraVisionThread(){
 	SmartDashboard::PutNumber("Luminance End", 255.0);
 
 	//Flag for SmartDashboard if rectContours are found
-			SmartDashboard::PutBoolean("FoundTarget", false);
+	SmartDashboard::PutBoolean("FoundTarget", false);  // initialize
 
 	// Get the current brightness from the dashboard
 	//	TODO: getting values from the dashboard is reinputFrame intensive--only do it occasionally
@@ -248,7 +248,7 @@ void Robot::CameraVisionThread(){
 			printf("======= Rect Distance to Peg: %3f\n", rectDistance);
 
 			bool turnRight; // Will get set in CalcCenteringAngle
-			float rectAngleAdjust = Robot::CalcCenteringAngle(rect, turnRight, imgWidthFloat, rectDistance);
+			float rectAngleAdjust = Robot::CalcCenteringAngle(rect, turnRight, imgWidthFloat, rectDistance, 2.0);
 			printf("::::::::: Angle to Adjust SingleRect %3f --> TurnRight = %d\n", rectAngleAdjust, turnRight);
 			SmartDashboard::PutBoolean("TurnRight", turnRight);
 			SmartDashboard::PutNumber("Angle to Adjust", rectAngleAdjust);
@@ -305,7 +305,7 @@ void Robot::CameraVisionThread(){
 						foundMatch = true;
 
 						bool turnRightGroup;
-						float groupAngleAdjust = Robot::CalcCenteringAngle(groupRect, turnRightGroup, imgWidthFloat, pegGroupDistance);
+						float groupAngleAdjust = Robot::CalcCenteringAngle(groupRect, turnRightGroup, imgWidthFloat, pegGroupDistance, 10.25);
 						printf("::::::::: Group Angle to Adjust %3f --> TurnRight = %d\n", groupAngleAdjust, turnRightGroup);
 						//TODO: Use this data to drive the robot
 						SmartDashboard::PutBoolean("TurnRight", turnRightGroup);
@@ -335,7 +335,7 @@ float Robot::CalcDistToTarget(const float& rectWidthInches, const float& FOVPixe
 	return ((rectWidthInches * FOVPixels) / (2.0 * rectWidthPixels * (float)tan(angleRadian)));
 }
 
-float Robot::CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const float& imgWidthScreen, const float& distToTarget) {
+float Robot::CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const float& imgWidthScreen, const float& distToTarget, const float& RectWidthInches) {
 	float pixelsToCenter;
 	float rectCenterX = (float)rect.x + (float)(rect.width)/2.0;
 	turnRight = true;
@@ -351,7 +351,7 @@ float Robot::CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const flo
 	}
 
 	// Get the inches to center by finding out the missing values from a target width
-	float inchesToCenter = 10.25 * pixelsToCenter / (float)(rect.width);
+	float inchesToCenter = RectWidthInches * pixelsToCenter / (float)(rect.width);
 	//TODO: Double Check that 10.25 is the right constant or pass a value in the function
 	// Get the radians you have to turn to get to align the peg with the center of the screen by using the inverse of tan.
 	float angleToAdjustRadians = (float)atan(inchesToCenter / distToTarget);
