@@ -52,10 +52,10 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorL2->SetVoltageRampRate(12.0);
     motorR3->SetVoltageRampRate(12.0);
     motorR4->SetVoltageRampRate(12.0);
-    motorL1->ConfigMaxOutputVoltage(12.0);
-    motorL2->ConfigMaxOutputVoltage(12.0);
-    motorR3->ConfigMaxOutputVoltage(12.0);
-    motorR4->ConfigMaxOutputVoltage(12.0);
+//    motorL1->ConfigMaxOutputVoltage(12.0);
+//    motorL2->ConfigMaxOutputVoltage(12.0);
+//    motorR3->ConfigMaxOutputVoltage(12.0);
+//    motorR4->ConfigMaxOutputVoltage(12.0);
 
     gyro->Calibrate();
 
@@ -90,15 +90,14 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	double yValue;
 
 	xValue = joystick->GetX() * -1;
-	yValue = joystick->GetY() + m_driveDirection;
+	yValue = joystick->GetY() * m_driveDirection;
 
-	if(m_scaled) {
+	if (m_scaled) {
 		xValue = xValue * m_driveScalingFactor;
 		yValue = yValue * m_driveScalingFactor;
 	}
 
-	robotDrive->ArcadeDrive( yValue, xValue, true );
-
+	robotDrive->ArcadeDrive( xValue, yValue, true );
 }
 
 void Chassis::MoveStop(void)

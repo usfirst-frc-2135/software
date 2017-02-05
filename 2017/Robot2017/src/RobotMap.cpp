@@ -49,7 +49,8 @@ void RobotMap::init() {
         chassisRobotDrive->SetExpiration(0.1);
         chassisRobotDrive->SetSensitivity(0.5);
         chassisRobotDrive->SetMaxOutput(1.0);
-        chassisRobotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
+
+        chassisRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
     chassisMotorL2.reset(new CANTalon(2));
     lw->AddActuator("Chassis", "MotorL2", chassisMotorL2);
     
