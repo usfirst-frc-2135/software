@@ -84,6 +84,41 @@ void Chassis::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void Chassis::Initialize(void)
+{
+
+}
+
+void Chassis::UpdateSmartDashboardValues(void)
+{
+
+}
+
+void Chassis::MoveToggleBrakeMode(void)
+{
+
+}
+
+void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRight)
+{
+
+}
+
+void Chassis::MoveDriveDistance(double inches)
+{
+
+}
+
+void Chassis::MoveDriveHeadingDistance(double inches, double angle)
+{
+
+}
+
+void Chassis::ShiftSpeed(bool lowGear)
+{
+
+}
+
 void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 {
 	double xValue;
@@ -115,7 +150,7 @@ void Chassis::MoveSpin(bool spinLeft)
 
 //	Set drive direction to be opposite relative to robot
 
-void Chassis::MoveToggleDriveDirection(void)
+void Chassis::MoveInvertDriveDirection(void)
 {
 	m_driveDirection = -m_driveDirection;
 	SmartDashboard::PutNumber("Drive Invert", m_driveDirection);
@@ -123,7 +158,7 @@ void Chassis::MoveToggleDriveDirection(void)
 
 //	Set scaling factor on drive speed
 
-void Chassis::MoveEnableScalingFactor(bool scaled)
+void Chassis::MoveScaleMaxSpeed(bool scaled)
 {
 	m_scaled = scaled;
 	SmartDashboard::PutBoolean("Drive Scaled", m_scaled);
@@ -131,25 +166,26 @@ void Chassis::MoveEnableScalingFactor(bool scaled)
 
 //	Set voltage ramp rate to control motor spin up during auton
 
-void Chassis::MoveSetVoltRampRate(double voltageRampRate)
+void Chassis::MoveSetVoltageRamp(double voltageRampRate)
 {
 //	motorL1->SetVoltageRampRate(voltageRampRate);
 //	motorR3->SetVoltageRampRate(voltageRampRate);
 }
 
-void Chassis::MoveLowShift(bool scaled)
+void Chassis::ResetEncoder(void)
 {
-	m_scaled = scaled;
+
 }
 
-//	Reset gyro and initialize heading to zero
+double Chassis::ReadEncoder(void)
+{
+
+}
 
 void Chassis::ResetGyro(void)
 {
 	gyro->Reset();
 }
-
-//	Read heading from gyro
 
 double Chassis::ReadGyro(void)
 {

@@ -49,14 +49,22 @@ public:
 
 	// Put added public methods here in same order as in file
 
+	void Initialize(void);
+	void UpdateSmartDashboardValues(void);
+	void MoveToggleBrakeMode(void);
+	void MoveUsingMotorOutputs(double motorInputLeft, double motorInputRight);
+	void MoveDriveDistance(double inches);
+	void MoveDriveHeadingDistance(double inches, double angle);
+	void ShiftSpeed(bool lowGear);
 	void MoveWithJoystick(std::shared_ptr<Joystick>);
 	void MoveStop(void);
 	void MoveSpin(bool spinLeft);
-	void MoveToggleDriveDirection(void);
-	void MoveEnableScalingFactor(bool scaled);
-	void MoveSetVoltRampRate(double voltageRampRate);
-	void MoveLowShift(bool scaled);
+	void MoveInvertDriveDirection(void);
+	void MoveScaleMaxSpeed(bool scaled);
+	void MoveSetVoltageRamp(double voltageRampRate);
 
+	void ResetEncoder(void);
+	double ReadEncoder(void);
 	void ResetGyro(void);
 	double ReadGyro(void);
 };

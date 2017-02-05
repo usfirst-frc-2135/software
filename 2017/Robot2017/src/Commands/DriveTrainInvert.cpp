@@ -27,7 +27,7 @@ DriveTrainInvert::DriveTrainInvert(bool invert): Command() {
 // Called just before this Command runs the first time
 void DriveTrainInvert::Initialize() {
 	printf("2135: DriveTrain Invert - Star\n");
-	Robot::chassis->MoveToggleDriveDirection();
+	Robot::chassis->MoveInvertDriveDirection();
 }
 
 // Called repeatedly when this Command is scheduled to run
