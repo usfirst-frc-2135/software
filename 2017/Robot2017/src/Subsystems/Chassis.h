@@ -53,7 +53,8 @@ public:
 	void MoveSpin(bool spinLeft);
 	void MoveToggleDriveDirection(void);
 	void MoveEnableScalingFactor(bool scaled);
-	void MoveSetVoltRampRate(double voltageRampRate);
+	void SetVoltRampRate(double voltageRampRate);
+	void MoveLowShift(bool scaled);
 
 	void ResetGyro(void);
 	double ReadGyro(void);

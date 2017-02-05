@@ -73,6 +73,7 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	}
 
 	robotDrive->ArcadeDrive( yValue, xValue, true );
+
 }
 
 void Chassis::MoveStop(void)
@@ -106,10 +107,15 @@ void Chassis::MoveEnableScalingFactor(bool scaled)
 
 //	Set voltage ramp rate to control motor spin up during auton
 
-void Chassis::MoveSetVoltRampRate(double voltageRampRate)
+void Chassis::SetVoltRampRate(double voltageRampRate)
 {
 	motorL1->SetVoltageRampRate(voltageRampRate);
 	motorR3->SetVoltageRampRate(voltageRampRate);
+}
+
+void Chassis::MoveLowShift(bool scaled)
+{
+	m_scaled = scaled;
 }
 
 //	Reset gyro and initialize heading to zero
