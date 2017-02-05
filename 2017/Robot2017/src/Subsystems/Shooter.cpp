@@ -56,10 +56,20 @@ void Shooter::UpdateSmartDashboardValues(void)
 
 void Shooter::BallGateDeploy(bool insert)
 {
+	if (insert) {
+		// Add servo code
+	}
+	else {
 
+	}
 }
 
 void Shooter::SetMotorSpeed(bool enabled)
 {
+	if (enabled) {
 
+	}
+	else {
+
+	}
 }
