@@ -64,6 +64,25 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+	// Initialize preferences file on roboRIO
+	prefs = Preferences::GetInstance();
+
+	// Initialize SmartDashboard and Subsystems
+	chassis->Initialize(prefs);
+	fflush(stdout);
+	agitator->Initialize(prefs);
+	fflush(stdout);
+	climber->Initialize(prefs);
+	fflush(stdout);
+	delivery->Initialize(prefs);
+	fflush(stdout);
+	intake->Initialize(prefs);
+	fflush(stdout);
+	pneumatics->Initialize(prefs);
+	fflush(stdout);
+	shooter->Initialize(prefs);
+	fflush(stdout);
+
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Start();
 }
@@ -78,6 +97,26 @@ void Robot::TeleopInit() {
 	// continue until interrupted by another command, remove
 	// these lines or comment it out.
 	Robot::chassis->ResetGyro();
+
+	// Initialize preferences file on roboRIO
+	prefs = Preferences::GetInstance();
+
+	// Initialize SmartDashboard and Subsystems
+	chassis->Initialize(prefs);
+	fflush(stdout);
+	agitator->Initialize(prefs);
+	fflush(stdout);
+	climber->Initialize(prefs);
+	fflush(stdout);
+	delivery->Initialize(prefs);
+	fflush(stdout);
+	intake->Initialize(prefs);
+	fflush(stdout);
+	pneumatics->Initialize(prefs);
+	fflush(stdout);
+	shooter->Initialize(prefs);
+	fflush(stdout);
+
 #if 1	// test code for server
 	//RobotMap::shooterBallGate->SetAngle(0.0);
 	RobotMap::shooterBallGate->SetAngle(90.0); //TEST initialize servo at 90 degrees
@@ -358,23 +397,23 @@ float Robot::CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const flo
 	return angleToAdjustDegrees;
 }
 
-//double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
-//	Preferences *prefs;
-//	double value;
-//
-//	prefs = Preferences::GetInstance();
-//
-//	if (prefs->ContainsKey(name)) {
-//		value = prefs->GetDouble(name, defaultValue);
-//		printf("2135: PREF %-20s : %6.3f\n", name.c_str(), value);
-//	}
-//	else {
-//		value = defaultValue;
-//		printf("2135: ERROR - %-20s not found\n", name.c_str());
-//	}
-//
-//	return value;
-//}
+double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
+	Preferences *prefs;
+	double value;
+
+	prefs = Preferences::GetInstance();
+
+	if (prefs->ContainsKey(name)) {
+		value = prefs->GetDouble(name, defaultValue);
+		printf("2135: PREF %-20s : %6.3f\n", name.c_str(), value);
+	}
+	else {
+		value = defaultValue;
+		printf("2135: ERROR - %-20s not found\n", name.c_str());
+	}
+
+	return value;
+}
 
 START_ROBOT_CLASS(Robot);
 

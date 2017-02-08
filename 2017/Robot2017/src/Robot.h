@@ -56,7 +56,7 @@ public:
 	virtual void TeleopInit();
 	virtual void TeleopPeriodic();
 	virtual void TestPeriodic();
-	static double LoadPreferenesVariable(std::string name, double defaultValue);
+	static double LoadPreferencesVariable(std::string name, double defaultValue);
 
 	Robot();
 
