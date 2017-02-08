@@ -116,7 +116,9 @@ void Chassis::MoveToggleBrakeMode(void)
 
 void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRight)
 {
+	robotDrive->SetLeftRightMotorOutputs(motorInputLeft, motorInputRight);
 
+	// TODO: Update the encoders
 }
 
 void Chassis::MoveDriveDistance(double inches)
