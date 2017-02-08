@@ -39,6 +39,7 @@ private:
 	double m_driveDirection;		// Allows chassis drive direction change
 	bool m_scaled;					// Indicates scaling is applied
 	double m_driveScalingFactor;	// Scaling applied to joystick for SW shifting
+	bool m_brakeMode; 				// Brake or Coast mode for talons
 
 public:
 	Chassis();

@@ -96,7 +96,22 @@ void Chassis::UpdateSmartDashboardValues(void)
 
 void Chassis::MoveToggleBrakeMode(void)
 {
+	if (m_brakeMode == true) {
+		motorL1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+		motorL2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+		motorR3->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+		motorR4->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+	}
 
+	else {
+		motorL1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+		motorL2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+		motorR3->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+		motorR4->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+	}
+
+	m_brakeMode = !m_brakeMode;
+	SmartDashboard::PutBoolean("BrakeMode", m_brakeMode);
 }
 
 void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRight)
@@ -173,8 +188,8 @@ void Chassis::MoveScaleMaxSpeed(bool scaled)
 
 void Chassis::MoveSetVoltageRamp(double voltageRampRate)
 {
-//	motorL1->SetVoltageRampRate(voltageRampRate);
-//	motorR3->SetVoltageRampRate(voltageRampRate);
+	motorL1->SetVoltageRampRate(voltageRampRate);
+	motorR3->SetVoltageRampRate(voltageRampRate);
 }
 
 void Chassis::ResetEncoder(void)
