@@ -51,10 +51,10 @@ void Climber::UpdateSmartDashboardValues(void)
 void Climber::SetMotorSpeed(bool enabled)
 {
 	if (enabled) {
-
+		motor->Enable();
 	}
 	else {
-
+		motor->Disable();
 	}
 }
 

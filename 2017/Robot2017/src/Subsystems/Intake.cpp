@@ -67,9 +67,9 @@ void Intake::ArmExtend(bool extend)
 void Intake::SetMotorSpeed(bool enabled)
 {
 	if (enabled) {
-
+		motor->Enable();
 	}
 	else {
-
+		motor->Disable();
 	}
 }
