@@ -44,7 +44,7 @@ void Pneumatics::InitDefaultCommand() {
 
 void Pneumatics::Initialize(Preferences *prefs)
 {
-
+	// TODO: Initialize SmartDashboard values
 }
 
 void Pneumatics::UpdateSmartDashboardValues(void)

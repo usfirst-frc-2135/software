@@ -15,6 +15,9 @@
 #include "WPILib.h"
 #include "CANTalon.h"
 
+#define M_WHEEL_DIA 4	// number of inches in diameter of drive wheels
+#define M_COUNTS_PER_ROTATION 360	// number of counts per rotation
+
 /**
  *
  *
@@ -40,6 +43,7 @@ private:
 	bool m_scaled;					// Indicates scaling is applied
 	double m_driveScalingFactor;	// Scaling applied to joystick for SW shifting
 	bool m_brakeMode; 				// Brake or Coast mode for talons
+	double m_absTolerance;			// PID absolute tolerance
 
 public:
 	Chassis();

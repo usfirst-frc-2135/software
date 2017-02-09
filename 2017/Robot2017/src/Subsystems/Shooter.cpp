@@ -46,7 +46,7 @@ void Shooter::InitDefaultCommand() {
 
 void Shooter::Initialize(Preferences *prefs)
 {
-
+	// TODO: Initialize SmartDashboard values
 }
 
 void Shooter::UpdateSmartDashboardValues(void)
@@ -57,10 +57,10 @@ void Shooter::UpdateSmartDashboardValues(void)
 void Shooter::BallGateDeploy(bool insert)
 {
 	if (insert) {
-		// Add servo code
+		ballGate->SetAngle(90);
 	}
 	else {
-
+		ballGate->SetAngle(0);
 	}
 }
 

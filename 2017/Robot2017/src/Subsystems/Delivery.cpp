@@ -45,7 +45,7 @@ void Delivery::InitDefaultCommand() {
 
 void Delivery::Initialize(Preferences *prefs)
 {
-
+	// TODO: Initialize SmartDashboard values
 }
 
 void Delivery::UpdateSmartDashboardValues(void)

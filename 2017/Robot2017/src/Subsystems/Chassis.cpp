@@ -86,7 +86,7 @@ void Chassis::InitDefaultCommand() {
 
 void Chassis::Initialize(Preferences *prefs)
 {
-
+	// TODO: Initialize SmartDashboard values
 }
 
 void Chassis::UpdateSmartDashboardValues(void)
@@ -123,7 +123,35 @@ void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRigh
 
 void Chassis::MoveDriveDistance(double inches)
 {
+	// TODO: Experiment to get default values
+	double voltageRampRate = SmartDashboard::GetNumber("ChassPIDVoltRampRate", 8.0);
+	double peakOutputVoltage = SmartDashboard::GetNumber("ChassPIDPeakOutVolts", 5.0);
+	double proportional = SmartDashboard::GetNumber("ChassPIDProportional", 0.3);
+	double rotations = inches / (M_WHEEL_DIA * M_PI);
+	m_absTolerance = SmartDashboard::GetNumber("ChassPIDAbsTolerance", 0.2);
 
+	motorL1->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
+	motorR3->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
+
+	printf("2135: Encoder Distance %f rotations\n", rotations);
+
+	motorL1->SetAllowableClosedLoopErr(m_absTolerance);
+	motorR3->SetAllowableClosedLoopErr(m_absTolerance);
+
+	motorL1->SetPID(proportional, 0.0, 0.0);
+	motorR3->SetPID(proportional, 0.0, 0.0);
+
+	motorL1->SetVoltageRampRate(voltageRampRate);
+	motorL1->SetControlMode(CANSpeedController::ControlMode::kPosition);
+
+	motorR3->SetVoltageRampRate(voltageRampRate);
+	motorR3->SetControlMode(CANSpeedController::ControlMode::kPosition);
+
+	motorL1->SetEncPosition(0);
+	motorR3->SetEncPosition(0);
+
+	motorL1->Set(rotations);
+	motorR3->Set(rotations);
 }
 
 void Chassis::MoveDriveHeadingDistance(double inches, double angle)
@@ -196,11 +224,16 @@ void Chassis::MoveSetVoltageRamp(double voltageRampRate)
 
 void Chassis::ResetEncoder(void)
 {
-
+	motorL1->SetEncPosition(0);
+	motorR3->SetEncPosition(0);
 }
 
 double Chassis::ReadEncoder(void)
 {
+	// Reading encoder values from motorL1 assuming motorL1 and motorR3 have the same value
+	double leftEncoderValue = (double)(motorL1->GetEncPosition());
+	return leftEncoderValue;
+	// motorR3->GetEncPosition();
 
 }
 

@@ -117,13 +117,13 @@ void Robot::TeleopInit() {
 	shooter->Initialize(prefs);
 	fflush(stdout);
 
-#if 1	// test code for server
-	//RobotMap::shooterBallGate->SetAngle(0.0);
-	RobotMap::shooterBallGate->SetAngle(90.0); //TEST initialize servo at 90 degrees
-		printf("****** Initializing servo to 90 degrees\n");
-		printf("ANGLE AFTER INITIALIZATION = %3f\n", RobotMap::shooterBallGate->GetAngle());
-
-#endif
+//#if 1	// test code for server
+//	//RobotMap::shooterBallGate->SetAngle(0.0);
+//	RobotMap::shooterBallGate->SetAngle(90.0); //TEST initialize servo at 90 degrees
+//		printf("****** Initializing servo to 90 degrees\n");
+//		printf("ANGLE AFTER INITIALIZATION = %3f\n", RobotMap::shooterBallGate->GetAngle());
+//
+//#endif
 
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
@@ -149,13 +149,13 @@ void Robot::TeleopPeriodic() {
 		if (SmartDashboard::GetBoolean("FoundTarget", false) == true){
 			double angletoAdjust = SmartDashboard::GetNumber("Angle to Adjust", 0.0);
 			bool turnRight = SmartDashboard::GetBoolean("TurnRight", true);
-			temp = RobotMap::shooterBallGate->GetAngle();
-			printf("!!! Original temp angle = %3f\n",temp);
+//			temp = RobotMap::shooterBallGate->GetAngle();
+//			printf("!!! Original temp angle = %3f\n",temp);
 			if (turnRight == 1)
 				temp += angletoAdjust; //Turns right
 			else temp -= angletoAdjust; //Turns left
 			printf("!!! Changed temp angle = %3f\n",temp);
-			RobotMap::shooterBallGate->SetAngle(temp);
+//			RobotMap::shooterBallGate->SetAngle(temp);
 			SmartDashboard::PutNumber("Servo Angle", temp);
 			SmartDashboard::PutBoolean("FoundTarget", false);
 			counter = 0;

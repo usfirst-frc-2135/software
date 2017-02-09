@@ -43,7 +43,7 @@ void Agitator::InitDefaultCommand() {
 
 void Agitator::Initialize(Preferences *prefs)
 {
-
+	// TODO: Initialize SmartDashboard values
 }
 
 void Agitator::UpdateSmartDashboardValues(void)

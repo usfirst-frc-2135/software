@@ -40,7 +40,7 @@ void Climber::InitDefaultCommand() {
 
 void Climber::Initialize(Preferences *prefs)
 {
-
+	// TODO: Initialize SmartDashboard values
 }
 
 void Climber::UpdateSmartDashboardValues(void)
