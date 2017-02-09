@@ -71,6 +71,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     m_absTolerance = 0.2;
     m_brakeMode = true;
+    m_rotations = 0.0;
 }
 
 void Chassis::InitDefaultCommand() {
@@ -124,7 +125,7 @@ void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRigh
 	// TODO: Update the encoders
 }
 
-void Chassis::MoveDriveDistance(double inches)
+void Chassis::MoveDriveDistancePIDInit(double inches)
 {
 	// TODO: Experiment to get default values
 	double voltageRampRate = SmartDashboard::GetNumber("ChassPIDVoltRampRate", 8.0);
@@ -155,6 +156,22 @@ void Chassis::MoveDriveDistance(double inches)
 
 	motorL1->Set(rotations);
 	motorR3->Set(rotations);
+
+	m_rotations = rotations;
+}
+
+void MoveDriveDistancePIDExecute(void)
+{
+	//TODO: Verify that robot has reached target within absolute tolerance margins
+}
+
+void MoveDriveDistancePIDAtSetpoint(void)
+{
+	//TODO: Verify that both encoders are on target
+}
+void MoveDriveDistancePIDStop(void)
+{
+	//TODO: Change from PID to PercentVbus
 }
 
 void Chassis::MoveDriveHeadingDistance(double inches, double angle)

@@ -44,6 +44,7 @@ private:
 	double m_driveScalingFactor;	// Scaling applied to joystick for SW shifting
 	bool m_brakeMode; 				// Brake or Coast mode for talons
 	double m_absTolerance;			// PID absolute tolerance
+	double m_rotations; 			// Number of rotations to drive in Drive Distance
 
 public:
 	Chassis();
@@ -58,7 +59,12 @@ public:
 	void UpdateSmartDashboardValues(void);
 	void MoveToggleBrakeMode(void);
 	void MoveUsingMotorOutputs(double motorInputLeft, double motorInputRight);
-	void MoveDriveDistance(double inches);
+
+	void MoveDriveDistancePIDInit(double inches);
+	void MoveDriveDistancePIDExecute(void);
+	void MoveDriveDistancePIDAtSetpoint(void);
+	void MoveDriveDistancePIDStop(void);
+
 	void MoveDriveHeadingDistance(double inches, double angle);
 	void ShiftSpeed(bool lowGear);
 	void MoveWithJoystick(std::shared_ptr<Joystick>);
