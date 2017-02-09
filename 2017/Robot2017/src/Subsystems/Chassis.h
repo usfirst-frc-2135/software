@@ -60,9 +60,10 @@ public:
 	void MoveToggleBrakeMode(void);
 	void MoveUsingMotorOutputs(double motorInputLeft, double motorInputRight);
 
+	// Sequence for Drive Distance
 	void MoveDriveDistancePIDInit(double inches);
 	void MoveDriveDistancePIDExecute(void);
-	void MoveDriveDistancePIDAtSetpoint(void);
+	bool MoveDriveDistancePIDAtSetpoint(void);
 	void MoveDriveDistancePIDStop(void);
 
 	void MoveDriveHeadingDistance(double inches, double angle);

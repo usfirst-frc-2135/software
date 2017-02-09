@@ -160,18 +160,41 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	m_rotations = rotations;
 }
 
-void MoveDriveDistancePIDExecute(void)
+void Chassis::MoveDriveDistancePIDExecute(void)
 {
-	//TODO: Verify that robot has reached target within absolute tolerance margins
+	//Verify that robot has reached target within absolute tolerance margins
+	if (abs(motorL1->GetEncPosition() - m_rotations) <= m_absTolerance) {
+		printf("2135: Left PID disabled\n");
+		motorL1->Set(0.0); // Stop motor
+	}
+
+	if (abs(motorR3->GetEncPosition() - m_rotations) <= m_absTolerance) {
+		printf("2135: Right PID disabled\n");
+		motorR3->Set(0.0); // Stop motor
+	}
+
+	//TODO: Update the encoder displays
 }
 
-void MoveDriveDistancePIDAtSetpoint(void)
+bool Chassis::MoveDriveDistancePIDAtSetpoint(void)
 {
-	//TODO: Verify that both encoders are on target
+	// Verify that both encoders are on target
+	bool bothOnTarget = false;
+
+	if((abs(motorL1->GetEncPosition() - m_rotations) <= m_absTolerance) &&
+			(abs(motorR3->GetEncPosition() - m_rotations) <= m_absTolerance)) {
+		MoveDriveDistancePIDStop();
+		bothOnTarget = true;
+	}
+
+	return bothOnTarget;
+
 }
-void MoveDriveDistancePIDStop(void)
+void Chassis::MoveDriveDistancePIDStop(void)
 {
-	//TODO: Change from PID to PercentVbus
+	// Change from PID to PercentVbus
+	motorL1->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+	motorR3->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 }
 
 void Chassis::MoveDriveHeadingDistance(double inches, double angle)

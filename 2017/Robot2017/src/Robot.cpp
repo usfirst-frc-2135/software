@@ -145,18 +145,18 @@ void Robot::TeleopPeriodic() {
 		counter++;
 	}
 	else {
-		double	temp;
+//		double	temp;
 		if (SmartDashboard::GetBoolean("FoundTarget", false) == true){
 			double angletoAdjust = SmartDashboard::GetNumber("Angle to Adjust", 0.0);
 			bool turnRight = SmartDashboard::GetBoolean("TurnRight", true);
 //			temp = RobotMap::shooterBallGate->GetAngle();
 //			printf("!!! Original temp angle = %3f\n",temp);
 			if (turnRight == 1)
-				temp += angletoAdjust; //Turns right
-			else temp -= angletoAdjust; //Turns left
-			printf("!!! Changed temp angle = %3f\n",temp);
+//				temp += angletoAdjust; //Turns right
+//			else temp -= angletoAdjust; //Turns left
+//			printf("!!! Changed temp angle = %3f\n",temp);
 //			RobotMap::shooterBallGate->SetAngle(temp);
-			SmartDashboard::PutNumber("Servo Angle", temp);
+//			SmartDashboard::PutNumber("Servo Angle", temp);
 			SmartDashboard::PutBoolean("FoundTarget", false);
 			counter = 0;
 		}
