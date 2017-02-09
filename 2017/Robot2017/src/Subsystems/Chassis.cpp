@@ -68,6 +68,9 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     //	TODO: Initialize power setting used for spin turns
     m_driveSpinSetting = 0.4;
+
+    m_absTolerance = 0.2;
+    m_brakeMode = true;
 }
 
 void Chassis::InitDefaultCommand() {

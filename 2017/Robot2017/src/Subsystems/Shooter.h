@@ -39,7 +39,7 @@ public:
 
 	void Initialize(Preferences *prefs);
 	void UpdateSmartDashboardValues(void);
-	void BallGateDeploy(bool insert);
+	void BallGateDeploy(bool open);
 	void SetMotorSpeed(bool enabled);
 };
 

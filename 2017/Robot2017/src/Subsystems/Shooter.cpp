@@ -47,6 +47,7 @@ void Shooter::InitDefaultCommand() {
 void Shooter::Initialize(Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values
+	ballGate->SetAngle(0);
 }
 
 void Shooter::UpdateSmartDashboardValues(void)
@@ -54,13 +55,15 @@ void Shooter::UpdateSmartDashboardValues(void)
 
 }
 
-void Shooter::BallGateDeploy(bool insert)
+void Shooter::BallGateDeploy(bool open)
 {
-	if (insert) {
+	if (open) {
 		ballGate->SetAngle(90);
+		printf("2135: Ball gate opened\n");
 	}
 	else {
 		ballGate->SetAngle(0);
+		printf("2135: Ball gate closed\n");
 	}
 }
 
