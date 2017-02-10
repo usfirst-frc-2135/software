@@ -91,6 +91,34 @@ void Chassis::InitDefaultCommand() {
 void Chassis::Initialize(Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values
+
+	//m_driveScalingFactor
+	m_driveScalingFactor = Robot::LoadPreferencesVariable("ChassDriveScaling", 0.85);
+	SmartDashboard::PutNumber("ChassDriveScaling", m_driveScalingFactor);
+
+	//m_driveSpin
+	m_driveSpinSetting = Robot::LoadPreferencesVariable("ChassDriveSpin", 0.4);
+	SmartDashboard::PutNumber("ChassDriveSpin", m_driveSpinSetting);
+
+	//VoltageRampRate
+	SmartDashboard::PutNumber("ChassPIDVoltRampRate", Robot::LoadPreferencesVariable("ChassPIDVoltRampRate", 8.0));
+
+	//absTolerance
+	m_absTolerance = Robot::LoadPreferencesVariable("ChassPIDAbsTolerance", 0.2);
+	SmartDashboard::PutNumber("ChassPIDAbsTolerance", m_absTolerance);
+
+	//peakOutput
+	SmartDashboard::PutNumber("ChassPIDPeakOutVolts", Robot::LoadPreferencesVariable("ChassPIDPeakOutVolts", 5.0));
+
+	//proportional
+	SmartDashboard::PutNumber("ChassPIDProportional", Robot::LoadPreferencesVariable("ChassPIDProportional", 0.3));
+
+	//Drive invert
+	SmartDashboard::PutNumber("Drive Invert", m_driveDirection);
+
+	//Brake Mode
+	SmartDashboard::PutNumber("BrakeMode", m_brakeMode);
+
 }
 
 void Chassis::UpdateSmartDashboardValues(void)
