@@ -41,6 +41,7 @@ void Climber::InitDefaultCommand() {
 void Climber::Initialize(Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values
+	printf("2135: Climber Initialize\n");
 }
 
 void Climber::UpdateSmartDashboardValues(void)

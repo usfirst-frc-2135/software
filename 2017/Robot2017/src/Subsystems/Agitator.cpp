@@ -44,6 +44,7 @@ void Agitator::InitDefaultCommand() {
 void Agitator::Initialize(Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values
+	printf("2135: Agitator Initialize\n");
 }
 
 void Agitator::UpdateSmartDashboardValues(void)

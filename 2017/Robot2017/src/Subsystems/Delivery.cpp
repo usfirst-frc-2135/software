@@ -46,6 +46,7 @@ void Delivery::InitDefaultCommand() {
 void Delivery::Initialize(Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values
+	printf("2135: Delivery Initialize\n");
 }
 
 void Delivery::UpdateSmartDashboardValues(void)

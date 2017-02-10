@@ -92,6 +92,8 @@ void Chassis::Initialize(Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values
 
+	printf("2135: Chassis Initialize\n");
+
 	//m_driveScalingFactor
 	m_driveScalingFactor = Robot::LoadPreferencesVariable("ChassDriveScaling", 0.85);
 	SmartDashboard::PutNumber("ChassDriveScaling", m_driveScalingFactor);
@@ -123,7 +125,8 @@ void Chassis::Initialize(Preferences *prefs)
 
 void Chassis::UpdateSmartDashboardValues(void)
 {
-
+	SmartDashboard::GetNumber("Encoder Position", ReadEncoder());
+	SmartDashboard::GetNumber("Gyro Position", ReadGyro());
 }
 
 void Chassis::MoveToggleBrakeMode(void)

@@ -47,6 +47,7 @@ void Intake::InitDefaultCommand() {
 void Intake::Initialize(Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values
+	printf("2135: Intake Initialize\n");
 }
 
 void Intake::UpdateSmartDashboardValues(void)

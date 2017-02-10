@@ -47,6 +47,7 @@ void Shooter::InitDefaultCommand() {
 void Shooter::Initialize(Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values
+	printf("2135: Shooter Initialize\n");
 	ballGate->SetAngle(0);
 }
 
