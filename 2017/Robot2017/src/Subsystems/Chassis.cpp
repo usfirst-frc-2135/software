@@ -125,6 +125,7 @@ void Chassis::Initialize(Preferences *prefs)
 
 void Chassis::UpdateSmartDashboardValues(void)
 {
+	// TODO: Verify for correct values
 	SmartDashboard::GetNumber("Encoder Position", ReadEncoder());
 	SmartDashboard::GetNumber("Gyro Position", ReadGyro());
 }
