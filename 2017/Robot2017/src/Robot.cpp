@@ -49,7 +49,7 @@ void Robot::RobotInit() {
 	table = NetworkTable::GetTable("GRIP/myContoursReport");
 	SmartDashboard::PutBoolean("FoundTarget", false);
 
-  }
+}
 
 /**
  * This function is called when the disabled button is hit.
@@ -147,7 +147,7 @@ void Robot::TeleopPeriodic() {
 	else {
 //		double	temp;
 		if (SmartDashboard::GetBoolean("FoundTarget", false) == true){
-			double angletoAdjust = SmartDashboard::GetNumber("Angle to Adjust", 0.0);
+//			double angletoAdjust = SmartDashboard::GetNumber("Angle to Adjust", 0.0);
 			bool turnRight = SmartDashboard::GetBoolean("TurnRight", true);
 //			temp = RobotMap::shooterBallGate->GetAngle();
 //			printf("!!! Original temp angle = %3f\n",temp);
