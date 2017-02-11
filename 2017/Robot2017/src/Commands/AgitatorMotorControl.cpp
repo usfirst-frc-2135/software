@@ -26,12 +26,21 @@ AgitatorMotorControl::AgitatorMotorControl(int direction): Command() {
 
 // Called just before this Command runs the first time
 void AgitatorMotorControl::Initialize() {
+	const char *strName;
 
+	if (m_direction == Robot::agitator->AGITATOR_FORWARD)
+		strName = "Forward";
+	else if (m_direction == Robot::agitator->AGITATOR_REVERSE)
+		strName = "Reverse";
+	else
+		strName = "Idle";
+
+	printf("2135: Agitator Motor Control %s - Start\n", strName);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AgitatorMotorControl::Execute() {
-
+	Robot::agitator->SetMotorSpeed(m_direction);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -41,11 +50,11 @@ bool AgitatorMotorControl::IsFinished() {
 
 // Called once after isFinished returns true
 void AgitatorMotorControl::End() {
-
+	Robot::agitator->SetMotorSpeed(Robot::agitator->AGITATOR_STOP);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AgitatorMotorControl::Interrupted() {
-
+	Robot::agitator->SetMotorSpeed(Robot::agitator->AGITATOR_STOP);
 }
