@@ -52,6 +52,10 @@ void Intake::Initialize(Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values
 	printf("2135: Intake Initialize\n");
+	motor8->SetTalonControlMode(CANTalon::TalonControlMode::kVoltageMode);
+	motor9->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
+	motor9->SetClosedLoopOutputDirection(true);
+	motor9->Set(8);
 }
 
 void Intake::UpdateSmartDashboardValues(void)
@@ -69,12 +73,19 @@ void Intake::ArmExtend(bool extend)
 	}
 }
 
-void Intake::SetMotorSpeed(bool enabled)
+void Intake::SetMotorSpeed(int speed)
 {
-	if (enabled) {
-		motor8->Enable();
-	}
-	else {
-		motor8->Disable();
+	switch (speed)
+	{
+	default:
+	case INTAKE_STOP:
+		motor8->Set(0.0);
+		break;
+	case INTAKE_FORWARD:
+		motor8->Set(intakeSpeed);
+		break;
+	case INTAKE_REVERSE:
+		motor8->Set(-intakeSpeed);
+		break;
 	}
 }
