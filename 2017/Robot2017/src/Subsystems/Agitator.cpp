@@ -57,12 +57,19 @@ void Agitator::UpdateSmartDashboardValues(void)
 
 }
 
-void Agitator::SetMotorSpeed(bool enabled)
+void Agitator::SetMotorSpeed(int speed)
 {
-	if (enabled) {
-		motor12->Enable();
-	}
-	else {
-		motor12->Disable();
+	switch (speed)
+	{
+	default:
+	case AGITATOR_STOP:
+		motor12->Set(0.0);
+		break;
+	case AGITATOR_FORWARD:
+		motor12->Set(agitatorSpeed);
+		break;
+	case AGITATOR_REVERSE:
+		motor12->Set(-agitatorSpeed);
+		break;
 	}
 }
