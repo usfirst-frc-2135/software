@@ -9,6 +9,7 @@
 // it from being updated in the future.
 
 
+#include "CANTalon.h"
 
 
 #include "Chassis.h"
@@ -42,9 +43,9 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorR4->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 
     // Make second Talon SRX controller on each side of drivetrain follow the main Talon SRX
-    motorL2->SetControlMode(CANSpeedController::kFollower);
+    motorL2->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
     motorL2->Set(1);
-    motorR4->SetControlMode(CANSpeedController::kFollower);
+    motorR4->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
     motorR4->Set(3);
 
     //	TODO: Set voltage ramp rate to control how fast motors spin up in auton
