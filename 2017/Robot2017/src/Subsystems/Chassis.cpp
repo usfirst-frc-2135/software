@@ -129,13 +129,14 @@ void Chassis::UpdateSmartDashboardValues(void)
 
 void Chassis::MoveToggleBrakeMode(void)
 {
+	m_brakeMode = !m_brakeMode;
+
 	if (m_brakeMode == false) {
 		motorL1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 		motorL2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 		motorR3->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 		motorR4->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 	}
-
 	else {
 		motorL1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 		motorL2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
@@ -143,7 +144,6 @@ void Chassis::MoveToggleBrakeMode(void)
 		motorR4->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 	}
 
-	m_brakeMode = !m_brakeMode;
 	SmartDashboard::PutBoolean("DriveBrakeMode", m_brakeMode);
 }
 
@@ -201,7 +201,7 @@ void Chassis::MoveDriveDistancePIDExecute(void)
 		printf("2135: Left PID disabled\n");
 		motorL1->Set(0.0); // Stop motor
 	}
-
+	motorR3->IsEnabled();
 	if (abs(motorR3->GetEncPosition() - m_rotations) <= m_absTolerance) {
 		printf("2135: Right PID disabled\n");
 		motorR3->Set(0.0); // Stop motor

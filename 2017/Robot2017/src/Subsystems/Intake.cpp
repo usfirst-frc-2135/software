@@ -53,7 +53,7 @@ void Intake::Initialize(Preferences *prefs)
 	// TODO: Initialize SmartDashboard values
 	printf("2135: Intake Initialize\n");
     motor8->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
-	motor8->SetTalonControlMode(CANTalon::TalonControlMode::kVoltageMode);
+	motor8->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
 
     motor9->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
 	motor9->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
