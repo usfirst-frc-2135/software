@@ -18,6 +18,18 @@
 #define M_WHEEL_DIA 4	// number of inches in diameter of drive wheels
 #define M_COUNTS_PER_ROTATION 360	// number of counts per rotation
 
+class TurnOutput: public PIDOutput {
+	public:
+	std::shared_ptr<RobotDrive> myRobotDrive;
+	TurnOutput (std::shared_ptr<RobotDrive> robotDrive){
+		myRobotDrive = robotDrive;
+	}
+	void PIDWrite(double output) {
+		myRobotDrive->ArcadeDrive (0.0, output, false);
+		SmartDashboard::PutNumber("TurnOutput", output);
+	}
+};
+
 /**
  *
  *
@@ -45,6 +57,9 @@ private:
 	bool m_brakeMode; 				// Brake or Coast mode for talons
 	double m_absTolerance;			// PID absolute tolerance
 	double m_rotations; 			// Number of rotations to drive in Drive Distance
+	TurnOutput* turnOutput;
+	PIDController* turnControl;
+
 
 public:
 	Chassis();
@@ -67,6 +82,7 @@ public:
 	void MoveDriveDistancePIDStop(void);
 
 	void MoveDriveHeadingDistance(double inches, double angle);
+	bool MoveDriveTurnAtSetPoint();
 	void ShiftSpeed(bool lowGear);
 	void MoveWithJoystick(std::shared_ptr<Joystick>);
 	void MoveSpin(bool spinLeft);

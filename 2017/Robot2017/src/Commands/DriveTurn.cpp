@@ -25,7 +25,7 @@ DriveTurn::DriveTurn(double angle): Command() {
 
 // Called just before this Command runs the first time
 void DriveTurn::Initialize() {
-
+	Robot::chassis->MoveDriveHeadingDistance(0, m_angle);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -35,7 +35,7 @@ void DriveTurn::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveTurn::IsFinished() {
-    return false;
+    return Robot::chassis->MoveDriveTurnAtSetPoint();
 }
 
 // Called once after isFinished returns true
