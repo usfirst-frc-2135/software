@@ -53,14 +53,25 @@ void Climber::UpdateSmartDashboardValues(void)
 
 }
 
-void Climber::SetMotorSpeed(bool enabled)
+void Climber::SetMotorSpeed(int speed)
 {
-	if (enabled) {
-		motor18->Enable();
-	}
-	else {
-		motor18->Disable();
-	}
+	switch (speed)
+		{
+		default:
+		case CLIMBER_STOP:
+			motor18->Set(0.0);
+			motor19->Set(0.0);
+			break;
+		case CLIMBER_FORWARD:
+			motor18->Set(climberSpeed);
+			motor19->Set(climberSpeed);
+			break;
+		case CLIMBER_REVERSE:
+			motor18->Set(-climberSpeed);
+			motor19->Set(-climberSpeed);
+			break;
+		}
+
 }
 
 // Put methods for controlling this subsystem

@@ -26,7 +26,15 @@ IntakeMotorControl::IntakeMotorControl(int direction): Command() {
 
 // Called just before this Command runs the first time
 void IntakeMotorControl::Initialize() {
+	const char *strName;
 
+		if (m_direction == Robot::intake->INTAKE_FORWARD)
+			strName = "Acquire";
+		else if (m_direction == Robot::intake->INTAKE_REVERSE)
+			strName = "Expel";
+		else
+			strName = "Idle";
+		printf("2135: Intake Motor Control %s -Start\n, strName");
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -26,12 +26,20 @@ ClimberMotorControl::ClimberMotorControl(int direction): Command() {
 
 // Called just before this Command runs the first time
 void ClimberMotorControl::Initialize() {
+	const char *strName;
 
+	if (m_direction == Robot::climber->CLIMBER_FORWARD)
+		strName = "Forward";
+	else if (m_direction == Robot::climber->CLIMBER_REVERSE)
+		strName = "Reverse";
+	else
+		strName = "Off";
+	printf("2135: Climber Motor Control %s -Start\n, strName");
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ClimberMotorControl::Execute() {
-
+	Robot::climber->SetMotorSpeed(m_direction);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -41,11 +49,11 @@ bool ClimberMotorControl::IsFinished() {
 
 // Called once after isFinished returns true
 void ClimberMotorControl::End() {
-
+	Robot::climber->SetMotorSpeed(Robot::climber->CLIMBER_STOP);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ClimberMotorControl::Interrupted() {
-
+	Robot::climber->SetMotorSpeed(Robot::climber->CLIMBER_STOP);
 }
