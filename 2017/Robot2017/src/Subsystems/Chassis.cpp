@@ -36,7 +36,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     printf("2135: Chassis constructor\n");
 
-    //	TODO: Second left and right motors must be slaved to first ones
+    //	Set all drive motors to use coast mode and not brake when stopped
     motorL1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     motorL2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     motorR3->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
@@ -48,30 +48,27 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorR4->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
     motorR4->Set(3);
 
-    //	TODO: Set voltage ramp rate to control how fast motors spin up in auton
-    motorL1->SetVoltageRampRate(12.0);
-    motorL2->SetVoltageRampRate(12.0);
-    motorR3->SetVoltageRampRate(12.0);
-    motorR4->SetVoltageRampRate(12.0);
-//    motorL1->ConfigMaxOutputVoltage(12.0);
-//    motorL2->ConfigMaxOutputVoltage(12.0);
-//    motorR3->ConfigMaxOutputVoltage(12.0);
-//    motorR4->ConfigMaxOutputVoltage(12.0);
+    //	TODO: Set voltage ramp rate to control how fast motors spin up
+    //MoveSetVoltageRamp(0.0);
 
+    //	Calibrate the gyro for later use
     gyro->Calibrate();
 
-	//	TODO: Initialize drive direction
+	//	Initialize drivetrain direction for driving
     m_driveDirection = 1.0;
 
-	//	TODO: Initialize drive scaling factor
+	//	Initialize drive scaling factor and disable it
     m_scaled = false;
     m_driveScalingFactor = 1.0;
 
-    //	TODO: Initialize power setting used for spin turns
-    m_driveSpinSetting = 0.4;
+    //	Initialize power setting used for spin turns
+    m_driveSpinSetting = 0.45;
 
+    //	Initalize the brake mode to be disabled
+    m_brakeMode = false;
+
+    //	TODO: These may not be used
     m_absTolerance = 0.2;
-    m_brakeMode = true;
     m_rotations = 0.0;
 }
 
@@ -95,45 +92,44 @@ void Chassis::Initialize(Preferences *prefs)
 
 	printf("2135: Chassis Initialize\n");
 
-	//m_driveScalingFactor
+	// Drive invert direction the stick moves the robot
+	SmartDashboard::PutNumber("DriveInvert", m_driveDirection);
+
+	// Scale maximum driving speed - beginner mode
 	m_driveScalingFactor = Robot::LoadPreferencesVariable("ChassDriveScaling", 0.85);
-	SmartDashboard::PutNumber("ChassDriveScaling", m_driveScalingFactor);
+	SmartDashboard::PutNumber("DriveScaling", m_driveScalingFactor);
 
-	//m_driveSpin
+	// Speed to apply to the motors for spin turns
 	m_driveSpinSetting = Robot::LoadPreferencesVariable("ChassDriveSpin", 0.4);
-	SmartDashboard::PutNumber("ChassDriveSpin", m_driveSpinSetting);
+	SmartDashboard::PutNumber("DriveSpin", m_driveSpinSetting);
 
-	//VoltageRampRate
-	SmartDashboard::PutNumber("ChassPIDVoltRampRate", Robot::LoadPreferencesVariable("ChassPIDVoltRampRate", 8.0));
+	// Brake/coast mode for talon speed controller
+	SmartDashboard::PutNumber("DriveBrakeMode", m_brakeMode);
 
-	//absTolerance
+	// VoltageRampRate
+	SmartDashboard::PutNumber("DrivePIDVoltRampRate", Robot::LoadPreferencesVariable("ChassPIDVoltRampRate", 8.0));
+
+	// absTolerance
 	m_absTolerance = Robot::LoadPreferencesVariable("ChassPIDAbsTolerance", 0.2);
-	SmartDashboard::PutNumber("ChassPIDAbsTolerance", m_absTolerance);
+	SmartDashboard::PutNumber("DrivePIDAbsTolerance", m_absTolerance);
 
-	//peakOutput
-	SmartDashboard::PutNumber("ChassPIDPeakOutVolts", Robot::LoadPreferencesVariable("ChassPIDPeakOutVolts", 5.0));
+	// peakOutput
+	SmartDashboard::PutNumber("DrivePIDPeakOutVolts", Robot::LoadPreferencesVariable("ChassPIDPeakOutVolts", 5.0));
 
-	//proportional
-	SmartDashboard::PutNumber("ChassPIDProportional", Robot::LoadPreferencesVariable("ChassPIDProportional", 0.3));
-
-	//Drive invert
-	SmartDashboard::PutNumber("Drive Invert", m_driveDirection);
-
-	//Brake Mode
-	SmartDashboard::PutNumber("BrakeMode", m_brakeMode);
-
+	// proportional
+	SmartDashboard::PutNumber("DrivePIDProportional", Robot::LoadPreferencesVariable("ChassPIDProportional", 0.3));
 }
 
 void Chassis::UpdateSmartDashboardValues(void)
 {
 	// TODO: Verify for correct values
-	SmartDashboard::GetNumber("Encoder Position", ReadEncoder());
-	SmartDashboard::GetNumber("Gyro Position", ReadGyro());
+	SmartDashboard::GetNumber("DriveEncoderPosition", ReadEncoder());
+	SmartDashboard::GetNumber("DriveGyroPosition", ReadGyro());
 }
 
 void Chassis::MoveToggleBrakeMode(void)
 {
-	if (m_brakeMode == true) {
+	if (m_brakeMode == false) {
 		motorL1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 		motorL2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 		motorR3->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
@@ -148,7 +144,7 @@ void Chassis::MoveToggleBrakeMode(void)
 	}
 
 	m_brakeMode = !m_brakeMode;
-	SmartDashboard::PutBoolean("BrakeMode", m_brakeMode);
+	SmartDashboard::PutBoolean("DriveBrakeMode", m_brakeMode);
 }
 
 void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRight)
@@ -160,12 +156,18 @@ void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRigh
 
 void Chassis::MoveDriveDistancePIDInit(double inches)
 {
+	double voltageRampRate;
+	double peakOutputVoltage;
+	double proportional;
+	double rotations;
+
 	// TODO: Experiment to get default values
-	double voltageRampRate = SmartDashboard::GetNumber("ChassPIDVoltRampRate", 8.0);
-	double peakOutputVoltage = SmartDashboard::GetNumber("ChassPIDPeakOutVolts", 5.0);
-	double proportional = SmartDashboard::GetNumber("ChassPIDProportional", 0.3);
-	double rotations = inches / (M_WHEEL_DIA * M_PI);
-	m_absTolerance = SmartDashboard::GetNumber("ChassPIDAbsTolerance", 0.2);
+	voltageRampRate = SmartDashboard::GetNumber("DrivePIDVoltRampRate", 8.0);
+	peakOutputVoltage = SmartDashboard::GetNumber("DrivePIDPeakOutVolts", 5.0);
+	proportional = SmartDashboard::GetNumber("DrivePIDProportional", 0.3);
+	m_absTolerance = SmartDashboard::GetNumber("DrivePIDAbsTolerance", 0.2);
+
+	rotations = inches / (M_WHEEL_DIA * M_PI);
 
 	motorL1->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
 	motorR3->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
@@ -178,11 +180,10 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	motorL1->SetPID(proportional, 0.0, 0.0);
 	motorR3->SetPID(proportional, 0.0, 0.0);
 
-	motorL1->SetVoltageRampRate(voltageRampRate);
 	motorL1->SetControlMode(CANSpeedController::ControlMode::kPosition);
-
-	motorR3->SetVoltageRampRate(voltageRampRate);
 	motorR3->SetControlMode(CANSpeedController::ControlMode::kPosition);
+
+	MoveSetVoltageRamp(voltageRampRate);
 
 	motorL1->SetEncPosition(0);
 	motorR3->SetEncPosition(0);
@@ -253,17 +254,13 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	xValue = joystick->GetX() * -1;
 	yValue = joystick->GetY() * m_driveDirection;
 
+	//	TODO: Scaling should only work when in high gear--not low gear
 	if (m_scaled) {
 		xValue = xValue * m_driveScalingFactor;
 		yValue = yValue * m_driveScalingFactor;
 	}
 
 	robotDrive->ArcadeDrive( xValue, yValue, true );
-}
-
-void Chassis::MoveStop(void)
-{
-	robotDrive->SetLeftRightMotorOutputs( 0.0, 0.0 );
 }
 
 void Chassis::MoveSpin(bool spinLeft)
@@ -279,7 +276,7 @@ void Chassis::MoveSpin(bool spinLeft)
 void Chassis::MoveInvertDriveDirection(void)
 {
 	m_driveDirection = -m_driveDirection;
-	SmartDashboard::PutNumber("Drive Invert", m_driveDirection);
+	SmartDashboard::PutNumber("DriveInvert", m_driveDirection);
 }
 
 //	Set scaling factor on drive speed
@@ -287,7 +284,7 @@ void Chassis::MoveInvertDriveDirection(void)
 void Chassis::MoveScaleMaxSpeed(bool scaled)
 {
 	m_scaled = scaled;
-	SmartDashboard::PutBoolean("Drive Scaled", m_scaled);
+	SmartDashboard::PutBoolean("DriveScaling", m_scaled);
 }
 
 //	Set voltage ramp rate to control motor spin up during auton
@@ -295,7 +292,9 @@ void Chassis::MoveScaleMaxSpeed(bool scaled)
 void Chassis::MoveSetVoltageRamp(double voltageRampRate)
 {
 	motorL1->SetVoltageRampRate(voltageRampRate);
+	motorL2->SetVoltageRampRate(voltageRampRate);
 	motorR3->SetVoltageRampRate(voltageRampRate);
+	motorR4->SetVoltageRampRate(voltageRampRate);
 }
 
 void Chassis::ResetEncoder(void)
@@ -306,11 +305,13 @@ void Chassis::ResetEncoder(void)
 
 double Chassis::ReadEncoder(void)
 {
+	double leftEncoderValue;
+
 	// Reading encoder values from motorL1 assuming motorL1 and motorR3 have the same value
-	double leftEncoderValue = (double)(motorL1->GetEncPosition());
-	return leftEncoderValue;
+	leftEncoderValue = (double)(motorL1->GetEncPosition());
 	// motorR3->GetEncPosition();
 
+	return leftEncoderValue;
 }
 
 void Chassis::ResetGyro(void)
