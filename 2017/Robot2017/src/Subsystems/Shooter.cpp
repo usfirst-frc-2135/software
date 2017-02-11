@@ -74,9 +74,9 @@ void Shooter::BallGateDeploy(bool open)
 void Shooter::SetMotorSpeed(bool enabled)
 {
 	if (enabled) {
-		motor14->Enable();
+		motor14->Set(shooterSpeed);
 	}
 	else {
-		motor14->Disable();
+		motor14->Set(0.0);
 	}
 }
