@@ -43,7 +43,7 @@ void Shooter::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Shooter::Initialize(Preferences *prefs)
+void Shooter::Initialize(frc::Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values - if any
 	printf("2135: Shooter Initialize\n");

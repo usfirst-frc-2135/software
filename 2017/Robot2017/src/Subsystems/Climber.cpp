@@ -43,7 +43,7 @@ void Climber::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Climber::Initialize(Preferences *prefs)
+void Climber::Initialize(frc::Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values - if any
 	printf("2135: Climber Initialize\n");

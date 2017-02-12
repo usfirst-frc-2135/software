@@ -40,7 +40,7 @@ public:
 	enum { CLIMBER_STOP = 0, CLIMBER_FORWARD = 1, CLIMBER_REVERSE = -1};
 
 	// Put added public methods here in same order as in file
-	void Initialize(Preferences *prefs);
+	void Initialize(frc::Preferences *prefs);
 	void UpdateSmartDashboardValues(void);
 	void SetMotorSpeed(int speed);
 };

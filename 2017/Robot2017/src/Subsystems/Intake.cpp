@@ -44,7 +44,7 @@ void Intake::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Intake::Initialize(Preferences *prefs)
+void Intake::Initialize(frc::Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values - if any
 	printf("2135: Intake Initialize\n");

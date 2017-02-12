@@ -42,7 +42,7 @@ void Agitator::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Agitator::Initialize(Preferences *prefs)
+void Agitator::Initialize(frc::Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values - if any
 	printf("2135: Agitator Initialize\n");

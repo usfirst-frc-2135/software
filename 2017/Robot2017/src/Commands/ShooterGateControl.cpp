@@ -25,7 +25,7 @@ ShooterGateControl::ShooterGateControl(bool openState): Command() {
 
 // Called just before this Command runs the first time
 void ShooterGateControl::Initialize() {
-	printf("2135: Shoot Gate Control %s - Start\n", (m_openState) ? "OPEN" : "CLOSE");
+	printf("2135: Shooter Gate Control %s - Start\n", (m_openState) ? "OPEN" : "CLOSE");
 	Robot::shooter->BallGateDeploy(m_openState);
 }
 
@@ -41,11 +41,11 @@ bool ShooterGateControl::IsFinished() {
 
 // Called once after isFinished returns true
 void ShooterGateControl::End() {
-	printf("2135: Shoot Gate Control - Ended\n");
+	printf("2135: Shooter Gate Control - Ended\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShooterGateControl::Interrupted() {
-	printf("2135: Shoot Gate Control - Interrupted\n");
+	printf("2135: Shooter Gate Control - Interrupted\n");
 }

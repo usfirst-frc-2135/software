@@ -70,7 +70,7 @@ public:
 
 	// Put added public methods here in same order as in file
 
-	void Initialize(Preferences *prefs);
+	void Initialize(frc::Preferences *prefs);
 	void UpdateSmartDashboardValues(void);
 	void MoveToggleBrakeMode(void);
 	void MoveUsingMotorOutputs(double motorInputLeft, double motorInputRight);

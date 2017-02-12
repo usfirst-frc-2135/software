@@ -56,6 +56,6 @@ void ClimberMotorControl::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ClimberMotorControl::Interrupted() {
-	printf("2135: Agitator Motor Control - Interrupted\n");
+	printf("2135: Climber Motor Control - Interrupted\n");
 	Robot::climber->SetMotorSpeed(Robot::climber->CLIMBER_STOP);
 }

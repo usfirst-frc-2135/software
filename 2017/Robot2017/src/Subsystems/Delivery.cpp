@@ -40,7 +40,7 @@ void Delivery::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Delivery::Initialize(Preferences *prefs)
+void Delivery::Initialize(frc::Preferences *prefs)
 {
 	// TODO: Initialize SmartDashboard values - if any
 	printf("2135: Delivery Initialize\n");
