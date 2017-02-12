@@ -79,15 +79,12 @@ void Intake::SetMotorSpeed(int speed)
 	default:
 	case INTAKE_STOP:
 		motor8->Set(0.0);
-		motor9->Set(0.0);
 		break;
 	case INTAKE_FORWARD:
 		motor8->Set(intakeSpeed);
-		motor9->Set(intakeSpeed);
 		break;
 	case INTAKE_REVERSE:
 		motor8->Set(-intakeSpeed);
-		motor9->Set(-intakeSpeed);
 		break;
 	}
 }
