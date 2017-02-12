@@ -8,11 +8,11 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 #ifndef AGITATOR_H
 #define AGITATOR_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "CANTalon.h"
 
 /**
  *

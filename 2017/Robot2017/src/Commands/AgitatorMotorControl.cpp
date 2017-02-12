@@ -50,11 +50,13 @@ bool AgitatorMotorControl::IsFinished() {
 
 // Called once after isFinished returns true
 void AgitatorMotorControl::End() {
+	printf("2135: Agitator Motor Control - Ended\n");
 	Robot::agitator->SetMotorSpeed(Robot::agitator->AGITATOR_STOP);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AgitatorMotorControl::Interrupted() {
+	printf("2135: Agitator Motor Control - Interrupted\n");
 	Robot::agitator->SetMotorSpeed(Robot::agitator->AGITATOR_STOP);
 }

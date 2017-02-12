@@ -36,7 +36,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     turnOutput = new TurnOutput(robotDrive);
     turnControl = new PIDController(0.1, 0.0, 0.0, gyro.get(), turnOutput);
-    printf("2135: Chassis constructor\n");
+    printf("2135: Chassis Constructor\n");
 
     //	Set all drive motors to use coast mode and not brake when stopped
     motorL1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
@@ -90,7 +90,7 @@ void Chassis::InitDefaultCommand() {
 
 void Chassis::Initialize(Preferences *prefs)
 {
-	// TODO: Initialize SmartDashboard values
+	// TODO: Initialize SmartDashboard values - if any
 
 	printf("2135: Chassis Initialize\n");
 

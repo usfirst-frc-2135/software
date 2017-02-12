@@ -36,16 +36,16 @@ void GearDoorControl::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool GearDoorControl::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
 void GearDoorControl::End() {
-	printf("2135: Gear Door Control %s - End\n", (m_doorState) ? "OPEN" : "CLOSE");
+	printf("2135: Gear Door Control - Ended\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void GearDoorControl::Interrupted() {
-	printf("2135: Gear Door Control %s - Interrupted\n", (m_doorState) ? "OPEN" : "CLOSE");
+	printf("2135: Gear Door Control - Interrupted\n");
 }

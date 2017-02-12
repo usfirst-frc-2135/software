@@ -34,7 +34,7 @@ void IntakeMotorControl::Initialize() {
 			strName = "Expel";
 		else
 			strName = "Idle";
-		printf("2135: Intake Motor Control %s -Start\n, strName");
+		printf("2135: Intake Motor Control %s -Start\n", strName);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -49,11 +49,13 @@ bool IntakeMotorControl::IsFinished() {
 
 // Called once after isFinished returns true
 void IntakeMotorControl::End() {
+	printf("2135: Intake Motor Control - Ended\n");
 	Robot::intake->SetMotorSpeed(Robot::intake->INTAKE_STOP);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void IntakeMotorControl::Interrupted() {
+	printf("2135: Intake Motor Control - Interrupted\n");
 	Robot::intake->SetMotorSpeed(Robot::intake->INTAKE_STOP);
 }

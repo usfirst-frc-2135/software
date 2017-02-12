@@ -36,16 +36,16 @@ void ShooterGateControl::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterGateControl::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
 void ShooterGateControl::End() {
-	printf("2135: Shoot Gate Control %s - End\n", (m_openState) ? "OPEN" : "CLOSE");
+	printf("2135: Shoot Gate Control - Ended\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShooterGateControl::Interrupted() {
-	printf("2135: Shoot Gate Control %s - Interrupted\n", (m_openState) ? "OPEN" : "CLOSE");
+	printf("2135: Shoot Gate Control - Interrupted\n");
 }

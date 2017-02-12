@@ -37,16 +37,16 @@ void GearHolderControl::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool GearHolderControl::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
 void GearHolderControl::End() {
-	printf("2135: Gear Holder Control %s - End\n", (m_holdState) ? "HOLD" : "RELEASE");
+	printf("2135: Gear Holder Control - Ended\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void GearHolderControl::Interrupted() {
-	printf("2135: Gear Holder Control %s - Interrupted\n", (m_holdState) ? "HOLD" : "RELEASE");
+	printf("2135: Gear Holder Control - Interrupted\n");
 }

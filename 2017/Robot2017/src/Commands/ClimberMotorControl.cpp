@@ -34,7 +34,7 @@ void ClimberMotorControl::Initialize() {
 		strName = "Reverse";
 	else
 		strName = "Off";
-	printf("2135: Climber Motor Control %s -Start\n, strName");
+	printf("2135: Climber Motor Control %s - Start\n", strName);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -49,11 +49,13 @@ bool ClimberMotorControl::IsFinished() {
 
 // Called once after isFinished returns true
 void ClimberMotorControl::End() {
+	printf("2135: Climber Motor Control - Ended\n");
 	Robot::climber->SetMotorSpeed(Robot::climber->CLIMBER_STOP);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ClimberMotorControl::Interrupted() {
+	printf("2135: Agitator Motor Control - Interrupted\n");
 	Robot::climber->SetMotorSpeed(Robot::climber->CLIMBER_STOP);
 }

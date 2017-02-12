@@ -8,11 +8,11 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 #ifndef SHOOTER_H
 #define SHOOTER_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "CANTalon.h"
 
 /**
  *
