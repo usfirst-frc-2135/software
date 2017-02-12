@@ -82,8 +82,8 @@ public:
 	void MoveDriveDistancePIDStop(void);
 
 	void MoveDriveHeadingDistance(double inches, double angle);
-	bool MoveDriveTurnAtSetPoint();
-	void ShiftSpeed(bool lowGear);
+	bool MoveDriveHeadingAtSetPoint();
+	void MoveShiftGears(bool lowGear);
 	void MoveWithJoystick(std::shared_ptr<Joystick>);
 	void MoveSpin(bool spinLeft);
 	void MoveInvertDriveDirection(void);

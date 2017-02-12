@@ -1141,7 +1141,7 @@ Children:
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: Drive Turn
+    Name: Auton Drive Turn
   - Children: []
     Properties:
       Parameters: !!robotbuilder.data.properties.ParametersProperty

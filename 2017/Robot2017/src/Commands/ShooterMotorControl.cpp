@@ -26,7 +26,7 @@ ShooterMotorControl::ShooterMotorControl(bool runShooter): Command() {
 
 // Called just before this Command runs the first time
 void ShooterMotorControl::Initialize() {
-	printf("2135: Shooter Motor Control %s - Start\n", (m_runShooter) ? "SHOOT" : "OFF");
+	printf("2135: Shooter Motor Control %s - Start\n", (m_runShooter) ? "Fire!" : "Off");
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -161,7 +161,9 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	double voltageRampRate;
 	double peakOutputVoltage;
 	double proportional;
-	double rotations;
+
+	m_rotations = inches / (M_WHEEL_DIA * M_PI);
+	printf("2135: Encoder Distance %f rotations\n", m_rotations);
 
 	// TODO: Experiment to get default values
 	voltageRampRate = SmartDashboard::GetNumber("DrivePIDVoltRampRate", 8.0);
@@ -169,31 +171,25 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	proportional = SmartDashboard::GetNumber("DrivePIDProportional", 0.3);
 	m_absTolerance = SmartDashboard::GetNumber("DrivePIDAbsTolerance", 0.2);
 
-	rotations = inches / (M_WHEEL_DIA * M_PI);
-
-	motorL1->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
-	motorR3->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
-
-	printf("2135: Encoder Distance %f rotations\n", rotations);
-
-	motorL1->SetAllowableClosedLoopErr(m_absTolerance);
-	motorR3->SetAllowableClosedLoopErr(m_absTolerance);
-
-	motorL1->SetPID(proportional, 0.0, 0.0);
-	motorR3->SetPID(proportional, 0.0, 0.0);
-
 	motorL1->SetControlMode(CANSpeedController::ControlMode::kPosition);
 	motorR3->SetControlMode(CANSpeedController::ControlMode::kPosition);
 
 	MoveSetVoltageRamp(voltageRampRate);
 
+	motorL1->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
+	motorR3->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
+
+	motorL1->SetPID(proportional, 0.0, 0.0);
+	motorR3->SetPID(proportional, 0.0, 0.0);
+
+	motorL1->SetAllowableClosedLoopErr(m_absTolerance);
+	motorR3->SetAllowableClosedLoopErr(m_absTolerance);
+
 	motorL1->SetEncPosition(0);
 	motorR3->SetEncPosition(0);
 
-	motorL1->Set(rotations);
-	motorR3->Set(rotations);
-
-	m_rotations = rotations;
+	motorL1->Set(m_rotations);
+	motorR3->Set(m_rotations);
 }
 
 void Chassis::MoveDriveDistancePIDExecute(void)
@@ -240,11 +236,11 @@ void Chassis::MoveDriveHeadingDistance(double inches, double angle)
 	turnControl->Enable();
 }
 
-bool Chassis::MoveDriveTurnAtSetPoint() {
+bool Chassis::MoveDriveHeadingAtSetPoint() {
 	return turnControl->OnTarget();
 }
 
-void Chassis::ShiftSpeed(bool lowGear)
+void Chassis::MoveShiftGears(bool lowGear)
 {
 	if (lowGear) {
 		shifter->Set(shifter->kForward);

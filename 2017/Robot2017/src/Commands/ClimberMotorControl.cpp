@@ -28,10 +28,11 @@ ClimberMotorControl::ClimberMotorControl(int direction): Command() {
 void ClimberMotorControl::Initialize() {
 	const char *strName;
 
+	//	TODO: When we put in a ratchet--only allow climbing in software
 	if (m_direction == Robot::climber->CLIMBER_FORWARD)
-		strName = "Forward";
+		strName = "Climb";
 	else if (m_direction == Robot::climber->CLIMBER_REVERSE)
-		strName = "Reverse";
+		strName = "Descend";
 	else
 		strName = "Off";
 	printf("2135: Climber Motor Control %s - Start\n", strName);

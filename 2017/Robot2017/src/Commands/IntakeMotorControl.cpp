@@ -33,7 +33,7 @@ void IntakeMotorControl::Initialize() {
 		else if (m_direction == Robot::intake->INTAKE_REVERSE)
 			strName = "Expel";
 		else
-			strName = "Idle";
+			strName = "Off";
 		printf("2135: Intake Motor Control %s -Start\n", strName);
 }
 
