@@ -130,8 +130,8 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
-	Scheduler::GetInstance()->Run();
 
+	Scheduler::GetInstance()->Run(); // PROBLEM
 	std::vector<double> arr = table->GetNumberArray("area", llvm::ArrayRef<double>());
 	for (unsigned int i = 0; i < arr.size(); i++) {
 //		printf("2135: %f\n", arr[i]);
