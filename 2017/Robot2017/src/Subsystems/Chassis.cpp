@@ -139,7 +139,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	SmartDashboard::PutNumber("RightEncoderPosition", DriveEncoderPosition.second);
 
 	// drive distance inches
-	SmartDashboard::PutNumber("DriveDistance", 240);
+	SmartDashboard::PutNumber("DriveDistance", 120);
 }
 
 void Chassis::UpdateSmartDashboardValues(void)
@@ -195,8 +195,10 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 
 	robotDrive->SetSafetyEnabled(false);
 
-	motorL1->SetControlMode(CANSpeedController::ControlMode::kPosition);
-	motorR3->SetControlMode(CANSpeedController::ControlMode::kPosition);
+	MoveShiftGears(true);
+
+	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
+	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 
 	MoveSetVoltageRamp(voltageRampRate);
 
@@ -252,8 +254,10 @@ bool Chassis::MoveDriveDistancePIDAtSetpoint(void)
 void Chassis::MoveDriveDistancePIDStop(void)
 {
 	// Change from PID to PercentVbus
-	motorL1->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
-	motorR3->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+
+	MoveShiftGears(false);
 
 	robotDrive->SetSafetyEnabled(true);
 }

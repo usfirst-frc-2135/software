@@ -25,8 +25,8 @@ AutonDriveDistance::AutonDriveDistance(): Command() {
 
 // Called just before this Command runs the first time
 void AutonDriveDistance::Initialize() {
-	Robot::chassis->MoveDriveDistancePIDInit(SmartDashboard::GetNumber("DriveDistance", 240.0));
-	printf("2135: Initialize Auton Drive Distance\n");
+	Robot::chassis->MoveDriveDistancePIDInit(SmartDashboard::GetNumber("DriveDistance", 120.0));
+	printf("2135: Auton Drive Distance - Initialize\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -45,12 +45,12 @@ bool AutonDriveDistance::IsFinished() {
 // Called once after isFinished returns true
 void AutonDriveDistance::End() {
 	Robot::chassis->MoveDriveDistancePIDStop();
-	printf("2135: Auton Drive Distance-End\n");
+	printf("2135: Auton Drive Distance - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutonDriveDistance::Interrupted() {
 	Robot::chassis->MoveDriveDistancePIDStop();
-	printf("2135: Auton Drive Distance-Interrupted\n");
+	printf("2135: Auton Drive Distance - Interrupted\n");
 }
