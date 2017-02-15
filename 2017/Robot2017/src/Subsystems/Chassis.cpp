@@ -140,6 +140,9 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 	// drive distance inches
 	SmartDashboard::PutNumber("DriveDistance", 120);
+
+	// reset encoders to zero
+	ResetEncoder();
 }
 
 void Chassis::UpdateSmartDashboardValues(void)
@@ -214,8 +217,8 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	motorL1->SetEncPosition(0);
 	motorR3->SetEncPosition(0);
 
-	motorL1->SetSetpoint(m_rotations);
-	motorR3->SetSetpoint(m_rotations);
+	motorL1->Set(m_rotations);
+	motorR3->Set(m_rotations);
 
 	motorL1->Enable();
 	motorR3->Enable();
