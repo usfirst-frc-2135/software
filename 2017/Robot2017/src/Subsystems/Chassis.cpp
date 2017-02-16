@@ -189,7 +189,7 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	double proportional;
 
 	m_rotations = inches / (M_WHEEL_DIA * M_PI);
-	printf("2135: Encoder Distance %f rotations\n", m_rotations);
+	printf("2135: Encoder Distance %f rotations, %f inches\n", m_rotations, inches);
 
 	// TODO: Experiment to get default values
 	voltageRampRate = SmartDashboard::GetNumber("DrivePIDVoltRampRate", 8.0);
@@ -292,7 +292,7 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	double xValue;
 	double yValue;
 
-	xValue = joystick->GetX() * -1;
+	xValue = joystick->GetX();
 	yValue = joystick->GetY() * m_driveDirection;
 
 	//	TODO: Scaling should only work when in high gear--not low gear
