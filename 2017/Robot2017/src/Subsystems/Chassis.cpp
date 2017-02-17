@@ -206,8 +206,8 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 
 	MoveSetVoltageRamp(voltageRampRate);
 
-	motorL1->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
-	motorR3->ConfigPeakOutputVoltage(peakOutputVoltage, peakOutputVoltage*(-1));
+	motorL1->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
+	motorR3->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
 
 	motorL1->SetPID(proportional, 0.0, 0.0);
 	motorR3->SetPID(proportional, 0.0, 0.0);
@@ -228,12 +228,12 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 void Chassis::MoveDriveDistancePIDExecute(void)
 {
 	//Verify that robot has reached target within absolute tolerance margins
-	if (abs(motorL1->GetEncPosition() - m_rotations) <= m_absTolerance) {
+	if (abs((motorL1->GetEncPosition()/1440) - m_rotations) <= m_absTolerance) {
 		printf("2135: Left PID disabled\n");
 		motorL1->Set(0.0); // Stop motor
 	}
-	motorR3->IsEnabled();
-	if (abs(motorR3->GetEncPosition() - m_rotations) <= m_absTolerance) {
+
+	if (abs((motorR3->GetEncPosition()/1440) - m_rotations) <= m_absTolerance) {
 		printf("2135: Right PID disabled\n");
 		motorR3->Set(0.0); // Stop motor
 	}
@@ -246,8 +246,8 @@ bool Chassis::MoveDriveDistancePIDAtSetpoint(void)
 	// Verify that both encoders are on target
 	bool bothOnTarget = false;
 
-	if((abs(motorL1->GetEncPosition() - m_rotations) <= m_absTolerance) &&
-			(abs(motorR3->GetEncPosition() - m_rotations) <= m_absTolerance)) {
+	if((abs((motorL1->GetEncPosition()/1440) - m_rotations) <= m_absTolerance) &&
+			(abs((motorR3->GetEncPosition()/1440) - m_rotations) <= m_absTolerance)) {
 		MoveDriveDistancePIDStop();
 		bothOnTarget = true;
 	}
