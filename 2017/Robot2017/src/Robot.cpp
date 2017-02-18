@@ -387,7 +387,6 @@ float Robot::CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const flo
 
 	// Get the inches to center by finding out the missing values from a target width
 	float inchesToCenter = RectWidthInches * pixelsToCenter / (float)(rect.width);
-	//TODO: Double Check that 10.25 is the right constant or pass a value in the function
 	// Get the radians you have to turn to get to align the peg with the center of the screen by using the inverse of tan.
 	float angleToAdjustRadians = (float)atan(inchesToCenter / distToTarget);
 	// Convert the radians to degrees

@@ -72,6 +72,11 @@ public:
 
 	void Initialize(frc::Preferences *prefs);
 	void UpdateSmartDashboardValues(void);
+	void MoveWithJoystick(std::shared_ptr<Joystick>);
+	void MoveSpin(bool spinLeft);
+	void MoveInvertDriveDirection(void);
+	void MoveScaleMaxSpeed(bool scaled);
+	void MoveSetVoltageRamp(double voltageRampRate);
 	void MoveToggleBrakeMode(void);
 	void MoveUsingMotorOutputs(double motorInputLeft, double motorInputRight);
 
@@ -84,11 +89,6 @@ public:
 	void MoveDriveHeadingDistance(double inches, double angle);
 	bool MoveDriveHeadingAtSetPoint();
 	void MoveShiftGears(bool lowGear);
-	void MoveWithJoystick(std::shared_ptr<Joystick>);
-	void MoveSpin(bool spinLeft);
-	void MoveInvertDriveDirection(void);
-	void MoveScaleMaxSpeed(bool scaled);
-	void MoveSetVoltageRamp(double voltageRampRate);
 
 	void ResetEncoder(void);
 	std::pair<double, double> ReadEncoder(void);

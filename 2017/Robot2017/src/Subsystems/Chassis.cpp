@@ -155,6 +155,58 @@ void Chassis::UpdateSmartDashboardValues(void)
 	SmartDashboard::PutNumber("DriveGyroPosition", ReadGyro());
 }
 
+void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
+{
+	double xValue;
+	double yValue;
+
+	xValue = joystick->GetX();
+	yValue = joystick->GetY() * m_driveDirection;
+
+	//	TODO: Scaling should only work when in high gear--not low gear
+	if (m_scaled) {
+		xValue = xValue * m_driveScalingFactor;
+		yValue = yValue * m_driveScalingFactor;
+	}
+
+	robotDrive->ArcadeDrive( xValue, yValue, true );
+	UpdateSmartDashboardValues();
+}
+
+void Chassis::MoveSpin(bool spinLeft)
+{
+	if (spinLeft)
+		robotDrive->SetLeftRightMotorOutputs( -m_driveSpinSetting, m_driveSpinSetting );
+	else
+		robotDrive->SetLeftRightMotorOutputs( m_driveSpinSetting, -m_driveSpinSetting );
+}
+
+//	Set drive direction to be opposite relative to robot
+
+void Chassis::MoveInvertDriveDirection(void)
+{
+	m_driveDirection = -m_driveDirection;
+	SmartDashboard::PutNumber("DriveInvert", m_driveDirection);
+}
+
+//	Set scaling factor on drive speed
+
+void Chassis::MoveScaleMaxSpeed(bool scaled)
+{
+	m_scaled = scaled;
+	SmartDashboard::PutBoolean("DriveScaling", m_scaled);
+}
+
+//	Set voltage ramp rate to control motor spin up during auton
+
+void Chassis::MoveSetVoltageRamp(double voltageRampRate)
+{
+	motorL1->SetVoltageRampRate(voltageRampRate);
+	motorL2->SetVoltageRampRate(voltageRampRate);
+	motorR3->SetVoltageRampRate(voltageRampRate);
+	motorR4->SetVoltageRampRate(voltageRampRate);
+}
+
 void Chassis::MoveToggleBrakeMode(void)
 {
 	m_brakeMode = !m_brakeMode;
@@ -179,7 +231,7 @@ void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRigh
 {
 	robotDrive->SetLeftRightMotorOutputs(motorInputLeft, motorInputRight);
 
-	// TODO: Update the encoders
+	ReadEncoder();
 }
 
 void Chassis::MoveDriveDistancePIDInit(double inches)
@@ -285,58 +337,6 @@ void Chassis::MoveShiftGears(bool lowGear)
 	else {
 		shifter->Set(shifter->kReverse);
 	}
-}
-
-void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
-{
-	double xValue;
-	double yValue;
-
-	xValue = joystick->GetX();
-	yValue = joystick->GetY() * m_driveDirection;
-
-	//	TODO: Scaling should only work when in high gear--not low gear
-	if (m_scaled) {
-		xValue = xValue * m_driveScalingFactor;
-		yValue = yValue * m_driveScalingFactor;
-	}
-
-	robotDrive->ArcadeDrive( xValue, yValue, true );
-	UpdateSmartDashboardValues();
-}
-
-void Chassis::MoveSpin(bool spinLeft)
-{
-	if (spinLeft)
-		robotDrive->SetLeftRightMotorOutputs( -m_driveSpinSetting, m_driveSpinSetting );
-	else
-		robotDrive->SetLeftRightMotorOutputs( m_driveSpinSetting, -m_driveSpinSetting );
-}
-
-//	Set drive direction to be opposite relative to robot
-
-void Chassis::MoveInvertDriveDirection(void)
-{
-	m_driveDirection = -m_driveDirection;
-	SmartDashboard::PutNumber("DriveInvert", m_driveDirection);
-}
-
-//	Set scaling factor on drive speed
-
-void Chassis::MoveScaleMaxSpeed(bool scaled)
-{
-	m_scaled = scaled;
-	SmartDashboard::PutBoolean("DriveScaling", m_scaled);
-}
-
-//	Set voltage ramp rate to control motor spin up during auton
-
-void Chassis::MoveSetVoltageRamp(double voltageRampRate)
-{
-	motorL1->SetVoltageRampRate(voltageRampRate);
-	motorL2->SetVoltageRampRate(voltageRampRate);
-	motorR3->SetVoltageRampRate(voltageRampRate);
-	motorR4->SetVoltageRampRate(voltageRampRate);
 }
 
 void Chassis::ResetEncoder(void)
