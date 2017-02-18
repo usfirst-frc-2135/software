@@ -16,7 +16,7 @@
 #include "CANTalon.h"
 
 #define M_WHEEL_DIA 4	// number of inches in diameter of drive wheels
-#define M_COUNTS_PER_ROTATION 360	// number of counts per rotation
+#define M_COUNTS_PER_ROTATION 120	// number of counts per rotation
 
 class TurnOutput: public PIDOutput {
 	public:
@@ -87,7 +87,8 @@ public:
 	void MoveDriveDistancePIDStop(void);
 
 	void MoveDriveHeadingDistance(double inches, double angle);
-	bool MoveDriveHeadingAtSetPoint();
+	bool MoveDriveHeadingAtSetPoint(void);
+	void MoveDriveHeadingStop(void);
 	void MoveShiftGears(bool lowGear);
 
 	void ResetEncoder(void);

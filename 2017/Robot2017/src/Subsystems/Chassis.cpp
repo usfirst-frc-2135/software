@@ -53,6 +53,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     // Invert the direction of the right hand side motors
 	motorR3->SetClosedLoopOutputDirection(true);
+	motorL1->SetClosedLoopOutputDirection(false);
 
 	motorL1->SetFeedbackDevice(CANTalon::QuadEncoder);
 	motorL1->SetSensorDirection(true);
@@ -153,6 +154,10 @@ void Chassis::UpdateSmartDashboardValues(void)
 	SmartDashboard::PutNumber("LeftEncoderPosition", DriveEncoderPosition.first);
 	SmartDashboard::PutNumber("RightEncoderPosition", DriveEncoderPosition.second);
 	SmartDashboard::PutNumber("DriveGyroPosition", ReadGyro());
+	SmartDashboard::PutNumber("LeftRotations", motorL1->Get());
+	SmartDashboard::PutNumber("RightRotations", motorR3->Get());
+	SmartDashboard::PutNumber("LeftClosedLoopError", motorL1->GetClosedLoopError());
+	SmartDashboard::PutNumber("RightClosedLoopError", motorR3->GetClosedLoopError());
 }
 
 void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
@@ -280,14 +285,12 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 void Chassis::MoveDriveDistancePIDExecute(void)
 {
 	//Verify that robot has reached target within absolute tolerance margins
-	if (abs((motorL1->GetEncPosition()/1440) - m_rotations) <= m_absTolerance) {
+	if (abs((motorL1->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance) {
 		printf("2135: Left PID disabled\n");
-		motorL1->Set(0.0); // Stop motor
 	}
 
-	if (abs((motorR3->GetEncPosition()/1440) - m_rotations) <= m_absTolerance) {
+	if (abs((motorR3->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance) {
 		printf("2135: Right PID disabled\n");
-		motorR3->Set(0.0); // Stop motor
 	}
 
 	UpdateSmartDashboardValues();
@@ -298,9 +301,9 @@ bool Chassis::MoveDriveDistancePIDAtSetpoint(void)
 	// Verify that both encoders are on target
 	bool bothOnTarget = false;
 
-	if((abs((motorL1->GetEncPosition()/1440) - m_rotations) <= m_absTolerance) &&
-			(abs((motorR3->GetEncPosition()/1440) - m_rotations) <= m_absTolerance)) {
-		MoveDriveDistancePIDStop();
+	if((abs((motorL1->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance) &&
+			(abs((motorR3->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance)) {
+//		MoveDriveDistancePIDStop();
 		bothOnTarget = true;
 	}
 
@@ -312,6 +315,9 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	// Change from PID to PercentVbus
 	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
 	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+
+	motorL1->Set(0.0);
+	motorR3->Set(0.0);
 
 	MoveShiftGears(false);
 
@@ -325,8 +331,13 @@ void Chassis::MoveDriveHeadingDistance(double inches, double angle)
 	turnControl->Enable();
 }
 
-bool Chassis::MoveDriveHeadingAtSetPoint() {
+bool Chassis::MoveDriveHeadingAtSetPoint(void) {
 	return turnControl->OnTarget();
+}
+
+void Chassis::MoveDriveHeadingStop(void) {
+	motorL1->Disable();
+	motorR3->Disable();
 }
 
 void Chassis::MoveShiftGears(bool lowGear)
