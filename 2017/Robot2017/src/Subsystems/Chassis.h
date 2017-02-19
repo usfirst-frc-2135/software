@@ -25,10 +25,23 @@ class TurnOutput: public PIDOutput {
 		myRobotDrive = robotDrive;
 	}
 	void PIDWrite(double output) {
-		myRobotDrive->ArcadeDrive (0.0, output, false);
+//		printf("==>Passing to Arcade Drive output = %3f\n", output);
+		myRobotDrive->ArcadeDrive (0.0, output, true);
 		SmartDashboard::PutNumber("TurnOutput", output);
 	}
 };
+
+class GyroAngleSource: public PIDSource {
+	public:
+	frc::AnalogGyro* myGyro;
+	GyroAngleSource (frc::AnalogGyro* gyro){
+		myGyro = gyro;
+	}
+	double PIDGet() {
+		return myGyro->GetAngle();
+	}
+};
+
 
 /**
  *
@@ -58,6 +71,7 @@ private:
 	double m_absTolerance;			// PID absolute tolerance
 	double m_rotations; 			// Number of rotations to drive in Drive Distance
 	TurnOutput* turnOutput;
+	GyroAngleSource* gyroAngle;
 	PIDController* turnControl;
 
 

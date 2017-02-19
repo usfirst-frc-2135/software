@@ -37,7 +37,9 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // TODO: Safety cannot remain disabled
     robotDrive->SetSafetyEnabled(false);
     turnOutput = new TurnOutput(robotDrive);
-    turnControl = new PIDController(0.1, 0.0, 0.0, gyro.get(), turnOutput);
+    gyroAngle = new GyroAngleSource(gyro.get());
+    turnControl = new PIDController(0.1, 0.0, 0.0, gyroAngle, turnOutput);
+    turnControl->SetOutputRange(-0.6, 0.6);
 
     //	Set all drive motors to use coast mode and not brake when stopped
     motorL1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
@@ -145,6 +147,13 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 	// reset encoders to zero
 	ResetEncoder();
+
+	//reset gyro
+	//ResetGyro();
+
+	//calibrate gyro
+	gyro->Calibrate();
+
 }
 
 void Chassis::UpdateSmartDashboardValues(void)
@@ -158,6 +167,7 @@ void Chassis::UpdateSmartDashboardValues(void)
 	SmartDashboard::PutNumber("RightRotations", motorR3->Get());
 	SmartDashboard::PutNumber("LeftClosedLoopError", motorL1->GetClosedLoopError());
 	SmartDashboard::PutNumber("RightClosedLoopError", motorR3->GetClosedLoopError());
+	SmartDashboard::PutNumber("TurnPIDInput", turnControl->Get());
 }
 
 void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
@@ -285,7 +295,7 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 void Chassis::MoveDriveDistancePIDExecute(void)
 {
 	//Verify that robot has reached target within absolute tolerance margins
-	if (abs((motorL1->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance) {
+	if (((abs(motorL1->GetEncPosition())/480.2) - m_rotations) <= m_absTolerance) {
 		printf("2135: Left PID disabled\n");
 	}
 
@@ -301,7 +311,7 @@ bool Chassis::MoveDriveDistancePIDAtSetpoint(void)
 	// Verify that both encoders are on target
 	bool bothOnTarget = false;
 
-	if((abs((motorL1->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance) &&
+	if ((((abs(motorL1->GetEncPosition())/480.2) - m_rotations) <= m_absTolerance) &&
 			(abs((motorR3->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance)) {
 //		MoveDriveDistancePIDStop();
 		bothOnTarget = true;
@@ -327,7 +337,9 @@ void Chassis::MoveDriveDistancePIDStop(void)
 
 void Chassis::MoveDriveHeadingDistance(double inches, double angle)
 {
+	gyro->Calibrate();
 	turnControl->SetSetpoint(angle);
+	printf("===>MoveDriveHeadingDistance angle = %3f\n", angle);
 	turnControl->Enable();
 }
 
@@ -336,8 +348,9 @@ bool Chassis::MoveDriveHeadingAtSetPoint(void) {
 }
 
 void Chassis::MoveDriveHeadingStop(void) {
-	motorL1->Disable();
-	motorR3->Disable();
+//	motorL1->Disable();
+//	motorR3->Disable();
+	turnControl->Disable();
 }
 
 void Chassis::MoveShiftGears(bool lowGear)
