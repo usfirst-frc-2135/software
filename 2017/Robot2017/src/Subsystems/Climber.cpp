@@ -53,7 +53,7 @@ void Climber::Initialize(frc::Preferences *prefs)
     motor19->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
 	motor19->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
 	motor19->SetClosedLoopOutputDirection(true);
-	motor19->Set(8);
+	motor19->Set(18);
 }
 
 void Climber::UpdateSmartDashboardValues(void)
@@ -68,15 +68,12 @@ void Climber::SetMotorSpeed(int speed)
 	default:
 	case CLIMBER_STOP:
 		motor18->Set(0.0);
-		motor19->Set(0.0);
 		break;
 	case CLIMBER_FORWARD:
 		motor18->Set(climberSpeed);
-		motor19->Set(climberSpeed);
 		break;
 	case CLIMBER_REVERSE:
 		motor18->Set(-climberSpeed);
-		motor19->Set(-climberSpeed);
 		break;
 	}
 }
