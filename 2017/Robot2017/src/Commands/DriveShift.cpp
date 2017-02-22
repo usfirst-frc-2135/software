@@ -25,7 +25,8 @@ DriveShift::DriveShift(bool setting): Command() {
 
 // Called just before this Command runs the first time
 void DriveShift::Initialize() {
-
+	Robot::chassis->MoveShiftGears(true);
+	printf("2135: Shift Gears - Start\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -40,11 +41,13 @@ bool DriveShift::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveShift::End() {
-
+	Robot::chassis->MoveShiftGears(false);
+	printf("2135: Shift Gears - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveShift::Interrupted() {
-
+	Robot::chassis->MoveShiftGears(false);
+	printf("2135: Shift Gears - Interrupted\n");
 }
