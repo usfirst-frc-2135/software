@@ -40,10 +40,10 @@ Chassis::Chassis() : Subsystem("Chassis") {
     turnControl = new PIDController(0.1, 0.0, 0.0, gyro.get(), turnOutput);
 
     //	Set all drive motors to use coast mode and not brake when stopped
-    motorL1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
-    motorL2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
-    motorR3->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
-    motorR4->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+    motorL1->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
+    motorL2->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
+    motorR3->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
+    motorR4->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
 
     // Make second Talon SRX controller on each side of drivetrain follow the main Talon SRX
     motorL2->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
@@ -217,16 +217,16 @@ void Chassis::MoveToggleBrakeMode(void)
 	m_brakeMode = !m_brakeMode;
 
 	if (m_brakeMode == false) {
-		motorL1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
-		motorL2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
-		motorR3->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
-		motorR4->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+		motorL1->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
+		motorL2->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
+		motorR3->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
+		motorR4->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
 	}
 	else {
-		motorL1->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
-		motorL2->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
-		motorR3->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
-		motorR4->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
+		motorL1->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
+		motorL2->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
+		motorR3->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
+		motorR4->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
 	}
 
 	SmartDashboard::PutBoolean("DriveBrakeMode", m_brakeMode);
