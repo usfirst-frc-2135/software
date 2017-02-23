@@ -16,8 +16,10 @@
 #include "CANTalon.h"
 
 #define M_WHEEL_DIA 4	// number of inches in diameter of drive wheels
+// TODO: This should be 360 CPR
 #define M_COUNTS_PER_ROTATION 120	// number of counts per rotation
 
+// These classes should probably be added below the Chassis class to be more Robotbuilder friendly
 class TurnOutput: public PIDOutput {
 	public:
 	std::shared_ptr<RobotDrive> myRobotDrive;

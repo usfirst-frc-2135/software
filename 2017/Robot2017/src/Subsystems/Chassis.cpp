@@ -206,6 +206,8 @@ void Chassis::MoveScaleMaxSpeed(bool scaled)
 
 void Chassis::MoveSetVoltageRamp(double voltageRampRate)
 {
+	// TODO: L2 and R4 should always follow L1 and R3 -- this is wrong'
+	//	This function could probably be inline, since it is only two calls
 	motorL1->SetVoltageRampRate(voltageRampRate);
 	motorL2->SetVoltageRampRate(voltageRampRate);
 	motorR3->SetVoltageRampRate(voltageRampRate);
@@ -254,30 +256,42 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	proportional = SmartDashboard::GetNumber("DrivePIDProportional", 0.3);
 	m_absTolerance = SmartDashboard::GetNumber("DrivePIDAbsTolerance", 0.2);
 
+	// Disable safety feature during movement, since motors will be fed by loop
 	robotDrive->SetSafetyEnabled(false);
 
+	// Shift into low gear during movement for better accuracy
 	MoveShiftGears(true);
 
+	// Change the drive motors to be position-loop control modes
 	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 
+	// TODO: Temporarily adjust voltage ramp rate for this year's robot
 	MoveSetVoltageRamp(voltageRampRate);
 
+	// TODO: Adjust peak output voltage for this year's robot
 	motorL1->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
 	motorR3->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
 
+	// This should be set one time in constructor
 	motorL1->SetPID(proportional, 0.0, 0.0);
 	motorR3->SetPID(proportional, 0.0, 0.0);
 
+	// TODO: Determine if tolerance is really necessary - can be set in constructor if at all
 	motorL1->SetAllowableClosedLoopErr(m_absTolerance);
 	motorR3->SetAllowableClosedLoopErr(m_absTolerance);
 
+	// Initialize the encoders to start movement at reference of zero counts
 	motorL1->SetEncPosition(0);
 	motorR3->SetEncPosition(0);
 
+	// Set the target distance in terms of wheel rotations
 	motorL1->Set(m_rotations);
 	motorR3->Set(m_rotations);
 
+	// TODO: Set a safety timer in case encoders do not give feedback correctly
+
+	// Enable the PID loop to start the movement
 	motorL1->Enable();
 	motorR3->Enable();
 }
@@ -301,25 +315,33 @@ bool Chassis::MoveDriveDistancePIDAtSetpoint(void)
 	// Verify that both encoders are on target
 	bool bothOnTarget = false;
 
-	if((abs((motorL1->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance) &&
+	// TODO: If CPR is set to be 360 instead of 120, then this calculation would probably make
+	//	this math be 3*480.2 ~= 1440 which is the native units of the Talon quadrature encoder
+	if ((abs((motorL1->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance) &&
 			(abs((motorR3->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance)) {
 //		MoveDriveDistancePIDStop();
 		bothOnTarget = true;
 	}
 
 	return bothOnTarget;
-
 }
+
 void Chassis::MoveDriveDistancePIDStop(void)
 {
-	// Change from PID to PercentVbus
-	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
-	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+	// TODO: Disable the PID loop
 
+	// TODO: Why are these needed?
 	motorL1->Set(0.0);
 	motorR3->Set(0.0);
 
+	// TODO: Voltage Ramp and Max Output may need to be put back to Teleop setting
+
+	// Change back to gear setting default
 	MoveShiftGears(false);
+
+	// Change from PID position-loop back to PercentVbus
+	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
 
 	robotDrive->SetSafetyEnabled(true);
 }
@@ -327,16 +349,20 @@ void Chassis::MoveDriveDistancePIDStop(void)
 
 void Chassis::MoveDriveHeadingDistance(double inches, double angle)
 {
+	// Program the PID target setpoint
 	turnControl->SetSetpoint(angle);
 	printf("===> MoveDriveHeadingDistance() using angle: %f\n",angle);
+	// Enable the PID loop
 	turnControl->Enable();
 }
 
 bool Chassis::MoveDriveHeadingAtSetPoint(void) {
+	// Test the PID to see if it is on the programmed target
 	return turnControl->OnTarget();
 }
 
 void Chassis::MoveDriveHeadingStop(void) {
+	// TODO: This should be turnControl->Disable() to stop the PID -- not individual motors
 	motorL1->Disable();
 	motorR3->Disable();
 }
