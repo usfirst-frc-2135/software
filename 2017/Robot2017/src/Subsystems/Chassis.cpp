@@ -328,7 +328,7 @@ void Chassis::MoveDriveDistancePIDStop(void)
 void Chassis::MoveDriveHeadingDistance(double inches, double angle)
 {
 	turnControl->SetSetpoint(angle);
-	printf("===> MoveDriveHeadingDistance() using angle:%d\n",angle);
+	printf("===> MoveDriveHeadingDistance() using angle: %f\n",angle);
 	turnControl->Enable();
 }
 
