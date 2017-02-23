@@ -60,7 +60,7 @@ OI::OI() {
     operShooterOn.reset(new JoystickButton(operatorPanelA.get(), 8));
     operShooterOn->WhileHeld(new ShooterMotorControl(true));
     operBallGateClose.reset(new JoystickButton(operatorPanelA.get(), 6));
-    operBallGateClose->WhileHeld(new ShooterGateControl(false));
+    operBallGateClose->WhenPressed(new ShooterGateControl(false));
     operBallGateOpen.reset(new JoystickButton(operatorPanelA.get(), 5));
     operBallGateOpen->WhenPressed(new ShooterGateControl(true));
     operAgitatorReverse.reset(new JoystickButton(operatorPanelA.get(), 4));
