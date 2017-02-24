@@ -60,8 +60,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	motorR3->SetFeedbackDevice(CANTalon::QuadEncoder);
 	motorR3->SetSensorDirection(false);
 
-	motorL1->ConfigEncoderCodesPerRev(M_COUNTS_PER_ROTATION);
-	motorR3->ConfigEncoderCodesPerRev(M_COUNTS_PER_ROTATION);
+	motorL1->ConfigEncoderCodesPerRev(USDigitalS4_360);
+	motorR3->ConfigEncoderCodesPerRev(USDigitalS4_360);
 
     //	TODO: Set voltage ramp rate to control how fast motors spin up
     //MoveSetVoltageRamp(0.0);
@@ -147,8 +147,6 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 	// reset encoders to zero
 	ResetEncoder();
-
-
 }
 
 void Chassis::UpdateSmartDashboardValues(void)
@@ -325,8 +323,6 @@ void Chassis::MoveDriveDistancePIDExecute(void)
 
 bool Chassis::MoveDriveDistancePIDAtSetpoint(void)
 {
-
-
 	// Verify that both encoders are on target
 	bool bothOnTarget = false;
 
