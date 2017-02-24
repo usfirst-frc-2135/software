@@ -1,0 +1,103 @@
+<xml version="1.0">
+<dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="688" y="8"/>
+		<property name="Camera Choice" value=""/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
+		<location x="1141" y="3"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
+		<location x="83" y="405"/>
+		<width>173</width>
+		<height>59</height>
+	</static-widget>
+	<widget field="Hue Start" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="124" y="64"/>
+	</widget>
+	<widget field="RightEncoderPosition" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="376" y="288"/>
+	</widget>
+	<widget field="Camera Exposure %" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="45" y="32"/>
+	</widget>
+	<widget field="Camera Brightness %" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="37" y="6"/>
+	</widget>
+	<widget field="RightClosedLoopError" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="371" y="400"/>
+	</widget>
+	<widget field="FoundTarget" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="100" y="240"/>
+	</widget>
+	<widget field="RightRotations" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="423" y="342"/>
+	</widget>
+	<widget field="Auton Drive Distance" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="433" y="480"/>
+	</widget>
+	<widget field="Auton Drive Turn: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="43" y="329"/>
+	</widget>
+	<widget field="Luminance End" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="82" y="198"/>
+	</widget>
+	<widget field="DriveInvert" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="448" y="6"/>
+	</widget>
+	<widget field="LeftRotations" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="434" y="320"/>
+	</widget>
+	<widget field="DrivePIDAbsTolerance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="368" y="198"/>
+	</widget>
+	<widget field="DrivePIDVoltRampRate" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="363" y="128"/>
+	</widget>
+	<widget field="DriveDistance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="432" y="438"/>
+	</widget>
+	<widget field="DriveScaling" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="439" y="32"/>
+	</widget>
+	<widget field="Gyro Value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="733" y="438"/>
+	</widget>
+	<widget field="Hue End" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="130" y="86"/>
+	</widget>
+	<widget field="Saturation Start" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="80" y="118"/>
+	</widget>
+	<widget field="DrivePIDPeakOutVolts" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="369" y="150"/>
+		<height>26</height>
+	</widget>
+	<widget field="DrivePIDProportional" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="376" y="176"/>
+	</widget>
+	<widget field="DriveSpin" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="458" y="54"/>
+	</widget>
+	<widget field="DriveGyroPosition" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="64" y="288"/>
+	</widget>
+	<widget field="LeftClosedLoopError" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="382" y="374"/>
+	</widget>
+	<widget field="Luminance Start" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="76" y="176"/>
+	</widget>
+	<widget field="DriveBrakeMode" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="412" y="80"/>
+	</widget>
+	<widget field="Saturation End" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="86" y="144"/>
+	</widget>
+	<widget field="LeftEncoderPosition" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="387" y="262"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
