@@ -45,7 +45,7 @@ void Climber::InitDefaultCommand() {
 
 void Climber::Initialize(frc::Preferences *prefs)
 {
-	// TODO: Initialize SmartDashboard values - if any
+	// Initialize SmartDashboard values - if any
 	printf("2135: Climber Initialize\n");
     motor18->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
 	motor18->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);

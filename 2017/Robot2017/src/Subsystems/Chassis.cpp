@@ -83,7 +83,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Initialize closed loop ramp rate for use by Talon PIDs
     m_driveCloseLoopRamp = 0.0;
 
-    //	TODO: These may not be used
+    // Initialize Talon PID tolerance to arrival at setpoint
     m_absTolerance = 0.2;
     m_rotations = 0.0;
 
@@ -110,7 +110,7 @@ void Chassis::InitDefaultCommand() {
 
 void Chassis::Initialize(frc::Preferences *prefs)
 {
-	// TODO: Initialize SmartDashboard values - if any
+	// Initialize SmartDashboard values - if any
 
 	printf("2135: Chassis Initialize\n");
 

@@ -41,7 +41,7 @@ void Pneumatics::InitDefaultCommand() {
 
 void Pneumatics::Initialize(Preferences *prefs)
 {
-	// TODO: Initialize SmartDashboard values - if any
+	// Initialize SmartDashboard values - if any
 	printf("2135: Pneumatics Initialize\n");
 	CompressorEnable(true);
 }

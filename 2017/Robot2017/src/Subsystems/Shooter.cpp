@@ -45,7 +45,7 @@ void Shooter::InitDefaultCommand() {
 
 void Shooter::Initialize(frc::Preferences *prefs)
 {
-	// TODO: Initialize SmartDashboard values - if any
+	// Initialize SmartDashboard values - if any
 	printf("2135: Shooter Initialize\n");
     motor14->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
 	motor14->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
