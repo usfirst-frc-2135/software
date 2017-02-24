@@ -147,6 +147,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 	// reset encoders to zero
 	ResetEncoder();
+	ResetGyro();
 }
 
 void Chassis::UpdateSmartDashboardValues(void)
@@ -160,6 +161,8 @@ void Chassis::UpdateSmartDashboardValues(void)
 	SmartDashboard::PutNumber("RightRotations", motorR3->Get());
 	SmartDashboard::PutNumber("LeftClosedLoopError", motorL1->GetClosedLoopError());
 	SmartDashboard::PutNumber("RightClosedLoopError", motorR3->GetClosedLoopError());
+
+	SmartDashboard::PutNumber("Gyro Value", Robot::chassis->ReadGyro());
 }
 
 void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)

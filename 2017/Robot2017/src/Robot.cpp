@@ -74,8 +74,7 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
-	// Initialize preferences file on roboRIO
-	// Initialize SmartDashboard and Subsystems
+	// Initialize SmartDashboard preferences
 	chassis->Initialize(prefs);
 	fflush(stdout);
 	agitator->Initialize(prefs);
@@ -104,7 +103,8 @@ void Robot::TeleopInit() {
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
 	// these lines or comment it out.
-	Robot::chassis->ResetGyro();
+	if (autonomousCommand.get() != nullptr)
+		autonomousCommand->Cancel();
 
 	// Initialize preferences file on roboRIO
 	// Initialize SmartDashboard and Subsystems
@@ -123,64 +123,74 @@ void Robot::TeleopInit() {
 	shooter->Initialize(prefs);
 	fflush(stdout);
 
-//#if 1	// test code for server
-//	//RobotMap::shooterBallGate->SetAngle(0.0);
+//#if 1	// TODO: test code for servo - remove this
 //	RobotMap::shooterBallGate->SetAngle(90.0); //TEST initialize servo at 90 degrees
 //		printf("****** Initializing servo to 90 degrees\n");
 //		printf("ANGLE AFTER INITIALIZATION = %3f\n", RobotMap::shooterBallGate->GetAngle());
 //
 //#endif
-
-	if (autonomousCommand.get() != nullptr)
-		autonomousCommand->Cancel();
 }
 
 void Robot::TeleopPeriodic() {
+	Scheduler::GetInstance()->Run(); // TODO: PROBLEM (why is this marked as a problem?)
 
-	Scheduler::GetInstance()->Run(); // PROBLEM
-	std::vector<double> arr = table->GetNumberArray("area", llvm::ArrayRef<double>());
+	Robot::chassis->UpdateSmartDashboardValues();
+
+#if 0
+	// Read contour array from SmartDashboard and print it
+	std::vector<double> arr;
+
+	arr = table->GetNumberArray("area", llvm::ArrayRef<double>());
 	for (unsigned int i = 0; i < arr.size(); i++) {
-//		printf("2135: %f\n", arr[i]);
+		printf("2135: %f\n", arr[i]);
 	}
+#endif
 
-	SmartDashboard::PutNumber("Gyro Value", Robot::chassis->ReadGyro());
-
-#if 1	// test code for servo
+#if 1
+	// For 1 each of 10 passes through TeleopPeriodic, check and process angle
 	static int counter = 0;
+
 	if (counter <= 10) {
 		counter++;
 	}
 	else {
-//		double	temp;
-		if (SmartDashboard::GetBoolean("FoundTarget", false) == true){
-//			double angletoAdjust = SmartDashboard::GetNumber("Angle to Adjust", 0.0);
-			bool turnRight = SmartDashboard::GetBoolean("TurnRight", true);
+		counter = 0;
+		if (SmartDashboard::GetBoolean("FoundTarget", false) == true) {
+//			double temp;
+//			double angleToAdjust;
+//			bool turnRight;
+
+			// TODO: This should be cleaned up (while testing it). The angle
+			//	to adjust should probably just be a positive/negative number
+			//	passed through the SmartDashboard without the turnRight flag.
+			//	Clockwise turns would be positive and CCW turns negative.
+			//	Remove servo code, since it is used in the robot for other things
+//			angleToAdjust = SmartDashboard::GetNumber("Angle to Adjust", 0.0);
+//			turnRight = SmartDashboard::GetBoolean("TurnRight", true);
 //			temp = RobotMap::shooterBallGate->GetAngle();
 //			printf("!!! Original temp angle = %3f\n",temp);
-			if (turnRight == 1)
-//				temp += angletoAdjust; //Turns right
-//			else temp -= angletoAdjust; //Turns left
+//			if (turnRight == 1)
+//				temp += angleToAdjust; //Turns right
+//			else
+//				temp -= angleToAdjust; //Turns left
+
 //			printf("!!! Changed temp angle = %3f\n",temp);
 //			RobotMap::shooterBallGate->SetAngle(temp);
 //			SmartDashboard::PutNumber("Servo Angle", temp);
 			SmartDashboard::PutBoolean("FoundTarget", false);
-			counter = 0;
-		}
-		else {
-			//temp += 0.12; // add a fraction of the degree
-			//if (temp > 180.0)	// if the angle exceeds 180 degrees
-				//temp = 0.0;	// reset to 0 degrees (servo only travels 0->180
 		}
 	}
-
 #endif
+
 }
 
 void Robot::TestPeriodic() {
 	lw->Run();
 }
 
-//	Vision processing thread
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+//	Vision processing thread class
 
 Robot::Robot():visionThread(CameraVisionThread) {
 
@@ -402,6 +412,10 @@ float Robot::CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const flo
 	return angleToAdjustDegrees;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+//	Preference handling utilities
+
 double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
 	double value;
 
@@ -417,65 +431,34 @@ double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
 	return value;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+//	Fault handling utilities
+
 void Robot::HandleFaults(void) {
-	uint16_t	faults;
-	uint16_t	stickyFaults;
-
-	faults = RobotMap::chassisMotorL1->GetFaults();
-	stickyFaults = RobotMap::chassisMotorL1->GetStickyFaults();
-	RobotMap::chassisMotorL1->ClearStickyFaults();
-	PrintFaults("chassisMotorL1", faults, stickyFaults);
-
-	faults = RobotMap::chassisMotorL2->GetFaults();
-	stickyFaults = RobotMap::chassisMotorL2->GetStickyFaults();
-	RobotMap::chassisMotorL2->ClearStickyFaults();
-	PrintFaults("chassisMotorL2", faults, stickyFaults);
-
-	faults = RobotMap::chassisMotorR3->GetFaults();
-	stickyFaults = RobotMap::chassisMotorR3->GetStickyFaults();
-	RobotMap::chassisMotorR3->ClearStickyFaults();
-	PrintFaults("chassisMotorR3", faults, stickyFaults);
-
-	faults = RobotMap::chassisMotorR4->GetFaults();
-	stickyFaults = RobotMap::chassisMotorR4->GetStickyFaults();
-	RobotMap::chassisMotorR4->ClearStickyFaults();
-	PrintFaults("chassisMotorR4", faults, stickyFaults);
-
-	faults = RobotMap::intakeMotor8->GetFaults();
-	stickyFaults = RobotMap::intakeMotor8->GetStickyFaults();
-	RobotMap::intakeMotor8->ClearStickyFaults();
-	PrintFaults("intakeMotor8", faults, stickyFaults);
-
-	faults = RobotMap::intakeMotor9->GetFaults();
-	stickyFaults = RobotMap::intakeMotor9->GetStickyFaults();
-	RobotMap::intakeMotor9->ClearStickyFaults();
-	PrintFaults("intakeMotor9", faults, stickyFaults);
-
-	faults = RobotMap::agitatorMotor12->GetFaults();
-	stickyFaults = RobotMap::agitatorMotor12->GetStickyFaults();
-	RobotMap::agitatorMotor12->ClearStickyFaults();
-	PrintFaults("agitatorMotor12", faults, stickyFaults);
-
-	faults = RobotMap::shooterMotor14->GetFaults();
-	stickyFaults = RobotMap::shooterMotor14->GetStickyFaults();
-	RobotMap::shooterMotor14->ClearStickyFaults();
-	PrintFaults("shooterMotor14", faults, stickyFaults);
-
-	faults = RobotMap::climberMotor18->GetFaults();
-	stickyFaults = RobotMap::climberMotor18->GetStickyFaults();
-	RobotMap::climberMotor18->ClearStickyFaults();
-	PrintFaults("climberMotor18", faults, stickyFaults);
-
-	faults = RobotMap::climberMotor19->GetFaults();
-	stickyFaults = RobotMap::climberMotor19->GetStickyFaults();
-	RobotMap::climberMotor19->ClearStickyFaults();
-	PrintFaults("climberMotor19", faults, stickyFaults);
+	TalonSRXPrintFaults("chassisMotorL1", RobotMap::chassisMotorL1);
+	TalonSRXPrintFaults("chassisMotorL2", RobotMap::chassisMotorL2);
+	TalonSRXPrintFaults("chassisMotorR3", RobotMap::chassisMotorR3);
+	TalonSRXPrintFaults("chassisMotorR4", RobotMap::chassisMotorR4);
+	TalonSRXPrintFaults("intakeMotor8", RobotMap::intakeMotor8);
+	TalonSRXPrintFaults("intakeMotor9", RobotMap::intakeMotor9);
+	TalonSRXPrintFaults("agitatorMotor12", RobotMap::agitatorMotor12);
+	TalonSRXPrintFaults("shooterMotor14", RobotMap::shooterMotor14);
+	TalonSRXPrintFaults("climberMotor18", RobotMap::climberMotor18);
+	TalonSRXPrintFaults("climberMotor19", RobotMap::climberMotor19);
 
 	//faults = RobotMap::powerPDP->GetFaults();
 	RobotMap::powerPDP->ClearStickyFaults();
 }
 
-void Robot::PrintFaults(const char *talonName, uint16_t faults, uint16_t stickyFaults) {
+void Robot::TalonSRXPrintFaults(const char *talonName, std::shared_ptr<CANTalon> talonPtr) {
+
+	uint16_t	faults;
+	uint16_t	stickyFaults;
+
+	faults = talonPtr->GetFaults();
+	stickyFaults = talonPtr->GetStickyFaults();
+	talonPtr->ClearStickyFaults();
 
 	printf("2135: %s\n", talonName);
 

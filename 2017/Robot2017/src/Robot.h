@@ -68,9 +68,6 @@ public:
 private:
 	bool m_faultsCleared;
 
-	void HandleFaults(void);
-	void PrintFaults(const char *talonName, uint16_t faults, uint16_t stickyFaults);
-
 	static int const imgWidth = 320;
 	static int const imgHeight = 240;
 
@@ -78,5 +75,8 @@ private:
 	static void CameraVisionThread();
 	static float CalcDistToTarget(const float& rectWidthInches, const float& FOVPixels, const float& rectWidthPixels);
 	static float CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const float& imgWidthScreen, const float& distToTarget, const float& RectWidthInches);
+
+	void HandleFaults(void);
+	void TalonSRXPrintFaults(const char *talonName, std::shared_ptr<CANTalon> talonPtr);
 };
 #endif
