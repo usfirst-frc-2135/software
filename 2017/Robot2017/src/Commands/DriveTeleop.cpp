@@ -26,8 +26,6 @@ DriveTeleop::DriveTeleop(): Command() {
 // Called just before this Command runs the first time
 void DriveTeleop::Initialize() {
 	printf("2135: Drive Teleop - Start\n");
-
-	Robot::chassis->MoveSetVoltageRamp(SmartDashboard::GetNumber("ChassDriveVoltRampRate", 0.0));
 }
 
 // Called repeatedly when this Command is scheduled to run

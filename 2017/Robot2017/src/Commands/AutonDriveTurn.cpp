@@ -38,7 +38,7 @@ void AutonDriveTurn::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutonDriveTurn::IsFinished() {
-    return Robot::chassis->MoveDriveHeadingAtSetPoint();
+    return Robot::chassis->MoveDriveHeadingIsPIDAtSetPoint();
 }
 
 // Called once after isFinished returns true
