@@ -16,8 +16,8 @@
 #include "CANTalon.h"
 
 #define M_WHEEL_DIA 4	// number of inches in diameter of drive wheels
-// TODO: This should be 360 CPR
-#define M_COUNTS_PER_ROTATION 120	// number of counts per rotation
+// TODO: DONE - This should be 360 CPR
+#define M_COUNTS_PER_ROTATION 360	// number of counts per rotation
 
 // These classes should probably be added below the Chassis class to be more Robotbuilder friendly
 class TurnOutput: public PIDOutput {
@@ -72,6 +72,9 @@ private:
 	bool m_brakeMode; 				// Brake or Coast mode for talons
 	double m_absTolerance;			// PID absolute tolerance
 	double m_rotations; 			// Number of rotations to drive in Drive Distance
+	bool m_lowGear;					// Low Gear or High Gear
+	double m_safetyInches;			// Distance used in safety timer
+	Timer m_safetyTimer;
 	TurnOutput* turnOutput;
 	GyroAngleSource* gyroAngle;
 	PIDController* turnControl;

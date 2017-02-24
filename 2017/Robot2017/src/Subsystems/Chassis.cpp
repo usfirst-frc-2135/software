@@ -86,6 +86,12 @@ Chassis::Chassis() : Subsystem("Chassis") {
     //	TODO: These may not be used
     m_absTolerance = 0.2;
     m_rotations = 0.0;
+
+    // Initialize lowGear to false
+    m_lowGear = false;
+
+    //Initialize safetyInches to zero
+    m_safetyInches = 0.0;
 }
 
 void Chassis::InitDefaultCommand() {
@@ -145,6 +151,8 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 	// reset encoders to zero
 	ResetEncoder();
+
+
 }
 
 void Chassis::UpdateSmartDashboardValues(void)
@@ -168,8 +176,8 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	xValue = joystick->GetX();
 	yValue = joystick->GetY() * m_driveDirection;
 
-	//	TODO: Scaling should only work when in high gear--not low gear
-	if (m_scaled) {
+	//	TODO: DONE - Scaling should only work when in high gear--not low gear
+	if (m_scaled && !m_lowGear) {
 		xValue = xValue * m_driveScalingFactor;
 		yValue = yValue * m_driveScalingFactor;
 	}
@@ -206,12 +214,10 @@ void Chassis::MoveScaleMaxSpeed(bool scaled)
 
 void Chassis::MoveSetVoltageRamp(double voltageRampRate)
 {
-	// TODO: L2 and R4 should always follow L1 and R3 -- this is wrong'
+	// TODO: DONE - L2 and R4 should always follow L1 and R3 -- this is wrong'
 	//	This function could probably be inline, since it is only two calls
 	motorL1->SetVoltageRampRate(voltageRampRate);
-	motorL2->SetVoltageRampRate(voltageRampRate);
 	motorR3->SetVoltageRampRate(voltageRampRate);
-	motorR4->SetVoltageRampRate(voltageRampRate);
 }
 
 void Chassis::MoveToggleBrakeMode(void)
@@ -266,6 +272,12 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 
+	// Change to brake mode
+	motorL1->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
+	motorL2->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
+	motorR3->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
+	motorR4->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
+
 	// TODO: Temporarily adjust voltage ramp rate for this year's robot
 	MoveSetVoltageRamp(voltageRampRate);
 
@@ -289,50 +301,63 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	motorL1->Set(m_rotations);
 	motorR3->Set(m_rotations);
 
-	// TODO: Set a safety timer in case encoders do not give feedback correctly
+	// TODO: DONE - Set a safety timer in case encoders do not give feedback correctly
 
 	// Enable the PID loop to start the movement
 	motorL1->Enable();
 	motorR3->Enable();
+
+	//Start safety timer
+	m_safetyTimer.Reset();
+	m_safetyTimer.Start();
 }
 
 void Chassis::MoveDriveDistancePIDExecute(void)
 {
 	//Verify that robot has reached target within absolute tolerance margins
-	if (abs((motorL1->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance) {
+	if (abs((motorL1->GetEncPosition()/1440) - m_rotations) <= m_absTolerance) {
 		printf("2135: Left PID disabled\n");
 	}
 
-	if (abs((motorR3->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance) {
+	if (abs((motorR3->GetEncPosition()/1440) - m_rotations) <= m_absTolerance) {
 		printf("2135: Right PID disabled\n");
 	}
 
 	UpdateSmartDashboardValues();
+
 }
 
 bool Chassis::MoveDriveDistancePIDAtSetpoint(void)
 {
+
+
 	// Verify that both encoders are on target
 	bool bothOnTarget = false;
 
-	// TODO: If CPR is set to be 360 instead of 120, then this calculation would probably make
+	// TODO: DONE - If CPR is set to be 360 instead of 120, then this calculation would probably make
 	//	this math be 3*480.2 ~= 1440 which is the native units of the Talon quadrature encoder
-	if ((abs((motorL1->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance) &&
-			(abs((motorR3->GetEncPosition()/480.2) - m_rotations) <= m_absTolerance)) {
+	if ((abs((motorL1->GetEncPosition()/1440.0) - m_rotations) <= m_absTolerance) &&
+			(abs((motorR3->GetEncPosition()/1440.0) - m_rotations) <= m_absTolerance)) {
 //		MoveDriveDistancePIDStop();
 		bothOnTarget = true;
 	}
 
+	if(m_safetyTimer.HasPeriodPassed((m_safetyInches/78)+1)) {
+		bothOnTarget = true;
+	}
+
 	return bothOnTarget;
+
+
 }
 
 void Chassis::MoveDriveDistancePIDStop(void)
 {
-	// TODO: Disable the PID loop
+	// TODO: DONE - Disable the PID loop
 
-	// TODO: Why are these needed?
-	motorL1->Set(0.0);
-	motorR3->Set(0.0);
+	// TODO: DONE - Why are these needed?
+	motorL1->Disable();
+	motorR3->Disable();
 
 	// TODO: Voltage Ramp and Max Output may need to be put back to Teleop setting
 
@@ -342,6 +367,12 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	// Change from PID position-loop back to PercentVbus
 	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
 	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+
+	// Change to coast mode
+	motorL1->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
+	motorL2->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
+	motorR3->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
+	motorR4->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
 
 	robotDrive->SetSafetyEnabled(true);
 }
@@ -362,18 +393,19 @@ bool Chassis::MoveDriveHeadingAtSetPoint(void) {
 }
 
 void Chassis::MoveDriveHeadingStop(void) {
-	// TODO: This should be turnControl->Disable() to stop the PID -- not individual motors
-	motorL1->Disable();
-	motorR3->Disable();
+	// TODO: DONE - This should be turnControl->Disable() to stop the PID -- not individual motors
+	turnControl->Disable();
 }
 
 void Chassis::MoveShiftGears(bool lowGear)
 {
 	if (lowGear) {
 		shifter->Set(shifter->kForward);
+		m_lowGear = true;
 	}
 	else {
 		shifter->Set(shifter->kReverse);
+		m_lowGear = false;
 	}
 }
 
