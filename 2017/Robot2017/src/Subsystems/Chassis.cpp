@@ -67,9 +67,6 @@ Chassis::Chassis() : Subsystem("Chassis") {
     //	TODO: Set voltage ramp rate to control how fast motors spin up
     //MoveSetVoltageRamp(0.0);
 
-    //	Calibrate the gyro for later use
-    gyro->Calibrate();
-
 	//	Initialize drivetrain direction for driving
     m_driveDirection = 1.0;
 
