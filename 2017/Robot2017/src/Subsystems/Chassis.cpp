@@ -57,7 +57,6 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	motorL1->ConfigEncoderCodesPerRev(USDigitalS4_CPR_360);
 	motorR3->ConfigEncoderCodesPerRev(USDigitalS4_CPR_360);
 
-
     // Invert the direction of the right hand side motors and sensors
 	motorL1->SetClosedLoopOutputDirection(false);
 	motorR3->SetClosedLoopOutputDirection(true);
@@ -434,11 +433,10 @@ std::pair<double, double> Chassis::ReadEncoder(void)
 
 void Chassis::ResetGyro(void)
 {
-//	gyro->Reset();
+	gyro->Reset();
 }
 
 double Chassis::ReadGyro(void)
 {
-	return 42;
-//	return gyro->GetAngle();
+	return gyro->GetAngle();
 }
