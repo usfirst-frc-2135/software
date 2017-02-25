@@ -304,11 +304,11 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 void Chassis::MoveDriveDistancePIDExecute(void)
 {
 	//Verify that robot has reached target within absolute tolerance margins
-	if (abs((motorL1->GetEncPosition()/480) - m_rotations) <= m_absTolerance) {
+	if (abs(m_rotations - motorL1->GetPosition()) <= m_absTolerance) {
 		//printf("2135: Left PID disabled\n");
 	}
 
-	if (abs((motorR3->GetEncPosition()/480) - m_rotations) <= m_absTolerance) {
+	if (abs(m_rotations - motorR3->GetPosition()) <= m_absTolerance) {
 		//printf("2135: Right PID disabled\n");
 	}
 
@@ -321,8 +321,8 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 	bool bothOnTarget = false;
 
 	// Subtract actual rotations from target rotations using Talon native units (CPR * 4)
-	if ((abs(m_rotations - (motorL1->GetEncPosition()/(USDigitalS4_CPR_120*4))) <= m_absTolerance) &&
-		(abs(m_rotations - (motorR3->GetEncPosition()/(USDigitalS4_CPR_120*4))) <= m_absTolerance)) {
+	if ((abs(m_rotations - motorL1->GetPosition()) <= m_absTolerance) &&
+		(abs(m_rotations - motorR3->GetPosition()) <= m_absTolerance)) {
 		bothOnTarget = true;
 	}
 
