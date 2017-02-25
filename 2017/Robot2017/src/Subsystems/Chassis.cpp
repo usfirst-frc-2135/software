@@ -54,8 +54,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Feedback device is US Digital S4 CPR 360 encoder
 	motorL1->SetFeedbackDevice(CANTalon::QuadEncoder);
 	motorR3->SetFeedbackDevice(CANTalon::QuadEncoder);
-	motorL1->ConfigEncoderCodesPerRev(USDigitalS4_CPR_360);
-	motorR3->ConfigEncoderCodesPerRev(USDigitalS4_CPR_360);
+	motorL1->ConfigEncoderCodesPerRev(USDigitalS4_CPR_120);
+	motorR3->ConfigEncoderCodesPerRev(USDigitalS4_CPR_120);
 
     // Invert the direction of the right hand side motors and sensors
 	motorL1->SetClosedLoopOutputDirection(false);
@@ -162,8 +162,8 @@ void Chassis::UpdateSmartDashboardValues(void)
 	std::pair<double, double> DriveEncoderPosition = ReadEncoder();
 	SmartDashboard::PutNumber("LeftEncoderPosition", DriveEncoderPosition.first);
 	SmartDashboard::PutNumber("RightEncoderPosition", DriveEncoderPosition.second);
-	SmartDashboard::PutNumber("LeftRotations", motorL1->Get());
-	SmartDashboard::PutNumber("RightRotations", motorR3->Get());
+	SmartDashboard::PutNumber("LeftRotations", motorL1->GetPosition());
+	SmartDashboard::PutNumber("RightRotations", motorR3->GetPosition());
 	SmartDashboard::PutNumber("LeftClosedLoopError", motorL1->GetClosedLoopError());
 	SmartDashboard::PutNumber("RightClosedLoopError", motorR3->GetClosedLoopError());
 	SmartDashboard::PutNumber("DriveGyroPosition", ReadGyro());
@@ -300,11 +300,11 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 void Chassis::MoveDriveDistancePIDExecute(void)
 {
 	//Verify that robot has reached target within absolute tolerance margins
-	if (abs((motorL1->GetEncPosition()/1440) - m_rotations) <= m_absTolerance) {
+	if (abs((motorL1->GetEncPosition()/480) - m_rotations) <= m_absTolerance) {
 		printf("2135: Left PID disabled\n");
 	}
 
-	if (abs((motorR3->GetEncPosition()/1440) - m_rotations) <= m_absTolerance) {
+	if (abs((motorR3->GetEncPosition()/480) - m_rotations) <= m_absTolerance) {
 		printf("2135: Right PID disabled\n");
 	}
 
@@ -317,8 +317,8 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 	bool bothOnTarget = false;
 
 	// Subtract actual rotations from target rotations using Talon native units (CPR * 4)
-	if ((abs(m_rotations - (motorL1->GetEncPosition()/(USDigitalS4_CPR_360*4))) <= m_absTolerance) &&
-		(abs(m_rotations - (motorR3->GetEncPosition()/(USDigitalS4_CPR_360*4))) <= m_absTolerance)) {
+	if ((abs(m_rotations - (motorL1->GetEncPosition()/(USDigitalS4_CPR_120*4))) <= m_absTolerance) &&
+		(abs(m_rotations - (motorR3->GetEncPosition()/(USDigitalS4_CPR_120*4))) <= m_absTolerance)) {
 		bothOnTarget = true;
 	}
 
