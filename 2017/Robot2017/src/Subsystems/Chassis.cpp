@@ -433,10 +433,11 @@ std::pair<double, double> Chassis::ReadEncoder(void)
 
 void Chassis::ResetGyro(void)
 {
-	gyro->Reset();
+//	gyro->Reset();
 }
 
 double Chassis::ReadGyro(void)
 {
+	return 42;
 	return gyro->GetAngle();
 }
