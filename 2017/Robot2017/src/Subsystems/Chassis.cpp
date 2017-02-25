@@ -154,6 +154,10 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	// reset encoders to zero
 	ResetEncoder();
 	ResetGyro();
+
+	//reset rotation count to zero
+	SmartDashboard::PutNumber("LeftRotations", 0.0);
+	SmartDashboard::PutNumber("RightRotations", 0.0);
 }
 
 void Chassis::UpdateSmartDashboardValues(void)
@@ -301,11 +305,11 @@ void Chassis::MoveDriveDistancePIDExecute(void)
 {
 	//Verify that robot has reached target within absolute tolerance margins
 	if (abs((motorL1->GetEncPosition()/480) - m_rotations) <= m_absTolerance) {
-		printf("2135: Left PID disabled\n");
+		//printf("2135: Left PID disabled\n");
 	}
 
 	if (abs((motorR3->GetEncPosition()/480) - m_rotations) <= m_absTolerance) {
-		printf("2135: Right PID disabled\n");
+		//printf("2135: Right PID disabled\n");
 	}
 
 	UpdateSmartDashboardValues();
@@ -325,7 +329,7 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 	// If on target or timer has passed 3.0 seconds
 	// TODO: can't really use a distance, because PID will not move at full speed always
 //	return bothOnTarget || (m_safetyTimer.HasPeriodPassed((m_safetyInches/78)+1));
-	return bothOnTarget || (m_safetyTimer.HasPeriodPassed(3.0));
+	return bothOnTarget || (m_safetyTimer.HasPeriodPassed(10.0));
 }
 
 void Chassis::MoveDriveDistancePIDStop(void)
