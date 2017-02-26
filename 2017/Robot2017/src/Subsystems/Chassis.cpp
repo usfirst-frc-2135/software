@@ -157,9 +157,21 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	ResetEncoder();
 	ResetGyro();
 
-	//reset rotation count to zero
+	// calibrate gyro
+	gyro->Calibrate();
+
+	// reset rotation count to zero
 	SmartDashboard::PutNumber("LeftRotations", 0.0);
 	SmartDashboard::PutNumber("RightRotations", 0.0);
+
+	// drive heading angle
+	SmartDashboard::PutNumber("DriveHeadingAngle", 0.0);
+
+	// TEST - Kp
+	SmartDashboard::PutNumber("DrivePIDProportional", 0.3);
+
+	// TEST - Nominal Output Voltage
+	SmartDashboard::PutNumber("DrivePIDNomOutVolts", 0.0);
 }
 
 void Chassis::UpdateSmartDashboardValues(void)
@@ -170,8 +182,8 @@ void Chassis::UpdateSmartDashboardValues(void)
 	SmartDashboard::PutNumber("RightEncoderPosition", DriveEncoderPosition.second);
 	SmartDashboard::PutNumber("LeftRotations", motorL1->GetPosition());
 	SmartDashboard::PutNumber("RightRotations", motorR3->GetPosition());
-	SmartDashboard::PutNumber("LeftClosedLoopError", motorL1->GetClosedLoopError());
-	SmartDashboard::PutNumber("RightClosedLoopError", motorR3->GetClosedLoopError());
+//	SmartDashboard::PutNumber("LeftClosedLoopError", motorL1->GetClosedLoopError());
+//	SmartDashboard::PutNumber("RightClosedLoopError", motorR3->GetClosedLoopError());
 	SmartDashboard::PutNumber("DriveGyroPosition", ReadGyro());
 }
 
@@ -246,6 +258,7 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	double closeLoopRampRate;
 	double peakOutputVoltage;
 	double proportional;
+	double nominalOutputVoltage;
 
 	m_rotations = inches / (WheelDiaInches * M_PI);
 	printf("2135: Encoder Distance %f rotations, %f inches\n", m_rotations, inches);
@@ -253,6 +266,7 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	// TODO: Experiment to get default values
 	closeLoopRampRate = SmartDashboard::GetNumber("DriveCloseLoopRampRate", 8.0);
 	peakOutputVoltage = SmartDashboard::GetNumber("DrivePIDPeakOutVolts", 5.0);
+	nominalOutputVoltage = SmartDashboard::GetNumber("DrivePIDNomOutVolts", 0.0);
 	proportional = SmartDashboard::GetNumber("DrivePIDProportional", 0.3);
 	m_absTolerance = SmartDashboard::GetNumber("DrivePIDAbsTolerance", 0.2);
 
@@ -274,6 +288,10 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	// Adjust peak output voltage for this year's robot
 	motorL1->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
 	motorR3->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
+
+	// Adjust nominal output voltage for their year's robot -- TEST
+	motorL1->ConfigNominalOutputVoltage(nominalOutputVoltage, -nominalOutputVoltage);
+	motorR3->ConfigNominalOutputVoltage(nominalOutputVoltage, -nominalOutputVoltage);
 
 	// This should be set one time in constructor
 	motorL1->SetPID(proportional, 0.0, 0.0);
@@ -329,8 +347,11 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 		double leftDifference = m_rotations - motorL1->GetPosition();
 		double rightDifference = m_rotations - motorR3->GetPosition();
 
-		printf("2135: Left Difference -- %3f\n", leftDifference);
-		printf("2135: Right Difference -- %3f\n", rightDifference);
+		printf("2135: Absolute Tolerance: %f\n", m_absTolerance);
+		printf("2135: Rotations: %f\n", m_rotations);
+		printf("2135: Left Rotations: %f\n", motorL1->GetPosition());
+		printf("2135: Left Difference: %3f\n", leftDifference);
+		printf("2135: Right Difference: %3f\n", rightDifference);
 
 		bothOnTarget = true;
 	}
@@ -380,6 +401,8 @@ void Chassis::MoveDriveHeadingDistance(double inches, double angle)
 	MoveShiftGears(true);
 
 	// Enable the PID loop
+	turnControl->SetOutputRange(-0.8, 0.8);
+	turnControl->SetAbsoluteTolerance(2.0);
 	turnControl->Enable();
 
 	//Start safety timer
@@ -389,7 +412,7 @@ void Chassis::MoveDriveHeadingDistance(double inches, double angle)
 
 bool Chassis::MoveDriveHeadingIsPIDAtSetPoint(void) {
 	// Test the PID to see if it is on the programmed target
-	return (turnControl->OnTarget()) || (m_safetyTimer.HasPeriodPassed(2.0));
+	return (turnControl->OnTarget()); // || (m_safetyTimer.HasPeriodPassed(10.0));
 }
 
 void Chassis::MoveDriveHeadingStop(void) {
@@ -446,11 +469,10 @@ std::pair<double, double> Chassis::ReadEncoder(void)
 
 void Chassis::ResetGyro(void)
 {
-//	gyro->Reset();
+	gyro->Reset();
 }
 
 double Chassis::ReadGyro(void)
 {
-	return 42;
 	return gyro->GetAngle();
 }
