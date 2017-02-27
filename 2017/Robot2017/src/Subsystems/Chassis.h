@@ -79,12 +79,14 @@ private:
 	double m_driveScalingFactor;	// Scaling applied to joystick for SW shifting
 	double m_driveSpinSetting;		// Spin turn power setting
 	bool m_brakeMode; 				// Brake or Coast mode for talons
-	double m_driveCloseLoopRamp;	// Closed loop ramp rate voltage - 0.0 disables
-	double m_absTolerance;			// PID absolute tolerance
-	double m_rotations; 			// Number of rotations to drive in Drive Distance
+
+	double m_pidCloseLoopRamp;		// Closed loop ramp rate voltage - 0.0 disables
+	double m_pidAllowCloseLoopError; // Closed loop allowable error in native units
+	double m_pidTargetRotations; 	// Number of rotations to drive in Drive Distance
+
 	bool m_lowGear;					// Low Gear or High Gear
-	double m_safetyInches;			// Distance used in safety timer
-	Timer m_safetyTimer;
+	Timer m_safetyTimer;			// Safety timer for use during autonomous modes
+
 	TurnOutput *turnOutput;
 	PIDController *turnControl;
 
@@ -103,7 +105,7 @@ public:
 	void MoveSpin(bool spinLeft);
 	void MoveInvertDriveDirection(void);
 	void MoveScaleMaxSpeed(bool scaled);
-	void MoveToggleBrakeMode(void);
+	void MoveSetBrakeNotCoastMode(bool brakeMode);
 	void MoveUsingMotorOutputs(double motorInputLeft, double motorInputRight);
 
 	// Sequence for Drive Distance
@@ -112,15 +114,12 @@ public:
 	bool MoveDriveDistanceIsPIDAtSetpoint(void);
 	void MoveDriveDistancePIDStop(void);
 
+	// Sequence for Drive to Turn to a Heading
 	void MoveDriveHeadingDistance(double inches, double angle);
 	bool MoveDriveHeadingIsPIDAtSetPoint(void);
 	void MoveDriveHeadingStop(void);
-	void MoveShiftGears(bool lowGear);
 
-	void ResetEncoder(void);
-	std::pair<double, double> ReadEncoder(void);
-	void ResetGyro(void);
-	double ReadGyro(void);
+	void MoveShiftGears(bool lowGear);
 };
 
 #endif
