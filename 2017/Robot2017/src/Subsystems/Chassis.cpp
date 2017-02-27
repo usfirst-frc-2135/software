@@ -136,7 +136,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	// absTolerance - in rotations
 	// TODO: This seems to be copied from an old robot--we should try NO tolerance first
 	//	AND the units seem to be WRONG from what the reference manual states-- should be in CPR*4
-	m_pidAllowCloseLoopError = Robot::LoadPreferencesVariable("ChsCL_AllowError", 40);
+	m_pidAllowCloseLoopError = Robot::LoadPreferencesVariable("ChsCL_AllowError", 0);
 	SmartDashboard::PutNumber("CL_AllowError", m_pidAllowCloseLoopError);
 //	motorL1->SetAllowableClosedLoopErr(m_absTolerance);
 //	motorR3->SetAllowableClosedLoopErr(m_absTolerance);
@@ -147,7 +147,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 	// peakOutput
 	// TODO: This seems to be copied from an old robot--we should either COMMENT this or disable by setting to 12.0
-//	SmartDashboard::PutNumber("CL_PeakOutVolts", Robot::LoadPreferencesVariable("ChsCL_PeakOutVolts", 5.0));
+	SmartDashboard::PutNumber("CL_PeakOutVolts", Robot::LoadPreferencesVariable("ChsCL_PeakOutVolts", 5.0));
 
 	// proportional
 	// TODO: This seems to be copied from an old robot--it is too low for the PID loop. Should be ~2.5 to 5.0 ish
@@ -350,22 +350,28 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 {
 	// Verify that both encoders are on target
 	bool bothOnTarget = false;
-	double leftDifference;
-	double rightDifference;
+//	double leftDifference;
+//	double rightDifference;
 
-	// Calculate difference of target rotations minus actual position (called the "error")
-	leftDifference = m_pidTargetRotations - motorL1->GetPosition();
-	rightDifference = m_pidTargetRotations - motorR3->GetPosition();
+//	// Calculate difference of target rotations minus actual position (called the "error")
+//	leftDifference = m_pidTargetRotations - motorL1->GetPosition();
+//	rightDifference = m_pidTargetRotations - motorR3->GetPosition();
+//
+//	// If both left and right differences are within our tolerance
+//	if ((abs(leftDifference) <= m_pidAllowCloseLoopError/(USDigitalS4_CPR_120*4)) &&
+//		(abs(rightDifference) <= m_pidAllowCloseLoopError/(USDigitalS4_CPR_120*4))) {
+//
+//		printf("2135: TargetRotations: %3.2f < %3.2f < %3.2f\n", m_pidTargetRotations-m_pidAllowCloseLoopError,
+//			m_pidTargetRotations, m_pidTargetRotations+m_pidAllowCloseLoopError);
+//		printf("2135: Position Rotations L: %3.2f  R: %3.2f\n", motorL1->GetPosition(), motorR3->GetPosition());
+//		printf("2135: Difference         L: %3.2f  R: %3.2f\n", leftDifference, rightDifference);
+//
+//		bothOnTarget = true;
+//	}
 
-	// If both left and right differences are within our tolerance
-	if ((abs(leftDifference) <= m_pidAllowCloseLoopError) &&
-		(abs(rightDifference) <= m_pidAllowCloseLoopError)) {
-
-		printf("2135: TargetRotations: %3.2f < %3.2f < %3.2f\n", m_pidTargetRotations-m_pidAllowCloseLoopError,
-			m_pidTargetRotations, m_pidTargetRotations+m_pidAllowCloseLoopError);
+	if ((motorL1->GetClosedLoopError() < 30) && (motorR3->GetClosedLoopError() < 30)) {
+		printf("2135: TargetRotations: %3.2f\n", m_pidTargetRotations);
 		printf("2135: Position Rotations L: %3.2f  R: %3.2f\n", motorL1->GetPosition(), motorR3->GetPosition());
-		printf("2135: Difference         L: %3.2f  R: %3.2f\n", leftDifference, rightDifference);
-
 		bothOnTarget = true;
 	}
 
