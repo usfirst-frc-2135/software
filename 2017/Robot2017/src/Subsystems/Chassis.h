@@ -69,7 +69,11 @@ private:
 	const unsigned short int	USDigitalS4_CPR_120 = 120;
 	const double				WheelDiaInches = 4.0;
 
+#ifdef USE_ADXRS450_GYRO
 	std::shared_ptr<ADXRS450_Gyro> gyro;
+#else
+	std::shared_ptr<AnalogGyro> gyro;
+#endif
 
 	double m_driveDirection;		// Allows chassis drive direction change
 	double m_driveScalingFactor;	// Scaling applied to joystick for SW shifting

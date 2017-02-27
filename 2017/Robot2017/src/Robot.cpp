@@ -71,6 +71,8 @@ void Robot::DisabledPeriodic() {
 		m_faultsCleared = true;
 		HandleFaults();
 	}
+
+	Robot::chassis->UpdateSmartDashboardValues();
 }
 
 void Robot::AutonomousInit() {
@@ -96,6 +98,8 @@ void Robot::AutonomousInit() {
 
 void Robot::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
+
+	Robot::chassis->UpdateSmartDashboardValues();
 }
 
 void Robot::TeleopInit() {
@@ -106,7 +110,6 @@ void Robot::TeleopInit() {
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
 
-	// Initialize preferences file on roboRIO
 	// Initialize SmartDashboard and Subsystems
 	chassis->Initialize(prefs);
 	fflush(stdout);
