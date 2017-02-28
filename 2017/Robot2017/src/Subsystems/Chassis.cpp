@@ -130,7 +130,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	// TODO: This seems to be copied from an old robot--we should try NO ramp rate first
 	m_pidCloseLoopRamp = Robot::LoadPreferencesVariable("ChsCL_RampRate", 8.0);
 	SmartDashboard::PutNumber("CL_RampRate", m_pidCloseLoopRamp);
-//	motorL1->SetCloseLoopRampRate(m_driveCloseLoopRamp);
+//	motorL1->SetCloseLoopRampRate(m_pidCloseLoopRamp);
 //	motorR3->SetCloseLoopRampRate(m_pidCloseLoopRamp);
 
 	// absTolerance - in rotations
@@ -147,7 +147,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 	// peakOutput
 	// TODO: This seems to be copied from an old robot--we should either COMMENT this or disable by setting to 12.0
-	SmartDashboard::PutNumber("CL_PeakOutVolts", Robot::LoadPreferencesVariable("ChsCL_PeakOutVolts", 5.0));
+//	SmartDashboard::PutNumber("CL_PeakOutVolts", Robot::LoadPreferencesVariable("ChsCL_PeakOutVolts", 5.0));
 
 	// proportional
 	// TODO: This seems to be copied from an old robot--it is too low for the PID loop. Should be ~2.5 to 5.0 ish
@@ -280,7 +280,6 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	m_pidTargetRotations = inches / (WheelDiaInches * M_PI);
 	printf("2135: Encoder Distance %f rotations, %f inches\n", m_pidTargetRotations, inches);
 
-	// TODO: Experiment to get default values
 //	closeLoopRampRate = SmartDashboard::GetNumber("CL_RampRate", 8.0);
 //	peakOutputVoltage = SmartDashboard::GetNumber("CL_PeakOutVolts", 5.0);
 //	nominalOutputVoltage = SmartDashboard::GetNumber("CL_NomOutVolts", 0.0);
