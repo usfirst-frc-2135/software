@@ -27,7 +27,7 @@ AutonDriveTurn::AutonDriveTurn(double angle): Command() {
 // Called just before this Command runs the first time
 void AutonDriveTurn::Initialize() {
 	m_angle = SmartDashboard::GetNumber("DriveHeadingAngle", 0.0);
-	Robot::chassis->MoveDriveHeadingDistance(0, m_angle);
+	Robot::chassis->MoveDriveHeadingDistanceInit(0, m_angle);
 	printf("2135: Auton Drive Turn - Start\n");
 	printf("!!!!! m_angle = %f\n", m_angle);
 

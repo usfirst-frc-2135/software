@@ -38,8 +38,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     // Drivetrain Talon settings - Teleop mode
 
-    // TODO: Safety cannot remain disabled for competition code
-    robotDrive->SetSafetyEnabled(false);
+    // Enable motor safety code on drive motors
+    robotDrive->SetSafetyEnabled(true);
 
     // Make second Talon SRX controller on each side of drivetrain follow the main Talon SRX
     motorL2->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
@@ -49,7 +49,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     // Drivetrain Talon settings - Autonomous modes
 
-    // Feedback device is US Digital S4 CPR 360 encoder
+    // Feedback device is US Digital S4 CPR 120 encoder
 	motorL1->SetFeedbackDevice(CANTalon::QuadEncoder);
 	motorR3->SetFeedbackDevice(CANTalon::QuadEncoder);
 	motorL1->ConfigEncoderCodesPerRev(USDigitalS4_CPR_120);
@@ -71,18 +71,18 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
 	//	Initialize drivetrain modifiers
     m_driveDirection = 1.0;			// Initialize drivetrain direction for driving forward or backward
-    m_driveScalingFactor = 1.0;		// Initialize scaling factor and disable it
-    m_driveSpinSetting = 0.45;		// Initialize power setting used for spin turns
+    m_driveScaling = 1.0;		// Initialize scaling factor and disable it
+    m_driveSpin = 0.45;		// Initialize power setting used for spin turns
 
     // 	Initialize closed loop parameters for Talon PID - ramp rate, close loop error, target rotations
-    m_pidCloseLoopRamp = 0.0;
-    m_pidAllowCloseLoopError = 0.0;
+    m_CL_RampRate = 0.0;
+    m_CL_AllowError = 0.0;
     m_pidTargetRotations = 0.0;
 
     // Initialize to high gear
     m_lowGear = false;
 
-    // TODO: Calibrate gyro - this is believed to take a few seconds--must be in constructor
+    // NOTE: Calibrate gyro - this takes a few seconds--must not be in mode switch to Teleop or Auton
     printf("2135: Starting gyro calibration\n");
 	gyro->Calibrate();
     printf("2135: Stopping gyro calibration\n");
@@ -113,63 +113,51 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	printf("2135: Chassis Initialize\n");
 
 	// Drive invert direction the stick moves the robot
-	SmartDashboard::PutNumber("DriveInvert", m_driveDirection);
+	SmartDashboard::PutNumber("DriveDirection", m_driveDirection);
 
 	// Brake/coast mode for talon speed controller
+    m_brakeMode = false;
     MoveSetBrakeNotCoastMode(m_brakeMode);
 
-	// Scale maximum driving speed - beginner mode
-	m_driveScalingFactor = Robot::LoadPreferencesVariable("ChsDriveScaling", 1.0);
-	SmartDashboard::PutNumber("DriveScaling", m_driveScalingFactor);
+	// Scale maximum driving speed - if in beginner mode
+	m_driveScaling = Robot::LoadPreferencesVariable("ChsDriveScaling", 1.0);
+	SmartDashboard::PutNumber("DriveScaling", m_driveScaling);
 
 	// Speed to apply to the motors for spin turns
-	m_driveSpinSetting = Robot::LoadPreferencesVariable("ChsDriveSpin", 0.4);
-	SmartDashboard::PutNumber("DriveSpin", m_driveSpinSetting);
+	m_driveSpin = Robot::LoadPreferencesVariable("ChsDriveSpin", 0.4);
+	SmartDashboard::PutNumber("DriveSpin", m_driveSpin);
 
 	// Closed Loop VoltageRampRate
-	// TODO: This seems to be copied from an old robot--we should try NO ramp rate first
-	m_pidCloseLoopRamp = Robot::LoadPreferencesVariable("ChsCL_RampRate", 8.0);
-	SmartDashboard::PutNumber("CL_RampRate", m_pidCloseLoopRamp);
-//	motorL1->SetCloseLoopRampRate(m_pidCloseLoopRamp);
-//	motorR3->SetCloseLoopRampRate(m_pidCloseLoopRamp);
+	// NOTE: Tune this after main PID loop is working ONLY to eliminate initial lurching
+	//	0.0 disables the ramp. Start tuning at full speed in one half second (24.0V)
+	m_CL_RampRate = Robot::LoadPreferencesVariable("ChsCL_RampRate", 24.0);
+	SmartDashboard::PutNumber("CL_RampRate", m_CL_RampRate);
+//	motorL1->SetCloseLoopRampRate(m_CL_RampRate);
+//	motorR3->SetCloseLoopRampRate(m_CL_RampRate);
 
-	// absTolerance - in rotations
-	// TODO: This seems to be copied from an old robot--we should try NO tolerance first
-	//	AND the units seem to be WRONG from what the reference manual states-- should be in CPR*4
-	m_pidAllowCloseLoopError = Robot::LoadPreferencesVariable("ChsCL_AllowError", 0);
-	SmartDashboard::PutNumber("CL_AllowError", m_pidAllowCloseLoopError);
-//	motorL1->SetAllowableClosedLoopErr(m_absTolerance);
-//	motorR3->SetAllowableClosedLoopErr(m_absTolerance);
+	// Allowable Closed Loop Error - in Talon native units (480 units per one rotation)
+	m_CL_AllowError = Robot::LoadPreferencesVariable("ChsCL_AllowError", USDigitalS4_CPR_120*4/24);
+	SmartDashboard::PutNumber("CL_AllowError", m_CL_AllowError);
+//	motorL1->SetAllowableClosedLoopErr(m_CL_AllowError);
+//	motorR3->SetAllowableClosedLoopErr(m_CL_AllowError);
 
-	// left right encoder values
+	// Reset left/right encoder values
 	motorL1->SetEncPosition(0);
 	motorR3->SetEncPosition(0);
 
-	// peakOutput
-	// TODO: This seems to be copied from an old robot--we should either COMMENT this or disable by setting to 12.0
-//	SmartDashboard::PutNumber("CL_PeakOutVolts", Robot::LoadPreferencesVariable("ChsCL_PeakOutVolts", 5.0));
-
-	// proportional
-	// TODO: This seems to be copied from an old robot--it is too low for the PID loop. Should be ~2.5 to 5.0 ish
+	// Closed Loop proportional constant (Kp)
+	// TODO: Tune PID loop here - estimated value should be ~2.5 - 6.0 (could be outside these limits)
 	SmartDashboard::PutNumber("CL_Proportional", Robot::LoadPreferencesVariable("ChsCL_Proportional", 3.5));
 
 	// drive distance inches
-	// TODO: We should have the default distance be something safer like 5 ft max (60 inches)
-	SmartDashboard::PutNumber("DriveDistance", 60);
+	// Read from SmartDashboard
+	SmartDashboard::PutNumber("TargetRotations", Robot::LoadPreferencesVariable("CL_TargetRotations", 60));
 
 	// reset gyro to zero
 	gyro->Reset();
 
 	// drive heading angle
 	SmartDashboard::PutNumber("DriveHeadingAngle", 0.0);
-
-//	TODO: Not a great place to be hard-coding these values Put them near where the values are set--if needed at all
-	// We put the smartdashboard controls in to keep from having to do exactly this stuff
-	// TEST - Kp
-//	SmartDashboard::PutNumber("CL_Proportional", 0.3);
-
-	// TEST - Nominal Output Voltage
-//	SmartDashboard::PutNumber("CL_NomOutVolts", 0.0);
 }
 
 
@@ -178,7 +166,6 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 void Chassis::UpdateSmartDashboardValues(void)
 {
-	// TODO: Verify for correct values
 	SmartDashboard::PutNumber("ChsL_EncPosition", motorL1->GetEncPosition());
 	SmartDashboard::PutNumber("ChsR_EncPosition", motorR3->GetEncPosition());
 	SmartDashboard::PutNumber("ChsL_Rotations", motorL1->GetPosition());
@@ -206,8 +193,8 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	// If in high gear, use the scaling factor against the y-axis
 	// TODO: Why does scaling affect the X axis? Should it? (Maybe it's correct)
 	if (!m_lowGear) {
-		xValue = xValue * m_driveScalingFactor;
-		yValue = yValue * m_driveScalingFactor;
+		xValue = xValue * m_driveScaling;
+		yValue = yValue * m_driveScaling;
 	}
 
 	// Apply modified joystick input to the drive motors
@@ -219,10 +206,11 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 void Chassis::MoveSpin(bool spinLeft)
 {
 	// Use input flag to perform a left/right turn using equal power, opposite direction on motors
+	// TODO: Test spin turns because it looks like they may not work now
 	if (spinLeft)
-		robotDrive->SetLeftRightMotorOutputs( -m_driveSpinSetting, m_driveSpinSetting );
+		robotDrive->SetLeftRightMotorOutputs( -m_driveSpin, m_driveSpin );
 	else
-		robotDrive->SetLeftRightMotorOutputs( m_driveSpinSetting, -m_driveSpinSetting );
+		robotDrive->SetLeftRightMotorOutputs( m_driveSpin, -m_driveSpin );
 }
 
 // MoveInvertDriveDirection is a custom feature to set robot drive direction to flip from front to back
@@ -231,7 +219,7 @@ void Chassis::MoveInvertDriveDirection(void)
 {
 	// Toggle the drive direction and update the dashboard status
 	m_driveDirection = -m_driveDirection;
-	SmartDashboard::PutNumber("DriveInvert", m_driveDirection);
+	SmartDashboard::PutNumber("DriveDirection", m_driveDirection);
 }
 
 // MoveSetBrakeNotCoastMode is used to allow other functions and commands to change how the drive works
@@ -272,18 +260,13 @@ void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRigh
 
 void Chassis::MoveDriveDistancePIDInit(double inches)
 {
+	double proportional;
 //	double closeLoopRampRate;
 //	double peakOutputVoltage;
 //	double nominalOutputVoltage;
-	double proportional;
 
 	m_pidTargetRotations = inches / (WheelDiaInches * M_PI);
 	printf("2135: Encoder Distance %f rotations, %f inches\n", m_pidTargetRotations, inches);
-
-//	closeLoopRampRate = SmartDashboard::GetNumber("CL_RampRate", 8.0);
-//	peakOutputVoltage = SmartDashboard::GetNumber("CL_PeakOutVolts", 5.0);
-//	nominalOutputVoltage = SmartDashboard::GetNumber("CL_NomOutVolts", 0.0);
-	proportional = SmartDashboard::GetNumber("CL_Proportional", 3.6);
 
 	// Shift into low gear during movement for better accuracy
 	MoveShiftGears(true);
@@ -295,19 +278,23 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	// Change to brake mode
 	MoveSetBrakeNotCoastMode(true);
 
-	// Temporarily adjust voltage ramp rate for this year's robot
+	// NOTE: If needed, temporarily adjust voltage ramp rate for autonomous to prevent lurching
+//	closeLoopRampRate = SmartDashboard::GetNumber("CL_RampRate", 24.0);
 //	motorL1->SetCloseLoopRampRate(closeLoopRampRate);
 //	motorR3->SetCloseLoopRampRate(closeLoopRampRate);
 
-	// Adjust peak output voltage for this year's robot
+	// NOTE: If needed, temporarily adjust peak output voltage to lower top speed
+//	peakOutputVoltage = SmartDashboard::GetNumber("CL_PeakOutVolts", 12.0);
 //	motorL1->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
 //	motorR3->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
 
-	// Adjust nominal output voltage for their year's robot -- TEST
+	// NOTE: If needed, temporarily adjust nominal output voltage if doesn't quite reach target
+//	nominalOutputVoltage = SmartDashboard::GetNumber("CL_NomOutVolts", 0.0);
 //	motorL1->ConfigNominalOutputVoltage(nominalOutputVoltage, -nominalOutputVoltage);
 //	motorR3->ConfigNominalOutputVoltage(nominalOutputVoltage, -nominalOutputVoltage);
 
 	// This should be set one time in constructor
+	proportional = SmartDashboard::GetNumber("CL_Proportional", 3.6);
 	motorL1->SetPID(proportional, 0.0, 0.0);
 	motorR3->SetPID(proportional, 0.0, 0.0);
 
@@ -335,48 +322,26 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 
 void Chassis::MoveDriveDistancePIDExecute(void)
 {
-//	//Verify that robot has reached target within absolute tolerance margins
-//	if (abs(m_rotations - motorL1->GetPosition()) <= m_absToleranceRotations) {
-//		//printf("2135: Left PID disabled\n");
-//	}
-//
-//	if (abs(m_rotations - motorR3->GetPosition()) <= m_absToleranceRotations) {
-//		//printf("2135: Right PID disabled\n");
-//	}
+	// No work needed since Talon does it all internally
 }
 
 bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 {
 	// Verify that both encoders are on target
 	bool bothOnTarget = false;
-//	double leftDifference;
-//	double rightDifference;
 
-//	// Calculate difference of target rotations minus actual position (called the "error")
-//	leftDifference = m_pidTargetRotations - motorL1->GetPosition();
-//	rightDifference = m_pidTargetRotations - motorR3->GetPosition();
-//
-//	// If both left and right differences are within our tolerance
-//	if ((abs(leftDifference) <= m_pidAllowCloseLoopError/(USDigitalS4_CPR_120*4)) &&
-//		(abs(rightDifference) <= m_pidAllowCloseLoopError/(USDigitalS4_CPR_120*4))) {
-//
-//		printf("2135: TargetRotations: %3.2f < %3.2f < %3.2f\n", m_pidTargetRotations-m_pidAllowCloseLoopError,
-//			m_pidTargetRotations, m_pidTargetRotations+m_pidAllowCloseLoopError);
-//		printf("2135: Position Rotations L: %3.2f  R: %3.2f\n", motorL1->GetPosition(), motorR3->GetPosition());
-//		printf("2135: Difference         L: %3.2f  R: %3.2f\n", leftDifference, rightDifference);
-//
-//		bothOnTarget = true;
-//	}
-
-	if ((motorL1->GetClosedLoopError() < 30) && (motorR3->GetClosedLoopError() < 30)) {
-		printf("2135: TargetRotations: %3.2f\n", m_pidTargetRotations);
-		printf("2135: Position Rotations L: %3.2f  R: %3.2f\n", motorL1->GetPosition(), motorR3->GetPosition());
+	if ((motorL1->GetClosedLoopError() < m_CL_AllowError) &&
+		(motorR3->GetClosedLoopError() < m_CL_AllowError)) {
+		printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
+		printf("2135: TargetRotations: %3.2f  L: %3.2f R: %3.2f\n", m_pidTargetRotations,
+			motorL1->GetPosition(), motorR3->GetPosition());
+		printf("2135: ClosedLoopError:  L: %d  R: %d\n",
+			motorL1->GetClosedLoopError(), motorL1->GetClosedLoopError());
 		bothOnTarget = true;
 	}
 
-	// If on target or timer has passed 3.0 seconds
-	// TODO: can't really use a distance, because PID will not move at full speed always
-//	return bothOnTarget || (m_safetyTimer.HasPeriodPassed((m_safetyInches/78)+1));
+	// TODO: Tune this to a time of about 2X the time it normally takes to drive the distance
+	// If on target or safety timer has expired
 	return bothOnTarget || (m_safetyTimer.HasPeriodPassed(10.0));
 }
 
@@ -391,8 +356,13 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	motorL1->Disable();
 	motorR3->Disable();
 
-	// Change back to gear setting default
-	MoveShiftGears(false);
+	// NOTE: If needed, return nominal output voltage to default
+//	motorL1->ConfigNominalOutputVoltage(0.0, -0.0);
+//	motorR3->ConfigNominalOutputVoltage(0.0, -0.0);
+
+	// NOTE: If needed, return peak output voltage to default
+//	motorL1->ConfigPeakOutputVoltage(12.0, -12.0);
+//	motorR3->ConfigPeakOutputVoltage(12.0, -12.0);
 
 	// Change to coast mode
 	MoveSetBrakeNotCoastMode(false);
@@ -401,20 +371,22 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
 	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
 
+	// Change back to gear setting default
+	MoveShiftGears(false);
+
 	// Re-enable the motor safety helper
 	robotDrive->SetSafetyEnabled(true);
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 //	Closed loop movement - Drive to a relative heading using PID loop in RoboRIO
 
-void Chassis::MoveDriveHeadingDistance(double inches, double angle)
+void Chassis::MoveDriveHeadingDistanceInit(double inches, double angle)
 {
 	// Program the PID target setpoint
 	turnControl->SetSetpoint(angle);
-	printf("===> MoveDriveHeadingDistance() using angle: %f\n",angle);
+	printf("===> MoveDriveHeadingDistance() using angle: %f\n", angle);
 
 	// Shift into low gear during movement for better accuracy
 	MoveShiftGears(true);

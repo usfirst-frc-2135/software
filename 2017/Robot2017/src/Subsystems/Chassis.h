@@ -76,12 +76,12 @@ private:
 #endif
 
 	double m_driveDirection;		// Allows chassis drive direction change
-	double m_driveScalingFactor;	// Scaling applied to joystick for SW shifting
-	double m_driveSpinSetting;		// Spin turn power setting
+	double m_driveScaling;	// Scaling applied to joystick for SW shifting
+	double m_driveSpin;		// Spin turn power setting
 	bool m_brakeMode; 				// Brake or Coast mode for talons
 
-	double m_pidCloseLoopRamp;		// Closed loop ramp rate voltage - 0.0 disables
-	double m_pidAllowCloseLoopError; // Closed loop allowable error in native units
+	double m_CL_RampRate;		// Closed loop ramp rate voltage - 0.0 disables
+	double m_CL_AllowError; // Closed loop allowable error in native units
 	double m_pidTargetRotations; 	// Number of rotations to drive in Drive Distance
 
 	bool m_lowGear;					// Low Gear or High Gear
@@ -115,7 +115,7 @@ public:
 	void MoveDriveDistancePIDStop(void);
 
 	// Sequence for Drive to Turn to a Heading
-	void MoveDriveHeadingDistance(double inches, double angle);
+	void MoveDriveHeadingDistanceInit(double inches, double angle);
 	bool MoveDriveHeadingIsPIDAtSetPoint(void);
 	void MoveDriveHeadingStop(void);
 

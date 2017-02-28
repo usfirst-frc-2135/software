@@ -125,17 +125,10 @@ void Robot::TeleopInit() {
 	fflush(stdout);
 	shooter->Initialize(prefs);
 	fflush(stdout);
-
-//#if 1	// TODO: test code for servo - remove this
-//	RobotMap::shooterBallGate->SetAngle(90.0); //TEST initialize servo at 90 degrees
-//		printf("****** Initializing servo to 90 degrees\n");
-//		printf("ANGLE AFTER INITIALIZATION = %3f\n", RobotMap::shooterBallGate->GetAngle());
-//
-//#endif
 }
 
 void Robot::TeleopPeriodic() {
-	Scheduler::GetInstance()->Run(); // TODO: PROBLEM (why is this marked as a problem?)
+	Scheduler::GetInstance()->Run();
 
 	Robot::chassis->UpdateSmartDashboardValues();
 
