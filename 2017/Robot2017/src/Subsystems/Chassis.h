@@ -34,7 +34,7 @@ public:
 
 	void PIDWrite(double output) {
 //		printf("==>Passing to Arcade Drive output = %3f\n", output);
-//		myRobotDrive->ArcadeDrive (0.0, output, true);
+//		myRobotDrive->ArcadeDrive (0.0, output, false);
 		leftMotor->Set(output);
 		rightMotor->Set(-output);
 		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
@@ -84,12 +84,12 @@ private:
 #endif
 
 	double m_driveDirection;		// Allows chassis drive direction change
-	double m_driveScaling;	// Scaling applied to joystick for SW shifting
-	double m_driveSpin;		// Spin turn power setting
+	double m_driveScaling;			// Scaling applied to joystick for SW shifting
+	double m_driveSpin;				// Spin turn power setting
 	bool m_brakeMode; 				// Brake or Coast mode for talons
 
-	double m_CL_RampRate;		// Closed loop ramp rate voltage - 0.0 disables
-	int m_CL_AllowError; // Closed loop allowable error in native units
+	double m_CL_RampRate;			// Closed loop ramp rate voltage - 0.0 disables
+	int m_CL_AllowError; 			// Closed loop allowable error in native units
 	double m_pidTargetRotations; 	// Number of rotations to drive in Drive Distance
 
 	bool m_lowGear;					// Low Gear or High Gear

@@ -228,14 +228,14 @@ void Robot::CameraVisionThread() {
 	//Flag for SmartDashboard if rectContours are found
 	SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);  // initialize
 
+	//	TODO: Getting SmartDashboard values is resource intensive--only do it occasionally
+
 	// Get the current brightness from the dashboard
-	//	TODO: getting values from the dashboard is reinputFrame intensive--only do it occasionally
 	//		Maybe only do it when we do TelopInit or AutonInit
 	int camBrightness = SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D);
 	camera.SetBrightness(camBrightness);
 
 	// Get the current exposure from the dashboard
-	//	TODO: only do this occasionally - resource intensive
 	int camExposure = SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D);
 	camera.SetExposureManual(camExposure);
 

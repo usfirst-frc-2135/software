@@ -200,7 +200,8 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 		yValue = yValue * m_driveScaling;
 	}
 
-	// Apply modified joystick input to the drive motors
+	// Apply modified joystick input to the drive motorsd
+	// TODO: Why do we pass the wrong X, Y values than the API says?
 	robotDrive->ArcadeDrive( xValue, yValue, true );
 }
 
@@ -209,7 +210,6 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 void Chassis::MoveSpin(bool spinLeft)
 {
 	// Use input flag to perform a left/right turn using equal power, opposite direction on motors
-	// TODO: Test spin turns because it looks like they may not work now
 	if (spinLeft)
 		robotDrive->SetLeftRightMotorOutputs( -m_driveSpin, -m_driveSpin );
 	else
@@ -345,7 +345,7 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 
 	// TODO: Tune this to a time of about 2X the time it normally takes to drive the distance
 	// If on target or safety timer has expired
-	return bothOnTarget || (m_safetyTimer.HasPeriodPassed(3.0));
+	return bothOnTarget || (m_safetyTimer.HasPeriodPassed(4.0));
 }
 
 // MoveDriveDistancePIDStop is called to clean up after the PID loop reaches the target position
@@ -387,16 +387,18 @@ void Chassis::MoveDriveDistancePIDStop(void)
 
 void Chassis::MoveDriveHeadingDistanceInit(double inches, double angle)
 {
+	// Reset the gyro to set a new turn reference heading
 	gyro->Reset();
+
 	// Program the PID target setpoint
 	turnControl->SetSetpoint(angle);
-	printf("===> MoveDriveHeadingDistance() using angle: %f\n", angle);
+	printf("===> MoveDriveHeadingDistance() using angle: %f power: %f\n", angle, m_driveSpin);
 
 	// Shift into low gear during movement for better accuracy
 	MoveShiftGears(true);
 
 	// Enable the PID loop
-	turnControl->SetOutputRange(-0.8, 0.8);
+	turnControl->SetOutputRange(-m_driveSpin, m_driveSpin);
 	turnControl->SetAbsoluteTolerance(2.0);
 	turnControl->Enable();
 
