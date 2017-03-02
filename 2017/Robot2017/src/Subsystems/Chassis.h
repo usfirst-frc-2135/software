@@ -89,7 +89,7 @@ private:
 	bool m_brakeMode; 				// Brake or Coast mode for talons
 
 	double m_CL_RampRate;		// Closed loop ramp rate voltage - 0.0 disables
-	double m_CL_AllowError; // Closed loop allowable error in native units
+	int m_CL_AllowError; // Closed loop allowable error in native units
 	double m_pidTargetRotations; 	// Number of rotations to drive in Drive Distance
 
 	bool m_lowGear;					// Low Gear or High Gear

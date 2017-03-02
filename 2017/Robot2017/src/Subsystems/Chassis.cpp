@@ -76,11 +76,14 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     // 	Initialize closed loop parameters for Talon PID - ramp rate, close loop error, target rotations
     m_CL_RampRate = 0.0;
-    m_CL_AllowError = 0.0;
+    m_CL_AllowError = 20;
     m_pidTargetRotations = 0.0;
 
     // Initialize to high gear
     m_lowGear = false;
+
+	// set to high gear
+	MoveShiftGears(false);
 
     // NOTE: Calibrate gyro - this takes a few seconds--must not be in mode switch to Teleop or Auton
     printf("2135: Starting gyro calibration\n");
@@ -136,7 +139,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 //	motorR3->SetCloseLoopRampRate(m_CL_RampRate);
 
 	// Allowable Closed Loop Error - in Talon native units (480 units per one rotation)
-	m_CL_AllowError = Robot::LoadPreferencesVariable("ChsCL_AllowError", USDigitalS4_CPR_120*4/24);
+//	m_CL_AllowError = Robot::LoadPreferencesVariable("ChsCL_AllowError", USDigitalS4_CPR_120*4/24);
 	SmartDashboard::PutNumber("CL_AllowError", m_CL_AllowError);
 //	motorL1->SetAllowableClosedLoopErr(m_CL_AllowError);
 //	motorR3->SetAllowableClosedLoopErr(m_CL_AllowError);
@@ -208,9 +211,9 @@ void Chassis::MoveSpin(bool spinLeft)
 	// Use input flag to perform a left/right turn using equal power, opposite direction on motors
 	// TODO: Test spin turns because it looks like they may not work now
 	if (spinLeft)
-		robotDrive->SetLeftRightMotorOutputs( -m_driveSpin, m_driveSpin );
+		robotDrive->SetLeftRightMotorOutputs( -m_driveSpin, -m_driveSpin );
 	else
-		robotDrive->SetLeftRightMotorOutputs( m_driveSpin, -m_driveSpin );
+		robotDrive->SetLeftRightMotorOutputs( m_driveSpin, m_driveSpin );
 }
 
 // MoveInvertDriveDirection is a custom feature to set robot drive direction to flip from front to back
@@ -342,7 +345,7 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 
 	// TODO: Tune this to a time of about 2X the time it normally takes to drive the distance
 	// If on target or safety timer has expired
-	return bothOnTarget || (m_safetyTimer.HasPeriodPassed(10.0));
+	return bothOnTarget || (m_safetyTimer.HasPeriodPassed(3.0));
 }
 
 // MoveDriveDistancePIDStop is called to clean up after the PID loop reaches the target position
@@ -384,6 +387,7 @@ void Chassis::MoveDriveDistancePIDStop(void)
 
 void Chassis::MoveDriveHeadingDistanceInit(double inches, double angle)
 {
+	gyro->Reset();
 	// Program the PID target setpoint
 	turnControl->SetSetpoint(angle);
 	printf("===> MoveDriveHeadingDistance() using angle: %f\n", angle);
