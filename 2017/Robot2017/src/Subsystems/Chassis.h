@@ -37,6 +37,7 @@ public:
 //		myRobotDrive->ArcadeDrive (0.0, output, false);
 		leftMotor->Set(output);
 		rightMotor->Set(-output);
+		// TODO: Remove this after tuning
 		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
 		SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
 	}
@@ -88,7 +89,7 @@ private:
 	double m_driveSpin;				// Spin turn power setting
 	bool m_brakeMode; 				// Brake or Coast mode for talons
 
-	double m_CL_RampRate;			// Closed loop ramp rate voltage - 0.0 disables
+	int m_CL_RampRate;				// Closed loop ramp rate voltage - 0 disables
 	int m_CL_AllowError; 			// Closed loop allowable error in native units
 	double m_pidTargetRotations; 	// Number of rotations to drive in Drive Distance
 

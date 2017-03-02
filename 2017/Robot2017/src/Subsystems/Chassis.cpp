@@ -75,7 +75,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_driveSpin = 0.45;		// Initialize power setting used for spin turns
 
     // 	Initialize closed loop parameters for Talon PID - ramp rate, close loop error, target rotations
-    m_CL_RampRate = 0.0;
+    m_CL_RampRate = 0;
     m_CL_AllowError = 20;
     m_pidTargetRotations = 0.0;
 
@@ -133,7 +133,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	// Closed Loop VoltageRampRate
 	// NOTE: Tune this after main PID loop is working ONLY to eliminate initial lurching
 	//	0.0 disables the ramp. Start tuning at full speed in one half second (24.0V)
-	m_CL_RampRate = Robot::LoadPreferencesVariable(CHS_CL_RAMPRATE, 24.0);
+	m_CL_RampRate = Robot::LoadPreferencesVariable(CHS_CL_RAMPRATE, 0);
 	SmartDashboard::PutNumber(CHS_CL_RAMPRATE, m_CL_RampRate);
 //	motorL1->SetCloseLoopRampRate(m_CL_RampRate);
 //	motorR3->SetCloseLoopRampRate(m_CL_RampRate);
@@ -169,6 +169,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 void Chassis::UpdateSmartDashboardValues(void)
 {
+	// TODO: CPU usage is high, print these only 1 of every 5 times
 	SmartDashboard::PutNumber(CHS_ENCPOSITION_L, motorL1->GetEncPosition());
 	SmartDashboard::PutNumber(CHS_ENCPOSITION_R, motorR3->GetEncPosition());
 	SmartDashboard::PutNumber(CHS_ROTATIONS_L, motorL1->GetPosition());
@@ -336,8 +337,8 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 	if ((motorL1->GetClosedLoopError() < m_CL_AllowError) &&
 		(motorR3->GetClosedLoopError() < m_CL_AllowError)) {
 		printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
-		printf("2135: TargetRotations: %3.2f  L: %3.2f R: %3.2f\n", m_pidTargetRotations,
-			motorL1->GetPosition(), motorR3->GetPosition());
+		printf("2135: TargetRotations: %3.2f  L: %3.2f R: %3.2f\n",
+			m_pidTargetRotations, motorL1->GetPosition(), motorR3->GetPosition());
 		printf("2135: ClosedLoopError:  L: %d  R: %d\n",
 			motorL1->GetClosedLoopError(), motorL1->GetClosedLoopError());
 		bothOnTarget = true;
