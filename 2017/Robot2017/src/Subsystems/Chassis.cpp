@@ -116,31 +116,31 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	printf("2135: Chassis Initialize\n");
 
 	// Drive invert direction the stick moves the robot
-	SmartDashboard::PutNumber("DriveDirection", m_driveDirection);
+	SmartDashboard::PutNumber(CHS_DRIVE_DIRECTION, m_driveDirection);
 
 	// Brake/coast mode for talon speed controller
     m_brakeMode = false;
     MoveSetBrakeNotCoastMode(m_brakeMode);
 
 	// Scale maximum driving speed - if in beginner mode
-	m_driveScaling = Robot::LoadPreferencesVariable("ChsDriveScaling", 1.0);
-	SmartDashboard::PutNumber("DriveScaling", m_driveScaling);
+	m_driveScaling = Robot::LoadPreferencesVariable(CHS_DRIVE_SCALING, 1.0);
+	SmartDashboard::PutNumber(CHS_DRIVE_SCALING, m_driveScaling);
 
 	// Speed to apply to the motors for spin turns
-	m_driveSpin = Robot::LoadPreferencesVariable("ChsDriveSpin", 0.4);
-	SmartDashboard::PutNumber("DriveSpin", m_driveSpin);
+	m_driveSpin = Robot::LoadPreferencesVariable(CHS_DRIVE_SPIN, 0.4);
+	SmartDashboard::PutNumber(CHS_DRIVE_SPIN, m_driveSpin);
 
 	// Closed Loop VoltageRampRate
 	// NOTE: Tune this after main PID loop is working ONLY to eliminate initial lurching
 	//	0.0 disables the ramp. Start tuning at full speed in one half second (24.0V)
-	m_CL_RampRate = Robot::LoadPreferencesVariable("ChsCL_RampRate", 24.0);
-	SmartDashboard::PutNumber("CL_RampRate", m_CL_RampRate);
+	m_CL_RampRate = Robot::LoadPreferencesVariable(CHS_CL_RAMPRATE, 24.0);
+	SmartDashboard::PutNumber(CHS_CL_RAMPRATE, m_CL_RampRate);
 //	motorL1->SetCloseLoopRampRate(m_CL_RampRate);
 //	motorR3->SetCloseLoopRampRate(m_CL_RampRate);
 
 	// Allowable Closed Loop Error - in Talon native units (480 units per one rotation)
 //	m_CL_AllowError = Robot::LoadPreferencesVariable("ChsCL_AllowError", USDigitalS4_CPR_120*4/24);
-	SmartDashboard::PutNumber("CL_AllowError", m_CL_AllowError);
+	SmartDashboard::PutNumber(CHS_CL_ALLOWERROR, m_CL_AllowError);
 //	motorL1->SetAllowableClosedLoopErr(m_CL_AllowError);
 //	motorR3->SetAllowableClosedLoopErr(m_CL_AllowError);
 
@@ -150,17 +150,17 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 	// Closed Loop proportional constant (Kp)
 	// TODO: Tune PID loop here - estimated value should be ~2.5 - 6.0 (could be outside these limits)
-	SmartDashboard::PutNumber("CL_Proportional", Robot::LoadPreferencesVariable("ChsCL_Proportional", 3.5));
+	SmartDashboard::PutNumber(CHS_CL_PROPORTIONAL, Robot::LoadPreferencesVariable(CHS_CL_PROPORTIONAL, CHS_CL_PROPORTIONAL_D));
 
 	// drive distance inches
 	// Read from SmartDashboard
-	SmartDashboard::PutNumber("TargetRotations", Robot::LoadPreferencesVariable("CL_TargetRotations", 60));
+	SmartDashboard::PutNumber(CHS_CL_TARGETINCHES,Robot::LoadPreferencesVariable(CHS_CL_TARGETINCHES, CHS_CL_TARGETINCHES_D));
 
 	// reset gyro to zero
 	gyro->Reset();
 
 	// drive heading angle
-	SmartDashboard::PutNumber("DriveHeadingAngle", 0.0);
+	SmartDashboard::PutNumber(AUTON_DRIVEHEADING, AUTON_DRIVEHEADING_D);
 }
 
 
@@ -169,13 +169,13 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 void Chassis::UpdateSmartDashboardValues(void)
 {
-	SmartDashboard::PutNumber("ChsL_EncPosition", motorL1->GetEncPosition());
-	SmartDashboard::PutNumber("ChsR_EncPosition", motorR3->GetEncPosition());
-	SmartDashboard::PutNumber("ChsL_Rotations", motorL1->GetPosition());
-	SmartDashboard::PutNumber("ChsR_Rotations", motorR3->GetPosition());
-	SmartDashboard::PutNumber("ChsL_CLError", motorL1->GetClosedLoopError());
-	SmartDashboard::PutNumber("ChsR_CLError", motorR3->GetClosedLoopError());
-	SmartDashboard::PutNumber("ChsGyroAngle", gyro->GetAngle());
+	SmartDashboard::PutNumber(CHS_ENCPOSITION_L, motorL1->GetEncPosition());
+	SmartDashboard::PutNumber(CHS_ENCPOSITION_R, motorR3->GetEncPosition());
+	SmartDashboard::PutNumber(CHS_ROTATIONS_L, motorL1->GetPosition());
+	SmartDashboard::PutNumber(CHS_ROTATIONS_R, motorR3->GetPosition());
+	SmartDashboard::PutNumber(CHS_CL_ERROR_L, motorL1->GetClosedLoopError());
+	SmartDashboard::PutNumber(CHS_CL_ERROR_R, motorR3->GetClosedLoopError());
+	SmartDashboard::PutNumber(CHS_GYROANGLE, gyro->GetAngle());
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -222,7 +222,7 @@ void Chassis::MoveInvertDriveDirection(void)
 {
 	// Toggle the drive direction and update the dashboard status
 	m_driveDirection = -m_driveDirection;
-	SmartDashboard::PutNumber("DriveDirection", m_driveDirection);
+	SmartDashboard::PutNumber(CHS_DRIVE_DIRECTION, m_driveDirection);
 }
 
 // MoveSetBrakeNotCoastMode is used to allow other functions and commands to change how the drive works
@@ -245,7 +245,7 @@ void Chassis::MoveSetBrakeNotCoastMode(bool brakeMode)
 
 	// Update the global setting
 	m_brakeMode = brakeMode;
-	SmartDashboard::PutBoolean("DriveBrakeMode", brakeMode);
+	SmartDashboard::PutBoolean(CHS_DRIVE_BRAKEMODE, brakeMode);
 }
 
 // MoveUsingMotorOutputs is used to allow other functions to control the drive with direct left/right inputs
@@ -297,7 +297,7 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 //	motorR3->ConfigNominalOutputVoltage(nominalOutputVoltage, -nominalOutputVoltage);
 
 	// This should be set one time in constructor
-	proportional = SmartDashboard::GetNumber("CL_Proportional", 3.6);
+	proportional = SmartDashboard::GetNumber(CHS_CL_PROPORTIONAL, 3.6);
 	motorL1->SetPID(proportional, 0.0, 0.0);
 	motorR3->SetPID(proportional, 0.0, 0.0);
 

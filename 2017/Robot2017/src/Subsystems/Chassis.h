@@ -14,6 +14,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "CANTalon.h"
+#include "../RobotDefaults.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -36,8 +37,8 @@ public:
 //		myRobotDrive->ArcadeDrive (0.0, output, true);
 		leftMotor->Set(output);
 		rightMotor->Set(-output);
-		SmartDashboard::PutNumber("LeftTurnOutput", output);
-		SmartDashboard::PutNumber("RightTurnOutput", -output);
+		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
+		SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
 	}
 };
 

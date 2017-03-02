@@ -1,4 +1,5 @@
 #include "GripContoursPipeline.h"
+#include "RobotDefaults.h"
 /**
 * Initializes a GripContoursPipeline.
 */
@@ -16,12 +17,12 @@ GripContoursPipeline::GripContoursPipeline() {
 void GripContoursPipeline::Process(cv::Mat& source0){
 	//Step HSL_Threshold0:
 	//input
-	double hueStart = SmartDashboard::GetNumber("Hue Start", 0.0);
-	double hueEnd = SmartDashboard::GetNumber("Hue End", 102.0);
-	double saturationStart = SmartDashboard::GetNumber("Saturation Start", 202.0);
-	double saturationEnd = SmartDashboard::GetNumber("Saturation End", 255.0);
-	double luminanceStart = SmartDashboard::GetNumber("Luminance Start", 24.0);
-	double luminanceEnd = SmartDashboard::GetNumber("Luminance End", 255.0);
+	double hueStart = SmartDashboard::GetNumber(CAM_HUESTART, CAM_HUESTART_D);
+	double hueEnd = SmartDashboard::GetNumber(CAM_HUEEND, CAM_HUEEND_D);
+	double saturationStart = SmartDashboard::GetNumber(CAM_SATSTART, CAM_SATSTART_D);
+	double saturationEnd = SmartDashboard::GetNumber(CAM_SATEND, CAM_SATEND_D);
+	double luminanceStart = SmartDashboard::GetNumber(CAM_LUMSTART, CAM_LUMSTART_D);
+	double luminanceEnd = SmartDashboard::GetNumber(CAM_LUMEND, CAM_LUMEND_D);
 
 	cv::Mat hslThresholdInput = source0;
 	double hslThresholdHue[] = {hueStart, hueEnd};
