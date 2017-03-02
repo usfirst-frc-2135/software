@@ -66,7 +66,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     MoveSetBrakeNotCoastMode(m_brakeMode);
 
 	// Autonomous turn PID controller
-    turnOutput = new TurnOutput(robotDrive);
+    turnOutput = new TurnOutput(motorL1, motorR3);
     turnControl = new PIDController(0.1, 0.0, 0.0, gyro.get(), turnOutput);
 
 	//	Initialize drivetrain modifiers

@@ -22,15 +22,22 @@
 class TurnOutput: public PIDOutput {
 public:
 	std::shared_ptr<RobotDrive> myRobotDrive;
+	std::shared_ptr<CANTalon> leftMotor;
+	std::shared_ptr<CANTalon> rightMotor;
 
-	TurnOutput (std::shared_ptr<RobotDrive> robotDrive) {
-		myRobotDrive = robotDrive;
+	TurnOutput (std::shared_ptr<CANTalon> motorL1, std::shared_ptr<CANTalon> motorR3) {
+//		myRobotDrive = robotDrive;
+		leftMotor = motorL1;
+		rightMotor = motorR3;
 	}
 
 	void PIDWrite(double output) {
 //		printf("==>Passing to Arcade Drive output = %3f\n", output);
-		myRobotDrive->ArcadeDrive (0.0, output, true);
-		SmartDashboard::PutNumber("TurnOutput", output);
+//		myRobotDrive->ArcadeDrive (0.0, output, true);
+		leftMotor->Set(output);
+		rightMotor->Set(-output);
+		SmartDashboard::PutNumber("LeftTurnOutput", output);
+		SmartDashboard::PutNumber("RightTurnOutput", -output);
 	}
 };
 
@@ -69,6 +76,7 @@ private:
 	const unsigned short int	USDigitalS4_CPR_120 = 120;
 	const double				WheelDiaInches = 4.0;
 
+#define USE_ADXRS450_GYRO
 #ifdef USE_ADXRS450_GYRO
 	std::shared_ptr<ADXRS450_Gyro> gyro;
 #else
