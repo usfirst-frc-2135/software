@@ -10,7 +10,7 @@
 
 //	Identify if ADXRS450 Gyro is in use by enabling this define
 
-#define USE_ADXRS450_GYRO	// Comment out for analog Gyro
+#define USE_ADXRS450_GYRO	// Comment out for analog Gyro or to disable
 
 //	SmartDashboard parameters and defaults
 
