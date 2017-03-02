@@ -8,6 +8,10 @@
 #ifndef ROBOTDEFAULTS_H_
 #define ROBOTDEFAULTS_H_
 
+//	Identify if ADXRS450 Gyro is in use by enabling this define
+
+#define USE_ADXRS450_GYRO	// Comment out for analog Gyro
+
 //	SmartDashboard parameters and defaults
 
 //	SmartDashboard Autonomous command - Drive Distance

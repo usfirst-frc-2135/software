@@ -77,7 +77,6 @@ private:
 	const unsigned short int	USDigitalS4_CPR_120 = 120;
 	const double				WheelDiaInches = 4.0;
 
-#define USE_ADXRS450_GYRO
 #ifdef USE_ADXRS450_GYRO
 	std::shared_ptr<ADXRS450_Gyro> gyro;
 #else
