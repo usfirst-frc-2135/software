@@ -46,6 +46,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorL2->Set(1);
     motorR4->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
     motorR4->Set(3);
+    motorL1->SetInverted(true);
 
     // Drivetrain Talon settings - Autonomous modes
 
@@ -66,7 +67,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     MoveSetBrakeNotCoastMode(m_brakeMode);
 
 	// Autonomous turn PID controller
-    turnOutput = new TurnOutput(motorL1, motorR3);
+    turnOutput = new TurnOutput(robotDrive);
     turnControl = new PIDController(0.1, 0.0, 0.0, gyro.get(), turnOutput);
 
 	//	Initialize drivetrain modifiers
@@ -203,7 +204,7 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 
 	// Apply modified joystick input to the drive motorsd
 	// TODO: Why do we pass the wrong X, Y values than the API says?
-	robotDrive->ArcadeDrive( xValue, yValue, true );
+	robotDrive->ArcadeDrive( yValue, xValue, true );
 }
 
 // MoveSpin is a custom feature that can be hooked to a button for spin turns

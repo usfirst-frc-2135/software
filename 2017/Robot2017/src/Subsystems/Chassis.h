@@ -23,20 +23,13 @@
 class TurnOutput: public PIDOutput {
 public:
 	std::shared_ptr<RobotDrive> myRobotDrive;
-	std::shared_ptr<CANTalon> leftMotor;
-	std::shared_ptr<CANTalon> rightMotor;
 
-	TurnOutput (std::shared_ptr<CANTalon> motorL1, std::shared_ptr<CANTalon> motorR3) {
-//		myRobotDrive = robotDrive;
-		leftMotor = motorL1;
-		rightMotor = motorR3;
+	TurnOutput (std::shared_ptr<RobotDrive> robotDrive) {
+		myRobotDrive = robotDrive;
 	}
 
 	void PIDWrite(double output) {
-//		printf("==>Passing to Arcade Drive output = %3f\n", output);
-//		myRobotDrive->ArcadeDrive (0.0, output, false);
-		leftMotor->Set(output);
-		rightMotor->Set(-output);
+		myRobotDrive->ArcadeDrive (0.0, output, false);
 		// TODO: Remove this after tuning
 		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
 		SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
