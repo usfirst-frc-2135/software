@@ -80,11 +80,11 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_CL_AllowError = 20;
     m_pidTargetRotations = 0.0;
 
-    // Initialize to high gear
-    m_lowGear = false;
+    // Initialize to low gear
+    m_lowGear = true;
 
-	// set to high gear
-	MoveShiftGears(false);
+	// set to low gear
+	MoveShiftGears(true);
 
     // NOTE: Calibrate gyro - this takes a few seconds--must not be in mode switch to Teleop or Auton
     printf("2135: Starting gyro calibration\n");
@@ -115,6 +115,12 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	// Initialize SmartDashboard values - if any
 
 	printf("2135: Chassis Initialize\n");
+
+	// Robot is in low gear in autonomous and high gear in teleop
+	if (frc::RobotState::IsAutonomous())
+		MoveShiftGears(true);
+	else
+		MoveShiftGears(false);
 
 	// Drive invert direction the stick moves the robot
 	SmartDashboard::PutNumber(CHS_DRIVE_DIRECTION, m_driveDirection);
@@ -376,8 +382,7 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
 	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
 
-	// Change back to gear setting default
-	MoveShiftGears(false);
+	// Do not shift back to high gear in case another auton command is running
 
 	// Re-enable the motor safety helper
 	robotDrive->SetSafetyEnabled(true);
@@ -424,8 +429,7 @@ void Chassis::MoveDriveHeadingStop(void) {
 	// Stop safety timer
 	m_safetyTimer.Stop();
 
-	// Shift back into high gear
-	MoveShiftGears(false);
+	// Do not shift back to high gear in case another auton command is running
 
 	// Re-enable the motor safety helper
 	robotDrive->SetSafetyEnabled(true);
