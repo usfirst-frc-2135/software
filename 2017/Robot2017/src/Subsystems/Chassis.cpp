@@ -267,7 +267,7 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 {
 	double proportional;
 //	double closeLoopRampRate;
-//	double peakOutputVoltage;
+	double peakOutputVoltage;
 //	double nominalOutputVoltage;
 
 	m_pidTargetRotations = inches / (WheelDiaInches * M_PI);
@@ -290,8 +290,8 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 
 	// NOTE: If needed, temporarily adjust peak output voltage to lower top speed
 //	peakOutputVoltage = SmartDashboard::GetNumber("CL_PeakOutVolts", 12.0);
-//	motorL1->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
-//	motorR3->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
+	motorL1->ConfigPeakOutputVoltage(12.0, -12.0);
+	motorR3->ConfigPeakOutputVoltage(12.0, -12.0);
 
 	// NOTE: If needed, temporarily adjust nominal output voltage if doesn't quite reach target
 //	nominalOutputVoltage = SmartDashboard::GetNumber("CL_NomOutVolts", 0.0);
