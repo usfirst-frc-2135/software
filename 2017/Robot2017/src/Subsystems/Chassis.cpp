@@ -407,6 +407,9 @@ void Chassis::MoveDriveHeadingDistanceInit(double inches, double angle)
 	//Start safety timer
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
+
+	// Disable safety feature during movement, since motors will be fed by loop
+	robotDrive->SetSafetyEnabled(false);
 }
 
 bool Chassis::MoveDriveHeadingIsPIDAtSetPoint(void) {
@@ -423,6 +426,9 @@ void Chassis::MoveDriveHeadingStop(void) {
 
 	// Shift back into high gear
 	MoveShiftGears(false);
+
+	// Re-enable the motor safety helper
+	robotDrive->SetSafetyEnabled(true);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
