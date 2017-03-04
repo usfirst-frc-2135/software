@@ -82,9 +82,9 @@ private:
 	double m_driveSpin;				// Spin turn power setting
 	bool m_brakeMode; 				// Brake or Coast mode for talons
 
-	int m_CL_RampRate;				// Closed loop ramp rate voltage - 0 disables
-	int m_CL_AllowError; 			// Closed loop allowable error in native units
 	double m_pidTargetRotations; 	// Number of rotations to drive in Drive Distance
+	int m_CL_allowError;			// Closed loop allowable error
+	bool m_CL_pidStarted;			// Flag to indicate PID has started and CL error is valid
 
 	bool m_lowGear;					// Low Gear or High Gear
 	Timer m_safetyTimer;			// Safety timer for use during autonomous modes

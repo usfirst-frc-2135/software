@@ -32,11 +32,13 @@
 //	SmartDashboard Chassis basic configuration parameters
 
 #define	CHS_DRIVE_DIRECTION		"Chs_DriveDirection"
+#define CHS_DRIVE_BRAKEMODE		"Chs_DriveBrakeMode"
+
 #define CHS_DRIVE_SCALING		"Chs_DriveScaling"
 #define CHS_DRIVE_SCALING_D		1.0
+
 #define CHS_DRIVE_SPIN			"Chs_DriveSpin"
 #define CHS_DRIVE_SPIN_D		0.4
-#define CHS_DRIVE_BRAKEMODE		"Chs_DriveBrakeMode"
 
 // SmartDashboard Chassis Distance PID configuration (Talon SRX)
 
@@ -45,6 +47,12 @@
 
 #define CHS_CL_ALLOWERROR		"ChsCL_AllowError"
 #define	CHS_CL_ALLOWERROR_D		30
+
+#define CHS_CL_PEAKOUTVOLTS		"ChsCL_PeakOutput"
+#define	CHS_CL_PEAKOUTVOLTS_D	12.0
+
+#define CHS_CL_NOMOUTVOLTS		"ChsCL_NomOutput"
+#define	CHS_CL_NOMOUTVOLTS_D	0.0
 
 #define	CHS_CL_PROPORTIONAL		"ChsCL_Proportional"
 #define	CHS_CL_PROPORTIONAL_D	3.5

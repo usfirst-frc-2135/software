@@ -132,7 +132,7 @@ void Robot::TeleopPeriodic() {
 
 	Robot::chassis->UpdateSmartDashboardValues();
 
-#if 0
+#if 1
 	// Read contour array from SmartDashboard and print it
 	std::vector<double> arr;
 
@@ -231,13 +231,10 @@ void Robot::CameraVisionThread() {
 	//	TODO: Getting SmartDashboard values is resource intensive--only do it occasionally
 
 	// Get the current brightness from the dashboard
-	//		Maybe only do it when we do TelopInit or AutonInit
-	int camBrightness = SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D);
-	camera.SetBrightness(camBrightness);
+	camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
 
 	// Get the current exposure from the dashboard
-	int camExposure = SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D);
-	camera.SetExposureManual(camExposure);
+	camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
 
 	// Main loop for our vision thread
 	while (true) {

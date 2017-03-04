@@ -25,8 +25,8 @@ AutonDriveDistance::AutonDriveDistance(): Command() {
 
 // Called just before this Command runs the first time
 void AutonDriveDistance::Initialize() {
-	Robot::chassis->MoveDriveDistancePIDInit(SmartDashboard::GetNumber(AUTON_DRIVEDISTANCE, AUTON_DRIVEDISTANCE_D));
 	printf("2135: Auton Drive Distance - Initialize\n");
+	Robot::chassis->MoveDriveDistancePIDInit(SmartDashboard::GetNumber(AUTON_DRIVEDISTANCE, AUTON_DRIVEDISTANCE_D));
 }
 
 // Called repeatedly when this Command is scheduled to run

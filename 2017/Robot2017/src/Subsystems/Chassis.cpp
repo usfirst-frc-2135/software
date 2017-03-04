@@ -62,6 +62,11 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	motorL1->SetSensorDirection(true);
 	motorR3->SetSensorDirection(false);
 
+	// Set drive Talons to profile 0
+	motorL1->SelectProfileSlot(0);
+	motorR3->SelectProfileSlot(0);
+
+
     // Set all motors to use coast mode and not brake when stopped
     m_brakeMode = false;
     MoveSetBrakeNotCoastMode(m_brakeMode);
@@ -76,9 +81,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_driveSpin = 0.45;		// Initialize power setting used for spin turns
 
     // 	Initialize closed loop parameters for Talon PID - ramp rate, close loop error, target rotations
-    m_CL_RampRate = 0;
-    m_CL_AllowError = 20;
     m_pidTargetRotations = 0.0;
+    m_CL_pidStarted = false;
 
     // Initialize to low gear
     m_lowGear = true;
@@ -137,19 +141,32 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	m_driveSpin = Robot::LoadPreferencesVariable(CHS_DRIVE_SPIN, 0.4);
 	SmartDashboard::PutNumber(CHS_DRIVE_SPIN, m_driveSpin);
 
-	// Closed Loop VoltageRampRate
+	// Closed Loop VoltageRampRate - in volts per second
 	// NOTE: Tune this after main PID loop is working ONLY to eliminate initial lurching
-	//	0.0 disables the ramp. Start tuning at full speed in one half second (24.0V)
-	m_CL_RampRate = Robot::LoadPreferencesVariable(CHS_CL_RAMPRATE, 0);
-	SmartDashboard::PutNumber(CHS_CL_RAMPRATE, m_CL_RampRate);
-//	motorL1->SetCloseLoopRampRate(m_CL_RampRate);
-//	motorR3->SetCloseLoopRampRate(m_CL_RampRate);
+	//	0.0 disables the ramp. Start tuning at full speed in one half second (12.0V/0.5s)
+	double rampRate;
+	rampRate = Robot::LoadPreferencesVariable(CHS_CL_RAMPRATE, 24.0);
+	motorL1->SetCloseLoopRampRate(rampRate);
+	motorR3->SetCloseLoopRampRate(rampRate);
 
 	// Allowable Closed Loop Error - in Talon native units (480 units per one rotation)
-//	m_CL_AllowError = Robot::LoadPreferencesVariable("ChsCL_AllowError", USDigitalS4_CPR_120*4/24);
-	SmartDashboard::PutNumber(CHS_CL_ALLOWERROR, m_CL_AllowError);
-//	motorL1->SetAllowableClosedLoopErr(m_CL_AllowError);
-//	motorR3->SetAllowableClosedLoopErr(m_CL_AllowError);
+	m_CL_allowError = (int) Robot::LoadPreferencesVariable(CHS_CL_ALLOWERROR, CHS_CL_ALLOWERROR_D);
+	motorL1->SetAllowableClosedLoopErr(m_CL_allowError);
+	motorR3->SetAllowableClosedLoopErr(m_CL_allowError);
+
+	// Set closed loop peak output voltage to cap maximum speed
+	// Note this is peristent in Talon, so set it even if not used
+	double peakOutputVoltage;
+	peakOutputVoltage = SmartDashboard::GetNumber(CHS_CL_PEAKOUTVOLTS, CHS_CL_PEAKOUTVOLTS_D);
+	motorL1->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
+	motorR3->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
+
+	// Set closed loop nominal output voltage if doesn't quite reach target (NOT NEEDED)
+	// Note this is peristent in Talon, so set it even if not used
+	double nominalOutputVoltage;
+	nominalOutputVoltage = SmartDashboard::GetNumber(CHS_CL_NOMOUTVOLTS, CHS_CL_NOMOUTVOLTS_D);
+	motorL1->ConfigNominalOutputVoltage(nominalOutputVoltage, -nominalOutputVoltage);
+	motorR3->ConfigNominalOutputVoltage(nominalOutputVoltage, -nominalOutputVoltage);
 
 	// Reset left/right encoder values
 	motorL1->SetEncPosition(0);
@@ -272,9 +289,6 @@ void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRigh
 void Chassis::MoveDriveDistancePIDInit(double inches)
 {
 	double proportional;
-//	double closeLoopRampRate;
-	double peakOutputVoltage;
-//	double nominalOutputVoltage;
 
 	m_pidTargetRotations = inches / (WheelDiaInches * M_PI);
 	printf("2135: Encoder Distance %f rotations, %f inches\n", m_pidTargetRotations, inches);
@@ -289,21 +303,6 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	// Change to brake mode
 	MoveSetBrakeNotCoastMode(true);
 
-	// NOTE: If needed, temporarily adjust voltage ramp rate for autonomous to prevent lurching
-//	closeLoopRampRate = SmartDashboard::GetNumber("CL_RampRate", 24.0);
-//	motorL1->SetCloseLoopRampRate(closeLoopRampRate);
-//	motorR3->SetCloseLoopRampRate(closeLoopRampRate);
-
-	// NOTE: If needed, temporarily adjust peak output voltage to lower top speed
-//	peakOutputVoltage = SmartDashboard::GetNumber("CL_PeakOutVolts", 12.0);
-	motorL1->ConfigPeakOutputVoltage(12.0, -12.0);
-	motorR3->ConfigPeakOutputVoltage(12.0, -12.0);
-
-	// NOTE: If needed, temporarily adjust nominal output voltage if doesn't quite reach target
-//	nominalOutputVoltage = SmartDashboard::GetNumber("CL_NomOutVolts", 0.0);
-//	motorL1->ConfigNominalOutputVoltage(nominalOutputVoltage, -nominalOutputVoltage);
-//	motorR3->ConfigNominalOutputVoltage(nominalOutputVoltage, -nominalOutputVoltage);
-
 	// This should be set one time in constructor
 	proportional = SmartDashboard::GetNumber(CHS_CL_PROPORTIONAL, 3.6);
 	motorL1->SetPID(proportional, 0.0, 0.0);
@@ -316,6 +315,9 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	// Set the target distance in terms of wheel rotations
 	motorL1->Set(m_pidTargetRotations);
 	motorR3->Set(m_pidTargetRotations);
+
+	// Set flag to indicate that the PID closed loop error is not yet valid
+    m_CL_pidStarted = false;
 
 	// Enable the PID loop to start the movement
 	motorL1->Enable();
@@ -339,21 +341,37 @@ void Chassis::MoveDriveDistancePIDExecute(void)
 bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 {
 	// Verify that both encoders are on target
-	bool bothOnTarget = false;
+	bool pidFinished = false;
 
-	if ((motorL1->GetClosedLoopError() < m_CL_AllowError) &&
-		(motorR3->GetClosedLoopError() < m_CL_AllowError)) {
-		printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
-		printf("2135: TargetRotations: %3.2f  L: %3.2f R: %3.2f\n",
-			m_pidTargetRotations, motorL1->GetPosition(), motorR3->GetPosition());
-		printf("2135: ClosedLoopError:  L: %d  R: %d\n",
-			motorL1->GetClosedLoopError(), motorL1->GetClosedLoopError());
-		bothOnTarget = true;
+	// Detect if closed loop error has been updated once after start
+	if ((abs(motorL1->GetClosedLoopError()) > USDigitalS4_CPR_120*4) &&
+			(abs(motorR3->GetClosedLoopError()) > USDigitalS4_CPR_120*4))
+	{
+		m_CL_pidStarted = true;
+		printf("2135: Closed loop error has changed\n");
 	}
 
-	// TODO: Tune this to a time of about 2X the time it normally takes to drive the distance
+	// If closed loop error has been updated, then check to see if within tolerance
+	if (m_CL_pidStarted) {
+		if ((abs(motorL1->GetClosedLoopError()) <= m_CL_allowError) &&
+			(abs(motorR3->GetClosedLoopError()) <= m_CL_allowError)) {
+			printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
+			printf("2135: TargetRotations: %3.2f  L: %3.2f R: %3.2f\n",
+				m_pidTargetRotations, motorL1->GetPosition(), motorR3->GetPosition());
+			printf("2135: ClosedLoopError:  L: %d  R: %d\n",
+				motorL1->GetClosedLoopError(), motorR3->GetClosedLoopError());
+			pidFinished = true;
+		}
+	}
+
+	// Check if safety timer has expired, set value to about 2x the cycle
+	if (m_safetyTimer.HasPeriodPassed(3.5)) {
+		printf("2135: Safety Timer timed out\n");
+		pidFinished = true;
+	}
+
 	// If on target or safety timer has expired
-	return bothOnTarget || (m_safetyTimer.HasPeriodPassed(4.0));
+	return pidFinished;
 }
 
 // MoveDriveDistancePIDStop is called to clean up after the PID loop reaches the target position
@@ -366,14 +384,6 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	// Disable the PID loop
 	motorL1->Disable();
 	motorR3->Disable();
-
-	// NOTE: If needed, return nominal output voltage to default
-//	motorL1->ConfigNominalOutputVoltage(0.0, -0.0);
-//	motorR3->ConfigNominalOutputVoltage(0.0, -0.0);
-
-	// NOTE: If needed, return peak output voltage to default
-//	motorL1->ConfigPeakOutputVoltage(12.0, -12.0);
-//	motorR3->ConfigPeakOutputVoltage(12.0, -12.0);
 
 	// Change to coast mode
 	MoveSetBrakeNotCoastMode(false);
