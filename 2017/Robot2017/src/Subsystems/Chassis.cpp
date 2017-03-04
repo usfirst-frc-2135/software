@@ -344,7 +344,7 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 	bool pidFinished = false;
 
 	// Detect if closed loop error has been updated once after start
-	if ((abs(motorL1->GetClosedLoopError()) > USDigitalS4_CPR_120*4) &&
+	if (!m_CL_pidStarted && (abs(motorL1->GetClosedLoopError()) > USDigitalS4_CPR_120*4) &&
 			(abs(motorR3->GetClosedLoopError()) > USDigitalS4_CPR_120*4))
 	{
 		m_CL_pidStarted = true;
