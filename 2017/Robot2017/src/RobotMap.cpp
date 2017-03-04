@@ -22,7 +22,6 @@ std::shared_ptr<CANTalon> RobotMap::chassisMotorR4;
 std::shared_ptr<DoubleSolenoid> RobotMap::chassisShifter;
 std::shared_ptr<CANTalon> RobotMap::intakeMotor8;
 std::shared_ptr<CANTalon> RobotMap::intakeMotor9;
-std::shared_ptr<DoubleSolenoid> RobotMap::intakeArmDeploy;
 std::shared_ptr<CANTalon> RobotMap::agitatorMotor12;
 std::shared_ptr<CANTalon> RobotMap::shooterMotor14;
 std::shared_ptr<Servo> RobotMap::shooterBallGate;
@@ -74,9 +73,6 @@ void RobotMap::init() {
     intakeMotor9.reset(new CANTalon(9));
     lw->AddActuator("Intake", "Motor9", intakeMotor9);
     
-    intakeArmDeploy.reset(new DoubleSolenoid(0, 1, 6));
-    lw->AddActuator("Intake", "Arm Deploy", intakeArmDeploy);
-    
     agitatorMotor12.reset(new CANTalon(12));
     lw->AddActuator("Agitator", "Motor12", agitatorMotor12);
     
@@ -86,10 +82,10 @@ void RobotMap::init() {
     shooterBallGate.reset(new Servo(0));
     lw->AddActuator("Shooter", "Ball Gate", shooterBallGate);
     
-    deliveryGearHolder.reset(new DoubleSolenoid(0, 2, 5));
+    deliveryGearHolder.reset(new DoubleSolenoid(0, 1, 6));
     lw->AddActuator("Delivery", "Gear Holder", deliveryGearHolder);
     
-    deliveryGearDoor.reset(new DoubleSolenoid(0, 3, 4));
+    deliveryGearDoor.reset(new DoubleSolenoid(0, 2, 5));
     lw->AddActuator("Delivery", "Gear Door", deliveryGearDoor);
     
     climberMotor18.reset(new CANTalon(18));

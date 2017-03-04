@@ -33,7 +33,6 @@ public:
 	static std::shared_ptr<DoubleSolenoid> chassisShifter;
 	static std::shared_ptr<CANTalon> intakeMotor8;
 	static std::shared_ptr<CANTalon> intakeMotor9;
-	static std::shared_ptr<DoubleSolenoid> intakeArmDeploy;
 	static std::shared_ptr<CANTalon> agitatorMotor12;
 	static std::shared_ptr<CANTalon> shooterMotor14;
 	static std::shared_ptr<Servo> shooterBallGate;
