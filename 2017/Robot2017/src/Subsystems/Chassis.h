@@ -117,7 +117,7 @@ public:
 	void MoveDriveDistancePIDStop(void);
 
 	// Sequence for Drive to Turn to a Heading
-	void MoveDriveHeadingDistanceInit(double inches, double angle);
+	void MoveDriveHeadingDistanceInit(double angle);
 	bool MoveDriveHeadingIsPIDAtSetPoint(void);
 	void MoveDriveHeadingStop(void);
 

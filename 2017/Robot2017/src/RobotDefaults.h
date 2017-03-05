@@ -12,6 +12,8 @@
 
 #define USE_ADXRS450_GYRO	// Comment out for analog Gyro or to disable
 
+#define ROBORIO_STANDALONE	// Comment out for normal operation (talons present)
+
 //	SmartDashboard parameters and defaults
 
 //	SmartDashboard Autonomous command - Drive Distance
@@ -102,8 +104,10 @@
 //	SmartDashboard Vision readout
 
 #define	CAM_TURNRIGHT			"Cam_TurnRight"
+#define	CAM_TURNRIGHT_D			true
 
 #define	CAM_TURNANGLE			"Cam_TurnAngle"
+#define	CAM_TURNANGLE_D			0.0
 
 #define	CAM_FOUNDTARGET			"Cam_FoundTarget"
 

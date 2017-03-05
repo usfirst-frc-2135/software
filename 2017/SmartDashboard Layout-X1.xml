@@ -1,40 +1,28 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="DriveHeadingAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="22" y="384"/>
+	</widget>
+	<widget field="ChsCL_TargetInches" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="317" y="288"/>
+	</widget>
+	<widget field="Chs_DriveDirection" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="327" y="48"/>
+	</widget>
+	<widget field="Drive Turn" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="410" y="457"/>
+	</widget>
 	<widget field="Cam_TurnAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="42" y="294"/>
 	</widget>
 	<widget field="Cam_TurnRight" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="46" y="272"/>
 	</widget>
-	<widget field="RTurnPIDOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="39" y="390"/>
-	</widget>
-	<widget field="LTurnPIDOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="41" y="368"/>
-	</widget>
-	<widget field="DriveHeadingAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="22" y="422"/>
-	</widget>
-	<widget field="ChsCL_TargetInches" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="317" y="352"/>
-	</widget>
-	<widget field="ChsCL_Proportional" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="322" y="128"/>
-	</widget>
-	<widget field="Chs_DriveSpin" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="359" y="64"/>
-	</widget>
-	<widget field="Chs_DriveScaling" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="340" y="38"/>
-	</widget>
-	<widget field="Chs_DriveDirection" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="327" y="16"/>
-	</widget>
 	<widget field="Chs_GyroAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="48" y="454"/>
+		<location x="48" y="416"/>
 	</widget>
 	<widget field="Chs_DriveBrakeMode" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="313" y="86"/>
+		<location x="313" y="16"/>
 	</widget>
 	<widget field="Cam_FoundTarget" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="27" y="326"/>
@@ -80,33 +68,31 @@
 		<height>59</height>
 	</static-widget>
 	<widget field="Auton Drive Distance" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="353" y="400"/>
+		<location x="353" y="329"/>
 	</widget>
 	<widget field="Auton Drive Turn: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="11" y="496"/>
+		<location x="11" y="464"/>
 	</widget>
 	<widget field="ChsR_CLError" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="363" y="214"/>
+		<location x="363" y="160"/>
 	</widget>
 	<widget field="ChsL_CLError" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="365" y="240"/>
+		<location x="365" y="182"/>
 	</widget>
 	<widget field="ChsL_Rotations" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="353" y="288"/>
+		<location x="353" y="224"/>
 	</widget>
 	<widget field="ChsR_EncPosition" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="336" y="182"/>
+		<location x="336" y="118"/>
 	</widget>
 	<widget field="ChsL_EncPosition" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="338" y="160"/>
+		<location x="338" y="96"/>
 		<height>26</height>
 	</widget>
 	<widget field="ChsR_Rotations" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="352" y="310"/>
+		<location x="352" y="246"/>
 	</widget>
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="ChsCL_RampRate"/>
-	<hidden field="ChsCL_AllowError"/>
 </xml>
