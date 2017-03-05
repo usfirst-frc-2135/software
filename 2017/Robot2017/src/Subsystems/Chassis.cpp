@@ -402,7 +402,7 @@ void Chassis::MoveDriveDistancePIDStop(void)
 
 //	Closed loop movement - Drive to a relative heading using PID loop in RoboRIO
 
-void Chassis::MoveDriveHeadingDistanceInit(double inches, double angle)
+void Chassis::MoveDriveHeadingDistanceInit(double angle)
 {
 	// Reset the gyro to set a new turn reference heading
 	gyro->Reset();
