@@ -134,18 +134,16 @@ void Chassis::Initialize(frc::Preferences *prefs)
     MoveSetBrakeNotCoastMode(m_brakeMode);
 
 	// Scale maximum driving speed - if in beginner mode
-	m_driveScaling = Robot::LoadPreferencesVariable(CHS_DRIVE_SCALING, 1.0);
-	SmartDashboard::PutNumber(CHS_DRIVE_SCALING, m_driveScaling);
+	m_driveScaling = Robot::LoadPreferencesVariable(CHS_DRIVE_SCALING, CHS_DRIVE_SCALING_D);
 
 	// Speed to apply to the motors for spin turns
-	m_driveSpin = Robot::LoadPreferencesVariable(CHS_DRIVE_SPIN, 0.4);
-	SmartDashboard::PutNumber(CHS_DRIVE_SPIN, m_driveSpin);
+	m_driveSpin = Robot::LoadPreferencesVariable(CHS_DRIVE_SPIN, CHS_DRIVE_SPIN_D);
 
 	// Closed Loop VoltageRampRate - in volts per second
 	// NOTE: Tune this after main PID loop is working ONLY to eliminate initial lurching
 	//	0.0 disables the ramp. Start tuning at full speed in one half second (12.0V/0.5s)
 	double rampRate;
-	rampRate = Robot::LoadPreferencesVariable(CHS_CL_RAMPRATE, 24.0);
+	rampRate = Robot::LoadPreferencesVariable(CHS_CL_RAMPRATE, CHS_CL_RAMPRATE_D);
 	motorL1->SetCloseLoopRampRate(rampRate);
 	motorR3->SetCloseLoopRampRate(rampRate);
 
@@ -155,26 +153,22 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	motorR3->SetAllowableClosedLoopErr(m_CL_allowError);
 
 	// Set closed loop peak output voltage to cap maximum speed
-	// Note this is peristent in Talon, so set it even if not used
+	// Note this is persistent in Talon, so set it even if not used
 	double peakOutputVoltage;
-	peakOutputVoltage = SmartDashboard::GetNumber(CHS_CL_PEAKOUTVOLTS, CHS_CL_PEAKOUTVOLTS_D);
+	peakOutputVoltage = Robot::LoadPreferencesVariable(CHS_CL_PEAKOUTVOLTS, CHS_CL_PEAKOUTVOLTS_D);
 	motorL1->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
 	motorR3->ConfigPeakOutputVoltage(peakOutputVoltage, -peakOutputVoltage);
 
 	// Set closed loop nominal output voltage if doesn't quite reach target (NOT NEEDED)
-	// Note this is peristent in Talon, so set it even if not used
+	// Note this is persistent in Talon, so set it even if not used
 	double nominalOutputVoltage;
-	nominalOutputVoltage = SmartDashboard::GetNumber(CHS_CL_NOMOUTVOLTS, CHS_CL_NOMOUTVOLTS_D);
+	nominalOutputVoltage = Robot::LoadPreferencesVariable(CHS_CL_NOMOUTVOLTS, CHS_CL_NOMOUTVOLTS_D);
 	motorL1->ConfigNominalOutputVoltage(nominalOutputVoltage, -nominalOutputVoltage);
 	motorR3->ConfigNominalOutputVoltage(nominalOutputVoltage, -nominalOutputVoltage);
 
 	// Reset left/right encoder values
 	motorL1->SetEncPosition(0);
 	motorR3->SetEncPosition(0);
-
-	// Closed Loop proportional constant (Kp)
-	// TODO: Tune PID loop here - estimated value should be ~2.5 - 6.0 (could be outside these limits)
-	SmartDashboard::PutNumber(CHS_CL_PROPORTIONAL, Robot::LoadPreferencesVariable(CHS_CL_PROPORTIONAL, CHS_CL_PROPORTIONAL_D));
 
 	// drive distance inches
 	// Read from SmartDashboard
@@ -193,14 +187,21 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 void Chassis::UpdateSmartDashboardValues(void)
 {
-	// TODO: CPU usage is high, print these only 1 of every 5 times
-	SmartDashboard::PutNumber(CHS_ENCPOSITION_L, motorL1->GetEncPosition());
-	SmartDashboard::PutNumber(CHS_ENCPOSITION_R, motorR3->GetEncPosition());
-	SmartDashboard::PutNumber(CHS_ROTATIONS_L, motorL1->GetPosition());
-	SmartDashboard::PutNumber(CHS_ROTATIONS_R, motorR3->GetPosition());
-	SmartDashboard::PutNumber(CHS_CL_ERROR_L, motorL1->GetClosedLoopError());
-	SmartDashboard::PutNumber(CHS_CL_ERROR_R, motorR3->GetClosedLoopError());
-	SmartDashboard::PutNumber(CHS_GYROANGLE, gyro->GetAngle());
+	static	int dashboardUpdate = 0;
+
+	//	Print dashboard values only every 12 x 20 msec, to reduce resource requirements
+	if (dashboardUpdate++ > 25)
+	{
+#ifndef ROBORIO_STANDALONE	// If not in RoboRIO standalone mode (no talons connected)
+		SmartDashboard::PutNumber(CHS_ENCPOSITION_L, motorL1->GetEncPosition());
+		SmartDashboard::PutNumber(CHS_ENCPOSITION_R, motorR3->GetEncPosition());
+		SmartDashboard::PutNumber(CHS_ROTATIONS_L, motorL1->GetPosition());
+		SmartDashboard::PutNumber(CHS_ROTATIONS_R, motorR3->GetPosition());
+		SmartDashboard::PutNumber(CHS_CL_ERROR_L, motorL1->GetClosedLoopError());
+		SmartDashboard::PutNumber(CHS_CL_ERROR_R, motorR3->GetClosedLoopError());
+		SmartDashboard::PutNumber(CHS_GYROANGLE, gyro->GetAngle());
+#endif
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -304,7 +305,7 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	MoveSetBrakeNotCoastMode(true);
 
 	// This should be set one time in constructor
-	proportional = SmartDashboard::GetNumber(CHS_CL_PROPORTIONAL, 3.6);
+	proportional = Robot::LoadPreferencesVariable(CHS_CL_PROPORTIONAL, CHS_CL_PROPORTIONAL_D);
 	motorL1->SetPID(proportional, 0.0, 0.0);
 	motorR3->SetPID(proportional, 0.0, 0.0);
 

@@ -165,8 +165,8 @@ void Robot::TeleopPeriodic() {
 			//	passed through the SmartDashboard without the turnRight flag.
 			//	Clockwise turns would be positive and CCW turns negative.
 			//	Remove servo code, since it is used in the robot for other things
-//			angleToAdjust = SmartDashboard::GetNumber("Angle to Adjust", 0.0);
-//			turnRight = SmartDashboard::GetBoolean("TurnRight", true);
+//			angleToAdjust = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
+//			turnRight = SmartDashboard::GetBoolean(CAM_TURNRIGHT, CAM_TURNRIGHT_D);
 //			temp = RobotMap::shooterBallGate->GetAngle();
 //			printf("!!! Original temp angle = %3f\n",temp);
 //			if (turnRight == 1)
