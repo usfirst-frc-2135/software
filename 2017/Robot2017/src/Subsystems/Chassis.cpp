@@ -73,7 +73,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
 	// Autonomous turn PID controller
     turnOutput = new TurnOutput(robotDrive);
-    turnControl = new PIDController(0.1, 0.0, 0.0, gyro.get(), turnOutput);
+    turnControl = new PIDController(0.02, 0.0, 0.0, gyro.get(), turnOutput);
 
 	//	Initialize drivetrain modifiers
     m_driveDirection = 1.0;			// Initialize drivetrain direction for driving forward or backward
@@ -199,8 +199,8 @@ void Chassis::UpdateSmartDashboardValues(void)
 		SmartDashboard::PutNumber(CHS_ROTATIONS_R, motorR3->GetPosition());
 		SmartDashboard::PutNumber(CHS_CL_ERROR_L, motorL1->GetClosedLoopError());
 		SmartDashboard::PutNumber(CHS_CL_ERROR_R, motorR3->GetClosedLoopError());
-		SmartDashboard::PutNumber(CHS_GYROANGLE, gyro->GetAngle());
 #endif
+		SmartDashboard::PutNumber(CHS_GYROANGLE, gyro->GetAngle());
 	}
 }
 
@@ -366,7 +366,7 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 	}
 
 	// Check if safety timer has expired, set value to about 2x the cycle
-	if (m_safetyTimer.HasPeriodPassed(3.5)) {
+	if (m_safetyTimer.HasPeriodPassed(10)) {
 		printf("2135: Safety Timer timed out\n");
 		pidFinished = true;
 	}
@@ -415,6 +415,9 @@ void Chassis::MoveDriveHeadingDistanceInit(double angle)
 	// Shift into low gear during movement for better accuracy
 	MoveShiftGears(true);
 
+	// Change to Brake mode
+	MoveSetBrakeNotCoastMode(true);
+
 	// Enable the PID loop
 	turnControl->SetOutputRange(-m_driveSpin, m_driveSpin);
 	turnControl->SetAbsoluteTolerance(2.0);
@@ -430,7 +433,7 @@ void Chassis::MoveDriveHeadingDistanceInit(double angle)
 
 bool Chassis::MoveDriveHeadingIsPIDAtSetPoint(void) {
 	// Test the PID to see if it is on the programmed target
-	return (turnControl->OnTarget()); // || (m_safetyTimer.HasPeriodPassed(10.0));
+	return (turnControl->OnTarget()) || (m_safetyTimer.HasPeriodPassed(2.0));
 }
 
 void Chassis::MoveDriveHeadingStop(void) {
@@ -441,6 +444,9 @@ void Chassis::MoveDriveHeadingStop(void) {
 	m_safetyTimer.Stop();
 
 	// Do not shift back to high gear in case another auton command is running
+
+	// Change to Brake mode
+	MoveSetBrakeNotCoastMode(false);
 
 	// Re-enable the motor safety helper
 	robotDrive->SetSafetyEnabled(true);
