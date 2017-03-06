@@ -1,16 +1,31 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Auton Drive Timed: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="672" y="480"/>
+	</widget>
+	<widget field="RTurnPIDOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="39" y="422"/>
+	</widget>
+	<widget field="LTurnPIDOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="41" y="400"/>
+	</widget>
+	<widget field="Auton Default" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="420" y="489"/>
+	</widget>
+	<widget field="Auton Drive Turn Distance" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="346" y="409"/>
+	</widget>
+	<widget field="Auton Drive Distance: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="304" y="361"/>
+	</widget>
 	<widget field="DriveHeadingAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="22" y="384"/>
+		<location x="22" y="368"/>
 	</widget>
 	<widget field="ChsCL_TargetInches" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="317" y="288"/>
 	</widget>
 	<widget field="Chs_DriveDirection" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="327" y="48"/>
-	</widget>
-	<widget field="Drive Turn" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="410" y="457"/>
 	</widget>
 	<widget field="Cam_TurnAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="42" y="294"/>
@@ -19,7 +34,7 @@
 		<location x="46" y="272"/>
 	</widget>
 	<widget field="Chs_GyroAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="48" y="416"/>
+		<location x="48" y="464"/>
 	</widget>
 	<widget field="Chs_DriveBrakeMode" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="313" y="16"/>
@@ -68,10 +83,10 @@
 		<height>59</height>
 	</static-widget>
 	<widget field="Auton Drive Distance" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="353" y="329"/>
+		<location x="368" y="320"/>
 	</widget>
 	<widget field="Auton Drive Turn: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="11" y="464"/>
+		<location x="11" y="496"/>
 	</widget>
 	<widget field="ChsR_CLError" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="363" y="160"/>
