@@ -15,6 +15,7 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/AgitatorMotorControl.h"
 #include "Commands/AutonDefault.h"
+#include "Commands/AutonDelay.h"
 #include "Commands/AutonDriveDistance.h"
 #include "Commands/AutonDriveTimed.h"
 #include "Commands/AutonDriveTurn.h"

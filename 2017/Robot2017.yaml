@@ -1095,24 +1095,43 @@ Children:
         name: Parameters
         validators: null
         value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: seconds, type: double}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: None}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: Auton Delay
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
         - !!robotbuilder.data.properties.ParameterDescriptor {name: timer, type: double}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Chassis}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id017
+        default: []
+        name: Parameter presets
+        validators: null
+        value:
         - !!robotbuilder.data.properties.ParameterSet
           name: DEFAULT
           parameters:
           - {name: timer, type: double, value: '0'}
-        name: Parameter presets
-        validators: null
-        value: *id017
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: Auton Drive Timed
   - Children: []
-    Properties: &id019
+    Properties: &id018
       Parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
         name: Parameters
@@ -1151,9 +1170,9 @@ Children:
         name: Commands
         validators: [List]
         value:
-        - &id021 !!robotbuilder.data.CommandGroupEntry
+        - &id020 !!robotbuilder.data.CommandGroupEntry
           command:
-            base: &id020
+            base: &id019
               help: A command specifies an action that the robot can perform.
               name: Command
               properties:
@@ -1167,14 +1186,14 @@ Children:
                 validators: null
                 value: []
               - !!robotbuilder.data.properties.ParameterSetProperty
-                default: &id018 []
+                default: &id017 []
                 name: Parameter presets
                 validators: null
-                value: *id018
+                value: *id017
               supports: {}
               type: Command
             name: Auton Drive Turn
-            properties: *id019
+            properties: *id018
           hasMatch: true
           order: Sequential
           parameters:
@@ -1187,9 +1206,9 @@ Children:
           previous: null
         - !!robotbuilder.data.CommandGroupEntry
           command:
-            base: *id020
+            base: *id019
             name: Auton Drive Distance
-            properties: &id022
+            properties: &id021
               Parameters: !!robotbuilder.data.properties.ParametersProperty
                 default: []
                 name: Parameters
@@ -1219,13 +1238,13 @@ Children:
             value:
             - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: distance,
               type: double, value: '0'}
-          previous: *id021
+          previous: *id020
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command Group
     Name: Auton Drive Turn Distance
   - Children: []
-    Properties: *id022
+    Properties: *id021
     Base: Command
     Name: Auton Drive Distance
   - Children: []
@@ -1551,7 +1570,7 @@ Children:
   Base: Commands
   Name: Commands
 Properties:
-  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\workspace',
+  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS_User\workspace',
     extension: null, folder: true, name: Eclipse Workspace, validators: null, value: .\}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
@@ -1570,7 +1589,7 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS_User\',
     extension: null, folder: true, name: Wiring file location, validators: null, value: .\}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Auton Default}
