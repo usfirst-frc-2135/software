@@ -1,8 +1,5 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="Auton Drive Timed: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="672" y="480"/>
-	</widget>
 	<widget field="RTurnPIDOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="39" y="422"/>
 	</widget>
@@ -10,13 +7,10 @@
 		<location x="41" y="400"/>
 	</widget>
 	<widget field="Auton Default" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="420" y="489"/>
-	</widget>
-	<widget field="Auton Drive Turn Distance" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="346" y="409"/>
+		<location x="433" y="383"/>
 	</widget>
 	<widget field="Auton Drive Distance: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="304" y="361"/>
+		<location x="304" y="343"/>
 	</widget>
 	<widget field="DriveHeadingAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="22" y="368"/>
@@ -78,13 +72,10 @@
 		<height>326</height>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
-		<location x="736" y="389"/>
+		<location x="393" y="461"/>
 		<width>173</width>
 		<height>59</height>
 	</static-widget>
-	<widget field="Auton Drive Distance" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="368" y="320"/>
-	</widget>
 	<widget field="Auton Drive Turn: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="11" y="496"/>
 	</widget>
@@ -110,4 +101,6 @@
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="Auton Drive Timed: DEFAULT"/>
+	<hidden field="Auton Drive Turn Distance"/>
 </xml>
