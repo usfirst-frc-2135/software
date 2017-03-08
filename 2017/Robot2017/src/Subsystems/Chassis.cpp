@@ -194,21 +194,15 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 void Chassis::UpdateSmartDashboardValues(void)
 {
-	static	int dashboardUpdate = 0;
-
-	//	Print dashboard values only every 12 x 20 msec, to reduce resource requirements
-	if (dashboardUpdate++ > 25)
-	{
 #ifndef ROBORIO_STANDALONE	// If not in RoboRIO standalone mode (no talons connected)
-		SmartDashboard::PutNumber(CHS_ENCPOSITION_L, motorL1->GetEncPosition());
-		SmartDashboard::PutNumber(CHS_ENCPOSITION_R, motorR3->GetEncPosition());
-		SmartDashboard::PutNumber(CHS_ROTATIONS_L, motorL1->GetPosition());
-		SmartDashboard::PutNumber(CHS_ROTATIONS_R, motorR3->GetPosition());
-		SmartDashboard::PutNumber(CHS_CL_ERROR_L, motorL1->GetClosedLoopError());
-		SmartDashboard::PutNumber(CHS_CL_ERROR_R, motorR3->GetClosedLoopError());
+	SmartDashboard::PutNumber(CHS_ENCPOSITION_L, motorL1->GetEncPosition());
+	SmartDashboard::PutNumber(CHS_ENCPOSITION_R, motorR3->GetEncPosition());
+	SmartDashboard::PutNumber(CHS_ROTATIONS_L, motorL1->GetPosition());
+	SmartDashboard::PutNumber(CHS_ROTATIONS_R, motorR3->GetPosition());
+	SmartDashboard::PutNumber(CHS_CL_ERROR_L, motorL1->GetClosedLoopError());
+	SmartDashboard::PutNumber(CHS_CL_ERROR_R, motorR3->GetClosedLoopError());
 #endif
-		SmartDashboard::PutNumber(CHS_GYROANGLE, gyro->GetAngle());
-	}
+	SmartDashboard::PutNumber(CHS_GYROANGLE, gyro->GetAngle());
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

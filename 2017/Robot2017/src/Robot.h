@@ -37,6 +37,8 @@
 class Robot : public IterativeRobot {
 public:
 	std::unique_ptr<Command> autonomousCommand;
+	frc::SendableChooser<frc::Command*> chooser;
+
 	static std::unique_ptr<OI> oi;
 	frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
 	Preferences *prefs = Preferences::GetInstance();
@@ -68,10 +70,16 @@ public:
 	std::shared_ptr<NetworkTable> table;
 
 private:
+	int m_dashboardUpdate;
 	bool m_faultsCleared;
 
 	static int const imgWidth = 320;
 	static int const imgHeight = 240;
+
+	// Smartdashboard update rates in 20ms packet counts
+	static int const smartdashboardUpdateDisabled = 200/20;		// 200ms
+	static int const smartdashboardUpdateTeleop = 500/20;		// 500ms
+	static int const smartdashboardUpdateAutonomous = 500/20;	// 500ms
 
 	std::thread visionThread;
 	static void CameraVisionThread();
