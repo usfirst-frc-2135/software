@@ -322,10 +322,6 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	// Set flag to indicate that the PID closed loop error is not yet valid
     m_CL_pidStarted = false;
 
-	// Enable the PID loop to start the movement
-	motorL1->Enable();
-	motorR3->Enable();
-
 	//Start safety timer
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
@@ -383,10 +379,6 @@ void Chassis::MoveDriveDistancePIDStop(void)
 {
 	// Stop the safety timer
 	m_safetyTimer.Stop();
-
-	// Disable the PID loop
-	motorL1->Disable();
-	motorR3->Disable();
 
 	// Change to coast mode
 	MoveSetBrakeNotCoastMode(false);
