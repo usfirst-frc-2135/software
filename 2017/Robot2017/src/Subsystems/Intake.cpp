@@ -49,11 +49,12 @@ void Intake::Initialize(frc::Preferences *prefs)
 	printf("2135: Intake Initialize\n");
     motor8->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
 	motor8->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+	motor8->Set(0.0);
 
     motor9->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
 	motor9->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
-	motor9->SetClosedLoopOutputDirection(true);
 	motor9->Set(8);
+	motor9->SetClosedLoopOutputDirection(true);
 }
 
 void Intake::UpdateSmartDashboardValues(void)

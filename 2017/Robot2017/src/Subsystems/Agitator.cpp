@@ -48,6 +48,7 @@ void Agitator::Initialize(frc::Preferences *prefs)
 	printf("2135: Agitator Initialize\n");
     motor12->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
 	motor12->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+	motor12->Set(0.0);
 }
 
 void Agitator::UpdateSmartDashboardValues(void)

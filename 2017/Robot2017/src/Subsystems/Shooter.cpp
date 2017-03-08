@@ -49,6 +49,7 @@ void Shooter::Initialize(frc::Preferences *prefs)
 	printf("2135: Shooter Initialize\n");
     motor14->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
 	motor14->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+	motor14->Set(0.0);
 
 	ballGate->SetAngle(0);
 }

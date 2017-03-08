@@ -299,7 +299,9 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 
 	// Change the drive motors to be position-loop control modes
 	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
+	motorL1->Set(0.0);
 	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
+	motorR3->Set(0.0);
 
 	// Change to brake mode
 	MoveSetBrakeNotCoastMode(true);
@@ -391,7 +393,9 @@ void Chassis::MoveDriveDistancePIDStop(void)
 
 	// Change from PID position-loop back to PercentVbus for driver control
 	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+	motorL1->Set(0.0);
 	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+	motorR3->Set(0.0);
 
 	// Do not shift back to high gear in case another auton command is running
 

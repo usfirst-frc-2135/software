@@ -49,11 +49,12 @@ void Climber::Initialize(frc::Preferences *prefs)
 	printf("2135: Climber Initialize\n");
     motor18->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
 	motor18->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+	motor18->Set(0.0);
 
     motor19->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
 	motor19->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
-	motor19->SetClosedLoopOutputDirection(true);
 	motor19->Set(18);
+	motor19->SetClosedLoopOutputDirection(true);
 }
 
 void Climber::UpdateSmartDashboardValues(void)
