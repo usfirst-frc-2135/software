@@ -350,6 +350,7 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 	bool pidFinished = false;
 
 	// Detect if closed loop error has been updated once after start
+	// TODO: Do we need to wait for a rotation now that command is working better
 	if (!m_CL_pidStarted && (abs(motorL1->GetClosedLoopError()) > USDigitalS4_CPR_120*4) &&
 			(abs(motorR3->GetClosedLoopError()) > USDigitalS4_CPR_120*4))
 	{
@@ -361,17 +362,16 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 	if (m_CL_pidStarted) {
 		if ((abs(motorL1->GetClosedLoopError()) <= m_CL_allowError) &&
 			(abs(motorR3->GetClosedLoopError()) <= m_CL_allowError)) {
-			printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
-			printf("2135: TargetRotations: %3.2f  L: %3.2f R: %3.2f\n",
+			printf("2135: TargetRotations: %3.2f   L: %3.2f  R: %3.2f\n",
 				m_pidTargetRotations, motorL1->GetPosition(), motorR3->GetPosition());
-			printf("2135: ClosedLoopError:  L: %d  R: %d\n",
+			printf("2135: ClosedLoopError:         L: %d  R: %d\n",
 				motorL1->GetClosedLoopError(), motorR3->GetClosedLoopError());
 			pidFinished = true;
 		}
 	}
 
 	// Check if safety timer has expired, set value to about 2x the cycle
-	if (m_safetyTimer.HasPeriodPassed(10)) {
+	if (m_safetyTimer.HasPeriodPassed(3.5)) {
 		printf("2135: Safety Timer timed out\n");
 		pidFinished = true;
 	}
@@ -385,6 +385,7 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 void Chassis::MoveDriveDistancePIDStop(void)
 {
 	// Stop the safety timer
+	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
 
 	// Change to coast mode
@@ -409,6 +410,8 @@ void Chassis::MoveDriveDistancePIDStop(void)
 
 void Chassis::MoveDriveHeadingDistanceInit(double angle)
 {
+	m_pidAngle = angle;
+
 	// Reset the gyro to set a new turn reference heading
 	gyro->Reset();
 
@@ -436,8 +439,21 @@ void Chassis::MoveDriveHeadingDistanceInit(double angle)
 }
 
 bool Chassis::MoveDriveHeadingIsPIDAtSetPoint(void) {
+	bool pidFinished = false;
+
 	// Test the PID to see if it is on the programmed target
-	return (turnControl->OnTarget()) || (m_safetyTimer.HasPeriodPassed(2.0));
+	if (turnControl->OnTarget()) {
+		pidFinished = true;
+		printf("2135: TargetAngle: %3.2f   Actual: %3.2f\n", m_pidAngle, gyro->GetAngle());
+	}
+
+	// Check if safety timer has expired, set value to about 2x the cycle
+	if (m_safetyTimer.HasPeriodPassed(2.0)) {
+		printf("2135: Safety Timer timed out\n");
+		pidFinished = true;
+	}
+
+	return pidFinished;
 }
 
 void Chassis::MoveDriveHeadingStop(void) {
@@ -445,6 +461,7 @@ void Chassis::MoveDriveHeadingStop(void) {
 	turnControl->Disable();
 
 	// Stop safety timer
+	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
 
 	// Do not shift back to high gear in case another auton command is running

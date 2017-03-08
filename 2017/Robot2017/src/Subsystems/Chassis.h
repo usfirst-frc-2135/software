@@ -85,6 +85,7 @@ private:
 	double m_pidTargetRotations; 	// Number of rotations to drive in Drive Distance
 	int m_CL_allowError;			// Closed loop allowable error
 	bool m_CL_pidStarted;			// Flag to indicate PID has started and CL error is valid
+	double m_pidAngle;				// Number of degrees to turn in Drive Turn
 
 	bool m_lowGear;					// Low Gear or High Gear
 	Timer m_safetyTimer;			// Safety timer for use during autonomous modes
