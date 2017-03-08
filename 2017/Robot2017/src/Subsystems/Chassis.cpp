@@ -38,8 +38,9 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     // Drivetrain Talon settings - Teleop mode
 
-    // Enable motor safety code on drive motors
-    robotDrive->SetSafetyEnabled(true);
+    // Enable motor safety code on drive motors (temporarily disabled)
+    // TODO: Can we enable motor safety and have auton run
+    robotDrive->SetSafetyEnabled(false);
 
     // Make second Talon SRX controller on each side of drivetrain follow the main Talon SRX
     motorL2->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
@@ -47,6 +48,12 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorR4->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
     motorR4->Set(3);
     motorL1->SetInverted(true);
+
+    // TODO: Can we remove this code and have autonomous run
+    motorL1->SetSafetyEnabled(false);
+    motorL2->SetSafetyEnabled(false);
+    motorR3->SetSafetyEnabled(false);
+    motorR4->SetSafetyEnabled(false);
 
     // Drivetrain Talon settings - Autonomous modes
 
@@ -391,8 +398,9 @@ void Chassis::MoveDriveDistancePIDStop(void)
 
 	// Do not shift back to high gear in case another auton command is running
 
-	// Re-enable the motor safety helper
-	robotDrive->SetSafetyEnabled(true);
+	// Re-enable the motor safety helper (temporarily disabled)
+    // TODO: Can we enable motor safety and have auton run
+	robotDrive->SetSafetyEnabled(false);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -444,8 +452,9 @@ void Chassis::MoveDriveHeadingStop(void) {
 	// Change to Brake mode
 	MoveSetBrakeNotCoastMode(false);
 
-	// Re-enable the motor safety helper
-	robotDrive->SetSafetyEnabled(true);
+	// Re-enable the motor safety helper (temporarily disabled)
+    // TODO: Can we enable motor safety and have auton run
+	robotDrive->SetSafetyEnabled(false);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
