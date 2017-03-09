@@ -26,7 +26,7 @@ AutonDriveTurn::AutonDriveTurn(double angle): Command() {
 
 // Called just before this Command runs the first time
 void AutonDriveTurn::Initialize() {
-	if (m_angle < 0.1) {
+	if (abs(m_angle) < 0.1) {
 		m_angle = SmartDashboard::GetNumber(AUTON_DRIVEHEADING, AUTON_DRIVEHEADING_D);
 	}
 	printf("2135: Auton Drive Turn - Initialize: %f degrees\n", m_angle);

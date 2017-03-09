@@ -28,7 +28,7 @@ AutonDriveDistance::AutonDriveDistance(double distance): Command() {
 void AutonDriveDistance::Initialize() {
 	// If distance is less than 0.1 (default is 0.0), then read smartdashboard
 	//	auton programs will pass in larger value
-	if (m_distance < 0.1) {
+	if (abs(m_distance) < 0.1) {
 		m_distance = SmartDashboard::GetNumber(AUTON_DRIVEDISTANCE, AUTON_DRIVEDISTANCE_D);
 	}
 
