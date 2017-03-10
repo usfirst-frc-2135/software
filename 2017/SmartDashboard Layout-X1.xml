@@ -1,5 +1,23 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Auton Pos 2 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="627" y="457"/>
+	</widget>
+	<widget field="Auton Pos 123 Move" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="659" y="368"/>
+	</widget>
+	<widget field="Auto Modes" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="921" y="368"/>
+	</widget>
+	<widget field="Auton Pos 3 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="627" y="505"/>
+	</widget>
+	<widget field="Auton Drive Peg Vision" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="640" y="553"/>
+	</widget>
+	<widget field="Auton Pos 1 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="627" y="409"/>
+	</widget>
 	<widget field="RTurnPIDOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="39" y="422"/>
 	</widget>
@@ -101,6 +119,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="Auton Drive Timed: DEFAULT"/>
-	<hidden field="Auton Drive Turn Distance"/>
 </xml>
