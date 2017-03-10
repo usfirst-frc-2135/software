@@ -46,11 +46,11 @@ OI::OI() {
     operatorPanelB.reset(new Joystick(2));
     
     operAllCamerasOff.reset(new JoystickButton(operatorPanelB.get(), 8));
-    operAllCamerasOff->WhenPressed(new AllCamerasDisabled());
+    operAllCamerasOff->WhenPressed(new AllCamerasDisabled(false));
     operGearCameraOn.reset(new JoystickButton(operatorPanelB.get(), 7));
-    operGearCameraOn->WhenPressed(new GearCameraOn());
+    operGearCameraOn->WhenPressed(new GearCameraOn(true));
     operShooterCameraOn.reset(new JoystickButton(operatorPanelB.get(), 5));
-    operShooterCameraOn->WhenPressed(new ShooterCameraOn());
+    operShooterCameraOn->WhenPressed(new ShooterCameraOn(true));
     operClimberForward.reset(new JoystickButton(operatorPanelB.get(), 1));
     operClimberForward->WhileHeld(new ClimberMotorControl(1));
     operatorPanelA.reset(new Joystick(1));
