@@ -262,27 +262,45 @@ void Robot::CameraVisionThread() {
 	//Flag for SmartDashboard if rectContours are found
 	SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);  // initialize
 
+	// Get the current brightness and exposure from the dashboard
+	camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
+	camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
+
 	// Main loop for our vision thread
 	while (true) {
+		static bool pipeEnabled = false;
+
 		// DEBUG ONLY: Wait one second before starting each processing loop
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
 		// Get a frame from the camera input stream
 		inputStream.GrabFrame(inputFrame);
 
-		// Set up variable for pipeline toggle
-		bool pipelineOn;
-		pipelineOn = SmartDashboard::GetBoolean(CAM_GEARPIPEON, false);
-
 		// If the pipelineOn is false, then 'continue' will take camera out of the pipeline
-		if (!pipelineOn)
+		if (!SmartDashboard::GetBoolean(CAM_GEARPIPEON, false))
+		{
+			// If pipe was enabled, reset brightness and exposure
+			if (pipeEnabled)
+			{
+				// Get to a user visible brigntness and exposure
+				camera.SetBrightness(100);
+				camera.SetExposureManual(100);
+			}
+			pipeEnabled = false;
+
+			//bypass pipeline
 			continue;
+		}
 
-		// Get the current brightness from the dashboard
-		camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
+		// If pipe was disabled, set brightness and exposure for pipeline from dashboard
+		if (!pipeEnabled)
+		{
+			// Get the current brightness and exposure from the dashboard
+			camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
+			camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
+		}
 
-		// Get the current exposure from the dashboard
-		camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
+		pipeEnabled = true;
 
 		// Run vision processing pipeline generated from GRIP
 		cameraPipeline.Process(inputFrame);
@@ -448,20 +466,18 @@ float Robot::CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const flo
 
 // Toggle mode for enabling/disabling the pipelines on the cameras for gear and shooter.
 
-void Robot::ShooterCameraPipelineOn(bool isEnabled) {
-	if (isEnabled)
-		SmartDashboard::PutBoolean(CAM_SHOOTERPIPEON, true);
-	else
-		SmartDashboard::PutBoolean(CAM_SHOOTERPIPEON, false);
+void Robot::VisionGearPipeOn() {
+	SmartDashboard::PutBoolean(CAM_GEARPIPEON, true);
 }
 
-void Robot::GearCameraPipelineOn(bool isEnabled) {
-	if (isEnabled)
-		SmartDashboard::PutBoolean(CAM_GEARPIPEON, true);
-	else
-		SmartDashboard::PutBoolean(CAM_GEARPIPEON, true);
+void Robot::VisionShooterPipeOn() {
+	SmartDashboard::PutBoolean(CAM_SHOOTERPIPEON, true);
 }
-//TODO: Add boolean setter CameraChangeMode. One method for each camera.
+
+void Robot::VisionAllPipesOff() {
+	SmartDashboard::PutBoolean(CAM_GEARPIPEON, false);
+	SmartDashboard::PutBoolean(CAM_SHOOTERPIPEON, false);
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
