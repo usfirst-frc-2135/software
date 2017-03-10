@@ -25,7 +25,7 @@ GearCameraOn::GearCameraOn(bool pipelineOn): Command() {
 
 // Called just before this Command runs the first time
 void GearCameraOn::Initialize() {
-
+	// TODO: Add the name of the command into this
 }
 
 // Called repeatedly when this Command is scheduled to run
