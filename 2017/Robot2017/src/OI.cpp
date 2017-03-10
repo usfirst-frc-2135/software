@@ -87,8 +87,8 @@ OI::OI() {
     driverShift->WhileHeld(new DriveShift(true));
 
     // SmartDashboard Buttons
-    SmartDashboard::PutData("Gear Camera On", new GearCameraOn());
-    SmartDashboard::PutData("Shooter Camera On", new ShooterCameraOn());
+    SmartDashboard::PutData("Gear Camera On: DEFAULT", new GearCameraOn(false));
+    SmartDashboard::PutData("Shooter Camera On: DEFAULT", new ShooterCameraOn(false));
     SmartDashboard::PutData("All Cameras Disabled", new AllCamerasDisabled());
     SmartDashboard::PutData("Auton Drive Peg Vision", new AutonDrivePegVision());
     SmartDashboard::PutData("Auton Drive Turn: DEFAULT", new AutonDriveTurn(0));
