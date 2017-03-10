@@ -263,7 +263,7 @@ void Robot::CameraVisionThread() {
 	SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);  // initialize
 
 	//	TODO: Getting SmartDashboard values is resource intensive--only do it occasionally
-
+	//  TODO: Move into while loop
 	// Get the current brightness from the dashboard
 	camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
 
@@ -277,6 +277,7 @@ void Robot::CameraVisionThread() {
 
 		// Get a frame from the camera input stream
 		inputStream.GrabFrame(inputFrame);
+		continue;
 		// Run vision processing pipeline generated from GRIP
 		cameraPipeline.Process(inputFrame);
 		// Get a reference to the pipeline output frame
@@ -438,6 +439,8 @@ float Robot::CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const flo
 	float angleToAdjustDegrees = angleToAdjustRadians * 180.0 / 3.1415;
 	return angleToAdjustDegrees;
 }
+
+//TODO: Add boolean setter CameraChangeMode. One method for each camera.
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
