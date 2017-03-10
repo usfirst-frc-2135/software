@@ -25,7 +25,7 @@ AllCamerasDisabled::AllCamerasDisabled(bool pipeline): Command() {
 
 // Called just before this Command runs the first time
 void AllCamerasDisabled::Initialize() {
-
+	// TODO: Add the name of the command into this
 }
 
 // Called repeatedly when this Command is scheduled to run

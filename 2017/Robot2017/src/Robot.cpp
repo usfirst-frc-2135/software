@@ -262,14 +262,6 @@ void Robot::CameraVisionThread() {
 	//Flag for SmartDashboard if rectContours are found
 	SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);  // initialize
 
-	//	TODO: Getting SmartDashboard values is resource intensive--only do it occasionally
-	//  TODO: Move into while loop
-	// Get the current brightness from the dashboard
-	camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
-
-	// Get the current exposure from the dashboard
-	camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
-
 	// Main loop for our vision thread
 	while (true) {
 		// DEBUG ONLY: Wait one second before starting each processing loop
@@ -277,7 +269,21 @@ void Robot::CameraVisionThread() {
 
 		// Get a frame from the camera input stream
 		inputStream.GrabFrame(inputFrame);
-		continue;
+
+		// Set up variable for pipeline toggle
+		bool pipelineOn;
+		pipelineOn = SmartDashboard::GetBoolean(CAM_GEARPIPEON, false);
+
+		// If the pipelineOn is false, then 'continue' will take camera out of the pipeline
+		if (!pipelineOn)
+			continue;
+
+		// Get the current brightness from the dashboard
+		camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
+
+		// Get the current exposure from the dashboard
+		camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
+
 		// Run vision processing pipeline generated from GRIP
 		cameraPipeline.Process(inputFrame);
 		// Get a reference to the pipeline output frame
@@ -440,6 +446,21 @@ float Robot::CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const flo
 	return angleToAdjustDegrees;
 }
 
+// Toggle mode for enabling/disabling the pipelines on the cameras for gear and shooter.
+
+void Robot::ShooterCameraPipelineOn(bool isEnabled) {
+	if (isEnabled)
+		SmartDashboard::PutBoolean(CAM_SHOOTERPIPEON, true);
+	else
+		SmartDashboard::PutBoolean(CAM_SHOOTERPIPEON, false);
+}
+
+void Robot::GearCameraPipelineOn(bool isEnabled) {
+	if (isEnabled)
+		SmartDashboard::PutBoolean(CAM_GEARPIPEON, true);
+	else
+		SmartDashboard::PutBoolean(CAM_GEARPIPEON, true);
+}
 //TODO: Add boolean setter CameraChangeMode. One method for each camera.
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
