@@ -75,6 +75,14 @@
 
 #define CHS_GYROANGLE			"Chs_GyroAngle"
 
+//  SmartDashboard Camera Pipeline Toggle settings
+
+#define CAM_GEARPIPEON			"Cam_GearPipelineOn"
+#define CAM_GEARPIPEON_D		false
+
+#define CAM_SHOOTERPIPEON		"Cam_ShooterPipelineOn"
+#define CAM_SHOOTERPIPEON_D		false
+
 //	SmartDashboard Vision settings
 
 #define	CAM_BRIGHTNESS			"Cam_Brightness_%"
