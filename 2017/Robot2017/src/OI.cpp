@@ -89,7 +89,7 @@ OI::OI() {
     // SmartDashboard Buttons
     SmartDashboard::PutData("Gear Camera On: DEFAULT", new GearCameraOn(false));
     SmartDashboard::PutData("Shooter Camera On: DEFAULT", new ShooterCameraOn(false));
-    SmartDashboard::PutData("All Cameras Disabled", new AllCamerasDisabled());
+    SmartDashboard::PutData("All Cameras Disabled: DEFAULT", new AllCamerasDisabled(false));
     SmartDashboard::PutData("Auton Drive Peg Vision", new AutonDrivePegVision());
     SmartDashboard::PutData("Auton Drive Turn: DEFAULT", new AutonDriveTurn(0));
     SmartDashboard::PutData("Auton Drive Distance: DEFAULT", new AutonDriveDistance(0));
