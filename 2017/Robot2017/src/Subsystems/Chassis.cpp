@@ -64,8 +64,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	motorR3->ConfigEncoderCodesPerRev(USDigitalS4_CPR_120);
 
     // Invert the direction of the right hand side motors and sensors
-	motorL1->SetClosedLoopOutputDirection(false);
-	motorR3->SetClosedLoopOutputDirection(true);
+	motorL1->SetClosedLoopOutputDirection(true);
+	motorR3->SetClosedLoopOutputDirection(false);
 	motorL1->SetSensorDirection(true);
 	motorR3->SetSensorDirection(false);
 

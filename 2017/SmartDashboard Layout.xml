@@ -1,171 +1,140 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="ChsCL_TargetInches" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="584" y="0"/>
+	<widget field="Auton Default" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="433" y="438"/>
 	</widget>
-	<widget field="ChsCL_Proportional" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="441"/>
+	<widget field="Auton Pos 2 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="433" y="404"/>
 	</widget>
-	<widget field="Chs_DriveSpin" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="420"/>
+	<widget field="Auton Pos 123 Move" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="433" y="323"/>
 	</widget>
-	<widget field="Chs_DriveScaling" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="399"/>
+	<widget field="Auton Pos 3 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="433" y="289"/>
 	</widget>
-	<widget field="Chs_DriveDirection" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="378"/>
+	<widget field="Auton Drive Peg Vision" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="433" y="232"/>
 	</widget>
-	<widget field="Cam_SatEnd" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="357"/>
+	<widget field="Auton Pos 1 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="225" y="413"/>
 	</widget>
-	<widget field="Cam_LumStart" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="336"/>
+	<widget field="Cam_ShooterPipelineOn" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="228" y="392"/>
 	</widget>
-	<widget field="Cam_HueEnd" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="315"/>
+	<widget field="Cam_GearPipelineOn" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="242" y="369"/>
 	</widget>
-	<widget field="Cam_SatStart" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="294"/>
+	<widget field="Shooter Camera On: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="208" y="336"/>
 	</widget>
-	<widget field="Chs_GyroAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="412" y="273"/>
+	<widget field="Gear Camera On: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="223" y="304"/>
 	</widget>
-	<widget field="Cam_HueStart" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="412" y="252"/>
+	<widget field="All Cameras Disabled: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="204" y="272"/>
 	</widget>
-	<widget field="Cam_FoundTarget" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="412" y="231"/>
+	<widget field="Auto Modes" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="543" y="268"/>
 	</widget>
-	<widget field="Cam_Exposure_%" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="210"/>
+	<widget field="RTurnPIDOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="26" y="336"/>
 	</widget>
-	<widget field="Cam_Brightness_%" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="189"/>
+	<widget field="LTurnPIDOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="28" y="320"/>
 	</widget>
-	<widget field="Chs_DriveBrakeMode" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="168"/>
-	</widget>
-	<widget field="Cam_LumEnd" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="147"/>
-	</widget>
-	<widget field="RightTurnOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="411" y="126"/>
-	</widget>
-	<widget field="LeftTurnOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="201" y="442"/>
+	<widget field="Auton Drive Distance: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="202" y="240"/>
 	</widget>
 	<widget field="DriveHeadingAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="201" y="421"/>
+		<location x="16" y="288"/>
 	</widget>
-	<widget field="TargetRotations" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="201" y="400"/>
+	<widget field="ChsCL_TargetInches" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="214" y="208"/>
 	</widget>
-	<widget field="CL_Proportional" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="201" y="379"/>
+	<widget field="Chs_DriveDirection" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="223" y="32"/>
 	</widget>
-	<widget field="CL_AllowError" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="201" y="358"/>
+	<widget field="Cam_TurnAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="30" y="224"/>
 	</widget>
-	<widget field="CL_RampRate" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="201" y="337"/>
+	<widget field="Cam_TurnRight" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="32" y="208"/>
 	</widget>
-	<widget field="DriveDirection" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="201" y="316"/>
+	<widget field="Chs_GyroAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="32" y="368"/>
 	</widget>
-	<widget field="ChsGyroAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="201" y="295"/>
+	<widget field="Chs_DriveBrakeMode" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="212" y="12"/>
 	</widget>
-	<widget field="ChsR_CLError" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="201" y="274"/>
+	<widget field="Cam_FoundTarget" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="17" y="256"/>
 	</widget>
-	<widget field="ChsL_CLError" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="440"/>
+	<widget field="Cam_LumEnd" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="42" y="176"/>
 	</widget>
-	<widget field="ChsR_Rotations" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="419"/>
+	<widget field="Cam_LumStart" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="36" y="160"/>
 	</widget>
-	<widget field="ChsL_Rotations" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="398"/>
+	<widget field="Cam_SatEnd" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="45" y="128"/>
 	</widget>
-	<widget field="ChsR_EncPosition" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="377"/>
+	<widget field="Cam_SatStart" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="39" y="112"/>
 	</widget>
-	<widget field="ChsL_EncPosition" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="356"/>
+	<widget field="Cam_HueEnd" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="42" y="80"/>
 	</widget>
-	<widget field="Auton Drive Distance" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="0" y="322"/>
+	<widget field="Cam_HueStart" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="36" y="60"/>
 	</widget>
-	<widget field="Angle to Adjust" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="301"/>
+	<widget field="Cam_Exposure_%" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="17" y="32"/>
+		<height>20</height>
 	</widget>
-	<widget field="TurnRight" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="231"/>
+	<widget field="Cam_Brightness_%" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="12" y="12"/>
+		<height>20</height>
 	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="736" y="4"/>
+		<width>619</width>
+		<height>466</height>
+		<property name="Camera Choice" value="USB Camera 0"/>
+	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
-		<location x="818" y="4"/>
+		<location x="413" y="6"/>
+		<width>284</width>
+		<height>225</height>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
-		<location x="24" y="256"/>
-		<width>116</width>
-		<height>44</height>
+		<location x="48" y="433"/>
+		<width>144</width>
+		<height>43</height>
 	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="423" y="5"/>
-		<property name="Camera Choice" value=""/>
-	</static-widget>
-	<widget field="DriveBrakeMode" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="246" y="10"/>
-	</widget>
-	<widget field="Gyro Value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="272" y="210"/>
-	</widget>
-	<widget field="DrivePIDProportional" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="224" y="170"/>
-	</widget>
-	<widget field="DrivePIDPeakOutVolts" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="218" y="150"/>
-	</widget>
-	<widget field="DrivePIDAbsTolerance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="217" y="130"/>
-	</widget>
-	<widget field="DrivePIDVoltRampRate" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="214" y="110"/>
-	</widget>
-	<widget field="DriveSpin" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="279" y="70"/>
-	</widget>
-	<widget field="DriveScaling" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="266" y="50"/>
-	</widget>
-	<widget field="DriveInvert" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="269" y="30"/>
-	</widget>
-	<widget field="Hue Start" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="68" y="60"/>
-	</widget>
-	<widget field="Camera Exposure %" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="15" y="30"/>
-	</widget>
-	<widget field="Camera Brightness %" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="10" y="10"/>
-	</widget>
-	<widget field="FoundTarget" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="52" y="210"/>
-	</widget>
 	<widget field="Auton Drive Turn: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="200" y="240"/>
+		<location x="13" y="400"/>
 	</widget>
-	<widget field="Luminance End" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="43" y="180"/>
+	<widget field="ChsR_CLError" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="247" y="128"/>
 	</widget>
-	<widget field="Luminance Start" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="37" y="160"/>
+	<widget field="ChsL_CLError" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="249" y="112"/>
 	</widget>
-	<widget field="Saturation End" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="43" y="130"/>
+	<widget field="ChsL_Rotations" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="240" y="160"/>
 	</widget>
-	<widget field="Hue End" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="74" y="80"/>
+	<widget field="ChsR_EncPosition" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="229" y="80"/>
 	</widget>
-	<widget field="Saturation Start" type="Number" class="edu.wpi.first.smartdashboard.gui.element
+	<widget field="ChsL_EncPosition" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="231" y="64"/>
+		<height>20</height>
+	</widget>
+	<widget field="ChsR_Rotations" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="237" y="176"/>
+		<height>20</height>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
