@@ -1,37 +1,37 @@
 <xml version="1.0">
 <dashboard>
 	<widget field="Auton Default" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="433" y="438"/>
+		<location x="288" y="240"/>
 	</widget>
 	<widget field="Auton Pos 2 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="433" y="404"/>
+		<location x="234" y="367"/>
 	</widget>
 	<widget field="Auton Pos 123 Move" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="433" y="323"/>
+		<location x="255" y="303"/>
 	</widget>
 	<widget field="Auton Pos 3 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="433" y="289"/>
+		<location x="234" y="399"/>
 	</widget>
 	<widget field="Auton Drive Peg Vision" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="433" y="232"/>
+		<location x="246" y="431"/>
 	</widget>
 	<widget field="Auton Pos 1 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="225" y="413"/>
+		<location x="234" y="335"/>
 	</widget>
 	<widget field="Cam_ShooterPipelineOn" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="228" y="392"/>
+		<location x="439" y="256"/>
 	</widget>
 	<widget field="Cam_GearPipelineOn" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="242" y="369"/>
+		<location x="454" y="240"/>
 	</widget>
 	<widget field="Shooter Camera On: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="208" y="336"/>
+		<location x="432" y="320"/>
 	</widget>
 	<widget field="Gear Camera On: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="223" y="304"/>
+		<location x="447" y="287"/>
 	</widget>
 	<widget field="All Cameras Disabled: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="204" y="272"/>
+		<location x="428" y="351"/>
 	</widget>
 	<widget field="Auto Modes" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
 		<location x="543" y="268"/>
@@ -43,7 +43,7 @@
 		<location x="28" y="320"/>
 	</widget>
 	<widget field="Auton Drive Distance: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="202" y="240"/>
+		<location x="202" y="271"/>
 	</widget>
 	<widget field="DriveHeadingAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="16" y="288"/>
