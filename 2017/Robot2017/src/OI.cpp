@@ -24,6 +24,7 @@
 #include "Commands/AutonPos2DeliverGear.h"
 #include "Commands/AutonPos3DeliverGear.h"
 #include "Commands/ClimberMotorControl.h"
+#include "Commands/ClimberMotorLowControl.h"
 #include "Commands/DriveShift.h"
 #include "Commands/DriveSpin.h"
 #include "Commands/DriveStop.h"
@@ -75,6 +76,18 @@ OI::OI() {
     operIntakeAcquire->WhileHeld(new IntakeMotorControl(1));
     driverJoystick.reset(new Joystick(0));
     
+    driverGearDoorClose11.reset(new JoystickButton(driverJoystick.get(), 11));
+    driverGearDoorClose11->WhenPressed(new GearDoorControl(false));
+    driverClimberForward10.reset(new JoystickButton(driverJoystick.get(), 10));
+    driverClimberForward10->WhileHeld(new ClimberMotorControl(1));
+    driverClimberLowPower9.reset(new JoystickButton(driverJoystick.get(), 9));
+    driverClimberLowPower9->WhileHeld(new ClimberMotorLowControl(1));
+    driverClimberLowPower8.reset(new JoystickButton(driverJoystick.get(), 8));
+    driverClimberLowPower8->WhileHeld(new ClimberMotorLowControl(1));
+    driverClimberForward7.reset(new JoystickButton(driverJoystick.get(), 7));
+    driverClimberForward7->WhileHeld(new ClimberMotorControl(1));
+    driverGearDoorClosed6.reset(new JoystickButton(driverJoystick.get(), 6));
+    driverGearDoorClosed6->WhenPressed(new GearDoorControl(false));
     driverSpinRight.reset(new JoystickButton(driverJoystick.get(), 5));
     driverSpinRight->WhileHeld(new DriveSpin(false));
     driverSpinLeft.reset(new JoystickButton(driverJoystick.get(), 4));

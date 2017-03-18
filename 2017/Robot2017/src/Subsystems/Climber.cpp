@@ -71,10 +71,27 @@ void Climber::SetMotorSpeed(int speed)
 		motor18->Set(0.0);
 		break;
 	case CLIMBER_FORWARD:
-		motor18->Set(-climberSpeed);
+		motor18->Set(CLMB_SPEED_D);
 		break;
 	case CLIMBER_REVERSE:
-		motor18->Set(climberSpeed);
+		motor18->Set(-CLMB_SPEED_D);
+		break;
+	}
+}
+
+void Climber::SetMotorLowSpeed(int speed)
+{
+	switch (speed)
+	{
+	default:
+	case CLIMBER_STOP_LOW:
+		motor18->Set(0.0);
+		break;
+	case CLIMBER_FORWARD_LOW:
+		motor18->Set(CLMB_LOW_SPEED_D);
+		break;
+	case CLIMBER_REVERSE_LOW:
+		motor18->Set(-CLMB_LOW_SPEED_D);
 		break;
 	}
 }

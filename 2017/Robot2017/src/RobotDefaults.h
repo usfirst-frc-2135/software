@@ -75,6 +75,14 @@
 
 #define CHS_GYROANGLE			"Chs_GyroAngle"
 
+//  Climber speeds for forward and low power mode
+
+#define CLMB_SPEED				"Clmb_Speed"
+#define CLMB_SPEED_D			1.0
+
+#define CLMB_LOW_SPEED			"Clmb_Low_Speed"
+#define CLMB_LOW_SPEED_D		0.2
+
 //  SmartDashboard Camera Pipeline Toggle settings
 
 #define CAM_GEARPIPEON			"Cam_GearPipelineOn"

@@ -33,6 +33,12 @@ private:
 	std::shared_ptr<JoystickButton> operIntakeExpel;
 	std::shared_ptr<JoystickButton> operIntakeAcquire;
 	std::shared_ptr<Joystick> driverJoystick;
+	std::shared_ptr<JoystickButton> driverGearDoorClose11;
+	std::shared_ptr<JoystickButton> driverClimberForward10;
+	std::shared_ptr<JoystickButton> driverClimberLowPower9;
+	std::shared_ptr<JoystickButton> driverClimberLowPower8;
+	std::shared_ptr<JoystickButton> driverClimberForward7;
+	std::shared_ptr<JoystickButton> driverGearDoorClosed6;
 	std::shared_ptr<JoystickButton> driverSpinRight;
 	std::shared_ptr<JoystickButton> driverSpinLeft;
 	std::shared_ptr<JoystickButton> driverAlignGear;
