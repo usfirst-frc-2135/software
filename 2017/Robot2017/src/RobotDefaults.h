@@ -51,7 +51,7 @@
 #define	CHS_CL_ALLOWERROR_D		30
 
 #define CHS_CL_PEAKOUTVOLTS		"ChsCL_PeakOutput"
-#define	CHS_CL_PEAKOUTVOLTS_D	12.0
+#define	CHS_CL_PEAKOUTVOLTS_D	6.0
 
 #define CHS_CL_NOMOUTVOLTS		"ChsCL_NomOutput"
 #define	CHS_CL_NOMOUTVOLTS_D	0.0
@@ -86,10 +86,10 @@
 //	SmartDashboard Vision settings
 
 #define	CAM_BRIGHTNESS			"Cam_Brightness_%"
-#define CAM_BRIGHTNESS_D		0.0
+#define CAM_BRIGHTNESS_D		6.25
 
 #define	CAM_EXPOSURE			"Cam_Exposure_%"
-#define CAM_EXPOSURE_D			0.0
+#define CAM_EXPOSURE_D			6.25
 
 #define	CAM_HUESTART			"Cam_HueStart"
 #define CAM_HUESTART_D			0.0

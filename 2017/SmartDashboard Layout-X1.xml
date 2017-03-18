@@ -79,15 +79,15 @@
 		<location x="19" y="16"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="1096" y="10"/>
-		<width>552</width>
-		<height>406</height>
+		<location x="1082" y="4"/>
+		<width>825</width>
+		<height>612</height>
 		<property name="Camera Choice" value="USB Camera 0"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
 		<location x="624" y="16"/>
 		<width>450</width>
-		<height>326</height>
+		<height>327</height>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
 		<location x="393" y="461"/>
