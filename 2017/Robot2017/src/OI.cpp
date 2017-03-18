@@ -51,10 +51,8 @@ OI::OI() {
     operShooterCameraOn->WhenPressed(new VisionShooterPipelineOn());
     operGearCameraOn.reset(new JoystickButton(operatorPanelB.get(), 5));
     operGearCameraOn->WhenPressed(new VisionGearPipelineOn());
-    operClimberLowPower.reset(new JoystickButton(operatorPanelB.get(), 2));
-    operClimberLowPower->WhileHeld(new ClimberMotorControl(1, 0.2));
     operClimberForward.reset(new JoystickButton(operatorPanelB.get(), 1));
-    operClimberForward->WhileHeld(new ClimberMotorControl(1, 1));
+    operClimberForward->WhileHeld(new ClimberMotorControl(1));
     operatorPanelA.reset(new Joystick(1));
     
     operGearDoorClose.reset(new JoystickButton(operatorPanelA.get(), 11));
@@ -77,18 +75,6 @@ OI::OI() {
     operIntakeAcquire->WhileHeld(new IntakeMotorControl(1));
     driverJoystick.reset(new Joystick(0));
     
-    driverGearDoorClose11.reset(new JoystickButton(driverJoystick.get(), 11));
-    driverGearDoorClose11->WhenPressed(new GearDoorControl(false));
-    driverClimberForward10.reset(new JoystickButton(driverJoystick.get(), 10));
-    driverClimberForward10->WhileHeld(new ClimberMotorControl(1, 1));
-    driverClimberLowPower9.reset(new JoystickButton(driverJoystick.get(), 9));
-    driverClimberLowPower9->WhileHeld(new ClimberMotorControl(1, 0.2));
-    driverClimberLowPower8.reset(new JoystickButton(driverJoystick.get(), 8));
-    driverClimberLowPower8->WhileHeld(new ClimberMotorControl(1, 0.2));
-    driverClimberForward7.reset(new JoystickButton(driverJoystick.get(), 7));
-    driverClimberForward7->WhileHeld(new ClimberMotorControl(1, 1));
-    driverGearDoorClose6.reset(new JoystickButton(driverJoystick.get(), 6));
-    driverGearDoorClose6->WhenPressed(new GearDoorControl(false));
     driverSpinRight.reset(new JoystickButton(driverJoystick.get(), 5));
     driverSpinRight->WhileHeld(new DriveSpin(false));
     driverSpinLeft.reset(new JoystickButton(driverJoystick.get(), 4));
