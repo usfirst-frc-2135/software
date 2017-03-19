@@ -33,6 +33,7 @@ void AutonDriveDistance::Initialize() {
 	}
 
 	printf("2135: Auton Drive Distance - Initialize: %f inches\n", m_distance);
+	//TODO: Put back the negative in front of m_distance for a-bot
 	Robot::chassis->MoveDriveDistancePIDInit(-m_distance);
 }
 

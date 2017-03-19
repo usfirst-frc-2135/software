@@ -66,8 +66,12 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Invert the direction of the right hand side motors and sensors
 	motorL1->SetClosedLoopOutputDirection(true);
 	motorR3->SetClosedLoopOutputDirection(false);
-	motorL1->SetSensorDirection(true);
-	motorR3->SetSensorDirection(false);
+	// TODO: Add these back in for a-bot
+//	motorL1->SetSensorDirection(true);
+//	motorR3->SetSensorDirection(false);
+	// For b-bot
+	motorL1->SetSensorDirection(false);
+	motorR3->SetSensorDirection(true);
 
 	// Set drive Talons to profile 0
 	motorL1->SelectProfileSlot(0);
