@@ -242,9 +242,9 @@ void Chassis::MoveSpin(bool spinLeft)
 {
 	// Use input flag to perform a left/right turn using equal power, opposite direction on motors
 	if (spinLeft)
-		robotDrive->SetLeftRightMotorOutputs( -m_driveSpin, -m_driveSpin );
+		robotDrive->SetLeftRightMotorOutputs( m_driveSpin, -m_driveSpin );
 	else
-		robotDrive->SetLeftRightMotorOutputs( m_driveSpin, m_driveSpin );
+		robotDrive->SetLeftRightMotorOutputs( -m_driveSpin, m_driveSpin );
 }
 
 // MoveInvertDriveDirection is a custom feature to set robot drive direction to flip from front to back
