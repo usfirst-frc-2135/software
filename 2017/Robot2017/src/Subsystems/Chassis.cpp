@@ -66,10 +66,10 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Invert the direction of the right hand side motors and sensors
 	motorL1->SetClosedLoopOutputDirection(true);
 	motorR3->SetClosedLoopOutputDirection(false);
-	// TODO: Add these back in for a-bot
+	// TODO: Crush encoder direction
 //	motorL1->SetSensorDirection(true);
 //	motorR3->SetSensorDirection(false);
-	// For b-bot
+	// TODO: Brush encoder direction is swapped
 	motorL1->SetSensorDirection(false);
 	motorR3->SetSensorDirection(true);
 
@@ -232,7 +232,6 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	}
 
 	// Apply modified joystick input to the drive motorsd
-	// TODO: Why do we pass the wrong X, Y values than the API says?
 	robotDrive->ArcadeDrive( yValue, xValue, true );
 }
 
@@ -320,9 +319,9 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	motorL1->SetEncPosition(0);
 	motorR3->SetEncPosition(0);
 
-	// Set the target distance in terms of wheel rotations
-	motorL1->Set(m_pidTargetRotations);
-	motorR3->Set(m_pidTargetRotations);
+	// Set the target distance in terms of wheel rotations (negative due to drivetrain direction)
+	motorL1->Set(-m_pidTargetRotations);
+	motorR3->Set(-m_pidTargetRotations);
 
 	// Set flag to indicate that the PID closed loop error is not yet valid
     m_CL_pidStarted = false;

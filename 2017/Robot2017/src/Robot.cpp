@@ -506,6 +506,7 @@ double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
 //	Fault handling utilities
 
 void Robot::HandleFaults(void) {
+	printf("2135: %s --------------\n", "TALON SRX FAULTS");
 	TalonSRXPrintFaults("chassisMotorL1", RobotMap::chassisMotorL1);
 	TalonSRXPrintFaults("chassisMotorL2", RobotMap::chassisMotorL2);
 	TalonSRXPrintFaults("chassisMotorR3", RobotMap::chassisMotorR3);
@@ -517,8 +518,19 @@ void Robot::HandleFaults(void) {
 	TalonSRXPrintFaults("climberMotor18", RobotMap::climberMotor18);
 	TalonSRXPrintFaults("climberMotor19", RobotMap::climberMotor19);
 
-	//faults = RobotMap::powerPDP->GetFaults();
+	printf("2135: %s --------------\n", "PCM FAULTS");
+	if (RobotMap::pneumaticsCompressor->GetCompressorCurrentTooHighStickyFault())
+		printf("\tCurrentTooHighFault\n");
+	if (RobotMap::pneumaticsCompressor->GetCompressorNotConnectedFault())
+		printf("\tCompressorNotConnectedFault\n");
+	if (RobotMap::pneumaticsCompressor->GetCompressorShortedFault())
+		printf("\tCompressorShortedFault\n");
+	RobotMap::pneumaticsCompressor->ClearAllPCMStickyFaults();
+
+	printf("2135: %s --------------\n", "PDP FAULTS");
 	RobotMap::powerPDP->ClearStickyFaults();
+
+	//faults
 }
 
 void Robot::TalonSRXPrintFaults(const char *talonName, std::shared_ptr<CANTalon> talonPtr) {
@@ -530,7 +542,7 @@ void Robot::TalonSRXPrintFaults(const char *talonName, std::shared_ptr<CANTalon>
 	stickyFaults = talonPtr->GetStickyFaults();
 	talonPtr->ClearStickyFaults();
 
-	printf("2135: %s\n", talonName);
+	printf("2135: %s --------------\n", talonName);
 
 	if (faults & CANTalon::kTemperatureFault)
 		printf("\tkTemperatureFault\n");

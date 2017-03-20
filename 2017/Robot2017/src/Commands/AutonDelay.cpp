@@ -40,6 +40,7 @@ bool AutonDelay::IsFinished() {
     if (m_timer.HasPeriodPassed(m_seconds)) {
     	return true;
     }
+
 	return false;
 }
 

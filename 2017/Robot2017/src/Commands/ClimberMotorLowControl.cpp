@@ -28,7 +28,6 @@ ClimberMotorLowControl::ClimberMotorLowControl(int direction): Command() {
 void ClimberMotorLowControl::Initialize() {
 	const char *strName;
 
-	//	TODO: When we put in a ratchet--only allow climbing correct direction in software
 	if (m_direction == Robot::climber->CLIMBER_FORWARD_LOW)
 		strName = "Climb";
 	else if (m_direction == Robot::climber->CLIMBER_REVERSE_LOW)
