@@ -119,9 +119,6 @@
 
 //	SmartDashboard Vision readout
 
-#define	CAM_TURNRIGHT			"Cam_TurnRight"
-#define	CAM_TURNRIGHT_D			true
-
 #define	CAM_TURNANGLE			"Cam_TurnAngle"
 #define	CAM_TURNANGLE_D			0.0
 

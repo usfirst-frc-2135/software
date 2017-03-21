@@ -352,10 +352,8 @@ void Robot::CameraVisionThread() {
 			float rectDistance = Robot::CalcDistToTarget((float)2.0 , imgWidthFloat, (float)rect.width);
 			printf("======= Rect Distance to Peg: %3f\n", rectDistance);
 
-			bool turnRight; // Will get set in CalcCenteringAngle
-			float rectAngleAdjust = Robot::CalcCenteringAngle(rect, turnRight, imgWidthFloat, rectDistance, 2.0);
-			printf("::::::::: Angle to Adjust SingleRect %3f --> TurnRight = %d\n", rectAngleAdjust, turnRight);
-			SmartDashboard::PutBoolean(CAM_TURNRIGHT, turnRight);
+			float rectAngleAdjust = Robot::CalcCenteringAngle(rect, imgWidthFloat, rectDistance, 2.0);
+			printf("::::::::: Angle to Adjust SingleRect %3f \n", rectAngleAdjust);
 			SmartDashboard::PutNumber(CAM_TURNANGLE, rectAngleAdjust);
 			SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
 			// TODO: Use this distance and angle to move the robot to center the target on the frame
@@ -399,7 +397,7 @@ void Robot::CameraVisionThread() {
 					// Validate the grouped targets as being of the correct aspect ratio
 					if ((groupRectRatio > 0.5) && (groupRectRatio < 2.0)) {
 						// Found a possible match
-		//				printf("!!! ---> 2135: Found a group ratio: %3f\n", groupRectRatio);
+		//TEST				printf("!!! ---> 2135: Found a group ratio: %3f\n", groupRectRatio);
 						printf("Group ---> X = %d, Y = %d, W = %d, H = %d\n", groupRect.x, groupRect.y, groupRect.width, groupRect.height);
 						// Finding the distance from the camera to the peg - group rect (in)
 						float pegGroupDistance = Robot::CalcDistToTarget((float)10.25 , imgWidthFloat, (float)groupRect.width);
@@ -409,14 +407,12 @@ void Robot::CameraVisionThread() {
 						cv::rectangle(processFrame, groupRect, cv::Scalar(0, 0, 255));
 						foundMatch = true;
 
-						bool turnRightGroup;
-						float groupAngleAdjust = Robot::CalcCenteringAngle(groupRect, turnRightGroup, imgWidthFloat, pegGroupDistance, 10.25);
-						printf("::::::::: Group Angle to Adjust %3f --> TurnRight = %d\n", groupAngleAdjust, turnRightGroup);
+						float groupAngleAdjust = Robot::CalcCenteringAngle(groupRect, imgWidthFloat, pegGroupDistance, 10.25);
+						printf("::::::::: Group Angle to Adjust %3f\n", groupAngleAdjust);
 						//TODO: Use this data to drive the robot
-						SmartDashboard::PutBoolean(CAM_TURNRIGHT, turnRightGroup);
 						SmartDashboard::PutNumber(CAM_TURNANGLE, groupAngleAdjust);
 						SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
-		//				printf("---> 2135: Group rect height: %d, width: %d, x: %d, y: %d\n", groupRect.height, groupRect.width, groupRect.x, groupRect.y);
+		//TEST				printf("---> 2135: Group rect height: %d, width: %d, x: %d, y: %d\n", groupRect.height, groupRect.width, groupRect.x, groupRect.y);
 						break;
 					}
 					else continue;
@@ -440,20 +436,13 @@ float Robot::CalcDistToTarget(const float& rectWidthInches, const float& FOVPixe
 	return ((rectWidthInches * FOVPixels) / (2.0 * rectWidthPixels * (float)tan(angleRadian)));
 }
 
-float Robot::CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const float& imgWidthScreen, const float& distToTarget, const float& RectWidthInches) {
+float Robot::CalcCenteringAngle(const cv::Rect& rect, const float& imgWidthScreen, const float& distToTarget, const float& RectWidthInches) {
 	float pixelsToCenter;
 	float rectCenterX = (float)rect.x + (float)(rect.width)/2.0;
-	turnRight = true;
 
 	// Determine if the rectangle needs to go left or right to align the peg to the center of the screen
-	if (imgWidthScreen/2.0 > rectCenterX) {
-		pixelsToCenter = imgWidthScreen/2.0 - rectCenterX;
-		turnRight = false; // Turn left
-	}
-	else {
-		pixelsToCenter = rectCenterX - imgWidthScreen/2.0;
-		// Turn right
-	}
+	pixelsToCenter = rectCenterX - imgWidthScreen/2.0;
+
 
 	// Get the inches to center by finding out the missing values from a target width
 	float inchesToCenter = RectWidthInches * pixelsToCenter / (float)(rect.width);

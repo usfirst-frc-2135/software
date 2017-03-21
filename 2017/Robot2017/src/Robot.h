@@ -88,7 +88,7 @@ private:
 	std::thread visionThread;
 	static void CameraVisionThread();
 	static float CalcDistToTarget(const float& rectWidthInches, const float& FOVPixels, const float& rectWidthPixels);
-	static float CalcCenteringAngle(const cv::Rect& rect, bool& turnRight, const float& imgWidthScreen, const float& distToTarget, const float& RectWidthInches);
+	static float CalcCenteringAngle(const cv::Rect& rect, const float& imgWidthScreen, const float& distToTarget, const float& RectWidthInches);
 
 	void HandleFaults(void);
 	void TalonSRXPrintFaults(const char *talonName, std::shared_ptr<CANTalon> talonPtr);
