@@ -86,6 +86,10 @@ Chassis::Chassis() : Subsystem("Chassis") {
     turnOutput = new TurnOutput(robotDrive);
     turnControl = new PIDController(0.02, 0.0, 0.0, gyro.get(), turnOutput);
 
+    cameraVisionDriveOutput = new CameraVisionDriveOutput(robotDrive, Robot::oi->getDriverJoystick());
+    // TODO: Convert the double into a PIDSource
+    //    cameraVisionDriveControl = new PIDController(0.02, 0.0, 0.0, (PIDSource*)Robot::chassis->MoveDriveVisionAngle(), cameraVisionDriveOutput);
+
 	//	Initialize drivetrain modifiers
     m_driveDirection = 1.0;			// Initialize drivetrain direction for driving forward or backward
     m_driveScaling = 1.0;		// Initialize scaling factor and disable it
@@ -473,6 +477,75 @@ void Chassis::MoveDriveHeadingStop(void) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+//	Closed loop movement - Drive to a relative heading using PID loop in RoboRIO and vision angles
+
+void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
+{
+	// Program the PID target setpoint
+	cameraVisionDriveControl->SetSetpoint(angle);
+
+	// Shift into low gear during movement for better accuracy
+	MoveShiftGears(true);
+
+	// Change to Brake mode
+	MoveSetBrakeNotCoastMode(true);
+
+	// Enable the PID loop
+	cameraVisionDriveControl->SetOutputRange(-m_driveSpin, m_driveSpin);
+	cameraVisionDriveControl->SetAbsoluteTolerance(2.0);
+	cameraVisionDriveControl->Enable();
+
+	//Start safety timer
+	m_safetyTimer.Reset();
+	m_safetyTimer.Start();
+
+	// Disable safety feature during movement, since motors will be fed by loop
+	robotDrive->SetSafetyEnabled(false);
+}
+
+bool Chassis::MoveDriveVisionHeadingIsPIDAtSetPoint(void)
+{
+	bool pidFinished = false;
+
+		// Test the PID to see if it is on the programmed target
+		if (cameraVisionDriveControl->OnTarget()) {
+			pidFinished = true;
+		}
+
+		// Check if safety timer has expired, set value to about 2x the cycle
+		if (m_safetyTimer.HasPeriodPassed(2.0)) {
+			printf("2135: Safety Timer timed out\n");
+			pidFinished = true;
+		}
+
+		return pidFinished;
+}
+
+void Chassis::MoveDriveVisionHeadingStop(void)
+{
+	// Disable PID loop
+	cameraVisionDriveControl->Disable();
+
+	// Stop safety timer
+	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
+	m_safetyTimer.Stop();
+
+	// Do not shift back to high gear in case another auton command is running
+
+	// Change to Brake mode
+	MoveSetBrakeNotCoastMode(false);
+
+	// Re-enable the motor safety helper (temporarily disabled)
+    // TODO: Can we enable motor safety and have auton run
+	robotDrive->SetSafetyEnabled(false);
+}
+
+double Chassis::MoveDriveVisionAngle(void)
+{
+	return SmartDashboard::GetNumber(CAM_TURNANGLE, 0.0);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
 //	Drivetrain movement - Allow other functions to shift gears to low/high as requested
 
 void Chassis::MoveShiftGears(bool lowGear)

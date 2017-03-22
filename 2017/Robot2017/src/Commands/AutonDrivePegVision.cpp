@@ -24,7 +24,8 @@ AutonDrivePegVision::AutonDrivePegVision(): Command() {
 
 // Called just before this Command runs the first time
 void AutonDrivePegVision::Initialize() {
-
+	printf("2135: Auton Drive Peg Vision - Initialize\n");
+	Robot::chassis->MoveDriveVisionHeadingDistanceInit(SmartDashboard::GetNumber(CAM_TURNANGLE, 0.0));
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -34,16 +35,18 @@ void AutonDrivePegVision::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutonDrivePegVision::IsFinished() {
-    return false;
+    return Robot::chassis->MoveDriveVisionHeadingIsPIDAtSetPoint();;
 }
 
 // Called once after isFinished returns true
 void AutonDrivePegVision::End() {
-
+	Robot::chassis->MoveDriveVisionHeadingStop();
+	printf("2135: Auton Drive Peg Vision - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutonDrivePegVision::Interrupted() {
-
+	Robot::chassis->MoveDriveVisionHeadingStop();
+	printf("2135: Auton Drive Peg Vision - Interrupted\n");
 }

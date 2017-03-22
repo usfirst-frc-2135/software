@@ -51,16 +51,18 @@ public:
 
 //	Camera Vision Drive PID controller class definitions
 
-class CameraVisionDrive: public PIDOutput {
+class CameraVisionDriveOutput: public PIDOutput {
 public:
 	std::shared_ptr<RobotDrive> myRobotDrive;
+	std::shared_ptr<Joystick> myJoystick;
 
-	CameraVisionDrive (std::shared_ptr<RobotDrive> robotDrive) {
+	CameraVisionDriveOutput (std::shared_ptr<RobotDrive> robotDrive, std::shared_ptr<Joystick> joystick) {
 		myRobotDrive = robotDrive;
+		myJoystick = joystick;
 	}
 
 	void PIDWrite(double output) {
-		myRobotDrive->ArcadeDrive (0.0, output, false);
+		myRobotDrive->ArcadeDrive (myJoystick->GetY(), output, false);
 		// TODO: Remove this after tuning
 		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
 		SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
@@ -122,6 +124,9 @@ private:
 
 	TurnOutput *turnOutput;
 	PIDController *turnControl;
+	CameraVisionDriveOutput *cameraVisionDriveOutput;
+	PIDController *cameraVisionDriveControl;
+
 
 public:
 	Chassis();
@@ -153,9 +158,10 @@ public:
 	void MoveDriveHeadingStop(void);
 
 	// Sequence for Drive to Turn to a Heading with Vision
-	void MoveDriveHeadingDistanceVisionInit(double angle);
-	bool MoveDriveHeadingVisionIsPIDAtSetPoint(void);
-	void MoveDriveHeadingVisionStop(void);
+	void MoveDriveVisionHeadingDistanceInit(double angle);
+	bool MoveDriveVisionHeadingIsPIDAtSetPoint(void);
+	void MoveDriveVisionHeadingStop(void);
+	double MoveDriveVisionAngle(void);
 
 	void MoveShiftGears(bool lowGear);
 };
