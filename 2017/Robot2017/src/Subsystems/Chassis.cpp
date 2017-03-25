@@ -88,7 +88,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     cameraVisionDriveOutput = new CameraVisionDriveOutput(robotDrive, Robot::oi->getDriverJoystick());
     // TODO: Convert the double into a PIDSource
-    //    cameraVisionDriveControl = new PIDController(0.02, 0.0, 0.0, (PIDSource*)Robot::chassis->MoveDriveVisionAngle(), cameraVisionDriveOutput);
+    cameraVisionDriveControl = new PIDController(CAM_TURNKP_D, 0.0, 0.0, gyro.get(), cameraVisionDriveOutput);
 
 	//	Initialize drivetrain modifiers
     m_driveDirection = 1.0;			// Initialize drivetrain direction for driving forward or backward

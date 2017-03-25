@@ -62,6 +62,9 @@ public:
 	}
 
 	void PIDWrite(double output) {
+		double visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
+		double currentAngle = SmartDashboard::GetNumber(CHS_GYROANGLE, 0.0);
+		output = (currentAngle + visionAngle) * CAM_TURNKP_D;
 		myRobotDrive->ArcadeDrive (myJoystick->GetY(), output, false);
 		// TODO: Remove this after tuning
 		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
@@ -71,12 +74,14 @@ public:
 
 class CameraAngleSource: public PIDSource {
 public:
+	frc::ADXRS450_Gyro *myGyro;
 
-	CameraAngleSource (void) {
+	CameraAngleSource (frc::ADXRS450_Gyro *gyro) {
+		myGyro = gyro;
 	}
 
 	double PIDGet() {
-		return SmartDashboard::GetNumber(CAM_TURNANGLE, 0.0);
+		return myGyro->GetAngle();
 	}
 };
 
