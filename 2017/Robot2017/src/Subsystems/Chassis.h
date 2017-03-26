@@ -126,6 +126,7 @@ private:
 
 	bool m_lowGear;					// Low Gear or High Gear
 	Timer m_safetyTimer;			// Safety timer for use during autonomous modes
+	double m_safetyTimeout;			// Time in seconds for safety timer
 
 	TurnOutput *turnOutput;
 	PIDController *turnControl;
@@ -158,7 +159,7 @@ public:
 	void MoveDriveDistancePIDStop(void);
 
 	// Sequence for Drive to Turn to a Heading
-	void MoveDriveHeadingDistanceInit(double angle);
+	void MoveDriveHeadingInit(double angle);
 	bool MoveDriveHeadingIsPIDAtSetPoint(void);
 	void MoveDriveHeadingStop(void);
 

@@ -333,6 +333,7 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	//Start safety timer
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
+	m_safetyTimeout = 3.5;
 
 	// Disable safety feature during movement, since motors will be fed by loop
 	robotDrive->SetSafetyEnabled(false);
@@ -372,8 +373,8 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 	}
 
 	// Check if safety timer has expired, set value to about 2x the cycle
-	if (m_safetyTimer.HasPeriodPassed(3.5)) {
-		printf("2135: Safety Timer timed out\n");
+	if (m_safetyTimer.HasPeriodPassed(m_safetyTimeout)) {
+		printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
 		pidFinished = true;
 	}
 
@@ -409,7 +410,7 @@ void Chassis::MoveDriveDistancePIDStop(void)
 
 //	Closed loop movement - Drive to a relative heading using PID loop in RoboRIO
 
-void Chassis::MoveDriveHeadingDistanceInit(double angle)
+void Chassis::MoveDriveHeadingInit(double angle)
 {
 	m_pidAngle = angle;
 
@@ -418,7 +419,7 @@ void Chassis::MoveDriveHeadingDistanceInit(double angle)
 
 	// Program the PID target setpoint
 	turnControl->SetSetpoint(angle);
-	printf("===> MoveDriveHeadingDistance() using angle: %f power: %f\n", angle, m_driveSpin);
+	printf("2135: MoveDriveHeadingInit using angle: %f power: %f\n", angle, m_driveSpin);
 
 	// Shift into low gear during movement for better accuracy
 	MoveShiftGears(true);
@@ -434,6 +435,7 @@ void Chassis::MoveDriveHeadingDistanceInit(double angle)
 	//Start safety timer
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
+	m_safetyTimeout = 2.0;
 
 	// Disable safety feature during movement, since motors will be fed by loop
 	robotDrive->SetSafetyEnabled(false);
@@ -449,8 +451,8 @@ bool Chassis::MoveDriveHeadingIsPIDAtSetPoint(void) {
 	}
 
 	// Check if safety timer has expired, set value to about 2x the cycle
-	if (m_safetyTimer.HasPeriodPassed(2.0)) {
-		printf("2135: Safety Timer timed out\n");
+	if (m_safetyTimer.HasPeriodPassed(m_safetyTimeout)) {
+		printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
 		pidFinished = true;
 	}
 
@@ -498,6 +500,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	//Start safety timer
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
+	m_safetyTimeout = 5.0;
 
 	// Disable safety feature during movement, since motors will be fed by loop
 	robotDrive->SetSafetyEnabled(false);
@@ -513,8 +516,8 @@ bool Chassis::MoveDriveVisionHeadingIsPIDAtSetPoint(void)
 		}
 
 		// Check if safety timer has expired, set value to about 2x the cycle
-		if (m_safetyTimer.HasPeriodPassed(2.0)) {
-			printf("2135: Safety Timer timed out\n");
+		if (m_safetyTimer.HasPeriodPassed(m_safetyTimeout)) {
+			printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
 			pidFinished = true;
 		}
 
