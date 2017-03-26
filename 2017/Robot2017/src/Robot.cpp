@@ -59,6 +59,8 @@ void Robot::RobotInit() {
 	m_dashboardUpdate = 0;
 
 	prefs = frc::Preferences::GetInstance();
+
+	Robot::VisionAllPipesOff();
   }
 
 /**
@@ -239,7 +241,7 @@ void Robot::CameraVisionThread() {
 	// Our vision processing pipeline
 	grip::GripContoursPipeline cameraPipeline;
 
-	// Our output stream - available to the dashboard (uses same resolution as input)
+	// Our input/output stream - available to the dashboard (uses same resolution as input)
 	cs::CvSink inputStream = CameraServer::GetInstance()->GetVideo();
 	cs::CvSource outputStream = CameraServer::GetInstance()->PutVideo("Contours Video", imgWidth, imgHeight);
 
@@ -275,32 +277,36 @@ void Robot::CameraVisionThread() {
 
 		// Get a frame from the camera input stream
 		inputStream.GrabFrame(inputFrame);
-		continue;
+
 		// If the pipelineOn is false, then 'continue' will take camera out of the pipeline
 		if (!SmartDashboard::GetBoolean(CAM_GEARPIPEON, false))
 		{
 			// If pipe was enabled, reset brightness and exposure
 			if (pipeEnabled)
 			{
+				pipeEnabled = false;
+				printf("2135: Gear Pipeline Off\n");
 				// Get to a user visible brigntness and exposure
 				camera.SetBrightness(100);
-				camera.SetExposureManual(100);
+				camera.SetExposureAuto();
+				camera.SetWhiteBalanceAuto();
 			}
-			pipeEnabled = false;
 
 			//bypass pipeline
 			continue;
 		}
-
-		// If pipe was disabled, set brightness and exposure for pipeline from dashboard
-		if (!pipeEnabled)
+		else
 		{
-			// Get the current brightness and exposure from the dashboard
-			camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
-			camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
+			// If pipe was disabled, set brightness and exposure for pipeline from dashboard
+			if (!pipeEnabled)
+			{
+				pipeEnabled = true;
+				printf("2135: Gear Pipeline On\n");
+				// Get the current brightness and exposure from the dashboard
+				camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
+				camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
+			}
 		}
-
-		pipeEnabled = true;
 
 		// Run vision processing pipeline generated from GRIP
 		cameraPipeline.Process(inputFrame);
