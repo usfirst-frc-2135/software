@@ -33,11 +33,9 @@ public:
 class DriveVisionPID: public PIDOutput {
 public:
 	std::shared_ptr<RobotDrive> myRobotDrive;
-	std::shared_ptr<Joystick> myJoystick;
-	std::shared_ptr<ADXRS450_Gyro> myGyro;
-	double visionAngle;
+	double m_visionAngle;
 
-	DriveVisionPID(std::shared_ptr<RobotDrive> drive, std::shared_ptr<Joystick> stick, std::shared_ptr<ADXRS450_Gyro> gyro);
+	DriveVisionPID(std::shared_ptr<RobotDrive> drive);
 	void PIDWrite(double output);
 };
 

@@ -82,14 +82,6 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_brakeMode = false;
     MoveSetBrakeNotCoastMode(m_brakeMode);
 
-	// Autonomous turn PID controller
-    driveTurnPIDOutput = new DriveTurnPID(robotDrive);
-    driveTurnPIDLoop = new PIDController(0.02, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
-
-//    driveVisionPIDOutput = new DriveVisionPID(robotDrive, Robot::oi->getDriverJoystick(), Robot::chassis->gyro);
-    // TODO: Convert the double into a PIDSource
-//    DriveVisionPIDLoop = new PIDController(CAM_TURNKP_D, 0.0, 0.0, gyro.get(), DriveVisionPIDOutput);
-
 	//	Initialize drivetrain modifiers
     m_driveDirection = 1.0;			// Initialize drivetrain direction for driving forward or backward
     m_driveScaling = 1.0;		// Initialize scaling factor and disable it
@@ -109,6 +101,13 @@ Chassis::Chassis() : Subsystem("Chassis") {
     printf("2135: Starting gyro calibration\n");
 	gyro->Calibrate();
     printf("2135: Stopping gyro calibration\n");
+
+	// Autonomous turn PID controller - SHOULD BE AFTER GYRO IS CALIBRATED
+    driveTurnPIDOutput = new DriveTurnPID(robotDrive);
+    driveTurnPIDLoop = new PIDController(0.02, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
+
+    driveVisionPIDOutput = new DriveVisionPID(robotDrive);
+    driveVisionPIDLoop = new PIDController(CAM_TURNKP_D, 0.0, 0.0, gyro.get(), driveVisionPIDOutput);
 }
 
 void Chassis::InitDefaultCommand() {
@@ -483,6 +482,8 @@ void Chassis::MoveDriveHeadingStop(void) {
 
 void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 {
+	gyro->Reset();
+
 	// Program the PID target setpoint
 	driveVisionPIDLoop->SetSetpoint(angle);
 
@@ -493,8 +494,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	MoveSetBrakeNotCoastMode(true);
 
 	// Enable the PID loop
-	driveVisionPIDLoop->SetOutputRange(-m_driveSpin, m_driveSpin);
-	driveVisionPIDLoop->SetAbsoluteTolerance(2.0);
+	driveVisionPIDLoop->SetAbsoluteTolerance(0.0);
 	driveVisionPIDLoop->Enable();
 
 	//Start safety timer
@@ -510,18 +510,18 @@ bool Chassis::MoveDriveVisionHeadingIsPIDAtSetPoint(void)
 {
 	bool pidFinished = false;
 
-		// Test the PID to see if it is on the programmed target
-		if (driveVisionPIDLoop->OnTarget()) {
-			pidFinished = true;
-		}
+	// Test the PID to see if it is on the programmed target
+	if (driveVisionPIDLoop->OnTarget()) {
+		pidFinished = true;
+	}
 
-		// Check if safety timer has expired, set value to about 2x the cycle
-		if (m_safetyTimer.HasPeriodPassed(m_safetyTimeout)) {
-			printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
-			pidFinished = true;
-		}
+	// Check if safety timer has expired, set value to about 2x the cycle
+	if (m_safetyTimer.HasPeriodPassed(m_safetyTimeout)) {
+		printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
+		pidFinished = true;
+	}
 
-		return pidFinished;
+	return pidFinished;
 }
 
 void Chassis::MoveDriveVisionHeadingStop(void)
@@ -562,20 +562,19 @@ void DriveTurnPID::PIDWrite(double output) {
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
 }
 
-DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive, std::shared_ptr<Joystick> joystick, std::shared_ptr<ADXRS450_Gyro> gyro) {
+DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
 	myRobotDrive = robotDrive;
-	myJoystick = joystick;
-	myGyro = gyro;
-	visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
-	printf("2135: CameraVisionAngle: %f degrees\n", visionAngle);
+
+	m_visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
+	printf("2135: CameraVisionAngle: %f degrees\n", m_visionAngle);
 }
 
 void DriveVisionPID::PIDWrite(double output) {
 	double currentAngle;
 
-	currentAngle = myGyro->GetAngle();
-	output = (currentAngle + visionAngle) * CAM_TURNKP_D;
-	myRobotDrive->ArcadeDrive (myJoystick->GetY(), output, false);
+	currentAngle = RobotMap::chassisGyro->GetAngle();
+	output = (currentAngle + m_visionAngle) * CAM_TURNKP_D;
+	myRobotDrive->ArcadeDrive (Robot::oi->getDriverJoystick()->GetY(), output, false);
 
 	// TODO: Remove this after tuning
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
