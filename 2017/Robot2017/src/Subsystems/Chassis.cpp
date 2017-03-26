@@ -83,12 +83,12 @@ Chassis::Chassis() : Subsystem("Chassis") {
     MoveSetBrakeNotCoastMode(m_brakeMode);
 
 	// Autonomous turn PID controller
-    turnOutput = new TurnOutput(robotDrive);
-    turnControl = new PIDController(0.02, 0.0, 0.0, gyro.get(), turnOutput);
+    driveTurnPIDOutput = new DriveTurnPID(robotDrive);
+    driveTurnPIDLoop = new PIDController(0.02, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
 
-    cameraVisionDriveOutput = new CameraVisionDriveOutput(robotDrive, Robot::oi->getDriverJoystick());
+//    driveVisionPIDOutput = new DriveVisionPID(robotDrive, Robot::oi->getDriverJoystick(), Robot::chassis->gyro);
     // TODO: Convert the double into a PIDSource
-    cameraVisionDriveControl = new PIDController(CAM_TURNKP_D, 0.0, 0.0, gyro.get(), cameraVisionDriveOutput);
+//    DriveVisionPIDLoop = new PIDController(CAM_TURNKP_D, 0.0, 0.0, gyro.get(), DriveVisionPIDOutput);
 
 	//	Initialize drivetrain modifiers
     m_driveDirection = 1.0;			// Initialize drivetrain direction for driving forward or backward
@@ -418,7 +418,7 @@ void Chassis::MoveDriveHeadingInit(double angle)
 	gyro->Reset();
 
 	// Program the PID target setpoint
-	turnControl->SetSetpoint(angle);
+	driveTurnPIDLoop->SetSetpoint(angle);
 	printf("2135: MoveDriveHeadingInit using angle: %f power: %f\n", angle, m_driveSpin);
 
 	// Shift into low gear during movement for better accuracy
@@ -428,9 +428,9 @@ void Chassis::MoveDriveHeadingInit(double angle)
 	MoveSetBrakeNotCoastMode(true);
 
 	// Enable the PID loop
-	turnControl->SetOutputRange(-m_driveSpin, m_driveSpin);
-	turnControl->SetAbsoluteTolerance(2.0);
-	turnControl->Enable();
+	driveTurnPIDLoop->SetOutputRange(-m_driveSpin, m_driveSpin);
+	driveTurnPIDLoop->SetAbsoluteTolerance(2.0);
+	driveTurnPIDLoop->Enable();
 
 	//Start safety timer
 	m_safetyTimer.Reset();
@@ -445,7 +445,7 @@ bool Chassis::MoveDriveHeadingIsPIDAtSetPoint(void) {
 	bool pidFinished = false;
 
 	// Test the PID to see if it is on the programmed target
-	if (turnControl->OnTarget()) {
+	if (driveTurnPIDLoop->OnTarget()) {
 		pidFinished = true;
 		printf("2135: TargetAngle: %3.2f   Actual: %3.2f\n", m_pidAngle, gyro->GetAngle());
 	}
@@ -461,7 +461,7 @@ bool Chassis::MoveDriveHeadingIsPIDAtSetPoint(void) {
 
 void Chassis::MoveDriveHeadingStop(void) {
 	// Disable PID loop
-	turnControl->Disable();
+	driveTurnPIDLoop->Disable();
 
 	// Stop safety timer
 	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
@@ -484,7 +484,7 @@ void Chassis::MoveDriveHeadingStop(void) {
 void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 {
 	// Program the PID target setpoint
-	cameraVisionDriveControl->SetSetpoint(angle);
+	driveVisionPIDLoop->SetSetpoint(angle);
 
 	// Shift into low gear during movement for better accuracy
 	MoveShiftGears(true);
@@ -493,9 +493,9 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	MoveSetBrakeNotCoastMode(true);
 
 	// Enable the PID loop
-	cameraVisionDriveControl->SetOutputRange(-m_driveSpin, m_driveSpin);
-	cameraVisionDriveControl->SetAbsoluteTolerance(2.0);
-	cameraVisionDriveControl->Enable();
+	driveVisionPIDLoop->SetOutputRange(-m_driveSpin, m_driveSpin);
+	driveVisionPIDLoop->SetAbsoluteTolerance(2.0);
+	driveVisionPIDLoop->Enable();
 
 	//Start safety timer
 	m_safetyTimer.Reset();
@@ -511,7 +511,7 @@ bool Chassis::MoveDriveVisionHeadingIsPIDAtSetPoint(void)
 	bool pidFinished = false;
 
 		// Test the PID to see if it is on the programmed target
-		if (cameraVisionDriveControl->OnTarget()) {
+		if (driveVisionPIDLoop->OnTarget()) {
 			pidFinished = true;
 		}
 
@@ -527,7 +527,7 @@ bool Chassis::MoveDriveVisionHeadingIsPIDAtSetPoint(void)
 void Chassis::MoveDriveVisionHeadingStop(void)
 {
 	// Disable PID loop
-	cameraVisionDriveControl->Disable();
+	driveVisionPIDLoop->Disable();
 
 	// Stop safety timer
 	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
@@ -549,6 +549,42 @@ double Chassis::MoveDriveVisionAngle(void)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
+
+DriveTurnPID::DriveTurnPID (std::shared_ptr<RobotDrive> robotDrive) {
+	myRobotDrive = robotDrive;
+}
+
+void DriveTurnPID::PIDWrite(double output) {
+	myRobotDrive->ArcadeDrive (0.0, output, false);
+
+	// TODO: Remove this after tuning
+	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
+	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
+}
+
+DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive, std::shared_ptr<Joystick> joystick, std::shared_ptr<ADXRS450_Gyro> gyro) {
+	myRobotDrive = robotDrive;
+	myJoystick = joystick;
+	myGyro = gyro;
+	visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
+	printf("2135: CameraVisionAngle: %f degrees\n", visionAngle);
+}
+
+void DriveVisionPID::PIDWrite(double output) {
+	double currentAngle;
+
+	currentAngle = myGyro->GetAngle();
+	output = (currentAngle + visionAngle) * CAM_TURNKP_D;
+	myRobotDrive->ArcadeDrive (myJoystick->GetY(), output, false);
+
+	// TODO: Remove this after tuning
+	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
+	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 //	Drivetrain movement - Allow other functions to shift gears to low/high as requested
 
 void Chassis::MoveShiftGears(bool lowGear)

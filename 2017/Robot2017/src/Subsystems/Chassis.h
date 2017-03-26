@@ -20,69 +20,25 @@
 
 //	Turn PID controller class definitions
 
-class TurnOutput: public PIDOutput {
+class DriveTurnPID: public PIDOutput {
 public:
 	std::shared_ptr<RobotDrive> myRobotDrive;
 
-	TurnOutput (std::shared_ptr<RobotDrive> robotDrive) {
-		myRobotDrive = robotDrive;
-	}
-
-	void PIDWrite(double output) {
-		myRobotDrive->ArcadeDrive (0.0, output, false);
-		// TODO: Remove this after tuning
-		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
-		SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
-	}
-};
-
-class GyroAngleSource: public PIDSource {
-public:
-	frc::ADXRS450_Gyro *myGyro;
-
-	GyroAngleSource (frc::ADXRS450_Gyro *gyro) {
-		myGyro = gyro;
-	}
-
-	double PIDGet() {
-		return myGyro->GetAngle();
-	}
+	DriveTurnPID(std::shared_ptr<RobotDrive> rDrive);
+	void PIDWrite(double output);
 };
 
 //	Camera Vision Drive PID controller class definitions
 
-class CameraVisionDriveOutput: public PIDOutput {
+class DriveVisionPID: public PIDOutput {
 public:
 	std::shared_ptr<RobotDrive> myRobotDrive;
 	std::shared_ptr<Joystick> myJoystick;
+	std::shared_ptr<ADXRS450_Gyro> myGyro;
+	double visionAngle;
 
-	CameraVisionDriveOutput (std::shared_ptr<RobotDrive> robotDrive, std::shared_ptr<Joystick> joystick) {
-		myRobotDrive = robotDrive;
-		myJoystick = joystick;
-	}
-
-	void PIDWrite(double output) {
-		double visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
-		double currentAngle = SmartDashboard::GetNumber(CHS_GYROANGLE, 0.0);
-		output = (currentAngle + visionAngle) * CAM_TURNKP_D;
-		myRobotDrive->ArcadeDrive (myJoystick->GetY(), output, false);
-		// TODO: Remove this after tuning
-		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
-		SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
-	}
-};
-
-class CameraAngleSource: public PIDSource {
-public:
-	frc::ADXRS450_Gyro *myGyro;
-
-	CameraAngleSource (frc::ADXRS450_Gyro *gyro) {
-		myGyro = gyro;
-	}
-
-	double PIDGet() {
-		return myGyro->GetAngle();
-	}
+	DriveVisionPID(std::shared_ptr<RobotDrive> drive, std::shared_ptr<Joystick> stick, std::shared_ptr<ADXRS450_Gyro> gyro);
+	void PIDWrite(double output);
 };
 
 /**
@@ -128,10 +84,10 @@ private:
 	Timer m_safetyTimer;			// Safety timer for use during autonomous modes
 	double m_safetyTimeout;			// Time in seconds for safety timer
 
-	TurnOutput *turnOutput;
-	PIDController *turnControl;
-	CameraVisionDriveOutput *cameraVisionDriveOutput;
-	PIDController *cameraVisionDriveControl;
+	DriveTurnPID *driveTurnPIDOutput;		// Drive Turn to angle using gyro - initialize output
+	PIDController *driveTurnPIDLoop;		// Drive Turn PID controller loop
+	DriveVisionPID *driveVisionPIDOutput;	// Drive with Vision to angle using gyro - initialize output
+	PIDController *driveVisionPIDLoop;		// Drive with Vision PID controller loop
 
 
 public:
