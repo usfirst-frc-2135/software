@@ -265,8 +265,8 @@ void Robot::CameraVisionThread() {
 	SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);  // initialize
 
 	// Get the current brightness and exposure from the dashboard
-	camera.SetBrightness((int) CAM_BRIGHTNESS_D);
-//	camera.SetExposureManual((int) CAM_EXPOSURE_D);
+	camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
+	camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
 
 	// Main loop for our vision thread
 	while (true) {
@@ -288,8 +288,8 @@ void Robot::CameraVisionThread() {
 				printf("2135: Gear Pipeline Off\n");
 				// Get to a user visible brigntness and exposure
 				camera.SetBrightness(100);
-//				camera.SetExposureAuto();
-// TEST			camera.SetWhiteBalanceAuto();
+				camera.SetExposureAuto();
+				camera.SetWhiteBalanceAuto();
 			}
 
 			//bypass pipeline
@@ -304,7 +304,7 @@ void Robot::CameraVisionThread() {
 				printf("2135: Gear Pipeline On\n");
 				// Get the current brightness and exposure from the dashboard
 				camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
-//				camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
+				camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
 			}
 		}
 
@@ -322,7 +322,6 @@ void Robot::CameraVisionThread() {
 		// Match flag initialization
 		bool foundMatch = false;
 
-// TEST		printf("2135: All boundary rects in list: %d\n", filterContours->size());
 		// Loop through the contours list and add bounding rects to the video stream
 		for (unsigned int i = 0; i < filterContours->size(); i++) {
 			// Declare an array reference to the filter contours from the pipeline
@@ -340,8 +339,12 @@ void Robot::CameraVisionThread() {
 			// If the rect is the correct rectangle target shape, save it in the hold list
 			if ((rectRatio > 0.5) && (rectRatio < 2.0)) {
 //				printf("2135: Boundary Rect in Hold List: %d\n", validRectList.size());
-//				printf("Valid Rect: X = %d, Y = %d, W = %d, H = %d\n", rect.x, rect.y, rect.width, rect.height);
+				printf("---> X = %d, Y = %d, W = %d, H = %d\n", rect.x, rect.y, rect.width, rect.height);
 				validRectList.push_back(rect);
+
+				// Finding the distance from the camera to the peg targets - individual rect (in)
+// TEST				float pegRectDistance = Robot::CalcDistToTarget((float)2.0 , imgWidthFloat, (float)rect.width);
+// TEST				printf("======= Rect Distance to Peg: %3f\n", pegRectDistance);
 			}
 		}
 
@@ -353,10 +356,10 @@ void Robot::CameraVisionThread() {
 			cv::Rect& rect = validRectList[0];
 
 			float rectDistance = Robot::CalcDistToTarget((float)2.0 , imgWidthFloat, (float)rect.width);
-//			printf("======= Rect Distance to Peg: %3f\n", rectDistance);
+			printf("======= Rect Distance to Peg: %3f\n", rectDistance);
 
 			float rectAngleAdjust = Robot::CalcCenteringAngle(rect, imgWidthFloat, rectDistance, 2.0);
-//			printf("::::::::: Angle to Adjust SingleRect %3f \n", rectAngleAdjust);
+			printf("::::::::: Angle to Adjust SingleRect %3f \n", rectAngleAdjust);
 			SmartDashboard::PutNumber(CAM_TURNANGLE, rectAngleAdjust);
 			SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
 			// TODO: Use this distance and angle to move the robot to center the target on the frame
@@ -400,22 +403,22 @@ void Robot::CameraVisionThread() {
 					// Validate the grouped targets as being of the correct aspect ratio
 					if ((groupRectRatio > 0.5) && (groupRectRatio < 2.0)) {
 						// Found a possible match
-//						printf("!!! ---> 2135: Found a group ratio: %3f\n", groupRectRatio);
-//						printf("Group ---> X = %d, Y = %d, W = %d, H = %d\n", groupRect.x, groupRect.y, groupRect.width, groupRect.height);
+		//TEST				printf("!!! ---> 2135: Found a group ratio: %3f\n", groupRectRatio);
+						printf("Group ---> X = %d, Y = %d, W = %d, H = %d\n", groupRect.x, groupRect.y, groupRect.width, groupRect.height);
 						// Finding the distance from the camera to the peg - group rect (in)
 						float pegGroupDistance = Robot::CalcDistToTarget((float)10.25 , imgWidthFloat, (float)groupRect.width);
-//						printf("======= Group Rect Distance to Peg: %3f\n", pegGroupDistance);
+						printf("======= Group Rect Distance to Peg: %3f\n", pegGroupDistance);
 
 						// Add the valid group rect to the frame being processed
 						cv::rectangle(processFrame, groupRect, cv::Scalar(0, 0, 255));
 						foundMatch = true;
 
 						float groupAngleAdjust = Robot::CalcCenteringAngle(groupRect, imgWidthFloat, pegGroupDistance, 10.25);
-//						printf("::::::::: Group Angle to Adjust %3f\n", groupAngleAdjust);
+						printf("::::::::: Group Angle to Adjust %3f\n", groupAngleAdjust);
 						//TODO: Use this data to drive the robot
 						SmartDashboard::PutNumber(CAM_TURNANGLE, groupAngleAdjust);
 						SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
-//						printf("---> 2135: Group rect height: %d, width: %d, x: %d, y: %d\n", groupRect.height, groupRect.width, groupRect.x, groupRect.y);
+		//TEST				printf("---> 2135: Group rect height: %d, width: %d, x: %d, y: %d\n", groupRect.height, groupRect.width, groupRect.x, groupRect.y);
 						break;
 					}
 					else continue;

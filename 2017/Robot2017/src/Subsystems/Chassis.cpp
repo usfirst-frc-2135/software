@@ -104,7 +104,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
 	// Autonomous turn PID controller - SHOULD BE AFTER GYRO IS CALIBRATED
     driveTurnPIDOutput = new DriveTurnPID(robotDrive);
-    driveTurnPIDLoop = new PIDController(0.02, 0.0, 0.0, gyro.get(), driveTurnPIDOutput, 0.5);
+    driveTurnPIDLoop = new PIDController(0.02, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
 
     driveVisionPIDOutput = new DriveVisionPID(robotDrive);
     driveVisionPIDLoop = new PIDController(CAM_TURNKP_D, 0.0, 0.0, gyro.get(), driveVisionPIDOutput);
@@ -500,7 +500,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	//Start safety timer
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
-	m_safetyTimeout = 30.0;
+	m_safetyTimeout = 5.0;
 
 	// Disable safety feature during movement, since motors will be fed by loop
 	robotDrive->SetSafetyEnabled(false);
@@ -570,16 +570,15 @@ DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
 }
 
 void DriveVisionPID::PIDWrite(double output) {
-//	double currentAngle;
-//
-//	currentAngle = RobotMap::chassisGyro->GetAngle();
-	double scaledOutput;
-	scaledOutput = output; //* CAM_TURNKP_D;
-	myRobotDrive->ArcadeDrive (Robot::oi->getDriverJoystick()->GetY(), scaledOutput, false);
+	double currentAngle;
+
+	currentAngle = RobotMap::chassisGyro->GetAngle();
+	output = (currentAngle + m_visionAngle) * CAM_TURNKP_D;
+	myRobotDrive->ArcadeDrive (Robot::oi->getDriverJoystick()->GetY(), output, false);
 
 	// TODO: Remove this after tuning
-	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, scaledOutput);
-	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -scaledOutput);
+	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
+	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
 }
 
 

@@ -21,9 +21,6 @@
       <property name="path[11]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH5ftD2Angle0Brightness.jpg"/>
       <property name="path[14]" value="C:\Users\PHS-User\Downloads\2017VisionExample\Vision Images\LED Peg\1ftH7ftD0Angle0Brightness.jpg"/>
     </grip:MultiImageFile>
-    <grip:Camera>
-      <property name="deviceNumber" value="1"/>
-    </grip:Camera>
   </sources>
   <steps>
     <grip:Step name="HSL Threshold">
@@ -46,7 +43,7 @@
           <double>255.0</double>
         </value>
       </grip:Input>
-      <grip:Output step="0" socket="0" previewed="true"/>
+      <grip:Output step="0" socket="0" previewed="false"/>
     </grip:Step>
     <grip:Step name="Find Contours">
       <grip:Input step="1" socket="0"/>
@@ -122,20 +119,20 @@
   </steps>
   <connections>
     <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="true"/>
+      <grip:Input step="2" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
       <grip:Output step="2" socket="0" previewed="true"/>
       <grip:Input step="3" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output source="1" socket="0" previewed="true"/>
-      <grip:Input step="0" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output step="0" socket="0" previewed="true"/>
+      <grip:Output step="0" socket="0" previewed="false"/>
       <grip:Input step="1" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="1" socket="0" previewed="true"/>
-      <grip:Input step="2" socket="0"/>
+      <grip:Output source="0" socket="0" previewed="false"/>
+      <grip:Input step="0" socket="0"/>
     </grip:Connection>
   </connections>
   <settings>
@@ -151,7 +148,7 @@
     <language>C++</language>
     <className>GripContoursPipeline</className>
     <implementWpilibPipeline>true</implementWpilibPipeline>
-    <saveDir>C:\Users\PHS_User\GRIP</saveDir>
+    <saveDir>C:\Users\PHS-User\GRIP</saveDir>
     <packageName>org.frc.team</packageName>
     <moduleName>grip</moduleName>
   </codeGenerationSettings>
