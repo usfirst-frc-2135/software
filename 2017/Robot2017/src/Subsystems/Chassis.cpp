@@ -106,8 +106,10 @@ Chassis::Chassis() : Subsystem("Chassis") {
     driveTurnPIDOutput = new DriveTurnPID(robotDrive);
     driveTurnPIDLoop = new PIDController(0.02, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
 
+    driveVisionPIDSource = new DriveVisionSource();
     driveVisionPIDOutput = new DriveVisionPID(robotDrive);
-    driveVisionPIDLoop = new PIDController(CAM_TURNKP_D, 0.0, 0.0, gyro.get(), driveVisionPIDOutput);
+    driveVisionPIDLoop = new PIDController(CAM_TURNKP_D, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput, 1.0);
+
 }
 
 void Chassis::InitDefaultCommand() {
@@ -500,7 +502,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	//Start safety timer
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
-	m_safetyTimeout = 5.0;
+	m_safetyTimeout = 30.0;
 
 	// Disable safety feature during movement, since motors will be fed by loop
 	robotDrive->SetSafetyEnabled(false);
@@ -570,10 +572,7 @@ DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
 }
 
 void DriveVisionPID::PIDWrite(double output) {
-	double currentAngle;
 
-	currentAngle = RobotMap::chassisGyro->GetAngle();
-	output = (currentAngle + m_visionAngle) * CAM_TURNKP_D;
 	myRobotDrive->ArcadeDrive (Robot::oi->getDriverJoystick()->GetY(), output, false);
 
 	// TODO: Remove this after tuning
@@ -581,6 +580,23 @@ void DriveVisionPID::PIDWrite(double output) {
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
 }
 
+double DriveVisionSource::PIDGet(void) {
+
+	double angle;
+	angle = RobotMap::chassisGyro->GetAngle();
+	if (abs(angle) < 25.0) {
+		printf("2135: Drive Vision Source Angle Found: %f\n", angle);
+		validAngle.push_back(angle);
+	}
+
+	else if (abs(angle) > 25.0) {
+		printf("2135: Drive Vision Source Large Angle Found: %f\n", angle);
+		angle = 25.0;
+		validAngle.push_back(angle);
+	}
+
+	return angle;
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 

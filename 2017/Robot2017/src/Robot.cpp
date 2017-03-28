@@ -251,7 +251,7 @@ void Robot::CameraVisionThread() {
 
 	// Initialize dashboard settings for camera
 	SmartDashboard::PutNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D);
-	SmartDashboard::PutNumber(CAM_EXPOSURE, CAM_EXPOSURE_D);
+//	SmartDashboard::PutNumber(CAM_EXPOSURE, CAM_EXPOSURE_D);
 
 	// Initialize dashboard settings for pipeline
 	SmartDashboard::PutNumber(CAM_HUESTART, CAM_HUESTART_D);
@@ -266,7 +266,7 @@ void Robot::CameraVisionThread() {
 
 	// Get the current brightness and exposure from the dashboard
 	camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
-	camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
+//	camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
 
 	// Main loop for our vision thread
 	while (true) {
@@ -288,7 +288,7 @@ void Robot::CameraVisionThread() {
 				printf("2135: Gear Pipeline Off\n");
 				// Get to a user visible brigntness and exposure
 				camera.SetBrightness(100);
-				camera.SetExposureAuto();
+//				camera.SetExposureAuto();
 				camera.SetWhiteBalanceAuto();
 			}
 
@@ -304,7 +304,7 @@ void Robot::CameraVisionThread() {
 				printf("2135: Gear Pipeline On\n");
 				// Get the current brightness and exposure from the dashboard
 				camera.SetBrightness((int) SmartDashboard::GetNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D));
-				camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
+//				camera.SetExposureManual((int) SmartDashboard::GetNumber(CAM_EXPOSURE, CAM_EXPOSURE_D));
 			}
 		}
 
@@ -339,7 +339,7 @@ void Robot::CameraVisionThread() {
 			// If the rect is the correct rectangle target shape, save it in the hold list
 			if ((rectRatio > 0.5) && (rectRatio < 2.0)) {
 //				printf("2135: Boundary Rect in Hold List: %d\n", validRectList.size());
-				printf("---> X = %d, Y = %d, W = %d, H = %d\n", rect.x, rect.y, rect.width, rect.height);
+//				printf("---> X = %d, Y = %d, W = %d, H = %d\n", rect.x, rect.y, rect.width, rect.height);
 				validRectList.push_back(rect);
 
 				// Finding the distance from the camera to the peg targets - individual rect (in)
@@ -356,10 +356,10 @@ void Robot::CameraVisionThread() {
 			cv::Rect& rect = validRectList[0];
 
 			float rectDistance = Robot::CalcDistToTarget((float)2.0 , imgWidthFloat, (float)rect.width);
-			printf("======= Rect Distance to Peg: %3f\n", rectDistance);
+//			printf("======= Rect Distance to Peg: %3f\n", rectDistance);
 
 			float rectAngleAdjust = Robot::CalcCenteringAngle(rect, imgWidthFloat, rectDistance, 2.0);
-			printf("::::::::: Angle to Adjust SingleRect %3f \n", rectAngleAdjust);
+//			printf("::::::::: Angle to Adjust SingleRect %3f \n", rectAngleAdjust);
 			SmartDashboard::PutNumber(CAM_TURNANGLE, rectAngleAdjust);
 			SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
 			// TODO: Use this distance and angle to move the robot to center the target on the frame
@@ -404,17 +404,17 @@ void Robot::CameraVisionThread() {
 					if ((groupRectRatio > 0.5) && (groupRectRatio < 2.0)) {
 						// Found a possible match
 		//TEST				printf("!!! ---> 2135: Found a group ratio: %3f\n", groupRectRatio);
-						printf("Group ---> X = %d, Y = %d, W = %d, H = %d\n", groupRect.x, groupRect.y, groupRect.width, groupRect.height);
+//						printf("Group ---> X = %d, Y = %d, W = %d, H = %d\n", groupRect.x, groupRect.y, groupRect.width, groupRect.height);
 						// Finding the distance from the camera to the peg - group rect (in)
 						float pegGroupDistance = Robot::CalcDistToTarget((float)10.25 , imgWidthFloat, (float)groupRect.width);
-						printf("======= Group Rect Distance to Peg: %3f\n", pegGroupDistance);
+//						printf("======= Group Rect Distance to Peg: %3f\n", pegGroupDistance);
 
 						// Add the valid group rect to the frame being processed
 						cv::rectangle(processFrame, groupRect, cv::Scalar(0, 0, 255));
 						foundMatch = true;
 
 						float groupAngleAdjust = Robot::CalcCenteringAngle(groupRect, imgWidthFloat, pegGroupDistance, 10.25);
-						printf("::::::::: Group Angle to Adjust %3f\n", groupAngleAdjust);
+//						printf("::::::::: Group Angle to Adjust %3f\n", groupAngleAdjust);
 						//TODO: Use this data to drive the robot
 						SmartDashboard::PutNumber(CAM_TURNANGLE, groupAngleAdjust);
 						SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);

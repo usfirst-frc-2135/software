@@ -39,6 +39,13 @@ public:
 	void PIDWrite(double output);
 };
 
+class DriveVisionSource: public PIDSource {
+public:
+	double PIDGet(void);
+
+	std::vector<double> validAngle;
+};
+
 /**
  *
  *
@@ -86,6 +93,7 @@ private:
 	PIDController *driveTurnPIDLoop;		// Drive Turn PID controller loop
 	DriveVisionPID *driveVisionPIDOutput;	// Drive with Vision to angle using gyro - initialize output
 	PIDController *driveVisionPIDLoop;		// Drive with Vision PID controller loop
+	PIDSource *driveVisionPIDSource;		// Drive with Vision PID source loop
 
 
 public:
