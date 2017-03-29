@@ -166,53 +166,6 @@ void Robot::TeleopPeriodic() {
 		m_dashboardUpdate = 0;
 		Robot::chassis->UpdateSmartDashboardValues();
 	}
-
-#if 1
-	// Read contour array from SmartDashboard and print it
-	std::vector<double> arr;
-
-	arr = table->GetNumberArray("area", llvm::ArrayRef<double>());
-	for (unsigned int i = 0; i < arr.size(); i++) {
-		printf("2135: %f\n", arr[i]);
-	}
-#endif
-
-#if 1
-	// For 1 each of 10 passes through TeleopPeriodic, check and process angle
-	static int counter = 0;
-
-	if (counter <= 10) {
-		counter++;
-	}
-	else {
-		counter = 0;
-		if (SmartDashboard::GetBoolean(CAM_FOUNDTARGET, false) == true) {
-//			double temp;
-//			double angleToAdjust;
-//			bool turnRight;
-
-			// TODO: This should be cleaned up (while testing it). The angle
-			//	to adjust should probably just be a positive/negative number
-			//	passed through the SmartDashboard without the turnRight flag.
-			//	Clockwise turns would be positive and CCW turns negative.
-			//	Remove servo code, since it is used in the robot for other things
-//			angleToAdjust = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
-//			turnRight = SmartDashboard::GetBoolean(CAM_TURNRIGHT, CAM_TURNRIGHT_D);
-//			temp = RobotMap::shooterBallGate->GetAngle();
-//			printf("!!! Original temp angle = %3f\n",temp);
-//			if (turnRight == 1)
-//				temp += angleToAdjust; //Turns right
-//			else
-//				temp -= angleToAdjust; //Turns left
-
-//			printf("!!! Changed temp angle = %3f\n",temp);
-//			RobotMap::shooterBallGate->SetAngle(temp);
-//			SmartDashboard::PutNumber("Servo Angle", temp);
-			SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
-		}
-	}
-#endif
-
 }
 
 void Robot::TestPeriodic() {
