@@ -349,7 +349,7 @@ void Robot::CameraVisionThread() {
 		}
 
 		// Print the number of valid rects stored in list
-//		printf("2135: Boundary rects in list: %d\n", validRectList.size());
+		printf("2135: Boundary rects in list: %d\n", validRectList.size());
 
 		if (validRectList.size() == 1) {
 			// Find the adjustment angle to align this rectangle to the center of the frame

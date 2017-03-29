@@ -108,7 +108,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     driveVisionPIDSource = new DriveVisionSource();
     driveVisionPIDOutput = new DriveVisionPID(robotDrive);
-    driveVisionPIDLoop = new PIDController(CAM_TURNKP_D, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput, 1.0);
+    driveVisionPIDLoop = new PIDController(0.02, 0.0, 0.0, gyro.get(), driveVisionPIDOutput, 1.0);
 
 }
 
@@ -573,7 +573,11 @@ DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
 
 void DriveVisionPID::PIDWrite(double output) {
 
-	myRobotDrive->ArcadeDrive (Robot::oi->getDriverJoystick()->GetY(), output, false);
+	if (Robot::oi->getDriverJoystick()->GetY() < 0.1) {
+		output = 0.0;
+	}
+
+	myRobotDrive->ArcadeDrive (-(Robot::oi->getDriverJoystick()->GetY()), output, false);
 
 	// TODO: Remove this after tuning
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
