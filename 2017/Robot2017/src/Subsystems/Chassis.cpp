@@ -548,11 +548,11 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 DriveTurnPID::DriveTurnPID (std::shared_ptr<RobotDrive> robotDrive) {
-	myRobotDrive = robotDrive;
+	m_robotDrive = robotDrive;
 }
 
 void DriveTurnPID::PIDWrite(double output) {
-	myRobotDrive->ArcadeDrive (0.0, output, false);
+	m_robotDrive->ArcadeDrive (0.0, output, false);
 
 	// TODO: Remove this after tuning
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
@@ -560,7 +560,7 @@ void DriveTurnPID::PIDWrite(double output) {
 }
 
 DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
-	myRobotDrive = robotDrive;
+	m_robotDrive = robotDrive;
 
 	m_visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
 	printf("2135: CameraVisionAngle: %f degrees\n", m_visionAngle);
@@ -572,7 +572,7 @@ void DriveVisionPID::PIDWrite(double output) {
 		output = 0.0;
 	}
 
-	myRobotDrive->ArcadeDrive (-(Robot::oi->getDriverJoystick()->GetY()), output, false);
+	m_robotDrive->ArcadeDrive (-(Robot::oi->getDriverJoystick()->GetY()), output, false);
 
 	// TODO: Remove this after tuning
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);

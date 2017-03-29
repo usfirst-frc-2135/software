@@ -21,9 +21,9 @@
 //	Turn PID controller class definitions
 
 class DriveTurnPID: public PIDOutput {
+private:
+	std::shared_ptr<RobotDrive> m_robotDrive;
 public:
-	std::shared_ptr<RobotDrive> myRobotDrive;
-
 	DriveTurnPID(std::shared_ptr<RobotDrive> rDrive);
 	void PIDWrite(double output);
 };
@@ -31,9 +31,10 @@ public:
 //	Camera Vision Drive PID controller class definitions
 
 class DriveVisionPID: public PIDOutput {
-public:
-	std::shared_ptr<RobotDrive> myRobotDrive;
+private:
+	std::shared_ptr<RobotDrive> m_robotDrive;
 	double m_visionAngle;
+public:
 
 	DriveVisionPID(std::shared_ptr<RobotDrive> drive);
 	void PIDWrite(double output);
