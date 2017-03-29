@@ -106,9 +106,9 @@ Chassis::Chassis() : Subsystem("Chassis") {
     driveTurnPIDOutput = new DriveTurnPID(robotDrive);
     driveTurnPIDLoop = new PIDController(0.02, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
 
-    driveVisionPIDSource = new DriveVisionSource();
+    driveVisionPIDSource = new DriveVisionPIDSource();
     driveVisionPIDOutput = new DriveVisionPID(robotDrive);
-    driveVisionPIDLoop = new PIDController(0.02, 0.0, 0.0, gyro.get(), driveVisionPIDOutput, 1.0);
+    driveVisionPIDLoop = new PIDController(CAM_TURNKP_D, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
 
 }
 
@@ -579,22 +579,35 @@ void DriveVisionPID::PIDWrite(double output) {
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
 }
 
-double DriveVisionSource::PIDGet(void) {
+double DriveVisionPIDSource::PIDGet(void) {
+	double curAngle;
 
-	double angle;
-	angle = RobotMap::chassisGyro->GetAngle();
-	if (abs(angle) < 25.0) {
-		printf("2135: Drive Vision Source Angle Found: %f\n", angle);
-		validAngle.push_back(angle);
+	// Get the current angle from the gyro
+	curAngle = RobotMap::chassisGyro->GetAngle();
+
+#if 0	// If averaging is needed leave this in
+	int i;
+
+	// Limit the gyro input to a valid range
+	curAngle = fmin(curAngle, 25.0);
+	curAngle = fmax(curAngle, -25.0);
+
+	// Store in the gyro angle buffer
+	m_angleBuffer[m_curSample++] = curAngle;
+	if (m_curSample >= numSamples)
+		m_curSample = 0;
+	if (m_totSamples < m_totSamples)
+		m_totSamples++;
+
+	// Reuse curAngle to average the samples over total samples in buffer
+	curAngle = 0.0;
+	for (i = 0; i < m_totSamples; i++) {
+		curAngle += m_angleBuffer[i];
 	}
+	curAngle = curAngle / m_totSamples;
+#endif
 
-	else if (abs(angle) > 25.0) {
-		printf("2135: Drive Vision Source Large Angle Found: %f\n", angle);
-		angle = 25.0;
-		validAngle.push_back(angle);
-	}
-
-	return angle;
+	return curAngle;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////

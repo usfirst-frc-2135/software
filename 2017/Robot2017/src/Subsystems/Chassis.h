@@ -40,11 +40,14 @@ public:
 	void PIDWrite(double output);
 };
 
-class DriveVisionSource: public PIDSource {
+class DriveVisionPIDSource: public PIDSource {
+private:
+	static const int numSamples = 8;
+	double m_angleBuffer[numSamples];
+	int m_curSample = 0;
+	double m_totSamples = 0;
 public:
 	double PIDGet(void);
-
-	std::vector<double> validAngle;
 };
 
 /**
