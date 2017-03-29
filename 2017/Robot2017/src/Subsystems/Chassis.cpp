@@ -545,11 +545,6 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 	robotDrive->SetSafetyEnabled(false);
 }
 
-double Chassis::MoveDriveVisionAngle(void)
-{
-	return SmartDashboard::GetNumber(CAM_TURNANGLE, 0.0);
-}
-
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 DriveTurnPID::DriveTurnPID (std::shared_ptr<RobotDrive> robotDrive) {

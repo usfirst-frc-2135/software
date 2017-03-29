@@ -129,7 +129,6 @@ public:
 	void MoveDriveVisionHeadingDistanceInit(double angle);
 	bool MoveDriveVisionHeadingIsPIDAtSetPoint(void);
 	void MoveDriveVisionHeadingStop(void);
-	double MoveDriveVisionAngle(void);
 
 	void MoveShiftGears(bool lowGear);
 };
