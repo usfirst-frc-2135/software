@@ -25,6 +25,7 @@ std::shared_ptr<CANTalon> RobotMap::intakeMotor9;
 std::shared_ptr<CANTalon> RobotMap::agitatorMotor12;
 std::shared_ptr<CANTalon> RobotMap::shooterMotor14;
 std::shared_ptr<Servo> RobotMap::shooterBallGate;
+std::shared_ptr<DigitalOutput> RobotMap::shooterPowerEnable;
 std::shared_ptr<DoubleSolenoid> RobotMap::deliveryGearDoor;
 std::shared_ptr<CANTalon> RobotMap::climberMotor18;
 std::shared_ptr<CANTalon> RobotMap::climberMotor19;
@@ -80,6 +81,9 @@ void RobotMap::init() {
     
     shooterBallGate.reset(new Servo(0));
     lw->AddActuator("Shooter", "Ball Gate", shooterBallGate);
+    
+    shooterPowerEnable.reset(new DigitalOutput(0));
+    lw->AddActuator("Shooter", "Power Enable", shooterPowerEnable);
     
     deliveryGearDoor.reset(new DoubleSolenoid(0, 1, 6));
     lw->AddActuator("Delivery", "Gear Door", deliveryGearDoor);

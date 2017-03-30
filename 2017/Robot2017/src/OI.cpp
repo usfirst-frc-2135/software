@@ -32,6 +32,7 @@
 #include "Commands/DriveTrainInvert.h"
 #include "Commands/GearDoorControl.h"
 #include "Commands/IntakeMotorControl.h"
+#include "Commands/LightToggle.h"
 #include "Commands/ShooterGateControl.h"
 #include "Commands/ShooterMotorControl.h"
 #include "Commands/VisionAllPipelinesOff.h"
@@ -64,6 +65,8 @@ OI::OI() {
     operGearDoorClose->WhenPressed(new GearDoorControl(false));
     operGearDoorOpen.reset(new JoystickButton(operatorPanelA.get(), 10));
     operGearDoorOpen->WhenPressed(new GearDoorControl(true));
+    operLightOn.reset(new JoystickButton(operatorPanelA.get(), 9));
+    operLightOn->WhenPressed(new LightToggle());
     operShooterOn.reset(new JoystickButton(operatorPanelA.get(), 8));
     operShooterOn->WhileHeld(new ShooterMotorControl(true));
     operBallGateClose.reset(new JoystickButton(operatorPanelA.get(), 6));

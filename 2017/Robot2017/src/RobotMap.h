@@ -36,6 +36,7 @@ public:
 	static std::shared_ptr<CANTalon> agitatorMotor12;
 	static std::shared_ptr<CANTalon> shooterMotor14;
 	static std::shared_ptr<Servo> shooterBallGate;
+	static std::shared_ptr<DigitalOutput> shooterPowerEnable;
 	static std::shared_ptr<DoubleSolenoid> deliveryGearDoor;
 	static std::shared_ptr<CANTalon> climberMotor18;
 	static std::shared_ptr<CANTalon> climberMotor19;
