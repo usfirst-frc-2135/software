@@ -67,11 +67,11 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	motorL1->SetClosedLoopOutputDirection(true);
 	motorR3->SetClosedLoopOutputDirection(false);
 	// TODO: Crush encoder direction
-//	motorL1->SetSensorDirection(true);
-//	motorR3->SetSensorDirection(false);
+	motorL1->SetSensorDirection(true);
+	motorR3->SetSensorDirection(false);
 	// TODO: Brush encoder direction is swapped
-	motorL1->SetSensorDirection(false);
-	motorR3->SetSensorDirection(true);
+//	motorL1->SetSensorDirection(false);
+//	motorR3->SetSensorDirection(true);
 
 	// Set drive Talons to profile 0
 	motorL1->SelectProfileSlot(0);

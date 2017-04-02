@@ -230,7 +230,7 @@ void Robot::CameraVisionThread() {
 
 		// Get a frame from the camera input stream
 		inputStream.GrabFrame(inputFrame);
-
+		continue;
 		// If the pipelineOn is false, then 'continue' will take camera out of the pipeline
 		if (!SmartDashboard::GetBoolean(CAM_GEARPIPEON, false))
 		{
