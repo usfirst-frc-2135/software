@@ -143,7 +143,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 		MoveShiftGears(false);
 
 	// Drive invert direction the stick moves the robot
-	SmartDashboard::PutNumber(CHS_DRIVE_DIRECTION, m_driveDirection);
+	SmartDashboard::PutBoolean(CHS_DRIVE_DIRECTION, true);
 
 	// Brake/coast mode for talon speed controller
     m_brakeMode = false;
@@ -257,7 +257,13 @@ void Chassis::MoveInvertDriveDirection(void)
 {
 	// Toggle the drive direction and update the dashboard status
 	m_driveDirection = -m_driveDirection;
-	SmartDashboard::PutNumber(CHS_DRIVE_DIRECTION, m_driveDirection);
+
+	if (m_driveDirection > 0.0) {
+		SmartDashboard::PutBoolean(CHS_DRIVE_DIRECTION, true);
+	}
+	else {
+		SmartDashboard::PutBoolean(CHS_DRIVE_DIRECTION, false);
+	}
 }
 
 // MoveSetBrakeNotCoastMode is used to allow other functions and commands to change how the drive works
