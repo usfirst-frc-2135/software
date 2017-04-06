@@ -66,12 +66,14 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Invert the direction of the right hand side motors and sensors
 	motorL1->SetClosedLoopOutputDirection(true);
 	motorR3->SetClosedLoopOutputDirection(false);
-	// TODO: Crush encoder direction
+
+#ifdef CRUSH_SETTINGS
 	motorL1->SetSensorDirection(true);
 	motorR3->SetSensorDirection(false);
-	// TODO: Brush encoder direction is swapped
-//	motorL1->SetSensorDirection(false);
-//	motorR3->SetSensorDirection(true);
+#else
+	motorL1->SetSensorDirection(false);
+	motorR3->SetSensorDirection(true);
+#endif
 
 	// Set drive Talons to profile 0
 	motorL1->SelectProfileSlot(0);
