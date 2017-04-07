@@ -37,6 +37,10 @@
 
 //	SmartDashboard Chassis basic configuration parameters
 
+#define CHS_TURN_SCALING_E 		// Leave in if high gear is scaled
+#define CHS_TURN_SCALING		"Chs_TurnScaling"
+#define CHS_TURN_SCALING_D		false
+
 #define	CHS_DRIVE_DIRECTION		"Chs_DriveDirection"
 #define CHS_DRIVE_BRAKEMODE		"Chs_DriveBrakeMode"
 

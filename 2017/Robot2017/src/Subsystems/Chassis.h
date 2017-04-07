@@ -85,6 +85,7 @@ private:
 
 	double m_driveDirection;		// Allows chassis drive direction change
 	double m_driveScaling;			// Scaling applied to joystick for SW shifting
+	bool m_turnScaling;				// Turning the scaling for high gear on the joystick
 	double m_driveSpin;				// Spin turn power setting
 	bool m_brakeMode; 				// Brake or Coast mode for talons
 

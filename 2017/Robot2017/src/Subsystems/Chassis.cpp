@@ -112,6 +112,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
     driveVisionPIDOutput = new DriveVisionPID(robotDrive);
     driveVisionPIDLoop = new PIDController(CAM_TURNKP_D, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
 
+    m_turnScaling = CHS_TURN_SCALING_D;
+    SmartDashboard::PutBoolean(CHS_TURN_SCALING, CHS_TURN_SCALING_D);
 }
 
 void Chassis::InitDefaultCommand() {
@@ -197,6 +199,8 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 	// drive heading angle
 	SmartDashboard::PutNumber(AUTON_DRIVEHEADING, AUTON_DRIVEHEADING_D);
+
+	m_turnScaling = SmartDashboard::GetBoolean(CHS_TURN_SCALING, CHS_TURN_SCALING_D);
 }
 
 
@@ -237,6 +241,14 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 		xValue = xValue * m_driveScaling;
 		yValue = yValue * m_driveScaling;
 	}
+
+#ifdef CHS_TURN_SCALING_E
+	if (!m_lowGear && m_turnScaling) {
+		double scaledFactor;
+		scaledFactor = -0.75 * (abs(yValue)) + 1.0;
+		xValue = scaledFactor * xValue;
+	}
+#endif
 
 	// Apply modified joystick input to the drive motorsd
 	robotDrive->ArcadeDrive( yValue, xValue, true );
