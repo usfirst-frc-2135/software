@@ -33,7 +33,7 @@
 class Robot : public IterativeRobot {
 public:
 	enum AutoChoice {AUTOLOWBAR, AUTODRIVETIMED, SITSTILL};
-	SendableChooser *chooser;
+	SendableChooser<void*> *chooser;
 	std::unique_ptr<Command> autonomousCommand;
 	static std::unique_ptr<OI> oi;
 	LiveWindow *lw = LiveWindow::GetInstance();
