@@ -89,7 +89,7 @@ void Robot::DisabledPeriodic() {
 	Scheduler::GetInstance()->Run();
 
 	if (ticks_per_print++ > 100) {
-		printf("2135: DisabledPeriodic\n");
+//		printf("2135: DisabledPeriodic\n");
 		ticks_per_print = 0;
 	}
 
