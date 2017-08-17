@@ -19,8 +19,8 @@ void VisionLoop::Run() {
 
 	printf("2135: VisionLoop Run\n");
 
-	res.width = 320;							// Camera Resolution setting in pixels
-	res.height = 240;
+	m_res.width = 320;							// Camera Resolution setting in pixels
+	m_res.height = 240;
 	int	fps = 8; 								// Camera Frames Per Second
 												// MS LifeCAM does not go below 8 fps
 	int brightness = 50;						// Camera Brightness setting (0..100)
@@ -50,19 +50,18 @@ void VisionLoop::Run() {
 
 	// Our camera input source - start it up and configure settings
 	cs::UsbCamera cam = CameraServer::GetInstance()->StartAutomaticCapture();
-	ConfigureCamera(cam, res.width, res.height, fps, brightness, exposure);
+	ConfigureCamera(cam, m_res.width, m_res.height, fps, brightness, exposure);
 
 	// Start our GRIP-generated vision processing pipeline
 	gripPipe.reset(new grip::GripContoursPipeline());
 
 	// Set our input/output stream - available to the dashboard (same resolution as input)
 	inStream = CameraServer::GetInstance()->GetVideo();
-	outStream = CameraServer::GetInstance()->PutVideo("Contours Video", res.width, res.height);
+	outStream = CameraServer::GetInstance()->PutVideo("Contours Video", m_res.width, m_res.height);
 
 	// Main loop for our vision thread
 	while (true) {
 		int validFrame = inStream.GrabFrame(inFrame, 1000);
-		outStream.PutFrame(inFrame);
 
 		if (validFrame == 0) {
 		    std::string error = inStream.GetError();
@@ -72,40 +71,40 @@ void VisionLoop::Run() {
 		    continue;
 		}
 		else {
-			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-			printf("2135: Tick\n");
-			continue;
-
-			SmartDashboard::PutString("VisionThread", "Testing");
-
+			std::this_thread::sleep_for(std::chrono::milliseconds(250));
 			// Run vision processing gripPipe generated from GRIP
 			gripPipe->Process(inFrame);
 			gripFrame = *(gripPipe->gethslThresholdOutput());
 			contours = gripPipe->getfilterContoursOutput();
+
+			std::memset(&m_goal, 0, sizeof(m_goal));
 
 			ConvertContoursToBoundingRects(contours, &boundingRects);
 			ConvertBoundingRectsToValidTargets(&boundingRects, &validTargets);
 
 			// See if we have 1 or more targets to work on
 			if (validTargets.size() > 0) {
-				double distance;
-				double angle;
 				if (validTargets.size() == 1) {
 					// Exactly one valid target - not enough info except to maybe drive
-					distance = CalcInchesToTarget(m_targSize.width , validTargets[0]);
-					angle = CalcCenteringAngle(m_targSize.width, validTargets[0], distance);
+					m_goal.r = validTargets[0];
+					m_goal.dist = CalcInchesToTarget(m_targSize.width , validTargets[0]);
+					m_goal.angle = CalcCenteringAngle(m_targSize.width, validTargets[0], m_goal.dist);
 				}
 				else {
 					// Must be at least 2 valid targets
 					ConvertValidTargetsToValidPegs(&validTargets, &validPegs);
-					distance = CalcInchesToTarget(m_pegSize.width , validPegs[0]);
-					angle = CalcCenteringAngle(m_pegSize.width, validPegs[0], distance);
+					m_goal.r = validPegs[0];
+					m_goal.dist = CalcInchesToTarget(m_pegSize.width , validPegs[0]);
+					m_goal.angle = CalcCenteringAngle(m_pegSize.width, validPegs[0], m_goal.dist);
 				}
-				printf("--> TARGETS: %d  Distance: %3f Angle: %3f\n", validTargets.size(), distance, angle);
 			}
-			printf("--> -------------------------------- <--\n");
-		}
 
+			printf("C %d, B %d, T %d, P %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
+				contours->size(), boundingRects.size(), validTargets.size(), validPegs.size(),
+				m_goal.r.x, m_goal.r.y, m_goal.r.width, m_goal.r.height, m_goal.dist, m_goal.angle);
+
+			SmartDashboard::PutNumber("VisionThread", SmartDashboard::GetNumber("VisionThread", 0) + 1);
+		}
 #if 0
 		// Draw the boundingRects on the frame bring processed -- white
 		gripFrame = *(gripPipe->gethslThresholdOutput());
@@ -142,32 +141,38 @@ void VisionLoop::InitializeSmartdashboard(void) {
 
 void VisionLoop::ConfigureCamera(cs::UsbCamera cam, int resWidth, int resHeight, int fps, int bright, int expos) {
 
+	printf("2135: Configure camera - %d x %d, %d fps, %d bright, %d expos\n",
+		resWidth, resHeight, fps, bright, expos);
+
 	if (!cam.SetResolution(resWidth, resHeight))
-		;
 		printf("2135: Cam resolution not set - %d\n", cam.GetLastStatus());
 	if (!cam.SetFPS(fps))
-		;
 		printf("2135: Cam FPS not set - %d\n", cam.GetLastStatus());
 	cam.SetBrightness(bright);
-	printf("2135: Cam Brightness status - %d\n", cam.GetLastStatus());
+	if (cam.GetLastStatus() != 0)
+		printf("2135: Cam Brightness not set - %d\n", cam.GetLastStatus());
 	cam.SetExposureManual(expos);
-	printf("2135: Cam Exposure status - %d\n", cam.GetLastStatus());
+	if (cam.GetLastStatus() != 0)
+		printf("2135: Cam Exposure not set - %d\n", cam.GetLastStatus());
 }
 
 void VisionLoop::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<cv::Rect> *rects) {
 
-	printf("--> Found %d contours\n", contours->size());
-
 	rects->clear();
+	cv::Rect tmp;
+
+	tmp.x = 40;
+	tmp.y = 30;
+	tmp.width = 40;
+	tmp.height = 100;
 
 	// Loop through the contours list (max 8) and create a vector of bounding rects
 	for (uint32_t i = 0; i < contours->size() && i < 8; i++) {
 
 		// Calculate the bounding rectangle for the contour
-		rects->push_back(cv::boundingRect(contours[i]));
+//		rects->push_back(cv::boundingRect(contours[i]));
+		rects->push_back(tmp);
 	}
-
-	printf("-C-> Created %d bounding rects\n", rects->size());
 }
 
 double VisionLoop::ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *boundingRects, std::vector<cv::Rect> *targets) {
@@ -189,8 +194,6 @@ double VisionLoop::ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *bou
 			targets->push_back(r[i]);
 		}
 	}
-
-	printf("-T-> Created %d valid targets\n", targets->size());
 
 	return score;
 }
@@ -217,7 +220,8 @@ double VisionLoop::ConvertValidTargetsToValidPegs(std::vector<cv::Rect> *targets
 		cv::Rect pegRect = cv::boundingRect(pegPoints);
 
 		// Translate width and height to floating point and calculate normalized score 0..100
-		score = 100 * (((double)pegRect.width / (double)pegRect.height) * (m_pegSize.height / m_pegSize.width));
+		score = 100 * (((double)pegRect.width / (double)pegRect.height)
+				* (m_pegSize.height / m_pegSize.width));
 
 		// If the bounding rect score is close to 100, save it in the hold list
 		if ((score > 50) && (score < 200)) {
@@ -254,7 +258,7 @@ double VisionLoop::CalcInchesToTarget(double targetWidthInches, cv::Rect rect) {
 	double fovRadians = fovDegrees * M_PI / 180.0;	// Convert FOV degrees to radians
 
 	// Use equivalent triangles and half the FOV angle in radians
-	return ((targetWidthInches / 2.0) * res.width * (1 / tan(fovRadians/2)) * rect.width);
+	return ((targetWidthInches / 2.0) * m_res.width * (1 / tan(fovRadians/2)) * rect.width);
 }
 
 double VisionLoop::CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget) {
@@ -263,7 +267,7 @@ double VisionLoop::CalcCenteringAngle(double targetWidthInches, cv::Rect rect, d
 	double rectCenterX = (double)rect.x + (double)(rect.width)/2.0;
 
 	// Calculate the number of pixels needed to center the rect in the frame
-	double pixelsToCenter = rectCenterX - res.width/2.0;
+	double pixelsToCenter = rectCenterX - m_res.width/2.0;
 
 	// Convert from pixels into inches to center the rect in the frame
 	double inchesToCenter = targetWidthInches * pixelsToCenter / (double)(rect.width);
