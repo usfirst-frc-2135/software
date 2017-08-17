@@ -13,15 +13,22 @@
 
 class VisionLoop {
 private:
-	struct resRect {
+	struct visRect {
 		int width;
 		int height;
 	};
-	struct resRect res;				// Initial camera resolution
-	struct resRect m_targSize;		// Vision Target dimensions
-	struct resRect m_pegSize;		// Vision Target dimensions
+	struct visRect m_res;				// Initial camera resolution
+	struct visRect m_targSize;		// Vision Target dimensions
+	struct visRect m_pegSize;		// Vision Peg dimensions
+	struct goal {
+		cv::Rect r;
+		double	score;
+		double	dist;
+		double	angle;
+	};
+	struct goal m_goal;
 
-	std::shared_ptr<NetworkTable> table;
+	std::shared_ptr<NetworkTable> m_netTable;
 
 	void InitializeSmartdashboard(void);
 	void ConfigureCamera(cs::UsbCamera cam, int resWidth, int resHeight, int fps, int bright, int expos);
