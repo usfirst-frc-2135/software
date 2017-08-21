@@ -1,5 +1,21 @@
 <xml version="1.0">
 <dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="913" y="496"/>
+		<property name="Camera Choice" value="USB Camera 0"/>
+	</static-widget>
+	<widget field="VisionThread" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="360" y="588"/>
+	</widget>
+	<widget field="Cam_ShooterPipelineOn" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="590"/>
+	</widget>
+	<widget field="Cam_GearPipelineOn" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="563"/>
+	</widget>
+	<widget field="Chs_TurnScaling" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="536"/>
+	</widget>
 	<widget field="Auton Pos 2 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="627" y="457"/>
 	</widget>
@@ -36,7 +52,7 @@
 	<widget field="ChsCL_TargetInches" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="317" y="288"/>
 	</widget>
-	<widget field="Chs_DriveDirection" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+	<widget field="Chs_DriveDirection" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="327" y="48"/>
 	</widget>
 	<widget field="Cam_TurnAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
@@ -82,7 +98,7 @@
 		<location x="1082" y="4"/>
 		<width>825</width>
 		<height>612</height>
-		<property name="Camera Choice" value="USB Camera 0"/>
+		<property name="Camera Choice" value="Contours Video"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
 		<location x="624" y="16"/>

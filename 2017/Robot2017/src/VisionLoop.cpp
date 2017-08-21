@@ -39,7 +39,7 @@ void VisionLoop::Run() {
 	cv::Mat inFrame;
 	cv::Mat gripFrame;
 
-	// Image processing structures for identifying targets
+	// Image processing structures for identifying targets and pegs
 	std::vector<std::vector<cv::Point>> *contours;
 	std::vector<cv::Rect> boundingRects;
 	std::vector<tData> validTargets;
@@ -68,7 +68,7 @@ void VisionLoop::Run() {
 		    std::string error = inStream.GetError();
 		    DriverStation::ReportError(error);
 		    printf("2135: Missed frame\n");
-			std::this_thread::sleep_for(std::chrono::milliseconds(250));
+			std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		    continue;
 		}
 		else {
@@ -85,13 +85,14 @@ void VisionLoop::Run() {
 			printf("C %d, B %d, T %d, P %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
 				contours->size(), boundingRects.size(), validTargets.size(), validPegs.size(),
 				goal.r.x, goal.r.y, goal.r.width, goal.r.height, goal.dist, goal.angle);
-
-			SmartDashboard::PutNumber("VisionThread", SmartDashboard::GetNumber("VisionThread", 0) + 1);
-			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		}
+
+		SmartDashboard::PutNumber("VisionThread", SmartDashboard::GetNumber("VisionThread", 0) + 1);
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
 		// Draw the boundingRects on the frame bring processed -- white
 		ApplyRectsToFrame(inFrame, boundingRects);
+		ApplyGoalToFrame(inFrame, goal);
 		outStream.PutFrame(inFrame);
 	}
 }
@@ -140,7 +141,7 @@ void VisionLoop::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Poin
 
 	rects->clear();
 
-	// If any contours are available, loop through them and create a vector of bounding rects
+	// If contours are available, loop through up to 8 of them and create a vector of bounding rects
 	if (contours->size() > 0) {
 		for (uint32_t i = 0; i < contours->size() && i < 8; i++) {
 			rects->push_back(cv::boundingRect((*contours)[i]));
@@ -154,7 +155,7 @@ void VisionLoop::ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *bound
 
 	targets->clear();
 
-	// If any boundingRects are available, loop through them and create a vector of valid targets
+	// If boundingRects are available, loop through them and create a vector of valid targets
 	if (boundingRects->size() > 0) {
 		for (uint32_t i = 0; i < boundingRects->size(); i++) {
 			cv::Rect *r = boundingRects->data();
@@ -171,14 +172,13 @@ void VisionLoop::ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *bound
 				t.angle = CalcCenteringAngle(m_targSize.width, r[i], t.dist);
 				targets->push_back(t);
 			}
+			PrintTargetData('T', i, t);
 		}
 	}
 }
 
 void VisionLoop::ConvertValidTargetsToValidPegs(std::vector<tData> *targets, std::vector<tData> *pegs) {
-
 	double 	score;
-	std::vector<tData>::iterator it = targets->begin();
 	tData	p;
 
 	pegs->clear();
@@ -211,27 +211,39 @@ void VisionLoop::ConvertValidTargetsToValidPegs(std::vector<tData> *targets, std
 					p.dist = CalcInchesToTarget(m_pegSize.width, pegRect);
 					p.angle = CalcCenteringAngle(m_pegSize.width, pegRect, p.dist);
 					pegs->push_back(p);
-//					printf("-P-> %2d, X %d, Y %d, W %d, H %d, score %3f, dist %f, angle %f\n",
-//							i, pegRect.x, pegRect.y, pegRect.width, pegRect.height, p.score, p.dist, p.angle);
 				}
 			}
+			PrintTargetData('P', i, p);
 		}
 	}
 }
 
 void VisionLoop::ChooseGoalPeg(std::vector<tData> *pegs, tData *goal) {
+	tData	*p = pegs->data();
 
 	std::memset(goal, 0, sizeof(tData));
 
-	if (pegs->size()) {
-		memcpy(goal, &pegs[0], sizeof(tData));
+	if (pegs->size() > 0) {
+		goal->r = p->r;
+		goal->score = p->score;
+		goal->dist = p->dist;
+		goal->angle = p->angle;
 	}
+}
+
+void VisionLoop::PrintTargetData(char name, int idx, tData t) {
+//	printf("-%c %d: x %d, y %d, w %d, h %d, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
+//		t.r.x, t.r.y, t.r.width, t.r.height, t.score, t.dist, t.angle);
 }
 
 void VisionLoop::ApplyRectsToFrame(cv::Mat frame, std::vector<cv::Rect> rects) {
 	for (uint32_t i = 0; i < rects.size(); i++) {
 		cv::rectangle(frame, rects[i], cv::Scalar(68, 68, 255), 2, cv::LineTypes::LINE_8);
 	}
+}
+
+void VisionLoop::ApplyGoalToFrame(cv::Mat frame, tData goal) {
+	cv::rectangle(frame, goal.r, cv::Scalar(68, 255, 68), 2, cv::LineTypes::LINE_8);
 }
 
 double VisionLoop::CalcInchesToTarget(double targetWidthInches, cv::Rect rect) {
@@ -243,14 +255,8 @@ double VisionLoop::CalcInchesToTarget(double targetWidthInches, cv::Rect rect) {
 	//		F = (P x D) / W = 320px x 2.144" / 2.0" = 343.2
 	//		D = (F x W) / P = (343.2 x 2.0") / P
 	//		D = 320px x (1 / tan(50/2)) / Measured pixels
-	// 	targetWidthInches * FOVpixels / (2 * RectWidthPixels * tan(FOVradians / 2.0)
 
-	const double fovDegrees = 50.0;					// Using camera horizontoal FOV = 50 degrees
-	double fovRadians = fovDegrees * M_PI / 180.0;	// Convert FOV degrees to radians
-
-	// Use equivalent triangles and half the FOV angle in radians
-//	return ((targetWidthInches / 2.0) * m_res.width * (1 / tan(fovRadians/2)) * rect.width);
-	return ((targetWidthInches / 2.0) * m_res.width * (1 / tan(fovRadians/2)) * rect.width);
+	return (343.2 * targetWidthInches) / rect.width;
 }
 
 double VisionLoop::CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget) {

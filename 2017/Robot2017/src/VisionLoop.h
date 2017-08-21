@@ -39,7 +39,9 @@ private:
 	void ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *rects, std::vector<tData> *targets);
 	void ConvertValidTargetsToValidPegs(std::vector<tData> *targets, std::vector<tData> *pegs);
 	void ChooseGoalPeg(std::vector<tData> *pegs, tData *goal);
+	void PrintTargetData(char name, int idx, tData t);
 	void ApplyRectsToFrame(cv::Mat frame, std::vector<cv::Rect> rects);
+	void ApplyGoalToFrame(cv::Mat frame, tData goal);
 	double CalcInchesToTarget(double targetWidthInches, cv::Rect rect);
 	double CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget);
 
