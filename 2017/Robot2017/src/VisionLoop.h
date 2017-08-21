@@ -13,28 +13,32 @@
 
 class VisionLoop {
 private:
-	struct visRect {
-		int width;
-		int height;
+	struct pixelRect {				// Vision rectangle of pixels
+		int 	width;
+		int 	height;
 	};
-	struct visRect m_res;				// Initial camera resolution
-	struct visRect m_targSize;		// Vision Target dimensions
-	struct visRect m_pegSize;		// Vision Peg dimensions
-	struct goal {
-		cv::Rect r;
-		double	score;
-		double	dist;
-		double	angle;
+	struct pixelRect m_res;			// Initial camera resolution
+	struct dimRect {				// Actual vision target dimensions - inches
+		double width;
+		double height;
 	};
-	struct goal m_goal;
+	struct dimRect m_targSize;		// Vision Target dimensions
+	struct dimRect m_pegSize;		// Vision Peg target dimensions
+	typedef struct targetData {		// Validated Target data (or Peg data)
+		cv::Rect	r;				// Target rect in pixel coordinates
+		double		score;			// Target score as compared to theoretical
+		double		dist;			// Calculated distance to target
+		double		angle;			// Calculated angle to target
+	} tData;
 
 	std::shared_ptr<NetworkTable> m_netTable;
 
 	void InitializeSmartdashboard(void);
 	void ConfigureCamera(cs::UsbCamera cam, int resWidth, int resHeight, int fps, int bright, int expos);
 	void ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<cv::Rect> *rects);
-	double ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *rects, std::vector<cv::Rect> *targets);
-	double ConvertValidTargetsToValidPegs(std::vector<cv::Rect> *targets, std::vector<cv::Rect> *pegs);
+	void ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *rects, std::vector<tData> *targets);
+	void ConvertValidTargetsToValidPegs(std::vector<tData> *targets, std::vector<tData> *pegs);
+	void ChooseGoalPeg(std::vector<tData> *pegs, tData *goal);
 	void ApplyRectsToFrame(cv::Mat frame, std::vector<cv::Rect> rects);
 	double CalcInchesToTarget(double targetWidthInches, cv::Rect rect);
 	double CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget);
