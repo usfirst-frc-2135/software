@@ -40,6 +40,7 @@ private:
 	void ConvertValidTargetsToValidPegs(std::vector<tData> *targets, std::vector<tData> *pegs);
 	void ChooseGoalPeg(std::vector<tData> *pegs, tData *goal);
 	void PrintTargetData(char name, int idx, tData t);
+	void ApplyGridToFrame(cv::Mat frame, pixelRect res, double dist, double angle);
 	void ApplyRectsToFrame(cv::Mat frame, std::vector<cv::Rect> rects);
 	void ApplyGoalToFrame(cv::Mat frame, tData goal);
 	double CalcInchesToTarget(double targetWidthInches, cv::Rect rect);

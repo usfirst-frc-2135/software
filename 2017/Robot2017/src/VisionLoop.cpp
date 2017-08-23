@@ -91,6 +91,7 @@ void VisionLoop::Run() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
 		// Draw the boundingRects on the frame bring processed -- white
+		ApplyGridToFrame(inFrame, m_res, goal.dist, goal.angle);
 		ApplyRectsToFrame(inFrame, boundingRects);
 		ApplyGoalToFrame(inFrame, goal);
 		outStream.PutFrame(inFrame);
@@ -234,6 +235,33 @@ void VisionLoop::ChooseGoalPeg(std::vector<tData> *pegs, tData *goal) {
 void VisionLoop::PrintTargetData(char name, int idx, tData t) {
 //	printf("-%c %d: x %d, y %d, w %d, h %d, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
 //		t.r.x, t.r.y, t.r.width, t.r.height, t.score, t.dist, t.angle);
+}
+
+void VisionLoop::ApplyGridToFrame(cv::Mat frame, pixelRect res, double dist, double angle) {
+	cv::Point	pt1, pt2;
+	char	str[32];
+
+	pt1.x = 0;
+	pt2.x = res.width;
+	pt1.y = pt2.y = res.height / 2;
+	cv::line(frame, pt1, pt2, cv::Scalar(255, 255, 255), 1, cv::LineTypes::LINE_4, 0);
+
+	pt1.y = 0;
+	pt2.y = res.height;
+	pt1.x = pt2.x = res.width / 2;
+	cv::line(frame, pt1, pt2, cv::Scalar(255, 255, 255), 1, cv::LineTypes::LINE_4, 0);
+
+	std::sprintf(str, "%5.1f in", dist);
+	pt1.x = 5;
+	pt1.y = res.height - 5;
+	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_PLAIN, 1.0, cv::Scalar(255, 255, 255),
+		1, cv::LineTypes::LINE_8, false);
+
+	std::sprintf(str, "%5.1f deg", angle);
+	pt1.x = res.width - 120;
+	pt1.y = res.height - 5;
+	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_PLAIN, 1.0, cv::Scalar(255, 255, 255),
+		1, cv::LineTypes::LINE_8, false);
 }
 
 void VisionLoop::ApplyRectsToFrame(cv::Mat frame, std::vector<cv::Rect> rects) {
