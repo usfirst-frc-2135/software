@@ -254,13 +254,13 @@ void VisionLoop::ApplyGridToFrame(cv::Mat frame, pixelRect res, double dist, dou
 	std::sprintf(str, "%5.1f in", dist);
 	pt1.x = 5;
 	pt1.y = res.height - 5;
-	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_PLAIN, 1.0, cv::Scalar(255, 255, 255),
+	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
 		1, cv::LineTypes::LINE_8, false);
 
 	std::sprintf(str, "%5.1f deg", angle);
-	pt1.x = res.width - 120;
+	pt1.x = res.width/2 - 10;
 	pt1.y = res.height - 5;
-	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_PLAIN, 1.0, cv::Scalar(255, 255, 255),
+	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
 		1, cv::LineTypes::LINE_8, false);
 }
 
@@ -271,7 +271,19 @@ void VisionLoop::ApplyRectsToFrame(cv::Mat frame, std::vector<cv::Rect> rects) {
 }
 
 void VisionLoop::ApplyGoalToFrame(cv::Mat frame, tData goal) {
+	cv::Point	pt1, pt2;
+
 	cv::rectangle(frame, goal.r, cv::Scalar(68, 255, 68), 2, cv::LineTypes::LINE_8);
+
+	pt1.x = goal.r.x + goal.r.width/2 - 5;
+	pt2.x = pt1.x + 10;
+	pt1.y = pt2.y = goal.r.y + goal.r.height/2;
+	cv::line(frame, pt1, pt2, cv::Scalar(68, 255, 68), 1, cv::LineTypes::LINE_4, 0);
+
+	pt1.y = goal.r.y + goal.r.height/2 - 5;
+	pt2.y = pt1.y + 10;
+	pt1.x = pt2.x = goal.r.x + goal.r.width/2;
+	cv::line(frame, pt1, pt2, cv::Scalar(68, 255, 68), 1, cv::LineTypes::LINE_4, 0);
 }
 
 double VisionLoop::CalcInchesToTarget(double targetWidthInches, cv::Rect rect) {
