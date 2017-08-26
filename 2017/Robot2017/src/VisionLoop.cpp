@@ -88,7 +88,7 @@ void VisionLoop::Run() {
 		}
 
 		SmartDashboard::PutNumber("VisionThread", SmartDashboard::GetNumber("VisionThread", 0) + 1);
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		std::this_thread::sleep_for(std::chrono::milliseconds(65));
 
 		// Draw the boundingRects on the frame bring processed -- white
 		ApplyGridToFrame(inFrame, m_res, goal.dist, goal.angle);
