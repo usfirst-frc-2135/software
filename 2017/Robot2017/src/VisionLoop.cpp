@@ -143,7 +143,7 @@ void VisionLoop::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Poin
 	rects->clear();
 
 	// If contours are available, loop through up to 8 of them and create a vector of bounding rects
-	if (contours->size() > 0) {
+	if (!contours->empty()) {
 		for (uint32_t i = 0; i < contours->size() && i < 8; i++) {
 			rects->push_back(cv::boundingRect((*contours)[i]));
 		}
@@ -157,7 +157,7 @@ void VisionLoop::ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *bound
 	targets->clear();
 
 	// If boundingRects are available, loop through them and create a vector of valid targets
-	if (boundingRects->size() > 0) {
+	if (!boundingRects->empty()) {
 		for (uint32_t i = 0; i < boundingRects->size(); i++) {
 			cv::Rect *r = boundingRects->data();
 
@@ -224,7 +224,7 @@ void VisionLoop::ChooseGoalPeg(std::vector<tData> *pegs, tData *goal) {
 
 	std::memset(goal, 0, sizeof(tData));
 
-	if (pegs->size() > 0) {
+	if (!pegs->empty()) {
 		goal->r = p->r;
 		goal->score = p->score;
 		goal->dist = p->dist;
