@@ -79,6 +79,6 @@ private:
 	void TalonSRXPrintFaults(const char *talonName, std::shared_ptr<CANTalon> talonPtr);
 };
 
-void VisionThread();
+static void VisionThread();
 
 #endif

@@ -265,7 +265,7 @@ void Robot::TalonSRXPrintFaults(const char *talonName, std::shared_ptr<CANTalon>
 
 // Vision Thread to call into our Vision processing loop
 
-void VisionThread() {
+static void VisionThread() {
 	// Thread checking
 	printf("2135: ----- VISION THREAD RUNNING -----\n");
 //	printf("2135: Vision Thread ID %d\n", std::this_thread::get_id());
@@ -274,13 +274,20 @@ void VisionThread() {
 		return;
 	}
 
+	try {
 	// Instantiate the vision loop and call it
 	VisionLoop *vision = new VisionLoop;
 	vision->Run();
 
 	// Should never get here - if it does then clean up
 	delete vision;
-	vision = nullptr;
+	}
+	catch (...) {	// Error detected, loop in a sleep mode (return seems to reboot robot)
+		while(1) {
+			printf("2135: Vision Thread terminated due to exception\n");
+			std::this_thread::sleep_for(std::chrono::seconds(10));
+		}
+	}
 }
 
 START_ROBOT_CLASS(Robot);
