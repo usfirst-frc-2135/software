@@ -265,7 +265,7 @@ void Robot::TalonSRXPrintFaults(const char *talonName, std::shared_ptr<CANTalon>
 
 // Vision Thread to call into our Vision processing loop
 
-static void VisionThread() {
+void VisionThread() {
 	// Thread checking
 	printf("2135: ----- VISION THREAD RUNNING -----\n");
 //	printf("2135: Vision Thread ID %d\n", std::this_thread::get_id());
