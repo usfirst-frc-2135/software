@@ -52,9 +52,9 @@ public:
 	virtual ~VisionLoop();
 	void Run();
 
-	void VisionGearPipeOn();
-	void VisionShooterPipeOn();
-	void VisionAllPipesOff();
+	static void VisionGearPipeOn();
+	static void VisionShooterPipeOn();
+	static void VisionAllPipesOff();
 
 };
 

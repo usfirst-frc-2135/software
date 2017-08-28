@@ -25,7 +25,7 @@ VisionAllPipelinesOff::VisionAllPipelinesOff(): Command() {
 
 // Called just before this Command runs the first time
 void VisionAllPipelinesOff::Initialize() {
-//	VisionProcess::VisionAllPipesOff();
+	VisionLoop::VisionAllPipesOff();
 }
 
 // Called repeatedly when this Command is scheduled to run

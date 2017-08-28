@@ -93,11 +93,8 @@
 
 //  SmartDashboard Camera Pipeline Toggle settings
 
-#define CAM_GEARPIPEON			"Cam_GearPipelineOn"
-#define CAM_GEARPIPEON_D		false
-
-#define CAM_SHOOTERPIPEON		"Cam_ShooterPipelineOn"
-#define CAM_SHOOTERPIPEON_D		false
+#define CAM_VISIONPIPEON		"Cam_VisionPipe"
+#define CAM_VISIONPIPEON_D		0.0
 
 //	SmartDashboard Vision settings
 

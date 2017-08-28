@@ -25,7 +25,7 @@ VisionGearPipelineOn::VisionGearPipelineOn(): Command() {
 
 // Called just before this Command runs the first time
 void VisionGearPipelineOn::Initialize() {
-//	VisionThread::VisionGearPipeOn();
+	VisionLoop::VisionGearPipeOn();
 }
 
 // Called repeatedly when this Command is scheduled to run

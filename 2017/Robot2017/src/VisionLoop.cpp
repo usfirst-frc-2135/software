@@ -7,8 +7,12 @@
 
 #include <src/VisionLoop.h>
 
+typedef enum { VISIONPIPE_UNINIT, VISIONPIPE_OFF, VISIONPIPE_GEAR, VISIONPIPE_SHOOTER } pipeConfig;
+static	pipeConfig s_visionPipe = VISIONPIPE_OFF;
+
 VisionLoop::VisionLoop() {
 	printf("2135: VisionLoop Constructor\n");
+	VisionGearPipeOn();
 }
 
 VisionLoop::~VisionLoop() {
@@ -47,6 +51,7 @@ void VisionLoop::Run() {
 
 	// Our camera input source - start it up and configure settings
 	cs::UsbCamera cam = CameraServer::GetInstance()->StartAutomaticCapture();
+	VisionGearPipeOn();
 	SetCamConfig(cam);
 
 	// Start our GRIP-generated vision processing pipeline
@@ -99,8 +104,7 @@ void VisionLoop::InitializeSmartdashboard(void) {
 
 	// table = NetworkTable::GetTable("GRIP/myContoursReport");
 	SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
-	SmartDashboard::PutBoolean(CAM_GEARPIPEON, false);
-	SmartDashboard::PutBoolean(CAM_SHOOTERPIPEON, false);
+	SmartDashboard::PutNumber(CAM_VISIONPIPEON, CAM_VISIONPIPEON_D);
 
 	SmartDashboard::PutNumber(CAM_TURNANGLE, 0.0);
 	SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
@@ -343,14 +347,16 @@ double VisionLoop::CalcCenteringAngle(double targetWidthInches, cv::Rect rect, d
 // Toggle mode for enabling/disabling the pipelines on the cameras for gear and shooter.
 
 void VisionLoop::VisionGearPipeOn() {
-	SmartDashboard::PutBoolean(CAM_GEARPIPEON, true);
+	s_visionPipe = VISIONPIPE_GEAR;
+	SmartDashboard::PutNumber(CAM_VISIONPIPEON, s_visionPipe);
 }
 
 void VisionLoop::VisionShooterPipeOn() {
-	SmartDashboard::PutBoolean(CAM_SHOOTERPIPEON, true);
+	s_visionPipe = VISIONPIPE_SHOOTER;
+	SmartDashboard::PutNumber(CAM_VISIONPIPEON, s_visionPipe);
 }
 
 void VisionLoop::VisionAllPipesOff() {
-	SmartDashboard::PutBoolean(CAM_GEARPIPEON, false);
-	SmartDashboard::PutBoolean(CAM_SHOOTERPIPEON, false);
+	s_visionPipe = VISIONPIPE_OFF;
+	SmartDashboard::PutNumber(CAM_VISIONPIPEON, s_visionPipe);
 }

@@ -25,7 +25,7 @@ VisionShooterPipelineOn::VisionShooterPipelineOn(): Command() {
 
 // Called just before this Command runs the first time
 void VisionShooterPipelineOn::Initialize() {
-//	VisionThread::VisionShooterPipeOn();
+	VisionLoop::VisionShooterPipeOn();
 }
 
 // Called repeatedly when this Command is scheduled to run
