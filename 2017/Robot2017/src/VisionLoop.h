@@ -34,6 +34,7 @@ private:
 	std::shared_ptr<NetworkTable> m_netTable;
 
 	void InitializeSmartdashboard(void);
+	void SetCamConfig(cs::UsbCamera cam);
 	void ConfigureCamera(cs::UsbCamera cam, int resWidth, int resHeight, int fps, int bright, int expos);
 	void ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<cv::Rect> *rects);
 	void ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *rects, std::vector<tData> *targets);

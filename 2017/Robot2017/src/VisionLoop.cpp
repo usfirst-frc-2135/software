@@ -21,10 +21,6 @@ void VisionLoop::Run() {
 
 	m_res.width = 320;							// Camera Resolution setting in pixels
 	m_res.height = 240;
-	int	fps = 8; 								// Camera Frames Per Second
-												// MS LifeCAM does not go below 8 fps
-	int brightness = 0;						// Camera Brightness setting (0..100)
-	int exposure = 0;							// Camera Exposure setting (0..100)
 	m_targSize.width = 2.0;						// 2017 Vision target dimensions
 	m_targSize.height = 5.0;
 	m_pegSize.width = 10.25;					// 2017 Peg (two targets) dimensions
@@ -51,7 +47,7 @@ void VisionLoop::Run() {
 
 	// Our camera input source - start it up and configure settings
 	cs::UsbCamera cam = CameraServer::GetInstance()->StartAutomaticCapture();
-	ConfigureCamera(cam, m_res.width, m_res.height, fps, brightness, exposure);
+	SetCamConfig(cam);
 
 	// Start our GRIP-generated vision processing pipeline
 	gripPipe.reset(new grip::GripContoursPipeline());
@@ -62,6 +58,7 @@ void VisionLoop::Run() {
 
 	// Main loop for our vision thread
 	while (true) {
+		SetCamConfig(cam);
 		int validFrame = inStream.GrabFrame(inFrame, 1000);
 
 		if ((validFrame == 0) || (inFrame.empty())) {
@@ -119,6 +116,32 @@ void VisionLoop::InitializeSmartdashboard(void) {
 	SmartDashboard::PutNumber(CAM_SATEND, CAM_SATEND_D);
 	SmartDashboard::PutNumber(CAM_LUMSTART, CAM_LUMSTART_D);
 	SmartDashboard::PutNumber(CAM_LUMEND, CAM_LUMEND_D);
+}
+
+void VisionLoop::SetCamConfig(cs::UsbCamera cam) {
+
+	static	pipeConfig visionPipe = VISIONPIPE_UNINIT;
+	int	fps = 8; 							// Camera Frames Per Second
+											// MS LifeCAM does not go below 8 fps
+	int brightness = 0;						// Camera Brightness setting (0..100)
+	int exposure = 0;						// Camera Exposure setting (0..100)
+
+	if (s_visionPipe != visionPipe) {
+		switch (s_visionPipe) {
+		case VISIONPIPE_GEAR:
+			ConfigureCamera(cam, m_res.width, m_res.height, fps, brightness, exposure);
+			break;
+		case VISIONPIPE_SHOOTER:
+			ConfigureCamera(cam, m_res.width, m_res.height, fps, 50, 50);
+			break;
+		case VISIONPIPE_OFF:
+		default:
+			ConfigureCamera(cam, m_res.width, m_res.height, fps, 50, 50);
+			break;
+		}
+
+		s_visionPipe = visionPipe;
+	}
 }
 
 void VisionLoop::ConfigureCamera(cs::UsbCamera cam, int resWidth, int resHeight, int fps, int bright, int expos) {
