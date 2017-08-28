@@ -145,7 +145,7 @@ void VisionLoop::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Poin
 	// If contours are available, loop through up to 8 of them and create a vector of bounding rects
 	if (!contours->empty()) {
 		for (uint32_t i = 0; i < contours->size() && i < 8; i++) {
-			rects->push_back(cv::boundingRect((*contours)[i]));
+			rects->push_back(cv::boundingRect(contours->at(i)));
 		}
 	}
 }
@@ -159,18 +159,18 @@ void VisionLoop::ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *bound
 	// If boundingRects are available, loop through them and create a vector of valid targets
 	if (!boundingRects->empty()) {
 		for (uint32_t i = 0; i < boundingRects->size(); i++) {
-			cv::Rect *r = boundingRects->data();
+			cv::Rect r = boundingRects->at(i);
 
 			// Translate width and height to floating point and calculate normalized score 0..100
-			score = 100 * ((double)r[i].width / (double)r[i].height)
+			score = 100 * ((double)r.width / (double)r.height)
 					* (m_targSize.height / m_targSize.width);
 
 			// If the bounding rect score is close to 100, save it in the hold list
 			if ( (score > 50) && (score < 200) ) {
-				t.r = r[i];
+				t.r = r;
 				t.score = score;
-				t.dist = CalcInchesToTarget(m_targSize.width , r[i]);
-				t.angle = CalcCenteringAngle(m_targSize.width, r[i], t.dist);
+				t.dist = CalcInchesToTarget(m_targSize.width , r);
+				t.angle = CalcCenteringAngle(m_targSize.width, r, t.dist);
 				targets->push_back(t);
 			}
 			PrintTargetData('T', i, t);
