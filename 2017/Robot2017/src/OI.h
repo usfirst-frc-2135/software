@@ -21,8 +21,8 @@ private:
 	std::shared_ptr<JoystickButton> operAllCamerasOff;
 	std::shared_ptr<JoystickButton> operShooterCameraOn;
 	std::shared_ptr<JoystickButton> operGearCameraOn;
+	std::shared_ptr<JoystickButton> operClimberLowSpeed;
 	std::shared_ptr<JoystickButton> operClimberReverse;
-	std::shared_ptr<JoystickButton> operClimberLowPower;
 	std::shared_ptr<JoystickButton> operClimberForward;
 	std::shared_ptr<Joystick> operatorPanelA;
 	std::shared_ptr<JoystickButton> operGearDoorClose;

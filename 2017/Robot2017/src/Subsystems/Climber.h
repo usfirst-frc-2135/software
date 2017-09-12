@@ -40,11 +40,13 @@ public:
 	enum { CLIMBER_STOP = 0, CLIMBER_FORWARD = 1, CLIMBER_REVERSE = -1};
 	enum { CLIMBER_STOP_LOW = 0, CLIMBER_FORWARD_LOW = 1, CLIMBER_REVERSE_LOW = -1};
 
+	bool m_lowSpeed;
+
 	// Put added public methods here in same order as in file
 	void Initialize(frc::Preferences *prefs);
 	void UpdateSmartDashboardValues(void);
 	void SetMotorSpeed(int speed);
-	void SetMotorLowSpeed(int speed);
+	void SetMotorLowSpeed(bool lowSpeed);
 };
 
 #endif
