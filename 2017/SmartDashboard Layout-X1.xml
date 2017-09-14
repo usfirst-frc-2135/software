@@ -4,7 +4,7 @@
 		<location x="5" y="564"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="913" y="496"/>
+		<location x="909" y="503"/>
 		<property name="Camera Choice" value="USB Camera 0"/>
 	</static-widget>
 	<widget field="VisionThread" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
@@ -22,7 +22,7 @@
 		<location x="659" y="368"/>
 	</widget>
 	<widget field="Auto Modes" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="921" y="368"/>
+		<location x="921" y="342"/>
 	</widget>
 	<widget field="Auton Pos 3 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="627" y="505"/>
@@ -134,6 +134,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="Cam_ShooterPipelineOn"/>
-	<hidden field="Cam_GearPipelineOn"/>
 </xml>
