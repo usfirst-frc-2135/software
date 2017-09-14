@@ -84,9 +84,9 @@ void VisionLoop::Run() {
 			ConvertValidTargetsToValidPegs(&validTargets, &validPegs);
 			ChooseGoalPeg(&validPegs, &goal);
 
-			printf("C %d, B %d, T %d, P %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
-				contours->size(), boundingRects.size(), validTargets.size(), validPegs.size(),
-				goal.r.x, goal.r.y, goal.r.width, goal.r.height, goal.dist, goal.angle);
+//			printf("C %d, B %d, T %d, P %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
+//				contours->size(), boundingRects.size(), validTargets.size(), validPegs.size(),
+//				goal.r.x, goal.r.y, goal.r.width, goal.r.height, goal.dist, goal.angle);
 		}
 
 		SmartDashboard::PutNumber("VisionThread", SmartDashboard::GetNumber("VisionThread", 0) + 1);
