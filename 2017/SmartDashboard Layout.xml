@@ -1,14 +1,14 @@
 <xml version="1.0">
 <dashboard>
 	<widget field="Light On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="469"/>
+		<location x="216" y="388"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
 		<location x="251" y="346"/>
 		<property name="Text" value="Connection"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="518" y="242"/>
+		<location x="516" y="228"/>
 		<width>156</width>
 		<height>117</height>
 		<property name="Camera Choice" value=""/>
@@ -23,25 +23,25 @@
 		<location x="45" y="448"/>
 	</widget>
 	<widget field="Auton Default" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="539" y="372"/>
+		<location x="539" y="348"/>
 	</widget>
 	<widget field="Auton Pos 2 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="486" y="444"/>
+		<location x="486" y="420"/>
 	</widget>
 	<widget field="Auton Pos 123 Move" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="507" y="396"/>
+		<location x="507" y="372"/>
 	</widget>
 	<widget field="Auton Pos 3 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="486" y="468"/>
+		<location x="486" y="444"/>
 	</widget>
 	<widget field="Auton Drive Peg Vision" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="246" y="291"/>
 	</widget>
 	<widget field="Auton Pos 1 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="486" y="420"/>
+		<location x="486" y="396"/>
 	</widget>
 	<widget field="Auto Modes" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="337" y="367"/>
+		<location x="360" y="345"/>
 	</widget>
 	<widget field="RTurnPIDOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="26" y="336"/>
@@ -103,9 +103,9 @@
 		<height>20</height>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="701" y="2"/>
-		<width>657</width>
-		<height>492</height>
+		<location x="743" y="2"/>
+		<width>616</width>
+		<height>472</height>
 		<property name="Camera Choice" value="Contours Video"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
@@ -144,4 +144,9 @@
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="All Cameras Disabled: DEFAULT"/>
+	<hidden field="Cam_ShooterPipelineOn"/>
+	<hidden field="Cam_GearPipelineOn"/>
+	<hidden field="Shooter Camera On: DEFAULT"/>
+	<hidden field="Gear Camera On: DEFAULT"/>
 </xml>
