@@ -23,7 +23,7 @@
 //	SmartDashboard Autonomous command - Drive Distance
 
 #define AUTON_DRIVEDISTANCE		"DriveDistanceInches"
-#define AUTON_DRIVEDISTANCE_D	60.0	// Default value - inches
+#define AUTON_DRIVEDISTANCE_D	-78.6	// Default value - inches
 
 //	SmartDashboard Autonomous command - Drive Heading (Turn)
 
