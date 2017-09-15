@@ -190,10 +190,6 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	motorL1->SetEncPosition(0);
 	motorR3->SetEncPosition(0);
 
-	// drive distance inches
-	// Read from SmartDashboard
-	SmartDashboard::PutNumber(CHS_CL_TARGETINCHES,Robot::LoadPreferencesVariable(CHS_CL_TARGETINCHES, CHS_CL_TARGETINCHES_D));
-
 	// reset gyro to zero
 	gyro->Reset();
 

@@ -20,6 +20,28 @@
 
 //	SmartDashboard parameters and defaults
 
+// Smartdashboard Autonomous Program settings
+
+#define AUTON_POS123MOVE		"Auto_Pos123"	// Move forward to cross auton line ~8" short of pos 2 move
+#define AUTON_POS123MOVE_D		-68.8
+
+#define AUTON_POS1_LEG1			"Auto_Pos1Leg1"	// Move forward to turning point
+#define AUTON_POS1_LEG1_D		-67.4
+#define AUTON_POS1_TURN			"Auto_Pos1Turn"	// Turn right 60 degrees
+#define AUTON_POS1_TURN_D		60.0
+#define AUTON_POS1_LEG2			"Auto_Pos1Leg2"	// Move forward toward peg 1
+#define AUTON_POS1_LEG2_D		-76.0
+
+#define AUTON_POS2_LEG1			"Auto_Pos2Leg1"	// Move forward to peg 2
+#define AUTON_POS2_LEG1_D		-76.8
+
+#define AUTON_POS3_LEG1			"Auto_Pos3Leg1"	// Move forward to turning point
+#define AUTON_POS3_LEG1_D		-67.4
+#define AUTON_POS3_TURN			"Auto_Pos3Turn"	// Turn left 60 degrees
+#define AUTON_POS3_TURN_D		-60.0
+#define AUTON_POS3_LEG2			"Auto_Pos3Leg2"	// Move forward toward peg 3
+#define AUTON_POS3_LEG2_D		-76.0
+
 //	SmartDashboard Autonomous command - Drive Distance
 
 #define AUTON_DRIVEDISTANCE		"DriveDistanceInches"
@@ -48,27 +70,24 @@
 #define CHS_DRIVE_SCALING_D		1.0
 
 #define CHS_DRIVE_SPIN			"Chs_DriveSpin"
-#define CHS_DRIVE_SPIN_D		0.4
+#define CHS_DRIVE_SPIN_D		0.46
 
 // SmartDashboard Chassis Distance PID configuration (Talon SRX)
 
 #define CHS_CL_RAMPRATE			"ChsCL_RampRate"
-#define	CHS_CL_RAMPRATE_D		24.0
+#define	CHS_CL_RAMPRATE_D		60.0
 
 #define CHS_CL_ALLOWERROR		"ChsCL_AllowError"
-#define	CHS_CL_ALLOWERROR_D		30
+#define	CHS_CL_ALLOWERROR_D		37
 
 #define CHS_CL_PEAKOUTVOLTS		"ChsCL_PeakOutput"
-#define	CHS_CL_PEAKOUTVOLTS_D	6.0
+#define	CHS_CL_PEAKOUTVOLTS_D	6.01
 
 #define CHS_CL_NOMOUTVOLTS		"ChsCL_NomOutput"
 #define	CHS_CL_NOMOUTVOLTS_D	0.0
 
 #define	CHS_CL_PROPORTIONAL		"ChsCL_Proportional"
-#define	CHS_CL_PROPORTIONAL_D	3.5
-
-#define	CHS_CL_TARGETINCHES		"ChsCL_TargetInches"
-#define	CHS_CL_TARGETINCHES_D	60.0
+#define	CHS_CL_PROPORTIONAL_D	2.01
 
 //	SmartDashboard Chassis sensor readings
 
