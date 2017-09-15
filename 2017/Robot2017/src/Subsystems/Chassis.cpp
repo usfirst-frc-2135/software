@@ -110,7 +110,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     driveVisionPIDSource = new DriveVisionPIDSource();
     driveVisionPIDOutput = new DriveVisionPID(robotDrive);
-    driveVisionPIDLoop = new PIDController(CAM_TURNKP_D, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
+    driveVisionPIDLoop = new PIDController(CHS_CAMTURNKP_D, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
 
     m_turnScaling = CHS_TURN_SCALING_D;
     SmartDashboard::PutBoolean(CHS_TURN_SCALING, CHS_TURN_SCALING_D);

@@ -83,6 +83,9 @@
 
 #define CHS_GYROANGLE			"Chs_GyroAngle"
 
+#define CHS_CAMTURNKP			"Chs_CamTurnKP"
+#define CHS_CAMTURNKP_D			0.02
+
 //  Shooter light status
 
 #define SHTR_LIGHT				"ShooterLight"
@@ -131,9 +134,6 @@
 
 #define	CAM_TURNANGLE			"Cam_TurnAngle"
 #define	CAM_TURNANGLE_D			0.0
-
-#define CAM_TURNKP				"Cam_TurnKP"
-#define CAM_TURNKP_D			0.02
 
 #define	CAM_FOUNDTARGET			"Cam_FoundTarget"
 
