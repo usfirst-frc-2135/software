@@ -94,6 +94,6 @@ void Shooter::LightPowerEnable(bool enable) {
 
 	//Alternate between 1 and 0 for each call
 	m_powerState = enable;
-	powerEnable->Set(m_powerState);
+	powerEnable->Set(m_powerState ? 1 : 0);
 	SmartDashboard::PutBoolean(SHTR_LIGHT, m_powerState);
 }
