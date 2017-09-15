@@ -103,11 +103,9 @@ void VisionLoop::Run() {
 void VisionLoop::InitializeSmartdashboard(void) {
 
 	// table = NetworkTable::GetTable("GRIP/myContoursReport");
-	SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
 	SmartDashboard::PutNumber(CAM_VISIONPIPEON, CAM_VISIONPIPEON_D);
-
+	SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
 	SmartDashboard::PutNumber(CAM_TURNANGLE, 0.0);
-	SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
 
 	// Initialize dashboard settings for camera
 	SmartDashboard::PutNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D);
