@@ -83,6 +83,11 @@
 
 #define CHS_GYROANGLE			"Chs_GyroAngle"
 
+//  Shooter light status
+
+#define SHTR_LIGHT				"ShooterLight"
+#define SHTR_LIGHT_D			false
+
 //  Climber speeds for forward and low power mode
 
 #define CLMB_SPEED				"Clmb_Speed"
