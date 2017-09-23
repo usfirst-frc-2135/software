@@ -105,7 +105,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     printf("2135: Stopping gyro calibration\n");
 
 	// Autonomous turn PID controller - SHOULD BE AFTER GYRO IS CALIBRATED
-    driveTurnPIDOutput = new DriveTurnPID(robotDrive);
+    driveTurnPIDOutput = new DriveTurnPID(robotDrive, motorL1, motorR3);
     driveTurnPIDLoop = new PIDController(0.02, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
 
     driveVisionPIDSource = new DriveVisionPIDSource();
@@ -518,7 +518,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	//Start safety timer
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
-	m_safetyTimeout = 30.0;
+	m_safetyTimeout = 2.0;
 
 	// Disable safety feature during movement, since motors will be fed by loop
 	robotDrive->SetSafetyEnabled(false);
@@ -563,12 +563,19 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-DriveTurnPID::DriveTurnPID (std::shared_ptr<RobotDrive> robotDrive) {
+DriveTurnPID::DriveTurnPID (std::shared_ptr<RobotDrive> robotDrive, std::shared_ptr<CANTalon> leftMotor, std::shared_ptr<CANTalon> rightMotor) {
 	m_robotDrive = robotDrive;
+	m_leftMotor = leftMotor;
+	m_rightMotor = rightMotor;
 }
 
 void DriveTurnPID::PIDWrite(double output) {
-	m_robotDrive->ArcadeDrive (0.0, output, false);
+//	m_robotDrive->ArcadeDrive (0.0, output, false);
+
+	if (output > 0.0)
+		m_rightMotor->Set(-output);
+	else
+		m_leftMotor->Set(output);
 
 	// TODO: Remove this after tuning
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);

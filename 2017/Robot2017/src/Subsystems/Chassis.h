@@ -23,8 +23,11 @@
 class DriveTurnPID: public PIDOutput {
 private:
 	std::shared_ptr<RobotDrive> m_robotDrive;
+	std::shared_ptr<CANTalon> m_leftMotor;
+	std::shared_ptr<CANTalon> m_rightMotor;
+
 public:
-	DriveTurnPID(std::shared_ptr<RobotDrive> rDrive);
+	DriveTurnPID(std::shared_ptr<RobotDrive> rDrive, std::shared_ptr<CANTalon> leftMotor, std::shared_ptr<CANTalon> rightMotor);
 	void PIDWrite(double output);
 };
 
