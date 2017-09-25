@@ -50,7 +50,7 @@
 //	SmartDashboard Autonomous command - Drive Heading (Turn)
 
 #define AUTON_DRIVEHEADING		"DriveHeadingAngle"
-#define AUTON_DRIVEHEADING_D	30.0		// Default value - degrees
+#define AUTON_DRIVEHEADING_D	60.0		// Default value - degrees
 
 // SmartDashboard Chassis Turn PID values
 

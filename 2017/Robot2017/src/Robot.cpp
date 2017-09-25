@@ -186,7 +186,7 @@ double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
 	}
 	else {
 		value = defaultValue;
-		printf("2135: ERROR - %-30s not found\n", name.c_str());
+		printf("2135: WARNING %-30s not found\n", name.c_str());
 	}
 
 	return value;

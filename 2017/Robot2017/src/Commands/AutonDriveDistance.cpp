@@ -28,7 +28,7 @@ AutonDriveDistance::AutonDriveDistance(double distance): Command() {
 void AutonDriveDistance::Initialize() {
 	// If distance is less than 0.1 (default is 0.0), then read smartdashboard
 	//	auton programs will pass in larger value
-	if (abs(m_distance) < 0.1) {
+	if (fabs(m_distance) < 0.1) {
 		m_distance = Robot::LoadPreferencesVariable(AUTON_DRIVEDISTANCE, AUTON_DRIVEDISTANCE_D);
 	}
 
