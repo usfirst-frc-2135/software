@@ -57,9 +57,6 @@
 	<widget field="Cam_TurnAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="42" y="294"/>
 	</widget>
-	<widget field="Cam_TurnRight" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="46" y="272"/>
-	</widget>
 	<widget field="Chs_GyroAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="48" y="432"/>
 	</widget>
