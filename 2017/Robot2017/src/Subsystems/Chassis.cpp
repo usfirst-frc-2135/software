@@ -241,7 +241,7 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 #ifdef CHS_TURN_SCALING_E
 	if (!m_lowGear && m_turnScaling) {
 		double scaledFactor;
-		scaledFactor = -0.75 * (abs(yValue)) + 1.0;
+		scaledFactor = -0.75 * (fabs(yValue)) + 1.0;
 		xValue = scaledFactor * xValue;
 	}
 #endif
