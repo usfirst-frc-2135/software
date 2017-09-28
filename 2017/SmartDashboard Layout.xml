@@ -1,5 +1,8 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="ShooterLight" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="193" y="409"/>
+	</widget>
 	<widget field="Light On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="216" y="388"/>
 	</widget>
@@ -144,9 +147,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="All Cameras Disabled: DEFAULT"/>
-	<hidden field="Cam_ShooterPipelineOn"/>
-	<hidden field="Cam_GearPipelineOn"/>
-	<hidden field="Shooter Camera On: DEFAULT"/>
-	<hidden field="Gear Camera On: DEFAULT"/>
 </xml>
