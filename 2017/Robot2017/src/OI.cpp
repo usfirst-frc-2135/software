@@ -23,6 +23,7 @@
 #include "Commands/AutonPos1DeliverGear.h"
 #include "Commands/AutonPos2DeliverGear.h"
 #include "Commands/AutonPos3DeliverGear.h"
+#include "Commands/AutonTurnTest.h"
 #include "Commands/ClimberMotorControl.h"
 #include "Commands/ClimberMotorLowControl.h"
 #include "Commands/DriveShift.h"
@@ -107,6 +108,7 @@ OI::OI() {
     driverShift->WhileHeld(new DriveShift(true));
 
     // SmartDashboard Buttons
+    SmartDashboard::PutData("Auton Turn Test", new AutonTurnTest());
     SmartDashboard::PutData("Auton Drive Peg Vision", new AutonDrivePegVision());
     SmartDashboard::PutData("Auton Drive Turn: DEFAULT", new AutonDriveTurn(0));
     SmartDashboard::PutData("Auton Drive Distance: DEFAULT", new AutonDriveDistance(0));
