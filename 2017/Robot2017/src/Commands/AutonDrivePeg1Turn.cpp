@@ -25,7 +25,10 @@ AutonDrivePeg1Turn::AutonDrivePeg1Turn(): Command() {
 
 // Called just before this Command runs the first time
 void AutonDrivePeg1Turn::Initialize() {
+	m_angle = SmartDashboard::GetNumber(AUTON_POS1_TURN, AUTON_POS1_TURN_D);
 
+	printf("2135: Auton Drive Peg 1 Turn - Initialize: %f degrees\n", m_angle);
+	Robot::chassis->MoveDriveHeadingInit(m_angle);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -35,16 +38,18 @@ void AutonDrivePeg1Turn::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutonDrivePeg1Turn::IsFinished() {
-    return false;
+    return Robot::chassis->MoveDriveHeadingIsPIDAtSetPoint();
 }
 
 // Called once after isFinished returns true
 void AutonDrivePeg1Turn::End() {
-
+	Robot::chassis->MoveDriveHeadingStop();
+	printf("2135: Auton Drive Peg 1 Turn - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutonDrivePeg1Turn::Interrupted() {
-
+	Robot::chassis->MoveDriveHeadingStop();
+	printf("2135: Auton Drive Peg 1 Turn - Interrupted\n");
 }
