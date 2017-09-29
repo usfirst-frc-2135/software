@@ -25,10 +25,10 @@ AutonDrivePeg3Turn::AutonDrivePeg3Turn(): Command() {
 
 // Called just before this Command runs the first time
 void AutonDrivePeg3Turn::Initialize() {
-	m_angle = SmartDashboard::GetNumber(AUTON_POS3_TURN, AUTON_POS3_TURN_D);
+	double angle = Robot::LoadPreferencesVariable(AUTON_POS3_TURN, AUTON_POS3_TURN_D);
 
-	printf("2135: Auton Drive Peg 3 Turn - Initialize: %f degrees\n", m_angle);
-	Robot::chassis->MoveDriveHeadingInit(m_angle);
+	printf("2135: Auton Drive Peg 3 Turn - Initialize: %f degrees\n", angle);
+	Robot::chassis->MoveDriveHeadingInit(angle);
 }
 
 // Called repeatedly when this Command is scheduled to run
