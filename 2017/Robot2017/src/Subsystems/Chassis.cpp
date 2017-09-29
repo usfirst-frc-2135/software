@@ -105,7 +105,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     printf("2135: Stopping gyro calibration\n");
 
 	// Autonomous turn PID controller - SHOULD BE AFTER GYRO IS CALIBRATED
-    driveTurnPIDOutput = new DriveTurnPID(robotDrive, motorL1, motorR3);
+    driveTurnPIDOutput = new DriveTurnPID(robotDrive);
     driveTurnPIDLoop = new PIDController(0.02, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
 
     driveVisionPIDSource = new DriveVisionPIDSource();
@@ -563,19 +563,15 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-DriveTurnPID::DriveTurnPID (std::shared_ptr<RobotDrive> robotDrive, std::shared_ptr<CANTalon> leftMotor, std::shared_ptr<CANTalon> rightMotor) {
+DriveTurnPID::DriveTurnPID (std::shared_ptr<RobotDrive> robotDrive) {
 	m_robotDrive = robotDrive;
-	m_leftMotor = leftMotor;
-	m_rightMotor = rightMotor;
 }
 
 void DriveTurnPID::PIDWrite(double output) {
-//	m_robotDrive->ArcadeDrive (0.0, output, false);
-
 	if (output > 0.0)
-		m_rightMotor->Set(-output);
+		m_robotDrive->SetLeftRightMotorOutputs(0.0,output);
 	else
-		m_leftMotor->Set(output);
+		m_robotDrive->SetLeftRightMotorOutputs(-output, 0.0);
 
 	// TODO: Remove this after tuning
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
