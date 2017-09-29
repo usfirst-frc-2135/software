@@ -17,13 +17,15 @@
 #include "Commands/AutonDefault.h"
 #include "Commands/AutonDelay.h"
 #include "Commands/AutonDriveDistance.h"
+#include "Commands/AutonDrivePeg1Turn.h"
+#include "Commands/AutonDrivePeg3Turn.h"
 #include "Commands/AutonDrivePegVision.h"
 #include "Commands/AutonDriveTurn.h"
+#include "Commands/AutonDriveTurnTest.h"
 #include "Commands/AutonPos123Move.h"
 #include "Commands/AutonPos1DeliverGear.h"
 #include "Commands/AutonPos2DeliverGear.h"
 #include "Commands/AutonPos3DeliverGear.h"
-#include "Commands/AutonTurnTest.h"
 #include "Commands/ClimberMotorControl.h"
 #include "Commands/ClimberMotorLowControl.h"
 #include "Commands/DriveShift.h"
@@ -101,14 +103,14 @@ OI::OI() {
     driverSpinLeft.reset(new JoystickButton(driverJoystick.get(), 4));
     driverSpinLeft->WhileHeld(new DriveSpin(true));
     driverAlignGear.reset(new JoystickButton(driverJoystick.get(), 3));
-    driverAlignGear->WhileHeld(new AutonPos2DeliverGear());
+    driverAlignGear->WhenPressed(new DriveShift(false));
     driverInvertDirection.reset(new JoystickButton(driverJoystick.get(), 2));
     driverInvertDirection->WhenPressed(new DriveTrainInvert(false));
     driverShift.reset(new JoystickButton(driverJoystick.get(), 1));
     driverShift->WhileHeld(new DriveShift(true));
 
     // SmartDashboard Buttons
-    SmartDashboard::PutData("Auton Turn Test", new AutonTurnTest());
+    SmartDashboard::PutData("Auton Drive Turn Test", new AutonDriveTurnTest());
     SmartDashboard::PutData("Auton Drive Peg Vision", new AutonDrivePegVision());
     SmartDashboard::PutData("Auton Drive Turn: DEFAULT", new AutonDriveTurn(0));
     SmartDashboard::PutData("Auton Drive Distance: DEFAULT", new AutonDriveDistance(0));
