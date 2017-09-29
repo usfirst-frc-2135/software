@@ -18,7 +18,7 @@
 		<width>232</width>
 		<height>26</height>
 	</widget>
-	<widget field="Chs_TurnScaling" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+	<widget field="Chs_TurnScaling" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="343" y="64"/>
 	</widget>
 	<widget field="Auton Pos 2 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
@@ -99,7 +99,7 @@
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
 		<location x="624" y="16"/>
 		<width>450</width>
-		<height>327</height>
+		<height>355</height>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
 		<location x="80" y="517"/>

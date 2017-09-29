@@ -112,8 +112,11 @@ Chassis::Chassis() : Subsystem("Chassis") {
     driveVisionPIDOutput = new DriveVisionPID(robotDrive);
     driveVisionPIDLoop = new PIDController(CHS_CAMTURNKP_D, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
 
-    m_turnScaling = CHS_TURN_SCALING_D;
-    SmartDashboard::PutBoolean(CHS_TURN_SCALING, CHS_TURN_SCALING_D);
+    m_turnScaling = Robot::LoadPreferencesVariable(CHS_TURN_SCALING, CHS_TURN_SCALING_D);
+	if ((m_turnScaling < 0.0) || (m_turnScaling > 1.0)) {
+		printf("2135: ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
+	}
+	SmartDashboard::PutNumber(CHS_TURN_SCALING, m_turnScaling);
 }
 
 void Chassis::InitDefaultCommand() {
@@ -196,7 +199,11 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	// drive heading angle
 	SmartDashboard::PutNumber(AUTON_DRIVEHEADING, AUTON_DRIVEHEADING_D);
 
-	m_turnScaling = SmartDashboard::GetBoolean(CHS_TURN_SCALING, CHS_TURN_SCALING_D);
+	m_turnScaling = Robot::LoadPreferencesVariable(CHS_TURN_SCALING, CHS_TURN_SCALING_D);
+	if ((m_turnScaling < 0.0) || (m_turnScaling > 1.0)) {
+		printf("2135: ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
+	}
+	SmartDashboard::PutNumber(CHS_TURN_SCALING, m_turnScaling);
 }
 
 
@@ -238,13 +245,13 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 		yValue = yValue * m_driveScaling;
 	}
 
-#ifdef CHS_TURN_SCALING_E
-	if (!m_lowGear && m_turnScaling) {
+
+	if (!m_lowGear && (m_turnScaling < 0.99)) {
 		double scaledFactor;
-		scaledFactor = -0.75 * (fabs(yValue)) + 1.0;
+		// Create a scaling factor which increases as Y increases (faster robot speed)
+		scaledFactor = -(1.0 - m_turnScaling) * (fabs(yValue)) + 1.0;
 		xValue = scaledFactor * xValue;
 	}
-#endif
 
 	// Apply modified joystick input to the drive motorsd
 	robotDrive->ArcadeDrive( yValue, xValue, true );
