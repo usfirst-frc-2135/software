@@ -1259,7 +1259,7 @@ Children:
         value:
         - !!robotbuilder.data.CommandGroupEntry
           command:
-            base:
+            base: &id019
               help: A command specifies an action that the robot can perform.
               name: Command
               properties:
@@ -1280,7 +1280,7 @@ Children:
               supports: {}
               type: Command
             name: Drive Stop
-            properties: &id038
+            properties: &id033
               Parameters: !!robotbuilder.data.properties.ParametersProperty
                 default: []
                 name: Parameters
@@ -1304,7 +1304,7 @@ Children:
             value: []
           previous: null
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
+        name: Button on SmartDashboard, validators: null, value: false}
     Base: Command Group
     Name: Auton Default
   - Children: []
@@ -1326,26 +1326,7 @@ Children:
         value:
         - !!robotbuilder.data.CommandGroupEntry
           command: &id020
-            base: &id021
-              help: A command specifies an action that the robot can perform.
-              name: Command
-              properties:
-              - !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-                name: Requires, type: Subsystem, validators: null, value: None}
-              - !!robotbuilder.data.properties.BooleanProperty {default: true, name: Button on SmartDashboard,
-                validators: null, value: true}
-              - !!robotbuilder.data.properties.ParametersProperty
-                default: []
-                name: Parameters
-                validators: null
-                value: []
-              - !!robotbuilder.data.properties.ParameterSetProperty
-                default: &id019 []
-                name: Parameter presets
-                validators: null
-                value: *id019
-              supports: {}
-              type: Command
+            base: *id019
             name: Auton Drive Distance
             properties: &id028
               Parameters: !!robotbuilder.data.properties.ParametersProperty
@@ -1399,7 +1380,7 @@ Children:
         name: Commands
         validators: *id018
         value:
-        - &id023 !!robotbuilder.data.CommandGroupEntry
+        - &id021 !!robotbuilder.data.CommandGroupEntry
           command: *id020
           hasMatch: true
           order: Sequential
@@ -1411,11 +1392,11 @@ Children:
             - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: distance,
               type: double, value: '-67.5'}
           previous: null
-        - &id024 !!robotbuilder.data.CommandGroupEntry
+        - &id022 !!robotbuilder.data.CommandGroupEntry
           command:
-            base: *id021
+            base: *id019
             name: Auton Drive Peg 1 Turn
-            properties: &id035
+            properties: &id030
               Parameters: !!robotbuilder.data.properties.ParametersProperty
                 default: []
                 name: Parameters
@@ -1424,10 +1405,10 @@ Children:
               Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
                 name: Requires, type: Subsystem, validators: null, value: Chassis}
               Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-                default: &id022 []
+                default: []
                 name: Parameter presets
                 validators: null
-                value: *id022
+                value: []
               Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {
                 default: true, name: Button on SmartDashboard, validators: null, value: false}
           hasMatch: true
@@ -1437,12 +1418,12 @@ Children:
             name: ParametersProperty
             validators: null
             value: []
-          previous: *id023
-        - &id025 !!robotbuilder.data.CommandGroupEntry
-          command: &id031
-            base: *id021
+          previous: *id021
+        - &id023 !!robotbuilder.data.CommandGroupEntry
+          command: &id025
+            base: *id019
             name: Auton Drive Peg Vision
-            properties: &id034
+            properties: &id032
               Parameters: !!robotbuilder.data.properties.ParametersProperty
                 default: []
                 name: Parameters
@@ -1464,8 +1445,8 @@ Children:
             name: ParametersProperty
             validators: null
             value: []
-          previous: *id024
-        - &id026 !!robotbuilder.data.CommandGroupEntry
+          previous: *id022
+        - !!robotbuilder.data.CommandGroupEntry
           command: *id020
           hasMatch: true
           order: Sequential
@@ -1476,8 +1457,7 @@ Children:
             value:
             - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: distance,
               type: double, value: '0'}
-          previous: *id025
-        - *id026
+          previous: *id023
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command Group
@@ -1500,29 +1480,7 @@ Children:
         validators: *id018
         value:
         - !!robotbuilder.data.CommandGroupEntry
-          command:
-            base:
-              help: A command specifies an action that the robot can perform.
-              name: Command
-              properties:
-              - !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-                name: Requires, type: Subsystem, validators: null, value: None}
-              - !!robotbuilder.data.properties.BooleanProperty {default: true, name: Button on SmartDashboard,
-                validators: null, value: true}
-              - !!robotbuilder.data.properties.ParametersProperty
-                default: []
-                name: Parameters
-                validators: null
-                value: []
-              - !!robotbuilder.data.properties.ParameterSetProperty
-                default: &id027 []
-                name: Parameter presets
-                validators: null
-                value: *id027
-              supports: {}
-              type: Command
-            name: Auton Drive Distance
-            properties: *id028
+          command: *id020
           hasMatch: true
           order: Sequential
           parameters:
@@ -1554,7 +1512,7 @@ Children:
         name: Commands
         validators: *id018
         value:
-        - &id030 !!robotbuilder.data.CommandGroupEntry
+        - &id024 !!robotbuilder.data.CommandGroupEntry
           command: *id020
           hasMatch: true
           order: Sequential
@@ -1566,11 +1524,11 @@ Children:
             - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: distance,
               type: double, value: '-67.5'}
           previous: null
-        - &id032 !!robotbuilder.data.CommandGroupEntry
+        - &id026 !!robotbuilder.data.CommandGroupEntry
           command:
-            base: *id021
+            base: *id019
             name: Auton Drive Peg 3 Turn
-            properties: &id036
+            properties: &id031
               Parameters: !!robotbuilder.data.properties.ParametersProperty
                 default: []
                 name: Parameters
@@ -1579,10 +1537,10 @@ Children:
               Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
                 name: Requires, type: Subsystem, validators: null, value: Chassis}
               Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-                default: &id029 []
+                default: []
                 name: Parameter presets
                 validators: null
-                value: *id029
+                value: []
               Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {
                 default: true, name: Button on SmartDashboard, validators: null, value: false}
           hasMatch: true
@@ -1592,9 +1550,9 @@ Children:
             name: ParametersProperty
             validators: null
             value: []
-          previous: *id030
-        - &id033 !!robotbuilder.data.CommandGroupEntry
-          command: *id031
+          previous: *id024
+        - &id027 !!robotbuilder.data.CommandGroupEntry
+          command: *id025
           hasMatch: true
           order: Sequential
           parameters:
@@ -1602,7 +1560,7 @@ Children:
             name: ParametersProperty
             validators: null
             value: []
-          previous: *id032
+          previous: *id026
         - !!robotbuilder.data.CommandGroupEntry
           command: *id020
           hasMatch: true
@@ -1614,50 +1572,67 @@ Children:
             value:
             - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: distance,
               type: double, value: '0'}
-          previous: *id033
+          previous: *id027
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command Group
     Name: Auton Pos 3 Deliver Gear
   - Children: []
-    Properties: *id028
-    Base: Command
-    Name: Auton Drive Distance
-  - Children: []
-    Properties: &id037
+    Properties:
       Parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
         name: Parameters
         validators: null
-        value:
-        - !!robotbuilder.data.properties.ParameterDescriptor {name: angle, type: double}
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Chassis}
+        value: []
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
         name: Parameter presets
         validators: null
+        value: []
+      Commands: !!robotbuilder.data.properties.ListProperty
+        default: []
+        name: Commands
+        validators: *id018
         value:
-        - !!robotbuilder.data.properties.ParameterSet
-          name: DEFAULT
+        - !!robotbuilder.data.CommandGroupEntry
+          command:
+            base: *id019
+            name: Auton Drive Turn
+            properties: &id029
+              Parameters: !!robotbuilder.data.properties.ParametersProperty
+                default: []
+                name: Parameters
+                validators: null
+                value:
+                - !!robotbuilder.data.properties.ParameterDescriptor {name: angle,
+                  type: double}
+              Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+                name: Requires, type: Subsystem, validators: null, value: Chassis}
+              Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+                default: []
+                name: Parameter presets
+                validators: null
+                value:
+                - !!robotbuilder.data.properties.ParameterSet
+                  name: DEFAULT
+                  parameters:
+                  - {name: angle, type: double, value: '0'}
+              Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {
+                default: true, name: Button on SmartDashboard, validators: null, value: false}
+          hasMatch: true
+          order: Sequential
           parameters:
-          - {name: angle, type: double, value: '0'}
+            default: []
+            name: ParametersProperty
+            validators: null
+            value:
+            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: angle,
+              type: double, value: '0'}
+          previous: null
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-    Base: Command
-    Name: Auton Drive Turn
-  - Children: []
-    Properties: *id034
-    Base: Command
-    Name: Auton Drive Peg Vision
-  - Children: []
-    Properties: *id035
-    Base: Command
-    Name: Auton Drive Peg 1 Turn
-  - Children: []
-    Properties: *id036
-    Base: Command
-    Name: Auton Drive Peg 3 Turn
+    Base: Command Group
+    Name: Auton Drive Turn Test
   - Children: []
     Properties:
       Parameters: !!robotbuilder.data.properties.ParametersProperty
@@ -1682,41 +1657,25 @@ Children:
     Base: Command
     Name: Auton Delay
   - Children: []
-    Properties:
-      Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Parameters
-        validators: null
-        value: []
-      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
-        name: Parameter presets
-        validators: null
-        value: []
-      Commands: !!robotbuilder.data.properties.ListProperty
-        default: []
-        name: Commands
-        validators: *id018
-        value:
-        - !!robotbuilder.data.CommandGroupEntry
-          command:
-            base: *id021
-            name: Auton Drive Turn
-            properties: *id037
-          hasMatch: true
-          order: Sequential
-          parameters:
-            default: []
-            name: ParametersProperty
-            validators: null
-            value:
-            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: angle,
-              type: double, value: '0'}
-          previous: null
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
-    Base: Command Group
-    Name: Auton Drive Turn Test
+    Properties: *id028
+    Base: Command
+    Name: Auton Drive Distance
+  - Children: []
+    Properties: *id029
+    Base: Command
+    Name: Auton Drive Turn
+  - Children: []
+    Properties: *id030
+    Base: Command
+    Name: Auton Drive Peg 1 Turn
+  - Children: []
+    Properties: *id031
+    Base: Command
+    Name: Auton Drive Peg 3 Turn
+  - Children: []
+    Properties: *id032
+    Base: Command
+    Name: Auton Drive Peg Vision
   - Children: []
     Properties:
       Parameters: !!robotbuilder.data.properties.ParametersProperty
@@ -1736,7 +1695,7 @@ Children:
     Base: Command
     Name: Drive Teleop
   - Children: []
-    Properties: *id038
+    Properties: *id033
     Base: Command
     Name: Drive Stop
   - Children: []
@@ -2102,7 +2061,7 @@ Children:
   Base: Commands
   Name: Commands
 Properties:
-  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\workspace',
+  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS_User\workspace',
     extension: null, folder: true, name: Eclipse Workspace, validators: null, value: .\}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
@@ -2121,7 +2080,7 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS_User\',
     extension: null, folder: true, name: Wiring file location, validators: null, value: .\}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: None}
