@@ -16,7 +16,7 @@
 
 #define USE_ADXRS450_GYRO	// Comment out for analog Gyro or to disable
 
-//#define ROBORIO_STANDALONE	// Comment out for normal operation (talons present)
+// #define ROBORIO_STANDALONE	// Comment out for normal operation (talons present)
 
 //	SmartDashboard parameters and defaults
 
@@ -101,6 +101,9 @@
 #define CHS_CL_ERROR_R			"ChsR_CLError"
 
 #define CHS_GYROANGLE			"Chs_GyroAngle"
+
+#define CHS_TURNKP				"Chs_TurnKP"
+#define CHS_TURNKP_D			0.02
 
 #define CHS_CAMTURNKP			"Chs_CamTurnKP"
 #define CHS_CAMTURNKP_D			0.02

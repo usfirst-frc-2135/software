@@ -105,8 +105,12 @@ Chassis::Chassis() : Subsystem("Chassis") {
     printf("2135: Stopping gyro calibration\n");
 
 	// Autonomous turn PID controller - SHOULD BE AFTER GYRO IS CALIBRATED
+    m_turnKP = CHS_TURNKP_D;
+    SmartDashboard::PutNumber(CHS_TURNKP, m_turnKP);
+    printf("2135: Turn PID Proportional: %d\n", m_turnKP);
+
     driveTurnPIDOutput = new DriveTurnPID(robotDrive);
-    driveTurnPIDLoop = new PIDController(0.02, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
+    driveTurnPIDLoop = new PIDController(m_turnKP, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
 
     driveVisionPIDSource = new DriveVisionPIDSource();
     driveVisionPIDOutput = new DriveVisionPID(robotDrive);
@@ -204,6 +208,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 		printf("2135: ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
 	}
 	SmartDashboard::PutNumber(CHS_TURN_SCALING, m_turnScaling);
+
 }
 
 
@@ -442,8 +447,10 @@ void Chassis::MoveDriveHeadingInit(double angle)
 	gyro->Reset();
 
 	// Program the PID target setpoint
+	m_turnKP = SmartDashboard::GetNumber(CHS_TURNKP, CHS_TURNKP_D);
+	driveTurnPIDLoop->SetPID(m_turnKP, 0.0, 0.0);
 	driveTurnPIDLoop->SetSetpoint(angle);
-	printf("2135: MoveDriveHeadingInit using angle: %f power: %f\n", angle, m_driveSpin);
+	printf("2135: MoveDriveHeadingInit using angle: %f power: %f Proportional: %f\n", angle, m_driveSpin, m_turnKP);
 
 	// Shift into low gear during movement for better accuracy
 	MoveShiftGears(true);
@@ -576,7 +583,7 @@ DriveTurnPID::DriveTurnPID (std::shared_ptr<RobotDrive> robotDrive) {
 
 void DriveTurnPID::PIDWrite(double output) {
 	if (output > 0.0)
-		m_robotDrive->SetLeftRightMotorOutputs(0.0,output);
+		m_robotDrive->SetLeftRightMotorOutputs(0.0, output);
 	else
 		m_robotDrive->SetLeftRightMotorOutputs(-output, 0.0);
 

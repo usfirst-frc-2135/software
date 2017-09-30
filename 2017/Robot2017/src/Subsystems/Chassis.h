@@ -90,6 +90,8 @@ private:
 	double m_driveSpin;				// Spin turn power setting
 	bool m_brakeMode; 				// Brake or Coast mode for talons
 
+	double m_turnKP;					// Proportional value for PID for DriveTurn function
+
 	double m_pidTargetRotations; 	// Number of rotations to drive in Drive Distance
 	int m_CL_allowError;			// Closed loop allowable error
 	bool m_CL_pidStarted;			// Flag to indicate PID has started and CL error is valid
