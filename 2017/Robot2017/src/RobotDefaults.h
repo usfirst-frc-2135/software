@@ -70,7 +70,10 @@
 #define CHS_DRIVE_SCALING_D		1.0
 
 #define CHS_DRIVE_SPIN			"Chs_DriveSpin"
-#define CHS_DRIVE_SPIN_D		0.46
+#define CHS_DRIVE_SPIN_D		0.6
+
+#define CHS_INVERT_ENABLE 		"Chs_InvertEnable"
+#define CHS_INVERT_ENABLE_D		false
 
 // SmartDashboard Chassis Distance PID configuration (Talon SRX)
 
@@ -103,7 +106,7 @@
 #define CHS_GYROANGLE			"Chs_GyroAngle"
 
 #define CHS_TURNKP				"Chs_TurnKP"
-#define CHS_TURNKP_D			0.02
+#define CHS_TURNKP_D			0.08
 
 #define CHS_CAMTURNKP			"Chs_CamTurnKP"
 #define CHS_CAMTURNKP_D			0.02

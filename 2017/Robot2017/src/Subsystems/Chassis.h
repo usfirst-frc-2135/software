@@ -107,6 +107,8 @@ private:
 	PIDController *driveVisionPIDLoop;		// Drive with Vision PID controller loop
 	PIDSource *driveVisionPIDSource;		// Drive with Vision PID source loop
 
+	bool m_invertEnable;					// Disables or enables invert drive direction
+
 
 public:
 	Chassis();

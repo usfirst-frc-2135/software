@@ -85,7 +85,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     MoveSetBrakeNotCoastMode(m_brakeMode);
 
 	//	Initialize drivetrain modifiers
-    m_driveDirection = 1.0;			// Initialize drivetrain direction for driving forward or backward
+    m_driveDirection = -1.0;			// Initialize drivetrain direction for driving forward or backward
     m_driveScaling = 1.0;		// Initialize scaling factor and disable it
     m_driveSpin = 0.45;		// Initialize power setting used for spin turns
 
@@ -209,6 +209,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	}
 	SmartDashboard::PutNumber(CHS_TURN_SCALING, m_turnScaling);
 
+	m_invertEnable = Robot::LoadPreferencesVariable(CHS_INVERT_ENABLE, CHS_INVERT_ENABLE_D);
 }
 
 
@@ -277,14 +278,17 @@ void Chassis::MoveSpin(bool spinLeft)
 
 void Chassis::MoveInvertDriveDirection(void)
 {
-	// Toggle the drive direction and update the dashboard status
-	m_driveDirection = -m_driveDirection;
+	// m_invertEnable == true enables the invert direction function
+	if (m_invertEnable == true) {
+		// Toggle the drive direction and update the dashboard status
+		m_driveDirection = -m_driveDirection;
 
-	if (m_driveDirection > 0.0) {
-		SmartDashboard::PutBoolean(CHS_DRIVE_DIRECTION, false);
-	}
-	else {
-		SmartDashboard::PutBoolean(CHS_DRIVE_DIRECTION, true);
+		if (m_driveDirection > 0.0) {
+			SmartDashboard::PutBoolean(CHS_DRIVE_DIRECTION, false);
+		}
+		else {
+			SmartDashboard::PutBoolean(CHS_DRIVE_DIRECTION, true);
+		}
 	}
 }
 
