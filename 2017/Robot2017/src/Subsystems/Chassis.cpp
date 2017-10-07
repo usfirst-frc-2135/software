@@ -466,7 +466,7 @@ void Chassis::MoveDriveHeadingInit(double angle)
 	//Start safety timer
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
-	m_safetyTimeout = 2.0;
+	m_safetyTimeout = 3.0;
 
 	// Disable safety feature during movement, since motors will be fed by loop
 	robotDrive->SetSafetyEnabled(false);
