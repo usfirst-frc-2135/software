@@ -1,83 +1,71 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="ShooterLight" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="193" y="409"/>
+	<widget field="Chs_TurnKP" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="48" y="332"/>
 	</widget>
-	<widget field="Light On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="216" y="388"/>
+	<widget field="Auton Drive Turn Test" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="16" y="368"/>
+	</widget>
+	<widget field="ShooterLight" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="48" y="432"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="251" y="346"/>
+		<location x="256" y="242"/>
 		<property name="Text" value="Connection"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="516" y="228"/>
+		<location x="576" y="347"/>
 		<width>156</width>
 		<height>117</height>
 		<property name="Camera Choice" value=""/>
 	</static-widget>
-	<widget field="Chs_TurnScaling" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="27" y="400"/>
+	<widget field="Chs_TurnScaling" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="235" y="48"/>
 	</widget>
 	<widget field="Cam_VisionPipe" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="32" y="432"/>
+		<location x="32" y="252"/>
 	</widget>
 	<widget field="VisionThread" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="45" y="448"/>
-	</widget>
-	<widget field="Auton Default" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="539" y="348"/>
+		<location x="45" y="272"/>
 	</widget>
 	<widget field="Auton Pos 2 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="486" y="420"/>
+		<location x="240" y="400"/>
 	</widget>
 	<widget field="Auton Pos 123 Move" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="507" y="372"/>
+		<location x="224" y="335"/>
 	</widget>
 	<widget field="Auton Pos 3 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="486" y="444"/>
+		<location x="240" y="432"/>
 	</widget>
 	<widget field="Auton Drive Peg Vision" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="246" y="291"/>
+		<location x="224" y="303"/>
 	</widget>
 	<widget field="Auton Pos 1 Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="486" y="396"/>
+		<location x="240" y="368"/>
 	</widget>
 	<widget field="Auto Modes" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="360" y="345"/>
-	</widget>
-	<widget field="RTurnPIDOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="26" y="336"/>
-	</widget>
-	<widget field="LTurnPIDOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="28" y="320"/>
+		<location x="447" y="320"/>
 	</widget>
 	<widget field="Auton Drive Distance: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="202" y="243"/>
+		<location x="10" y="399"/>
 	</widget>
 	<widget field="DriveHeadingAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="16" y="288"/>
-	</widget>
-	<widget field="ChsCL_TargetInches" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="214" y="208"/>
+		<location x="16" y="348"/>
 	</widget>
 	<widget field="Chs_DriveDirection" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="223" y="32"/>
 	</widget>
 	<widget field="Cam_TurnAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="30" y="224"/>
-	</widget>
-	<widget field="Cam_TurnRight" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="32" y="208"/>
+		<location x="30" y="208"/>
 	</widget>
 	<widget field="Chs_GyroAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="32" y="368"/>
+		<location x="32" y="304"/>
 	</widget>
 	<widget field="Chs_DriveBrakeMode" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="212" y="12"/>
 	</widget>
 	<widget field="Cam_FoundTarget" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="17" y="256"/>
+		<location x="17" y="224"/>
 	</widget>
 	<widget field="Cam_LumEnd" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="42" y="176"/>
@@ -113,35 +101,32 @@
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
 		<location x="411" y="2"/>
-		<width>286</width>
-		<height>225</height>
+		<width>325</width>
+		<height>318</height>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
-		<location x="227" y="333"/>
+		<location x="235" y="228"/>
 		<width>101</width>
 		<height>44</height>
 	</static-widget>
-	<widget field="Auton Drive Turn: DEFAULT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="221" y="267"/>
-	</widget>
 	<widget field="ChsR_CLError" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="247" y="128"/>
+		<location x="247" y="144"/>
 	</widget>
 	<widget field="ChsL_CLError" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="249" y="112"/>
+		<location x="249" y="128"/>
 	</widget>
 	<widget field="ChsL_Rotations" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="240" y="160"/>
+		<location x="240" y="176"/>
 	</widget>
 	<widget field="ChsR_EncPosition" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="229" y="80"/>
+		<location x="229" y="96"/>
 	</widget>
 	<widget field="ChsL_EncPosition" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="231" y="64"/>
+		<location x="231" y="80"/>
 		<height>20</height>
 	</widget>
 	<widget field="ChsR_Rotations" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="237" y="176"/>
+		<location x="237" y="192"/>
 		<height>20</height>
 	</widget>
 </dashboard>
