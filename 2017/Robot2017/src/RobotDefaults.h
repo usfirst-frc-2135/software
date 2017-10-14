@@ -108,7 +108,7 @@
 #define CHS_TURNKP_D			0.08
 
 #define CHS_CAMTURNKP			"Chs_CamTurnKP"
-#define CHS_CAMTURNKP_D			0.02
+#define CHS_CAMTURNKP_D			0.6/120.0
 
 //  Shooter light status
 

@@ -521,8 +521,8 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	gyro->Reset();
 
 	// Program the PID target setpoint
-	driveVisionPIDLoop->SetSetpoint(angle);
-
+	driveVisionPIDLoop->SetSetpoint(600);
+	driveVisionPIDLoop->SetOutputRange(-0.6, 0.6);
 	// Shift into low gear during movement for better accuracy
 	MoveShiftGears(true);
 
@@ -530,7 +530,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	MoveSetBrakeNotCoastMode(true);
 
 	// Enable the PID loop
-	driveVisionPIDLoop->SetAbsoluteTolerance(0.0);
+	driveVisionPIDLoop->SetAbsoluteTolerance(4.16);
 	driveVisionPIDLoop->Enable();
 
 	//Start safety timer
@@ -605,11 +605,16 @@ DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
 
 void DriveVisionPID::PIDWrite(double output) {
 
-	if (Robot::oi->getDriverJoystick()->GetY() < 0.1) {
-		output = 0.0;
-	}
+//	if (Robot::oi->getDriverJoystick()->GetY() < 0.1) {
+//		output = 0.0;
+//	}
+//
+//	m_robotDrive->ArcadeDrive (-(Robot::oi->getDriverJoystick()->GetY()), output, false);
 
-	m_robotDrive->ArcadeDrive (-(Robot::oi->getDriverJoystick()->GetY()), output, false);
+	m_robotDrive->SetLeftRightMotorOutputs(output, output);
+
+	// TODO: check if the direction is inverted
+
 
 	// TODO: Remove this after tuning
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
@@ -617,10 +622,12 @@ void DriveVisionPID::PIDWrite(double output) {
 }
 
 double DriveVisionPIDSource::PIDGet(void) {
-	double curAngle;
+	double encPosition;
 
 	// Get the current angle from the gyro
-	curAngle = RobotMap::chassisGyro->GetAngle();
+//	curAngle = RobotMap::chassisGyro->GetAngle();
+//	encPosition = (double)Robot::chassis->motorR3->GetEncPosition();
+	encPosition = (double)RobotMap::chassisMotorR3->GetEncPosition();
 
 #if 0	// If averaging is needed leave this in
 	int i;
@@ -644,7 +651,7 @@ double DriveVisionPIDSource::PIDGet(void) {
 	curAngle = curAngle / m_totSamples;
 #endif
 
-	return curAngle;
+	return encPosition;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
