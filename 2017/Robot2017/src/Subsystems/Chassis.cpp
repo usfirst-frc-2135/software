@@ -586,14 +586,20 @@ DriveTurnPID::DriveTurnPID (std::shared_ptr<RobotDrive> robotDrive) {
 }
 
 void DriveTurnPID::PIDWrite(double output) {
-	if (output > 0.0)
+	if (output > 0.0) {
 		m_robotDrive->SetLeftRightMotorOutputs(0.0, output);
-	else
+
+		// TODO: Remove this after tuning
+		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, 0.0);
+		SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, output);
+	}
+	else {
 		m_robotDrive->SetLeftRightMotorOutputs(-output, 0.0);
 
-	// TODO: Remove this after tuning
-	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
-	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
+		// TODO: Remove this after tuning
+		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, -output);
+		SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, 0.0);
+	}
 }
 
 DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
@@ -611,13 +617,13 @@ void DriveVisionPID::PIDWrite(double output) {
 //
 //	m_robotDrive->ArcadeDrive (-(Robot::oi->getDriverJoystick()->GetY()), output, false);
 
-	m_robotDrive->SetLeftRightMotorOutputs(output, output);
-
 	// TODO: check if the direction is inverted
+
+	m_robotDrive->SetLeftRightMotorOutputs(output, output);
 
 	// TODO: Remove this after tuning
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
-	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, -output);
+	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, output);
 }
 
 double DriveVisionPIDSource::PIDGet(void) {
