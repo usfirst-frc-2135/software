@@ -60,8 +60,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Feedback device is US Digital S4 CPR 120 encoder
 	motorL1->SetFeedbackDevice(CANTalon::QuadEncoder);
 	motorR3->SetFeedbackDevice(CANTalon::QuadEncoder);
-	motorL1->ConfigEncoderCodesPerRev(USDigitalS4_CPR_120);
-	motorR3->ConfigEncoderCodesPerRev(USDigitalS4_CPR_120);
+	motorL1->ConfigEncoderCodesPerRev(USDigitalS4_CPR);
+	motorR3->ConfigEncoderCodesPerRev(USDigitalS4_CPR);
 
     // Invert the direction of the right hand side motors and sensors
 	motorL1->SetClosedLoopOutputDirection(true);
@@ -386,8 +386,8 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 
 	// Detect if closed loop error has been updated once after start
 	// TODO: Do we need to wait for a rotation now that command is working better
-	if (!m_CL_pidStarted && (abs(motorL1->GetClosedLoopError()) > USDigitalS4_CPR_120*4) &&
-			(abs(motorR3->GetClosedLoopError()) > USDigitalS4_CPR_120*4))
+	if (!m_CL_pidStarted && (abs(motorL1->GetClosedLoopError()) > USDigitalS4_CPR*4) &&
+			(abs(motorR3->GetClosedLoopError()) > USDigitalS4_CPR*4))
 	{
 		m_CL_pidStarted = true;
 		printf("2135: Closed loop error has changed\n");
@@ -520,16 +520,16 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 {
 	gyro->Reset();
 
-	// Program the PID target setpoint
-	driveVisionPIDLoop->SetSetpoint(600);
-	driveVisionPIDLoop->SetOutputRange(-0.6, 0.6);
+	// Program the PID target setpoint - TODO: temporarily 5.0 rotations
+	driveVisionPIDLoop->SetSetpoint(5.0 * USDigitalS4_CPR);
+	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
 	// Shift into low gear during movement for better accuracy
 	MoveShiftGears(true);
 
 	// Change to Brake mode
 	MoveSetBrakeNotCoastMode(true);
 
-	// Enable the PID loop
+	// Enable the PID loop (tolerance is in encoder count units)
 	driveVisionPIDLoop->SetAbsoluteTolerance(4.16);
 	driveVisionPIDLoop->Enable();
 
@@ -614,7 +614,6 @@ void DriveVisionPID::PIDWrite(double output) {
 	m_robotDrive->SetLeftRightMotorOutputs(output, output);
 
 	// TODO: check if the direction is inverted
-
 
 	// TODO: Remove this after tuning
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
