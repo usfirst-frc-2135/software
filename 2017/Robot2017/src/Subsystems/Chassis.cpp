@@ -562,12 +562,19 @@ bool Chassis::MoveDriveVisionHeadingIsPIDAtSetPoint(void)
 
 void Chassis::MoveDriveVisionHeadingStop(void)
 {
+
+	double closedLoopError;
+
 	// Disable PID loop
 	driveVisionPIDLoop->Disable();
 
 	// Stop safety timer
 	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
+
+	// Gets closed loop error and prints it
+	closedLoopError = driveVisionPIDLoop->GetError();
+	printf("2135: ClosedLoopError: %f\n", closedLoopError);
 
 	// Do not shift back to high gear in case another auton command is running
 
