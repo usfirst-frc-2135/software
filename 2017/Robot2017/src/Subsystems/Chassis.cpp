@@ -530,13 +530,13 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	MoveSetBrakeNotCoastMode(true);
 
 	// Enable the PID loop (tolerance is in encoder count units)
-	driveVisionPIDLoop->SetAbsoluteTolerance(4.16);
+	driveVisionPIDLoop->SetAbsoluteTolerance(16.64);
 	driveVisionPIDLoop->Enable();
 
 	//Start safety timer
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
-	m_safetyTimeout = 2.0;
+	m_safetyTimeout = 10.0;
 
 	// Disable safety feature during movement, since motors will be fed by loop
 	robotDrive->SetSafetyEnabled(false);
