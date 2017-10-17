@@ -521,8 +521,10 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	gyro->Reset();
 
 	// Program the PID target setpoint - TODO: temporarily 5.0 rotations
-	driveVisionPIDLoop->SetSetpoint(5.0 * USDigitalS4_CPR);
+//	driveVisionPIDLoop->SetSetpoint(5.0 * USDigitalS4_CPR);
+	driveVisionPIDLoop->SetSetpoint(480.0 * 5.0);
 	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
+
 	// Shift into low gear during movement for better accuracy
 	MoveShiftGears(true);
 
