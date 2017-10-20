@@ -522,7 +522,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 
 	// Program the PID target setpoint - TODO: temporarily 5.0 rotations
 //	driveVisionPIDLoop->SetSetpoint(5.0 * USDigitalS4_CPR);
-	driveVisionPIDLoop->SetSetpoint(480.0 * 5.0);
+	driveVisionPIDLoop->SetSetpoint(480.0 * 3.0);
 	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
 
 	// Shift into low gear during movement for better accuracy
@@ -532,7 +532,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	MoveSetBrakeNotCoastMode(true);
 
 	// Enable the PID loop (tolerance is in encoder count units)
-	driveVisionPIDLoop->SetAbsoluteTolerance(16.64);
+	driveVisionPIDLoop->SetAbsoluteTolerance(40.0);
 	driveVisionPIDLoop->Enable();
 
 	//Start safety timer
