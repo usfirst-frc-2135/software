@@ -520,6 +520,10 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 {
 	gyro->Reset();
 
+	//Initialize the encoders to start movement at reference of zero counts
+	motorL1->SetEncPosition(0);
+	motorR3->SetEncPosition(0);
+
 	// Program the PID target setpoint - TODO: temporarily 5.0 rotations
 //	driveVisionPIDLoop->SetSetpoint(5.0 * USDigitalS4_CPR);
 	driveVisionPIDLoop->SetSetpoint(480.0 * 3.0);
@@ -551,6 +555,8 @@ bool Chassis::MoveDriveVisionHeadingIsPIDAtSetPoint(void)
 	// Test the PID to see if it is on the programmed target
 	if (driveVisionPIDLoop->OnTarget()) {
 		pidFinished = true;
+
+		printf("2135: Encoder Values on Target. L: %d, R: %d\n", motorL1->GetEncPosition(), motorR3->GetEncPosition());
 	}
 
 	// Check if safety timer has expired, set value to about 2x the cycle
@@ -581,7 +587,7 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 	// Do not shift back to high gear in case another auton command is running
 
 	// Change to Brake mode
-	MoveSetBrakeNotCoastMode(false);
+	// *  MoveSetBrakeNotCoastMode(false);
 
 	// Re-enable the motor safety helper (temporarily disabled)
     // TODO: Can we enable motor safety and have auton run
