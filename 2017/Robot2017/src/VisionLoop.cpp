@@ -254,6 +254,14 @@ void VisionLoop::ChooseGoalPeg(std::vector<tData> *pegs, tData *goal) {
 		goal->score = p->score;
 		goal->dist = p->dist;
 		goal->angle = p->angle;
+
+		SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
+		SmartDashboard::PutNumber(CAM_TURNANGLE, p->angle);
+	}
+
+	else {
+		SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
+		SmartDashboard::PutNumber(CAM_TURNANGLE, 0.0);
 	}
 }
 

@@ -526,8 +526,12 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 
 	// Program the PID target setpoint - TODO: temporarily 5.0 rotations
 //	driveVisionPIDLoop->SetSetpoint(5.0 * USDigitalS4_CPR);
-	driveVisionPIDLoop->SetSetpoint(480.0 * 3.0);
+	driveVisionPIDLoop->SetSetpoint(480.0 * 5.0);
 	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
+
+	driveVisionPIDOutput->SetTurnAngle(SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D));
+	// Get gyro angle
+//	gyro->GetAngle();
 
 	// Shift into low gear during movement for better accuracy
 	MoveShiftGears(true);
@@ -625,7 +629,7 @@ DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
 }
 
 void DriveVisionPID::PIDWrite(double output) {
-
+	double m_offset;
 //	if (Robot::oi->getDriverJoystick()->GetY() < 0.1) {
 //		output = 0.0;
 //	}
@@ -633,12 +637,16 @@ void DriveVisionPID::PIDWrite(double output) {
 //	m_robotDrive->ArcadeDrive (-(Robot::oi->getDriverJoystick()->GetY()), output, false);
 
 	// TODO: check if the direction is inverted
-
-	m_robotDrive->SetLeftRightMotorOutputs(output, output);
+	m_offset = ((RobotMap::chassisGyro->GetAngle() - m_turnAngle) * 0.005714);
+	m_robotDrive->SetLeftRightMotorOutputs(output + m_offset, output - m_offset);
 
 	// TODO: Remove this after tuning
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, output);
+}
+
+void DriveVisionPID::SetTurnAngle(double angle) {
+	m_turnAngle = angle;
 }
 
 double DriveVisionPIDSource::PIDGet(void) {

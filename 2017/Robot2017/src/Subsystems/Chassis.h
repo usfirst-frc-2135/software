@@ -35,9 +35,11 @@ class DriveVisionPID: public PIDOutput {
 private:
 	std::shared_ptr<RobotDrive> m_robotDrive;
 	double m_visionAngle;
+	double m_turnAngle;
 public:
 
 	DriveVisionPID(std::shared_ptr<RobotDrive> drive);
+	void SetTurnAngle(double angle);
 	void PIDWrite(double output);
 };
 
