@@ -44,7 +44,7 @@ void Delivery::Initialize(frc::Preferences *prefs)
 	// Initialize SmartDashboard values - if any
 	printf("2135: Delivery Initialize\n");
 
-	DoorClose(true);
+	DoorClose(false);
 }
 
 void Delivery::UpdateSmartDashboardValues(void)
