@@ -424,7 +424,7 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	m_safetyTimer.Stop();
 
 	// Change to coast mode
-	MoveSetBrakeNotCoastMode(false);
+	// MoveSetBrakeNotCoastMode(false);
 
 	// Change from PID position-loop back to PercentVbus for driver control
 	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
@@ -505,7 +505,7 @@ void Chassis::MoveDriveHeadingStop(void) {
 	// Do not shift back to high gear in case another auton command is running
 
 	// Change to Brake mode
-	MoveSetBrakeNotCoastMode(false);
+	// MoveSetBrakeNotCoastMode(false);
 
 	// Re-enable the motor safety helper (temporarily disabled)
     // TODO: Can we enable motor safety and have auton run
