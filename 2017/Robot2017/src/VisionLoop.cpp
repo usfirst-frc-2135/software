@@ -106,6 +106,7 @@ void VisionLoop::InitializeSmartdashboard(void) {
 	SmartDashboard::PutNumber(CAM_VISIONPIPEON, CAM_VISIONPIPEON_D);
 	SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
 	SmartDashboard::PutNumber(CAM_TURNANGLE, 0.0);
+	SmartDashboard::PutNumber(CAM_DISTANCE, 0.0);
 
 	// Initialize dashboard settings for camera
 	SmartDashboard::PutNumber(CAM_BRIGHTNESS, CAM_BRIGHTNESS_D);
@@ -257,11 +258,13 @@ void VisionLoop::ChooseGoalPeg(std::vector<tData> *pegs, tData *goal) {
 
 		SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
 		SmartDashboard::PutNumber(CAM_TURNANGLE, p->angle);
+		SmartDashboard::PutNumber(CAM_DISTANCE, p->dist);
 	}
 
 	else {
 		SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
 		SmartDashboard::PutNumber(CAM_TURNANGLE, 0.0);
+		SmartDashboard::PutNumber(CAM_DISTANCE, 0.0);
 	}
 }
 
