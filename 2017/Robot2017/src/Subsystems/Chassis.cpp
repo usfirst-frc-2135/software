@@ -80,9 +80,11 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	motorR3->SelectProfileSlot(0);
 
 
-    // Set all motors to use coast mode and not brake when stopped
-    m_brakeMode = false;
+    // Set all motors to use coast mode and not brake when stopped, start in low gear
+    m_brakeMode = true;
     MoveSetBrakeNotCoastMode(m_brakeMode);
+    m_lowGear = true;
+	MoveShiftGears(m_lowGear);
 
 	//	Initialize drivetrain modifiers
     m_driveDirection = -1.0;			// Initialize drivetrain direction for driving forward or backward
@@ -92,12 +94,6 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // 	Initialize closed loop parameters for Talon PID - ramp rate, close loop error, target rotations
     m_pidTargetRotations = 0.0;
     m_CL_pidStarted = false;
-
-    // Initialize to low gear
-    m_lowGear = true;
-
-	// set to low gear
-	MoveShiftGears(true);
 
     // NOTE: Calibrate gyro - this takes a few seconds--must not be in mode switch to Teleop or Auton
     printf("2135: Starting gyro calibration\n");
@@ -148,17 +144,21 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	printf("2135: Chassis Initialize\n");
 
 	// Robot is in low gear in autonomous and high gear in teleop
-	if (frc::RobotState::IsAutonomous())
-		MoveShiftGears(true);
-	else
-		MoveShiftGears(false);
+	if (frc::RobotState::IsAutonomous()) {
+		m_lowGear = true;
+	    m_brakeMode = true;
+	}
+	else {
+		m_lowGear = false;
+	    m_brakeMode = false;
+	}
+
+	// Brake/coast mode for talon speed controller
+	MoveShiftGears(m_lowGear);
+	MoveSetBrakeNotCoastMode(m_brakeMode);
 
 	// Drive invert direction the stick moves the robot
 	SmartDashboard::PutBoolean(CHS_DRIVE_DIRECTION, false);
-
-	// Brake/coast mode for talon speed controller
-    m_brakeMode = false;
-    MoveSetBrakeNotCoastMode(m_brakeMode);
 
 	// Scale maximum driving speed - if in beginner mode
 	m_driveScaling = Robot::LoadPreferencesVariable(CHS_DRIVE_SCALING, CHS_DRIVE_SCALING_D);
@@ -251,7 +251,6 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 		yValue = yValue * m_driveScaling;
 	}
 
-
 	if (!m_lowGear && (m_turnScaling < 0.99)) {
 		double scaledFactor;
 		// Create a scaling factor which increases as Y increases (faster robot speed)
@@ -335,17 +334,11 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	m_pidTargetRotations = inches / (WheelDiaInches * M_PI);
 	printf("2135: Encoder Distance %f rotations, %f inches\n", m_pidTargetRotations, inches);
 
-	// Shift into low gear during movement for better accuracy
-	MoveShiftGears(true);
-
 	// Change the drive motors to be position-loop control modes
 	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 	motorL1->Set(0.0);
 	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
 	motorR3->Set(0.0);
-
-	// Change to brake mode
-	MoveSetBrakeNotCoastMode(true);
 
 	// This should be set one time in constructor
 	proportional = Robot::LoadPreferencesVariable(CHS_CL_PROPORTIONAL, CHS_CL_PROPORTIONAL_D);
@@ -456,12 +449,6 @@ void Chassis::MoveDriveHeadingInit(double angle)
 	driveTurnPIDLoop->SetSetpoint(angle);
 	printf("2135: MoveDriveHeadingInit using angle: %f power: %f Kp: %f\n", angle, m_driveSpin, m_turnKP);
 
-	// Shift into low gear during movement for better accuracy
-	MoveShiftGears(true);
-
-	// Change to Brake mode
-	MoveSetBrakeNotCoastMode(true);
-
 	// Enable the PID loop
 	driveTurnPIDLoop->SetOutputRange(-m_driveSpin, m_driveSpin);
 	driveTurnPIDLoop->SetAbsoluteTolerance(2.0);
@@ -502,11 +489,6 @@ void Chassis::MoveDriveHeadingStop(void) {
 	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
 
-	// Do not shift back to high gear in case another auton command is running
-
-	// Change to Brake mode
-	// MoveSetBrakeNotCoastMode(false);
-
 	// Re-enable the motor safety helper (temporarily disabled)
     // TODO: Can we enable motor safety and have auton run
 	robotDrive->SetSafetyEnabled(false);
@@ -533,11 +515,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	// Get gyro angle
 //	gyro->GetAngle();
 
-	// Shift into low gear during movement for better accuracy
-	MoveShiftGears(true);
 
-	// Change to Brake mode
-	MoveSetBrakeNotCoastMode(true);
 
 	// Enable the PID loop (tolerance is in encoder count units)
 	driveVisionPIDLoop->SetAbsoluteTolerance(40.0);
@@ -574,7 +552,6 @@ bool Chassis::MoveDriveVisionHeadingIsPIDAtSetPoint(void)
 
 void Chassis::MoveDriveVisionHeadingStop(void)
 {
-
 	double closedLoopError;
 
 	// Disable PID loop
@@ -587,11 +564,6 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 	// Gets closed loop error and prints it
 	closedLoopError = driveVisionPIDLoop->GetError();
 	printf("2135: ClosedLoopError: %f\n", closedLoopError);
-
-	// Do not shift back to high gear in case another auton command is running
-
-	// Change to Brake mode
-	// *  MoveSetBrakeNotCoastMode(false);
 
 	// Re-enable the motor safety helper (temporarily disabled)
     // TODO: Can we enable motor safety and have auton run
