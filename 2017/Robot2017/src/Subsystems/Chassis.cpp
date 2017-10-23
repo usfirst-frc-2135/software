@@ -500,22 +500,28 @@ void Chassis::MoveDriveHeadingStop(void) {
 
 void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 {
+	double rotations;
+
 	gyro->Reset();
 
 	//Initialize the encoders to start movement at reference of zero counts
 	motorL1->SetEncPosition(0);
 	motorR3->SetEncPosition(0);
 
-	// Program the PID target setpoint - TODO: temporarily 5.0 rotations
-//	driveVisionPIDLoop->SetSetpoint(5.0 * USDigitalS4_CPR);
-	driveVisionPIDLoop->SetSetpoint(480.0 * 5.0);
-	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
+	// Grab vision target angle and distance from SmartDashboard
 
+	// Program the PID target distance setpoint - TODO: temporarily 5.0 rotations
+	// distance = SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
+	// rotations = distance / (WheelDiaInches * M_PI)
+	rotations = 5.0;
+
+	// angle input parameter is not used--read directly from dashboard
 	driveVisionPIDOutput->SetTurnAngle(SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D));
-	// Get gyro angle
-//	gyro->GetAngle();
+	//driveVisionPIDOutput->SetTurnDistance(SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D));
 
-
+	// Program the PID target setpoint in encoder counts (CPR * 4)
+	driveVisionPIDLoop->SetSetpoint(rotations * USDigitalS4_CPR*4);
+	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
 
 	// Enable the PID loop (tolerance is in encoder count units)
 	driveVisionPIDLoop->SetAbsoluteTolerance(40.0);
@@ -598,18 +604,15 @@ DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
 
 	m_visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
 	printf("2135: CameraVisionAngle: %f degrees\n", m_visionAngle);
+	m_visionDistance = SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
+	printf("2135: CameraVisionAngle: %f inches\n", m_visionDistance);
 }
 
 void DriveVisionPID::PIDWrite(double output) {
-	double m_offset;
-//	if (Robot::oi->getDriverJoystick()->GetY() < 0.1) {
-//		output = 0.0;
-//	}
-//
-//	m_robotDrive->ArcadeDrive (-(Robot::oi->getDriverJoystick()->GetY()), output, false);
+	double 			m_offset;
+	const double 	Kp_turn = (0.12 / 21.0);	// turn power difference (0.12) to turn 21 degrees
 
-	// TODO: check if the direction is inverted
-	m_offset = ((RobotMap::chassisGyro->GetAngle() - m_turnAngle) * 0.005714);
+	m_offset = (RobotMap::chassisGyro->GetAngle() - m_turnAngle) * Kp_turn;
 	m_robotDrive->SetLeftRightMotorOutputs(output + m_offset, output - m_offset);
 
 	// TODO: Remove this after tuning
