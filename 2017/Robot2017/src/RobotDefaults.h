@@ -159,6 +159,9 @@
 #define	CAM_TURNANGLE			"Cam_TurnAngle"
 #define	CAM_TURNANGLE_D			0.0
 
+#define CAM_DISTANCE			"Cam_Distance"
+#define CAM_DISTANCE_D			0.0
+
 #define	CAM_FOUNDTARGET			"Cam_FoundTarget"
 
 #endif /* ROBOTDEFAULTS_H_ */
