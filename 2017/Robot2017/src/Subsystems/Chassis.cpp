@@ -520,7 +520,12 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	//driveVisionPIDOutput->SetTurnDistance(SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D));
 
 	// Program the PID target setpoint in encoder counts (CPR * 4)
-	driveVisionPIDLoop->SetSetpoint(rotations * USDigitalS4_CPR*4);
+//	driveVisionPIDLoop->SetSetpoint(rotations * USDigitalS4_CPR*4);
+	double visionDistance;
+	visionDistance = (SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D) - 2);
+	driveVisionPIDLoop->SetSetpoint((visionDistance * 480) / (M_PI * WheelDiaInches));
+
+	printf("2135: Leg 3 Distance: %f; Angle: %f\n", SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D), SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D));
 	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
 
 	// Enable the PID loop (tolerance is in encoder count units)
@@ -610,7 +615,7 @@ DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
 
 void DriveVisionPID::PIDWrite(double output) {
 	double 			m_offset;
-	const double 	Kp_turn = (0.12 / 21.0);	// turn power difference (0.12) to turn 21 degrees
+	const double 	Kp_turn = (0.18 / 21.0);	// turn power difference (0.12) to turn 21 degrees
 
 	m_offset = (RobotMap::chassisGyro->GetAngle() - m_turnAngle) * Kp_turn;
 	m_robotDrive->SetLeftRightMotorOutputs(output + m_offset, output - m_offset);
