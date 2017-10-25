@@ -499,7 +499,8 @@ void Chassis::MoveDriveHeadingStop(void) {
 
 void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 {
-	double rotations;
+	double visionAngle;
+	double visionDistance;
 
 	gyro->Reset();
 
@@ -509,19 +510,16 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 
 	// Grab vision target angle and distance from SmartDashboard
 
-	rotations = 5.0;
-
 	// angle input parameter is not used--read directly from dashboard
-	driveVisionPIDOutput->SetTurnAngle(SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D));
-	//driveVisionPIDOutput->SetTurnDistance(SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D));
+	visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
+	driveVisionPIDOutput->SetTurnAngle(visionAngle);
 
 	// Program the PID target setpoint in encoder counts (CPR * 4)
-//	driveVisionPIDLoop->SetSetpoint(rotations * USDigitalS4_CPR*4);
-	double visionDistance;
-	visionDistance = (SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D) - 2);
-	driveVisionPIDLoop->SetSetpoint((visionDistance * 480) / (M_PI * WheelDiaInches));
+	visionDistance = SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
+	visionDistance = visionDistance - 2.0;		// Adjust distance for camera sensor to peg (minus carriage)
+	driveVisionPIDLoop->SetSetpoint((visionDistance * Encoder_CPR) / WheelCirInches);
 
-	printf("2135: Leg 3 Distance: %f; Angle: %f\n", SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D), SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D));
+	printf("2135: Leg 3 Distance: %f; Angle: %f\n", visionDistance, visionAngle);
 	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
 
 	// Enable the PID loop (tolerance is in encoder count units)
