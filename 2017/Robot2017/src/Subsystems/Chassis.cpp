@@ -79,7 +79,6 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	motorL1->SelectProfileSlot(0);
 	motorR3->SelectProfileSlot(0);
 
-
     // Set all motors to use coast mode and not brake when stopped, start in low gear
     m_brakeMode = true;
     MoveSetBrakeNotCoastMode(m_brakeMode);
@@ -331,7 +330,7 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 {
 	double proportional;
 
-	m_pidTargetRotations = inches / (WheelDiaInches * M_PI);
+	m_pidTargetRotations = inches / WheelCirInches;
 	printf("2135: Encoder Distance %f rotations, %f inches\n", m_pidTargetRotations, inches);
 
 	// Change the drive motors to be position-loop control modes
@@ -379,8 +378,8 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 
 	// Detect if closed loop error has been updated once after start
 	// TODO: Do we need to wait for a rotation now that command is working better
-	if (!m_CL_pidStarted && (abs(motorL1->GetClosedLoopError()) > USDigitalS4_CPR*4) &&
-			(abs(motorR3->GetClosedLoopError()) > USDigitalS4_CPR*4))
+	if (!m_CL_pidStarted && (abs(motorL1->GetClosedLoopError()) > Encoder_CPR) &&
+			(abs(motorR3->GetClosedLoopError()) > Encoder_CPR))
 	{
 		m_CL_pidStarted = true;
 		printf("2135: Closed loop error has changed\n");
@@ -496,7 +495,7 @@ void Chassis::MoveDriveHeadingStop(void) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-//	Closed loop movement - Drive to a relative heading using PID loop in RoboRIO and vision angles
+//	Closed loop movement - Drive to a vision loop distance and angle using PID loop in RoboRIO
 
 void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 {
@@ -510,9 +509,6 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 
 	// Grab vision target angle and distance from SmartDashboard
 
-	// Program the PID target distance setpoint - TODO: temporarily 5.0 rotations
-	// distance = SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
-	// rotations = distance / (WheelDiaInches * M_PI)
 	rotations = 5.0;
 
 	// angle input parameter is not used--read directly from dashboard
@@ -529,13 +525,13 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
 
 	// Enable the PID loop (tolerance is in encoder count units)
-	driveVisionPIDLoop->SetAbsoluteTolerance(40.0);
+	driveVisionPIDLoop->SetAbsoluteTolerance(40.0);	// TODO: This is +/-, so 1/6 of rotation = 2.0 inches!
 	driveVisionPIDLoop->Enable();
 
 	//Start safety timer
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
-	m_safetyTimeout = 10.0;
+	m_safetyTimeout = 3.5;
 
 	// Disable safety feature during movement, since motors will be fed by loop
 	robotDrive->SetSafetyEnabled(false);
@@ -591,14 +587,14 @@ void DriveTurnPID::PIDWrite(double output) {
 	if (output > 0.0) {
 		m_robotDrive->SetLeftRightMotorOutputs(0.0, output);
 
-		// TODO: Remove this after tuning
+		// TODO: Comment out after tuning -- place one in PID stop method to show result
 		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, 0.0);
 		SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, output);
 	}
 	else {
 		m_robotDrive->SetLeftRightMotorOutputs(-output, 0.0);
 
-		// TODO: Remove this after tuning
+		// TODO: Comment out after tuning -- place one in PID stop method to show result
 		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, -output);
 		SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, 0.0);
 	}
@@ -606,6 +602,8 @@ void DriveTurnPID::PIDWrite(double output) {
 
 DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
 	m_robotDrive = robotDrive;
+
+	m_turnAngle = 0.0;
 
 	m_visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
 	printf("2135: CameraVisionAngle: %f degrees\n", m_visionAngle);
@@ -615,12 +613,15 @@ DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
 
 void DriveVisionPID::PIDWrite(double output) {
 	double 			m_offset;
-	const double 	Kp_turn = (0.18 / 21.0);	// turn power difference (0.12) to turn 21 degrees
+	const double 	Kp_turn = (0.18 / 21.0);	// turn power difference (0.18) to turn 21 degrees
+
+	// TODO: Since SetMaxOutput will clip the output, only subtraction will actually be effective
+	// TODO: Until the proportional ramp down takes effect
 
 	m_offset = (RobotMap::chassisGyro->GetAngle() - m_turnAngle) * Kp_turn;
 	m_robotDrive->SetLeftRightMotorOutputs(output + m_offset, output - m_offset);
 
-	// TODO: Remove this after tuning
+	// TODO: Comment out after tuning -- place one in PID stop method to show result
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
 	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, output);
 }
@@ -632,9 +633,7 @@ void DriveVisionPID::SetTurnAngle(double angle) {
 double DriveVisionPIDSource::PIDGet(void) {
 	double encPosition;
 
-	// Get the current angle from the gyro
-//	curAngle = RobotMap::chassisGyro->GetAngle();
-//	encPosition = (double)Robot::chassis->motorR3->GetEncPosition();
+	// Get the current encoder positions from Talon
 	encPosition = (double)RobotMap::chassisMotorR3->GetEncPosition();
 
 #if 0	// If averaging is needed leave this in

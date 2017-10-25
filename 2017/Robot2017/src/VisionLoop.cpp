@@ -16,7 +16,7 @@ VisionLoop::VisionLoop() {
 }
 
 VisionLoop::~VisionLoop() {
-	// TODO Auto-generated destructor stub
+	// Auto-generated destructor stub
 }
 
 void VisionLoop::Run() {

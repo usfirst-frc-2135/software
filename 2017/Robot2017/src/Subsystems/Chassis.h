@@ -75,13 +75,15 @@ private:
 
 #ifdef CRUSH_SETTINGS
 // 	const double				WheelDiaInches = 4.138;		// Crush wheel diameter
-//	10/22 Test: L-encoder: -10620.0; R-encoder: 10602.0
-	const double				WheelDiaInches = 4.1722; 	// Crush wheel diameter for left wheel; right wheel = 4.1793
+//	10/22 Test: L-encoder: -10620.0; R-encoder: 10602.0 for 290 inches distance
+	const double				WheelDiaInches = 4.1722; 	// Crush wheel dia for left wheel; right = 4.1793
 	const unsigned short int	USDigitalS4_CPR = 120;
 #else
 	const double				WheelDiaInches = 4.1699;	// Brush wheel diameter
 	const unsigned short int	USDigitalS4_CPR = 250;
 #endif
+	const double				WheelCirInches = (WheelDiaInches * M_PI);
+	const unsigned short int	Encoder_CPR = (USDigitalS4_CPR * 4);	// Talons report CPR * 4 (each encoder signal edge)
 
 #ifdef USE_ADXRS450_GYRO
 	std::shared_ptr<ADXRS450_Gyro> gyro;
