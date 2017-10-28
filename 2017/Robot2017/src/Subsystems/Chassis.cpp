@@ -501,6 +501,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 {
 	double visionAngle;
 	double visionDistance;
+	double offset;
 
 	gyro->Reset();
 
@@ -516,6 +517,10 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 
 	// Program the PID target setpoint in encoder counts (CPR * 4)
 	visionDistance = SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
+	if (visionAngle > 0.0) {
+		offset = 0.6 * visionAngle;
+		visionDistance = visionDistance + offset;
+	}
 	visionDistance = visionDistance - 2.0;		// Adjust distance for camera sensor to peg (minus carriage)
 	driveVisionPIDLoop->SetSetpoint((visionDistance * Encoder_CPR) / WheelCirInches);
 
