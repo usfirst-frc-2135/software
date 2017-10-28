@@ -82,7 +82,7 @@ void Robot::DisabledInit(){
 	chooser.AddObject("Pos 1 Gear", new AutonPos1DeliverGear());
 	chooser.AddObject("Pos 2 Gear", new AutonPos2DeliverGear());
 	chooser.AddObject("Pos 3 Gear", new AutonPos3DeliverGear());
-	chooser.AddObject("Pos 3 Gear Vision", new AutonPos2VisionDeliverGear());
+	chooser.AddObject("Pos 2 Gear Vision", new AutonPos2VisionDeliverGear());
 	frc::SmartDashboard::PutData("Auto Modes", &chooser);
 }
 
