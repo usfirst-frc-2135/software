@@ -31,6 +31,7 @@
 #include "Commands/ClimberMotorControl.h"
 #include "Commands/ClimberMotorLowControl.h"
 #include "Commands/DriveShift.h"
+#include "Commands/DriveShiftToggle.h"
 #include "Commands/DriveSpin.h"
 #include "Commands/DriveStop.h"
 #include "Commands/DriveTeleop.h"
@@ -106,8 +107,8 @@ OI::OI() {
     driverSpinLeft->WhileHeld(new DriveSpin(true));
     driverAlignGear.reset(new JoystickButton(driverJoystick.get(), 3));
     driverAlignGear->WhenPressed(new DriveShift(false));
-    driverInvertDirection.reset(new JoystickButton(driverJoystick.get(), 2));
-    driverInvertDirection->WhenPressed(new DriveTrainInvert(false));
+    driverShiftToggle.reset(new JoystickButton(driverJoystick.get(), 2));
+    driverShiftToggle->WhenPressed(new DriveShiftToggle());
     driverShift.reset(new JoystickButton(driverJoystick.get(), 1));
     driverShift->WhileHeld(new DriveShift(true));
 

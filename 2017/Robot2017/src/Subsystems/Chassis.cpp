@@ -679,3 +679,8 @@ void Chassis::MoveShiftGears(bool lowGear)
 		m_lowGear = false;
 	}
 }
+
+void Chassis::MoveShiftToggle(void)
+{
+	MoveShiftGears(!m_lowGear);
+}

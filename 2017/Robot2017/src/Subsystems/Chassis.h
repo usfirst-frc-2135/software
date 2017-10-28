@@ -152,6 +152,7 @@ public:
 	void MoveDriveVisionHeadingStop(void);
 
 	void MoveShiftGears(bool lowGear);
+	void MoveShiftToggle(void);
 };
 
 #endif
