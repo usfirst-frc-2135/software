@@ -109,7 +109,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     driveVisionPIDSource = new DriveVisionPIDSource();
     driveVisionPIDOutput = new DriveVisionPID(robotDrive);
-    driveVisionPIDLoop = new PIDController(CHS_CAMTURNKP_D, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
+    driveVisionPIDLoop = new PIDController(CHS_CAMTURNKP_D * 1.5, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
 
     m_turnScaling = Robot::LoadPreferencesVariable(CHS_TURN_SCALING, CHS_TURN_SCALING_D);
 	if ((m_turnScaling < 0.0) || (m_turnScaling > 1.0)) {
