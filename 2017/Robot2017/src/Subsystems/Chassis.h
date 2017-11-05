@@ -80,7 +80,7 @@ private:
 	const unsigned short int	USDigitalS4_CPR = 120;
 #else
 	const double				WheelDiaInches = 4.1699;	// Brush wheel diameter
-	const unsigned short int	USDigitalS4_CPR = 250;
+	const unsigned short int	USDigitalS4_CPR = 360;
 #endif
 	const double				WheelCirInches = (WheelDiaInches * M_PI);
 	const unsigned short int	Encoder_CPR = (USDigitalS4_CPR * 4);	// Talons report CPR * 4 (each encoder signal edge)

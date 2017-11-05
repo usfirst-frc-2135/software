@@ -10,7 +10,7 @@
 
 //  Identify if Crush or Brush is in use by enabling this define
 
-#define CRUSH_SETTINGS   // Comment out for Brush settings
+//#define CRUSH_SETTINGS   // Comment out for Brush settings
 
 //	Identify if ADXRS450 Gyro is in use by enabling this define
 

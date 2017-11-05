@@ -109,7 +109,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     driveVisionPIDSource = new DriveVisionPIDSource();
     driveVisionPIDOutput = new DriveVisionPID(robotDrive);
-    driveVisionPIDLoop = new PIDController(CHS_CAMTURNKP_D * 1.5, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
+    driveVisionPIDLoop = new PIDController(CHS_CAMTURNKP_D * 1.5 * (120.0 / (double)USDigitalS4_CPR), 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
 
     m_turnScaling = Robot::LoadPreferencesVariable(CHS_TURN_SCALING, CHS_TURN_SCALING_D);
 	if ((m_turnScaling < 0.0) || (m_turnScaling > 1.0)) {
@@ -329,6 +329,7 @@ void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRigh
 void Chassis::MoveDriveDistancePIDInit(double inches)
 {
 	double proportional;
+	double encoderOffset;
 
 	m_pidTargetRotations = inches / WheelCirInches;
 	printf("2135: Encoder Distance %f rotations, %f inches\n", m_pidTargetRotations, inches);
@@ -341,8 +342,9 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 
 	// This should be set one time in constructor
 	proportional = Robot::LoadPreferencesVariable(CHS_CL_PROPORTIONAL, CHS_CL_PROPORTIONAL_D);
-	motorL1->SetPID(proportional, 0.0, 0.0);
-	motorR3->SetPID(proportional, 0.0, 0.0);
+	encoderOffset = 120.0 / (double)USDigitalS4_CPR;
+	motorL1->SetPID(proportional * encoderOffset, 0.0, 0.0);
+	motorR3->SetPID(proportional * encoderOffset, 0.0, 0.0);
 
 	// Initialize the encoders to start movement at reference of zero counts
 	motorL1->SetEncPosition(0);
