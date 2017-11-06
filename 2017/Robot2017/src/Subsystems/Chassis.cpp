@@ -107,9 +107,10 @@ Chassis::Chassis() : Subsystem("Chassis") {
     driveTurnPIDOutput = new DriveTurnPID(robotDrive);
     driveTurnPIDLoop = new PIDController(m_turnKP, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
 
+    // Adjust Kp for encoder being used
     driveVisionPIDSource = new DriveVisionPIDSource();
     driveVisionPIDOutput = new DriveVisionPID(robotDrive);
-    driveVisionPIDLoop = new PIDController(CHS_CAMTURNKP_D * 1.5 * (120.0 / (double)USDigitalS4_CPR), 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
+    driveVisionPIDLoop = new PIDController((CHS_CAMTURNKP_D / Encoder_CPR) * 1.5, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
 
     m_turnScaling = Robot::LoadPreferencesVariable(CHS_TURN_SCALING, CHS_TURN_SCALING_D);
 	if ((m_turnScaling < 0.0) || (m_turnScaling > 1.0)) {
@@ -173,8 +174,9 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	motorL1->SetCloseLoopRampRate(rampRate);
 	motorR3->SetCloseLoopRampRate(rampRate);
 
-	// Allowable Closed Loop Error - in Talon native units (480 units per one rotation)
+	// Allowable Closed Loop Error - in Talon native units (480/1440 units per one rotation)
 	m_CL_allowError = (int) Robot::LoadPreferencesVariable(CHS_CL_ALLOWERROR, CHS_CL_ALLOWERROR_D);
+	m_CL_allowError *= USDigitalS4_CPR / 120.0;
 	motorL1->SetAllowableClosedLoopErr(m_CL_allowError);
 	motorR3->SetAllowableClosedLoopErr(m_CL_allowError);
 
@@ -329,7 +331,6 @@ void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRigh
 void Chassis::MoveDriveDistancePIDInit(double inches)
 {
 	double proportional;
-	double encoderOffset;
 
 	m_pidTargetRotations = inches / WheelCirInches;
 	printf("2135: Encoder Distance %f rotations, %f inches\n", m_pidTargetRotations, inches);
@@ -342,9 +343,9 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 
 	// This should be set one time in constructor
 	proportional = Robot::LoadPreferencesVariable(CHS_CL_PROPORTIONAL, CHS_CL_PROPORTIONAL_D);
-	encoderOffset = 120.0 / (double)USDigitalS4_CPR;
-	motorL1->SetPID(proportional * encoderOffset, 0.0, 0.0);
-	motorR3->SetPID(proportional * encoderOffset, 0.0, 0.0);
+	// Adjust Kp for encoder being used -- CPR of 120 is the reference
+	motorL1->SetPID(proportional * 120.0 / (double)USDigitalS4_CPR, 0.0, 0.0);
+	motorR3->SetPID(proportional * 120.0 / (double)USDigitalS4_CPR, 0.0, 0.0);
 
 	// Initialize the encoders to start movement at reference of zero counts
 	motorL1->SetEncPosition(0);
@@ -530,7 +531,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
 
 	// Enable the PID loop (tolerance is in encoder count units)
-	driveVisionPIDLoop->SetAbsoluteTolerance(40.0);	// TODO: This is +/-, so 1/6 of rotation = 2.0 inches!
+	driveVisionPIDLoop->SetAbsoluteTolerance(Encoder_CPR/12);	// TODO: This is +/-, so 1/6 of rotation = 2.0 inches!
 	driveVisionPIDLoop->Enable();
 
 	//Start safety timer
