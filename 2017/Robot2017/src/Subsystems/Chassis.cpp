@@ -418,8 +418,9 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
 
-	// Change to coast mode
-	// MoveSetBrakeNotCoastMode(false);
+	SmartDashboard::PutNumber("DD PID L", motorL1->GetPosition() * WheelDiaInches * M_PI);
+	SmartDashboard::PutNumber("DD PID R", motorR3->GetPosition() * WheelDiaInches * M_PI);
+	SmartDashboard::PutNumber("DD TIME", m_safetyTimer.Get());
 
 	// Change from PID position-loop back to PercentVbus for driver control
 	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
@@ -491,6 +492,9 @@ void Chassis::MoveDriveHeadingStop(void) {
 	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
 
+	SmartDashboard::PutNumber("DH GYRO", gyro->GetAngle());
+	SmartDashboard::PutNumber("DH TIME", m_safetyTimer.Get());
+
 	// Re-enable the motor safety helper (temporarily disabled)
     // TODO: Can we enable motor safety and have auton run
 	robotDrive->SetSafetyEnabled(false);
@@ -516,10 +520,12 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 
 	// angle input parameter is not used--read directly from dashboard
 	visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
+	SmartDashboard::PutNumber("DV CAMA", visionAngle);
 	driveVisionPIDOutput->SetTurnAngle(visionAngle);
 
 	// Program the PID target setpoint in encoder counts (CPR * 4)
 	visionDistance = SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
+	SmartDashboard::PutNumber("DV CAMD", visionDistance);
 	if (visionAngle > 0.0) {
 		offset = 0.6 * visionAngle;
 		visionDistance = visionDistance + offset;
@@ -573,6 +579,10 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 	// Stop safety timer
 	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
+
+	SmartDashboard::PutNumber("DV GYRO", gyro->GetAngle());
+	SmartDashboard::PutNumber("DV DIST", motorR3->GetEncPosition() * WheelDiaInches * M_PI);
+	SmartDashboard::PutNumber("DV TIME", m_safetyTimer.Get());
 
 	// Gets closed loop error and prints it
 	closedLoopError = driveVisionPIDLoop->GetError();
