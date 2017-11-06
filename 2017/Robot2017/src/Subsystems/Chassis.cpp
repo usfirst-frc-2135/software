@@ -526,6 +526,9 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	// Program the PID target setpoint in encoder counts (CPR * 4)
 	visionDistance = SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
 	SmartDashboard::PutNumber("DV CAMD", visionDistance);
+	// This corrects for right turns due to using only the right encoder (negative)
+	// TODO: see if we could use left encoder for left turns and keep right encoder for right turns
+	// TODO: to eliminate this weirdness
 	if (visionAngle > 0.0) {
 		offset = 0.6 * visionAngle;
 		visionDistance = visionDistance + offset;
@@ -581,7 +584,7 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 	m_safetyTimer.Stop();
 
 	SmartDashboard::PutNumber("DV GYRO", gyro->GetAngle());
-	SmartDashboard::PutNumber("DV DIST", motorR3->GetEncPosition() * WheelDiaInches * M_PI);
+	SmartDashboard::PutNumber("DV DIST", ((double)motorR3->GetEncPosition() / (double)Encoder_CPR) * WheelDiaInches * M_PI);
 	SmartDashboard::PutNumber("DV TIME", m_safetyTimer.Get());
 
 	// Gets closed loop error and prints it
@@ -674,7 +677,7 @@ double DriveVisionPIDSource::PIDGet(void) {
 	curAngle = curAngle / m_totSamples;
 #endif
 
-	return encPosition;
+	return encPosition * EncoderDirection;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
