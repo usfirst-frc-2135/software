@@ -49,7 +49,7 @@ AutonPos1DeliverGear::AutonPos1DeliverGear() {
         AddSequential(new AutonDrivePeg1Turn());
 #ifdef CRUSH_SETTINGS
 #else
-        AddSequential(new AutonDriveDistance(-18.0));
+        AddSequential(new AutonDriveDistance(-12.0));
 #endif
         AddSequential(new AutonDelay(0.75));
         AddSequential(new AutonDrivePegVision());
