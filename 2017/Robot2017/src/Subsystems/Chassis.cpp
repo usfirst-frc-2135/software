@@ -533,7 +533,8 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 		offset = 0.6 * visionAngle;
 		visionDistance = visionDistance + offset;
 	}
-	visionDistance = visionDistance - 2.0;		// Adjust distance for camera sensor to peg (minus carriage)
+	if (visionDistance > 0.0)					// If a valid vision distance
+		visionDistance = visionDistance - 2.0;	// Adjust distance for camera sensor to peg (minus carriage)
 	driveVisionPIDLoop->SetSetpoint((visionDistance * Encoder_CPR) / WheelCirInches);
 
 	printf("2135: Leg 3 Distance: %f; Angle: %f\n", visionDistance, visionAngle);
