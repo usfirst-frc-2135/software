@@ -27,6 +27,7 @@ private:
 public:
 	DriveTurnPID(std::shared_ptr<RobotDrive> rDrive);
 	void PIDWrite(double output);
+	virtual ~DriveTurnPID();
 };
 
 //	Camera Vision Drive PID controller class definitions
@@ -37,11 +38,12 @@ private:
 	double m_visionAngle;
 	double m_visionDistance;
 	double m_turnAngle;
-public:
 
+public:
 	DriveVisionPID(std::shared_ptr<RobotDrive> drive);
 	void SetTurnAngle(double angle);
 	void PIDWrite(double output);
+	virtual ~DriveVisionPID();
 };
 
 class DriveVisionPIDSource: public PIDSource {
@@ -55,8 +57,10 @@ private:
 #else
 	const double				EncoderDirection = -1.0;	// Brush encoders read negative values
 #endif
+
 public:
 	double PIDGet(void);
+	virtual ~DriveVisionPIDSource();
 };
 
 /**

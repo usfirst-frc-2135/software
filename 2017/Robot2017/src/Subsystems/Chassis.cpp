@@ -620,6 +620,8 @@ void DriveTurnPID::PIDWrite(double output) {
 	}
 }
 
+DriveTurnPID::~DriveTurnPID() {};
+
 DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
 	m_robotDrive = robotDrive;
 
@@ -630,6 +632,8 @@ DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
 	m_visionDistance = SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
 	printf("2135: CameraVisionAngle: %f inches\n", m_visionDistance);
 }
+
+DriveVisionPID::~DriveVisionPID() {};
 
 void DriveVisionPID::PIDWrite(double output) {
 	double 			m_offset;
@@ -649,6 +653,8 @@ void DriveVisionPID::PIDWrite(double output) {
 void DriveVisionPID::SetTurnAngle(double angle) {
 	m_turnAngle = angle;
 }
+
+DriveVisionPIDSource::~DriveVisionPIDSource() {};
 
 double DriveVisionPIDSource::PIDGet(void) {
 	double encPosition;
