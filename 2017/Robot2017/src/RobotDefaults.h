@@ -12,10 +12,6 @@
 
 //#define CRUSH_SETTINGS   // Comment out for Brush settings
 
-//	Identify if ADXRS450 Gyro is in use by enabling this define
-
-#define USE_ADXRS450_GYRO	// Comment out for analog Gyro or to disable
-
 // #define ROBORIO_STANDALONE	// Comment out for normal operation (talons present)
 
 //	SmartDashboard parameters and defaults

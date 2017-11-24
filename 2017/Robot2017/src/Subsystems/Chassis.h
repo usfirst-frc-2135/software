@@ -99,11 +99,7 @@ private:
 	const double				WheelCirInches = (WheelDiaInches * M_PI);
 	const unsigned short int	Encoder_CPR = (USDigitalS4_CPR * 4);	// Talons report CPR * 4 (each encoder signal edge)
 
-#ifdef USE_ADXRS450_GYRO
 	std::shared_ptr<ADXRS450_Gyro> gyro;
-#else
-	std::shared_ptr<AnalogGyro> gyro;
-#endif
 
 	double m_driveDirection;		// Allows chassis drive direction change
 	double m_driveScaling;			// Scaling applied to joystick for SW shifting
