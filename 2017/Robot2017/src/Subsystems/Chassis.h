@@ -15,7 +15,11 @@
 #include "WPILib.h"
 #include "CANTalon.h"
 #include "../RobotDefaults.h"
+#include "../frc2135/PIDOutputDriveTurn.h"
+#include "../frc2135/PIDSourceDriveVision.h"
+#include "../frc2135/PIDOutputDriveVision.h"
 
+#if 0
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 //	Turn PID controller class definitions
@@ -62,6 +66,7 @@ public:
 	double PIDGet(void);
 	virtual ~DriveVisionPIDSource();
 };
+#endif
 
 /**
  *
@@ -105,6 +110,7 @@ private:
 	double m_turnScaling;			// Turn scaling (1.0 is disabled, < 1.0 is max X output)
 	double m_driveSpin;				// Spin turn power setting
 	bool m_brakeMode; 				// Brake or Coast mode for talons
+	bool m_invertEnable;					// Disables or enables invert drive direction
 
 	double m_turnKP;					// Proportional value for PID for DriveTurn function
 
@@ -117,14 +123,13 @@ private:
 	Timer m_safetyTimer;			// Safety timer for use during autonomous modes
 	double m_safetyTimeout;			// Time in seconds for safety timer
 
-	DriveTurnPID *driveTurnPIDOutput;		// Drive Turn to angle using gyro - initialize output
+//	DriveTurnPID *driveTurnPIDOutput;		// Drive Turn to angle using gyro - initialize output
+	PIDOutputDriveTurn *driveTurnPIDOutput;	// Drive Turn to angle using gyro - initialize output
 	PIDController *driveTurnPIDLoop;		// Drive Turn PID controller loop
-	DriveVisionPID *driveVisionPIDOutput;	// Drive with Vision to angle using gyro - initialize output
+//	DriveVisionPID *driveVisionPIDOutput;	// Drive with Vision to angle using gyro - initialize output
+	PIDOutputDriveVision *driveVisionPIDOutput;	// Drive with Vision to angle using gyro - initialize output
 	PIDController *driveVisionPIDLoop;		// Drive with Vision PID controller loop
 	PIDSource *driveVisionPIDSource;		// Drive with Vision PID source loop
-
-	bool m_invertEnable;					// Disables or enables invert drive direction
-
 
 public:
 	Chassis();

@@ -8,7 +8,7 @@
 #ifndef SRC_VISIONLOOP_H_
 #define SRC_VISIONLOOP_H_
 
-#include "RobotDefaults.h"
+#include "../RobotDefaults.h"
 #include "GripContoursPipeline.h"
 
 class VisionLoop {

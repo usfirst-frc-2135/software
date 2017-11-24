@@ -5,7 +5,7 @@
  *      Author: PHS_User
  */
 
-#include <src/VisionLoop.h>
+#include "VisionLoop.h"
 
 typedef enum { VISIONPIPE_UNINIT, VISIONPIPE_OFF, VISIONPIPE_GEAR, VISIONPIPE_SHOOTER } pipeConfig;
 static	pipeConfig s_visionPipe = VISIONPIPE_OFF;

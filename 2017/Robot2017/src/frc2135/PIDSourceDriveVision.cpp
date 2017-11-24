@@ -1,0 +1,49 @@
+/*
+ * PIDSourceDriveVision.cpp
+ *
+ *  Created on: Nov 23, 2017
+ *      Author: jeffmullins
+ */
+
+#include "../RobotMap.h"
+#include "PIDSourceDriveVision.h"
+
+// Drive Vision source class derived from PID Source
+//	Used to drive toward a heading for a specified distance
+
+PIDSourceDriveVision::PIDSourceDriveVision() {
+}
+
+PIDSourceDriveVision::~PIDSourceDriveVision() {
+}
+
+double PIDSourceDriveVision::PIDGet(void) {
+	double encPosition;
+
+	// Get the current encoder positions from Talon
+	encPosition = (double)RobotMap::chassisMotorR3->GetEncPosition();
+
+#if 0	// If averaging is needed leave this in
+	int i;
+
+	// Limit the gyro input to a valid range
+	curAngle = fmin(curAngle, 25.0);
+	curAngle = fmax(curAngle, -25.0);
+
+	// Store in the gyro angle buffer
+	m_angleBuffer[m_curSample++] = curAngle;
+	if (m_curSample >= numSamples)
+		m_curSample = 0;
+	if (m_totSamples < m_totSamples)
+		m_totSamples++;
+
+	// Reuse curAngle to average the samples over total samples in buffer
+	curAngle = 0.0;
+	for (i = 0; i < m_totSamples; i++) {
+		curAngle += m_angleBuffer[i];
+	}
+	curAngle = curAngle / m_totSamples;
+#endif
+
+	return encPosition * EncoderDirection;
+}

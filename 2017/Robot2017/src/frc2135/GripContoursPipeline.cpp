@@ -1,5 +1,5 @@
 #include "GripContoursPipeline.h"
-#include "RobotDefaults.h"
+#include "../RobotDefaults.h"
 /**
 * Initializes a GripContoursPipeline.
 */
