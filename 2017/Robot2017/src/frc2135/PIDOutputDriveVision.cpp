@@ -29,15 +29,8 @@ void PIDOutputDriveVision::PIDWrite(double output) {
 	double 			m_offset;
 	const double 	Kp_turn = (0.18 / 21.0);	// turn power difference (0.18) to turn 21 degrees
 
-	// TODO: Since SetMaxOutput will clip the output, only subtraction will actually be effective
-	// TODO: Until the proportional ramp down takes effect
-
 	m_offset = (RobotMap::chassisGyro->GetAngle() - m_turnAngle) * Kp_turn;
 	m_robotDrive->SetLeftRightMotorOutputs(output + m_offset, output - m_offset);
-
-	// TODO: Comment out after tuning -- place one in PID stop method to show result
-	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
-	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, output);
 }
 
 void PIDOutputDriveVision::SetTurnAngle(double angle) {

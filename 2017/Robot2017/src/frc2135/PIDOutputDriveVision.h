@@ -21,9 +21,9 @@ private:
 
 public:
 	PIDOutputDriveVision(std::shared_ptr<RobotDrive> drive);
-	void SetTurnAngle(double angle);
-	void PIDWrite(double output);
 	virtual ~PIDOutputDriveVision();
+	void PIDWrite(double output);
+	void SetTurnAngle(double angle);
 };
 
 #endif /* SRC_SUBSYSTEMS_PIDOUTPUTDRIVEVISION_H_ */

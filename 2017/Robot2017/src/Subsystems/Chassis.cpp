@@ -40,7 +40,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Drivetrain Talon settings - Teleop mode
 
     // Enable motor safety code on drive motors (temporarily disabled)
-    // TODO: Can we enable motor safety and have auton run
+    // TODO: Can we keep motor safety enabled during auton mode
     robotDrive->SetSafetyEnabled(false);
 
     // Make second Talon SRX controller on each side of drivetrain follow the main Talon SRX
@@ -50,7 +50,6 @@ Chassis::Chassis() : Subsystem("Chassis") {
     motorR4->Set(3);
     motorL1->SetInverted(true);
 
-    // TODO: Can we remove this code and have autonomous run
     motorL1->SetSafetyEnabled(false);
     motorL2->SetSafetyEnabled(false);
     motorR3->SetSafetyEnabled(false);
@@ -105,13 +104,10 @@ Chassis::Chassis() : Subsystem("Chassis") {
     SmartDashboard::PutNumber(CHS_TURNKP, m_turnKP);
     printf("2135: Turn PID Kp: %f\n", m_turnKP);
 
-//    driveTurnPIDOutput = new DriveTurnPID(robotDrive);
     driveTurnPIDOutput = new PIDOutputDriveTurn(robotDrive);
     driveTurnPIDLoop = new PIDController(m_turnKP, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
 
     // Adjust Kp for encoder being used
-//    driveVisionPIDSource = new DriveVisionPIDSource();
-//    driveVisionPIDOutput = new DriveVisionPID(robotDrive);
     driveVisionPIDSource = new PIDSourceDriveVision();
     driveVisionPIDOutput = new PIDOutputDriveVision(robotDrive);
     driveVisionPIDLoop = new PIDController((CHS_CAMTURNKP_D / Encoder_CPR) * 1.5, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
@@ -218,8 +214,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 }
 
 
-// UpdateSmartDashboardValues is used during TelopPeriodic and AutonomousPeriodic to display real time updates
-//	of sensor values
+// UpdateSmartDashboardValues used during TelopPeriodic and AutonomousPeriodic to display sensor real time updates
 
 void Chassis::UpdateSmartDashboardValues(void)
 {
@@ -250,7 +245,6 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	yValue = joystick->GetY() * m_driveDirection;
 
 	// If in high gear, use the scaling factor against the y-axis
-	// TODO: Why does scaling affect the X axis? Should it? (Maybe it's correct)
 	if (!m_lowGear) {
 		xValue = xValue * m_driveScaling;
 		yValue = yValue * m_driveScaling;
@@ -324,6 +318,27 @@ void Chassis::MoveSetBrakeNotCoastMode(bool brakeMode)
 void Chassis::MoveUsingMotorOutputs(double motorInputLeft, double motorInputRight)
 {
 	robotDrive->SetLeftRightMotorOutputs(motorInputLeft, motorInputRight);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+//	Drivetrain movement - Allow other functions to shift gears to low/high as requested
+
+void Chassis::MoveShiftGears(bool lowGear)
+{
+	if (lowGear) {
+		shifter->Set(shifter->kForward);
+		m_lowGear = true;
+	}
+	else {
+		shifter->Set(shifter->kReverse);
+		m_lowGear = false;
+	}
+}
+
+void Chassis::MoveShiftToggle(void)
+{
+	MoveShiftGears(!m_lowGear);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -435,7 +450,6 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	// Do not shift back to high gear in case another auton command is running
 
 	// Re-enable the motor safety helper (temporarily disabled)
-    // TODO: Can we enable motor safety and have auton run
 	robotDrive->SetSafetyEnabled(false);
 }
 
@@ -500,7 +514,6 @@ void Chassis::MoveDriveHeadingStop(void) {
 	SmartDashboard::PutNumber("DH TIME", m_safetyTimer.Get());
 
 	// Re-enable the motor safety helper (temporarily disabled)
-    // TODO: Can we enable motor safety and have auton run
 	robotDrive->SetSafetyEnabled(false);
 }
 
@@ -508,11 +521,10 @@ void Chassis::MoveDriveHeadingStop(void) {
 
 //	Closed loop movement - Drive to a vision loop distance and angle using PID loop in RoboRIO
 
-void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
+void Chassis::MoveDriveVisionHeadingDistanceInit(double angle, double distance)
 {
 	double visionAngle;
 	double visionDistance;
-	double offset;
 
 	gyro->Reset();
 
@@ -526,17 +538,11 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
 	SmartDashboard::PutNumber("DV CAMA", visionAngle);
 	driveVisionPIDOutput->SetTurnAngle(visionAngle);
+	driveVisionPIDSource->SetTurnAngle(visionAngle);
 
 	// Program the PID target setpoint in encoder counts (CPR * 4)
 	visionDistance = SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
 	SmartDashboard::PutNumber("DV CAMD", visionDistance);
-	// This corrects for right turns due to using only the right encoder (negative)
-	// TODO: see if we could use left encoder for left turns and keep right encoder for right turns
-	// TODO: to eliminate this weirdness
-	if (visionAngle > 0.0) {
-		offset = 0.6 * visionAngle;
-		visionDistance = visionDistance + offset;
-	}
 	if (visionDistance > 0.0)					// If a valid vision distance
 		visionDistance = visionDistance - 2.0;	// Adjust distance for camera sensor to peg (minus carriage)
 	driveVisionPIDLoop->SetSetpoint((visionDistance * Encoder_CPR) / WheelCirInches);
@@ -545,7 +551,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle)
 	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
 
 	// Enable the PID loop (tolerance is in encoder count units)
-	driveVisionPIDLoop->SetAbsoluteTolerance(Encoder_CPR/12);	// TODO: This is +/-, so 1/6 of rotation = 2.0 inches!
+	driveVisionPIDLoop->SetAbsoluteTolerance(Encoder_CPR/12);	// This is +/-, so 1/6 of rotation = 2.0 inches!
 	driveVisionPIDLoop->Enable();
 
 	//Start safety timer
@@ -597,119 +603,5 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 	printf("2135: ClosedLoopError: %f\n", closedLoopError);
 
 	// Re-enable the motor safety helper (temporarily disabled)
-    // TODO: Can we enable motor safety and have auton run
 	robotDrive->SetSafetyEnabled(false);
-}
-
-#if 0
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-DriveTurnPID::DriveTurnPID (std::shared_ptr<RobotDrive> robotDrive) {
-	m_robotDrive = robotDrive;
-}
-
-void DriveTurnPID::PIDWrite(double output) {
-	if (output > 0.0) {
-		m_robotDrive->SetLeftRightMotorOutputs(0.0, output);
-
-		// TODO: Comment out after tuning -- place one in PID stop method to show result
-		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, 0.0);
-		SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, output);
-	}
-	else {
-		m_robotDrive->SetLeftRightMotorOutputs(-output, 0.0);
-
-		// TODO: Comment out after tuning -- place one in PID stop method to show result
-		SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, -output);
-		SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, 0.0);
-	}
-}
-
-DriveTurnPID::~DriveTurnPID() {};
-
-DriveVisionPID::DriveVisionPID (std::shared_ptr<RobotDrive> robotDrive) {
-	m_robotDrive = robotDrive;
-
-	m_turnAngle = 0.0;
-
-	m_visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
-	printf("2135: CameraVisionAngle: %f degrees\n", m_visionAngle);
-	m_visionDistance = SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
-	printf("2135: CameraVisionAngle: %f inches\n", m_visionDistance);
-}
-
-DriveVisionPID::~DriveVisionPID() {};
-
-void DriveVisionPID::PIDWrite(double output) {
-	double 			m_offset;
-	const double 	Kp_turn = (0.18 / 21.0);	// turn power difference (0.18) to turn 21 degrees
-
-	// TODO: Since SetMaxOutput will clip the output, only subtraction will actually be effective
-	// TODO: Until the proportional ramp down takes effect
-
-	m_offset = (RobotMap::chassisGyro->GetAngle() - m_turnAngle) * Kp_turn;
-	m_robotDrive->SetLeftRightMotorOutputs(output + m_offset, output - m_offset);
-
-	// TODO: Comment out after tuning -- place one in PID stop method to show result
-	SmartDashboard::PutNumber(CHS_TURNPID_OUT_L, output);
-	SmartDashboard::PutNumber(CHS_TURNPID_OUT_R, output);
-}
-
-void DriveVisionPID::SetTurnAngle(double angle) {
-	m_turnAngle = angle;
-}
-
-DriveVisionPIDSource::~DriveVisionPIDSource() {};
-
-double DriveVisionPIDSource::PIDGet(void) {
-	double encPosition;
-
-	// Get the current encoder positions from Talon
-	encPosition = (double)RobotMap::chassisMotorR3->GetEncPosition();
-
-#if 0	// If averaging is needed leave this in
-	int i;
-
-	// Limit the gyro input to a valid range
-	curAngle = fmin(curAngle, 25.0);
-	curAngle = fmax(curAngle, -25.0);
-
-	// Store in the gyro angle buffer
-	m_angleBuffer[m_curSample++] = curAngle;
-	if (m_curSample >= numSamples)
-		m_curSample = 0;
-	if (m_totSamples < m_totSamples)
-		m_totSamples++;
-
-	// Reuse curAngle to average the samples over total samples in buffer
-	curAngle = 0.0;
-	for (i = 0; i < m_totSamples; i++) {
-		curAngle += m_angleBuffer[i];
-	}
-	curAngle = curAngle / m_totSamples;
-#endif
-
-	return encPosition * EncoderDirection;
-}
-#endif
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-//	Drivetrain movement - Allow other functions to shift gears to low/high as requested
-
-void Chassis::MoveShiftGears(bool lowGear)
-{
-	if (lowGear) {
-		shifter->Set(shifter->kForward);
-		m_lowGear = true;
-	}
-	else {
-		shifter->Set(shifter->kReverse);
-		m_lowGear = false;
-	}
-}
-
-void Chassis::MoveShiftToggle(void)
-{
-	MoveShiftGears(!m_lowGear);
 }

@@ -14,6 +14,7 @@
 
 class PIDSourceDriveVision: public frc::PIDSource {
 private:
+	double	m_angle;
 	static const int numSamples = 8;
 	double m_angleBuffer[numSamples];
 	int m_curSample = 0;
@@ -26,9 +27,9 @@ private:
 
 public:
 	PIDSourceDriveVision();
-	double PIDGet(void);
 	virtual ~PIDSourceDriveVision();
-
+	double PIDGet(void);
+	void SetTurnAngle(double angle);
 };
 
 #endif /* SRC_SUBSYSTEMS_PIDSOURCEDRIVEVISION_H_ */

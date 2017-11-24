@@ -18,8 +18,8 @@ private:
 
 public:
 	PIDOutputDriveTurn(std::shared_ptr<RobotDrive> rDrive);
-	void PIDWrite(double output);
 	virtual ~PIDOutputDriveTurn();
+	void PIDWrite(double output);
 };
 
 #endif /* SRC_SUBSYSTEMS_PIDOUTPUTDRIVETURN_H_ */

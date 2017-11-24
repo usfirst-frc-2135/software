@@ -12,6 +12,7 @@
 //	Used to drive toward a heading for a specified distance
 
 PIDSourceDriveVision::PIDSourceDriveVision() {
+	m_angle = 0.0;
 }
 
 PIDSourceDriveVision::~PIDSourceDriveVision() {
@@ -21,7 +22,10 @@ double PIDSourceDriveVision::PIDGet(void) {
 	double encPosition;
 
 	// Get the current encoder positions from Talon
-	encPosition = (double)RobotMap::chassisMotorR3->GetEncPosition();
+	if (m_angle < 0.0)
+		encPosition = (double)RobotMap::chassisMotorR3->GetEncPosition();
+	else
+		encPosition = (double)RobotMap::chassisMotorL1->GetEncPosition();
 
 #if 0	// If averaging is needed leave this in
 	int i;
@@ -46,4 +50,8 @@ double PIDSourceDriveVision::PIDGet(void) {
 #endif
 
 	return encPosition * EncoderDirection;
+}
+
+void PIDSourceDriveVision::SetTurnAngle(double angle) {
+	m_angle = angle;
 }

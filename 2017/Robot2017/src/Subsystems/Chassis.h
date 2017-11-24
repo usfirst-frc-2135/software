@@ -128,8 +128,8 @@ private:
 	PIDController *driveTurnPIDLoop;		// Drive Turn PID controller loop
 //	DriveVisionPID *driveVisionPIDOutput;	// Drive with Vision to angle using gyro - initialize output
 	PIDOutputDriveVision *driveVisionPIDOutput;	// Drive with Vision to angle using gyro - initialize output
+	PIDSourceDriveVision *driveVisionPIDSource;	// Drive with Vision PID source loop
 	PIDController *driveVisionPIDLoop;		// Drive with Vision PID controller loop
-	PIDSource *driveVisionPIDSource;		// Drive with Vision PID source loop
 
 public:
 	Chassis();
@@ -161,7 +161,7 @@ public:
 	void MoveDriveHeadingStop(void);
 
 	// Sequence for Drive to Turn to a Heading with Vision
-	void MoveDriveVisionHeadingDistanceInit(double angle);
+	void MoveDriveVisionHeadingDistanceInit(double angle, double distance);
 	bool MoveDriveVisionHeadingIsPIDAtSetPoint(void);
 	void MoveDriveVisionHeadingStop(void);
 
