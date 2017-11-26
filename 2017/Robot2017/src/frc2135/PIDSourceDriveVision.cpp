@@ -25,7 +25,7 @@ double PIDSourceDriveVision::PIDGet(void) {
 	if (m_angle < 0.0)
 		encPosition = (double)RobotMap::chassisMotorR3->GetEncPosition();
 	else
-		encPosition = (double)RobotMap::chassisMotorL1->GetEncPosition();
+		encPosition = -(double)RobotMap::chassisMotorL1->GetEncPosition();
 
 #if 0	// If averaging is needed leave this in
 	int i;
