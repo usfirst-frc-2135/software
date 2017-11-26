@@ -66,16 +66,21 @@ public:
 	static double LoadPreferencesVariable(std::string name, double defaultValue);
 
 private:
-	int m_dashboardUpdate;
 	bool m_faultsCleared;
-
 	// Smartdashboard update rates in 20ms packet counts
-	static int const smartdashboardUpdateDisabled = 200/20;		// 200ms
-	static int const smartdashboardUpdateTeleop = 500/20;		// 500ms
-	static int const smartdashboardUpdateAutonomous = 500/20;	// 500ms
+#define	SMARTDBD_PKTRATE			20			// 20 ms - period of every packet from driver station
+#define SMARTDBD_FASTRATE			200			// 200 ms
+#define SMARTDBD_SLOWRATE			500			// 500 ms
+	static int const smartdashDisabledRate = SMARTDBD_FASTRATE/20;		// 200ms
+	static int const smartdashTeleopRate = SMARTDBD_SLOWRATE/20;		// 500ms
+	static int const smartdashAutonRate = SMARTDBD_SLOWRATE/20;			// 500ms
+	static int const smartdashLiveRate = SMARTDBD_SLOWRATE/20;			// 500ms
 
-	void HandleFaults(void);
-	void TalonSRXPrintFaults(const char *talonName, std::shared_ptr<CANTalon> talonPtr);
+	void RobotModeInitialize();
+	void SmartDashboardStartChooser();
+	void SmartDashboardUpdate(int rate);
+	void RobotFaultDump(void);
+	void RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<CANTalon> talonPtr);
 };
 
 void VisionThread();
