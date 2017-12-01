@@ -227,7 +227,7 @@ void Robot::RobotFaultDump(void) {
 	//faults
 }
 
-void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<CANTalon> talonPtr) {
+void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<CAN::TalonSRX> talonPtr) {
 
 	uint16_t	faults;
 	uint16_t	stickyFaults;
@@ -238,30 +238,30 @@ void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<CANTal
 
 	printf("2135: %s --------------\n", talonName);
 
-	if (faults & CANTalon::kTemperatureFault)
+	if (faults & CAN::TalonSRX::kTemperatureFault)
 		printf("\tkTemperatureFault\n");
-	if (faults & CANTalon::kBusVoltageFault)
+	if (faults & CAN::TalonSRX::kBusVoltageFault)
 		printf("\tkBusVoltageFault\n");
-	if (faults & CANTalon::kFwdLimitSwitch)
+	if (faults & CAN::TalonSRX::kFwdLimitSwitch)
 		printf("\tkFwdLimitSwitch\n");
-	if (faults & CANTalon::kRevLimitSwitch)
+	if (faults & CAN::TalonSRX::kRevLimitSwitch)
 		printf("\tkRevLimitSwitch\n");
-	if (faults & CANTalon::kFwdSoftLimit)
+	if (faults & CAN::TalonSRX::kFwdSoftLimit)
 		printf("\tkFwdLimitSwitch\n");
-	if (faults & CANTalon::kRevSoftLimit)
+	if (faults & CAN::TalonSRX::kRevSoftLimit)
 		printf("\tkRevLimitSwitch\n");
 
-	if (stickyFaults & CANTalon::kTemperatureFault)
+	if (stickyFaults & CAN::TalonSRX::kTemperatureFault)
 		printf("\tSticky - kTemperatureFault\n");
-	if (stickyFaults & CANTalon::kBusVoltageFault)
+	if (stickyFaults & CAN::TalonSRX::kBusVoltageFault)
 		printf("\tSticky - kBusVoltageFault\n");
-	if (stickyFaults & CANTalon::kFwdLimitSwitch)
+	if (stickyFaults & CAN::TalonSRX::kFwdLimitSwitch)
 		printf("\tSticky - kFwdLimitSwitch\n");
-	if (stickyFaults & CANTalon::kRevLimitSwitch)
+	if (stickyFaults & CAN::TalonSRX::kRevLimitSwitch)
 		printf("\tSticky - kRevLimitSwitch\n");
-	if (stickyFaults & CANTalon::kFwdSoftLimit)
+	if (stickyFaults & CAN::TalonSRX::kFwdSoftLimit)
 		printf("\tSticky - kFwdLimitSwitch\n");
-	if (stickyFaults & CANTalon::kRevSoftLimit)
+	if (stickyFaults & CAN::TalonSRX::kRevSoftLimit)
 		printf("\tSticky - kRevLimitSwitch\n");
 }
 

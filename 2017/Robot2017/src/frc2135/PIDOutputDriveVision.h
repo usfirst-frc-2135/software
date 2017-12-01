@@ -9,7 +9,6 @@
 #define SRC_SUBSYSTEMS_PIDOUTPUTDRIVEVISION_H_
 
 #include "WPILib.h"
-#include "CANTalon.h"
 #include "../RobotDefaults.h"
 
 class PIDOutputDriveVision: public frc::PIDOutput {

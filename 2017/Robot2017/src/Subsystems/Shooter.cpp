@@ -49,8 +49,8 @@ void Shooter::Initialize(frc::Preferences *prefs)
 {
 	// Initialize SmartDashboard values - if any
 	printf("2135: Shooter Initialize\n");
-    motor14->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
-	motor14->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+    motor14->ConfigNeutralMode(CAN::TalonSRX::NeutralMode::kNeutralMode_Coast);
+	motor14->SetTalonControlMode(ControlMode::SmartControlMode::kPercentVbus);
 	motor14->Set(0.0);
 
 	ballGate->SetAngle(0);

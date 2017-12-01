@@ -9,7 +9,6 @@
 #define SRC_SUBSYSTEMS_PIDSOURCEDRIVEVISION_H_
 
 #include "WPILib.h"
-#include "CANTalon.h"
 #include "../RobotDefaults.h"
 
 class PIDSourceDriveVision: public frc::PIDSource {

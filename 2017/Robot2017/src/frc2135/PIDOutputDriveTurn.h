@@ -9,7 +9,6 @@
 #define SRC_SUBSYSTEMS_PIDOUTPUTDRIVETURN_H_
 
 #include "WPILib.h"
-#include "CANTalon.h"
 #include "../RobotDefaults.h"
 
 class PIDOutputDriveTurn: public frc::PIDOutput {

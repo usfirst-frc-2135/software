@@ -44,9 +44,9 @@ Chassis::Chassis() : Subsystem("Chassis") {
     robotDrive->SetSafetyEnabled(false);
 
     // Make second Talon SRX controller on each side of drivetrain follow the main Talon SRX
-    motorL2->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
+    motorL2->SetTalonControlMode(ControlMode::SmartControlMode::kFollower);
     motorL2->Set(1);
-    motorR4->SetTalonControlMode(CANTalon::TalonControlMode::kFollowerMode);
+    motorR4->SetTalonControlMode(ControlMode::SmartControlMode::kFollower);
     motorR4->Set(3);
     motorL1->SetInverted(true);
 
@@ -58,8 +58,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Drivetrain Talon settings - Autonomous modes
 
     // Feedback device is US Digital S4 CPR 120 encoder
-	motorL1->SetFeedbackDevice(CANTalon::QuadEncoder);
-	motorR3->SetFeedbackDevice(CANTalon::QuadEncoder);
+	motorL1->SetFeedbackDevice(CAN::TalonSRX::QuadEncoder);
+	motorR3->SetFeedbackDevice(CAN::TalonSRX::QuadEncoder);
 	motorL1->ConfigEncoderCodesPerRev(USDigitalS4_CPR);
 	motorR3->ConfigEncoderCodesPerRev(USDigitalS4_CPR);
 
@@ -296,16 +296,16 @@ void Chassis::MoveSetBrakeNotCoastMode(bool brakeMode)
 {
 	// If brake mode is requested, send to the Talons
 	if (brakeMode) {
-		motorL1->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
-		motorL2->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
-		motorR3->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
-		motorR4->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
+		motorL1->ConfigNeutralMode(CAN::TalonSRX::NeutralMode::kNeutralMode_Brake);
+		motorL2->ConfigNeutralMode(CAN::TalonSRX::NeutralMode::kNeutralMode_Brake);
+		motorR3->ConfigNeutralMode(CAN::TalonSRX::NeutralMode::kNeutralMode_Brake);
+		motorR4->ConfigNeutralMode(CAN::TalonSRX::NeutralMode::kNeutralMode_Brake);
 	}
 	else {
-		motorL1->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
-		motorL2->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
-		motorR3->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
-		motorR4->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
+		motorL1->ConfigNeutralMode(CAN::TalonSRX::NeutralMode::kNeutralMode_Coast);
+		motorL2->ConfigNeutralMode(CAN::TalonSRX::NeutralMode::kNeutralMode_Coast);
+		motorR3->ConfigNeutralMode(CAN::TalonSRX::NeutralMode::kNeutralMode_Coast);
+		motorR4->ConfigNeutralMode(CAN::TalonSRX::NeutralMode::kNeutralMode_Coast);
 	}
 
 	// Update the global setting
@@ -355,9 +355,9 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	printf("2135: Encoder Distance %f rotations, %f inches\n", m_pidTargetRotations, inches);
 
 	// Change the drive motors to be position-loop control modes
-	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
+	motorL1->SetTalonControlMode(ControlMode::SmartControlMode::kPosition);
 	motorL1->Set(0.0);
-	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kPositionMode);
+	motorR3->SetTalonControlMode(ControlMode::SmartControlMode::kPosition);
 	motorR3->Set(0.0);
 
 	// This should be set one time in constructor
@@ -442,9 +442,9 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	SmartDashboard::PutNumber("DD TIME", m_safetyTimer.Get());
 
 	// Change from PID position-loop back to PercentVbus for driver control
-	motorL1->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+	motorL1->SetTalonControlMode(ControlMode::SmartControlMode::kPercentVbus);
 	motorL1->Set(0.0);
-	motorR3->SetTalonControlMode(CANTalon::TalonControlMode::kThrottleMode);
+	motorR3->SetTalonControlMode(ControlMode::SmartControlMode::kPercentVbus);
 	motorR3->Set(0.0);
 
 	// Do not shift back to high gear in case another auton command is running
