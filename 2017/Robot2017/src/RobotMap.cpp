@@ -47,14 +47,14 @@ void RobotMap::init() {
 //    lw->AddActuator("Chassis", "MotorR3", chassisMotorR3);
     
 //    chassisRobotDrive.reset(new RobotDrive(chassisMotorL1, chassisMotorR3));
-    
-    chassisRobotDrive->SetSafetyEnabled(true);
-        chassisRobotDrive->SetExpiration(0.1);
-        chassisRobotDrive->SetSensitivity(0.5);
-        chassisRobotDrive->SetMaxOutput(1.0);
-
-        chassisRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
-    chassisMotorL2.reset(new CAN::TalonSRX(2));
+//
+//    chassisRobotDrive->SetSafetyEnabled(true);
+//        chassisRobotDrive->SetExpiration(0.1);
+//        chassisRobotDrive->SetSensitivity(0.5);
+//        chassisRobotDrive->SetMaxOutput(1.0);
+//
+//        chassisRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
+//    chassisMotorL2.reset(new CAN::TalonSRX(2));
 //    lw->AddActuator("Chassis", "MotorL2", chassisMotorL2);
     
     chassisMotorR4.reset(new CAN::TalonSRX(4));
@@ -67,10 +67,10 @@ void RobotMap::init() {
 //    lw->AddActuator("Intake", "Motor8", intakeMotor8);
     
     intakeMotor9.reset(new CAN::TalonSRX(9));
- //   lw->AddActuator("Intake", "Motor9", intakeMotor9);
+//    lw->AddActuator("Intake", "Motor9", intakeMotor9);
     
     agitatorMotor12.reset(new CAN::TalonSRX(12));
- //   lw->AddActuator("Agitator", "Motor12", agitatorMotor12);
+//    lw->AddActuator("Agitator", "Motor12", agitatorMotor12);
     
     shooterMotor14.reset(new CAN::TalonSRX(14));
 //    lw->AddActuator("Shooter", "Motor14", shooterMotor14);
@@ -94,7 +94,7 @@ void RobotMap::init() {
     
     
     powerPDP.reset(new PowerDistributionPanel(0));
-    lw->AddSensor("Power", "PDP", powerPDP);
+//    lw->AddSensor("Power", "PDP", powerPDP);
     
 
 

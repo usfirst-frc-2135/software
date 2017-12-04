@@ -97,7 +97,7 @@ void Robot::DisabledPeriodic() {
 
 	static int ticks_per_print = 0;
 	if (ticks_per_print++ > 100) {
-//		printf("2135: DisabledPeriodic\n"); 	// Testing only
+		printf("2135: DisabledPeriodic\n"); 	// Testing only
 		ticks_per_print = 0;
 	}
 
@@ -160,17 +160,18 @@ void Robot::RobotModeInitialize() {
 
 	// Initialize SmartDashboard preferences
 	chassis->Initialize(prefs);
-	agitator->Initialize(prefs);
-	climber->Initialize(prefs);
+//	agitator->Initialize(prefs);
+//	climber->Initialize(prefs);
 	delivery->Initialize(prefs);
-	intake->Initialize(prefs);
+//	intake->Initialize(prefs);
 	pneumatics->Initialize(prefs);
-	shooter->Initialize(prefs);
+//	shooter->Initialize(prefs);
 }
 
 //	SmartDashboard - Autonomous chooser initialization
 
 void Robot::SmartDashboardStartChooser() {
+	return;		// TODO: fixme
 	chooser.AddDefault("Auton Default", new AutonDefault());
 	chooser.AddObject("Pos 123 Move", new AutonPos123Move());
 	chooser.AddObject("Pos 1 Gear", new AutonPos1DeliverGear());

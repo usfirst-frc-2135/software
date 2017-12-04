@@ -23,9 +23,9 @@ double PIDSourceDriveVision::PIDGet(void) {
 
 	// Get the current encoder positions from Talon
 	if (m_angle < 0.0)
-		encPosition = (double)RobotMap::chassisMotorR3->GetEncPosition();
+		encPosition = (double)RobotMap::chassisMotorR3->GetSelectedSensorPosition();
 	else
-		encPosition = -(double)RobotMap::chassisMotorL1->GetEncPosition();
+		encPosition = -(double)RobotMap::chassisMotorL1->GetSelectedSensorPosition();
 
 #if 0	// If averaging is needed leave this in
 	int i;
