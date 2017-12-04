@@ -24,7 +24,7 @@ LightToggle::LightToggle(): Command() {
 
 // Called just before this Command runs the first time
 void LightToggle::Initialize() {
-	printf("2135: Light Toggle - Start");
+	printf("2135: Light Toggle - Start\n");
 	Robot::shooter->LightToggleEnable();
 }
 
