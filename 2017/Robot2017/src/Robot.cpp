@@ -229,40 +229,57 @@ void Robot::RobotFaultDump(void) {
 
 void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<CAN::TalonSRX> talonPtr) {
 
-	uint16_t	faults;
-	uint16_t	stickyFaults;
+	Faults			faults;
+	StickyFaults	stickyFaults;
 
-	faults = talonPtr->GetFaults();
-	stickyFaults = talonPtr->GetStickyFaults();
-	talonPtr->ClearStickyFaults();
+	talonPtr->GetFaults(faults);
+	talonPtr->GetStickyFaults(stickyFaults);
+	talonPtr->ClearStickyFaults(100);
 
 	printf("2135: %s --------------\n", talonName);
 
-	if (faults & CAN::TalonSRX::kTemperatureFault)
-		printf("\tkTemperatureFault\n");
-	if (faults & CAN::TalonSRX::kBusVoltageFault)
-		printf("\tkBusVoltageFault\n");
-	if (faults & CAN::TalonSRX::kFwdLimitSwitch)
-		printf("\tkFwdLimitSwitch\n");
-	if (faults & CAN::TalonSRX::kRevLimitSwitch)
-		printf("\tkRevLimitSwitch\n");
-	if (faults & CAN::TalonSRX::kFwdSoftLimit)
-		printf("\tkFwdLimitSwitch\n");
-	if (faults & CAN::TalonSRX::kRevSoftLimit)
-		printf("\tkRevLimitSwitch\n");
+	if (faults.HasAnyFault())
+		printf("At Least one fault below\n");
+	if (faults.HardwareFailure)
+		printf("\tHardwareFailure\n");
+	if (faults.OverTemp)
+		printf("\tOverTemp\n");
+	if (faults.UnderVoltage)
+		printf("\tUnderVoltage\n");
+	if (faults.ResetDuringEn)
+		printf("\tResetDuringEn\n");
+	if (faults.MsgOverflow)
+		printf("\tMsgOverflow\n");
+	if (faults.ForwardLimitSwitch)
+		printf("\tForwardLimitSwitch\n");
+	if (faults.ForwardSoftLimit)
+		printf("\tForwardSoftLimit\n");
+	if (faults.ReverseLimitSwitch)
+		printf("\tForwardLimitSwitch\n");
+	if (faults.ReverseSoftLimit)
+		printf("\tForwardSoftLimit\n");
 
-	if (stickyFaults & CAN::TalonSRX::kTemperatureFault)
-		printf("\tSticky - kTemperatureFault\n");
-	if (stickyFaults & CAN::TalonSRX::kBusVoltageFault)
-		printf("\tSticky - kBusVoltageFault\n");
-	if (stickyFaults & CAN::TalonSRX::kFwdLimitSwitch)
-		printf("\tSticky - kFwdLimitSwitch\n");
-	if (stickyFaults & CAN::TalonSRX::kRevLimitSwitch)
-		printf("\tSticky - kRevLimitSwitch\n");
-	if (stickyFaults & CAN::TalonSRX::kFwdSoftLimit)
-		printf("\tSticky - kFwdLimitSwitch\n");
-	if (stickyFaults & CAN::TalonSRX::kRevSoftLimit)
-		printf("\tSticky - kRevLimitSwitch\n");
+	if (stickyFaults.HasAnyFault())
+		printf("At Least one STICKY fault below\n");
+	if (stickyFaults.HardwareFailure)
+		printf("\tHardwareFailure\n");
+	if (stickyFaults.OverTemp)
+		printf("\tOverTemp\n");
+	if (stickyFaults.UnderVoltage)
+		printf("\tUnderVoltage\n");
+	if (stickyFaults.ResetDuringEn)
+		printf("\tResetDuringEn\n");
+	if (stickyFaults.MsgOverflow)
+		printf("\tMsgOverflow\n");
+	if (stickyFaults.ForwardLimitSwitch)
+		printf("\tForwardLimitSwitch\n");
+	if (stickyFaults.ForwardSoftLimit)
+		printf("\tForwardSoftLimit\n");
+	if (stickyFaults.ReverseLimitSwitch)
+		printf("\tForwardLimitSwitch\n");
+	if (stickyFaults.ReverseSoftLimit)
+		printf("\tForwardSoftLimit\n");
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
