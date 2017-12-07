@@ -101,6 +101,7 @@ OI::OI() {
     driverClimberForward7->WhileHeld(new ClimberMotorControl(1));
     driverGearDoorClosed6.reset(new JoystickButton(driverJoystick.get(), 6));
     driverGearDoorClosed6->WhenPressed(new GearDoorControl(false));
+//	TODO: Comment out commands which rely on RobotDrive until working
 //    driverSpinRight.reset(new JoystickButton(driverJoystick.get(), 5));
 //    driverSpinRight->WhileHeld(new DriveSpin(false));
 //    driverSpinLeft.reset(new JoystickButton(driverJoystick.get(), 4));

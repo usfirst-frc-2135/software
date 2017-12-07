@@ -41,11 +41,13 @@ void RobotMap::init() {
     LiveWindow *lw = LiveWindow::GetInstance();
 
     chassisMotorL1.reset(new CAN::TalonSRX(1));
+//	TODO: LiveWindow disabled for all Talons
 //    lw->AddActuator("Chassis", "MotorL1", chassisMotorL1);
     
     chassisMotorR3.reset(new CAN::TalonSRX(3));
 //    lw->AddActuator("Chassis", "MotorR3", chassisMotorR3);
-    
+
+//	TODO: RobotDrive disabled due to talons not working
 //    chassisRobotDrive.reset(new RobotDrive(chassisMotorL1, chassisMotorR3));
 //
 //    chassisRobotDrive->SetSafetyEnabled(true);

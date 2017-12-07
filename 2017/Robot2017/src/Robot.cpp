@@ -159,6 +159,7 @@ void Robot::RobotModeInitialize() {
 	prefs = frc::Preferences::GetInstance();
 
 	// Initialize SmartDashboard preferences
+//	TODO: Disable subsystems that rely on Talons until working
 	chassis->Initialize(prefs);
 //	agitator->Initialize(prefs);
 //	climber->Initialize(prefs);
@@ -224,8 +225,6 @@ void Robot::RobotFaultDump(void) {
 
 	printf("2135: %s --------------\n", "PDP FAULTS");
 	RobotMap::powerPDP->ClearStickyFaults();
-
-	//faults
 }
 
 void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<CAN::TalonSRX> talonPtr) {
