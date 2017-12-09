@@ -6,12 +6,13 @@
  */
 
 #include "VisionLoop.h"
+#include "GripContoursPipeline.h"
 
 typedef enum { VISIONPIPE_UNINIT, VISIONPIPE_OFF, VISIONPIPE_GEAR, VISIONPIPE_SHOOTER } pipeConfig;
 static	pipeConfig s_visionPipe = VISIONPIPE_OFF;
 
 VisionLoop::VisionLoop() {
-	printf("2135: VisionLoop Constructor\n");
+	std::printf("2135: VisionLoop Constructor\n");
 	VisionGearPipeOn();
 }
 
@@ -21,7 +22,7 @@ VisionLoop::~VisionLoop() {
 
 void VisionLoop::Run() {
 
-	printf("2135: VisionLoop Run\n");
+	std::printf("2135: VisionLoop Run\n");
 
 	m_res.width = 320;							// Camera Resolution setting in pixels
 	m_res.height = 240;
@@ -69,7 +70,7 @@ void VisionLoop::Run() {
 		if ((validFrame == 0) || (inFrame.empty())) {
 		    std::string error = inStream.GetError();
 		    DriverStation::ReportError(error);
-		    printf("2135: Missed frame\n");
+		    std::printf("2135: Missed frame\n");
 			std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		    continue;
 		}
@@ -84,7 +85,7 @@ void VisionLoop::Run() {
 			ConvertValidTargetsToValidPegs(&validTargets, &validPegs);
 			ChooseGoalPeg(&validPegs, &goal);
 
-//			printf("C %d, B %d, T %d, P %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
+//			std::printf("C %d, B %d, T %d, P %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
 //				contours->size(), boundingRects.size(), validTargets.size(), validPegs.size(),
 //				goal.r.x, goal.r.y, goal.r.width, goal.r.height, goal.dist, goal.angle);
 		}
@@ -149,19 +150,19 @@ void VisionLoop::SetCamConfig(cs::UsbCamera cam) {
 
 void VisionLoop::ConfigureCamera(cs::UsbCamera cam, int resWidth, int resHeight, int fps, int bright, int expos) {
 
-	printf("2135: Configure camera - %d x %d, %d fps, %d bright, %d expos\n",
+	std::printf("2135: Configure camera - %d x %d, %d fps, %d bright, %d expos\n",
 		resWidth, resHeight, fps, bright, expos);
 
 	if (!cam.SetResolution(resWidth, resHeight))
-		printf("2135: Cam resolution not set - %d\n", cam.GetLastStatus());
+		std::printf("2135: Cam resolution not set - %d\n", cam.GetLastStatus());
 	if (!cam.SetFPS(fps))
-		printf("2135: Cam FPS not set - %d\n", cam.GetLastStatus());
+		std::printf("2135: Cam FPS not set - %d\n", cam.GetLastStatus());
 	cam.SetBrightness(bright);
 	if (cam.GetLastStatus() != 0)
-		printf("2135: Cam Brightness not set - %d\n", cam.GetLastStatus());
+		std::printf("2135: Cam Brightness not set - %d\n", cam.GetLastStatus());
 	cam.SetExposureManual(expos);
 	if (cam.GetLastStatus() != 0)
-		printf("2135: Cam Exposure not set - %d\n", cam.GetLastStatus());
+		std::printf("2135: Cam Exposure not set - %d\n", cam.GetLastStatus());
 }
 
 void VisionLoop::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<cv::Rect> *rects) {
@@ -269,7 +270,7 @@ void VisionLoop::ChooseGoalPeg(std::vector<tData> *pegs, tData *goal) {
 }
 
 void VisionLoop::PrintTargetData(char name, int idx, tData t) {
-//	printf("-%c %d: x %d, y %d, w %d, h %d, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
+//	std::printf("-%c %d: x %d, y %d, w %d, h %d, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
 //		t.r.x, t.r.y, t.r.width, t.r.height, t.score, t.dist, t.angle);
 }
 
@@ -287,13 +288,13 @@ void VisionLoop::ApplyGridToFrame(cv::Mat frame, pixelRect res, double dist, dou
 	pt1.x = pt2.x = res.width / 2;
 	cv::line(frame, pt1, pt2, cv::Scalar(255, 255, 255), 1, cv::LineTypes::LINE_4, 0);
 
-	std::sprintf(str, "%5.1f in", dist);
+	std::printf(str, "%5.1f in", dist);
 	pt1.x = 5;
 	pt1.y = res.height - 5;
 	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
 		1, cv::LineTypes::LINE_8, false);
 
-	std::sprintf(str, "%5.1f deg", angle);
+	std::printf(str, "%5.1f deg", angle);
 	pt1.x = res.width/2 - 10;
 	pt1.y = res.height - 5;
 	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),

@@ -25,7 +25,7 @@ DriveStop::DriveStop(): Command() {
 
 // Called just before this Command runs the first time
 void DriveStop::Initialize() {
-	printf("2135: Drive Stop - Start\n");
+	std::printf("2135: Drive Stop - Start\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -40,11 +40,11 @@ bool DriveStop::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveStop::End() {
-	printf("2135: Drive Stop - Ended\n");
+	std::printf("2135: Drive Stop - Ended\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveStop::Interrupted() {
-	printf("2135: Drive Stop - Interrupted\n");
+	std::printf("2135: Drive Stop - Interrupted\n");
 }

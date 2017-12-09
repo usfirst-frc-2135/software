@@ -25,7 +25,7 @@ GearDoorControl::GearDoorControl(bool doorState): Command() {
 
 // Called just before this Command runs the first time
 void GearDoorControl::Initialize() {
-	printf("2135: Gear Door Control %s - Start\n", (m_doorState) ? "OPEN" : "CLOSE");
+	std::printf("2135: Gear Door Control %s - Start\n", (m_doorState) ? "OPEN" : "CLOSE");
 	Robot::delivery->DoorClose(m_doorState);
 }
 
@@ -41,11 +41,11 @@ bool GearDoorControl::IsFinished() {
 
 // Called once after isFinished returns true
 void GearDoorControl::End() {
-	printf("2135: Gear Door Control - Ended\n");
+	std::printf("2135: Gear Door Control - Ended\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void GearDoorControl::Interrupted() {
-	printf("2135: Gear Door Control - Interrupted\n");
+	std::printf("2135: Gear Door Control - Interrupted\n");
 }

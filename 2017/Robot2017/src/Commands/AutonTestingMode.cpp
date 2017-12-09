@@ -24,7 +24,7 @@ AutonTestingMode::AutonTestingMode(): Command() {
 
 // Called just before this Command runs the first time
 void AutonTestingMode::Initialize() {
-	printf("2135: Auton Test Mode - Initialized\n");
+	std::printf("2135: Auton Test Mode - Initialized\n");
 	Robot::chassis->MoveSetBrakeNotCoastMode(true);
 	Robot::chassis->MoveShiftGears(true);
 }
@@ -41,7 +41,7 @@ bool AutonTestingMode::IsFinished() {
 
 // Called once after isFinished returns true
 void AutonTestingMode::End() {
-	printf("2135: Auton Test Mode - End\n");
+	std::printf("2135: Auton Test Mode - End\n");
 	Robot::chassis->MoveSetBrakeNotCoastMode(false);
 	Robot::chassis->MoveShiftGears(false);
 }
@@ -49,7 +49,7 @@ void AutonTestingMode::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutonTestingMode::Interrupted() {
-	printf("2135: Auton Test Mode - Interrupted\n");
+	std::printf("2135: Auton Test Mode - Interrupted\n");
 	Robot::chassis->MoveSetBrakeNotCoastMode(false);
 	Robot::chassis->MoveShiftGears(false);
 }

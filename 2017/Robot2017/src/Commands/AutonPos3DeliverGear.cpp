@@ -37,7 +37,7 @@ AutonPos3DeliverGear::AutonPos3DeliverGear() {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-	printf("2135: Auton Pos 3 Deliver Gear - Constructor\n");
+	std::printf("2135: Auton Pos 3 Deliver Gear - Constructor\n");
 
 	double	leg1 = Robot::LoadPreferencesVariable(AUTON_POS3_LEG1, AUTON_POS3_LEG1_D);
 	double	leg2 = Robot::LoadPreferencesVariable(AUTON_POS3_LEG2, AUTON_POS3_LEG2_D);

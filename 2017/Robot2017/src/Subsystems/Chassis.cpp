@@ -33,7 +33,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     gyro = RobotMap::chassisGyro;
 
-    printf("2135: Chassis Constructor\n");
+    std::printf("2135: Chassis Constructor\n");
 
     // Note that we cannot load smartdashboard values here - driverstation may not be connected yet
 
@@ -50,7 +50,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
       motorR4->Set(ControlMode::Follower, 3.0);
       motorL1->SetInverted(true);
 
-//	TODO: CTRE libraries: Safety timer seems to no longer be supported
+//	TODO: CTRE Libraries: Safety timer seems to no longer be supported
 //    motorL1->SetSafetyEnabled(false);
 //    motorL2->SetSafetyEnabled(false);
 //    motorR3->SetSafetyEnabled(false);
@@ -97,14 +97,14 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_CL_pidStarted = false;
 
     // NOTE: Calibrate gyro - this takes a few seconds--must not be in mode switch to Teleop or Auton
-    printf("2135: Starting gyro calibration\n");
+    std::printf("2135: Starting gyro calibration\n");
 	gyro->Calibrate();
-    printf("2135: Stopping gyro calibration\n");
+    std::printf("2135: Stopping gyro calibration\n");
 
 	// Autonomous turn PID controller - SHOULD BE AFTER GYRO IS CALIBRATED
     m_turnKP = CHS_TURNKP_D;
     SmartDashboard::PutNumber(CHS_TURNKP, m_turnKP);
-    printf("2135: Turn PID Kp: %f\n", m_turnKP);
+    std::printf("2135: Turn PID Kp: %f\n", m_turnKP);
 
     driveTurnPIDOutput = new PIDOutputDriveTurn(robotDrive);
     driveTurnPIDLoop = new PIDController(m_turnKP, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
@@ -116,7 +116,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     m_turnScaling = Robot::LoadPreferencesVariable(CHS_TURN_SCALING, CHS_TURN_SCALING_D);
 	if ((m_turnScaling < 0.0) || (m_turnScaling > 1.0)) {
-		printf("2135: ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
+		std::printf("2135: ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
 	}
 	SmartDashboard::PutNumber(CHS_TURN_SCALING, m_turnScaling);
 }
@@ -144,7 +144,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 {
 	// Initialize SmartDashboard values - if any
 
-	printf("2135: Chassis Initialize\n");
+	std::printf("2135: Chassis Initialize\n");
 
 	// Robot is in low gear in autonomous and high gear in teleop
 	if (frc::RobotState::IsAutonomous()) {
@@ -213,7 +213,7 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 	m_turnScaling = Robot::LoadPreferencesVariable(CHS_TURN_SCALING, CHS_TURN_SCALING_D);
 	if ((m_turnScaling < 0.0) || (m_turnScaling > 1.0)) {
-		printf("2135: ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
+		std::printf("2135: ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
 	}
 	SmartDashboard::PutNumber(CHS_TURN_SCALING, m_turnScaling);
 
@@ -362,7 +362,7 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	double proportional;
 
 	m_pidTargetRotations = inches / WheelCirInches;
-	printf("2135: Encoder Distance %f rotations, %f inches\n", m_pidTargetRotations, inches);
+	std::printf("2135: Encoder Distance %f rotations, %f inches\n", m_pidTargetRotations, inches);
 
 	// Change the drive motors to be position-loop control modes
 	motorL1->Set(ControlMode::Position, 0.0);
@@ -415,17 +415,17 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 			(abs(closedLoopErrorRight) > Encoder_CPR))
 	{
 		m_CL_pidStarted = true;
-		printf("2135: Closed loop error has changed\n");
+		std::printf("2135: Closed loop error has changed\n");
 	}
 
 	// If closed loop error has been updated, then check to see if within tolerance
 	if (m_CL_pidStarted) {
 		if ((abs(closedLoopErrorLeft) <= m_CL_allowError) &&
 			(abs(closedLoopErrorRight) <= m_CL_allowError)) {
-			printf("2135: TargetRotations: %3.2f   L: %5d  R: %5d\n",
+			std::printf("2135: TargetRotations: %3.2f   L: %5d  R: %5d\n",
 				m_pidTargetRotations, motorL1->GetSelectedSensorPosition(),
 				motorR3->GetSelectedSensorPosition());
-			printf("2135: ClosedLoopError:         L: %d  R: %d\n",
+			std::printf("2135: ClosedLoopError:         L: %d  R: %d\n",
 				closedLoopErrorLeft, closedLoopErrorRight);
 			pidFinished = true;
 		}
@@ -433,7 +433,7 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 
 	// Check if safety timer has expired, set value to about 2x the cycle
 	if (m_safetyTimer.HasPeriodPassed(m_safetyTimeout)) {
-		printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
+		std::printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
 		pidFinished = true;
 	}
 
@@ -446,7 +446,7 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 void Chassis::MoveDriveDistancePIDStop(void)
 {
 	// Stop the safety timer
-	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
+	std::printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
 
 	SmartDashboard::PutNumber("DD PID L", motorL1->GetSelectedSensorPosition() * WheelDiaInches * M_PI);
@@ -478,7 +478,7 @@ void Chassis::MoveDriveHeadingInit(double angle)
 	m_turnKP = SmartDashboard::GetNumber(CHS_TURNKP, CHS_TURNKP_D);
 	driveTurnPIDLoop->SetPID(m_turnKP, 0.0, 0.0);
 	driveTurnPIDLoop->SetSetpoint(angle);
-	printf("2135: MoveDriveHeadingInit using angle: %f power: %f Kp: %f\n", angle, m_driveSpin, m_turnKP);
+	std::printf("2135: MoveDriveHeadingInit using angle: %f power: %f Kp: %f\n", angle, m_driveSpin, m_turnKP);
 
 	// Enable the PID loop
 	driveTurnPIDLoop->SetOutputRange(-m_driveSpin, m_driveSpin);
@@ -500,12 +500,12 @@ bool Chassis::MoveDriveHeadingIsPIDAtSetPoint(void) {
 	// Test the PID to see if it is on the programmed target
 	if (driveTurnPIDLoop->OnTarget()) {
 		pidFinished = true;
-		printf("2135: TargetAngle: %3.2f   Actual: %3.2f\n", m_pidAngle, gyro->GetAngle());
+		std::printf("2135: TargetAngle: %3.2f   Actual: %3.2f\n", m_pidAngle, gyro->GetAngle());
 	}
 
 	// Check if safety timer has expired, set value to about 2x the cycle
 	if (m_safetyTimer.HasPeriodPassed(m_safetyTimeout)) {
-		printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
+		std::printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
 		pidFinished = true;
 	}
 
@@ -517,7 +517,7 @@ void Chassis::MoveDriveHeadingStop(void) {
 	driveTurnPIDLoop->Disable();
 
 	// Stop safety timer
-	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
+	std::printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
 
 	SmartDashboard::PutNumber("DH GYRO", gyro->GetAngle());
@@ -557,7 +557,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle, double distance)
 		visionDistance = visionDistance - 2.0;	// Adjust distance for camera sensor to peg (minus carriage)
 	driveVisionPIDLoop->SetSetpoint((visionDistance * Encoder_CPR) / WheelCirInches);
 
-	printf("2135: Leg 3 Distance: %f; Angle: %f\n", visionDistance, visionAngle);
+	std::printf("2135: Leg 3 Distance: %f; Angle: %f\n", visionDistance, visionAngle);
 	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
 
 	// Enable the PID loop (tolerance is in encoder count units)
@@ -581,13 +581,13 @@ bool Chassis::MoveDriveVisionHeadingIsPIDAtSetPoint(void)
 	if (driveVisionPIDLoop->OnTarget()) {
 		pidFinished = true;
 
-		printf("2135: Encoder Values on Target. L: %d, R: %d\n",
+		std::printf("2135: Encoder Values on Target. L: %d, R: %d\n",
 			motorL1->GetSelectedSensorPosition(), motorR3->GetSelectedSensorPosition());
 	}
 
 	// Check if safety timer has expired, set value to about 2x the cycle
 	if (m_safetyTimer.HasPeriodPassed(m_safetyTimeout)) {
-		printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
+		std::printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
 		pidFinished = true;
 	}
 
@@ -602,7 +602,7 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 	driveVisionPIDLoop->Disable();
 
 	// Stop safety timer
-	printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
+	std::printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
 
 	SmartDashboard::PutNumber("DV GYRO", gyro->GetAngle());
@@ -611,7 +611,7 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 
 	// Gets closed loop error and prints it
 	closedLoopError = driveVisionPIDLoop->GetError();
-	printf("2135: ClosedLoopError: %f\n", closedLoopError);
+	std::printf("2135: ClosedLoopError: %f\n", closedLoopError);
 
 	// Re-enable the motor safety helper (temporarily disabled)
 	robotDrive->SetSafetyEnabled(false);

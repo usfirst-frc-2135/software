@@ -27,7 +27,7 @@ AutonDrivePeg1Turn::AutonDrivePeg1Turn(): Command() {
 void AutonDrivePeg1Turn::Initialize() {
 	double angle = Robot::LoadPreferencesVariable(AUTON_POS1_TURN, AUTON_POS1_TURN_D);
 
-	printf("2135: Auton Drive Peg 1 Turn - Initialize: %f degrees\n", angle);
+	std::printf("2135: Auton Drive Peg 1 Turn - Initialize: %f degrees\n", angle);
 	Robot::chassis->MoveDriveHeadingInit(angle);
 }
 
@@ -44,12 +44,12 @@ bool AutonDrivePeg1Turn::IsFinished() {
 // Called once after isFinished returns true
 void AutonDrivePeg1Turn::End() {
 	Robot::chassis->MoveDriveHeadingStop();
-	printf("2135: Auton Drive Peg 1 Turn - End\n");
+	std::printf("2135: Auton Drive Peg 1 Turn - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutonDrivePeg1Turn::Interrupted() {
 	Robot::chassis->MoveDriveHeadingStop();
-	printf("2135: Auton Drive Peg 1 Turn - Interrupted\n");
+	std::printf("2135: Auton Drive Peg 1 Turn - Interrupted\n");
 }

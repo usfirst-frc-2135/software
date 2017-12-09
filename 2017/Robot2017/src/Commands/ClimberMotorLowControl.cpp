@@ -25,7 +25,7 @@ ClimberMotorLowControl::ClimberMotorLowControl(int direction): Command() {
 
 // Called just before this Command runs the first time
 void ClimberMotorLowControl::Initialize() {
-	printf("2135: Climber Motor Low Control - Start\n");
+	std::printf("2135: Climber Motor Low Control - Start\n");
 	Robot::climber->SetMotorLowSpeed(true);
 }
 
@@ -41,13 +41,13 @@ bool ClimberMotorLowControl::IsFinished() {
 
 // Called once after isFinished returns true
 void ClimberMotorLowControl::End() {
-	printf("2135: Climber Motor Low Control - Ended\n");
+	std::printf("2135: Climber Motor Low Control - Ended\n");
 		Robot::climber->SetMotorLowSpeed(false);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ClimberMotorLowControl::Interrupted() {
-	printf("2135: Climber Motor Low Control - Interrupted\n");
+	std::printf("2135: Climber Motor Low Control - Interrupted\n");
 	Robot::climber->SetMotorLowSpeed(false);
 }

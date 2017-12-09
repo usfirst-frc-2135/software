@@ -35,7 +35,7 @@ void AgitatorMotorControl::Initialize() {
 	else
 		strName = "Idle";
 
-	printf("2135: Agitator Motor Control %s - Start\n", strName);
+	std::printf("2135: Agitator Motor Control %s - Start\n", strName);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -50,13 +50,13 @@ bool AgitatorMotorControl::IsFinished() {
 
 // Called once after isFinished returns true
 void AgitatorMotorControl::End() {
-	printf("2135: Agitator Motor Control - Ended\n");
+	std::printf("2135: Agitator Motor Control - Ended\n");
 	Robot::agitator->SetMotorSpeed(Robot::agitator->AGITATOR_STOP);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AgitatorMotorControl::Interrupted() {
-	printf("2135: Agitator Motor Control - Interrupted\n");
+	std::printf("2135: Agitator Motor Control - Interrupted\n");
 	Robot::agitator->SetMotorSpeed(Robot::agitator->AGITATOR_STOP);
 }

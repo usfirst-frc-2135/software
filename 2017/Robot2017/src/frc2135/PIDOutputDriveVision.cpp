@@ -17,9 +17,9 @@ PIDOutputDriveVision::PIDOutputDriveVision(std::shared_ptr<RobotDrive> robotDriv
 	m_turnAngle = 0.0;
 
 	m_visionAngle = SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
-	printf("2135: CameraVisionAngle: %f degrees\n", m_visionAngle);
+	std::printf("2135: CameraVisionAngle: %f degrees\n", m_visionAngle);
 	m_visionDistance = SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
-	printf("2135: CameraVisionAngle: %f inches\n", m_visionDistance);
+	std::printf("2135: CameraVisionAngle: %f inches\n", m_visionDistance);
 }
 
 PIDOutputDriveVision::~PIDOutputDriveVision() {

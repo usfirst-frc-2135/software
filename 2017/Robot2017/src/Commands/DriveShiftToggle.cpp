@@ -24,7 +24,7 @@ DriveShiftToggle::DriveShiftToggle(): Command() {
 
 // Called just before this Command runs the first time
 void DriveShiftToggle::Initialize() {
-	printf("2135: Drive Shift Toggle - Initialize\n");
+	std::printf("2135: Drive Shift Toggle - Initialize\n");
 	Robot::chassis->MoveShiftToggle();
 }
 

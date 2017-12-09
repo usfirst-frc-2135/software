@@ -25,7 +25,7 @@ DriveTrainInvert::DriveTrainInvert(bool invert): Command() {
 
 // Called just before this Command runs the first time
 void DriveTrainInvert::Initialize() {
-	printf("2135: DriveTrain Invert - Start\n");
+	std::printf("2135: DriveTrain Invert - Start\n");
 	Robot::chassis->MoveInvertDriveDirection();
 }
 
@@ -41,11 +41,11 @@ bool DriveTrainInvert::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveTrainInvert::End() {
-	printf("2135: DriveTrain Invert - Ended\n");
+	std::printf("2135: DriveTrain Invert - Ended\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveTrainInvert::Interrupted() {
-	printf("2135: DriveTrain Invert - Interrupted\n");
+	std::printf("2135: DriveTrain Invert - Interrupted\n");
 }

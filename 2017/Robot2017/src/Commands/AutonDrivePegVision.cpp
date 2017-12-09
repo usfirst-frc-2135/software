@@ -15,7 +15,7 @@
 
 AutonDrivePegVision::AutonDrivePegVision(): Command() {
 
-	printf("2135: Auton Drive Peg Vision - Constructor\n");
+	std::printf("2135: Auton Drive Peg Vision - Constructor\n");
 
 	// Use requires() here to declare subsystem dependencies
     // eg. requires(Robot::chassis.get());
@@ -32,7 +32,7 @@ AutonDrivePegVision::AutonDrivePegVision(double distance) {
 
 // Called just before this Command runs the first time
 void AutonDrivePegVision::Initialize() {
-	printf("2135: Auton Drive Peg Vision - Initialize\n");
+	std::printf("2135: Auton Drive Peg Vision - Initialize\n");
 	Robot::chassis->MoveDriveVisionHeadingDistanceInit(SmartDashboard::GetNumber(CAM_TURNANGLE, 0.0), m_distance);
 }
 
@@ -49,12 +49,12 @@ bool AutonDrivePegVision::IsFinished() {
 // Called once after isFinished returns true
 void AutonDrivePegVision::End() {
 	Robot::chassis->MoveDriveVisionHeadingStop();
-	printf("2135: Auton Drive Peg Vision - End\n");
+	std::printf("2135: Auton Drive Peg Vision - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutonDrivePegVision::Interrupted() {
 	Robot::chassis->MoveDriveVisionHeadingStop();
-	printf("2135: Auton Drive Peg Vision - Interrupted\n");
+	std::printf("2135: Auton Drive Peg Vision - Interrupted\n");
 }

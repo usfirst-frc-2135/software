@@ -70,11 +70,11 @@ void Robot::RobotInit() {
 
 	prefs = frc::Preferences::GetInstance();
 
-//	printf("2135: Main Thread ID %d\n", RobotBase::GetThreadId());
+//	std::printf("2135: Main Thread ID %d\n", RobotBase::GetThreadId());
 	std::thread m_vThread(VisionThread);
 	m_vThread.detach();
 
-	printf("2135: RobotInit - Finished\n");
+	std::printf("2135: RobotInit - Finished\n");
 }
 
 /**
@@ -97,7 +97,7 @@ void Robot::DisabledPeriodic() {
 
 	static int ticks_per_print = 0;
 	if (ticks_per_print++ % 50 == 0) {
-		printf("2135: DisabledPeriodic %d\n", ticks_per_print / 50); 	// Testing only
+		std::printf("2135: DisabledPeriodic %d\n", ticks_per_print / 50); 	// Testing only
 	}
 
 	// If RoboRIO User button is pressed, dump all CAN faults
@@ -200,7 +200,7 @@ void Robot::SmartDashboardUpdate(int rate) {
 //	Fault handling utilities
 
 void Robot::RobotFaultDump(void) {
-	printf("2135: %s --------------\n", "TALON SRX FAULTS");
+	std::printf("2135: %s --------------\n", "TALON SRX FAULTS");
 	RobotFaultDumpTalonSRX("chassisMotorL1", RobotMap::chassisMotorL1);
 	RobotFaultDumpTalonSRX("chassisMotorL2", RobotMap::chassisMotorL2);
 	RobotFaultDumpTalonSRX("chassisMotorR3", RobotMap::chassisMotorR3);
@@ -212,16 +212,16 @@ void Robot::RobotFaultDump(void) {
 	RobotFaultDumpTalonSRX("climberMotor18", RobotMap::climberMotor18);
 	RobotFaultDumpTalonSRX("climberMotor19", RobotMap::climberMotor19);
 
-	printf("2135: %s --------------\n", "PCM FAULTS");
+	std::printf("2135: %s --------------\n", "PCM FAULTS");
 	if (RobotMap::pneumaticsCompressor->GetCompressorCurrentTooHighStickyFault())
-		printf("\tCurrentTooHighFault\n");
+		std::printf("\tCurrentTooHighFault\n");
 	if (RobotMap::pneumaticsCompressor->GetCompressorNotConnectedFault())
-		printf("\tCompressorNotConnectedFault\n");
+		std::printf("\tCompressorNotConnectedFault\n");
 	if (RobotMap::pneumaticsCompressor->GetCompressorShortedFault())
-		printf("\tCompressorShortedFault\n");
+		std::printf("\tCompressorShortedFault\n");
 	RobotMap::pneumaticsCompressor->ClearAllPCMStickyFaults();
 
-	printf("2135: %s --------------\n", "PDP FAULTS");
+	std::printf("2135: %s --------------\n", "PDP FAULTS");
 	RobotMap::powerPDP->ClearStickyFaults();
 }
 
@@ -234,49 +234,49 @@ void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<CAN::T
 	talonPtr->GetStickyFaults(stickyFaults);
 	talonPtr->ClearStickyFaults(100);
 
-	printf("2135: %s --------------\n", talonName);
+	std::printf("2135: %s --------------\n", talonName);
 
 	if (faults.HasAnyFault())
-		printf("At Least one fault below\n");
+		std::printf("At Least one fault below\n");
 	if (faults.HardwareFailure)
-		printf("\tHardwareFailure\n");
+		std::printf("\tHardwareFailure\n");
 	if (faults.OverTemp)
-		printf("\tOverTemp\n");
+		std::printf("\tOverTemp\n");
 	if (faults.UnderVoltage)
-		printf("\tUnderVoltage\n");
+		std::printf("\tUnderVoltage\n");
 	if (faults.ResetDuringEn)
-		printf("\tResetDuringEn\n");
+		std::printf("\tResetDuringEn\n");
 	if (faults.MsgOverflow)
-		printf("\tMsgOverflow\n");
+		std::printf("\tMsgOverflow\n");
 	if (faults.ForwardLimitSwitch)
-		printf("\tForwardLimitSwitch\n");
+		std::printf("\tForwardLimitSwitch\n");
 	if (faults.ForwardSoftLimit)
-		printf("\tForwardSoftLimit\n");
+		std::printf("\tForwardSoftLimit\n");
 	if (faults.ReverseLimitSwitch)
-		printf("\tForwardLimitSwitch\n");
+		std::printf("\tForwardLimitSwitch\n");
 	if (faults.ReverseSoftLimit)
-		printf("\tForwardSoftLimit\n");
+		std::printf("\tForwardSoftLimit\n");
 
 	if (stickyFaults.HasAnyFault())
-		printf("At Least one STICKY fault below\n");
+		std::printf("At Least one STICKY fault below\n");
 	if (stickyFaults.HardwareFailure)
-		printf("\tHardwareFailure\n");
+		std::printf("\tHardwareFailure\n");
 	if (stickyFaults.OverTemp)
-		printf("\tOverTemp\n");
+		std::printf("\tOverTemp\n");
 	if (stickyFaults.UnderVoltage)
-		printf("\tUnderVoltage\n");
+		std::printf("\tUnderVoltage\n");
 	if (stickyFaults.ResetDuringEn)
-		printf("\tResetDuringEn\n");
+		std::printf("\tResetDuringEn\n");
 	if (stickyFaults.MsgOverflow)
-		printf("\tMsgOverflow\n");
+		std::printf("\tMsgOverflow\n");
 	if (stickyFaults.ForwardLimitSwitch)
-		printf("\tForwardLimitSwitch\n");
+		std::printf("\tForwardLimitSwitch\n");
 	if (stickyFaults.ForwardSoftLimit)
-		printf("\tForwardSoftLimit\n");
+		std::printf("\tForwardSoftLimit\n");
 	if (stickyFaults.ReverseLimitSwitch)
-		printf("\tForwardLimitSwitch\n");
+		std::printf("\tForwardLimitSwitch\n");
 	if (stickyFaults.ReverseSoftLimit)
-		printf("\tForwardSoftLimit\n");
+		std::printf("\tForwardSoftLimit\n");
 
 }
 
@@ -292,11 +292,11 @@ double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
 
 	if (prefs->ContainsKey(name)) {
 		value = prefs->GetDouble(name, defaultValue);
-		printf("2135: PREF    %-30s : %6.3f\n", name.c_str(), value);
+		std::printf("2135: PREF    %-30s : %6.3f\n", name.c_str(), value);
 	}
 	else {
 		value = defaultValue;
-		printf("2135: WARNING %-30s not found\n", name.c_str());
+		std::printf("2135: WARNING %-30s not found\n", name.c_str());
 	}
 
 	return value;
@@ -308,10 +308,10 @@ double Robot::LoadPreferencesVariable(std::string name, double defaultValue) {
 
 void VisionThread() {
 	// Thread checking
-	printf("2135: ----- VISION THREAD RUNNING -----\n");
-//	printf("2135: Vision Thread ID %d\n", std::this_thread::get_id());
+	std::printf("2135: ----- VISION THREAD RUNNING -----\n");
+//	std::printf("2135: Vision Thread ID %d\n", std::this_thread::get_id());
 	if (std::this_thread::get_id() == RobotBase::GetThreadId()) {
-		printf("2135: ERROR: Vision Loop cannot be called from the main robot thread\n");
+		std::printf("2135: ERROR: Vision Loop cannot be called from the main robot thread\n");
 		return;
 	}
 
@@ -325,7 +325,7 @@ void VisionThread() {
 	}
 	catch (...) {	// Error detected, loop in a sleep mode (return seems to reboot robot)
 		while(1) {
-			printf("2135: Vision Thread terminated due to exception\n");
+			std::printf("2135: Vision Thread terminated due to exception\n");
 			std::this_thread::sleep_for(std::chrono::seconds(10));
 		}
 	}

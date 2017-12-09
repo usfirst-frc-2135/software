@@ -25,7 +25,7 @@ DriveTeleop::DriveTeleop(): Command() {
 
 // Called just before this Command runs the first time
 void DriveTeleop::Initialize() {
-	printf("2135: Drive Teleop - Start\n");
+	std::printf("2135: Drive Teleop - Start\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -40,11 +40,11 @@ bool DriveTeleop::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveTeleop::End() {
-	printf("2135: Drive Teleop - Ended\n");
+	std::printf("2135: Drive Teleop - Ended\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveTeleop::Interrupted() {
-	printf("2135: Drive Teleop - Interrupted\n");
+	std::printf("2135: Drive Teleop - Interrupted\n");
 }
