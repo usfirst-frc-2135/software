@@ -41,13 +41,13 @@ void RobotMap::init() {
     LiveWindow *lw = LiveWindow::GetInstance();
 
     chassisMotorL1.reset(new CAN::TalonSRX(1));
-//	TODO: LiveWindow disabled for all Talons
+//	TODO: CTRE Libraries: LiveWindow not implemented on TalonSRX
 //    lw->AddActuator("Chassis", "MotorL1", chassisMotorL1);
     
     chassisMotorR3.reset(new CAN::TalonSRX(3));
 //    lw->AddActuator("Chassis", "MotorR3", chassisMotorR3);
 
-//	TODO: RobotDrive disabled due to talons not working
+//	TODO: RobotDrive not working - disabled
 //    chassisRobotDrive.reset(new RobotDrive(chassisMotorL1, chassisMotorR3));
 //
 //    chassisRobotDrive->SetSafetyEnabled(true);
@@ -56,7 +56,7 @@ void RobotMap::init() {
 //        chassisRobotDrive->SetMaxOutput(1.0);
 //
 //        chassisRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
-//    chassisMotorL2.reset(new CAN::TalonSRX(2));
+    chassisMotorL2.reset(new CAN::TalonSRX(2));
 //    lw->AddActuator("Chassis", "MotorL2", chassisMotorL2);
     
     chassisMotorR4.reset(new CAN::TalonSRX(4));

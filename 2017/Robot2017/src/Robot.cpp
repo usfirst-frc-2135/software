@@ -96,8 +96,8 @@ void Robot::DisabledPeriodic() {
 	SmartDashboardUpdate(smartdashDisabledRate);
 
 	static int ticks_per_print = 0;
-	if (ticks_per_print++ % 100 == 0) {
-		printf("2135: DisabledPeriodic %d\n", ticks_per_print / 100); 	// Testing only
+	if (ticks_per_print++ % 50 == 0) {
+		printf("2135: DisabledPeriodic %d\n", ticks_per_print / 50); 	// Testing only
 	}
 
 	// If RoboRIO User button is pressed, dump all CAN faults
@@ -158,20 +158,19 @@ void Robot::RobotModeInitialize() {
 	prefs = frc::Preferences::GetInstance();
 
 	// Initialize SmartDashboard preferences
-//	TODO: Disable subsystems that rely on Talons until working
 	chassis->Initialize(prefs);
-//	agitator->Initialize(prefs);
-//	climber->Initialize(prefs);
+	agitator->Initialize(prefs);
+	climber->Initialize(prefs);
 	delivery->Initialize(prefs);
-//	intake->Initialize(prefs);
+	intake->Initialize(prefs);
 	pneumatics->Initialize(prefs);
-//	shooter->Initialize(prefs);
+	shooter->Initialize(prefs);
 }
 
 //	SmartDashboard - Autonomous chooser initialization
 
 void Robot::SmartDashboardStartChooser() {
-	return;		// TODO: fixme
+	return;		// TODO: RobotDrive is not working
 	chooser.AddDefault("Auton Default", new AutonDefault());
 	chooser.AddObject("Pos 123 Move", new AutonPos123Move());
 	chooser.AddObject("Pos 1 Gear", new AutonPos1DeliverGear());
