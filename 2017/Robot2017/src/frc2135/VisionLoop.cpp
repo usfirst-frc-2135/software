@@ -288,13 +288,13 @@ void VisionLoop::ApplyGridToFrame(cv::Mat frame, pixelRect res, double dist, dou
 	pt1.x = pt2.x = res.width / 2;
 	cv::line(frame, pt1, pt2, cv::Scalar(255, 255, 255), 1, cv::LineTypes::LINE_4, 0);
 
-	std::printf(str, "%5.1f in", dist);
+	std::sprintf(str, "%5.1f in", dist);
 	pt1.x = 5;
 	pt1.y = res.height - 5;
 	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
 		1, cv::LineTypes::LINE_8, false);
 
-	std::printf(str, "%5.1f deg", angle);
+	std::sprintf(str, "%5.1f deg", angle);
 	pt1.x = res.width/2 - 10;
 	pt1.y = res.height - 5;
 	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
