@@ -51,7 +51,6 @@ Chassis::Chassis() : Subsystem("Chassis") {
       motorL2->Set(ControlMode::Follower, 1.0);
       motorR3->Set(ControlMode::PercentOutput, 0.0);
       motorR4->Set(ControlMode::Follower, 3.0);
-      motorL1->SetInverted(true);
 
 //	TODO: CTRE Libraries: Safety timer seems to no longer be supported
 //    motorL1->SetSafetyEnabled(false);

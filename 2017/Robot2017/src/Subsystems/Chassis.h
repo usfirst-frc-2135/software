@@ -75,10 +75,9 @@ private:
 	Timer m_safetyTimer;			// Safety timer for use during autonomous modes
 	double m_safetyTimeout;			// Time in seconds for safety timer
 
-//	DriveTurnPID *driveTurnPIDOutput;		// Drive Turn to angle using gyro - initialize output
 	PIDOutputDriveTurn *driveTurnPIDOutput;	// Drive Turn to angle using gyro - initialize output
 	PIDController *driveTurnPIDLoop;		// Drive Turn PID controller loop
-//	DriveVisionPID *driveVisionPIDOutput;	// Drive with Vision to angle using gyro - initialize output
+
 	PIDOutputDriveVision *driveVisionPIDOutput;	// Drive with Vision to angle using gyro - initialize output
 	PIDSourceDriveVision *driveVisionPIDSource;	// Drive with Vision PID source loop
 	PIDController *driveVisionPIDLoop;		// Drive with Vision PID controller loop
