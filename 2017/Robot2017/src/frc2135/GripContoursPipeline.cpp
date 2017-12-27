@@ -1,5 +1,6 @@
 #include "GripContoursPipeline.h"
 #include "../RobotDefaults.h"
+#include <WPILib.h>
 /**
 * Initializes a GripContoursPipeline.
 */
@@ -142,7 +143,7 @@ std::vector<std::vector<cv::Point> >* GripContoursPipeline::getfilterContoursOut
 			if (contour.size() < minVertexCount || contour.size() > maxVertexCount)	continue;
 			double ratio = (double)bb.width / (double)bb.height;
 			if (ratio < minRatio || ratio > maxRatio) continue;
-			static int i = 0;
+//			static int i = 0;
 //			if (i++ % 8 == 0)
 //				printf("w: %d h %d s %3.1f r %3.2f\n", bb.width, bb.height, solid, ratio);
 			output.push_back(contour);

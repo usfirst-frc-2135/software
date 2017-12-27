@@ -101,7 +101,7 @@ void Robot::DisabledPeriodic() {
 	}
 
 	// If RoboRIO User button is pressed, dump all CAN faults
-	if (GetUserButton() && !m_faultsCleared) {
+	if (RobotController::GetUserButton() && !m_faultsCleared) {
 		m_faultsCleared = true;
 		RobotFaultDump();
 	}
@@ -145,7 +145,7 @@ void Robot::TeleopPeriodic() {
 // Test mode (LiveWindow) handlers
 
 void Robot::TestPeriodic() {
-	lw->Run();
+//	lw->Run();
 
 	SmartDashboardUpdate(smartdashLiveRate);
 }
