@@ -225,7 +225,7 @@ void Robot::RobotFaultDump(void) {
 //	RobotMap::powerPDP->ClearStickyFaults();
 }
 
-void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<CAN::TalonSRX> talonPtr) {
+void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<TalonSRX> talonPtr) {
 
 	Faults			faults;
 	StickyFaults	stickyFaults;

@@ -80,7 +80,7 @@ private:
 	void SmartDashboardStartChooser();
 	void SmartDashboardUpdate(int rate);
 	void RobotFaultDump(void);
-	void RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<CAN::TalonSRX> talonPtr);
+	void RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<TalonSRX> talonPtr);
 };
 
 void VisionThread();
