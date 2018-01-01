@@ -38,11 +38,6 @@
 #define AUTON_POS3_LEG2			"Auto_Pos3Leg2"	// Move forward toward peg 3
 #define AUTON_POS3_LEG2_D		-76.0
 
-//	SmartDashboard Autonomous command - Drive Distance
-
-#define AUTON_DRIVEDISTANCE		"DriveDistanceInches"
-#define AUTON_DRIVEDISTANCE_D	-78.6	// Default value - inches
-
 //	SmartDashboard Autonomous command - Drive Heading (Turn)
 
 #define AUTON_DRIVEHEADING		"DriveHeadingAngle"
@@ -72,17 +67,17 @@
 
 // SmartDashboard Chassis Distance PID configuration (Talon SRX)
 
-#define CHS_CL_RAMPRATE			"ChsCL_RampRate"
-#define	CHS_CL_RAMPRATE_D		60.0
+#define CHS_CL_RAMPRATESECS		"ChsCL_RampRate"
+#define	CHS_CL_RAMPRATESECS_D	1.0
 
 #define CHS_CL_ALLOWERROR		"ChsCL_AllowError"
 #define	CHS_CL_ALLOWERROR_D		37
 
-#define CHS_CL_PEAKOUTVOLTS		"ChsCL_PeakOutput"
-#define	CHS_CL_PEAKOUTVOLTS_D	6.01
+#define CHS_CL_PEAKOUTPCNT		"ChsCL_PeakOutput"
+#define	CHS_CL_PEAKOUTPCNT_D	1.0
 
-#define CHS_CL_NOMOUTVOLTS		"ChsCL_NomOutput"
-#define	CHS_CL_NOMOUTVOLTS_D	0.0
+#define CHS_CL_NOMOUTPCNT		"ChsCL_NomOutput"
+#define	CHS_CL_NOMOUTPCNT_D		0.0
 
 #define	CHS_CL_PROPORTIONAL		"ChsCL_Proportional"
 #define	CHS_CL_PROPORTIONAL_D	1.51
@@ -91,9 +86,6 @@
 
 #define CHS_ENCPOSITION_L		"ChsL_EncPosition"
 #define CHS_ENCPOSITION_R		"ChsR_EncPosition"
-
-#define CHS_ROTATIONS_L			"ChsL_Rotations"
-#define CHS_ROTATIONS_R			"ChsR_Rotations"
 
 #define CHS_CL_ERROR_L			"ChsL_CLError"
 #define CHS_CL_ERROR_R			"ChsR_CLError"

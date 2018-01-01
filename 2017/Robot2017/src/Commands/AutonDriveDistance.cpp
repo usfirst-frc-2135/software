@@ -31,7 +31,7 @@ void AutonDriveDistance::Initialize() {
 	// If distance is less than 0.1 (default is 0.0), then read smartdashboard
 	//	auton programs will pass in larger value
 	if (fabs(m_distance) < 0.1) {
-		m_distance = Robot::LoadPreferencesVariable(AUTON_DRIVEDISTANCE, AUTON_DRIVEDISTANCE_D);
+		m_distance = Robot::LoadPreferencesVariable(AUTON_POS123MOVE, AUTON_POS123MOVE_D);
 	}
 
 	std::printf("2135: Auton Drive Distance - Initialize: %f inches\n", m_distance);
