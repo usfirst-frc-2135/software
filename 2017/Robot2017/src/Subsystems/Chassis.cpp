@@ -160,7 +160,6 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	//	0.0 disables the ramp. Start tuning at full speed in one half second (12.0V/0.5s)
 	double rampRate;
 	rampRate = Robot::LoadPreferencesVariable(CHS_CL_RAMPRATESECS, CHS_CL_RAMPRATESECS_D);
-	motorL1->
 	motorL1->ConfigOpenloopRamp(rampRate, timeout);
 	motorR3->ConfigOpenloopRamp(rampRate, timeout);
 	motorL1->ConfigClosedloopRamp(rampRate, timeout);
