@@ -105,7 +105,7 @@ void RobotMap::init() {
     chassisDrive.reset(new frc::DifferentialDrive(chassisMotorL1->GetWPILIB_SpeedController(), chassisMotorR3->GetWPILIB_SpeedController()));
 
     chassisDrive->SetSafetyEnabled(true);
-        chassisDrive->SetExpiration(0.1);
+        chassisDrive->SetExpiration(0.250);
         chassisDrive->SetMaxOutput(1.0);
 
     chassisGyro.reset(new ADXRS450_Gyro(frc::SPI::Port::kOnboardCS0));
