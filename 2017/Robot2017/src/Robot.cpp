@@ -238,45 +238,53 @@ void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<TalonS
 
 	if (faults.HasAnyFault())
 		std::printf("At Least one fault below\n");
-	if (faults.HardwareFailure)
-		std::printf("\tHardwareFailure\n");
-	if (faults.OverTemp)
-		std::printf("\tOverTemp\n");
-	if (faults.UnderVoltage)
-		std::printf("\tUnderVoltage\n");
-	if (faults.ResetDuringEn)
-		std::printf("\tResetDuringEn\n");
-	if (faults.MsgOverflow)
-		std::printf("\tMsgOverflow\n");
 	if (faults.ForwardLimitSwitch)
 		std::printf("\tForwardLimitSwitch\n");
 	if (faults.ForwardSoftLimit)
 		std::printf("\tForwardSoftLimit\n");
+	if (faults.HardwareESDReset)
+		std::printf("\tHardwareESDReset\n");
+	if (faults.HardwareFailure)
+		std::printf("\tHardwareFailure\n");
+	if (faults.RemoteLossOfSignal)
+		std::printf("\tRemoteLossOfSignal\n");
+	if (faults.ResetDuringEn)
+		std::printf("\tResetDuringEn\n");
 	if (faults.ReverseLimitSwitch)
-		std::printf("\tForwardLimitSwitch\n");
+		std::printf("\tReverseLimitSwitch\n");
 	if (faults.ReverseSoftLimit)
-		std::printf("\tForwardSoftLimit\n");
+		std::printf("\tReverseSoftLimit\n");
+	if  (faults.SensorOutOfPhase)
+		std::printf("\tSensorOutOfPhase\n");
+	if (faults.SensorOverflow)
+		std::printf("\tSensorOverflow\n");
+	if (faults.UnderVoltage)
+		std::printf("\tUnderVoltage\n");
 
 	if (stickyFaults.HasAnyFault())
 		std::printf("At Least one STICKY fault below\n");
-	if (stickyFaults.HardwareFailure)
-		std::printf("\tHardwareFailure\n");
-	if (stickyFaults.OverTemp)
-		std::printf("\tOverTemp\n");
-	if (stickyFaults.UnderVoltage)
-		std::printf("\tUnderVoltage\n");
-	if (stickyFaults.ResetDuringEn)
-		std::printf("\tResetDuringEn\n");
-	if (stickyFaults.MsgOverflow)
-		std::printf("\tMsgOverflow\n");
 	if (stickyFaults.ForwardLimitSwitch)
 		std::printf("\tForwardLimitSwitch\n");
 	if (stickyFaults.ForwardSoftLimit)
 		std::printf("\tForwardSoftLimit\n");
+	if (stickyFaults.HardwareESDReset)
+		std::printf("\tHardwareESDReset\n");
+//	if (stickyFaults.HardwareFailure)
+//		std::printf("\tHardwareFailure\n");
+	if (stickyFaults.RemoteLossOfSignal)
+		std::printf("\tRemoteLossOfSignal\n");
+	if (stickyFaults.ResetDuringEn)
+		std::printf("\tResetDuringEn\n");
 	if (stickyFaults.ReverseLimitSwitch)
 		std::printf("\tReverseLimitSwitch\n");
 	if (stickyFaults.ReverseSoftLimit)
 		std::printf("\tReverseSoftLimit\n");
+	if  (stickyFaults.SensorOutOfPhase)
+		std::printf("\tSensorOutOfPhase\n");
+	if (stickyFaults.SensorOverflow)
+		std::printf("\tSensorOverflow\n");
+	if (stickyFaults.UnderVoltage)
+		std::printf("\tUnderVoltage\n");
 
 }
 

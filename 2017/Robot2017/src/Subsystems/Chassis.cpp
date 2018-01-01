@@ -59,11 +59,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Drivetrain Talon settings - Autonomous modes
 
     // Feedback device is US Digital S4 CPR 120 encoder
-	motorL1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 100);
-	motorR3->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 100);
-//	TODO: CTRE Libraries: Moved to native units (encoder counts - not rotations)
-//	motorL1->ConfigEncoderCodesPerRev(USDigitalS4_CPR);
-//	motorR3->ConfigEncoderCodesPerRev(USDigitalS4_CPR);
+	motorL1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 100);
+	motorR3->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 100);
 
     // Invert the direction of the right hand side motors and sensors
 	motorL1->SetInverted(true);
@@ -78,8 +75,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
 #endif
 
 	// Set drive Talons to profile 0
-	motorL1->SelectProfileSlot(0);
-	motorR3->SelectProfileSlot(0);
+	motorL1->SelectProfileSlot(0, 0);
+	motorR3->SelectProfileSlot(0, 0);
 
     // Set all motors to use coast mode and not brake when stopped, start in low gear
     m_brakeMode = true;
@@ -203,8 +200,8 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	motorR3->ConfigNominalOutputReverse(-nominalOutputVoltage, 100);
 
 	// Reset left/right encoder values
-	motorL1->SetSelectedSensorPosition(0, 100);
-	motorR3->SetSelectedSensorPosition(0, 100);
+	motorL1->SetSelectedSensorPosition(0, 0, 100);
+	motorR3->SetSelectedSensorPosition(0, 0, 100);
 
 	// reset gyro to zero
 	gyro->Reset();
@@ -227,11 +224,11 @@ void Chassis::Initialize(frc::Preferences *prefs)
 void Chassis::UpdateSmartDashboardValues(void)
 {
 #ifndef ROBORIO_STANDALONE	// If not in RoboRIO standalone mode (no talons connected)
-	SmartDashboard::PutNumber(CHS_ENCPOSITION_L, motorL1->GetSelectedSensorPosition());
-	SmartDashboard::PutNumber(CHS_ENCPOSITION_R, motorR3->GetSelectedSensorPosition());
-	SmartDashboard::PutNumber(CHS_ROTATIONS_L, motorL1->GetSelectedSensorPosition());
-	SmartDashboard::PutNumber(CHS_ROTATIONS_R, motorR3->GetSelectedSensorPosition());
-	int		closedLoopErrorLeft, closedLoopErrorRight;
+	SmartDashboard::PutNumber(CHS_ENCPOSITION_L, motorL1->GetSelectedSensorPosition(0));
+	SmartDashboard::PutNumber(CHS_ENCPOSITION_R, motorR3->GetSelectedSensorPosition(0));
+	SmartDashboard::PutNumber(CHS_ROTATIONS_L, motorL1->GetSelectedSensorPosition(0));
+	SmartDashboard::PutNumber(CHS_ROTATIONS_R, motorR3->GetSelectedSensorPosition(0));
+	int		closedLoopErrorLeft = 0, closedLoopErrorRight = 0;
 	motorL1->GetClosedLoopError(closedLoopErrorLeft);
 	motorR3->GetClosedLoopError(closedLoopErrorRight);
 	SmartDashboard::PutNumber(CHS_CL_ERROR_L, closedLoopErrorLeft);
@@ -383,12 +380,12 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	motorR3->Config_kP(0, proportional * 120.0 / (double)USDigitalS4_CPR, 100);
 
 	// Initialize the encoders to start movement at reference of zero counts
-	motorL1->SetSelectedSensorPosition(0, 100);
-	motorR3->SetSelectedSensorPosition(0, 100);
+	motorL1->SetSelectedSensorPosition(0, 0, 100);
+	motorR3->SetSelectedSensorPosition(0, 0, 100);
 
 	// Set the target distance in terms of wheel rotations (negative due to drivetrain direction)
-	motorL1->Set(-m_pidTargetRotations);
-	motorR3->Set(-m_pidTargetRotations);
+	motorL1->Set(ControlMode::PercentOutput, -m_pidTargetRotations);
+	motorR3->Set(ControlMode::PercentOutput, -m_pidTargetRotations);
 
 	// Set flag to indicate that the PID closed loop error is not yet valid
     m_CL_pidStarted = false;
@@ -414,12 +411,12 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 {
 	// Verify that both encoders are on target
 	bool pidFinished = false;
-	int		closedLoopErrorLeft, closedLoopErrorRight;
+	int		closedLoopErrorLeft = 0, closedLoopErrorRight = 0;
 
 	// Detect if closed loop error has been updated once after start
 	// TODO: Do we need to wait for a rotation now that command is working better
-	motorL1->GetClosedLoopError(closedLoopErrorLeft);
-	motorR3->GetClosedLoopError(closedLoopErrorRight);
+	closedLoopErrorLeft = motorL1->GetClosedLoopError(0);
+	closedLoopErrorRight = motorR3->GetClosedLoopError(0);
 	if (!m_CL_pidStarted && (abs(closedLoopErrorLeft) > Encoder_CPR) &&
 			(abs(closedLoopErrorRight) > Encoder_CPR))
 	{
@@ -432,8 +429,8 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 		if ((abs(closedLoopErrorLeft) <= m_CL_allowError) &&
 			(abs(closedLoopErrorRight) <= m_CL_allowError)) {
 			std::printf("2135: TargetRotations: %3.2f   L: %5d  R: %5d\n",
-				m_pidTargetRotations, motorL1->GetSelectedSensorPosition(),
-				motorR3->GetSelectedSensorPosition());
+				m_pidTargetRotations, motorL1->GetSelectedSensorPosition(0),
+				motorR3->GetSelectedSensorPosition(0));
 			std::printf("2135: ClosedLoopError:         L: %d  R: %d\n",
 				closedLoopErrorLeft, closedLoopErrorRight);
 			pidFinished = true;
@@ -458,8 +455,8 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	std::printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
 
-	SmartDashboard::PutNumber("DD PID L", motorL1->GetSelectedSensorPosition() * WheelDiaInches * M_PI);
-	SmartDashboard::PutNumber("DD PID R", motorR3->GetSelectedSensorPosition() * WheelDiaInches * M_PI);
+	SmartDashboard::PutNumber("DD PID L", motorL1->GetSelectedSensorPosition(0) * WheelDiaInches * M_PI);
+	SmartDashboard::PutNumber("DD PID R", motorR3->GetSelectedSensorPosition(0) * WheelDiaInches * M_PI);
 	SmartDashboard::PutNumber("DD TIME", m_safetyTimer.Get());
 
 	// Change from PID position-loop back to PercentVbus for driver control
@@ -551,8 +548,8 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle, double distance)
 	gyro->Reset();
 
 	//Initialize the encoders to start movement at reference of zero counts
-	motorL1->SetSelectedSensorPosition(0, 100);
-	motorR3->SetSelectedSensorPosition(0, 100);
+	motorL1->SetSelectedSensorPosition(0, 0, 100);
+	motorR3->SetSelectedSensorPosition(0, 0, 100);
 
 	// Grab vision target angle and distance from SmartDashboard
 
@@ -595,7 +592,7 @@ bool Chassis::MoveDriveVisionHeadingIsPIDAtSetPoint(void)
 		pidFinished = true;
 
 		std::printf("2135: Encoder Values on Target. L: %d, R: %d\n",
-			motorL1->GetSelectedSensorPosition(), motorR3->GetSelectedSensorPosition());
+			motorL1->GetSelectedSensorPosition(0), motorR3->GetSelectedSensorPosition(0));
 	}
 
 	// Check if safety timer has expired, set value to about 2x the cycle
@@ -619,7 +616,7 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 	m_safetyTimer.Stop();
 
 	SmartDashboard::PutNumber("DV GYRO", gyro->GetAngle());
-	SmartDashboard::PutNumber("DV DIST", ((double)motorR3->GetSelectedSensorPosition() / (double)Encoder_CPR) * WheelDiaInches * M_PI);
+	SmartDashboard::PutNumber("DV DIST", ((double)motorR3->GetSelectedSensorPosition(0) / (double)Encoder_CPR) * WheelDiaInches * M_PI);
 	SmartDashboard::PutNumber("DV TIME", m_safetyTimer.Get());
 
 	// Gets closed loop error and prints it

@@ -63,25 +63,22 @@ void Climber::UpdateSmartDashboardValues(void)
 
 void Climber::SetMotorSpeed(int speed)
 {
+	double output = 0.0;
+
 	switch (speed)
 	{
 	default:
 	case CLIMBER_STOP:
-		motor18->Set(0.0);
+		output = 0.0;
 		break;
 	case CLIMBER_FORWARD:
-		if (m_lowSpeed == true)
-			motor18->Set(CLMB_LOW_SPEED_D);
-		else
-			motor18->Set(CLMB_SPEED_D);
+		output = (m_lowSpeed) ? CLMB_LOW_SPEED_D : CLMB_SPEED_D;
 		break;
 	case CLIMBER_REVERSE:
-		if (m_lowSpeed == true)
-			motor18->Set(-CLMB_LOW_SPEED_D);
-		else
-			motor18->Set(-CLMB_SPEED_D);
+		output = (m_lowSpeed) ? -CLMB_LOW_SPEED_D : -CLMB_SPEED_D;
 		break;
 	}
+	motor18->Set(ControlMode::PercentOutput, output);
 }
 
 void Climber::SetMotorLowSpeed(bool lowSpeed)

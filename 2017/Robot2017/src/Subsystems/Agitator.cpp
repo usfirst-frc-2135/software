@@ -57,18 +57,21 @@ void Agitator::UpdateSmartDashboardValues(void)
 
 void Agitator::SetMotorSpeed(int speed)
 {
+	double output = 0.0;
+
 	// Window motor direction is opposite what is needed
 	switch (speed)
 	{
 	default:
 	case AGITATOR_STOP:
-		motor12->Set(0.0);
+		output = 0.0;
 		break;
 	case AGITATOR_FORWARD:
-		motor12->Set(-agitatorSpeed);
+		output = -m_agitatorSpeed;
 		break;
 	case AGITATOR_REVERSE:
-		motor12->Set(agitatorSpeed);
+		output = m_agitatorSpeed;
 		break;
 	}
+	motor12->Set(ControlMode::PercentOutput, output);
 }

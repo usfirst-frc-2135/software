@@ -62,17 +62,20 @@ void Intake::UpdateSmartDashboardValues(void)
 
 void Intake::SetMotorSpeed(int speed)
 {
+	double output = 0.0; 		// Default to off
+
 	switch (speed)
 	{
 	default:
 	case INTAKE_STOP:
-		motor8->Set(0.0);
+		output = 0.0;
 		break;
 	case INTAKE_FORWARD:
-		motor8->Set(intakeSpeed);
+		output = m_intakeSpeed;
 		break;
 	case INTAKE_REVERSE:
-		motor8->Set(-intakeSpeed);
+		output = -m_intakeSpeed;
 		break;
 	}
+	motor8->Set(ControlMode::PercentOutput, output);
 }

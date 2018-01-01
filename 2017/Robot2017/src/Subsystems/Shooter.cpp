@@ -76,12 +76,13 @@ void Shooter::BallGateDeploy(bool open)
 
 void Shooter::SetMotorSpeed(bool enabled)
 {
+	double output = 0.0;		// Default to off
+
 	if (enabled) {
-		motor14->Set(shooterSpeed);
+		output = m_shooterSpeed;
 	}
-	else {
-		motor14->Set(0.0);
-	}
+
+	motor14->Set(ControlMode::PercentOutput, output);
 }
 
 void Shooter::LightToggleEnable(void) {
