@@ -274,9 +274,9 @@ void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<TalonS
 	if (stickyFaults.ForwardSoftLimit)
 		std::printf("\tForwardSoftLimit\n");
 	if (stickyFaults.ReverseLimitSwitch)
-		std::printf("\tForwardLimitSwitch\n");
+		std::printf("\tReverseLimitSwitch\n");
 	if (stickyFaults.ReverseSoftLimit)
-		std::printf("\tForwardSoftLimit\n");
+		std::printf("\tReverseSoftLimit\n");
 
 }
 
