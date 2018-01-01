@@ -11,7 +11,7 @@
 // Drive Vision output class derived from PID Output
 //	Used to drive toward a heading for a specified distance
 
-PIDOutputDriveVision::PIDOutputDriveVision(std::shared_ptr<RobotDrive> robotDrive) {
+PIDOutputDriveVision::PIDOutputDriveVision(std::shared_ptr<DifferentialDrive> robotDrive) {
 	m_robotDrive = robotDrive;
 
 	m_turnAngle = 0.0;
@@ -30,7 +30,7 @@ void PIDOutputDriveVision::PIDWrite(double output) {
 	const double 	Kp_turn = (0.18 / 21.0);	// turn power difference (0.18) to turn 21 degrees
 
 	m_offset = (RobotMap::chassisGyro->GetAngle() - m_turnAngle) * Kp_turn;
-	m_robotDrive->SetLeftRightMotorOutputs(output + m_offset, output - m_offset);
+	m_robotDrive->TankDrive(output + m_offset, output - m_offset);
 }
 
 void PIDOutputDriveVision::SetTurnAngle(double angle) {

@@ -8,10 +8,6 @@
 #ifndef ROBOTDEFAULTS_H_
 #define ROBOTDEFAULTS_H_
 
-//  Identify if Crush or Brush is in use by enabling this define
-
-//#define CRUSH_SETTINGS   // Comment out for Brush settings
-
 // #define ROBORIO_STANDALONE	// Comment out for normal operation (talons present)
 
 //	SmartDashboard parameters and defaults

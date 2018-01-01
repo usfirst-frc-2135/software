@@ -56,13 +56,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	motorL1->SetInverted(true);
 	motorR3->SetInverted(false);
 
-#ifdef CRUSH_SETTINGS
 	motorL1->SetSensorPhase(true);
 	motorR3->SetSensorPhase(false);
-#else
-	motorL1->SetSensorPhase(false);
-	motorR3->SetSensorPhase(true);
-#endif
 
 	// Set drive Talons to profile 0
 	motorL1->SelectProfileSlot(0, pidIndex);
@@ -80,7 +75,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
     m_driveSpin = 0.45;			// Initialize power setting used for spin turns
 
     // 	Initialize closed loop parameters for Talon PID - ramp rate, close loop error, target rotations
-    m_pidTargetRotations = 0.0;
+    m_pidTargetCounts = 0.0;
     m_CL_pidStarted = false;
 
     // NOTE: Calibrate gyro - this takes a few seconds--must not be in mode switch to Teleop or Auton
@@ -93,13 +88,13 @@ Chassis::Chassis() : Subsystem("Chassis") {
     SmartDashboard::PutNumber(CHS_TURNKP, m_turnKP);
     std::printf("2135: Turn PID Kp: %f\n", m_turnKP);
 
-//    driveTurnPIDOutput = new PIDOutputDriveTurn(drive);
-//    driveTurnPIDLoop = new PIDController(m_turnKP, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
+    driveTurnPIDOutput = new PIDOutputDriveTurn(drive);
+    driveTurnPIDLoop = new PIDController(m_turnKP, 0.0, 0.0, gyro.get(), driveTurnPIDOutput);
 
     // Adjust Kp for encoder being used
     driveVisionPIDSource = new PIDSourceDriveVision();
-//    driveVisionPIDOutput = new PIDOutputDriveVision(drive);
-//    driveVisionPIDLoop = new PIDController((CHS_CAMTURNKP_D / Encoder_CPR) * 1.5, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
+    driveVisionPIDOutput = new PIDOutputDriveVision(drive);
+    driveVisionPIDLoop = new PIDController((CHS_CAMTURNKP_D / Encoder_CPR) * 1.5, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
 
     m_turnScaling = Robot::LoadPreferencesVariable(CHS_TURN_SCALING, CHS_TURN_SCALING_D);
 	if ((m_turnScaling < 0.0) || (m_turnScaling > 1.0)) {
@@ -290,19 +285,15 @@ void Chassis::MoveInvertDriveDirection(void)
 
 void Chassis::MoveSetBrakeNotCoastMode(bool brakeMode)
 {
+	NeutralMode brakeOutput;
+
+	brakeOutput = (brakeMode) ? NeutralMode::Brake : NeutralMode::Coast;
+
 	// If brake mode is requested, send to the Talons
-	if (brakeMode) {
-		motorL1->SetNeutralMode(NeutralMode::Brake);
-		motorL2->SetNeutralMode(NeutralMode::Brake);
-		motorR3->SetNeutralMode(NeutralMode::Brake);
-		motorR4->SetNeutralMode(NeutralMode::Brake);
-	}
-	else {
-		motorL1->SetNeutralMode(NeutralMode::Coast);
-		motorL2->SetNeutralMode(NeutralMode::Coast);
-		motorR3->SetNeutralMode(NeutralMode::Coast);
-		motorR4->SetNeutralMode(NeutralMode::Coast);
-	}
+	motorL1->SetNeutralMode(brakeOutput);
+	motorL2->SetNeutralMode(brakeOutput);
+	motorR3->SetNeutralMode(brakeOutput);
+	motorR4->SetNeutralMode(brakeOutput);
 
 	// Update the global setting
 	m_brakeMode = brakeMode;
@@ -347,8 +338,8 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 {
 	double proportional;
 
-	m_pidTargetRotations = inches / WheelCirInches;
-	std::printf("2135: Encoder Distance %f rotations, %f inches\n", m_pidTargetRotations, inches);
+	m_pidTargetCounts = inches / InchesPerCount;
+	std::printf("2135: Encoder Distance %f counts, %f inches\n", m_pidTargetCounts, inches);
 
 	// Change the drive motors to be position-loop control modes
 	motorL1->Set(ControlMode::Position, 0.0);
@@ -357,16 +348,16 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	// This should be set one time in constructor
 	proportional = Robot::LoadPreferencesVariable(CHS_CL_PROPORTIONAL, CHS_CL_PROPORTIONAL_D);
 	// Adjust Kp for encoder being used -- CPR of 120 is the reference
-	motorL1->Config_kP(0, proportional * 120.0 / (double)USDigitalS4_CPR, timeout);
-	motorR3->Config_kP(0, proportional * 120.0 / (double)USDigitalS4_CPR, timeout);
+	motorL1->Config_kP(0, proportional, timeout);
+	motorR3->Config_kP(0, proportional, timeout);
 
 	// Initialize the encoders to start movement at reference of zero counts
-	GetEncoderPosition(motorL1);
-	GetEncoderPosition(motorR3);
+	motorL1->SetSelectedSensorPosition(0, pidIndex, timeout);
+	motorR3->SetSelectedSensorPosition(0, pidIndex, timeout);
 
 	// Set the target distance in terms of wheel rotations (negative due to drivetrain direction)
-	motorL1->Set(ControlMode::PercentOutput, -m_pidTargetRotations);
-	motorR3->Set(ControlMode::PercentOutput, -m_pidTargetRotations);
+	motorL1->Set(ControlMode::PercentOutput, -m_pidTargetCounts);
+	motorR3->Set(ControlMode::PercentOutput, -m_pidTargetCounts);
 
 	// Set flag to indicate that the PID closed loop error is not yet valid
     m_CL_pidStarted = false;
@@ -391,7 +382,7 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 {
 	// Verify that both encoders are on target
 	bool pidFinished = false;
-	int		closedLoopErrorLeft = 0, closedLoopErrorRight = 0;
+	int	closedLoopErrorLeft = 0, closedLoopErrorRight = 0;
 
 	// Detect if closed loop error has been updated once after start
 	// TODO: Do we need to wait for a rotation now that command is working better
@@ -408,9 +399,9 @@ bool Chassis::MoveDriveDistanceIsPIDAtSetpoint(void)
 	if (m_CL_pidStarted) {
 		if ((abs(closedLoopErrorLeft) <= m_CL_allowError) &&
 			(abs(closedLoopErrorRight) <= m_CL_allowError)) {
-			std::printf("2135: TargetRotations: %3.2f   L: %5d  R: %5d\n",
-				m_pidTargetRotations, GetEncoderPosition(motorL1), GetEncoderPosition(motorR3));
-			std::printf("2135: ClosedLoopError:         L: %d  R: %d\n",
+			std::printf("2135: TargetCounts: %3.2f   L: %5d  R: %5d\n",
+				m_pidTargetCounts, GetEncoderPosition(motorL1), GetEncoderPosition(motorR3));
+			std::printf("2135: ClosedLoopError:      L: %d  R: %d\n",
 				closedLoopErrorLeft, closedLoopErrorRight);
 			pidFinished = true;
 		}
@@ -434,8 +425,8 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	std::printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
 
-	SmartDashboard::PutNumber("DD PID L", GetEncoderPosition(motorL1) * WheelDiaInches * M_PI);
-	SmartDashboard::PutNumber("DD PID R", GetEncoderPosition(motorR3) * WheelDiaInches * M_PI);
+	SmartDashboard::PutNumber("DD PID L", GetEncoderPosition(motorL1));
+	SmartDashboard::PutNumber("DD PID R", GetEncoderPosition(motorR3));
 	SmartDashboard::PutNumber("DD TIME", m_safetyTimer.Get());
 
 	// Change from PID position-loop back to PercentVbus for driver control
@@ -540,13 +531,13 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle, double distance)
 	SmartDashboard::PutNumber("DV CAMD", visionDistance);
 	if (visionDistance > 0.0)					// If a valid vision distance
 		visionDistance = visionDistance - 2.0;	// Adjust distance for camera sensor to peg (minus carriage)
-	driveVisionPIDLoop->SetSetpoint((visionDistance * Encoder_CPR) / WheelCirInches);
+	driveVisionPIDLoop->SetSetpoint(visionDistance / InchesPerCount);
 
 	std::printf("2135: Leg 3 Distance: %f; Angle: %f\n", visionDistance, visionAngle);
 	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
 
 	// Enable the PID loop (tolerance is in encoder count units)
-	driveVisionPIDLoop->SetAbsoluteTolerance(Encoder_CPR/12);	// This is +/-, so 1/6 of rotation = 2.0 inches!
+	driveVisionPIDLoop->SetAbsoluteTolerance(1.0 / InchesPerCount);	// This is +/-, so 1" = 2.0 inches
 	driveVisionPIDLoop->Enable();
 
 	//Start safety timer
@@ -591,7 +582,8 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 	m_safetyTimer.Stop();
 
 	SmartDashboard::PutNumber("DV GYRO", gyro->GetAngle());
-	SmartDashboard::PutNumber("DV DIST", ((double)GetEncoderPosition(motorR3) / (double)Encoder_CPR) * WheelDiaInches * M_PI);
+	SmartDashboard::PutNumber("DV DS L", (double)GetEncoderPosition(motorL1) * InchesPerCount);
+	SmartDashboard::PutNumber("DV DS R", (double)GetEncoderPosition(motorR3) * InchesPerCount);
 	SmartDashboard::PutNumber("DV TIME", m_safetyTimer.Get());
 
 	// Gets closed loop error and prints it

@@ -13,10 +13,10 @@
 
 class PIDOutputDriveTurn: public frc::PIDOutput {
 private:
-	std::shared_ptr<RobotDrive> m_robotDrive;
+	std::shared_ptr<DifferentialDrive> m_robotDrive;
 
 public:
-	PIDOutputDriveTurn(std::shared_ptr<RobotDrive> rDrive);
+	PIDOutputDriveTurn(std::shared_ptr<DifferentialDrive> rDrive);
 	virtual ~PIDOutputDriveTurn();
 	void PIDWrite(double output);
 };
