@@ -186,21 +186,21 @@ void Chassis::Initialize(frc::Preferences *prefs)
 
 	// Set closed loop peak output voltage to cap maximum speed
 	// Note this is persistent in Talon, so set it even if not used
-	double peakOutputVoltage;
-	peakOutputVoltage = Robot::LoadPreferencesVariable(CHS_CL_PEAKOUTVOLTS, CHS_CL_PEAKOUTVOLTS_D);
-	motorL1->ConfigPeakOutputForward(1.0, 100);
-	motorL1->ConfigPeakOutputReverse(-1.0, 100);
-	motorR3->ConfigPeakOutputForward(1.0, 100);
-	motorR3->ConfigPeakOutputReverse(-1.0, 100);
+	double peakOutputVoltage = 1.0;
+//	peakOutputVoltage = Robot::LoadPreferencesVariable(CHS_CL_PEAKOUTVOLTS, CHS_CL_PEAKOUTVOLTS_D);
+	motorL1->ConfigPeakOutputForward(peakOutputVoltage, 100);
+	motorL1->ConfigPeakOutputReverse(-peakOutputVoltage, 100);
+	motorR3->ConfigPeakOutputForward(peakOutputVoltage, 100);
+	motorR3->ConfigPeakOutputReverse(-peakOutputVoltage, 100);
 
 	// Set closed loop nominal output voltage if doesn't quite reach target (NOT NEEDED)
 	// Note this is persistent in Talon, so set it even if not used
-	double nominalOutputVoltage;
-	nominalOutputVoltage = Robot::LoadPreferencesVariable(CHS_CL_NOMOUTVOLTS, CHS_CL_NOMOUTVOLTS_D);
-	motorL1->ConfigNominalOutputForward(0.0, 100);
-	motorL1->ConfigNominalOutputReverse(-0.0, 100);
-	motorR3->ConfigNominalOutputForward(0.0, 100);
-	motorR3->ConfigNominalOutputReverse(-0.0, 100);
+	double nominalOutputVoltage = 0.0;
+//	nominalOutputVoltage = Robot::LoadPreferencesVariable(CHS_CL_NOMOUTVOLTS, CHS_CL_NOMOUTVOLTS_D);
+	motorL1->ConfigNominalOutputForward(nominalOutputVoltage, 100);
+	motorL1->ConfigNominalOutputReverse(-nominalOutputVoltage, 100);
+	motorR3->ConfigNominalOutputForward(nominalOutputVoltage, 100);
+	motorR3->ConfigNominalOutputReverse(-nominalOutputVoltage, 100);
 
 	// Reset left/right encoder values
 	motorL1->SetSelectedSensorPosition(0, 100);
