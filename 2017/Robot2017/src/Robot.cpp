@@ -170,7 +170,6 @@ void Robot::RobotModeInitialize() {
 //	SmartDashboard - Autonomous chooser initialization
 
 void Robot::SmartDashboardStartChooser() {
-	return;		// TODO: RobotDrive is not working
 	chooser.AddDefault("Auton Default", new AutonDefault());
 	chooser.AddObject("Pos 123 Move", new AutonPos123Move());
 	chooser.AddObject("Pos 1 Gear", new AutonPos1DeliverGear());
