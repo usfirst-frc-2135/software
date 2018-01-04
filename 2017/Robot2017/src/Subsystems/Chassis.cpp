@@ -40,28 +40,30 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Drivetrain Talon settings - Teleop mode
 
     // Make second Talon SRX controller on each side of drivetrain follow the main Talon SRX
+    // Invert the direction of the right hand side motors and sensors
     motorL1->Set(ControlMode::PercentOutput, 0.0);
     motorL2->Set(ControlMode::Follower, 1);
+	motorL1->SetInverted(true);
     motorR3->Set(ControlMode::PercentOutput, 0.0);
+	motorR3->SetInverted(false);
     motorR4->Set(ControlMode::Follower, 3);
+    printf("2135: Motor L1 ID %d ver %d.%d\n", motorL1->GetDeviceID(), motorL1->GetFirmwareVersion()/256, motorL1->GetFirmwareVersion()%256);
+    printf("2135: Motor L2 ID %d ver %d.%d\n", motorL2->GetDeviceID(), motorL2->GetFirmwareVersion()/256, motorL2->GetFirmwareVersion()%256);
+    printf("2135: Motor R3 ID %d ver %d.%d\n", motorR3->GetDeviceID(), motorR3->GetFirmwareVersion()/256, motorR3->GetFirmwareVersion()%256);
+    printf("2135: Motor R4 ID %d ver %d.%d\n", motorR4->GetDeviceID(), motorR4->GetFirmwareVersion()/256, motorR4->GetFirmwareVersion()%256);
 
     // Drivetrain Talon settings - Autonomous modes
+
+	// Set drive Talons to profile 0
+	motorL1->SelectProfileSlot(0, pidIndex);
+	motorR3->SelectProfileSlot(0, pidIndex);
 
     // Feedback device is US Digital S4 CPR 120 encoder
 	motorL1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, pidIndex, timeout);
 	motorR3->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, pidIndex, timeout);
 
-    // Invert the direction of the right hand side motors and sensors
-	// TODO: See if we need these
-	motorL1->SetInverted(true);
-	motorR3->SetInverted(false);
-
 	motorL1->SetSensorPhase(true);
 	motorR3->SetSensorPhase(false);
-
-	// Set drive Talons to profile 0
-	motorL1->SelectProfileSlot(0, pidIndex);
-	motorR3->SelectProfileSlot(0, pidIndex);
 
     // Set all motors to use coast mode and not brake when stopped, start in low gear
     m_brakeMode = true;
@@ -153,10 +155,10 @@ void Chassis::Initialize(frc::Preferences *prefs)
 	// Closed Loop VoltageRampRate - in volts per second
 	// NOTE: Tune this after main PID loop is working ONLY to eliminate initial lurching
 	//	0.0 disables the ramp. Start tuning at full speed in one half second (12.0V/0.5s)
+	motorL1->ConfigOpenloopRamp(0.25, timeout);
+	motorR3->ConfigOpenloopRamp(0.25, timeout);
 	double rampRate;
 	rampRate = Robot::LoadPreferencesVariable(CHS_CL_RAMPRATESECS, CHS_CL_RAMPRATESECS_D);
-	motorL1->ConfigOpenloopRamp(rampRate, timeout);
-	motorR3->ConfigOpenloopRamp(rampRate, timeout);
 	motorL1->ConfigClosedloopRamp(rampRate, timeout);
 	motorR3->ConfigClosedloopRamp(rampRate, timeout);
 
@@ -209,10 +211,10 @@ void Chassis::Initialize(frc::Preferences *prefs)
 void Chassis::UpdateSmartDashboardValues(void)
 {
 #ifndef ROBORIO_STANDALONE	// If not in RoboRIO standalone mode (no talons connected)
-	SmartDashboard::PutNumber(CHS_ENCPOSITION_L, GetEncoderPosition(motorL1));
-	SmartDashboard::PutNumber(CHS_ENCPOSITION_R, GetEncoderPosition(motorR3));
-	SmartDashboard::PutNumber(CHS_CL_ERROR_L, motorL1->GetClosedLoopError(pidIndex));
-	SmartDashboard::PutNumber(CHS_CL_ERROR_R, motorR3->GetClosedLoopError(pidIndex));
+//	SmartDashboard::PutNumber(CHS_ENCPOSITION_L, GetEncoderPosition(motorL1));
+//	SmartDashboard::PutNumber(CHS_ENCPOSITION_R, GetEncoderPosition(motorR3));
+//	SmartDashboard::PutNumber(CHS_CL_ERROR_L, motorL1->GetClosedLoopError(pidIndex));
+//	SmartDashboard::PutNumber(CHS_CL_ERROR_R, motorR3->GetClosedLoopError(pidIndex));
 #endif
 	SmartDashboard::PutNumber(CHS_GYROANGLE, gyro->GetAngle());
 }
@@ -232,8 +234,8 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	xValue = joystick->GetX();
 	yValue = joystick->GetY() * m_driveDirection;
 	static int i = 0;
-	if (i++ % 50 == 0)
-		printf("x %f y %f\n", xValue, yValue);
+//	if (i++ % 50 == 0)
+//		printf("x %f y %f\n", xValue, yValue);
 
 	// If in high gear, use the scaling factor against the y-axis
 	if (!m_lowGear) {
