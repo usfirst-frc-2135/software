@@ -41,13 +41,11 @@ Chassis::Chassis() : Subsystem("Chassis") {
 
     // Make second Talon SRX controller on each side of drivetrain follow the main Talon SRX
     // Invert the direction of the left hand side motors and sensors
-    motorL1->Set(ControlMode::PercentOutput, 0.0);
-    motorL2->Set(ControlMode::Follower, 1);
 	motorL1->SetInverted(true);
 	motorL2->SetInverted(true);
+    motorL1->Set(ControlMode::PercentOutput, 0.0);
+    motorL2->Set(ControlMode::Follower, 1);
     motorR3->Set(ControlMode::PercentOutput, 0.0);
-	motorR3->SetInverted(false);
-	motorR4->SetInverted(false);
     motorR4->Set(ControlMode::Follower, 3);
     printf("2135: Motor L1 ID %d ver %d.%d\n", motorL1->GetDeviceID(), motorL1->GetFirmwareVersion()/256, motorL1->GetFirmwareVersion()%256);
     printf("2135: Motor L2 ID %d ver %d.%d\n", motorL2->GetDeviceID(), motorL2->GetFirmwareVersion()/256, motorL2->GetFirmwareVersion()%256);
@@ -65,7 +63,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	motorR3->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, pidIndex, timeout);
 
 	motorL1->SetSensorPhase(true);
-	motorR3->SetSensorPhase(false);
+	motorR3->SetSensorPhase(true);
 
     // Set all motors to use coast mode and not brake when stopped, start in low gear
     m_brakeMode = true;
@@ -214,7 +212,7 @@ void Chassis::UpdateSmartDashboardValues(void)
 {
 #ifndef ROBORIO_STANDALONE	// If not in RoboRIO standalone mode (no talons connected)
 	SmartDashboard::PutNumber(CHS_ENCPOSITION_L, -GetEncoderPosition(motorL1));
-	SmartDashboard::PutNumber(CHS_ENCPOSITION_R, GetEncoderPosition(motorR3));
+	SmartDashboard::PutNumber(CHS_ENCPOSITION_R, -GetEncoderPosition(motorR3));
 	SmartDashboard::PutNumber(CHS_CL_ERROR_L, motorL1->GetClosedLoopError(pidIndex));
 	SmartDashboard::PutNumber(CHS_CL_ERROR_R, motorR3->GetClosedLoopError(pidIndex));
 #endif
@@ -345,10 +343,6 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	m_pidTargetCounts = inches / InchesPerCount;
 	std::printf("2135: Encoder Distance %f counts, %f inches\n", m_pidTargetCounts, inches);
 
-	// Change the drive motors to be position-loop control modes
-	motorL1->Set(ControlMode::Position, 0.0);
-	motorR3->Set(ControlMode::Position, 0.0);
-
 	// This should be set one time in constructor
 	proportional = Robot::LoadPreferencesVariable(CHS_CL_PROPORTIONAL, CHS_CL_PROPORTIONAL_D);
 	// Adjust Kp for encoder being used -- CPR of 120 is the reference
@@ -360,8 +354,8 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	motorR3->SetSelectedSensorPosition(0, pidIndex, timeout);
 
 	// Set the target distance in terms of wheel rotations (negative due to drivetrain direction)
-	motorL1->Set(ControlMode::PercentOutput, -m_pidTargetCounts);
-	motorR3->Set(ControlMode::PercentOutput, -m_pidTargetCounts);
+	motorL1->Set(ControlMode::Position, -m_pidTargetCounts);
+	motorR3->Set(ControlMode::Position, -m_pidTargetCounts);
 
 	// Set flag to indicate that the PID closed loop error is not yet valid
     m_CL_pidStarted = false;
