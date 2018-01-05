@@ -40,12 +40,14 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Drivetrain Talon settings - Teleop mode
 
     // Make second Talon SRX controller on each side of drivetrain follow the main Talon SRX
-    // Invert the direction of the right hand side motors and sensors
+    // Invert the direction of the left hand side motors and sensors
     motorL1->Set(ControlMode::PercentOutput, 0.0);
     motorL2->Set(ControlMode::Follower, 1);
 	motorL1->SetInverted(true);
+	motorL2->SetInverted(true);
     motorR3->Set(ControlMode::PercentOutput, 0.0);
 	motorR3->SetInverted(false);
+	motorR4->SetInverted(false);
     motorR4->Set(ControlMode::Follower, 3);
     printf("2135: Motor L1 ID %d ver %d.%d\n", motorL1->GetDeviceID(), motorL1->GetFirmwareVersion()/256, motorL1->GetFirmwareVersion()%256);
     printf("2135: Motor L2 ID %d ver %d.%d\n", motorL2->GetDeviceID(), motorL2->GetFirmwareVersion()/256, motorL2->GetFirmwareVersion()%256);
@@ -211,10 +213,10 @@ void Chassis::Initialize(frc::Preferences *prefs)
 void Chassis::UpdateSmartDashboardValues(void)
 {
 #ifndef ROBORIO_STANDALONE	// If not in RoboRIO standalone mode (no talons connected)
-//	SmartDashboard::PutNumber(CHS_ENCPOSITION_L, GetEncoderPosition(motorL1));
-//	SmartDashboard::PutNumber(CHS_ENCPOSITION_R, GetEncoderPosition(motorR3));
-//	SmartDashboard::PutNumber(CHS_CL_ERROR_L, motorL1->GetClosedLoopError(pidIndex));
-//	SmartDashboard::PutNumber(CHS_CL_ERROR_R, motorR3->GetClosedLoopError(pidIndex));
+	SmartDashboard::PutNumber(CHS_ENCPOSITION_L, -GetEncoderPosition(motorL1));
+	SmartDashboard::PutNumber(CHS_ENCPOSITION_R, GetEncoderPosition(motorR3));
+	SmartDashboard::PutNumber(CHS_CL_ERROR_L, motorL1->GetClosedLoopError(pidIndex));
+	SmartDashboard::PutNumber(CHS_CL_ERROR_R, motorR3->GetClosedLoopError(pidIndex));
 #endif
 	SmartDashboard::PutNumber(CHS_GYROANGLE, gyro->GetAngle());
 }
@@ -233,7 +235,7 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	// Retrieve the joystick values, if inverted drive is selected, flip the Y input
 	xValue = joystick->GetX();
 	yValue = joystick->GetY() * m_driveDirection;
-	static int i = 0;
+//	static int i = 0;
 //	if (i++ % 50 == 0)
 //		printf("x %f y %f\n", xValue, yValue);
 
