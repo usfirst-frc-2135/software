@@ -592,7 +592,7 @@ void Chassis::MoveDriveVisionHeadingStop(void)
 	drive->SetSafetyEnabled(false);
 }
 
-int Chassis::GetEncoderPosition(std::shared_ptr<TalonSRX> mtr)
+int Chassis::GetEncoderPosition(std::shared_ptr<WPI_TalonSRX> mtr)
 {
 	return mtr->GetSelectedSensorPosition(pidIndex);
 }
