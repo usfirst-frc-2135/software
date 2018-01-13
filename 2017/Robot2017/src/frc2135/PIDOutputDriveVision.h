@@ -9,18 +9,17 @@
 #define SRC_SUBSYSTEMS_PIDOUTPUTDRIVEVISION_H_
 
 #include "WPILib.h"
-#include "CANTalon.h"
 #include "../RobotDefaults.h"
 
 class PIDOutputDriveVision: public frc::PIDOutput {
 private:
-	std::shared_ptr<RobotDrive> m_robotDrive;
+	std::shared_ptr<DifferentialDrive> m_robotDrive;
 	double m_visionAngle;
 	double m_visionDistance;
 	double m_turnAngle;
 
 public:
-	PIDOutputDriveVision(std::shared_ptr<RobotDrive> drive);
+	PIDOutputDriveVision(std::shared_ptr<DifferentialDrive> drive);
 	virtual ~PIDOutputDriveVision();
 	void PIDWrite(double output);
 	void SetTurnAngle(double angle);

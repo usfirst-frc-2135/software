@@ -1,7 +1,19 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Auton Testing Mode" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="318" y="584"/>
+	</widget>
+	<widget field="Cam_Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="58" y="432"/>
+	</widget>
+	<widget field="Auton Pos 2 Vision Deliver Gear" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="305" y="617"/>
+	</widget>
+	<widget field="Chs_TurnKP" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="71" y="480"/>
+	</widget>
 	<widget field="Auton Drive Turn Test" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="55" y="464"/>
+		<location x="55" y="512"/>
 	</widget>
 	<widget field="ShooterLight" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="372" y="288"/>
@@ -49,7 +61,7 @@
 		<location x="304" y="544"/>
 	</widget>
 	<widget field="DriveHeadingAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="22" y="432"/>
+		<location x="22" y="454"/>
 	</widget>
 	<widget field="Chs_DriveDirection" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="327" y="38"/>
@@ -102,7 +114,7 @@
 		<height>355</height>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
-		<location x="80" y="517"/>
+		<location x="96" y="560"/>
 		<width>173</width>
 		<height>59</height>
 	</static-widget>
@@ -127,5 +139,61 @@
 	</widget>
 </dashboard>
 <live-window>
+	<widget field="Chassis" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="376"/>
+	</widget>
+	<widget field="Pneumatics" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="346"/>
+	</widget>
+	<widget field="Climber" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="234"/>
+	</widget>
+	<widget field="Delivery" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="204"/>
+	</widget>
+	<widget field="Shooter" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="174"/>
+	</widget>
+	<widget field="Agitator" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="144"/>
+	</widget>
+	<widget field="Intake" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="114"/>
+	</widget>
+	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<widget field="Compressor[0]" type="Compressor" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
+			<location x="99" y="22"/>
+			<height>29</height>
+			<width>141</width>
+		</widget>
+		<widget field="DoubleSolenoid[0,0]" type="Double Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.RelayController">
+			<location x="6" y="51"/>
+			<height>26</height>
+			<width>327</width>
+		</widget>
+		<widget field="DigitalOutput[0]" type="Digital Output" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
+			<location x="98" y="77"/>
+			<height>29</height>
+			<width>143</width>
+		</widget>
+		<widget field="DoubleSolenoid[0,1]" type="Double Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.RelayController">
+			<location x="6" y="106"/>
+			<height>26</height>
+			<width>327</width>
+		</widget>
+		<widget field="Servo[0]" type="Servo" class="edu.wpi.first.smartdashboard.livewindow.elements.ServoController">
+			<location x="6" y="132"/>
+			<height>56</height>
+			<width>327</width>
+		</widget>
+		<widget field="ADXRS450_Gyro[0]" type="Gyro" class="edu.wpi.first.smartdashboard.gui.elements.Compass">
+			<location x="6" y="188"/>
+			<height>150</height>
+			<width>327</width>
+		</widget>
+		<location x="0" y="0"/>
+		<width>339</width>
+		<height>345</height>
+	</widget>
 </live-window>
 </xml>

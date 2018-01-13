@@ -16,7 +16,7 @@
 AutonDelay::AutonDelay(double seconds): Command() {
     m_seconds = seconds;
 
-	printf("2135: Auton Delay - Constructor %f seconds\n", seconds);
+	std::printf("2135: Auton Delay - Constructor %f seconds\n", seconds);
 
 	// Use requires() here to declare subsystem dependencies
     // eg. requires(Robot::chassis.get());
@@ -28,7 +28,7 @@ AutonDelay::AutonDelay(double seconds): Command() {
 
 // Called just before this Command runs the first time
 void AutonDelay::Initialize() {
-	printf("2135: Auton Delay - Initialize\n");
+	std::printf("2135: Auton Delay - Initialize\n");
 	m_timer.Reset();
 	m_timer.Start();
 }
@@ -49,13 +49,13 @@ bool AutonDelay::IsFinished() {
 
 // Called once after isFinished returns true
 void AutonDelay::End() {
-	printf("2135: Auton Delay - End\n");
+	std::printf("2135: Auton Delay - End\n");
 	m_timer.Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutonDelay::Interrupted() {
-	printf("2135: Auton Delay - Interrupted\n");
+	std::printf("2135: Auton Delay - Interrupted\n");
 	m_timer.Stop();
 }

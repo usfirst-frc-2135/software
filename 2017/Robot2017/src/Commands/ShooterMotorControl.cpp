@@ -26,7 +26,7 @@ ShooterMotorControl::ShooterMotorControl(bool runShooter): Command() {
 
 // Called just before this Command runs the first time
 void ShooterMotorControl::Initialize() {
-	printf("2135: Shooter Motor Control %s - Start\n", (m_runShooter) ? "Fire!" : "Off");
+	std::printf("2135: Shooter Motor Control %s - Start\n", (m_runShooter) ? "Fire!" : "Off");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -41,13 +41,13 @@ bool ShooterMotorControl::IsFinished() {
 
 // Called once after isFinished returns true
 void ShooterMotorControl::End() {
-	printf("2135: Shooter Motor Control - Ended\n");
+	std::printf("2135: Shooter Motor Control - Ended\n");
 	Robot::shooter->SetMotorSpeed(false);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShooterMotorControl::Interrupted() {
-	printf("2135: Shooter Motor Control - Interrupted\n");
+	std::printf("2135: Shooter Motor Control - Interrupted\n");
 	Robot::shooter->SetMotorSpeed(false);
 }

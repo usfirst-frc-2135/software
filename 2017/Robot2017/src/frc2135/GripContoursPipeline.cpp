@@ -1,5 +1,6 @@
 #include "GripContoursPipeline.h"
 #include "../RobotDefaults.h"
+#include <WPILib.h>
 /**
 * Initializes a GripContoursPipeline.
 */
@@ -37,17 +38,17 @@ void GripContoursPipeline::Process(cv::Mat& source0){
 	//Step Filter_Contours0:
 	//input
 	std::vector<std::vector<cv::Point> > filterContoursContours = findContoursOutput;
-	double filterContoursMinArea = 125.0;  // default Double
+	double filterContoursMinArea = 59.0;  // default Double
 	double filterContoursMinPerimeter = 0.0;  // default Double
-	double filterContoursMinWidth = 0.0;  // default Double
-	double filterContoursMaxWidth = 1000.0;  // default Double
-	double filterContoursMinHeight = 0.0;  // default Double
-	double filterContoursMaxHeight = 1000.0;  // default Double
+	double filterContoursMinWidth = 5.0;  // default Double
+	double filterContoursMaxWidth = 65.0;  // default Double
+	double filterContoursMinHeight = 12.0;  // default Double
+	double filterContoursMaxHeight = 160.0;  // default Double
 	double filterContoursSolidity[] = {0, 100};
 	double filterContoursMaxVertices = 1000000.0;  // default Double
 	double filterContoursMinVertices = 0.0;  // default Double
-	double filterContoursMinRatio = 0.0;  // default Double
-	double filterContoursMaxRatio = 1000.0;  // default Double
+	double filterContoursMinRatio = 0.20;  // default Double
+	double filterContoursMaxRatio = 0.60;  // default Double
 	filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, this->filterContoursOutput);
 }
 
@@ -140,8 +141,11 @@ std::vector<std::vector<cv::Point> >* GripContoursPipeline::getfilterContoursOut
 			double solid = 100 * area / cv::contourArea(hull);
 			if (solid < solidity[0] || solid > solidity[1]) continue;
 			if (contour.size() < minVertexCount || contour.size() > maxVertexCount)	continue;
-			double ratio = bb.width / bb.height;
+			double ratio = (double)bb.width / (double)bb.height;
 			if (ratio < minRatio || ratio > maxRatio) continue;
+//			static int i = 0;
+//			if (i++ % 8 == 0)
+//				printf("w: %d h %d s %3.1f r %3.2f\n", bb.width, bb.height, solid, ratio);
 			output.push_back(contour);
 		}
 	}

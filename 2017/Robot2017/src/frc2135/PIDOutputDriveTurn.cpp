@@ -11,7 +11,7 @@
 // Drive Turn output class derived from PID Output
 //	Used to turn to a specified angle
 
-PIDOutputDriveTurn::PIDOutputDriveTurn(std::shared_ptr<RobotDrive> robotDrive) {
+PIDOutputDriveTurn::PIDOutputDriveTurn(std::shared_ptr<DifferentialDrive> robotDrive) {
 	m_robotDrive = robotDrive;
 }
 
@@ -20,9 +20,9 @@ PIDOutputDriveTurn::~PIDOutputDriveTurn() {
 
 void PIDOutputDriveTurn::PIDWrite(double output) {
 	if (output > 0.0) {
-		m_robotDrive->SetLeftRightMotorOutputs(0.0, output);
+		m_robotDrive->TankDrive(0.0, output);
 	}
 	else {
-		m_robotDrive->SetLeftRightMotorOutputs(-output, 0.0);
+		m_robotDrive->TankDrive(-output, 0.0);
 	}
 }

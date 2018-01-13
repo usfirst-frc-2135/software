@@ -26,7 +26,7 @@ DriveSpin::DriveSpin(bool directionLeft): Command() {
 
 // Called just before this Command runs the first time
 void DriveSpin::Initialize() {
-	printf("2135: Drive Spin %s - Start\n", (m_directionLeft == true) ? "LEFT" : "RIGHT");
+	std::printf("2135: Drive Spin %s - Start\n", (m_directionLeft == true) ? "LEFT" : "RIGHT");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -41,11 +41,11 @@ bool DriveSpin::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveSpin::End() {
-	printf("2135: Drive Spin - Ended\n");
+	std::printf("2135: Drive Spin - Ended\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveSpin::Interrupted() {
-	printf("2135: Drive Spin - Interrupted\n");
+	std::printf("2135: Drive Spin - Interrupted\n");
 }

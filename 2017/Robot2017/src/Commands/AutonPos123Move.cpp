@@ -35,7 +35,7 @@ AutonPos123Move::AutonPos123Move() {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-	printf("2135: Auton Pos 123 Move - Constructor\n");
+	std::printf("2135: Auton Pos 123 Move - Constructor\n");
 
 	double	leg1 = Robot::LoadPreferencesVariable(AUTON_POS123MOVE, AUTON_POS123MOVE_D);
 	Robot::chassis->MoveShiftGears(true);
