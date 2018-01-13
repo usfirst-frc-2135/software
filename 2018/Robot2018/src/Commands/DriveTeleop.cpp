@@ -24,12 +24,14 @@ DriveTeleop::DriveTeleop(): frc::Command() {
 
 // Called just before this Command runs the first time
 void DriveTeleop::Initialize() {
+//	printf("2135: DriveTeleop Init\n");
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveTeleop::Execute() {
-
+//	printf("2135: DriveTeleop Execute\n");
+	Robot::chassis->MoveWithJoystick(Robot::oi->getDriverStick());
 }
 
 // Make this return true when this Command no longer needs to run execute()
