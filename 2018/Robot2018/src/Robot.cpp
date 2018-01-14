@@ -56,6 +56,33 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+	// Initializes the gameData that read switch and scale colors from the FMS
+	std::string gameData;
+	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+
+	// Chooser that reads switch and scale colors from the FMS
+	if(gameData[0] == 'L') // Reads switch closest to Alliance Station
+	{
+		printf("2135: Autonomous Level 1 Switch Left Side \n");
+	} else {
+		printf("2135: Autonomous Level 1 Switch Right Side \n");
+
+	}
+
+	if(gameData[1] == 'L') // Reads scale
+	{
+		printf("2135: Autonomous Level 2 Scale Left Side \n");
+	} else {
+		printf("2135: Autonomous Level 2 Scale Right Side \n");
+	}
+
+	if(gameData[2] == 'L') // Reads switch farthest from the Alliance Station
+	{
+		printf("2135: Autonomous Level 3 Switch Left Side \n");
+	} else {
+		printf("2135: Autonomous Level 3 Switch Right Side \n");
+	}
+
 	autonomousCommand = chooser.GetSelected();
 	if (autonomousCommand != nullptr)
 		autonomousCommand->Start();
