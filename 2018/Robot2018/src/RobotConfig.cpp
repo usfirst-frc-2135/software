@@ -5,10 +5,9 @@
  *      Author: Administrator
  */
 
-#include "RobotConfiguration.h"
-
 #include <iostream>     // std::cout
 #include <fstream>      // std::ifstream
+#include "RobotConfig.h"
 
 RobotConfiguration* RobotConfiguration::ourConfiguration = NULL;
 
