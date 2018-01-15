@@ -22,7 +22,13 @@ private:
 	
 	
 	
+	
+	
 	std::shared_ptr<frc::Joystick> driverStick;
+	std::shared_ptr<frc::JoystickButton> elevatorDown;
+	std::shared_ptr<frc::JoystickButton> elevatorUp;
+	std::shared_ptr<frc::JoystickButton> gripperExpel;
+	std::shared_ptr<frc::JoystickButton> gripperAcquire;
 	std::shared_ptr<frc::JoystickButton> driverShiftToggle;
 	std::shared_ptr<frc::JoystickButton> driverShift;
 	std::shared_ptr<frc::JoystickButton> driveSpinLeft;
