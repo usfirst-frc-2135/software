@@ -1,12 +1,12 @@
 /*
- * RobotConfiguration.h
+ * RobotConfig.h
  *
  *  Created on: Jan 13, 2018
  *      Author: Administrator
  */
 
-#ifndef ROBOTCONFIGURATION_H_
-#define ROBOTCONFIGURATION_H_
+#ifndef ROBOTCONFIG_H_
+#define ROBOTCONFIG_H_
 #include <stdlib.h>
 #include <string>
 #include <map>
@@ -15,12 +15,13 @@
 class RobotConfig {
 
 public:
-	static RobotConfig*GetInstance();
+	static RobotConfig* GetInstance();
 	bool LoadConfig();
 	void DumpConfig();
-	std::string GetValueAsString(const std::string& name);
-	int GetValueAsInt(const std::string& name);
-	bool GetValueAsBool(const std::string& name);
+	bool GetValueAsString(const std::string name, std::string& valueString);
+	bool GetValueAsInt(const std::string name, int& valueInt);
+	bool GetValueAsBool(const std::string name, bool& valueBool);
+	bool GetValueAsFloat(const std::string name, float& valueFloat);
 
 private:
 	static RobotConfig* currentConfig;
@@ -32,4 +33,4 @@ private:
 
 };
 
-#endif /* ROBOTCONFIGURATION_H_ */
+#endif /* ROBOTCONFIG_H_ */
