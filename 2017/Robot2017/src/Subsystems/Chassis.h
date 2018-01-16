@@ -42,9 +42,9 @@ private:
 // 	const double				WheelDiaInches = 4.138;		// Crush wheel diameter
 //	10/22 Test: L-encoder: -10620.0; R-encoder: 10602.0 for 290 inches distance
 	const double				WheelDiaInches = 4.1722; 	// Crush wheel dia for left wheel; right = 4.1793
-	const unsigned short int	USDigitalS4_CPR = 120;
+	const unsigned short int	USDigitalS4_CPR = 360;
 	const unsigned short int	Encoder_CPR = (USDigitalS4_CPR * 4);	// Talons report CPR * 4 (each encoder signal edge)
-	const double				InchesPerCount = WheelDiaInches / (double)Encoder_CPR;
+	const double				InchesPerCount = WheelDiaInches * M_PI / (double)Encoder_CPR;
 	const int					pidIndex = 0;				// PID slot index for sensors
 	const int					timeout = 100;				// CAN timeout in msec to wait for response
 

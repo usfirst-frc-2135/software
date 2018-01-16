@@ -97,7 +97,7 @@ void Robot::DisabledPeriodic() {
 
 	static int ticks_per_print = 0;
 	if (ticks_per_print++ % 50 == 0) {
-		std::printf("2135: DisabledPeriodic %d\n", ticks_per_print / 50); 	// Testing only
+		//std::printf("2135: DisabledPeriodic %d\n", ticks_per_print / 50); 	// Testing only
 	}
 
 	// If RoboRIO User button is pressed, dump all CAN faults
