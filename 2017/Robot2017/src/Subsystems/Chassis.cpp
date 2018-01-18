@@ -43,6 +43,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Invert the direction of the left hand side motors and sensors
 	motorL1->SetInverted(true);
 	motorL2->SetInverted(true);
+	motorR3->SetInverted(false);
+	motorR4->SetInverted(false);
     motorL1->Set(ControlMode::PercentOutput, 0.0);
     motorL2->Set(ControlMode::Follower, 1);
     motorR3->Set(ControlMode::PercentOutput, 0.0);
@@ -251,7 +253,7 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	}
 
 	// Apply modified joystick input to the drive motors
-	drive->ArcadeDrive( xValue, yValue, true );
+	drive->ArcadeDrive( -xValue, yValue, true );
 }
 
 // MoveSpin is a custom feature that can be hooked to a button for spin turns
