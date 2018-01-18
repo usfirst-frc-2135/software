@@ -18,7 +18,7 @@ private:
 	double m_angleBuffer[numSamples];
 	int m_curSample = 0;
 	double m_totSamples = 0;
-	const double				EncoderDirection = 1.0;		// Crush encoders read positive values
+	const double				EncoderDirection = -1.0;		// Crush encoders read positive values
 
 public:
 	PIDSourceDriveVision();
