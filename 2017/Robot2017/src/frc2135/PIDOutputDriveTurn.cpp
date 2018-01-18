@@ -20,7 +20,7 @@ PIDOutputDriveTurn::~PIDOutputDriveTurn() {
 
 void PIDOutputDriveTurn::PIDWrite(double output) {
 	if (output > 0.0) {
-		m_robotDrive->TankDrive(0.0, output);
+		m_robotDrive->TankDrive(0.0, -output);
 	}
 	else {
 		m_robotDrive->TankDrive(-output, 0.0);

@@ -341,7 +341,8 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	double proportional;
 
 	m_pidTargetCounts = inches / InchesPerCount;
-	std::printf("2135: Encoder Distance %f counts, %f inches\n", m_pidTargetCounts, inches);
+	std::printf("2135: Encoder Distance %f counts, %f inches, %f InchesPerCount\n", m_pidTargetCounts, inches, InchesPerCount);
+
 
 	// This should be set one time in constructor
 	proportional = Robot::LoadPreferencesVariable(CHS_CL_PROPORTIONAL, CHS_CL_PROPORTIONAL_D);
@@ -356,6 +357,15 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	// Set the target distance in terms of wheel rotations (negative due to drivetrain direction)
 	motorL1->Set(ControlMode::Position, -m_pidTargetCounts);
 	motorR3->Set(ControlMode::Position, -m_pidTargetCounts);
+
+	double peakOutputVoltage = 1.0;
+	peakOutputVoltage = Robot::LoadPreferencesVariable(CHS_CL_PEAKOUTPCNT, CHS_CL_PEAKOUTPCNT_D);
+
+	motorL1->ConfigPeakOutputForward(peakOutputVoltage/2, timeout);
+	motorL1->ConfigPeakOutputReverse(-peakOutputVoltage/2, timeout);
+	motorR3->ConfigPeakOutputForward(peakOutputVoltage/2, timeout);
+	motorR3->ConfigPeakOutputReverse(-peakOutputVoltage/2, timeout);
+
 
 	// Set flag to indicate that the PID closed loop error is not yet valid
     m_CL_pidStarted = false;
@@ -516,6 +526,12 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle, double distance)
 	motorL1->SetSelectedSensorPosition(0, pidIndex, timeout);
 	motorR3->SetSelectedSensorPosition(0, pidIndex, timeout);
 
+	motorL1->ConfigPeakOutputForward(1, timeout);
+	motorL1->ConfigPeakOutputReverse(-1, timeout);
+	motorR3->ConfigPeakOutputForward(1, timeout);
+	motorR3->ConfigPeakOutputReverse(-1, timeout);
+
+
 	// Grab vision target angle and distance from SmartDashboard
 
 	// angle input parameter is not used--read directly from dashboard
@@ -525,14 +541,14 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle, double distance)
 	driveVisionPIDSource->SetTurnAngle(visionAngle);
 
 	// Program the PID target setpoint in encoder counts (CPR * 4)
-	visionDistance = SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
+	visionDistance = -SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
 	SmartDashboard::PutNumber("DV CAMD", visionDistance);
 	if (visionDistance > 0.0)					// If a valid vision distance
 		visionDistance = visionDistance - 2.0;	// Adjust distance for camera sensor to peg (minus carriage)
 	driveVisionPIDLoop->SetSetpoint(visionDistance / InchesPerCount);
 
 	std::printf("2135: Leg 3 Distance: %f; Angle: %f\n", visionDistance, visionAngle);
-	driveVisionPIDLoop->SetOutputRange(-0.5, 0.5);
+	driveVisionPIDLoop->SetOutputRange(-0.75, 0.75);
 
 	// Enable the PID loop (tolerance is in encoder count units)
 	driveVisionPIDLoop->SetAbsoluteTolerance(1.0 / InchesPerCount);	// This is +/-, so 1" = 2.0 inches
