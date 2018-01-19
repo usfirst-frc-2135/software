@@ -25,31 +25,29 @@ Elevate::Elevate(bool elevateDirection): frc::Command() {
 
 // Called just before this Command runs the first time
 void Elevate::Initialize() {
-
+	std::printf("2135: Elevate - Initialized\n");
+	Robot::elevator->ElevatePIDInit(30.0);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Elevate::Execute() {
-	if (m_elevateDirection == true) {
-		Robot::elevator->MoveUp();
-	}
-	else {
-		Robot::elevator->MoveDown();
-	}
+	Robot::elevator->ElevatePIDExecute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool Elevate::IsFinished() {
-    return false;
+    return (Robot::elevator->ElevatePIDatSetPoint());
 }
 
 // Called once after isFinished returns true
 void Elevate::End() {
-
+	std::printf("2135: Elevate - End \n");
+	Robot::elevator->ElevatePIDStop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void Elevate::Interrupted() {
-
+	std::printf("2135: Elevate - Interrupted \n");
+	Robot::elevator->ElevatePIDStop();
 }
