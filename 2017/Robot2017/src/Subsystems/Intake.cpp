@@ -46,6 +46,7 @@ void Intake::InitDefaultCommand() {
 void Intake::Initialize(frc::Preferences *prefs)
 {
 	// Initialize SmartDashboard values - if any
+	// TODO: CTRE docs say inverted states should be set first
 	std::printf("2135: Intake Initialize\n");
     motor8->SetNeutralMode(NeutralMode::Coast);
 	motor8->Set(ControlMode::PercentOutput, 0.0);

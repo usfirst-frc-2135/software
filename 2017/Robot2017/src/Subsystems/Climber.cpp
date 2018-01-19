@@ -47,6 +47,7 @@ void Climber::InitDefaultCommand() {
 void Climber::Initialize(frc::Preferences *prefs)
 {
 	// Initialize SmartDashboard values - if any
+	// TODO: CTRE docs say inverted states should be set first
 	std::printf("2135: Climber Initialize\n");
     motor18->SetNeutralMode(NeutralMode::Brake);
 	motor18->Set(ControlMode::PercentOutput, 0.0);

@@ -45,35 +45,35 @@ private:
 	const unsigned short int	USDigitalS4_CPR = 360;
 	const unsigned short int	Encoder_CPR = (USDigitalS4_CPR * 4);	// Talons report CPR * 4 (each encoder signal edge)
 	const double				InchesPerCount = WheelDiaInches * M_PI / (double)Encoder_CPR;
-	const int					pidIndex = 0;				// PID slot index for sensors
-	const int					timeout = 100;				// CAN timeout in msec to wait for response
+	const int				pidIndex = 0;				// PID slot index for sensors
+	const int				timeout = 10;				// CAN timeout in msec to wait for response
 
 	std::shared_ptr<ADXRS450_Gyro> gyro;
 
-	double m_driveDirection;		// Allows chassis drive direction change
-	double m_driveScaling;			// Scaling applied to joystick for SW shifting
-	double m_turnScaling;			// Turn scaling (1.0 is disabled, < 1.0 is max X output)
-	double m_driveSpin;				// Spin turn power setting
-	bool m_brakeMode; 				// Brake or Coast mode for talons
-	bool m_invertEnable;			// Disables or enables invert drive direction
+	double 	m_driveDirection;	// Allows chassis drive direction change
+	double 	m_driveScaling;		// Scaling applied to joystick for SW shifting
+	double 	m_turnScaling;		// Turn scaling (1.0 is disabled, < 1.0 is max X output)
+	double 	m_driveSpin;			// Spin turn power setting
+	bool 	m_brakeMode; 		// Brake or Coast mode for talons
+	bool 	m_invertEnable;		// Disables or enables invert drive direction
 
-	double m_turnKP;				// Proportional value for PID for DriveTurn function
+	double 	m_turnKP;			// Proportional value for PID for DriveTurn function
 
-	double m_pidTargetCounts; 	// Number of rotations to drive in Drive Distance
-	int m_CL_allowError;			// Closed loop allowable error
-	bool m_CL_pidStarted;			// Flag to indicate PID has started and CL error is valid
-	double m_pidAngle;				// Number of degrees to turn in Drive Turn
+	double 	m_pidTargetCounts; 	// Number of rotations to drive in Drive Distance
+	int 		m_CL_allowError;		// Closed loop allowable error
+	bool 	m_CL_pidStarted;		// Flag to indicate PID has started and CL error is valid
+	double 	m_pidAngle;			// Number of degrees to turn in Drive Turn
 
-	bool m_lowGear;					// Low Gear or High Gear
-	Timer m_safetyTimer;			// Safety timer for use during autonomous modes
-	double m_safetyTimeout;			// Time in seconds for safety timer
+	bool 	m_lowGear;			// Low Gear or High Gear
+	Timer 	m_safetyTimer;		// Safety timer for use during autonomous modes
+	double 	m_safetyTimeout;		// Time in seconds for safety timer
 
-	PIDOutputDriveTurn *driveTurnPIDOutput;	// Drive Turn to angle using gyro - initialize output
-	PIDController *driveTurnPIDLoop;		// Drive Turn PID controller loop
+	PIDOutputDriveTurn 	*driveTurnPIDOutput;		// Drive Turn to angle using gyro - initialize output
+	PIDController 		*driveTurnPIDLoop;		// Drive Turn PID controller loop
 
 	PIDOutputDriveVision *driveVisionPIDOutput;	// Drive with Vision to angle using gyro - initialize output
 	PIDSourceDriveVision *driveVisionPIDSource;	// Drive with Vision PID source loop
-	PIDController *driveVisionPIDLoop;		// Drive with Vision PID controller loop
+	PIDController 		*driveVisionPIDLoop;		// Drive with Vision PID controller loop
 
 public:
 	Chassis();

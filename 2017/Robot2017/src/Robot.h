@@ -69,8 +69,8 @@ private:
 	bool m_faultsCleared;
 	// Smartdashboard update rates in 20ms packet counts
 #define	SMARTDBD_PKTRATE			20			// 20 ms - period of every packet from driver station
-#define SMARTDBD_FASTRATE			200			// 200 ms
-#define SMARTDBD_SLOWRATE			500			// 500 ms
+#define SMARTDBD_FASTRATE		200			// 200 ms
+#define SMARTDBD_SLOWRATE		500			// 500 ms
 	static int const smartdashDisabledRate = SMARTDBD_FASTRATE/20;		// 200ms
 	static int const smartdashTeleopRate = SMARTDBD_SLOWRATE/20;		// 500ms
 	static int const smartdashAutonRate = SMARTDBD_SLOWRATE/20;			// 500ms

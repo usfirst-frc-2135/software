@@ -74,7 +74,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	MoveShiftGears(m_lowGear);
 
 	//	Initialize drivetrain modifiers
-    m_driveDirection = -1.0;	// Initialize drivetrain direction for driving forward or backward
+    m_driveDirection = -1.0;		// Initialize drivetrain direction for driving forward or backward
     m_driveScaling = 1.0;		// Initialize scaling factor and disable it
     m_driveSpin = 0.45;			// Initialize power setting used for spin turns
 
@@ -235,9 +235,6 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	// Retrieve the joystick values, if inverted drive is selected, flip the Y input
 	xValue = joystick->GetX();
 	yValue = joystick->GetY() * m_driveDirection;
-//	static int i = 0;
-//	if (i++ % 50 == 0)
-//		printf("x %f y %f\n", xValue, yValue);
 
 	// If in high gear, use the scaling factor against the y-axis
 	if (!m_lowGear) {
