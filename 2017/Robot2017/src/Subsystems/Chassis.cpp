@@ -40,9 +40,11 @@ Chassis::Chassis() : Subsystem("Chassis") {
     // Drivetrain Talon settings - Teleop mode
 
     // Make second Talon SRX controller on each side of drivetrain follow the main Talon SRX
-    // Invert the direction of the left hand side motors and sensors
-	motorL1->SetInverted(true);
-	motorL2->SetInverted(true);
+
+    //SetInverted are all true if intake forward, all false if gear forward
+    //because DifferentialDrive automatically inverts one side
+	motorL1->SetInverted(false);
+	motorL2->SetInverted(false);
 	motorR3->SetInverted(false);
 	motorR4->SetInverted(false);
     motorL1->Set(ControlMode::PercentOutput, 0.0);
@@ -233,10 +235,8 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	double yValue;
 
 	// Retrieve the joystick values, if inverted drive is selected, flip the Y input
-	xValue = joystick->GetX() * m_driveDirection;
+	xValue = joystick->GetX();
 	yValue = joystick->GetY() * m_driveDirection;
-
-	//printf("2135: xValue = %f yValue = %f\n", xValue, yValue);
 
 	// If in high gear, use the scaling factor against the y-axis
 	if (!m_lowGear) {
@@ -252,7 +252,7 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	}
 
 	// Apply modified joystick input to the drive motors
-	drive->ArcadeDrive( xValue, yValue, true );
+	drive->ArcadeDrive( -yValue, xValue, true );
 }
 
 // MoveSpin is a custom feature that can be hooked to a button for spin turns
