@@ -250,7 +250,7 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	}
 
 	// Apply modified joystick input to the drive motors
-	drive->ArcadeDrive( -xValue, yValue, true );
+	drive->ArcadeDrive( xValue, yValue, true );
 }
 
 // MoveSpin is a custom feature that can be hooked to a button for spin turns
