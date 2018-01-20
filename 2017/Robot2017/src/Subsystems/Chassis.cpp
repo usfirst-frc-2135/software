@@ -233,8 +233,10 @@ void Chassis::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	double yValue;
 
 	// Retrieve the joystick values, if inverted drive is selected, flip the Y input
-	xValue = joystick->GetX();
+	xValue = joystick->GetX() * m_driveDirection;
 	yValue = joystick->GetY() * m_driveDirection;
+
+	//printf("2135: xValue = %f yValue = %f\n", xValue, yValue);
 
 	// If in high gear, use the scaling factor against the y-axis
 	if (!m_lowGear) {
