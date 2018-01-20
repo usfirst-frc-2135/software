@@ -14,72 +14,7 @@ RobotConfig* RobotConfig::currentConfig = NULL;
 
 //////////////////////////////////////////////////////////
 
-//set up class for second value in map
-//TODO output origin of value
 
-const int FROMFILE = 0;
-const int FROMDEFAULT = 1;
-const int FROMOTHER = 2;
-
-ValueInfo::ValueInfo(std::string& valueString, int origin) {
-	m_Value = valueString;
-	m_Origin = origin;
-}
-
-ValueInfo::ValueInfo() {
-	m_Value = "";
-	m_Origin = FROMFILE;
-}
-
-ValueInfo::ValueInfo (ValueInfo& myCopy) {
-	m_Value = myCopy.GetValue();
-	m_Origin = myCopy.GetOrigin();
-}
-
-std::string ValueInfo::GetValue() {
-	return m_Value;
-}
-
-void ValueInfo::SetOrigin( int origin) {
-	m_Origin = origin;
-}
-
-void ValueInfo::SetValue( std::string svalue) {
-	m_Value = svalue;
-}
-
-std::string ValueInfo::GetOriginAsText() {
-	std::string txtOrigin = "";
-	if (m_Origin == FROMFILE)
-		txtOrigin += " - from roboRIO configFile";
-	if (m_Origin == FROMDEFAULT)
-			txtOrigin += " - from default";
-	if (m_Origin == FROMOTHER)
-			txtOrigin += " - from other";
-	return txtOrigin;
-}
-
-bool ValueInfo::IsOriginFile() {
-	if (m_Origin == FROMFILE)
-		return true;
-	return false;
-}
-
-bool ValueInfo::IsOriginDefault() {
-	if (m_Origin == FROMDEFAULT)
-		return true;
-	return false;
-}
-
-bool ValueInfo::IsOriginOther() {
-	if (m_Origin == FROMOTHER)
-		return true;
-	return false;
-}
-
-int ValueInfo::GetOrigin() { // private function
-	return m_Origin;
-}
 
 //////////////////////////////////////////////////////////
 
@@ -91,12 +26,11 @@ RobotConfig* RobotConfig::GetInstance() {
 
 
 RobotConfig::RobotConfig() {
-	// TODO Auto-generated constructor stub
-	printf("2135: Before Load\n");
+	printf("2135: Before Config Load\n");
 	LoadConfig();
-	printf("2135: After Load, Before Dump\n");
+	printf("2135: After Config Load, Before Dump\n");
 	DumpConfig();
-	printf("2135: After Dump\n");
+	printf("2135: After Config Dump\n");
 }
 
 bool RobotConfig::LoadConfig() {
@@ -106,26 +40,19 @@ bool RobotConfig::LoadConfig() {
 	{
 		printf("2135: No such Config file %s.", fileName.c_str());
 		return false;
-
 	}
-
-	//TODO m_configMap.clear();
+    m_configMap.clear();
 
 	while (configFile.eof() == false) {
-
 		std::string name;
-		std::string value;
+		std::string valueStr;
 
-		configFile >> name;
-		configFile >> value;
-
+		configFile >> name;   // read in first word on fileline
+		configFile >> valueStr;  // read in 2nd word on fileline
 		if(!name.empty())
 		{
-			ValueInfo myValueInfo(value, FROMFILE);
-			//m_configMap[name] = myValueInfo;
-			//m_configMap.insert({name , myValueInfo});
-			//TODO m_configMap.insert(std::pair<std::string, ValueInfo>(name, myValueInfo));
-			printf("2135: Adding to m_configMap: '%s'='%s'\n", name.c_str(), value.c_str());
+			m_configMap[name] = valueStr;
+			printf("2135: Adding to m_configMap: '%s'='%s'\n", name.c_str(), valueStr.c_str());
 		}
 
 		if(configFile.bad() == true)
@@ -138,115 +65,99 @@ bool RobotConfig::LoadConfig() {
 }
 
 //will return false only if there is no value found or specified (default or from file)
-
-bool RobotConfig::GetValueAsString(std::string name, std::string& valueString, std::string defaultValue/*=""*/)
+bool RobotConfig::GetValueAsString(const std::string& name, std::string& valueStr, std::string defaultStr/*=""*/)
 {
 	bool rtnStatus = false;
-	ValueInfo/*&*/ myValueInfo; //TODO = m_configMap[name];
-	valueString = myValueInfo.GetValue();
-	if(!valueString.empty())
+	valueStr = m_configMap[name];
+	if(!valueStr.empty())
 	{
 		 rtnStatus = true;
-		 myValueInfo.SetOrigin(FROMFILE);
 	}
-	else
+	else  // this name was not found in m_configMap, so add it using defaultValue.
 	{
-		if (!defaultValue.empty())
+		if (!defaultStr.empty())
 		{
-			valueString = defaultValue;
-			printf("ERROR: %s not found in RobotConfig. Using default value %s\n", name.c_str(), defaultValue.c_str());
+			valueStr = defaultStr;
+			m_configMap[name] = valueStr;
+			printf("2135: %s not found in RobotConfig; using default value %s\n", name.c_str(), defaultStr.c_str());
 			rtnStatus = true;
-			myValueInfo.SetOrigin(FROMDEFAULT);
-			myValueInfo.SetValue(defaultValue);
 		}
-		else printf("ERROR: %s not found in RobotConfig. No default value specified\n", name.c_str());
+		else printf("2135: %s not found in RobotConfig and no default value specified.\n", name.c_str());
 	}
 	return rtnStatus;
 }
 
 //Returns true if successful, puts value in valueInt.
-bool RobotConfig::GetValueAsInt( std::string name, int& valueInt, int defaultValue/*==-545772002*/)
+bool RobotConfig::GetValueAsInt(const std::string& name, int& valueInt, int defaultInt/*=DUMMY_DEFAULT_INT*/)
 {
 	bool rtnStatus = false;
-	ValueInfo/*&*/ myValueInfo; //TODO = m_configMap[name];
-	std::string valueStr  = myValueInfo.GetValue();
+	std::string valueStr = m_configMap[name];
 	if(!valueStr.empty())
 	{
-		valueInt = atoi(valueStr.c_str());
+		valueInt = atoi(valueStr.c_str());  // convert to int
 		rtnStatus = true;
-		myValueInfo.SetOrigin(FROMFILE);
 	}
-	else
+	else  // this name is not found in m_configMap, so add it if there is a default specified
 	{
-		if (!(defaultValue == -545772002))
+		if (defaultInt != DUMMY_DEFAULT_INT)
 		{
-			valueInt = defaultValue;
-			printf("ERROR: %s not found in RobotConfig. Using default value %d\n", name.c_str(), defaultValue);
+			valueInt = defaultInt;
+			std::string valueStr = std::to_string(defaultInt);
+			m_configMap[name] = valueStr;
+			printf("2135: %s not found in RobotConfig; using default value %d\n", name.c_str(), defaultInt);
 			rtnStatus = true;
-			myValueInfo.SetOrigin(FROMDEFAULT);
-			std::string svalue = std::to_string(defaultValue);
-			myValueInfo.SetValue(svalue);
 		}
-		else printf("ERROR: %s not found in RobotConfig. No default value specified\n", name.c_str());
+		else printf("2135: %s not found in RobotConfig and no default value specified.\n", name.c_str());
 	}
-
 	return rtnStatus;
 }
 
 //Returns true if given name is found in config map & puts its value in valueBool.
-bool RobotConfig::GetValueAsBool( std::string name, bool& valueBool, bool defaultValue/*=false*/) // default bool if no default is specified  will be false
+bool RobotConfig::GetValueAsBool(const std::string& name, bool& valueBool, bool defaultBool/*=false*/) // default bool if no default is specified  will be false
 {
 	bool rtnStatus = false;
-	ValueInfo/*&*/ myValueInfo; //TODO = m_configMap[name];
-	std::string valueStr = myValueInfo.GetValue();
+	std::string valueStr = m_configMap[name];
 	if(!valueStr.empty())
 	{
-		// Assumes that value string is always lowercase.
+		// Assumes that value string is always lowercase 'true' or '1'.
 		if((valueStr == "true") || (valueStr == "1"))
 			valueBool = true;
 		else valueBool = false;
 		rtnStatus = true;
-		myValueInfo.SetOrigin(FROMFILE);
 	}
-	else
+	else  // not found in m_configMap, so use default.
 	{
-		valueBool = defaultValue;
-		printf("ERROR: %s not found in RobotConfig. Using default value %d\n", name.c_str(), defaultValue);
+		valueBool = defaultBool;
+		std::string defaultStr("false");
+		if (defaultBool == true)
+			defaultStr = "true";
+		m_configMap[name] = defaultStr;
+		printf("2135: %s not found in RobotConfig; using default value %d\n", name.c_str(), defaultBool);
 		rtnStatus = true;
-		myValueInfo.SetOrigin(FROMDEFAULT);
-		std::string svalue;
-		if (defaultValue == true)
-			svalue += "true";
-		else svalue += "false";
-		myValueInfo.SetValue(svalue);
 	}
-
 	return rtnStatus;
 }
 
-bool RobotConfig::GetValueAsFloat( std::string name, float& valueFloat, float defaultValue/*=-545.772002*/)
+bool RobotConfig::GetValueAsFloat(const std::string& name, float& valueFloat, float defaultFloat/*=DUMMY_DEFAULT_FLOAT*/)
 {
 	bool rtnStatus = false;
-	ValueInfo/*&*/ myValueInfo; //TODO = m_configMap[name];
-	std::string valueStr = myValueInfo.GetValue();
+	std::string valueStr = m_configMap[name];
 	if(!valueStr.empty())
 	{
-		valueFloat = atof(valueStr.c_str());
+		valueFloat = atof(valueStr.c_str());  // convert stored value to float
 		rtnStatus = true;
-		myValueInfo.SetOrigin(FROMFILE);
 	}
 	else
 	{
-		if (!(defaultValue == -545.772002))
+		if (defaultFloat != DUMMY_DEFAULT_FLOAT)
 		{
-			valueFloat = defaultValue;
-			printf("ERROR: %s not found in RobotConfig. Using default value %f\n", name.c_str(), defaultValue);
+			valueFloat = defaultFloat;
+			std::string defaultStr = std::to_string(defaultFloat);
+			m_configMap[name] = defaultStr;
+			printf("2135: %s not found in RobotConfig; using default value %f\n", name.c_str(), defaultFloat);
 			rtnStatus = true;
-			myValueInfo.SetOrigin(FROMDEFAULT);
-			std::string svalue = std::to_string(defaultValue);
-			myValueInfo.SetValue(svalue);
 		}
-		else printf("ERROR: %s not found in RobotConfig. No default value specified\n", name.c_str());
+		else printf("2135: %s not found in RobotConfig and no default value specified\n", name.c_str());
 	}
 
 	return rtnStatus;
@@ -254,16 +165,10 @@ bool RobotConfig::GetValueAsFloat( std::string name, float& valueFloat, float de
 
 void RobotConfig::DumpConfig()
 {
-	//TODO for (std::map<std::string, ValueInfo>::iterator itr = m_configMap.begin(); itr != m_configMap.end(); itr++)
-	//for (auto& element : m_configMap)
-	//for (std::pair<std::string, ValueInfo> element : m_configMap)
-	//{
-		//ValueInfo myValueInfo = (ValueInfo)(itr->second);
-		//ValueInfo myValueInfo = element.second;
-		//std::cout << element.first << " = " << myValueInfo.GetValue() << " " << myValueInfo.GetOriginAsText() << "\n";
-		//std::cout << itr->first << " = " << myValueInfo.GetValue() << " " << myValueInfo.GetOriginAsText() << "\n";
-										//(Valueinfo)itr->second (just in case above code doesn't work
-//	}
+	for (std::map<std::string, std::string>::iterator itr = m_configMap.begin(); itr != m_configMap.end(); itr++)
+	{
+	    std::cout << itr->first << " = " << itr->second << "\n";
+	}
 
 //This is testing the get functions with our dummy file. We can remove this once we are confident with the functions.
 
@@ -310,5 +215,5 @@ else printf("PeopleOut (as string) could not get value.\n");*/
 
 
 RobotConfig::~RobotConfig() {
-	// TODO Auto-generated destructor stub
+
 }

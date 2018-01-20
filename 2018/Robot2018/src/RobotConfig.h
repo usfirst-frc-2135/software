@@ -12,27 +12,9 @@
 #include <map>
 #include <vector>
 
-class ValueInfo {
 
-public:
-	ValueInfo(std::string& valueString, int origin);
-	ValueInfo();
-	ValueInfo(ValueInfo& myCopy);
-	std::string GetValue();
-	void SetOrigin( int origin);
-	void SetValue(std::string svalue);
-	std::string GetOriginAsText();
-	bool IsOriginFile();
-	bool IsOriginDefault();
-	bool IsOriginOther();
-
-private:
-	int GetOrigin();
-
-private:
-	std::string m_Value;
-	int m_Origin;
-};
+static const int DUMMY_DEFAULT_INT = 999999;
+static const float DUMMY_DEFAULT_FLOAT = 999999.999;
 
 class RobotConfig {
 
@@ -40,19 +22,17 @@ public:
 	static RobotConfig* GetInstance();
 	bool LoadConfig();
 	void DumpConfig();
-	bool GetValueAsString(std::string name, std::string& valueString, std::string defaultValue = "");
-	bool GetValueAsInt( std::string name, int& valueInt, int defaultValue = -545772002);
-	bool GetValueAsBool( std::string name, bool& valueBool, bool defaultValue = false); // default boolean if no default is specified will be false
-	bool GetValueAsFloat( std::string name, float& valueFloat, float defaultValue = -545.772002);
+	bool GetValueAsString(const std::string& name, std::string& valueString, std::string defaultValue = "");
+	bool GetValueAsInt(const std::string& name, int& valueInt, int defaultInt = DUMMY_DEFAULT_INT);
+	bool GetValueAsBool(const std::string& name, bool& valueBool, bool defaultBool = false); // default boolean if no default is specified will be false
+	bool GetValueAsFloat(const std::string& name, float& valueFloat, float defaultFloat = DUMMY_DEFAULT_FLOAT);
 
 private:
 	static RobotConfig* currentConfig;
 	RobotConfig();
 	virtual ~RobotConfig();
 
-	//std::map<std::string, std::string> m_configMap;
-	//TODO std::map<std::string, ValueInfo> m_configMap;
-
+	std::map<std::string, std::string> m_configMap;
 };
 
 #endif /* ROBOTCONFIG_H_ */
