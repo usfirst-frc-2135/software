@@ -26,9 +26,9 @@ public:
 	bool GetValueAsInt(const std::string& name, int& valueInt, int defaultInt = DUMMY_DEFAULT_INT);
 	bool GetValueAsBool(const std::string& name, bool& valueBool, bool defaultBool = false); // default boolean if no default is specified will be false
 	bool GetValueAsFloat(const std::string& name, float& valueFloat, float defaultFloat = DUMMY_DEFAULT_FLOAT);
+	static RobotConfig* currentConfig;
 
 private:
-	static RobotConfig* currentConfig;
 	RobotConfig();
 	virtual ~RobotConfig();
 

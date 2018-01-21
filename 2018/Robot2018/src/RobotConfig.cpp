@@ -43,11 +43,11 @@ bool RobotConfig::LoadConfig() {
 	std::ifstream configFile(fileName.c_str());
 	if (configFile.good() == false)
 	{
-		printf("2135: No such Config file %s.", fileName.c_str());
+		printf("2135: No such Config file %s.\n", fileName.c_str());
 		return false;
 	}
     m_configMap.clear();
-
+    std::printf("2135: Loading Config File %s\n", fileName.c_str());
 	while (configFile.eof() == false) {
 		std::string name;
 		std::string valueStr;
@@ -57,8 +57,7 @@ bool RobotConfig::LoadConfig() {
 		while(getline(configFile, line)) {
 			name = "";			// Reset
 			trimWhitespace(line);
-			if(line[0] == '#') {
-				printf("2135: Ignoring comment\n");
+			if(line[0] == '#') {	// Skipping comment line
 				continue;
 			}
 			size_t pos = 0;
