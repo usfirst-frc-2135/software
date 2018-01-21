@@ -8,16 +8,21 @@
 #include <iostream>     // std::cout
 #include <fstream>      // std::ifstream
 #include <map>
+#include <algorithm>
 #include "RobotConfig.h"
 
 RobotConfig* RobotConfig::currentConfig = NULL;
-
+const std::string CONFIGFILENAME = "/home/lvuser/2135_configuration.txt";
 //////////////////////////////////////////////////////////
 
 
 
 //////////////////////////////////////////////////////////
+void trimWhitespace(std::string& line) {
+	line.erase(std::remove_if( line.begin(), line.end(), [](char c){ return (c =='\r' || c =='\t' || c == ' ' || c == '\n');}), line.end() );
+}
 
+////////////////////////////////////////////////////////////////////////////////
 RobotConfig* RobotConfig::GetInstance() {
 	if (currentConfig == NULL)
 		currentConfig = new RobotConfig();
@@ -34,7 +39,7 @@ RobotConfig::RobotConfig() {
 }
 
 bool RobotConfig::LoadConfig() {
-	std::string fileName = "/home/lvuser/2135_configuration.txt";
+	std::string fileName = CONFIGFILENAME;
 	std::ifstream configFile(fileName.c_str());
 	if (configFile.good() == false)
 	{
@@ -46,19 +51,36 @@ bool RobotConfig::LoadConfig() {
 	while (configFile.eof() == false) {
 		std::string name;
 		std::string valueStr;
+		std::string delimiter = "=";
+		std::string line;
 
-		configFile >> name;   // read in first word on fileline
-		configFile >> valueStr;  // read in 2nd word on fileline
-		if(!name.empty())
-		{
-			m_configMap[name] = valueStr;
-			printf("2135: Adding to m_configMap: '%s'='%s'\n", name.c_str(), valueStr.c_str());
-		}
+		while(getline(configFile, line)) {
+			name = "";			// Reset
+			trimWhitespace(line);
+			if(line[0] == '#') {
+				printf("2135: Ignoring comment\n");
+				continue;
+			}
+			size_t pos = 0;
+			if ((pos = line.find(delimiter)) != std::string::npos) {
+				name = line.substr(0, pos);
+				trimWhitespace(name);
+				line.erase(0, pos + delimiter.length());
+				trimWhitespace(line);
+				valueStr = line;
+			}
 
-		if(configFile.bad() == true)
-		{
-			printf("2135: configFile %s bad", fileName.c_str());
-			return false;
+			if(!name.empty())
+			{
+				m_configMap[name] = valueStr;
+				printf("2135: Adding to m_configMap: '%s'='%s'\n", name.c_str(), valueStr.c_str());
+			}
+
+			if(configFile.bad() == true)
+			{
+				printf("2135: configFile %s bad", fileName.c_str());
+				return false;
+			}
 		}
 	}
 	return true;
@@ -174,43 +196,77 @@ void RobotConfig::DumpConfig()
 
 /*float valueFloat;
 if(GetValueAsFloat("AutonDriveSpeed", valueFloat))
-	std::cout<<"AutonDriveSpeed" <<" " <<valueFloat <<"\n";
+	std::cout<<"Test - AutonDriveSpeed" <<" " <<valueFloat <<"\n";
 else printf("AutonDriveSpeed could not get float value.\n");
 
 int valueInt;
 if(GetValueAsInt("BlahBlah", valueInt))
-	std::cout<<"BlahBlah (as int)" <<" " <<valueInt <<"\n";
+	std::cout<<"Test - BlahBlah (as int)" <<" " <<valueInt <<"\n";
 else printf("BlahBlah could not get int value.\n");
 
 bool valueBool;
 if(GetValueAsBool("BlahBlah", valueBool))
-	std::cout<<"BlahBlah (as bool)" <<" " <<valueBool <<"\n";
+	std::cout<<"Test - BlahBlah (as bool)" <<" " <<valueBool <<"\n";
 else printf("BlahBlah could not get bool value.");
 
 if(GetValueAsBool("NatureWalk", valueBool ))
-	std::cout<<"NatureWalk" <<" " <<valueBool <<"\n";
+	std::cout<<"Test - NatureWalk" <<" " <<valueBool <<"\n";
 else printf("NatureWalk could not get value.");
 
 if(GetValueAsFloat("DeprecatedClimber", valueFloat))
-	std::cout<<"DeprecatedClimber" <<" " <<valueFloat <<"\n";
+	std::cout<<"Test - DeprecatedClimber" <<" " <<valueFloat <<"\n";
 else printf("DeprecatedClimber could not get float value.\n");
 
 if(GetValueAsInt("ThingOne", valueInt))
-	std::cout<<"ThingOne" <<" " <<valueInt <<"\n";
+	std::cout<<"Test - ThingOne" <<" " <<valueInt <<"\n";
 else printf("ThingOne could not get int value.\n");
 
 if(GetValueAsInt("ThingTwo", valueInt))
-	std::cout<<"ThingTwo" <<" " <<valueInt <<"\n";
+	std::cout<<"Test - ThingTwo" <<" " <<valueInt <<"\n";
 else printf("ThingTwo could not get int value.\n");
 
 if(GetValueAsBool("PeopleOut", valueBool))
-	std::cout<<"PeopleOut (as bool)" <<" " <<valueBool <<"\n";
+	std::cout<<"Test - PeopleOut (as bool)" <<" " <<valueBool <<"\n";
 else printf("PeopleOut could not get bool value.\n");
 
 std::string valueString;
 if(GetValueAsString("PeopleOut", valueString))
-	std::cout<<"PeopleOut (as string)" <<" " <<valueString <<"\n";
-else printf("PeopleOut (as string) could not get value.\n");*/
+	std::cout<<"Test - PeopleOut (as string)" <<" " <<valueString <<"\n";
+else printf("PeopleOut (as string) could not get value.\n");
+
+if(GetValueAsFloat("Keyboard", valueFloat, 22.5))
+	std::cout<<"Test - Keyboard" << " " <<valueFloat <<"\n";
+else printf("Keyboard could not get float value.\n");
+
+// The expected value of Keyboard should be 22.5
+if(GetValueAsFloat("Keyboard", valueFloat, 56.7))
+	std::cout<<"Test - Keyboard" << " " <<valueFloat <<"\n";
+else printf("Keyboard could not get float value.\n");
+
+if(GetValueAsFloat("Mouse", valueFloat))
+	std::cout<<"Test - Mouse" << " " <<valueFloat <<"\n";
+else printf("Keyboard could not get float value.\n");
+
+if(GetValueAsInt("Fence", valueInt))
+	std::cout<<"Test - Fence (as int)" <<" " <<valueInt <<"\n";
+else printf("Fence could not get int value.\n");
+
+if(GetValueAsInt("Gate", valueInt, 999999))
+	std::cout<<"Test - Gate (int)" <<" " <<valueInt <<"\n";
+else printf("Gate could not get int value.\n");
+
+if(GetValueAsBool("Tea", valueBool))
+	std::cout<<"Test - Tea (as bool)" <<" " <<valueBool <<"\n";
+else printf("Tea could not get bool value.");
+
+if(GetValueAsFloat("Chair",valueFloat, DUMMY_DEFAULT_FLOAT))
+	std::cout << "Test - Chair (as float)" << " " << valueFloat << "\n";
+else printf("Chair could not get float value.");
+
+if(GetValueAsString("Sweatpants", valueString))
+	std::cout<<"Test - Sweatpants (as string)" <<" " <<valueString <<"\n";
+else printf("Sweatpants (as string) could not get value.\n");*/
+
 }
 
 

@@ -91,7 +91,7 @@ void Chassis::MoveSpin(bool spinRight)
 void Chassis::MoveShiftGears(bool lowGear)
 {
 	if(lowGear) {
-		shifter->Set(shifter->kForward);
+	    shifter->Set(shifter->kForward);
 		m_lowGear = true;
 	}
 

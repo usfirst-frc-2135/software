@@ -42,8 +42,8 @@ void RobotMap::init() {
     chassisDiffDrive.reset(new frc::DifferentialDrive(*chassisMotorL1, *chassisMotorR3));
     
     chassisDiffDrive->SetSafetyEnabled(true);
-        chassisDiffDrive->SetExpiration(0.1);
-        chassisDiffDrive->SetMaxOutput(1.0);
+    chassisDiffDrive->SetExpiration(0.1);
+    chassisDiffDrive->SetMaxOutput(1.0);
 
     chassisMotorL2.reset(new WPI_TalonSRX(2));
     
