@@ -1,0 +1,3 @@
+# Comment lines start with '#'
+ Chs_DriveScaling = 1.0   
+ Chs_DriveSpin = 0.45   

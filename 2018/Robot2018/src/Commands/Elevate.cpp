@@ -26,7 +26,7 @@ Elevate::Elevate(bool elevateDirection): frc::Command() {
 // Called just before this Command runs the first time
 void Elevate::Initialize() {
 	std::printf("2135: Elevate - Initialized\n");
-	Robot::elevator->ElevatePIDInit(30.0);
+	Robot::elevator->ElevatePIDInit(2.0);
 }
 
 // Called repeatedly when this Command is scheduled to run
