@@ -24,7 +24,7 @@ DriveShift::DriveShift(bool setting): frc::Command() {
 
 // Called just before this Command runs the first time
 void DriveShift::Initialize() {
-	std::printf("2135: Shift Gears - Init\n");
+	std::printf("2135: DriveShift - Init\n");
     Robot::drivetrain->MoveShiftGears(true);
 }
 
@@ -40,7 +40,7 @@ bool DriveShift::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveShift::End() {
-	std::printf("2135: Shift Gears = End\n");
+	std::printf("2135: DriveShift - End\n");
     Robot::drivetrain->MoveShiftGears(false);
 
 }
@@ -48,6 +48,6 @@ void DriveShift::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveShift::Interrupted() {
-	std::printf("2135: Shift Gears - Interrupted\n");
+	std::printf("2135: DriveShift - Interrupted\n");
     Robot::drivetrain->MoveShiftGears(false);
 }

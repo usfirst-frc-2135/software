@@ -43,7 +43,7 @@ bool GripperRun::IsFinished() {
 
 // Called once after isFinished returns true
 void GripperRun::End() {
-	std::printf("2135: Elevate - End \n");
+	std::printf("2135: GripperRun - End \n");
 	Robot::elevator->ElevatePIDStop();
 
 }
@@ -51,7 +51,7 @@ void GripperRun::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void GripperRun::Interrupted() {
-	std::printf("2135: Elevate - Interrupted \n");
+	std::printf("2135: GripperRun - Interrupted \n");
 	Robot::elevator->ElevatePIDStop();
 
 }
