@@ -24,9 +24,11 @@ void trimWhitespace(std::string& line) {
 
 ////////////////////////////////////////////////////////////////////////////////
 RobotConfig* RobotConfig::GetInstance() {
-	if (currentConfig == NULL)
-		currentConfig = new RobotConfig();
-	return currentConfig;
+	if (RobotConfig::currentConfig == NULL) {
+		printf("2135:Creating new robot config object\n");
+		RobotConfig::currentConfig = new RobotConfig();
+	}
+	return RobotConfig::currentConfig;
 }
 
 
@@ -39,15 +41,16 @@ RobotConfig::RobotConfig() {
 }
 
 bool RobotConfig::LoadConfig() {
+	printf("2135: Starting Load Config\n");
 	std::string fileName = CONFIGFILENAME;
 	std::ifstream configFile(fileName.c_str());
 	if (configFile.good() == false)
 	{
-		printf("2135: No such Config file %s.", fileName.c_str());
+		printf("2135: No such Config file %s.\n", fileName.c_str());
 		return false;
 	}
     m_configMap.clear();
-
+    std::printf("2135: Loading Config File %s\n", fileName.c_str());
 	while (configFile.eof() == false) {
 		std::string name;
 		std::string valueStr;
@@ -57,8 +60,7 @@ bool RobotConfig::LoadConfig() {
 		while(getline(configFile, line)) {
 			name = "";			// Reset
 			trimWhitespace(line);
-			if(line[0] == '#') {
-				printf("2135: Ignoring comment\n");
+			if(line[0] == '#') {	// Skipping comment line
 				continue;
 			}
 			size_t pos = 0;
@@ -89,8 +91,10 @@ bool RobotConfig::LoadConfig() {
 //will return false only if there is no value found or specified (default or from file)
 bool RobotConfig::GetValueAsString(const std::string& name, std::string& valueStr, std::string defaultStr/*=""*/)
 {
+	printf("2135: Starting GetValueAsString\n");
 	bool rtnStatus = false;
 	valueStr = m_configMap[name];
+	printf("2135: Got config map\n");
 	if(!valueStr.empty())
 	{
 		 rtnStatus = true;
@@ -182,6 +186,35 @@ bool RobotConfig::GetValueAsFloat(const std::string& name, float& valueFloat, fl
 		else printf("2135: %s not found in RobotConfig and no default value specified\n", name.c_str());
 	}
 
+	return rtnStatus;
+}
+
+bool RobotConfig::GetValueAsDouble(const std::string& name, double& valueDouble, double defaultDouble/*=DUMMY_DEFAULT_DOUBLE*/)
+{
+	printf("2135: Starting GetValueAsDouble\n");
+	bool rtnStatus = false;
+	std::string valueStr = m_configMap[name];
+	if(!valueStr.empty())
+	{
+		printf("2135: Got value from config map\n");
+		valueDouble = atof(valueStr.c_str());  // convert stored value to double
+		rtnStatus = true;
+		printf("2135: Converted value from config map %lf\n", valueDouble);
+	}
+	else
+	{
+		printf("2135: Didn't find value in config map\n");
+		if (defaultDouble != DUMMY_DEFAULT_DOUBLE)
+		{
+			valueDouble = defaultDouble;
+			std::string defaultStr = std::to_string(defaultDouble);
+			m_configMap[name] = defaultStr;
+			printf("2135: %s not found in RobotConfig; using default value %f\n", name.c_str(), defaultDouble);
+			rtnStatus = true;
+		}
+		else printf("2135: %s not found in RobotConfig and no default value specified\n", name.c_str());
+	}
+	printf("2135: Done with GetValueAsDouble %d\n", rtnStatus);
 	return rtnStatus;
 }
 
