@@ -31,7 +31,7 @@ public:
 	bool GetValueAsDouble(const std::string& name, double& valueDouble, double defaultDouble = DUMMY_DEFAULT_DOUBLE);
 
 private:
-	static RobotConfig* currentConfig;
+
 	RobotConfig();
 	virtual ~RobotConfig();
 

@@ -11,7 +11,7 @@
 #include <algorithm>
 #include "RobotConfig.h"
 
-RobotConfig* RobotConfig::currentConfig = NULL;
+RobotConfig* RobotConfig::currentConfig = nullptr;
 const std::string CONFIGFILENAME = "/home/lvuser/2135_configuration.txt";
 //////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ void trimWhitespace(std::string& line) {
 
 ////////////////////////////////////////////////////////////////////////////////
 RobotConfig* RobotConfig::GetInstance() {
-	if (RobotConfig::currentConfig == NULL) {
+	if (RobotConfig::currentConfig == nullptr) {
 		printf("2135:Creating new robot config object\n");
 		RobotConfig::currentConfig = new RobotConfig();
 	}
