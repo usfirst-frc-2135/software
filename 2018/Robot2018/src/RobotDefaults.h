@@ -8,6 +8,9 @@
 #ifndef ROBOTDEFAULTS_H_
 #define ROBOTDEFAULTS_H_
 
+// Uncomment this to test with only the RoboRio
+// #define ROBOTNOTSTANDALONE
+
 // SmartDashboard Chassis Basics
 #define CHS_DRIVE_SCALING	"Chs_DriveScaling"
 #define CHS_DRIVE_SCALING_D	1.0
