@@ -75,6 +75,9 @@ void Robot::RobotInit() {
 	std::thread m_vThread(VisionThread);
 	m_vThread.detach();
 
+	SmartDashboardStartChooser(); //Moved from DisabledInit
+	std::printf("2135: Auton Chooser Init\n");
+
 	std::printf("2135: RobotInit - Finished\n");
 }
 
@@ -88,7 +91,10 @@ void Robot::RobotInit() {
 void Robot::DisabledInit(){
 	m_faultsCleared = false;
 
-	SmartDashboardStartChooser();
+//	SmartDashboardStartChooser();
+// Was taken out because it kept calling other auton commands on loop when it was rebuilt. We have moved this
+// command to RobotInit.
+
 }
 
 void Robot::DisabledPeriodic() {
