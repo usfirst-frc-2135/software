@@ -66,8 +66,8 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	motorL1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, pidIndex, timeout);
 	motorR3->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, pidIndex, timeout);
 
-	motorL1->SetSensorPhase(true);
-	motorR3->SetSensorPhase(true);
+	motorL1->SetSensorPhase(false); //CRUSH SETTINGS - both are false
+	motorR3->SetSensorPhase(false); //BRUSH SETTINGS - both are true
 
     // Set all motors to use coast mode and not brake when stopped, start in low gear
     m_brakeMode = true;
@@ -342,7 +342,7 @@ void Chassis::MoveDriveDistancePIDInit(double inches)
 	double proportional;
 
 	m_pidTargetCounts = inches / InchesPerCount;
-	std::printf("2135: Encoder Distance %f counts, %f inches, %f InchesPerCount\n", m_pidTargetCounts, inches, InchesPerCount);
+	std::printf("2135: Encoder Distance Init %f counts, %f inches, %f InchesPerCount\n", m_pidTargetCounts, inches, InchesPerCount);
 
 
 	// This should be set one time in constructor
@@ -443,6 +443,9 @@ void Chassis::MoveDriveDistancePIDStop(void)
 	motorR3->Set(ControlMode::PercentOutput, 0.0);
 
 	// Do not shift back to high gear in case another auton command is running
+
+	std::printf("2135: TargetCounts: %3.2f   L: %5d  R: %5d\n",
+					m_pidTargetCounts, GetEncoderPosition(motorL1), GetEncoderPosition(motorR3));
 
 	// Re-enable the motor safety helper (temporarily disabled)
 	drive->SetSafetyEnabled(false);
@@ -562,6 +565,7 @@ void Chassis::MoveDriveVisionHeadingDistanceInit(double angle, double distance)
 
 	// Disable safety feature during movement, since motors will be fed by loop
 	drive->SetSafetyEnabled(false);
+
 }
 
 bool Chassis::MoveDriveVisionHeadingIsPIDAtSetPoint(void)
