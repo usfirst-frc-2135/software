@@ -78,7 +78,7 @@ Chassis::Chassis() : Subsystem("Chassis") {
 	//	Initialize drivetrain modifiers
     m_driveDirection = -1.0;		// Initialize drivetrain direction for driving forward or backward
     m_driveScaling = 1.0;		// Initialize scaling factor and disable it
-    m_driveSpin = 0.45;			// Initialize power setting used for spin turns
+    m_driveSpin = 0.75;		// Initialize power setting used for spin turns
 
     // 	Initialize closed loop parameters for Talon PID - ramp rate, close loop error, target rotations
     m_pidTargetCounts = 0.0;
