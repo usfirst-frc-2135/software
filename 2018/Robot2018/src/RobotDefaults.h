@@ -8,7 +8,7 @@
 #ifndef ROBOTDEFAULTS_H_
 #define ROBOTDEFAULTS_H_
 
-// Uncomment this to test with only the RoboRio
+// Comment this to test with only the RoboRio
 // #define ROBOTNOTSTANDALONE
 
 // SmartDashboard Chassis Basics
