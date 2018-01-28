@@ -67,7 +67,7 @@ void RobotMap::init() {
     elevatorMotorL11.reset(new WPI_TalonSRX(11));
     
     
-    elevatorMotorR12.reset(new WPI_TalonSRX(0));
+    elevatorMotorR12.reset(new WPI_TalonSRX(12));
     
     
 
