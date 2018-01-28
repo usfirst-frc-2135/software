@@ -11,7 +11,7 @@
 
 #include "ctre/Phoenix.h"
 
-
+#include "../RobotConfig.h"
 #include "Drivetrain.h"
 #include "../RobotMap.h"
 #include "../RobotDefaults.h"
@@ -54,6 +54,22 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
     //Initialize drivetrain modifiers
     m_driveSpin = 0.5; 		//Initialize power setting used for spin turns
+
+    RobotConfig* config = RobotConfig::GetInstance();
+    config->GetValueAsDouble("Proportional", m_proportional, 0.75);
+
+    //Adjust kP for encoder being used -- CPR of ___ is the reference
+   	 motorL1->Config_kP(pidIndex, m_proportional, timeout);
+   	 motorR3->Config_kP(pidIndex, m_proportional, timeout);
+
+   	 double percentOutput = 1.0;
+   	 config->GetValueAsDouble("Percent Output", percentOutput, 1.0);
+
+   	 motorL1->ConfigPeakOutputForward(percentOutput, timeout);
+   	 motorL1->ConfigPeakOutputReverse(-percentOutput, timeout);
+   	 motorR3->ConfigPeakOutputForward(percentOutput, timeout);
+   	 motorR3->ConfigPeakOutputReverse(-percentOutput, timeout);
+
 
 #endif
 }
@@ -114,9 +130,31 @@ void Drivetrain::MoveShiftGears(bool lowGear)
 #endif
 }
 
-void Drivetrain::MoveDriveDistancePIDInit(double distance)
+void Drivetrain::MoveDriveDistancePIDInit(double inches)
 {
 #ifdef ROBOTNOTSTANDALONE
+
+	 m_pidTargetCounts = inches / InchesPerCount;
+	 std::printf("2135: Encoder Distance Init %f counts, %f inches, %f InchesPerCount\n", m_pidTargetCounts, inches, InchesPerCount);
+
+	 // Initialize the encoders to start movement at reference of zero counts
+	 motorL1->SetSelectedSensorPosition(0, pidIndex, timeout);
+	 motorR3->SetSelectedSensorPosition(0, pidIndex, timeout);
+
+	 // Set the target distance in terms of wheel rotations
+	 motorL1->Set(ControlMode::Position, m_pidTargetCounts);
+	 motorR3->Set(ControlMode::Position, -m_pidTargetCounts); //CHECK if inverted or not
+
+	 // Set flag to indicate that the PID closed loop error is not yet valid
+	 m_CL_pidStarted = false;
+
+	 // Start safety timer
+	 m_safetyTimer.Reset();
+	 m_safetyTimer.Start();
+	 m_safetyTimer = 3.5; //CHECK if needs to be longer
+
+	 // Disable safety feature during movement, since motors will be fed by loop
+	 diffDrive->SetSafetyEnabled(false);
 
 #endif
 }

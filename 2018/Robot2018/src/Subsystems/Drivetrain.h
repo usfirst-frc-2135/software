@@ -40,6 +40,13 @@ private:
 	const double					WheelDiaInches = 4.0;
 	const unsigned short int		Encoder_CPR = (360 * 4); //Talons report CPR * 4
 	const double					InchesPerCount = WheelDiaInches * M_PI / (double)Encoder_CPR;
+	const int 						pidIndex = 0; 			// PID slot index for sensors
+	const int 						timeout = 10; 			// CAN timeout in msec to wait for response
+
+	double 	m_pidTargetCounts;
+	double 	m_proportional;
+	bool 	m_CL_pidStarted; 								// Flag to indicate PID has started and CL error is invalid
+	Timer 	m_safetyTimer;									// Safety timer for use during autonomous modes
 
 public:
 	Drivetrain();
