@@ -171,7 +171,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '0'
+          value: '12'
       Base: Talon SRX
       Name: Motor R12
     Properties:
@@ -181,11 +181,9 @@ Children:
         default: []
         name: Default command parameters
         validators: null
-        value:
-        - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: elevateDirection,
-          type: boolean, value: 'false'}
+        value: []
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Elevator Run}
+        name: Default Command, type: Command, validators: null, value: None}
       Constants: !!robotbuilder.data.properties.ConstantsProperty
         default: []
         name: Constants
