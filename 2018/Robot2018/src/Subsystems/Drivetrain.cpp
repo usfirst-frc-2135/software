@@ -55,6 +55,9 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     //Initialize drivetrain modifiers
     m_driveSpin = 0.5; 		//Initialize power setting used for spin turns
 
+    m_lowGear = true;
+    MoveShiftGears(m_lowGear);
+
     RobotConfig* config = RobotConfig::GetInstance();
     config->GetValueAsDouble("Proportional", m_proportional, 0.75); //TODO
 
@@ -119,7 +122,7 @@ void Drivetrain::MoveSpin(bool spinRight)
 #endif
 }
 
-void Drivetrain::MoveShiftGears(bool lowGear)
+void Drivetrain::MoveShiftGears(bool lowGear) //TODO: Make this work
 {
 #ifdef ROBOTNOTSTANDALONE
 	if(lowGear) {
@@ -179,14 +182,20 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 	closedLoopErrorLeft = motorL1->GetClosedLoopError(pidIndex);
 	closedLoopErrorRight = motorR3->GetClosedLoopError(pidIndex);
 
-	//TODO Detect if closed loop error has been updated if needed (see 2017 code)
-
-	if ((abs(closedLoopErrorLeft) <= m_CL_allowError) &&
-		(abs(closedLoopErrorRight) <= m_CL_allowError))
-	{
-		std::printf("2135: ClosedLoopError:     L: %d  R: %d\n",
-			closedLoopErrorLeft, closedLoopErrorRight);
-		pidFinished = true;
+	if (!m_CL_pidStarted && (abs(closedLoopErrorLeft) > Encoder_CPR) &&
+				(abs(closedLoopErrorRight) > Encoder_CPR))
+		{
+			m_CL_pidStarted = true;
+			std::printf("2135: Closed loop error has changed\n");
+		}
+	if (m_CL_pidStarted) {
+		if ((abs(closedLoopErrorLeft) <= m_CL_allowError) &&
+				(abs(closedLoopErrorRight) <= m_CL_allowError))
+			{
+				std::printf("2135: ClosedLoopError:     L: %d  R: %d\n",
+					closedLoopErrorLeft, closedLoopErrorRight);
+				pidFinished = true;
+			}
 	}
 
 	// Check if safety timer has expired

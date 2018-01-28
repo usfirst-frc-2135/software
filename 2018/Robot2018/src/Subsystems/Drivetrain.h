@@ -38,7 +38,7 @@ private:
 	double m_driveSpin;				// Spin turn power setting
 	bool m_lowGear;					// Low Gear or High Gear
 	const double					WheelDiaInches = 4.0;
-	const unsigned short int		USDigitalS4_CPR = 120; //TODO check if 120 or 360
+	const unsigned short int		USDigitalS4_CPR = 360; //TODO check if 120 or 360
 	const unsigned short int		Encoder_CPR = (360 * 4); //Talons report CPR * 4
 	const double					InchesPerCount = WheelDiaInches * M_PI / (double)Encoder_CPR;
 	const int 						pidIndex = 0; 			// PID slot index for sensors
