@@ -40,8 +40,8 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     //Invert the direction of the left hand side motors
     motorL1->SetInverted(false);
     motorL2->SetInverted(false);
-    motorR3->SetInverted(true);
-    motorR4->SetInverted(true);
+    motorR3->SetInverted(false);
+    motorR4->SetInverted(false);
     motorL1->Set(ControlMode::PercentOutput, 0.0);
     motorL2->Set(ControlMode::Follower, 1);
     motorR3->Set(ControlMode::PercentOutput, 0.0);
@@ -81,7 +81,7 @@ void Drivetrain::Periodic() {
 void Drivetrain::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 {
 #ifdef ROBOTNOTSTANDALONE
-	diffDrive->ArcadeDrive(joystick->GetX(), joystick->GetY(), true);
+	diffDrive->ArcadeDrive(-joystick->GetY(), joystick->GetX(), true);
 #endif
 }
 
