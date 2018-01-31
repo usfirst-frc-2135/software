@@ -14,6 +14,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "../RobotDefaults.h"
+#include "AHRS.h"
 
 /**
  *
@@ -51,6 +52,8 @@ private:
 	double  m_safetyTimeout; 								// Time in seconds for safety timer
 	int		m_CL_allowError;								// Closed loop allowable error
 
+	AHRS *gyro;												// Initializes NavX Board and gyro
+
 public:
 	Drivetrain();
 	void InitDefaultCommand() override;
@@ -69,6 +72,10 @@ public:
     bool MoveDriveDistanceIsPIDAtSetpoint();
 	void MoveDriveDistancePIDStop();
 
+    void MoveDriveTurnPIDInit(double angle);
+    void MoveDriveTurnPIDExecute();
+    bool MoveDriveTurnIsPIDAtSetPoint();
+    void MoveDriveTurnPIDStop();
 
 	int GetEncoderPosition(std::shared_ptr<WPI_TalonSRX> mtr);
 

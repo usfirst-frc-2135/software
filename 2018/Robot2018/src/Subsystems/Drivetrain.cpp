@@ -76,6 +76,16 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
 
 #endif
+ 	gyro = new AHRS(SPI::Port::kMXP);
+ 	LiveWindow::GetInstance()->AddSensor("IMU", "Gyro", gyro);
+
+   	// Callibrate the gyro
+   	std::printf("2135: Gyro Callibration Initialized\n");
+   	gyro->Reset();
+   	gyro->ZeroYaw();
+   	std::printf("2135: Gyro Callibration Finished\n");
+
+
 }
 
 void Drivetrain::InitDefaultCommand() {
@@ -231,6 +241,28 @@ void Drivetrain::MoveDriveDistancePIDStop(void)
 
 #endif
 }
+
+void Drivetrain::MoveDriveTurnPIDInit(double angle) {
+	std::printf("2135: Going to zero encoder\n");
+	gyro->ZeroYaw();
+	std::printf("2135: Zero the Encoder\n");
+
+}
+
+void Drivetrain::MoveDriveTurnPIDExecute(void) {
+	double gyroAngle = gyro->GetAngle();
+
+	std::printf("2135: Gyro Angle %f\n", gyroAngle);
+}
+
+bool Drivetrain::MoveDriveTurnIsPIDAtSetPoint(void) {
+	return false; // TODO: This is just for now to get no warnings
+}
+
+void Drivetrain::MoveDriveTurnPIDStop(void){
+	//gyro->ZeroYaw();
+}
+
 
 int Drivetrain::GetEncoderPosition(std::shared_ptr<WPI_TalonSRX> mtr)
 {
