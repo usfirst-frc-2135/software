@@ -38,6 +38,7 @@ private:
 	double m_driveSpin;				// Spin turn power setting
 	double m_driveScaling;			//Scaling applied to Joystick, on high gear only
 	bool m_lowGear;					// Low Gear or High Gear
+	bool m_setting;					// TODO: write something here
 	bool m_brakeMode;				//Brake or Coast Mode for Talons
 	const double					WheelDiaInches = 4.0;
 	const unsigned short int		USDigitalS4_CPR = 360; //TODO check if 120 or 360

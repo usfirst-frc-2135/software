@@ -107,11 +107,10 @@ void Drivetrain::Initialize(frc::Preferences *RobotConfig) {
 	}
 
     //Set all motors to use coast mode and low gear when initialized.
+	MoveShiftGears(m_lowGear);
     m_brakeMode = false;
     MoveSetBrakeMode(m_brakeMode);
 
-    //Reset gyro to zero
-    gyro->Reset();
 
 /* Not Working, Fix Later
     RobotConfig* config = RobotConfig::GetInstance();
@@ -158,9 +157,6 @@ void Drivetrain::MoveSpin(bool spinRight)
 #endif
 }
 
-<<<<<<< HEAD
-void Drivetrain::MoveShiftGears(bool lowGear) //TODO: Make this work
-=======
 void Drivetrain::MoveSetBrakeMode(bool brakeMode)
 {
 	NeutralMode brakeOutput;
@@ -172,14 +168,12 @@ void Drivetrain::MoveSetBrakeMode(bool brakeMode)
 	motorR4->SetNeutralMode(brakeOutput);
 }
 
-void Drivetrain::MoveShiftGears(bool lowGear)
->>>>>>> 9991f0c235b03eef9e0dc04ff1591a799fa1f375
+void Drivetrain::MoveShiftGears(bool lowGear)   //TODO: Make this work
 {
 #ifdef ROBOTNOTSTANDALONE
 	if(lowGear) {
 	    shifter->Set(shifter->kForward);
 		m_lowGear = true;
-
 	}
 
 	else {
