@@ -25,28 +25,33 @@ AutoDriveTurn::AutoDriveTurn(): frc::Command() {
 // Called just before this Command runs the first time
 void AutoDriveTurn::Initialize() {
 	std::printf("2135: AutoDriveTurn - Init\n");
-
+	Robot::drivetrain->MoveDriveTurnPIDInit(90.0); // TODO: Hard coded for now and will use a preference/robot default to get the value
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveTurn::Execute() {
+	Robot::drivetrain->MoveDriveTurnPIDExecute();
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDriveTurn::IsFinished() {
-    return false;
+	bool isFinished;
+
+	isFinished = Robot::drivetrain->MoveDriveTurnIsPIDAtSetPoint();
+
+    return isFinished;
 }
 
 // Called once after isFinished returns true
 void AutoDriveTurn::End() {
 	std::printf("2135: AutoDriveTurn - End\n");
-
+	Robot::drivetrain->MoveDriveTurnPIDStop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoDriveTurn::Interrupted() {
 	std::printf("2135: AutoDriveTurn - Interrupted\n");
-
+	Robot::drivetrain->MoveDriveTurnPIDStop();
 }
