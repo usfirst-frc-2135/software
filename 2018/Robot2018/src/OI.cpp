@@ -37,9 +37,9 @@ OI::OI() {
     elevatorUp.reset(new frc::JoystickButton(dStick.get(), 11));
     elevatorUp->WhileHeld(new ElevatorRun(false));
     cubeExpel.reset(new frc::JoystickButton(dStick.get(), 7));
-    cubeExpel->WhileHeld(new GripperRun(false));
+    cubeExpel->WhileHeld(new GripperRun(-1));
     cubeAcquire.reset(new frc::JoystickButton(dStick.get(), 6));
-    cubeAcquire->WhileHeld(new GripperRun(true));
+    cubeAcquire->WhileHeld(new GripperRun(1));
     shiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
     shiftSpeed->WhileHeld(new DriveShift(true));
     spinLeft.reset(new frc::JoystickButton(dStick.get(), 4));

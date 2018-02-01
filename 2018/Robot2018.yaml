@@ -143,9 +143,11 @@ Children:
         default: []
         name: Default command parameters
         validators: null
-        value: []
+        value:
+        - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: intakeDirection,
+          type: int, value: '0'}
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: None}
+        name: Default Command, type: Command, validators: null, value: Gripper Run}
       Constants: !!robotbuilder.data.properties.ConstantsProperty
         default: []
         name: Constants
@@ -301,7 +303,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: intakeDirection,
-            type: boolean, value: 'true'}
+            type: int, value: '1'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id003
           default: '1'
@@ -332,7 +334,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: intakeDirection,
-            type: boolean, value: 'false'}
+            type: int, value: '-1'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id003
           default: '1'
@@ -596,7 +598,7 @@ Children:
         validators: null
         value:
         - !!robotbuilder.data.properties.ParameterDescriptor {name: intakeDirection,
-          type: boolean}
+          type: int}
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
