@@ -1,7 +1,9 @@
 # Comment lines start with '#'
- Chs_DriveScaling = 1.0   
- Chs_DriveSpin = 0.45   
+ DT_DriveScaling = 1.0   
+ DT_DriveSpin = 0.45
+ DT_TurnScaling = 1.0
+ DT_AutonTurnKP = 0.08 
  Pos123Move_D = 36
- Proportional = 0.75
- Percent_Output = 1.0
- Allowed_Closed_Loop_Error = 36
+ DT_Proportional = 0.75
+ DT_PercentOutput = 1.0
+ DT_AllowedCLError = 36

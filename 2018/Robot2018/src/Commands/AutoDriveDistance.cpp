@@ -29,7 +29,7 @@ void AutoDriveDistance::Initialize(){
 	//	auton programs will pass in larger value
 	if (fabs(m_distance) < 0.1) {
 		RobotConfig* config = RobotConfig::GetInstance();
-		config->GetValueAsDouble("Pos123Move_D", m_distance, 0.0); //TODO
+		config->GetValueAsDouble("Pos123Move_D", m_distance, 0.0);
 	}
 	std::printf("2135: AutoDriveDistance - Init\n");
 	Robot::drivetrain->MoveDriveDistancePIDInit(m_distance);

@@ -38,6 +38,8 @@ private:
 #endif
 	double m_driveSpin;				// Spin turn power setting
 	double m_driveScaling;			//Scaling applied to Joystick, on high gear only
+	double 	m_turnScaling;		// Turn scaling (1.0 is disabled, < 1.0 is max X output)
+
 	bool m_lowGear;					// Low Gear or High Gear
 	bool m_setting;					// TODO: write something here
 	bool m_brakeMode;				//Brake or Coast Mode for Talons
@@ -47,6 +49,8 @@ private:
 	const double					InchesPerCount = WheelDiaInches * M_PI / (double)Encoder_CPR;
 	const int 						pidIndex = 0; 			// PID slot index for sensors
 	const int 						timeout = 10; 			// CAN timeout in msec to wait for response
+
+	double 	m_turnKP;			// Proportional value for PID for DriveTurn function
 
 	double 	m_pidTargetCounts;
 	double 	m_proportional;

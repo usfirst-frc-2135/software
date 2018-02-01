@@ -51,21 +51,26 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     std::printf("2135: Motor R3 ID %d ver %d.%d\n", motorR3->GetDeviceID(), motorR3->GetFirmwareVersion()/256, motorR3->GetFirmwareVersion()%256);
     std::printf("2135: Motor R4 ID %d ver %d.%d\n", motorR4->GetDeviceID(), motorR4->GetFirmwareVersion()/256, motorR4->GetFirmwareVersion()%256);
 
-    //Initialize drivetrain modifiers
-    m_driveSpin = 0.5; 		//Initialize power setting used for spin turns
+    //Retrieve drivetrain modifiers from RobotConfig
+    RobotConfig* config = RobotConfig::GetInstance();
+    config->GetValueAsDouble("DT_Proportional", m_proportional, 0.75);
+    config->GetValueAsDouble("DT_AutonTurnKP", m_turnKP, 0.08);
+    config->GetValueAsDouble("DT_TurnScaling", m_turnScaling, 1.0);
+		if ((m_turnScaling < 0.0) || (m_turnScaling > 1.0)) {
+				std::printf("2135: ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
+		}
+    config->GetValueAsDouble("DT_DriveScaling", m_driveScaling, 1.0);
+    config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
 
     m_lowGear = true;
     MoveShiftGears(m_lowGear);
 
-    RobotConfig* config = RobotConfig::GetInstance();
-    config->GetValueAsDouble("Proportional", m_proportional, 0.75); //TODO
-
-    //Adjust kP for encoder being used -- CPR of ___ is the reference
+     //Adjust kP for encoder being used -- CPR of ___ is the reference
    	 motorL1->Config_kP(pidIndex, m_proportional, timeout);
    	 motorR3->Config_kP(pidIndex, m_proportional, timeout);
 
    	 double percentOutput = 1.0;
-   	 config->GetValueAsDouble("Percent_Output", percentOutput, 1.0); //TODO
+   	 config->GetValueAsDouble("DT_PercentOutput", percentOutput, 1.0);
 
    	 motorL1->ConfigPeakOutputForward(percentOutput, timeout);
    	 motorL1->ConfigPeakOutputReverse(-percentOutput, timeout);
@@ -73,7 +78,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
    	 motorR3->ConfigPeakOutputReverse(-percentOutput, timeout);
 
    	 //Allowed Closed Loop Eroor - in Talon native units
-   	 config->GetValueAsInt("Allowed_Closed_Loop_Error", m_CL_allowError, 36);
+   	 config->GetValueAsInt("DT_AllowedCLError", m_CL_allowError, 36);
    	 m_CL_allowError *= USDigitalS4_CPR / 120.0;
 
 
@@ -121,11 +126,6 @@ void Drivetrain::Initialize(frc::Preferences *RobotConfig) {
     m_brakeMode = false;
     MoveSetBrakeMode(m_brakeMode);
 
-
-/* Not Working, Fix Later
-    RobotConfig* config = RobotConfig::GetInstance();
-    config->GetValueAsDouble("Chs_DriveScaling", m_driveScaling, 1.0); //TODO: Change CHS to Drivetrain
-*/
 }
 
 void Drivetrain::Periodic() {
@@ -155,8 +155,6 @@ void Drivetrain::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 #endif
 }
 
-//TODO: Replace numbers for DriveSpin with variables
-
 void Drivetrain::MoveSpin(bool spinRight)
 {
 #ifdef ROBOTNOTSTANDALONE
@@ -178,7 +176,7 @@ void Drivetrain::MoveSetBrakeMode(bool brakeMode)
 	motorR4->SetNeutralMode(brakeOutput);
 }
 
-void Drivetrain::MoveShiftGears(bool lowGear)   //TODO: Make this work
+void Drivetrain::MoveShiftGears(bool lowGear)
 {
 #ifdef ROBOTNOTSTANDALONE
 	if(lowGear) {
