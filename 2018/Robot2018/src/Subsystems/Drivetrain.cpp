@@ -167,6 +167,7 @@ void Drivetrain::MoveSpin(bool spinRight)
 
 void Drivetrain::MoveSetBrakeMode(bool brakeMode)
 {
+#ifdef ROBOTNOTSTANDALONE
 	NeutralMode brakeOutput;
 	m_brakeMode = brakeMode;
 	brakeOutput = (brakeMode) ? NeutralMode::Brake : NeutralMode::Coast;
@@ -174,6 +175,7 @@ void Drivetrain::MoveSetBrakeMode(bool brakeMode)
 	motorL2->SetNeutralMode(brakeOutput);
 	motorR3->SetNeutralMode(brakeOutput);
 	motorR4->SetNeutralMode(brakeOutput);
+#endif
 }
 
 void Drivetrain::MoveShiftGears(bool lowGear)

@@ -59,9 +59,12 @@ void Gripper::InitDefaultCommand() {
 
 void Gripper::Initialize(frc::Preferences *RobotConfig)
 {
+#ifdef ROBOTNOTSTANDALONE
 	std::printf("2135: Gripper Init\n");
 	motorL7->Set(ControlMode::PercentOutput, 0.0);
 	motorR8->Set(ControlMode::PercentOutput, 0.0);
+#endif
+
 }
 void Gripper::Periodic() {
     // Put code here to be run every loop
