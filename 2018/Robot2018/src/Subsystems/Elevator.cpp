@@ -88,6 +88,9 @@ void Elevator::Periodic() {
 void Elevator::ElevatePIDInit(double counts) {
 #ifdef ROBOTNOTSTANDALONE
 //	double m_target = counts / (4.0 * M_PI / COUNTS_PER_ROTATION);
+
+	counts = (inches / circumInches) * COUNTS_PER_ROTATION;
+
 	std::printf("2135: Elevate Init\n");
 
 	// Set encoder position to zero
