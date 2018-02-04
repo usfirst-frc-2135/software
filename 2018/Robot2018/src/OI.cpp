@@ -21,6 +21,7 @@
 #include "Commands/DriveStop.h"
 #include "Commands/DriveTeleop.h"
 #include "Commands/ElevatorRun.h"
+#include "Commands/GripperExtend.h"
 #include "Commands/GripperRun.h"
 #include "Commands/LoadConfig.h"
 
@@ -49,6 +50,7 @@ OI::OI() {
 
     // SmartDashboard Buttons
     frc::SmartDashboard::PutData("Load Config", new LoadConfig());
+    frc::SmartDashboard::PutData("Gripper Extend", new GripperExtend());
     frc::SmartDashboard::PutData("Auto Drive Turn", new AutoDriveTurn());
     frc::SmartDashboard::PutData("Auto Stop", new AutoStop());
 

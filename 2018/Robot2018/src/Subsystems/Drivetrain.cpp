@@ -224,7 +224,7 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches)
 
 void Drivetrain::MoveDriveDistancePIDExecute()
 {
-	// No work needed since Talon does it naturally
+	// No work needed since Talon does it internally
 }
 
 bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
