@@ -50,7 +50,7 @@ OI::OI() {
 
     // SmartDashboard Buttons
     frc::SmartDashboard::PutData("Load Config", new LoadConfig());
-    frc::SmartDashboard::PutData("Gripper Extend", new GripperExtend());
+    frc::SmartDashboard::PutData("Gripper Extend", new GripperExtend(true));
     frc::SmartDashboard::PutData("Auto Drive Turn", new AutoDriveTurn());
     frc::SmartDashboard::PutData("Auto Stop", new AutoStop());
 
