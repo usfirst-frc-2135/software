@@ -15,6 +15,7 @@
 #include "WPILib.h"
 #include "../RobotDefaults.h"
 #include "AHRS.h"
+#include "../FRC2135/PIDOutputDriveTurn.h"
 
 /**
  *
@@ -60,6 +61,9 @@ private:
 	int		m_CL_allowError;								// Closed loop allowable error
 
 	AHRS *gyro;												// Initializes NavX Board and gyro
+
+	PIDOutputDriveTurn	*driveTurnPIDOutput;				// Drive turn to angle with gyro
+	PIDController		*driveTurnPIDLoop;					// Drive turn PID control
 
 public:
 	Drivetrain();

@@ -81,16 +81,26 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
    	 config->GetValueAsInt("DT_AllowedCLError", m_CL_allowError, 36);
    	 m_CL_allowError *= USDigitalS4_CPR / 120.0;
 
+   	 // Initialize PID for Turn PID
+   	 driveTurnPIDOutput = new PIDOutputDriveTurn(diffDrive);
+   	 // driveTurnPIDLoop = new PIDController(0.08, 0.0, 0.0, gyro->GetAngle(), driveTurnPIDOutput); // TODO: Fix this
+
+   	 // Settings for Turn PID // TODO: Calculate real PID and outputs and get from either defaults or Robot Config
+   	 driveTurnPIDLoop->SetPID(0.08, 0.0, 0.0);
+   	 driveTurnPIDLoop->SetOutputRange(-1.0, 1.0);
+   	 driveTurnPIDLoop->SetAbsoluteTolerance(2.0);
+
+   	 diffDrive->SetSafetyEnabled(false);
 
 #endif
  	gyro = new AHRS(SPI::Port::kMXP);
  	LiveWindow::GetInstance()->AddSensor("IMU", "Gyro", gyro);
 
-   	// Callibrate the gyro
-   	std::printf("2135: Gyro Callibration Initialized\n");
+   	// Calibrate the gyro
+   	std::printf("2135: Gyro Calibration Initialized\n");
    	gyro->Reset();
    	gyro->ZeroYaw();
-   	std::printf("2135: Gyro Callibration Finished\n");
+   	std::printf("2135: Gyro Calibration Finished\n");
 
 
 }
@@ -297,24 +307,35 @@ void Drivetrain::MoveDriveDistancePIDStop(void)
 }
 
 void Drivetrain::MoveDriveTurnPIDInit(double angle) {
-	std::printf("2135: Going to zero encoder\n");
 	gyro->ZeroYaw();
-	std::printf("2135: Zero the Encoder\n");
 
+	std::printf("2135: Set to %f degrees\n", angle);
+	driveTurnPIDLoop->SetSetpoint(angle);
+	driveTurnPIDLoop->Enable();
+
+	diffDrive->SetSafetyEnabled(false);
 }
 
 void Drivetrain::MoveDriveTurnPIDExecute(void) {
-	double gyroAngle = gyro->GetAngle();
+	//double gyroAngle = gyro->GetAngle();
 
-	std::printf("2135: Gyro Angle %f\n", gyroAngle);
+	//std::printf("2135: Gyro Angle %f\n", gyroAngle);
 }
 
 bool Drivetrain::MoveDriveTurnIsPIDAtSetPoint(void) {
-	return false; // TODO: This is just for now to get no warnings
+	bool pidFinished = false;
+
+	if (driveTurnPIDLoop->OnTarget())
+		pidFinished = true;
+
+	return pidFinished;
 }
 
 void Drivetrain::MoveDriveTurnPIDStop(void){
-	//gyro->ZeroYaw();
+
+	std::printf("2135: Finished at %f", gyro->GetAngle());
+
+	driveTurnPIDLoop->Disable();
 }
 
 
