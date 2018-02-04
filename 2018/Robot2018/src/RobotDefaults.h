@@ -10,6 +10,7 @@
 
 // Comment this to test with only the RoboRio
 #define ROBOTNOTSTANDALONE
+#define ROBOTBENCHTOPTEST
 
 // SmartDashboard Chassis Basics
 #define CHS_DRIVE_SCALING	"Chs_DriveScaling"
