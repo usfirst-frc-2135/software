@@ -38,10 +38,12 @@ private:
 	const int pidIndex = 0; 						// PID Slot index for sensors
 	const int timeout = 10;							// CAN timeout in msec to wait for response
 	const double COUNTS_PER_ROTATION = (1024 * 4); 	// CPR is 1024 and multipled by 4 because it is a quadrature encoder
-	bool m_pidStarted;								// Indicates that PID started and Closed Loop is valid
 
 
 #endif
+
+	bool m_pidStarted;								// Indicates that PID started and Closed Loop is valid
+
 public:
 	Gripper();
 	void InitDefaultCommand() override;

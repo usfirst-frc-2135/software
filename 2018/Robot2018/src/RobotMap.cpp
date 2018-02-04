@@ -96,6 +96,7 @@ void RobotMap::init() {
 #endif
 
 #ifdef ROBOTBENCHTOPTEST
+    frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
     elevatorMotorL11.reset(new WPI_TalonSRX(11));
     elevatorHallSensor.reset(new frc::DigitalInput(0));
     elevatorMotorR12.reset(new WPI_TalonSRX(12));
