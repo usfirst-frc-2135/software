@@ -88,7 +88,8 @@ void Elevator::Periodic() {
 // here. Call these from Commands.
 
 void Elevator::ElevatePIDInit(double inches) {
-//#ifdef ROBOTNOTSTANDALONE
+#if defined (ROBOTNOTSTANDALONE) || defined (ROBOTBENCHTOPTEST)
+
 //	double m_target = counts / (4.0 * M_PI / COUNTS_PER_ROTATION);
 
 	m_inches = inches;
@@ -104,7 +105,7 @@ void Elevator::ElevatePIDInit(double inches) {
 	motorL11->Set(ControlMode::Position, counts);
 
 	m_pidStarted = false;
-//#endif
+#endif
 }
 
 void Elevator::ElevatePIDExecute() {
@@ -126,16 +127,21 @@ bool Elevator::ElevatePIDatSetPoint() {
 
 	// Check if it is within tolerance
 	double motorOutput = motorL11->GetMotorOutputPercent();
-	if (abs(motorOutput) >= 0.4) { // TODO: Change this to get the tolerance
-		m_pidStarted = true;
+/*	if (abs(motorOutput) >= 0.4) { // TODO: Change this to get the tolerance
+		m_pidStarted = true;*/
+	if (!m_pidStarted && (abs(closedLoopError) > COUNTS_PER_ROTATION))
+	{
+		m_pidStarted = true; //HOLD OUT WHEN READY
 		std::printf("2135: PID Started\n");
 	}
 
 	std::printf("2135: Motor Output: %f\n", motorOutput);
-//	if (m_pidStarted == true && abs(motorOutput) <= 0.1) {
-//		pidFinished = true;
-//		std::printf("2135: Finished\n");
-//	}
+/*
+	if (m_pidStarted == true && abs(motorOutput) <= 0.1) {
+		pidFinished = true;
+		std::printf("2135: Finished\n");
+	}
+*/
 
 	if (m_pidStarted == true && closedLoopError <= 20) {
 		pidFinished = true;

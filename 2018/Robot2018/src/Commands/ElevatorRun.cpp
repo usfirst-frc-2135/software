@@ -27,9 +27,9 @@ ElevatorRun::ElevatorRun(bool elevateDirection): frc::Command() {
 void ElevatorRun::Initialize() {
 	std::printf("2135: ElevatorRun - Init\n");
 	if (m_elevateDirection)
-		Robot::elevator->ElevatePIDInit(0.9905*M_PI);
+		Robot::elevator->ElevatePIDInit(0.9905*M_PI*2);
 	else
-		Robot::elevator->ElevatePIDInit(-0.9905*M_PI);
+		Robot::elevator->ElevatePIDInit(-0.9905*M_PI*2);
 
 
 }
