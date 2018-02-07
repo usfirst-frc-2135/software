@@ -81,14 +81,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
    	 config->GetValueAsInt("DT_AllowedCLError", m_CL_allowError, 36);
    	 m_CL_allowError *= USDigitalS4_CPR / 120.0;
 
-   	 // Initialize PID for Turn PID
-   	 driveTurnPIDOutput = new PIDOutputDriveTurn(diffDrive);
-   	 // driveTurnPIDLoop = new PIDController(0.08, 0.0, 0.0, gyro->GetAngle(), driveTurnPIDOutput); // TODO: Fix this
 
-   	 // Settings for Turn PID // TODO: Calculate real PID and outputs and get from either defaults or Robot Config
-   	 driveTurnPIDLoop->SetPID(0.08, 0.0, 0.0);
-   	 driveTurnPIDLoop->SetOutputRange(-1.0, 1.0);
-   	 driveTurnPIDLoop->SetAbsoluteTolerance(2.0);
 
    	 diffDrive->SetSafetyEnabled(false);
 
@@ -96,12 +89,20 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
  	gyro = new AHRS(SPI::Port::kMXP);
  	LiveWindow::GetInstance()->AddSensor("IMU", "Gyro", gyro);
 
-   	// Calibrate the gyro
+ 	// Calibrate the gyro
    	std::printf("2135: Gyro Calibration Initialized\n");
    	gyro->Reset();
    	gyro->ZeroYaw();
    	std::printf("2135: Gyro Calibration Finished\n");
 
+ 	// Initialize PID for Turn PID
+   	driveTurnPIDOutput = new PIDOutputDriveTurn(diffDrive);
+   	driveTurnPIDLoop = new PIDController(0.08, 0.0, 0.0, gyro, driveTurnPIDOutput);
+
+   	// Settings for Turn PID // TODO: Calculate real PID and outputs and get from either defaults or Robot Config
+   	driveTurnPIDLoop->SetPID(0.08, 0.0, 0.0);
+   	driveTurnPIDLoop->SetOutputRange(-1.0, 1.0);
+   	driveTurnPIDLoop->SetAbsoluteTolerance(2.0);
 
 }
 
