@@ -57,6 +57,7 @@ public:
 	void ElevatePIDExecute(void);
 	bool ElevatePIDatSetPoint(void);
 	void ElevatePIDStop(void);
+	void Calibrate(void);
 };
 
 #endif

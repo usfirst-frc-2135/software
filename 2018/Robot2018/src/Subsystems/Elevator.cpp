@@ -180,7 +180,9 @@ bool Elevator::ElevatePIDatSetPoint() {
 
 	if (hallSensor->Get() == false) {
 		std::printf("2135: Hall Effect Detected\n");
+//		pidFinished = true;
 	}
+
 	return pidFinished;
 }
 
@@ -195,4 +197,17 @@ void Elevator::ElevatePIDStop() {
 //	motorL11->SetSelectedSensorPosition(0, pidIndex, timeout);
 #endif
 
+}
+
+void Elevator::Calibrate(void) {
+	if (hallSensor->Get() == true)
+	{
+		motorL11->Set(ControlMode::PercentOutput, 0.1);
+	}
+	else {
+		std::printf("2135: Hall Effect Detected\n");
+		motorL11->Set(ControlMode::Disabled, 0.0);
+	}
+
+	//TODO: Make this stop permanently?
 }
