@@ -39,7 +39,7 @@ public:
 	static std::shared_ptr<frc::DoubleSolenoid> drivetrainShifter;
 	static std::shared_ptr<WPI_TalonSRX> gripperMotorL7;
 	static std::shared_ptr<WPI_TalonSRX> gripperMotorR8;
-	static std::shared_ptr<WPI_TalonSRX> gripperMotor9;
+	static std::shared_ptr<WPI_TalonSRX> gripperMotorW9;
 	static std::shared_ptr<WPI_TalonSRX> elevatorMotorL11;
 	static std::shared_ptr<WPI_TalonSRX> elevatorMotorR12;
 	static std::shared_ptr<frc::DigitalInput> elevatorHallSensor;

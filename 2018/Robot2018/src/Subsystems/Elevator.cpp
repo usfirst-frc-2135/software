@@ -66,6 +66,9 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     // Initialize variables
     m_pidStarted = false;
     hallSensor = RobotMap::elevatorHallSensor;
+
+    RobotConfig* config = RobotConfig::GetInstance();
+    config->GetValueAsDouble("E_MotorSpeed", m_gripperSpeed, 1.0);
 }
 
 void Elevator::InitDefaultCommand() {
@@ -86,6 +89,32 @@ void Elevator::Periodic() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+void Elevator::SetMotorSpeed(int speed)
+{
+#ifdef ROBOTNOTSTANDALONE
+
+	double output = 0.0; 		//Default: off
+
+	switch (speed)
+	{
+	default:
+	case ELEVATOR_STOP:
+		output = 0.0;
+		break;
+	case ELEVATOR_UP:
+		output = m_gripperSpeed;
+		break;
+	case ELEVATOR_DOWN:
+		output = -m_gripperSpeed;
+		break;
+	}
+
+	motorL11->Set(ControlMode::PercentOutput, output);
+	motorR12->Set(ControlMode::PercentOutput, output);
+
+#endif
+}
 
 void Elevator::ElevatePIDInit(double inches) {
 #if defined (ROBOTNOTSTANDALONE) || defined (ROBOTBENCHTOPTEST)

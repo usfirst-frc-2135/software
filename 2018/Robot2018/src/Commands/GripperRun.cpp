@@ -41,7 +41,8 @@ void GripperRun::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void GripperRun::Execute() {
-	Robot::gripper->SetMotorSpeed(m_intakeDirection);
+	Robot::gripper->SetGripperMotorSpeed(m_intakeDirection);
+	Robot::gripper->SetWristMotorSpeed(m_intakeDirection);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -52,7 +53,8 @@ bool GripperRun::IsFinished() {
 // Called once after isFinished returns true
 void GripperRun::End() {
 	std::printf("2135: GripperRun - End \n");
-	Robot::gripper->SetMotorSpeed(Robot::gripper->GRIPPER_STOP);
+	Robot::gripper->SetGripperMotorSpeed(Robot::gripper->GRIPPER_STOP);
+	Robot::gripper->SetWristMotorSpeed(Robot::gripper->WRIST_STOP);
 
 }
 
@@ -60,5 +62,6 @@ void GripperRun::End() {
 // subsystems is scheduled to run
 void GripperRun::Interrupted() {
 	std::printf("2135: GripperRun - Interrupted \n");
-	Robot::gripper->SetMotorSpeed(Robot::gripper->GRIPPER_STOP);
+	Robot::gripper->SetGripperMotorSpeed(Robot::gripper->GRIPPER_STOP);
+	Robot::gripper->SetWristMotorSpeed(Robot::gripper->WRIST_STOP);
 }

@@ -26,7 +26,7 @@ std::shared_ptr<WPI_TalonSRX> RobotMap::drivetrainMotorR4;
 std::shared_ptr<frc::DoubleSolenoid> RobotMap::drivetrainShifter;
 std::shared_ptr<WPI_TalonSRX> RobotMap::gripperMotorL7;
 std::shared_ptr<WPI_TalonSRX> RobotMap::gripperMotorR8;
-std::shared_ptr<WPI_TalonSRX> RobotMap::gripperMotor9;
+std::shared_ptr<WPI_TalonSRX> RobotMap::gripperMotorW9;
 std::shared_ptr<WPI_TalonSRX> RobotMap::elevatorMotorL11;
 std::shared_ptr<WPI_TalonSRX> RobotMap::elevatorMotorR12;
 std::shared_ptr<frc::DigitalInput> RobotMap::elevatorHallSensor;
@@ -72,7 +72,7 @@ void RobotMap::init() {
     gripperMotorR8.reset(new WPI_TalonSRX(8));
     
     
-    gripperMotor9.reset(new WPI_TalonSRX(9));
+    gripperMotorW9.reset(new WPI_TalonSRX(9));
     
     
     elevatorMotorL11.reset(new WPI_TalonSRX(11));
