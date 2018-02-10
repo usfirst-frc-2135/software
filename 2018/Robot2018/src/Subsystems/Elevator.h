@@ -39,9 +39,14 @@ private:
 	const int 		pidIndex = 0; 					// PID Slot index for sensors
 	const int		timeout = 10;					// CAN timeout in msec to wait for response
 	const double 	COUNTS_PER_ROTATION = (1024*4);	// CPR is 1024 and multipled by 4 because it is a quadrature encoder
-	const double 	circumInches = (0.9905*M_PI);		//Circumference in inches
 	double			m_inches;								//Inches that are put into elevator
 	bool             m_pidStarted;                    // Indicates that PID started and Closed Loop is valid
+
+#ifdef ROBOTBENCHTOPTEST
+	const double 	circumInches = (1.875*M_PI*2);		//Circumference in inches for Benchtop Testing
+#else
+	const double 	circumInches = (0.9905*M_PI);		//Circumference in inches (Real Robot)
+#endif
 
 public:
 	Elevator();
