@@ -53,8 +53,8 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     motorL11->SetSensorPhase(false);
 
 	// Set power and timeout
-	motorL11->ConfigPeakOutputForward(256, timeout);
-	motorL11->ConfigPeakOutputReverse(-256, timeout);
+	motorL11->ConfigPeakOutputForward(0.1, timeout);
+	motorL11->ConfigPeakOutputReverse(-0.1, timeout); //HOLD (256/-256)
 
     // Set proportional
     motorL11->Config_kP(0, 5120/COUNTS_PER_ROTATION, timeout);
@@ -121,16 +121,11 @@ void Elevator::SetMotorSpeed(int speed)
 void Elevator::ElevatePIDInit(double inches) {
 #if defined (ROBOTNOTSTANDALONE) || defined (ROBOTBENCHTOPTEST)
 
-//	double m_target = counts / (4.0 * M_PI / COUNTS_PER_ROTATION);
-
 	m_inches = inches;
 
 	double counts = (inches / circumInches) * COUNTS_PER_ROTATION;
 
 	std::printf("2135: Elevate Init\n");
-
-	// Set encoder position to zero
-	motorL11->SetSelectedSensorPosition(0, pidIndex, 0);
 
 	// Set the mode and target
 	motorL11->Set(ControlMode::Position, counts);
@@ -207,9 +202,10 @@ void Elevator::Calibrate() {
 	if (hallSensorBottom->Get() == false) {
 		std::printf("2135: Hall Effect Bottom Detected\n");
 		motorL11->Set(ControlMode::PercentOutput, 0.0);
+	    motorL11->SetSelectedSensorPosition(0, pidIndex, timeout);
 	}
 	else {
-		motorL11->Set(ControlMode::PercentOutput, 0.05);
+		motorL11->Set(ControlMode::PercentOutput, -0.05);
 	}
 
 	//TODO: Make this stop permanently?
