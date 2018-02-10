@@ -85,7 +85,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
    	 diffDrive->SetSafetyEnabled(false);
 
-#endif
+
  	gyro = new AHRS(SPI::Port::kMXP);
  	LiveWindow::GetInstance()->AddSensor("IMU", "Gyro", gyro);
 
@@ -103,7 +103,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
    	driveTurnPIDLoop->SetPID(0.08, 0.0, 0.0);
    	driveTurnPIDLoop->SetOutputRange(-1.0, 1.0);
    	driveTurnPIDLoop->SetAbsoluteTolerance(2.0);
-
+#endif
 }
 
 void Drivetrain::InitDefaultCommand() {
@@ -308,6 +308,7 @@ void Drivetrain::MoveDriveDistancePIDStop(void)
 }
 
 void Drivetrain::MoveDriveTurnPIDInit(double angle) {
+#ifdef ROBOTNOTSTANDALONE
 	gyro->ZeroYaw();
 
 	std::printf("2135: Set to %f degrees\n", angle);
@@ -315,6 +316,7 @@ void Drivetrain::MoveDriveTurnPIDInit(double angle) {
 	driveTurnPIDLoop->Enable();
 
 	diffDrive->SetSafetyEnabled(false);
+#endif
 }
 
 void Drivetrain::MoveDriveTurnPIDExecute(void) {
@@ -325,18 +327,19 @@ void Drivetrain::MoveDriveTurnPIDExecute(void) {
 
 bool Drivetrain::MoveDriveTurnIsPIDAtSetPoint(void) {
 	bool pidFinished = false;
-
+#ifdef ROBOTNOTSTANDALONE
 	if (driveTurnPIDLoop->OnTarget())
 		pidFinished = true;
-
+#endif
 	return pidFinished;
 }
 
 void Drivetrain::MoveDriveTurnPIDStop(void){
-
+#ifdef ROBOTNOTSTANDALONE
 	std::printf("2135: Finished at %f", gyro->GetAngle());
 
 	driveTurnPIDLoop->Disable();
+#endif
 }
 
 
