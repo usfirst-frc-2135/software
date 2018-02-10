@@ -62,12 +62,14 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     // Set closed loop error
     motorL11->ConfigAllowableClosedloopError(0, 10, timeout);
 
+    // Initialize hall sensors
+    hallSensorTop = RobotMap::elevatorHallSensorTop;
+    hallSensorBottom = RobotMap::elevatorHallSensorBottom;
 #endif
 
     // Initialize variables
     m_pidStarted = false;
-    hallSensorTop = RobotMap::elevatorHallSensorTop;
-    hallSensorBottom = RobotMap::elevatorHallSensorBottom;
+
 
     RobotConfig* config = RobotConfig::GetInstance();
     config->GetValueAsDouble("E_MotorSpeed", m_gripperSpeed, 1.0);
