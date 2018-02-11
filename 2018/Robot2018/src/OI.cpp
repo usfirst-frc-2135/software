@@ -21,6 +21,7 @@
 #include "Commands/DriveStop.h"
 #include "Commands/DriveTeleop.h"
 #include "Commands/ElevatorCalibrate.h"
+#include "Commands/ElevatorMoveToTopLimit.h"
 #include "Commands/ElevatorRun.h"
 #include "Commands/GripperExtend.h"
 #include "Commands/GripperRun.h"
@@ -50,6 +51,7 @@ OI::OI() {
     spinRight->WhileHeld(new DriveSpin(true));
 
     // SmartDashboard Buttons
+    frc::SmartDashboard::PutData("Elevator Move To Top Limit", new ElevatorMoveToTopLimit());
     frc::SmartDashboard::PutData("ElevatorCalibrate", new ElevatorCalibrate());
     frc::SmartDashboard::PutData("Load Config", new LoadConfig());
     frc::SmartDashboard::PutData("Gripper Extend: extend", new GripperExtend(false));

@@ -66,6 +66,9 @@ public:
 	void Calibrate(void);
 	bool CalibrateIsFinished(void);
 	void CalibrateStop(void);
+	void MoveToTopLimit(void);
+	bool MoveToTopLimitIsFinished(void);
+	void MoveToTopLimitStop(void);
 };
 
 #endif

@@ -123,9 +123,7 @@ void Elevator::SetMotorSpeed(int speed)
 void Elevator::ElevatePIDInit(double inches) {
 #if defined (ROBOTNOTSTANDALONE) || defined (ROBOTBENCHTOPTEST)
 
-	if (inches < 0) {
-	}
-	else {
+	std::printf("2135: PIDInit Current Encoder Counts: %5d\n", motorL11->GetSelectedSensorPosition(pidIndex));
 
 	m_inches = inches;
 
@@ -133,11 +131,15 @@ void Elevator::ElevatePIDInit(double inches) {
 
 	std::printf("2135: Elevate Init\n");
 
+	if (inches < 0) {
+	}
+	else {
 	// Set the mode and target
 	motorL11->Set(ControlMode::Position, counts);
+	}
 
 	m_pidStarted = false;
-	}
+
 #endif
 }
 
@@ -176,11 +178,11 @@ bool Elevator::ElevatePIDatSetPoint() {
 	}
 */
 
-//Commented out since we don't want PID to stop.
-//	if (m_pidStarted == true && closedLoopError <= 20) {
-//		pidFinished = true;
-//		std::printf("2135: Finished\n");
-//	}
+//Stops command.
+	if (m_pidStarted == true && closedLoopError <= 20) {
+		pidFinished = true;
+		std::printf("2135: Finished\n");
+	}
 
 
 	if (hallSensorBottom->Get() == false || hallSensorTop->Get() == false) {
@@ -197,7 +199,8 @@ void Elevator::ElevatePIDStop() {
 	std::printf("2135: Elevate STOP\n");
 
 	// Set the driving mode and target
-	motorL11->Set(ControlMode::PercentOutput, 0.0);
+//To keep PID running, this is commented out.
+//	motorL11->Set(ControlMode::PercentOutput, 0.0);
 
 //	motorL11->SetSelectedSensorPosition(0, pidIndex, timeout);
 //	motorL11->SetSelectedSensorPosition(0, pidIndex, timeout);
@@ -211,13 +214,11 @@ void Elevator::Calibrate() {
 		std::printf("2135: Hall Effect Bottom Detected\n");
 		motorL11->Set(ControlMode::PercentOutput, 0.0);
 	    motorL11->SetSelectedSensorPosition(0, pidIndex, timeout);
-		std::printf("2135: Reset Encoder Counts: %5d\n", motorL11->GetSelectedSensorPosition(pidIndex));
 	}
 	else {
-		motorL11->Set(ControlMode::PercentOutput, -0.05);
+		motorL11->Set(ControlMode::PercentOutput, -0.1);
 	}
 
-	//TODO: Make this stop permanently?
 #endif
 }
 
@@ -236,6 +237,38 @@ bool Elevator::CalibrateIsFinished() {
 }
 
 void Elevator::CalibrateStop() {
+#if defined (ROBOTNOTSTANDALONE) || defined (ROBOTBENCHTOPTEST)
+	motorL11->StopMotor();
+#endif
+}
+
+void Elevator::MoveToTopLimit() {
+#if defined (ROBOTNOTSTANDALONE) || defined (ROBOTBENCHTOPTEST)
+	if (hallSensorTop->Get() == false) {
+		std::printf("2135: Hall Effect Top Detected\n");
+		motorL11->Set(ControlMode::PercentOutput, 0.0);
+	}
+	else {
+		motorL11->Set(ControlMode::PercentOutput, 0.1);
+	}
+#endif
+}
+
+bool Elevator::MoveToTopLimitIsFinished() {
+
+	bool m_isFinished;
+	m_isFinished = false;
+
+#if defined (ROBOTNOTSTANDALONE) || defined (ROBOTBENCHTOPTEST)
+	if (hallSensorTop->Get() == false) {
+		m_isFinished = true;
+	}
+#endif
+
+	return m_isFinished;
+}
+
+void Elevator::MoveToTopLimitStop() {
 #if defined (ROBOTNOTSTANDALONE) || defined (ROBOTBENCHTOPTEST)
 	motorL11->StopMotor();
 #endif
