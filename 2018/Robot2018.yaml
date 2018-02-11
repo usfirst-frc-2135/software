@@ -197,7 +197,19 @@ Children:
           validators: [DigitalChannel]
           value: '0'
       Base: Limit Switch
-      Name: HallSensor
+      Name: HallSensorTop
+    - Children: []
+      Properties:
+        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
+            '24', '25']
+          default: '0'
+          name: Input Channel (Digital)
+          validators: [DigitalChannel]
+          value: '1'
+      Base: Digital Input
+      Name: HallSensorBottom
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
@@ -386,8 +398,8 @@ Children:
           name: Parameters
           validators: null
           value:
-          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: elevateDirection,
-            type: boolean, value: 'false'}
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: elevateDistance,
+            type: double, value: '0'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id003
           default: '1'
@@ -417,8 +429,8 @@ Children:
           name: Parameters
           validators: null
           value:
-          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: elevateDirection,
-            type: boolean, value: 'false'}
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: elevateDistance,
+            type: double, value: '0'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id003
           default: '1'
@@ -670,8 +682,8 @@ Children:
         name: Parameters
         validators: null
         value:
-        - !!robotbuilder.data.properties.ParameterDescriptor {name: elevateDirection,
-          type: boolean}
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: elevateDistance,
+          type: double}
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
@@ -721,10 +733,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Elevator}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id006 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id006
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command

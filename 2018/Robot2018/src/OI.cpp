@@ -60,6 +60,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("Auto Drive Distance", new AutoDriveDistance(0));
     frc::SmartDashboard::PutData("Elevator Run", new ElevatorRun(5)); //Eventually pass in variable in inches
     frc::SmartDashboard::PutData("Elevator Run For 17", new ElevatorRun(17)); // For testing
+    frc::SmartDashboard::PutData("Elevator Run For -2", new ElevatorRun(-2)); // For testing negative safety
 
 }
 
