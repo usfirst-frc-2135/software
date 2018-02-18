@@ -160,6 +160,8 @@ bool Elevator::ElevatePIDatSetPoint() {
 	int encoderCounts = 0;
 	double motorOutput = 0.0;
 	int closedLoopError = 0;
+	int targetCounts = 0;
+	double errorInInches = 0;
 
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
 	encoderCounts = motorL7->GetSelectedSensorPosition(0);
@@ -195,10 +197,12 @@ bool Elevator::ElevatePIDatSetPoint() {
 */
 
 //Stops command.
-	if (m_pidStarted == true && closedLoopError <= 20) {
+/*
+	if (abs(closedLoopError <= 20)) {
 		pidFinished = true;
 		std::printf("2135: Finished\n");
 	}
+*/
 
 	if (hallLimit->Get() == false) {
 		std::printf("2135: Hall Effect Detected\n");
