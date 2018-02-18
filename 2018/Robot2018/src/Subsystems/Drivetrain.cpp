@@ -87,7 +87,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
 
  	gyro = new AHRS(SPI::Port::kMXP);
- 	LiveWindow::GetInstance()->AddSensor("IMU", "Gyro", gyro);
+// 	LiveWindow::GetInstance()->AddSensor("IMU", "Gyro", gyro); // TODO: Remove deprecated call
 
  	// Calibrate the gyro
    	std::printf("2135: Gyro Calibration Initialized\n");
