@@ -172,15 +172,21 @@ bool Elevator::ElevatePIDatSetPoint() {
 	// Check if it is within tolerance
 /*	if (abs(motorOutput) >= 0.4) { // TODO: Change this to get the tolerance
 		m_pidStarted = true;*/
-	if (!m_pidStarted && (abs(closedLoopError) > COUNTS_PER_ROTATION))
-	{
-		m_pidStarted = true; //HOLD OUT WHEN READY
-		std::printf("2135: PID Started\n");
+
+	//EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
+	std::printf("2135: EncCount %d, CLE %d, M_Output %f\n", encoderCounts, closedLoopError, motorOutput);
+
+	//Checks to see if the error is in an acceptable number of inches.
+	targetCounts = InchesToCounts(m_targetInches);
+	errorInInches = (abs(encoderCounts - targetCounts));
+	if (errorInInches < 2) {
+		pidFinished = true;
+		std::printf("2135: Finished\n");
+	}
+	else {
+		pidFinished = false;
 	}
 
-	std::printf("2135: Encoder count %d\n", encoderCounts);
-	std::printf("2135: Closed loop error %d\n", closedLoopError);
-	std::printf("2135: Motor Output: %f\n", motorOutput);
 /*
 	if (m_pidStarted == true && abs(motorOutput) <= 0.1) {
 		pidFinished = true;
@@ -203,26 +209,17 @@ bool Elevator::ElevatePIDatSetPoint() {
 }
 
 void Elevator::ElevatePIDStop() {
-	std::printf("2135: Elevate STOP\n");
-
-#if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
-	// Set the driving mode and target
-//To keep PID running, this is commented out.
-//	motorL7->Set(ControlMode::PercentOutput, 0.0);
-
-//	motorL7->SetSelectedSensorPosition(0, pidIndex, timeout);
-//	motorL7->SetSelectedSensorPosition(0, pidIndex, timeout);
-#endif
-
+	std::printf("2135: Elevate Stop\n");
 }
 
 void Elevator::Calibrate() {
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
 	// Hall sensor is false when near magnet
 	if (!hallLimit->Get()) {
-		std::printf("2135: Hall Effect Bottom Detected\n");
-		motorL7->Set(ControlMode::PercentOutput, 0.0);
+		std::printf("2135: Hall Limit Detected\n");
 	    motorL7->SetSelectedSensorPosition(0, pidIndex, timeout);
+		motorL7->Set(ControlMode::Position, 0.0);
+		m_calibrated = true;
 	}
 	else {
 		motorL7->Set(ControlMode::PercentOutput, -0.1);
@@ -233,11 +230,9 @@ void Elevator::Calibrate() {
 bool Elevator::CalibrateIsFinished() {
 
 	// Hall sensor is false when near magnet
-	return (!hallLimit->Get());
+	return m_calibrated;
 }
 
 void Elevator::CalibrateStop() {
-#if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
-	motorL7->StopMotor();
-#endif
+//Done in Calibrate.
 }
