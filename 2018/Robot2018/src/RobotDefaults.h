@@ -8,9 +8,9 @@
 #ifndef ROBOTDEFAULTS_H_
 #define ROBOTDEFAULTS_H_
 
-// Comment this to test with only the RoboRio
-#define ROBOTNOTSTANDALONE
-//#define ROBOTBENCHTOPTEST
+// Comment both to test with only the RoboRio
+//#define ROBORIO_STANDALONE
+//#define ROBOTBENCHTOPTEST //Leave defined to test with the Benchtop Test
 
 // SmartDashboard Chassis Basics
 #define CHS_DRIVE_SCALING	"Chs_DriveScaling"
