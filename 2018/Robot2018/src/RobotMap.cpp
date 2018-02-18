@@ -35,10 +35,9 @@ std::shared_ptr<WPI_TalonSRX> RobotMap::gripperMotorW14;
 #endif
 
 #ifdef ROBOTBENCHTOPTEST
-std::shared_ptr<WPI_TalonSRX> RobotMap::elevatorMotorL11;
-std::shared_ptr<WPI_TalonSRX> RobotMap::elevatorMotorR12;
-std::shared_ptr<frc::DigitalInput> RobotMap::elevatorHallSensorTop;
-std::shared_ptr<frc::DigitalInput> RobotMap::elevatorHallSensorBottom;
+std::shared_ptr<WPI_TalonSRX> RobotMap::elevatorMotorL7;
+std::shared_ptr<WPI_TalonSRX> RobotMap::elevatorMotorR8;
+std::shared_ptr<frc::DigitalInput> RobotMap::elevatorHallLimit;
 #endif
 
 void RobotMap::init() {
@@ -93,11 +92,9 @@ void RobotMap::init() {
 
 #ifdef ROBOTBENCHTOPTEST
     frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
-    elevatorMotorL11.reset(new WPI_TalonSRX(11));
-    elevatorHallSensorTop.reset(new frc::DigitalInput(0));
-    elevatorHallSensorBottom.reset(new frc::DigitalInput(1));
-    elevatorMotorR12.reset(new WPI_TalonSRX(12));
-    lw->AddSensor("Elevator", "HallSensor", elevatorHallSensorTop);
-    lw->AddSensor("Elevator", "HallSensor", elevatorHallSensorBottom);
+    elevatorMotorL7.reset(new WPI_TalonSRX(11));
+    elevatorHallLimit.reset(new frc::DigitalInput(1));
+    elevatorMotorR8.reset(new WPI_TalonSRX(12));
+    lw->AddSensor("Elevator", "HallSensor", elevatorHallLimit);
 #endif
 }

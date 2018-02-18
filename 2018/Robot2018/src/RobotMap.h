@@ -48,10 +48,9 @@ public:
 #endif
 
 #ifdef ROBOTBENCHTOPTEST
-	static std::shared_ptr<WPI_TalonSRX> elevatorMotorL11;
-	static std::shared_ptr<frc::DigitalInput> elevatorHallSensorTop;
-	static std::shared_ptr<frc::DigitalInput> elevatorHallSensorBottom;
-	static std::shared_ptr<WPI_TalonSRX> elevatorMotorR12;
+	static std::shared_ptr<WPI_TalonSRX> elevatorMotorL7;
+	static std::shared_ptr<frc::DigitalInput> elevatorHallLimit;
+	static std::shared_ptr<WPI_TalonSRX> elevatorMotorR8;
 #endif
 
 	static void init();

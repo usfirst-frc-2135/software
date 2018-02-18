@@ -107,8 +107,6 @@ void Gripper::Periodic() {
 
 void Gripper::SetGripperMotorSpeed(int speed)
 {
-#ifndef ROBORIO_STANDALONE
-
 	double output = 0.0; 		//Default: off
 
 	switch (speed)
@@ -125,16 +123,14 @@ void Gripper::SetGripperMotorSpeed(int speed)
 		break;
 	}
 
+#ifndef ROBORIO_STANDALONE
 	motorL11->Set(ControlMode::PercentOutput, output);
 	motorR12->Set(ControlMode::PercentOutput, output);
-
 #endif
 }
 
 void Gripper::SetWristMotorSpeed(int speed)
 {
-#ifndef ROBORIO_STANDALONE
-
 	double output = 0.0; 		//Default: off
 
 	switch (speed)
@@ -151,28 +147,28 @@ void Gripper::SetWristMotorSpeed(int speed)
 		break;
 	}
 
+#ifndef ROBORIO_STANDALONE
 	motorW14->Set(ControlMode::PercentOutput, output);
-
 #endif
 }
 
 void Gripper::ExtensionPIDInit(double angle)
 {
-#ifndef ROBORIO_STANDALONE
 	std::printf("2135: Extension Started\n");
 
 	double target;
 
 	target = (angle * COUNTS_PER_ROTATION) / 360.0;
 
+#ifndef ROBORIO_STANDALONE
 	// Set Encoder Position to zero
 	motorW14->SetSelectedSensorPosition(0, pidIndex, 0);
 
 	// Set the mode and target
 	motorW14->Set(ControlMode::Position, target);
+#endif
 
 	m_pidStarted = false;
-#endif
 }
 
 void Gripper::ExtensionPIDExecute(void)
@@ -183,34 +179,40 @@ void Gripper::ExtensionPIDExecute(void)
 bool Gripper::ExtensionPIDIsAtSetpoint(void)
 {
 	bool pidFinished = false;
-
+	int encoderCounts = 0;
+	double motorOutput = 0.0;
 	int closedLoopError = 0;
 
-	// Detect if closed loop error has been updates
 #ifndef ROBORIO_STANDALONE
+	encoderCounts = motorW14->GetSelectedSensorPosition(0);
+	motorOutput = motorW14->GetMotorOutputPercent();
 	closedLoopError = motorW14->GetClosedLoopError(0);
-	std::printf("2135: Closed loop error %d\n", closedLoopError);
-	std::printf("2135: Encoder count %d\n", motorW14->GetSelectedSensorPosition(0));
-
-	double motorOutput = motorW14->GetMotorOutputPercent();
+#endif
+	// Detect if closed loop error has been updates
+	// TODO: This is an invalid test of whether the PID started
 	if (abs(motorOutput) >= 0.4) {
 		m_pidStarted = true;
 		std::printf("PID Started\n");
 	}
 
-	if (m_pidStarted == true && closedLoopError <= 20)
+	std::printf("2135: Encoder count %d\n", encoderCounts);
+	std::printf("2135: Closed loop error %d\n", closedLoopError);
+	std::printf("2135: Motor Output: %f\n", motorOutput);
+
+	if (m_pidStarted == true && closedLoopError <= 20) {
 		pidFinished = true;
-		std::printf("2135: Finished\n");
-#endif
+		std::printf("2135: PID Finished\n");
+	}
+
 	return pidFinished;
 }
 
 void Gripper::ExtensionPIDStop(void)
 {
-#ifndef ROBORIO_STANDALONE
 	std::printf("2135: Extension STOP\n");
 
-	// Set driving mode and target
+#ifndef ROBORIO_STANDALONE
+	// Set back to driving mode and target
 	motorW14->Set(ControlMode::PercentOutput, 0.0);
 #endif
 }
