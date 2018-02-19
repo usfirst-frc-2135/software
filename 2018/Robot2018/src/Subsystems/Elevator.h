@@ -66,9 +66,12 @@ public:
 
 	double InchesToCounts(double inches);
 	double CountsToInches(int counts);
+	bool IsHallSensorTriggered(void);
 
 	void MoveToPosition(double inches);
 	bool MoveToPositionIsFinished(void);
+
+	void MoveToPositionStop(void);
 
 	void CalibrationInit(void);
 	void CalibrationExecute(void);

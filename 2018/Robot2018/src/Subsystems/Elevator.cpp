@@ -58,7 +58,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 
     // Set encoder as a CTRE magnetic in relative mode with sensor in phase with output
     motorL7->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
-    motorL7->SetSensorPhase(false);
+    motorL7->SetSensorPhase(true);
 
 	// Set maximum power and timeout
 	motorL7->ConfigPeakOutputForward(m_elevatorSpeed, m_timeout);
@@ -126,6 +126,12 @@ double Elevator::CountsToInches(int counts) {
 	return inches;
 }
 
+bool Elevator::IsHallSensorTriggered() {
+	bool isTriggered;
+	isTriggered = !hallLimit->Get();
+	return isTriggered;
+}
+
 void Elevator::MoveToPosition(double inches) {
 
 	double curInches = 0.0;
@@ -188,6 +194,11 @@ bool Elevator::MoveToPositionIsFinished() {
 	return pidFinished;
 }
 
+void Elevator::MoveToPositionStop() {
+	motorL7->Set(ControlMode::PercentOutput, 0.0);
+	std::printf("2135: Safety timer has timed out\n");
+}
+
 void Elevator::CalibrationInit() {
 	m_calibrated = false;
 	m_calibrationState = CALIB_START;
@@ -205,12 +216,13 @@ void Elevator::CalibrationExecute() {
 	switch (m_calibrationState) {
 	case CALIB_START:
 		// Hall sensor is false when near magnet
-		if (!hallLimit->Get()) {
+		if (IsHallSensorTriggered() == true) {
 			// Near magnet, reset encoder and move up a little using encoder
 			std::printf("2135: Calibration - move UP first\n");
 			motorL7->SetSelectedSensorPosition(m_sensorPos, m_pidIndex, m_timeout);
 			motorL7->Set(ControlMode::PercentOutput, m_calibrationSpeed);
 			m_calibrationState = CALIB_MOVE_UP;
+			std::printf("2135: Elevator State: %d", m_calibrationState);
 		}
 		else {
 			std::printf("2135: Calibration - move DOWN first\n");
@@ -220,7 +232,7 @@ void Elevator::CalibrationExecute() {
 		break;
 	case CALIB_MOVE_UP:
 		// Check to see if moved up 3 rotations
-		if (motorL7->GetSelectedSensorPosition(m_pidIndex) > (3 * COUNTS_PER_ROTATION)) {
+		if (abs(motorL7->GetSelectedSensorPosition(m_pidIndex)) > (3 * COUNTS_PER_ROTATION)) {
 			std::printf("2135: Calibration - done moving up\n");
 			motorL7->Set(ControlMode::PercentOutput, 0.0);
 			m_calibrationState = CALIB_START_DOWN;
@@ -233,7 +245,7 @@ void Elevator::CalibrationExecute() {
 		break;
 	case CALIB_MOVE_DOWN:
 		// Hall sensor is false when near magnet
-		if (!hallLimit->Get()) {
+		if (IsHallSensorTriggered() == true) {
 			// Near magnet, end of calibration
 			std::printf("2135: Calibration - done moving down - Hall sensor found\n");
 			motorL7->SetSelectedSensorPosition(m_sensorPos, m_pidIndex, m_timeout);

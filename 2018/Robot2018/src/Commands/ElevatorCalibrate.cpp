@@ -56,6 +56,7 @@ bool ElevatorCalibrate::IsFinished() {
 // Called once after isFinished returns true
 void ElevatorCalibrate::End() {
 	std::printf("2135: Elevator Calibrate Ended\n");
+	Robot::elevator->MoveToPositionStop();
 	m_safetyTimer.Stop();
 }
 
@@ -63,5 +64,6 @@ void ElevatorCalibrate::End() {
 // subsystems is scheduled to run
 void ElevatorCalibrate::Interrupted() {
 	std::printf("2135: Elevator Calibrate Interrupted\n");
+	Robot::elevator->MoveToPositionStop();
 	m_safetyTimer.Stop();
 }
