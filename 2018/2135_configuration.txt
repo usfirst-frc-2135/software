@@ -9,4 +9,5 @@
  DT_AllowedCLError = 36
  G_MotorSpeed = -1.0
  G_WristSpeed = 1.0
- E_MotorSpeed = 1.0
+ E_CalibSpeed = 0.25
+ E_MotorSpeed = 0.4

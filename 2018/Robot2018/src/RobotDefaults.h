@@ -20,5 +20,4 @@
 #define CHS_DRIVE_SPIN_D	0.45
 
 
-
 #endif /* ROBOTDEFAULTS_H_ */

@@ -26,37 +26,26 @@ ElevatorRun::ElevatorRun(double elevateDistance): frc::Command() {
 // Called just before this Command runs the first time
 void ElevatorRun::Initialize() {
 	std::printf("2135: ElevatorRun - Init\n");
-/*
-	if (m_elevateDirection)
-		Robot::elevator->ElevatePIDInit(0.9905*M_PI*2);
-	else
-		Robot::elevator->ElevatePIDInit(-0.9905*M_PI*2);
-*/
-
-	Robot::elevator->ElevatePIDInit(m_elevateDistance);
-
+	Robot::elevator->MoveToPosition(m_elevateDistance);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorRun::Execute() {
-	Robot::elevator->ElevatePIDExecute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ElevatorRun::IsFinished() {
-    return Robot::elevator->ElevatePIDatSetPoint();
+	// Elevator runs forever (except when interrupted by other commands)
+    return false;
 }
 
 // Called once after isFinished returns true
 void ElevatorRun::End() {
 	std::printf("2135: ElevatorRun - End\n");
-	Robot::elevator->ElevatePIDStop();
-
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ElevatorRun::Interrupted() {
 	std::printf("2135: ElevatorRun - Interrupted\n");
-	Robot::elevator->ElevatePIDStop();
 }
