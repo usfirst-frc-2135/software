@@ -121,6 +121,7 @@ double Elevator::InchesToCounts(double inches) {
 
 double Elevator::CountsToInches(int counts) {
 	double inches;
+
 	inches = ((double) counts / COUNTS_PER_ROTATION) * m_circumInches;
 	return inches;
 }
@@ -150,7 +151,7 @@ void Elevator::MoveToPosition(double inches) {
 	motorL7->Set(ControlMode::Position, m_targetCounts);
 #endif
 
-	std::printf("2135: Elevate Init inches %f -> %f [%f] counts %d -> %f\n", curInches, m_targetInches, inches, curCounts, m_targetCounts);
+	std::printf("2135: Elevator Init inches %f -> %f [%f] counts %d -> %f\n", curInches, m_targetInches, inches, curCounts, m_targetCounts);
 }
 
 bool Elevator::MoveToPositionIsFinished() {
