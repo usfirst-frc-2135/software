@@ -65,7 +65,7 @@ public:
 
 	double InchesToCounts(double inches);
 	double CountsToInches(int counts);
-	bool IsHallSensorTriggered(void);
+	bool HallSensorIsTriggered(void);
 
 	void MoveToPosition(double inches);
 	bool MoveToPositionIsFinished(void);

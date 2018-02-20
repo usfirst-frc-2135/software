@@ -106,6 +106,7 @@ void Elevator::InitDefaultCommand() {
 void Elevator::Periodic() {
     // Put code here to be run every loop
 	SmartDashboard::PutNumber("Elevator height", CountsToInches(motorL7->GetSelectedSensorPosition(m_pidIndex)));
+	SmartDashboard::PutBoolean("Hall Sensor", HallSensorIsTriggered());
 }
 
 
@@ -126,10 +127,9 @@ double Elevator::CountsToInches(int counts) {
 	return inches;
 }
 
-bool Elevator::IsHallSensorTriggered() {
-	bool isTriggered;
-	isTriggered = !hallLimit->Get();
-	return isTriggered;
+bool Elevator::HallSensorIsTriggered() {
+	// Hall sensor is false when magnet is nearby
+	return !hallLimit->Get();
 }
 
 void Elevator::MoveToPosition(double inches) {
@@ -186,11 +186,6 @@ bool Elevator::MoveToPositionIsFinished() {
 		pidFinished = false;
 	}
 
-	// TODO: Do we need this?
-//	if (!hallLimit->Get()) {
-//		std::printf("2135: Hall Effect Detected\n");
-//	}
-
 	return pidFinished;
 }
 
@@ -212,17 +207,17 @@ void Elevator::CalibrationExecute() {
 	// Calibration state machine
 
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
+	static int lastCalibState = -1;
 
 	switch (m_calibrationState) {
 	case CALIB_START:
 		// Hall sensor is false when near magnet
-		if (IsHallSensorTriggered() == true) {
+		if (HallSensorIsTriggered()) {
 			// Near magnet, reset encoder and move up a little using encoder
 			std::printf("2135: Calibration - move UP first\n");
 			motorL7->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 			motorL7->Set(ControlMode::PercentOutput, m_calibrationSpeed);
 			m_calibrationState = CALIB_MOVE_UP;
-			std::printf("2135: Elevator State: %d\n", m_calibrationState);
 		}
 		else {
 			std::printf("2135: Calibration - move DOWN first\n");
@@ -246,7 +241,7 @@ void Elevator::CalibrationExecute() {
 		break;
 	case CALIB_MOVE_DOWN:
 		// Hall sensor is false when near magnet
-		if (IsHallSensorTriggered() == true) {
+		if (HallSensorIsTriggered()) {
 			// Near magnet, end of calibration
 			std::printf("2135: Calibration - done moving down - Hall sensor found\n");
 			motorL7->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
@@ -258,6 +253,12 @@ void Elevator::CalibrationExecute() {
 		motorL7->Set(ControlMode::Position, 0.0);
 		m_calibrated = true;
 		break;
+	}
+
+	// If calibration state changes, print new value
+	if (m_calibrationState != lastCalibState) {
+		std::printf("2135: Elevator State: %d\n", m_calibrationState);
+		lastCalibState = m_calibrationState;
 	}
 #endif
 }
