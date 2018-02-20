@@ -65,8 +65,8 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     motorR4->Set(ControlMode::Follower, 3);
 
     // Set to coast mode (in comparison to brake)
-    motorL7->SetNeutralMode(NeutralMode::Coast);
-    motorR8->SetNeutralMode(NeutralMode::Coast);
+    motorL1->SetNeutralMode(NeutralMode::Coast);
+    motorR3->SetNeutralMode(NeutralMode::Coast);
 
     // Set encoder as a CTRE magnetic in relative mode with sensor in phase with output
     motorL1->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
@@ -94,7 +94,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 	//Allowed Closed Loop Eroor - in Talon native units (about 1 degree)
 	config->GetValueAsInt("DT_AllowedCLError", m_CL_allowError, CTRE_Mag_CPR / 360);
 
-	diffDrive->SetSafetyEnabled(false);
+	diffDrive->SetSafetyEnabled(true);
 
  	gyro = new AHRS(SPI::Port::kMXP);
 // 	LiveWindow::GetInstance()->AddSensor("IMU", "Gyro", gyro); // TODO: Remove deprecated call
@@ -234,10 +234,6 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches)
 	 m_safetyTimer.Reset();
 	 m_safetyTimer.Start();
 	 m_safetyTimeout = 3.5; //TODO check if needs to be longer and if this needs to loaded from RobotConfig
-
-	 // Disable safety feature during movement, since motors will be fed by loop
-	 diffDrive->SetSafetyEnabled(false);
-
 #endif
 }
 
@@ -322,8 +318,6 @@ void Drivetrain::MoveDriveTurnPIDInit(double angle) {
 	std::printf("2135: Set to %f degrees\n", angle);
 	driveTurnPIDLoop->SetSetpoint(angle);
 	driveTurnPIDLoop->Enable();
-
-	diffDrive->SetSafetyEnabled(false);
 #endif
 }
 
