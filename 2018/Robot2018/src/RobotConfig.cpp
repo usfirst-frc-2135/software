@@ -60,7 +60,7 @@ bool RobotConfig::LoadConfig() {
 		while(getline(configFile, line)) {
 			name = "";			// Reset
 			trimWhitespace(line);
-			if(line[0] == '#') {	// Skipping comment line
+			if (line[0] == '#') {	// Skipping comment line
 				continue;
 			}
 			size_t pos = 0;
@@ -72,13 +72,13 @@ bool RobotConfig::LoadConfig() {
 				valueStr = line;
 			}
 
-			if(!name.empty())
+			if (!name.empty())
 			{
 				m_configMap[name] = valueStr;
 				printf("2135: Adding to m_configMap: '%s'='%s'\n", name.c_str(), valueStr.c_str());
 			}
 
-			if(configFile.bad() == true)
+			if (configFile.bad() == true)
 			{
 				printf("2135: configFile %s bad", fileName.c_str());
 				return false;
@@ -95,7 +95,7 @@ bool RobotConfig::GetValueAsString(const std::string& name, std::string& valueSt
 	bool rtnStatus = false;
 	valueStr = m_configMap[name];
 	printf("2135: Got config map\n");
-	if(!valueStr.empty())
+	if (!valueStr.empty())
 	{
 		 rtnStatus = true;
 	}
@@ -118,7 +118,7 @@ bool RobotConfig::GetValueAsInt(const std::string& name, int& valueInt, int defa
 {
 	bool rtnStatus = false;
 	std::string valueStr = m_configMap[name];
-	if(!valueStr.empty())
+	if (!valueStr.empty())
 	{
 		valueInt = atoi(valueStr.c_str());  // convert to int
 		rtnStatus = true;
@@ -143,10 +143,10 @@ bool RobotConfig::GetValueAsBool(const std::string& name, bool& valueBool, bool 
 {
 	bool rtnStatus = false;
 	std::string valueStr = m_configMap[name];
-	if(!valueStr.empty())
+	if (!valueStr.empty())
 	{
 		// Assumes that value string is always lowercase 'true' or '1'.
-		if((valueStr == "true") || (valueStr == "1"))
+		if ((valueStr == "true") || (valueStr == "1"))
 			valueBool = true;
 		else valueBool = false;
 		rtnStatus = true;
@@ -168,7 +168,7 @@ bool RobotConfig::GetValueAsFloat(const std::string& name, float& valueFloat, fl
 {
 	bool rtnStatus = false;
 	std::string valueStr = m_configMap[name];
-	if(!valueStr.empty())
+	if (!valueStr.empty())
 	{
 		valueFloat = atof(valueStr.c_str());  // convert stored value to float
 		rtnStatus = true;
@@ -194,7 +194,7 @@ bool RobotConfig::GetValueAsDouble(const std::string& name, double& valueDouble,
 	printf("2135: Starting GetValueAsDouble\n");
 	bool rtnStatus = false;
 	std::string valueStr = m_configMap[name];
-	if(!valueStr.empty())
+	if (!valueStr.empty())
 	{
 		printf("2135: Got value from config map\n");
 		valueDouble = atof(valueStr.c_str());  // convert stored value to double
@@ -228,75 +228,75 @@ void RobotConfig::DumpConfig()
 //This is testing the get functions with our dummy file. We can remove this once we are confident with the functions.
 
 /*float valueFloat;
-if(GetValueAsFloat("AutonDriveSpeed", valueFloat))
+if (GetValueAsFloat("AutonDriveSpeed", valueFloat))
 	std::cout<<"Test - AutonDriveSpeed" <<" " <<valueFloat <<"\n";
 else printf("AutonDriveSpeed could not get float value.\n");
 
 int valueInt;
-if(GetValueAsInt("BlahBlah", valueInt))
+if (GetValueAsInt("BlahBlah", valueInt))
 	std::cout<<"Test - BlahBlah (as int)" <<" " <<valueInt <<"\n";
 else printf("BlahBlah could not get int value.\n");
 
 bool valueBool;
-if(GetValueAsBool("BlahBlah", valueBool))
+if (GetValueAsBool("BlahBlah", valueBool))
 	std::cout<<"Test - BlahBlah (as bool)" <<" " <<valueBool <<"\n";
 else printf("BlahBlah could not get bool value.");
 
-if(GetValueAsBool("NatureWalk", valueBool ))
+if (GetValueAsBool("NatureWalk", valueBool ))
 	std::cout<<"Test - NatureWalk" <<" " <<valueBool <<"\n";
 else printf("NatureWalk could not get value.");
 
-if(GetValueAsFloat("DeprecatedClimber", valueFloat))
+if (GetValueAsFloat("DeprecatedClimber", valueFloat))
 	std::cout<<"Test - DeprecatedClimber" <<" " <<valueFloat <<"\n";
 else printf("DeprecatedClimber could not get float value.\n");
 
-if(GetValueAsInt("ThingOne", valueInt))
+if (GetValueAsInt("ThingOne", valueInt))
 	std::cout<<"Test - ThingOne" <<" " <<valueInt <<"\n";
 else printf("ThingOne could not get int value.\n");
 
-if(GetValueAsInt("ThingTwo", valueInt))
+if (GetValueAsInt("ThingTwo", valueInt))
 	std::cout<<"Test - ThingTwo" <<" " <<valueInt <<"\n";
 else printf("ThingTwo could not get int value.\n");
 
-if(GetValueAsBool("PeopleOut", valueBool))
+if (GetValueAsBool("PeopleOut", valueBool))
 	std::cout<<"Test - PeopleOut (as bool)" <<" " <<valueBool <<"\n";
 else printf("PeopleOut could not get bool value.\n");
 
 std::string valueString;
-if(GetValueAsString("PeopleOut", valueString))
+if (GetValueAsString("PeopleOut", valueString))
 	std::cout<<"Test - PeopleOut (as string)" <<" " <<valueString <<"\n";
 else printf("PeopleOut (as string) could not get value.\n");
 
-if(GetValueAsFloat("Keyboard", valueFloat, 22.5))
+if (GetValueAsFloat("Keyboard", valueFloat, 22.5))
 	std::cout<<"Test - Keyboard" << " " <<valueFloat <<"\n";
 else printf("Keyboard could not get float value.\n");
 
 // The expected value of Keyboard should be 22.5
-if(GetValueAsFloat("Keyboard", valueFloat, 56.7))
+if (GetValueAsFloat("Keyboard", valueFloat, 56.7))
 	std::cout<<"Test - Keyboard" << " " <<valueFloat <<"\n";
 else printf("Keyboard could not get float value.\n");
 
-if(GetValueAsFloat("Mouse", valueFloat))
+if (GetValueAsFloat("Mouse", valueFloat))
 	std::cout<<"Test - Mouse" << " " <<valueFloat <<"\n";
 else printf("Keyboard could not get float value.\n");
 
-if(GetValueAsInt("Fence", valueInt))
+if (GetValueAsInt("Fence", valueInt))
 	std::cout<<"Test - Fence (as int)" <<" " <<valueInt <<"\n";
 else printf("Fence could not get int value.\n");
 
-if(GetValueAsInt("Gate", valueInt, 999999))
+if (GetValueAsInt("Gate", valueInt, 999999))
 	std::cout<<"Test - Gate (int)" <<" " <<valueInt <<"\n";
 else printf("Gate could not get int value.\n");
 
-if(GetValueAsBool("Tea", valueBool))
+if (GetValueAsBool("Tea", valueBool))
 	std::cout<<"Test - Tea (as bool)" <<" " <<valueBool <<"\n";
 else printf("Tea could not get bool value.");
 
-if(GetValueAsFloat("Chair",valueFloat, DUMMY_DEFAULT_FLOAT))
+if (GetValueAsFloat("Chair",valueFloat, DUMMY_DEFAULT_FLOAT))
 	std::cout << "Test - Chair (as float)" << " " << valueFloat << "\n";
 else printf("Chair could not get float value.");
 
-if(GetValueAsString("Sweatpants", valueString))
+if (GetValueAsString("Sweatpants", valueString))
 	std::cout<<"Test - Sweatpants (as string)" <<" " <<valueString <<"\n";
 else printf("Sweatpants (as string) could not get value.\n");*/
 
