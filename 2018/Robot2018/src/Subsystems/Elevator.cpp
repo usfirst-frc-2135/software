@@ -107,6 +107,7 @@ void Elevator::Periodic() {
     // Put code here to be run every loop
 	SmartDashboard::PutNumber("Elevator height", CountsToInches(motorL7->GetSelectedSensorPosition(m_pidIndex)));
 	SmartDashboard::PutBoolean("Hall Sensor", HallSensorIsTriggered());
+	SmartDashboard::PutBoolean("Elevator Calibrated", m_calibrated);
 }
 
 
@@ -139,16 +140,17 @@ void Elevator::MoveToPosition(double inches) {
 
 	// Save the requested target height inches
 	m_targetInches = inches;
+	if (m_calibrated == true) {
 
-	// Constrain input request to a valid and safe range between full down and max height
-	if (inches < 0.0) {
-		m_targetInches = 0.0;
-	}
-	if (inches > 50.0) {
-		m_targetInches = 50.0;
-	}
+		// Constrain input request to a valid and safe range between full down and max height
+		if (inches < 0.0) {
+			m_targetInches = 0.0;
+		}
+		if (inches > 50.0) {
+			m_targetInches = 50.0;
+		}
 
-	m_targetCounts = InchesToCounts(m_targetInches);
+		m_targetCounts = InchesToCounts(m_targetInches);
 
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
 	// Get current position in inches and set position mode and target counts
@@ -157,7 +159,12 @@ void Elevator::MoveToPosition(double inches) {
 	motorL7->Set(ControlMode::Position, m_targetCounts);
 #endif
 
-	std::printf("2135: Elevator Init inches %f -> %f [%f] counts %d -> %f\n", curInches, m_targetInches, inches, curCounts, m_targetCounts);
+		std::printf("2135: Elevator Init inches %f -> %f [%f] counts %d -> %f\n", curInches, m_targetInches, inches, curCounts, m_targetCounts);
+	}
+	else {
+		printf("2135: Elevator is not calibrated\n");
+		motorL7->Set(ControlMode::PercentOutput, 0.0);
+	}
 }
 
 bool Elevator::MoveToPositionIsFinished() {
