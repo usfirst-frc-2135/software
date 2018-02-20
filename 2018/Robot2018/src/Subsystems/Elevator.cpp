@@ -68,8 +68,8 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	// Set maximum current draw allowed
 	motorL7->ConfigPeakCurrentLimit(10.0, m_timeout);
 	motorR8->ConfigPeakCurrentLimit(10.0, m_timeout);
-	motorL7->EnableCurrentLimit(true);
-	motorR8->EnableCurrentLimit(true);
+	motorL7->EnableCurrentLimit(false);
+	motorR8->EnableCurrentLimit(false);
 
     // Set proportional
     motorL7->Config_kP(0, (0.5 * 1023)/COUNTS_PER_ROTATION, m_timeout);
@@ -222,7 +222,7 @@ void Elevator::CalibrationExecute() {
 			motorL7->SetSelectedSensorPosition(m_sensorPos, m_pidIndex, m_timeout);
 			motorL7->Set(ControlMode::PercentOutput, m_calibrationSpeed);
 			m_calibrationState = CALIB_MOVE_UP;
-			std::printf("2135: Elevator State: %d", m_calibrationState);
+			std::printf("2135: Elevator State: %d\n", m_calibrationState);
 		}
 		else {
 			std::printf("2135: Calibration - move DOWN first\n");
@@ -232,7 +232,8 @@ void Elevator::CalibrationExecute() {
 		break;
 	case CALIB_MOVE_UP:
 		// Check to see if moved up 3 rotations
-		if (abs(motorL7->GetSelectedSensorPosition(m_pidIndex)) > (3 * COUNTS_PER_ROTATION)) {
+		printf("2135: Encoder Counts %d\n", motorL7->GetSelectedSensorPosition(m_pidIndex));
+		if (abs(motorL7->GetSelectedSensorPosition(m_pidIndex)) > (COUNTS_PER_ROTATION)) {
 			std::printf("2135: Calibration - done moving up\n");
 			motorL7->Set(ControlMode::PercentOutput, 0.0);
 			m_calibrationState = CALIB_START_DOWN;

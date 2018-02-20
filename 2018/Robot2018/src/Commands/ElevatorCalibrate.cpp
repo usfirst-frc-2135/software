@@ -33,7 +33,7 @@ void ElevatorCalibrate::Initialize() {
 	//Set safety timer.
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
-	m_safetyTimeout = 2.5;
+	m_safetyTimeout = 8.0;
 }
 
 // Called repeatedly when this Command is scheduled to run
