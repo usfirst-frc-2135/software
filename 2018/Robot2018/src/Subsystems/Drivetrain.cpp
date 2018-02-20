@@ -142,6 +142,8 @@ void Drivetrain::Initialize(frc::Preferences *RobotConfig) {
 void Drivetrain::Periodic() {
     // Put code here to be run every loop
 
+	SmartDashboard::PutNumber("DT_Encoder_L", motorL1->GetSelectedSensorPosition(0));
+	SmartDashboard::PutNumber("DT_Encoder_R", motorR3->GetSelectedSensorPosition(0));
 }
 
 
