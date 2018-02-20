@@ -61,6 +61,9 @@ OI::OI() {
     frc::SmartDashboard::PutData("Elevator Run", new ElevatorRun(5)); //Eventually pass in variable in inches
     frc::SmartDashboard::PutData("Elevator Run For 17", new ElevatorRun(17)); // For testing
     frc::SmartDashboard::PutData("Elevator Run For -2", new ElevatorRun(-2)); // For testing negative safety
+    frc::SmartDashboard::PutData("Elevator Run for 5", new ElevatorRun(5));   // For testing
+    frc::SmartDashboard::PutData("Elevator Run For 10", new ElevatorRun(10)); // For testing
+
 
 }
 
