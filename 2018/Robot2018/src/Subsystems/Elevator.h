@@ -34,7 +34,6 @@ private:
 #endif
 
 	const int		m_slotIndex = 0;				// Motor controller profile slot index
-	const int		m_sensorPos = 0;				// Sensor position in a slot
 	const int 		m_pidIndex = 0; 				// PID Slot index for sensors
 	const int		m_timeout = 10;					// CAN timeout in msec to wait for response
 	const double 	COUNTS_PER_ROTATION = (1024*4);	// CPR is 1024 and multipled by 4 because it is a quadrature encoder
