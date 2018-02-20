@@ -1,0 +1,124 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="DT_Encoder_R" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="36" y="390"/>
+	</widget>
+	<widget field="DT_Encoder_L" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="38" y="358"/>
+	</widget>
+	<widget field="Elevator Run For -2" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="396" y="176"/>
+	</widget>
+	<widget field="Gripper Extend: extend" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="370" y="368"/>
+	</widget>
+	<widget field="Auto Drive Distance" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="42" y="313"/>
+	</widget>
+	<widget field="Elevator Run For 10" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="393" y="256"/>
+	</widget>
+	<widget field="Auto Drive Turn" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="67" y="272"/>
+	</widget>
+	<widget field="Elevator Run for 5" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="405" y="217"/>
+	</widget>
+	<widget field="Auto Modes" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="79" y="128"/>
+	</widget>
+	<widget field="Auto Stop" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="111" y="233"/>
+	</widget>
+	<widget field="Load Config" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="96" y="80"/>
+	</widget>
+	<widget field="Elevator Calibrate" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="410" y="96"/>
+	</widget>
+	<widget field="Elevator Run" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="444" y="137"/>
+	</widget>
+	<widget field="Elevator Run For 17" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="393" y="304"/>
+	</widget>
+	<widget field="Elevator height" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="372" y="54"/>
+	</widget>
+</dashboard>
+<live-window>
+	<widget field="Gripper" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<location x="0" y="90"/>
+	</widget>
+	<widget field="Elevator" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<widget field="Hall Limit" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+			<location x="6" y="22"/>
+			<height>26</height>
+			<width>58</width>
+		</widget>
+		<location x="0" y="60"/>
+		<width>70</width>
+		<height>55</height>
+	</widget>
+	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<widget field="Talon SRX [11]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="22"/>
+			<height>56</height>
+			<width>327</width>
+		</widget>
+		<widget field="Talon SRX [4]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="78"/>
+			<height>56</height>
+			<width>327</width>
+		</widget>
+		<widget field="Talon SRX [3]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="134"/>
+			<height>56</height>
+			<width>327</width>
+		</widget>
+		<widget field="Talon SRX [1]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="190"/>
+			<height>56</height>
+			<width>327</width>
+		</widget>
+		<widget field="Talon SRX [2]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="246"/>
+			<height>56</height>
+			<width>327</width>
+		</widget>
+		<widget field="Talon SRX [8]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="302"/>
+			<height>56</height>
+			<width>327</width>
+		</widget>
+		<widget field="Talon SRX [7]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="358"/>
+			<height>56</height>
+			<width>327</width>
+		</widget>
+		<widget field="Talon SRX [14]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="414"/>
+			<height>56</height>
+			<width>327</width>
+		</widget>
+		<widget field="Talon SRX [12]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="470"/>
+			<height>56</height>
+			<width>327</width>
+		</widget>
+		<location x="0" y="30"/>
+		<width>339</width>
+		<height>533</height>
+	</widget>
+	<widget field="Drivetrain" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<widget field="Shifter" type="Double Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.RelayController">
+			<location x="6" y="22"/>
+			<height>26</height>
+			<width>127</width>
+		</widget>
+		<location x="0" y="0"/>
+		<width>139</width>
+		<height>55</height>
+	</widget>
+</live-window>
+</xml>
