@@ -76,6 +76,8 @@ public:
 	void CalibrationExecute(void);
 	bool CalibrationIsFinished(void);
 
+	void CalibrationOverride(void);
+
 };
 
 #endif

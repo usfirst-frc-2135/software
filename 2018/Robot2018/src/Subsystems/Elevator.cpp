@@ -39,7 +39,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     // Get any config file settings
     RobotConfig* config = RobotConfig::GetInstance();
     config->GetValueAsDouble("E_MotorSpeed", m_elevatorSpeed, 0.4);
-    config->GetValueAsDouble("E_CalibSpeed", m_calibrationSpeed, 0.25);
+    config->GetValueAsDouble("E_CalibSpeed", m_calibrationSpeed, 0.2);
     config->GetValueAsDouble("E_MaxHeight", m_elevatorMaxHeight, 35.0);
     config->GetValueAsDouble("E_MinHeight", m_elevatorMinHeight, 0.0);
 
@@ -72,7 +72,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	motorR8->EnableCurrentLimit(false);
 
     // Set proportional
-    motorL7->Config_kP(m_slotIndex, (0.5 * 1023)/COUNTS_PER_ROTATION, m_timeout);
+    motorL7->Config_kP(m_slotIndex, (1023)/COUNTS_PER_ROTATION, m_timeout);
 //    motorL7->Config_kD(m_slotIndex, 10 * (0.5 * 1023)/COUNTS_PER_ROTATION, m_timeout);
 
     motorL7->ConfigForwardSoftLimitThreshold(m_elevatorMaxHeight, m_timeout);
@@ -257,6 +257,7 @@ void Elevator::CalibrationExecute() {
 		}
 		break;
 	case CALIB_DONE:
+		motorL7->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 		motorL7->Set(ControlMode::Position, 0.0);
 		m_calibrated = true;
 		break;
@@ -273,4 +274,9 @@ void Elevator::CalibrationExecute() {
 bool Elevator::CalibrationIsFinished() {
 	// Hall sensor is false when near magnet
 	return m_calibrated;
+}
+
+void Elevator::CalibrationOverride() {
+	m_calibrationState = CALIB_DONE;
+	CalibrationExecute();
 }
