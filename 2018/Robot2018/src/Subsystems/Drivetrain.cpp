@@ -186,7 +186,7 @@ void Drivetrain::MoveSpin(bool spinRight)
 		spinSpeed *= -1.0;
 
 #ifndef ROBORIO_STANDALONE
-	diffDrive->TankDrive(spinSpeed, spinSpeed, false);
+	diffDrive->TankDrive(spinSpeed, -spinSpeed, false);
 #endif
 }
 

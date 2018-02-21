@@ -55,11 +55,11 @@ void Robot::RobotInit() {
 
 	// Camera - Logitech C920
 #ifndef ROBOTBENCHTOPTEST
-	cs::UsbCamera LogitechCamera = CameraServer::GetInstance()->StartAutomaticCapture(0);
+/*	cs::UsbCamera LogitechCamera = CameraServer::GetInstance()->StartAutomaticCapture(0);
 	LogitechCamera.SetVideoMode(cs::VideoMode::kMJPEG, 640, 360, 30);
 
 	cs::UsbCamera MicrosoftCamera = CameraServer::GetInstance()->StartAutomaticCapture(1);
-	MicrosoftCamera.SetVideoMode(cs::VideoMode::kMJPEG, 640, 360, 30);
+	MicrosoftCamera.SetVideoMode(cs::VideoMode::kMJPEG, 640, 360, 30);*/
 #endif
 }
 
@@ -81,7 +81,7 @@ void Robot::AutonomousInit() {
 	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
 	// Chooser that reads switch and scale colors from the FMS
-	if(gameData[0] == 'L') // Reads switch closest to Alliance Station
+	if (gameData[0] == 'L') // Reads switch closest to Alliance Station
 	{
 		std::printf("2135: Auto Level 1 Alliance Switch Left Side\n");
 	} else {
@@ -89,14 +89,14 @@ void Robot::AutonomousInit() {
 
 	}
 
-	if(gameData[1] == 'L') // Reads scale
+	if (gameData[1] == 'L') // Reads scale
 	{
 		std::printf("2135: Auto Level 2 Scale Left Side\n");
 	} else {
 		std::printf("2135: Auto Level 2 Scale Right Side\n");
 	}
 
-	if(gameData[2] == 'L') // Reads switch farthest from the Alliance Station
+	if (gameData[2] == 'L') // Reads switch farthest from the Alliance Station
 	{
 		std::printf("2135: Auto Level 3 Opponent Switch Left Side \n");
 	} else {

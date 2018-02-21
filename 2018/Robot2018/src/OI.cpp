@@ -21,6 +21,7 @@
 #include "Commands/DriveStop.h"
 #include "Commands/DriveTeleop.h"
 #include "Commands/ElevatorCalibrate.h"
+#include "Commands/ElevatorCalibrateOverride.h"
 #include "Commands/ElevatorRun.h"
 #include "Commands/GripperExtend.h"
 #include "Commands/GripperRun.h"
@@ -51,6 +52,7 @@ OI::OI() {
 
     // SmartDashboard Buttons
     frc::SmartDashboard::PutData("Load Config", new LoadConfig());
+    frc::SmartDashboard::PutData("Elevator Calibrate Override", new ElevatorCalibrateOverride());
     frc::SmartDashboard::PutData("Elevator Calibrate", new ElevatorCalibrate());
     frc::SmartDashboard::PutData("Gripper Extend: extend", new GripperExtend(false));
     frc::SmartDashboard::PutData("Auto Drive Turn", new AutoDriveTurn());
@@ -63,7 +65,8 @@ OI::OI() {
     frc::SmartDashboard::PutData("Elevator Run For -2", new ElevatorRun(-2)); // For testing negative safety
     frc::SmartDashboard::PutData("Elevator Run for 5", new ElevatorRun(5));   // For testing
     frc::SmartDashboard::PutData("Elevator Run For 10", new ElevatorRun(10)); // For testing
-
+    frc::SmartDashboard::PutData("Elevator Run For 26", new ElevatorRun(26)); // For testing
+    frc::SmartDashboard::PutData("Elevator Run For 33", new ElevatorRun(33)); // For testing
 
 }
 
