@@ -130,7 +130,9 @@ double Elevator::CountsToInches(int counts) {
 
 bool Elevator::HallSensorIsTriggered() {
 	// Hall sensor is false when magnet is nearby
+#ifndef ROBORIO_STANDALONE
 	return !hallLimit->Get();
+#endif
 }
 
 void Elevator::MoveToPosition(double inches) {
@@ -163,7 +165,9 @@ void Elevator::MoveToPosition(double inches) {
 	}
 	else {
 		printf("2135: Elevator is not calibrated\n");
+#ifndef ROBORIO_STANDALONE
 		motorL7->Set(ControlMode::PercentOutput, 0.0);
+#endif
 	}
 }
 
@@ -197,8 +201,10 @@ bool Elevator::MoveToPositionIsFinished() {
 }
 
 void Elevator::MoveToPositionStop() {
+#ifndef ROBORIO_STANDALONE
 	motorL7->Set(ControlMode::PercentOutput, 0.0);
 	std::printf("2135: Safety timer has timed out\n");
+#endif
 }
 
 void Elevator::CalibrationInit() {
