@@ -48,7 +48,7 @@ private:
 public:
 	Gripper();
 	void InitDefaultCommand() override;
-	enum {GRIPPER_STOP = 0, GRIPPER_FORWARD = 1, GRIPPER_REVERSE = -1};
+	enum {GRIPPER_STOP = 0, GRIPPER_FORWARD = 1, GRIPPER_REVERSE = -1, GRIPPER_SPIN = 2};
 	enum {WRIST_STOP = 0, WRIST_IN = 1, WRIST_OUT = -1};
 	void Initialize(frc::Preferences *RobotConfig);
 	void Periodic() override;

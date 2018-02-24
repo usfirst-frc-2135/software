@@ -34,6 +34,8 @@ void GripperRun::Initialize() {
 		strName = "CubeAcquire";
 	else if (m_intakeDirection == Robot::gripper->GRIPPER_REVERSE)
 		strName = "CubeExpel";
+	else if (m_intakeDirection == Robot::gripper->GRIPPER_SPIN)
+			strName = "OppSpin";
 	else
 		strName = "Off";
 	std::printf("2135: Gripper Run %s - Start\n", strName);
@@ -42,7 +44,6 @@ void GripperRun::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void GripperRun::Execute() {
 	Robot::gripper->SetGripperMotorSpeed(m_intakeDirection);
-	Robot::gripper->SetWristMotorSpeed(m_intakeDirection);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -54,8 +55,6 @@ bool GripperRun::IsFinished() {
 void GripperRun::End() {
 	std::printf("2135: GripperRun - End \n");
 	Robot::gripper->SetGripperMotorSpeed(Robot::gripper->GRIPPER_STOP);
-	Robot::gripper->SetWristMotorSpeed(Robot::gripper->WRIST_STOP);
-
 }
 
 // Called when another command which requires one or more of the same
@@ -63,5 +62,4 @@ void GripperRun::End() {
 void GripperRun::Interrupted() {
 	std::printf("2135: GripperRun - Interrupted \n");
 	Robot::gripper->SetGripperMotorSpeed(Robot::gripper->GRIPPER_STOP);
-	Robot::gripper->SetWristMotorSpeed(Robot::gripper->WRIST_STOP);
 }

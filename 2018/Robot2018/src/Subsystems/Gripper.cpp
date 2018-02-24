@@ -108,27 +108,35 @@ void Gripper::Periodic() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Gripper::SetGripperMotorSpeed(int speed)
+void Gripper::SetGripperMotorSpeed(int direction)
 {
-	double output = 0.0; 		//Default: off
+	double outputL = 0.0; 		//Default: off
+	double outputR = 0.0; 		//Default: off
 
-	switch (speed)
+	switch (direction)
 	{
 	default:
 	case GRIPPER_STOP:
-		output = 0.0;
+		outputL = 0.0;
+		outputR = 0.0;
 		break;
 	case GRIPPER_FORWARD:
-		output = m_gripperSpeed;
+		outputL = m_gripperSpeed;
+		outputR = m_gripperSpeed;
 		break;
 	case GRIPPER_REVERSE:
-		output = -m_gripperSpeed;
+		outputL = -m_gripperSpeed;
+		outputR = -m_gripperSpeed;
+		break;
+	case GRIPPER_SPIN:
+		outputL = m_gripperSpeed;
+		outputR = -m_gripperSpeed;
 		break;
 	}
 
 #ifndef ROBORIO_STANDALONE
-	motorL11->Set(ControlMode::PercentOutput, output);
-	motorR12->Set(ControlMode::PercentOutput, output);
+	motorL11->Set(ControlMode::PercentOutput, outputL);
+	motorR12->Set(ControlMode::PercentOutput, outputR);
 #endif
 }
 
