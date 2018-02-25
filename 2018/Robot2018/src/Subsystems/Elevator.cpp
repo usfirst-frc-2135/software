@@ -151,7 +151,7 @@ void Elevator::Bump(bool direction) {
 
 	curHeight = GetCurrentInches();
 	RobotConfig* config = RobotConfig::GetInstance();
-	config->GetValueAsDouble("EL_Bump", bump, 1.0);
+	config->GetValueAsDouble("E_Bump", bump, 1.0);
 
 	if (direction)
 		MoveToPosition(curHeight + bump);
