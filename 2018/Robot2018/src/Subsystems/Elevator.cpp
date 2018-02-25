@@ -105,7 +105,8 @@ void Elevator::InitDefaultCommand() {
 
 void Elevator::Periodic() {
     // Put code here to be run every loop
-	SmartDashboard::PutNumber("Elevator height", CountsToInches(motorL7->GetSelectedSensorPosition(m_pidIndex)));
+	SmartDashboard::PutNumber("Elevator Height", CountsToInches(motorL7->GetSelectedSensorPosition(m_pidIndex)));
+	SmartDashboard::PutNumber("Gripper Height", 2*CountsToInches(motorL7->GetSelectedSensorPosition(m_pidIndex)));
 	SmartDashboard::PutBoolean("Hall Sensor", HallSensorIsTriggered());
 	SmartDashboard::PutBoolean("Elevator Calibrated", m_calibrated);
 }

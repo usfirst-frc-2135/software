@@ -98,7 +98,7 @@ void Gripper::Initialize(frc::Preferences *RobotConfig)
 }
 void Gripper::Periodic() {
 #ifndef ROBORIO_STANDALONE
-	SmartDashboard::PutNumber("Gripper counts", motorW14->GetSelectedSensorPosition(pidIndex));
+	SmartDashboard::PutNumber("Gripper Wrist Counts", motorW14->GetSelectedSensorPosition(pidIndex));
 #endif
     // Put code here to be run every loop
 
