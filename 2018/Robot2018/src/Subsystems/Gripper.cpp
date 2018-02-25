@@ -53,7 +53,7 @@ Gripper::Gripper() : frc::Subsystem("Gripper") {
     std::printf("2135: Motor R12 ID %d ver %d.%d\n", motorR12->GetDeviceID(), motorR12->GetFirmwareVersion()/256, motorR12->GetFirmwareVersion()%256);
 //    std::printf("2135: Motor W14 ID %d ver %d.%d\n", motorW14->GetDeviceID(), motorW14->GetFirmwareVersion()/265, motorW14->GetFirmwareVersion()%265);
 
-    motorW14->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, pidIndex, timeout);
+    //motorW14->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, pidIndex, timeout);
     // motorW14->SetSensorPhase(false);
 
     // Set power and timeout
@@ -98,7 +98,7 @@ void Gripper::Initialize(frc::Preferences *RobotConfig)
 }
 void Gripper::Periodic() {
 #ifndef ROBORIO_STANDALONE
-	SmartDashboard::PutNumber("Gripper Wrist Counts", motorW14->GetSelectedSensorPosition(pidIndex));
+	//SmartDashboard::PutNumber("Gripper Wrist Counts", motorW14->GetSelectedSensorPosition(pidIndex));
 #endif
     // Put code here to be run every loop
 

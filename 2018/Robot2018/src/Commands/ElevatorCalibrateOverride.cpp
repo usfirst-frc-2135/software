@@ -24,6 +24,7 @@ ElevatorCalibrateOverride::ElevatorCalibrateOverride(): frc::Command() {
 
 // Called just before this Command runs the first time
 void ElevatorCalibrateOverride::Initialize() {
+	std::printf("2135: Elevator Calibrate Override - Init\n");
 	Robot::elevator->CalibrationOverride();
 }
 

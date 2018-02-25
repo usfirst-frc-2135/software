@@ -172,8 +172,8 @@ void Elevator::MoveToPosition(double inches) {
 		if (inches < 0.0) {
 			m_targetInches = 0.0;
 		}
-		if (inches > 50.0) { //TODO Determine upwards limit
-			m_targetInches = 50.0;
+		if (inches > 22.0) { //TODO Determine upwards limit
+			m_targetInches = 22.0;
 		}
 
 		m_targetCounts = InchesToCounts(m_targetInches);
