@@ -65,8 +65,10 @@ public:
 
 	double InchesToCounts(double inches);
 	double CountsToInches(int counts);
+	double GetCurrentInches();
 	bool HallSensorIsTriggered(void);
 
+	void Bump(bool direction);
 	void MoveToPosition(double inches);
 	bool MoveToPositionIsFinished(void);
 
@@ -78,6 +80,7 @@ public:
 
 	void CalibrationOverride(void);
 
+	double m_curInches;
 };
 
 #endif

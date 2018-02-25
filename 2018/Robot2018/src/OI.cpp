@@ -20,6 +20,7 @@
 #include "Commands/DriveSpin.h"
 #include "Commands/DriveStop.h"
 #include "Commands/DriveTeleop.h"
+#include "Commands/ElevatorBump.h"
 #include "Commands/ElevatorCalibrate.h"
 #include "Commands/ElevatorCalibrateOverride.h"
 #include "Commands/ElevatorRun.h"
@@ -36,9 +37,9 @@ OI::OI() {
     oldOperatorBoard.reset(new frc::Joystick(1));
     
     elevatorRetract.reset(new frc::JoystickButton(oldOperatorBoard.get(), 13));
-    elevatorRetract->WhenPressed(new ElevatorRun(-1));
+    elevatorRetract->WhenPressed(new ElevatorBump(false));
     elevatorExtend.reset(new frc::JoystickButton(oldOperatorBoard.get(), 12));
-    elevatorExtend->WhenPressed(new ElevatorRun(1));
+    elevatorExtend->WhenPressed(new ElevatorBump(true));
     elevatorScaleLow.reset(new frc::JoystickButton(oldOperatorBoard.get(), 11));
     elevatorScaleLow->WhenPressed(new ElevatorRun(66));
     elevatorScaleHigh.reset(new frc::JoystickButton(oldOperatorBoard.get(), 10));
@@ -80,6 +81,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("Load Config", new LoadConfig());
     frc::SmartDashboard::PutData("Elevator Calibrate Override", new ElevatorCalibrateOverride());
     frc::SmartDashboard::PutData("Elevator Calibrate", new ElevatorCalibrate());
+    frc::SmartDashboard::PutData("Elevator Bump: UP", new ElevatorBump(true));
     frc::SmartDashboard::PutData("Gripper Extend: position", new GripperExtend(0));
     frc::SmartDashboard::PutData("Auto Drive Turn", new AutoDriveTurn());
     frc::SmartDashboard::PutData("Auto Stop", new AutoStop());

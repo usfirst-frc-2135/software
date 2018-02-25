@@ -85,6 +85,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 #endif
 
     // Initialize variables
+    m_curInches = 0.0;
     m_targetInches = 0.0;
     m_targetCounts = 0.0;
     m_calibrated = false;
@@ -129,11 +130,33 @@ double Elevator::CountsToInches(int counts) {
 	return inches;
 }
 
+double Elevator::GetCurrentInches () {
+	double curCounts;
+
+	curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
+	m_curInches = CountsToInches(curCounts);
+	return m_curInches;
+}
+
 bool Elevator::HallSensorIsTriggered() {
 	// Hall sensor is false when magnet is nearby
 #ifndef ROBORIO_STANDALONE
 	return !hallLimit->Get();
 #endif
+}
+
+void Elevator::Bump(bool direction) {
+	double curHeight;
+	double bump;
+
+	curHeight = GetCurrentInches();
+	RobotConfig* config = RobotConfig::GetInstance();
+	config->GetValueAsDouble("EL_Bump", bump, 1.0);
+
+	if (direction)
+		MoveToPosition(curHeight + bump);
+	else
+		MoveToPosition(curHeight - bump);
 }
 
 void Elevator::MoveToPosition(double inches) {
@@ -149,7 +172,7 @@ void Elevator::MoveToPosition(double inches) {
 		if (inches < 0.0) {
 			m_targetInches = 0.0;
 		}
-		if (inches > 50.0) {
+		if (inches > 50.0) { //TODO Determine upwards limit
 			m_targetInches = 50.0;
 		}
 
@@ -159,6 +182,7 @@ void Elevator::MoveToPosition(double inches) {
 	// Get current position in inches and set position mode and target counts
 	curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
 	curInches = CountsToInches(curCounts);
+	m_curInches = curInches;
 	motorL7->Set(ControlMode::Position, m_targetCounts);
 #endif
 
