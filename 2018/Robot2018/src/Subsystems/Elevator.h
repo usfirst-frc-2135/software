@@ -37,6 +37,7 @@ private:
 	const int 		m_pidIndex = 0; 				// PID Slot index for sensors
 	const int		m_timeout = 10;					// CAN timeout in msec to wait for response
 	const double 	COUNTS_PER_ROTATION = (1024*4);	// CPR is 1024 and multipled by 4 because it is a quadrature encoder
+	enum { FLOOR_HEIGHT=0, SWITCH_HEIGHT=1, SCALE_LO_HEIGHT=2, SCALE_HI_HEIGHT=3, CLIMB_HEIGHT=4, LEVITATE_HEIGHT=5, SMARTDASH_HEIGHT=6 };
 	enum { CALIB_START, CALIB_MOVE_UP, CALIB_START_DOWN, CALIB_MOVE_DOWN, CALIB_DONE };
 
 	double			m_targetInches;					// Target inches of height that are requested of the elevator
@@ -44,11 +45,21 @@ private:
 	double			m_curInches;
 	bool			m_calibrated;					// Indicates whether the elevator has been calibrated
 	int				m_calibrationState;				// State variable for calibration sequence
-	double			m_calibrationSpeed;				// Default motor output speed during calibration
-	double 			m_elevatorSpeed;				// Elevator maximum speed
-	double			m_elevatorMaxHeight;			// Elevator maximum height
-	double			m_elevatorMinHeight;			// Elevator minimum height
+
+	// Configuration file parameters
+	double			m_calibrationSpeed;				// Motor output speed used during calibration
+	double 			m_pidSpeed;				// Elevator maximum speed during movement
+	double			m_pidKp;						// Elevator PID proportional constant
+	int				m_pidAllowableCLE;				// Elevator PID allowable closed loop error
+	double			m_elevatorMaxHeight;			// Elevator maximum allowable height
+	double			m_elevatorMinHeight;			// Elevator minimum allowable height
 	double			m_bumpHeight;					// Incremental height when bumping the elevator up/down
+	double			m_floorHeight;					// Setpoint for floor level (full down)
+	double			m_switchHeight;					// Setpoint to deliver to switch
+	double			m_scaleLoHeight;				// Setpoint for delivery to scale when low
+	double			m_scaleHiHeight;				// Setpoint for delivery to scale when high
+	double			m_climbHeight;					// Setpoint for lining up to climb
+	double			m_levitateHeight;				// Setpoint for a valid levitation
 
 #ifdef ROBOTBENCHTOPTEST
 	const double 	m_circumInches = (1.875*M_PI*2);		//Circumference in inches for Benchtop Testing
@@ -69,7 +80,7 @@ public:
 	double GetCurrentInches();
 	bool HallSensorIsTriggered(void);
 
-	void MoveToPosition(double inches);
+	void MoveToPosition(int height);
 	bool MoveToPositionIsFinished(void);
 	void MoveToPositionStop(void);
 
