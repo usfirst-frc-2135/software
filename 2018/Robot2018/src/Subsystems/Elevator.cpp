@@ -40,8 +40,9 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     RobotConfig* config = RobotConfig::GetInstance();
     config->GetValueAsDouble("E_MotorSpeed", m_elevatorSpeed, 0.4);
     config->GetValueAsDouble("E_CalibSpeed", m_calibrationSpeed, 0.2);
-    config->GetValueAsDouble("E_MaxHeight", m_elevatorMaxHeight, 35.0);
+    config->GetValueAsDouble("E_MaxHeight", m_elevatorMaxHeight, 22.0);
     config->GetValueAsDouble("E_MinHeight", m_elevatorMinHeight, 0.0);
+	config->GetValueAsDouble("E_BumpHeight", m_bumpHeight, 1.0);
 
     // Initialize Talon SRX motor controller direction and encoder sensor slot
     motorL7->SetInverted(false);			// Sets the Talon inversion to false
@@ -107,7 +108,7 @@ void Elevator::InitDefaultCommand() {
 void Elevator::Periodic() {
     // Put code here to be run every loop
 	SmartDashboard::PutNumber("Elevator Height", CountsToInches(motorL7->GetSelectedSensorPosition(m_pidIndex)));
-	SmartDashboard::PutNumber("Gripper Height", 2*CountsToInches(motorL7->GetSelectedSensorPosition(m_pidIndex)));
+	SmartDashboard::PutNumber("Power Cube Height", 2*CountsToInches(motorL7->GetSelectedSensorPosition(m_pidIndex)));
 	SmartDashboard::PutBoolean("Hall Sensor", HallSensorIsTriggered());
 	SmartDashboard::PutBoolean("Elevator Calibrated", m_calibrated);
 }
@@ -145,20 +146,6 @@ bool Elevator::HallSensorIsTriggered() {
 #endif
 }
 
-void Elevator::Bump(bool direction) {
-	double curHeight;
-	double bump;
-
-	curHeight = GetCurrentInches();
-	RobotConfig* config = RobotConfig::GetInstance();
-	config->GetValueAsDouble("E_Bump", bump, 1.0);
-
-	if (direction)
-		MoveToPosition(curHeight + bump);
-	else
-		MoveToPosition(curHeight - bump);
-}
-
 void Elevator::MoveToPosition(double inches) {
 
 	double curInches = 0.0;
@@ -179,11 +166,11 @@ void Elevator::MoveToPosition(double inches) {
 		m_targetCounts = InchesToCounts(m_targetInches);
 
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
-	// Get current position in inches and set position mode and target counts
-	curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
-	curInches = CountsToInches(curCounts);
-	m_curInches = curInches;
-	motorL7->Set(ControlMode::Position, m_targetCounts);
+		// Get current position in inches and set position mode and target counts
+		curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
+		curInches = CountsToInches(curCounts);
+		m_curInches = curInches;
+		motorL7->Set(ControlMode::Position, m_targetCounts);
 #endif
 
 		std::printf("2135: Elevator Init inches %f -> %f [%f] counts %d -> %f\n", curInches, m_targetInches, inches, curCounts, m_targetCounts);
@@ -230,6 +217,13 @@ void Elevator::MoveToPositionStop() {
 	motorL7->Set(ControlMode::PercentOutput, 0.0);
 	std::printf("2135: Safety timer has timed out\n");
 #endif
+}
+
+void Elevator::BumpToPosition(bool direction) {
+	double bumpHeight;
+
+	bumpHeight = (direction) ? m_bumpHeight : -m_bumpHeight;
+	MoveToPosition(GetCurrentInches() + bumpHeight);
 }
 
 void Elevator::CalibrationInit() {

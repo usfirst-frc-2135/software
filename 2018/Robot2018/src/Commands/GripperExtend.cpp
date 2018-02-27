@@ -46,21 +46,21 @@ void GripperExtend::Initialize() {
 		break;
 	}
 
-	Robot::gripper->ExtensionPIDInit(angle);
+	Robot::gripper->WristPIDInit(angle);
 
 	std::printf("2135: Gripper Arm Is %s - Initialized\n", strName);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void GripperExtend::Execute() {
-	Robot::gripper->ExtensionPIDExecute();
+	Robot::gripper->WristPIDExecute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool GripperExtend::IsFinished() {
 	bool isFinished;
 
-	isFinished = Robot::gripper->ExtensionPIDIsAtSetpoint();
+	isFinished = Robot::gripper->WristPIDIsAtSetpoint();
 
     return isFinished;
 }
@@ -68,12 +68,12 @@ bool GripperExtend::IsFinished() {
 // Called once after isFinished returns true
 void GripperExtend::End() {
 	std::printf("2135: Gripper Arm Extended - End\n");
-	Robot::gripper->ExtensionPIDStop();
+	Robot::gripper->WristPIDStop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void GripperExtend::Interrupted() {
 	std::printf("2135: Gripper Arm Extended - Interrupted\n");
-	Robot::gripper->ExtensionPIDStop();
+	Robot::gripper->WristPIDStop();
 }

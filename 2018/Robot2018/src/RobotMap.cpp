@@ -54,7 +54,7 @@ void RobotMap::init() {
     drivetrainDiffDrive.reset(new frc::DifferentialDrive(*drivetrainMotorL1, *drivetrainMotorR3));
     lw->AddActuator("Drivetrain", "Diff Drive", drivetrainDiffDrive);
     drivetrainDiffDrive->SetSafetyEnabled(true);
-        drivetrainDiffDrive->SetExpiration(0.1);
+        drivetrainDiffDrive->SetExpiration(0.25);
         drivetrainDiffDrive->SetMaxOutput(1.0);
 
     drivetrainMotorL2.reset(new WPI_TalonSRX(2));

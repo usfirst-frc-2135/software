@@ -1,14 +1,20 @@
 # Comment lines start with '#'
+# DriveTrain settings
  DT_DriveScaling = 1.0   
- DT_DriveSpin = 0.45
  DT_TurnScaling = 1.0
+ DT_DriveSpin = 0.45
  DT_AutonTurnKP = 0.08 
- Pos123Move_D = 36
  DT_Proportional = 0.75
  DT_PercentOutput = 1.0
  DT_AllowedCLError = 36
+# Elevator settings
+ E_MotorSpeed = 0.4
+ E_CalibSpeed = 0.25
+ E_MaxHeight = 22.5
+ E_MinHeight = 0.0
+ E_BumpHeight = 1.0
+# Gripper settings
  G_MotorSpeed = -1.0
  G_WristSpeed = 1.0
- E_CalibSpeed = 0.25
- E_MotorSpeed = 0.4
- E_Bump = 1.0
+# Autonomous settings
+ Pos123Move_D = 36
