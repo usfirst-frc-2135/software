@@ -88,8 +88,8 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 
     motorL7->ConfigForwardSoftLimitThreshold(InchesToCounts(m_elevatorMaxHeight), m_timeout);
     motorL7->ConfigReverseSoftLimitThreshold(InchesToCounts(m_elevatorMinHeight), m_timeout);
-    motorL7->ConfigForwardSoftLimitEnable(false, m_timeout);
-    motorL7->ConfigReverseSoftLimitEnable(false, m_timeout);
+    motorL7->ConfigForwardSoftLimitEnable(true, m_timeout);
+    motorL7->ConfigReverseSoftLimitEnable(true, m_timeout);
 
     // Set allowable closed loop error
     motorL7->ConfigAllowableClosedloopError(m_slotIndex, m_pidAllowableCLE, m_timeout);
