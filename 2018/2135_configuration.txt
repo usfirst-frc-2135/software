@@ -6,9 +6,9 @@
  DT_AutonTurnKP = 0.08 
  DT_Proportional = 0.75
  DT_PercentOutput = 1.0
- DT_AllowedCLError = 36
+ DT_AllowedCLError = 0
 # Elevator settings
- E_PidSpeed = 0.4
+ E_PidSpeed = 1.0
  E_PidKp = 0.25
  E_PidAllowableCLE = 0
  E_CalibSpeed = 0.25
