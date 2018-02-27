@@ -187,8 +187,13 @@ void Elevator::MoveToPosition(int height) {
 	case SMARTDASH_HEIGHT:
 		m_targetInches = SmartDashboard::GetNumber("EL Setpoint", 0.0);
 		break;
+	case BUMP_HEIGHT:
+		double bumpHeight;
+		bumpHeight = (m_bumpDir) ? m_bumpHeight : -m_bumpHeight;
+		m_targetInches = GetCurrentInches() + bumpHeight;
+		break;
 	default:
-		printf("2135: Elevator invalid height requested - %d\n", height);
+		std::printf("2135: Elevator invalid height requested - %d\n", height);
 		return;
 	}
 
@@ -216,7 +221,7 @@ void Elevator::MoveToPosition(int height) {
 		std::printf("2135: Elevator Init inches %f -> %f counts %d -> %f\n", curInches, m_targetInches, curCounts, m_targetCounts);
 	}
 	else {
-		printf("2135: Elevator is not calibrated\n");
+		std::printf("2135: Elevator is not calibrated\n");
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
 		motorL7->Set(ControlMode::PercentOutput, 0.0);
 #endif
@@ -260,10 +265,9 @@ void Elevator::MoveToPositionStop() {
 }
 
 void Elevator::BumpToPosition(bool direction) {
-	double bumpHeight;
+	m_bumpDir = direction;
 
-	bumpHeight = (direction) ? m_bumpHeight : -m_bumpHeight;
-	MoveToPosition(GetCurrentInches() + bumpHeight);
+	MoveToPosition(BUMP_HEIGHT);
 }
 
 void Elevator::CalibrationInit() {

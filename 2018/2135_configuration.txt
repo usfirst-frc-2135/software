@@ -14,7 +14,7 @@
  E_CalibSpeed = 0.25
  E_MaxHeight = 22.5
  E_MinHeight = 0.0
- E_BumpHeight = 1.0
+ E_BumpHeight = 2.0
  E_FloorHeight = 0.0
  E_SwitchHeight = 5.1
  E_ScaleLoHeight = 10.1

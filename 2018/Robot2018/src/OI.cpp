@@ -100,6 +100,8 @@ OI::OI() {
     frc::SmartDashboard::PutData("Elevator Run: CLIMB_HEIGHT", new ElevatorRun(4));
     frc::SmartDashboard::PutData("Elevator Run: LEVITATE_HEIGHT", new ElevatorRun(5));
     frc::SmartDashboard::PutData("Elevator Run: SMARTDASH_HEIGHT", new ElevatorRun(6));
+    frc::SmartDashboard::PutData("Elevator Run: BUMP_HEIGHT", new ElevatorRun(7));
+    frc::SmartDashboard::PutData("Elevator Run: NOCHANGE_HEIGHT", new ElevatorRun(-1));
     frc::SmartDashboard::PutData("Gripper Wrist Extend: WRIST_STOWED", new GripperWristExtend(0));
     frc::SmartDashboard::PutData("Gripper Wrist Extend: WRIST_DELIVER", new GripperWristExtend(1));
     frc::SmartDashboard::PutData("Gripper Wrist Extend: WRIST_ACQUIRE", new GripperWristExtend(2));
