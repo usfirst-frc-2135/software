@@ -25,7 +25,7 @@ void trimWhitespace(std::string& line) {
 ////////////////////////////////////////////////////////////////////////////////
 RobotConfig* RobotConfig::GetInstance() {
 	if (RobotConfig::currentConfig == nullptr) {
-		printf("2135:Creating new robot config object\n");
+		std::printf("2135:Creating new robot config object\n");
 		RobotConfig::currentConfig = new RobotConfig();
 	}
 	return RobotConfig::currentConfig;
@@ -33,20 +33,20 @@ RobotConfig* RobotConfig::GetInstance() {
 
 
 RobotConfig::RobotConfig() {
-	printf("2135: Before Config Load\n");
+	std::printf("2135: Before Config Load\n");
 	LoadConfig();
-	printf("2135: After Config Load, Before Dump\n");
+	std::printf("2135: After Config Load, Before Dump\n");
 	DumpConfig();
-	printf("2135: After Config Dump\n");
+	std::printf("2135: After Config Dump\n");
 }
 
 bool RobotConfig::LoadConfig() {
-	printf("2135: Starting Load Config\n");
+	std::printf("2135: Starting Load Config\n");
 	std::string fileName = CONFIGFILENAME;
 	std::ifstream configFile(fileName.c_str());
 	if (configFile.good() == false)
 	{
-		printf("2135: No such Config file %s.\n", fileName.c_str());
+		std::printf("2135: No such Config file %s.\n", fileName.c_str());
 		return false;
 	}
     m_configMap.clear();
@@ -75,12 +75,12 @@ bool RobotConfig::LoadConfig() {
 			if (!name.empty())
 			{
 				m_configMap[name] = valueStr;
-				printf("2135: Adding to m_configMap: '%s'='%s'\n", name.c_str(), valueStr.c_str());
+				std::printf("2135: Adding to m_configMap: '%s'='%s'\n", name.c_str(), valueStr.c_str());
 			}
 
 			if (configFile.bad() == true)
 			{
-				printf("2135: configFile %s bad", fileName.c_str());
+				std::printf("2135: configFile %s bad", fileName.c_str());
 				return false;
 			}
 		}
@@ -91,10 +91,10 @@ bool RobotConfig::LoadConfig() {
 //will return false only if there is no value found or specified (default or from file)
 bool RobotConfig::GetValueAsString(const std::string& name, std::string& valueStr, std::string defaultStr/*=""*/)
 {
-	printf("2135: Starting GetValueAsString\n");
+	std::printf("2135: Starting GetValueAsString\n");
 	bool rtnStatus = false;
 	valueStr = m_configMap[name];
-	printf("2135: Got config map\n");
+	std::printf("2135: Got config map\n");
 	if (!valueStr.empty())
 	{
 		 rtnStatus = true;
@@ -105,10 +105,10 @@ bool RobotConfig::GetValueAsString(const std::string& name, std::string& valueSt
 		{
 			valueStr = defaultStr;
 			m_configMap[name] = valueStr;
-			printf("2135: %s not found in RobotConfig; using default value %s\n", name.c_str(), defaultStr.c_str());
+			std::printf("2135: %s not found in RobotConfig; using default value %s\n", name.c_str(), defaultStr.c_str());
 			rtnStatus = true;
 		}
-		else printf("2135: %s not found in RobotConfig and no default value specified.\n", name.c_str());
+		else std::printf("2135: %s not found in RobotConfig and no default value specified.\n", name.c_str());
 	}
 	return rtnStatus;
 }
@@ -130,10 +130,10 @@ bool RobotConfig::GetValueAsInt(const std::string& name, int& valueInt, int defa
 			valueInt = defaultInt;
 			std::string valueStr = std::to_string(defaultInt);
 			m_configMap[name] = valueStr;
-			printf("2135: %s not found in RobotConfig; using default value %d\n", name.c_str(), defaultInt);
+			std::printf("2135: %s not found in RobotConfig; using default value %d\n", name.c_str(), defaultInt);
 			rtnStatus = true;
 		}
-		else printf("2135: %s not found in RobotConfig and no default value specified.\n", name.c_str());
+		else std::printf("2135: %s not found in RobotConfig and no default value specified.\n", name.c_str());
 	}
 	return rtnStatus;
 }
@@ -158,7 +158,7 @@ bool RobotConfig::GetValueAsBool(const std::string& name, bool& valueBool, bool 
 		if (defaultBool == true)
 			defaultStr = "true";
 		m_configMap[name] = defaultStr;
-		printf("2135: %s not found in RobotConfig; using default value %d\n", name.c_str(), defaultBool);
+		std::printf("2135: %s not found in RobotConfig; using default value %d\n", name.c_str(), defaultBool);
 		rtnStatus = true;
 	}
 	return rtnStatus;
@@ -180,10 +180,10 @@ bool RobotConfig::GetValueAsFloat(const std::string& name, float& valueFloat, fl
 			valueFloat = defaultFloat;
 			std::string defaultStr = std::to_string(defaultFloat);
 			m_configMap[name] = defaultStr;
-			printf("2135: %s not found in RobotConfig; using default value %f\n", name.c_str(), defaultFloat);
+			std::printf("2135: %s not found in RobotConfig; using default value %f\n", name.c_str(), defaultFloat);
 			rtnStatus = true;
 		}
-		else printf("2135: %s not found in RobotConfig and no default value specified\n", name.c_str());
+		else std::printf("2135: %s not found in RobotConfig and no default value specified\n", name.c_str());
 	}
 
 	return rtnStatus;
@@ -191,30 +191,30 @@ bool RobotConfig::GetValueAsFloat(const std::string& name, float& valueFloat, fl
 
 bool RobotConfig::GetValueAsDouble(const std::string& name, double& valueDouble, double defaultDouble/*=DUMMY_DEFAULT_DOUBLE*/)
 {
-	printf("2135: Starting GetValueAsDouble\n");
+	std::printf("2135: Starting GetValueAsDouble\n");
 	bool rtnStatus = false;
 	std::string valueStr = m_configMap[name];
 	if (!valueStr.empty())
 	{
-		printf("2135: Got value from config map\n");
+		std::printf("2135: Got value from config map\n");
 		valueDouble = atof(valueStr.c_str());  // convert stored value to double
 		rtnStatus = true;
-		printf("2135: Converted value from config map %lf\n", valueDouble);
+		std::printf("2135: Converted value from config map %lf\n", valueDouble);
 	}
 	else
 	{
-		printf("2135: Didn't find value in config map\n");
+		std::printf("2135: Didn't find value in config map\n");
 		if (defaultDouble != DUMMY_DEFAULT_DOUBLE)
 		{
 			valueDouble = defaultDouble;
 			std::string defaultStr = std::to_string(defaultDouble);
 			m_configMap[name] = defaultStr;
-			printf("2135: %s not found in RobotConfig; using default value %f\n", name.c_str(), defaultDouble);
+			std::printf("2135: %s not found in RobotConfig; using default value %f\n", name.c_str(), defaultDouble);
 			rtnStatus = true;
 		}
-		else printf("2135: %s not found in RobotConfig and no default value specified\n", name.c_str());
+		else std::printf("2135: %s not found in RobotConfig and no default value specified\n", name.c_str());
 	}
-	printf("2135: Done with GetValueAsDouble %d\n", rtnStatus);
+	std::printf("2135: Done with GetValueAsDouble %d\n", rtnStatus);
 	return rtnStatus;
 }
 
@@ -230,75 +230,75 @@ void RobotConfig::DumpConfig()
 /*float valueFloat;
 if (GetValueAsFloat("AutonDriveSpeed", valueFloat))
 	std::cout<<"Test - AutonDriveSpeed" <<" " <<valueFloat <<"\n";
-else printf("AutonDriveSpeed could not get float value.\n");
+else std::printf("AutonDriveSpeed could not get float value.\n");
 
 int valueInt;
 if (GetValueAsInt("BlahBlah", valueInt))
 	std::cout<<"Test - BlahBlah (as int)" <<" " <<valueInt <<"\n";
-else printf("BlahBlah could not get int value.\n");
+else std::printf("BlahBlah could not get int value.\n");
 
 bool valueBool;
 if (GetValueAsBool("BlahBlah", valueBool))
 	std::cout<<"Test - BlahBlah (as bool)" <<" " <<valueBool <<"\n";
-else printf("BlahBlah could not get bool value.");
+else std::printf("BlahBlah could not get bool value.");
 
 if (GetValueAsBool("NatureWalk", valueBool ))
 	std::cout<<"Test - NatureWalk" <<" " <<valueBool <<"\n";
-else printf("NatureWalk could not get value.");
+else std::printf("NatureWalk could not get value.");
 
 if (GetValueAsFloat("DeprecatedClimber", valueFloat))
 	std::cout<<"Test - DeprecatedClimber" <<" " <<valueFloat <<"\n";
-else printf("DeprecatedClimber could not get float value.\n");
+else std::printf("DeprecatedClimber could not get float value.\n");
 
 if (GetValueAsInt("ThingOne", valueInt))
 	std::cout<<"Test - ThingOne" <<" " <<valueInt <<"\n";
-else printf("ThingOne could not get int value.\n");
+else std::printf("ThingOne could not get int value.\n");
 
 if (GetValueAsInt("ThingTwo", valueInt))
 	std::cout<<"Test - ThingTwo" <<" " <<valueInt <<"\n";
-else printf("ThingTwo could not get int value.\n");
+else std::printf("ThingTwo could not get int value.\n");
 
 if (GetValueAsBool("PeopleOut", valueBool))
 	std::cout<<"Test - PeopleOut (as bool)" <<" " <<valueBool <<"\n";
-else printf("PeopleOut could not get bool value.\n");
+else std::printf("PeopleOut could not get bool value.\n");
 
 std::string valueString;
 if (GetValueAsString("PeopleOut", valueString))
 	std::cout<<"Test - PeopleOut (as string)" <<" " <<valueString <<"\n";
-else printf("PeopleOut (as string) could not get value.\n");
+else std::printf("PeopleOut (as string) could not get value.\n");
 
 if (GetValueAsFloat("Keyboard", valueFloat, 22.5))
 	std::cout<<"Test - Keyboard" << " " <<valueFloat <<"\n";
-else printf("Keyboard could not get float value.\n");
+else std::printf("Keyboard could not get float value.\n");
 
 // The expected value of Keyboard should be 22.5
 if (GetValueAsFloat("Keyboard", valueFloat, 56.7))
 	std::cout<<"Test - Keyboard" << " " <<valueFloat <<"\n";
-else printf("Keyboard could not get float value.\n");
+else std::printf("Keyboard could not get float value.\n");
 
 if (GetValueAsFloat("Mouse", valueFloat))
 	std::cout<<"Test - Mouse" << " " <<valueFloat <<"\n";
-else printf("Keyboard could not get float value.\n");
+else std::printf("Keyboard could not get float value.\n");
 
 if (GetValueAsInt("Fence", valueInt))
 	std::cout<<"Test - Fence (as int)" <<" " <<valueInt <<"\n";
-else printf("Fence could not get int value.\n");
+else std::printf("Fence could not get int value.\n");
 
 if (GetValueAsInt("Gate", valueInt, 999999))
 	std::cout<<"Test - Gate (int)" <<" " <<valueInt <<"\n";
-else printf("Gate could not get int value.\n");
+else std::printf("Gate could not get int value.\n");
 
 if (GetValueAsBool("Tea", valueBool))
 	std::cout<<"Test - Tea (as bool)" <<" " <<valueBool <<"\n";
-else printf("Tea could not get bool value.");
+else std::printf("Tea could not get bool value.");
 
 if (GetValueAsFloat("Chair",valueFloat, DUMMY_DEFAULT_FLOAT))
 	std::cout << "Test - Chair (as float)" << " " << valueFloat << "\n";
-else printf("Chair could not get float value.");
+else std::printf("Chair could not get float value.");
 
 if (GetValueAsString("Sweatpants", valueString))
 	std::cout<<"Test - Sweatpants (as string)" <<" " <<valueString <<"\n";
-else printf("Sweatpants (as string) could not get value.\n");*/
+else std::printf("Sweatpants (as string) could not get value.\n");*/
 
 }
 
