@@ -53,6 +53,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	config->GetValueAsDouble("E_ScaleHiHeight", m_scaleHiHeight, 15.0);
 	config->GetValueAsDouble("E_ClimbHeight", m_climbHeight, 20.0);
 	config->GetValueAsDouble("E_LevitateHeight", m_levitateHeight, 18.0);
+	config->GetValueAsDouble("E_SafetyTimeout", m_safetyTimeout, 4.0);
 
     // Initialize Talon SRX motor controller direction and encoder sensor slot
     motorL7->SetInverted(false);			// Sets the Talon inversion to false
@@ -218,6 +219,11 @@ void Elevator::MoveToPosition(int height) {
 		curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
 		curInches = CountsToInches(curCounts);
 		m_curInches = curInches;
+
+		//Start the safety timer.
+		m_safetyTimer.Reset();
+		m_safetyTimer.Start();
+
 		motorL7->Set(ControlMode::Position, m_targetCounts);
 #endif
 
@@ -247,11 +253,18 @@ bool Elevator::MoveToPositionIsFinished() {
 	// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
 	std::printf("2135: EncCount %d, CLE %d, M_Output %f\n", curCounts, closedLoopError, motorOutput);
 
+	//Check to see if the Safety Timer has timed out.
+	if (m_safetyTimer.Get() >= m_safetyTimeout) {
+		MoveToPositionStop();
+	}
+
 	// Check to see if the error is in an acceptable number of inches.
 	errorInInches = CountsToInches(m_targetCounts - (double)curCounts);
 	if (fabs(errorInInches) < 2.0) {
 		pidFinished = true;
+		m_safetyTimer.Stop();
 		std::printf("2135: Finished\n");
+		std::printf("2135: Time To Target for %f inches: %f\n", m_targetInches, m_safetyTimer.Get());
 	}
 	else {
 		pidFinished = false;

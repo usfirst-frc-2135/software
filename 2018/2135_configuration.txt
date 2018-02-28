@@ -21,6 +21,8 @@
  E_ScaleHiHeight = 15.1
  E_ClimbHeight = 20.1
  E_LevitateHeight = 18.1
+ E_SafetyTimeout = 4.0
+ E_SafetyHeightLimit = 15.0
 # Gripper settings
  G_MotorSpeed = -1.0
  G_WristSpeed = 1.0
