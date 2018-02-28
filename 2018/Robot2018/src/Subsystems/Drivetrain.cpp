@@ -11,7 +11,7 @@
 
 #include "ctre/Phoenix.h"
 
-#include "../RobotConfig.h"
+#include "../FRC2135/RobotConfig.h"
 #include "Drivetrain.h"
 #include "../RobotMap.h"
 #include "../RobotDefaults.h"
