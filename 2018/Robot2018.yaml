@@ -188,16 +188,6 @@ Children:
           value: '12'
       Base: Talon SRX
       Name: Motor R12
-    - Children: []
-      Properties:
-        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id001
-          default: '2'
-          name: CAN ID
-          validators: *id002
-          value: '14'
-      Base: Talon SRX
-      Name: Motor W14
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
@@ -217,6 +207,36 @@ Children:
         value: []
     Base: Subsystem
     Name: Gripper
+  - Children:
+    - Children: []
+      Properties:
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: '2'
+          name: CAN ID
+          validators: *id002
+          value: '14'
+      Base: Talon SRX
+      Name: Motor W14
+    Properties:
+      Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Send to SmartDashboard, validators: null, value: false}
+      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Default command parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: position,
+          type: int, value: '0'}
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: Gripper Wrist Extend}
+      Constants: !!robotbuilder.data.properties.ConstantsProperty
+        default: []
+        name: Constants
+        validators: null
+        value: []
+    Base: Subsystem
+    Name: Wrist
   Properties: {}
   Base: Subsystems
   Name: Subsystems
@@ -900,13 +920,12 @@ Children:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
           name: Joystick, validators: null, value: Operator Board 2}
         Parameters: !!robotbuilder.data.properties.ParametersProperty
-          default:
-          - &id008 !!robotbuilder.data.properties.ValuedParameterDescriptor {name: position,
-            type: int, value: '3'}
+          default: []
           name: Parameters
           validators: null
           value:
-          - *id008
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: position,
+            type: int, value: '3'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id003
           default: '1'
@@ -998,9 +1017,7 @@ Children:
       Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Autonomous Selection, validators: null, value: false}
       Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default:
-        - !!robotbuilder.data.properties.ParameterDescriptor {name: '[change me]',
-          type: double}
+        default: []
         name: Parameters
         validators: null
         value:
@@ -1153,7 +1170,7 @@ Children:
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Gripper}
+        name: Requires, type: Subsystem, validators: null, value: Wrist}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
         name: Parameter presets
