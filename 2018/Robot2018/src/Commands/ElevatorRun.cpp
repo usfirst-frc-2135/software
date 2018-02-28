@@ -36,11 +36,12 @@ void ElevatorRun::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool ElevatorRun::IsFinished() {
 	// Elevator runs forever (except when interrupted by other commands)
-    return false;
+    return Robot::elevator->MoveToPositionIsFinished();
 }
 
 // Called once after isFinished returns true
 void ElevatorRun::End() {
+	Robot::elevator->MoveToPosition(-1);
 	std::printf("2135: ElevatorRun - End\n");
 }
 

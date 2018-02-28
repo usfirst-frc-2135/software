@@ -47,6 +47,9 @@ private:
 	int				m_calibrationState;				// State variable for calibration sequence
 	bool			m_bumpDir;						// State variable for bumping up or down
 
+	Timer			m_safetyTimer;					// Safety timer for use in elevator
+	double			m_safetyTimeout;				// Seconds that the timer ran before stopping
+
 	// Configuration file parameters
 	double			m_calibrationSpeed;				// Motor output speed used during calibration
 	double 			m_pidSpeed;				// Elevator maximum speed during movement
