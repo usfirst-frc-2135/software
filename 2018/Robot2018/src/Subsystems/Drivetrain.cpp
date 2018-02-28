@@ -154,6 +154,17 @@ void Drivetrain::Periodic() {
 #ifndef ROBORIO_STANDALONE
 	SmartDashboard::PutNumber("DT_Encoder_L", motorL1->GetSelectedSensorPosition(0));
 	SmartDashboard::PutNumber("DT_Encoder_R", motorR3->GetSelectedSensorPosition(0));
+
+	double safetyHL;
+
+    RobotConfig* config = RobotConfig::GetInstance();
+	config->GetValueAsDouble("E_SafetyHeightLimit", safetyHL, 15.00);
+
+	if (Robot::elevator->GetCurrentInches() > safetyHL)	{
+		m_lowGear = true;
+	    MoveShiftGears(m_lowGear);
+	}
+
 #endif
 }
 
