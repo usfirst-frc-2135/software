@@ -50,7 +50,7 @@ Gripper::Gripper() : frc::Subsystem("Gripper") {
     // Initialize Variables
 
     RobotConfig* config = RobotConfig::GetInstance();
-    config->GetValueAsDouble("G_MotorSpeed", m_gripperSpeed, -1.0);
+    config->GetValueAsDouble("G_MotorSpeed", m_gripperSpeed, 1.0);
 }
 
 void Gripper::InitDefaultCommand() {
@@ -71,15 +71,12 @@ void Gripper::Initialize(frc::Preferences *RobotConfig)
 	std::printf("2135: Gripper Init\n");
 	motorL11->Set(ControlMode::PercentOutput, 0.0);
 	motorR12->Set(ControlMode::PercentOutput, 0.0);
-	// motorW14->Set(ControlMode::PercentOutput, 0.0);
 #endif
 
 }
+
 void Gripper::Periodic() {
     // Put code here to be run every loop
-#ifndef ROBORIO_STANDALONE
-	//SmartDashboard::PutNumber("Gripper Wrist Counts", motorW14->GetSelectedSensorPosition(pidIndex));
-#endif
 }
 
 
@@ -117,5 +114,3 @@ void Gripper::SetGripperMotorSpeed(int direction)
 	motorR12->Set(ControlMode::PercentOutput, outputR);
 #endif
 }
-
-
