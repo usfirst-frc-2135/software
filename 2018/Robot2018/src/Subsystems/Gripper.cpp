@@ -36,14 +36,20 @@ Gripper::Gripper() : frc::Subsystem("Gripper") {
     std::printf("2135: Motor L11 ID %d ver %d.%d\n", motorL11->GetDeviceID(), motorL11->GetFirmwareVersion()/256, motorL11->GetFirmwareVersion()%256);
     std::printf("2135: Motor R12 ID %d ver %d.%d\n", motorR12->GetDeviceID(), motorR12->GetFirmwareVersion()/256, motorR12->GetFirmwareVersion()%256);
 
-    motorL11->SetInverted(false);
-    motorR12->SetInverted(true);
-
-    motorL11->Set(ControlMode::PercentOutput, 0.0);
-    motorR12->Set(ControlMode::PercentOutput, 0.0);
+    motorL11->SetInverted(true);
+    motorR12->SetInverted(false);
 
     motorL11->SetNeutralMode(NeutralMode::Brake);
     motorR12->SetNeutralMode(NeutralMode::Brake);
+
+    motorL11->ConfigPeakOutputForward(1.0, m_timeout);
+    motorR12->ConfigPeakOutputForward(1.0, m_timeout);
+
+    motorL11->ConfigPeakOutputReverse(-1.0, m_timeout);
+    motorR12->ConfigPeakOutputReverse(-1.0, m_timeout);
+
+    motorL11->Set(ControlMode::PercentOutput, 0.0);
+    motorR12->Set(ControlMode::PercentOutput, 0.0);
 
 
 #endif
