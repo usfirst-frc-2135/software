@@ -16,6 +16,8 @@
 #include "../RobotDefaults.h"
 #include "../frc2135/RobotConfig.h"
 
+#define	TALON_W14_PRESENT
+
 /**
  *
  *
@@ -37,13 +39,13 @@ private:
 	const int 		m_pidIndex = 0; 				// PID Slot index for sensors
 	const int 		m_timeout = 10;					// CAN timeout in msec to wait for response
 	const double COUNTS_PER_ROTATION = (1024 * 4); 	// CPR is 1024 and multipled by 4 because it is a quadrature encoder
-	enum {
-		WRIST_NOCHANGE = -1,
-		WRIST_STOW = 0,
-		WRIST_DELIVERY = 1,
-		WRIST_FLAT = 2,
-		WRIST_SMARTDASH = 3,
-		BUMP_ANGLE = 4
+	enum {											// Wrist subsystem movement states
+		WRIST_NOCHANGE = -1,						// No change in wrist angle--maintain current position
+		WRIST_FLAT = 0,								// Move to flat floor position
+		WRIST_DELIVER = 1,							// Move to delivery angle
+		WRIST_STOWED = 2,							// Move to stowed angle (up)
+		WRIST_SMARTDASH = 3,						// Move to an angle read from dashboard
+		BUMP_ANGLE = 4								// Move by bumping angle up or down
 	};
 
 	int				m_wristLevel;					// Current wrist level (FLAT, STOWED, etc--not degrees)

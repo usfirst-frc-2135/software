@@ -36,18 +36,24 @@ private:
 	const int 		m_pidIndex = 0; 				// PID Slot index for sensors
 	const int		m_timeout = 10;					// CAN timeout in msec to wait for response
 	const double	COUNTS_PER_ROTATION = (1024*4);	// CPR is 1024 and multipled by 4 because it is a quadrature encoder
-	enum {
-		NOCHANGE_HEIGHT = -1,
-		FLOOR_HEIGHT = 0,
-		SWITCH_HEIGHT = 1,
-		SCALE_LO_HEIGHT = 2,
-		SCALE_HI_HEIGHT = 3,
-		CLIMB_HEIGHT = 4,
-		LEVITATE_HEIGHT = 5,
-		SMARTDASH_HEIGHT = 6,
-		BUMP_HEIGHT = 7
+	enum {							// Elevator subsystem movement states
+		NOCHANGE_HEIGHT = -1,		//	No change in height--maintain current position
+		FLOOR_HEIGHT = 0,			//	Move to floor (full down) height
+		SWITCH_HEIGHT = 1,			//	Move to switch height
+		SCALE_LO_HEIGHT = 2,		//	Move to scale low height (4-5ft)
+		SCALE_HI_HEIGHT = 3,		//	Move to scale high height (6ft)
+		CLIMB_HEIGHT = 4,			//	Move to climb height to approach run
+		LEVITATE_HEIGHT = 5,		//	Move to levitate height to lift robot
+		SMARTDASH_HEIGHT = 6,		//	Move to a height prescribed on dashboard (debug only)
+		BUMP_HEIGHT = 7				//	Move by bumping height up or down
 	};
-	enum { CALIB_START, CALIB_MOVE_UP, CALIB_START_DOWN, CALIB_MOVE_DOWN, CALIB_DONE };
+	enum {							// Calibration procedure states
+		CALIB_START, 				//	Start by preparing to move upward
+		CALIB_MOVE_UP, 				//	Keep moving up away from (triggered) hall sensor
+		CALIB_START_DOWN, 			//	Prepare to move down toward hall sensor
+		CALIB_MOVE_DOWN, 			//	Monitor for hall sensor before moving to done state
+		CALIB_DONE
+	};
 
 	int				m_elevatorLevel;				// Current elevator level (FLOOR, SCALE, etc--not inches)
 	double			m_targetInches;					// Target inches of height that are requested of the elevator
