@@ -35,6 +35,8 @@ private:
 	RobotConfig();
 	virtual ~RobotConfig();
 
+	static void GetConfigFileName(std::string& fileName);
+
 	std::map<std::string, std::string> m_configMap;
 };
 
