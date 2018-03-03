@@ -24,7 +24,17 @@
  E_SafetyTimeout = 4.0
  E_SafetyHeightLimit = 15.0
 # Gripper settings
- G_MotorSpeed = -1.0
- G_WristSpeed = 1.0
+ G_MotorSpeed = 1.0
+# Wrist settings
+ WR_PidSpeed = 0.4
+ WR_PidKp = 1.0
+ WR_PidAllowableCLE = 0
+ WR_MaxCounts = 0
+ WR_MinCounts = 0
+ WR_OffsetDegrees = 0.0
+ WR_BumpAngle = 2.0
+ WR_WristFlat = 0.0
+ WR_WristDelivery = 45.0
+ WR_WristStowed = 90.0
 # Autonomous settings
  Pos123Move_D = 36
