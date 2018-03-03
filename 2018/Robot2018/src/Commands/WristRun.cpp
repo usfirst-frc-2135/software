@@ -25,7 +25,7 @@ WristRun::WristRun(int position): frc::Command() {
 
 // Called just before this Command runs the first time
 void WristRun::Initialize() {
-	std::printf("2135: Wrist Run %s - Init [%d]\n", m_position);
+	std::printf("2135: Wrist Run - Init [%d]\n", m_position);
 	Robot::wrist->MoveToPosition(m_position);
 }
 
