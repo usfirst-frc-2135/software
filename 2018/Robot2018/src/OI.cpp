@@ -89,9 +89,9 @@ OI::OI() {
 
     // SmartDashboard Buttons
     frc::SmartDashboard::PutData("Load Config", new LoadConfig());
-    frc::SmartDashboard::PutData("Wrist Run: WRIST_STOWED", new WristRun(0));
+    frc::SmartDashboard::PutData("Wrist Run: WRIST_STOWED", new WristRun(2));
     frc::SmartDashboard::PutData("Wrist Run: WRIST_DELIVER", new WristRun(1));
-    frc::SmartDashboard::PutData("Wrist Run: WRIST_ACQUIRE", new WristRun(2));
+    frc::SmartDashboard::PutData("Wrist Run: WRIST_FLAT", new WristRun(0));
     frc::SmartDashboard::PutData("Wrist Run: WRIST_SMARTDASH", new WristRun(3));
     frc::SmartDashboard::PutData("Wrist Run: WRIST_NOCHANGE", new WristRun(-1));
     frc::SmartDashboard::PutData("Elevator Calibrate Override", new ElevatorCalibrateOverride());
