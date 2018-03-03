@@ -165,6 +165,8 @@ void Elevator::MoveToPosition(int height) {
 	double curInches = 0.0;
 	int curCounts = 0;
 
+	m_elevatorHeight = height;
+
 	// Validate and set the requested position to move
 	switch (height) {
 	case NOCHANGE_HEIGHT:	// Do not change from current height!
@@ -244,6 +246,9 @@ bool Elevator::MoveToPositionIsFinished() {
 	double motorOutput = 0.0;
 	double errorInInches = 0;
 
+	// If a real move was requeted, check for completion
+	if (m_elevatorHeight != NOCHANGE_HEIGHT)
+	{
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
 	curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
 	closedLoopError = motorL7->GetClosedLoopError(m_pidIndex);
@@ -268,6 +273,7 @@ bool Elevator::MoveToPositionIsFinished() {
 	}
 	else {
 		pidFinished = false;
+	}
 	}
 
 	return pidFinished;
