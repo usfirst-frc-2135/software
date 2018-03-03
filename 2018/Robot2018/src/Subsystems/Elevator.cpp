@@ -250,30 +250,30 @@ bool Elevator::MoveToPositionIsFinished() {
 	if (m_elevatorHeight != NOCHANGE_HEIGHT)
 	{
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
-	curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
-	closedLoopError = motorL7->GetClosedLoopError(m_pidIndex);
-	motorOutput = motorL7->GetMotorOutputPercent();
+		curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
+		closedLoopError = motorL7->GetClosedLoopError(m_pidIndex);
+		motorOutput = motorL7->GetMotorOutputPercent();
 #endif
 
-	// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
-	std::printf("2135: EncCount %d, CLE %d, M_Output %f\n", curCounts, closedLoopError, motorOutput);
+		// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
+		std::printf("2135: EncCount %d, CLE %d, M_Output %f\n", curCounts, closedLoopError, motorOutput);
 
-	//Check to see if the Safety Timer has timed out.
-	if (m_safetyTimer.Get() >= m_safetyTimeout) {
-		MoveToPositionStop();
-	}
+		// Check to see if the Safety Timer has timed out.
+		if (m_safetyTimer.Get() >= m_safetyTimeout) {
+			MoveToPositionStop();
+		}
 
-	// Check to see if the error is in an acceptable number of inches.
-	errorInInches = CountsToInches(m_targetCounts - (double)curCounts);
-	if (fabs(errorInInches) < 2.0) {
-		pidFinished = true;
-		m_safetyTimer.Stop();
-		std::printf("2135: Finished\n");
-		std::printf("2135: Time To Target for %f inches: %f\n", m_targetInches, m_safetyTimer.Get());
-	}
-	else {
-		pidFinished = false;
-	}
+		// Check to see if the error is in an acceptable number of inches.
+		errorInInches = CountsToInches(m_targetCounts - (double)curCounts);
+		if (fabs(errorInInches) < 2.0) {
+			pidFinished = true;
+			m_safetyTimer.Stop();
+			std::printf("2135: Finished\n");
+			std::printf("2135: Time To Target for %f inches: %f\n", m_targetInches, m_safetyTimer.Get());
+		}
+		else {
+			pidFinished = false;
+		}
 	}
 
 	return pidFinished;
