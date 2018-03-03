@@ -40,7 +40,8 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.25);
     config->GetValueAsInt("WR_PidAllowableCLE", m_pidAllowableCLE, 0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
-    config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, 0.0);
+    config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, 0);
+    config->GetValueAsDouble("WR_OffsetDegrees", m_offsetDegrees);
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 1.0);
 	config->GetValueAsDouble("WR_WristFlat", m_flatAngle, 0);
 	config->GetValueAsDouble("WR_WristDelivery", m_deliveryAngle, 0);
@@ -81,7 +82,9 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	motorW14->ConfigAllowableClosedloopError(0, m_pidAllowableCLE, m_timeout);
 
 	// Enable wrist PID with existing sensor reading (no movement)
-	motorW14->Set(ControlMode::Position, DegreesToCounts(m_curDegrees));
+//	motorW14->Set(ControlMode::Position, DegreesToCounts(m_curDegrees));
+	// Disable motor output until calibrated
+	motorW14->Set(ControlMode::PercentOutput, 0.0);
 #endif
 
 #endif
