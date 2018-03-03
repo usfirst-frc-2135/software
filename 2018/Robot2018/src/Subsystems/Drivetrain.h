@@ -14,6 +14,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "../RobotDefaults.h"
+#include "../FRC2135/RobotConfig.h"
 #include "AHRS.h"
 #include "../FRC2135/PIDOutputDriveTurn.h"
 

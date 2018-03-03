@@ -11,7 +11,6 @@
 
 #include "ctre/Phoenix.h"
 
-#include "../RobotDefaults.h"
 #include "Gripper.h"
 #include "../RobotMap.h"
 #include "../Commands/GripperRun.h"
