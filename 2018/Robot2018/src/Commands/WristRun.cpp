@@ -26,19 +26,18 @@ WristRun::WristRun(int position): frc::Command() {
 // Called just before this Command runs the first time
 void WristRun::Initialize() {
 	std::printf("2135: Wrist Run %s - Init [%d]\n", m_position);
-	Robot::wrist->WristPIDInit(m_position);
+	Robot::wrist->MoveToPosition(m_position);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void WristRun::Execute() {
-	Robot::wrist->WristPIDExecute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool WristRun::IsFinished() {
 	bool isFinished;
 
-	isFinished = Robot::wrist->WristPIDIsAtSetpoint();
+	isFinished = Robot::wrist->MoveToPositionIsFinished();
 
     return isFinished;
 }
@@ -46,12 +45,10 @@ bool WristRun::IsFinished() {
 // Called once after isFinished returns true
 void WristRun::End() {
 	std::printf("2135: Wrist Run - End\n");
-	Robot::wrist->WristPIDStop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void WristRun::Interrupted() {
 	std::printf("2135: Wrist Run - Interrupted\n");
-	Robot::wrist->WristPIDStop();
 }

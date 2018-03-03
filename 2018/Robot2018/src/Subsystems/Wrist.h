@@ -50,9 +50,9 @@ public:
 
 	enum {WRIST_NOCHANGE = -1, WRIST_STOW = 0, WRIST_DELIVERY = 1, WRIST_FLAT = 2};
 
-	void WristPIDInit(double angle);
+	void MoveToPosition(double angle);
 	void WristPIDExecute(void);
-	bool WristPIDIsAtSetpoint(void);
+	bool MoveToPositionIsFinished(void);
 	void WristPIDStop(void);
 
 };

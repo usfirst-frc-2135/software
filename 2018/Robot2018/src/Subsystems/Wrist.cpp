@@ -104,7 +104,7 @@ void Wrist::Periodic() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Wrist::WristPIDInit(double angle)
+void Wrist::MoveToPosition(double angle)
 {
 	std::printf("2135: Extension Started\n");
 
@@ -133,7 +133,7 @@ void Wrist::WristPIDExecute(void)
 	// No work needed because Talon does it internally
 }
 
-bool Wrist::WristPIDIsAtSetpoint(void)
+bool Wrist::MoveToPositionIsFinished(void)
 {
 	bool pidFinished = false;
 	int encoderCounts = 0;

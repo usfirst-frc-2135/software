@@ -25,7 +25,7 @@ ElevatorRun::ElevatorRun(int height): frc::Command() {
 
 // Called just before this Command runs the first time
 void ElevatorRun::Initialize() {
-	std::printf("2135: ElevatorRun - Init - %d\n", m_height);
+	std::printf("2135: ElevatorRun - Init [%d]\n", m_height);
 	Robot::elevator->MoveToPosition(m_height);
 }
 
@@ -41,7 +41,6 @@ bool ElevatorRun::IsFinished() {
 
 // Called once after isFinished returns true
 void ElevatorRun::End() {
-	Robot::elevator->MoveToPosition(-1);
 	std::printf("2135: ElevatorRun - End\n");
 }
 
