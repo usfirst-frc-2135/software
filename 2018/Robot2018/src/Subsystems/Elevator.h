@@ -36,11 +36,21 @@ private:
 	const int		m_slotIndex = 0;				// Motor controller profile slot index
 	const int 		m_pidIndex = 0; 				// PID Slot index for sensors
 	const int		m_timeout = 10;					// CAN timeout in msec to wait for response
-	const double 	COUNTS_PER_ROTATION = (1024*4);	// CPR is 1024 and multipled by 4 because it is a quadrature encoder
-	enum { NOCHANGE_HEIGHT=-1, FLOOR_HEIGHT=0, SWITCH_HEIGHT=1, SCALE_LO_HEIGHT=2, SCALE_HI_HEIGHT=3, CLIMB_HEIGHT=4, LEVITATE_HEIGHT=5, SMARTDASH_HEIGHT=6, BUMP_HEIGHT=7 };
+	const double	COUNTS_PER_ROTATION = (1024*4);	// CPR is 1024 and multipled by 4 because it is a quadrature encoder
+	enum {
+		NOCHANGE_HEIGHT = -1,
+		FLOOR_HEIGHT = 0,
+		SWITCH_HEIGHT = 1,
+		SCALE_LO_HEIGHT = 2,
+		SCALE_HI_HEIGHT = 3,
+		CLIMB_HEIGHT = 4,
+		LEVITATE_HEIGHT = 5,
+		SMARTDASH_HEIGHT = 6,
+		BUMP_HEIGHT = 7
+	};
 	enum { CALIB_START, CALIB_MOVE_UP, CALIB_START_DOWN, CALIB_MOVE_DOWN, CALIB_DONE };
 
-	int				m_elevatorHeight;				// Current elevator height (FLOOR, SCALE, etc--not inches)
+	int				m_elevatorLevel;				// Current elevator level (FLOOR, SCALE, etc--not inches)
 	double			m_targetInches;					// Target inches of height that are requested of the elevator
 	double			m_targetCounts;					// Target encoder counts of height that are requested of the elevator
 	double			m_curInches;
@@ -53,7 +63,7 @@ private:
 
 	// Configuration file parameters
 	double			m_calibrationSpeed;				// Motor output speed used during calibration
-	double 			m_pidSpeed;				// Elevator maximum speed during movement
+	double 			m_pidSpeed;						// Elevator maximum speed during movement
 	double			m_pidKp;						// Elevator PID proportional constant
 	int				m_pidAllowableCLE;				// Elevator PID allowable closed loop error
 	double			m_elevatorMaxHeight;			// Elevator maximum allowable height
@@ -88,7 +98,6 @@ public:
 	void MoveToPosition(int height);
 	bool MoveToPositionIsFinished(void);
 	void MoveToPositionStop(void);
-
 	void BumpToPosition(bool direction);
 
 	void CalibrationInit(void);

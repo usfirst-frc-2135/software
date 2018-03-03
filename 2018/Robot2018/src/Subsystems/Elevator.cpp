@@ -72,7 +72,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     motorL7->SetSensorPhase(true);
     motorL7->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 
-	// Set maximum power and timeout
+	// Set maximum power and ramp rate
 	motorL7->ConfigPeakOutputForward(m_pidSpeed, m_timeout);
 	motorL7->ConfigPeakOutputReverse(-m_pidSpeed, m_timeout);
 	motorL7->ConfigClosedloopRamp(0.25, m_timeout);
@@ -121,9 +121,9 @@ void Elevator::InitDefaultCommand() {
 
 void Elevator::Periodic() {
     // Put code here to be run every loop
-	SmartDashboard::PutNumber("EL Height", CountsToInches(motorL7->GetSelectedSensorPosition(m_pidIndex)));
-	SmartDashboard::PutBoolean("EL Hall Sensor", HallSensorIsTriggered());
 	SmartDashboard::PutBoolean("EL Calibrated", m_calibrated);
+	SmartDashboard::PutBoolean("EL Hall Sensor", HallSensorIsTriggered());
+	SmartDashboard::PutNumber("EL Height", CountsToInches(motorL7->GetSelectedSensorPosition(m_pidIndex)));
 	SmartDashboard::PutNumber("Cube Height", 2 * CountsToInches(motorL7->GetSelectedSensorPosition(m_pidIndex)));
 }
 
@@ -165,7 +165,7 @@ void Elevator::MoveToPosition(int height) {
 	double curInches = 0.0;
 	int curCounts = 0;
 
-	m_elevatorHeight = height;
+	m_elevatorLevel = height;
 
 	// Validate and set the requested position to move
 	switch (height) {
@@ -229,7 +229,8 @@ void Elevator::MoveToPosition(int height) {
 		motorL7->Set(ControlMode::Position, m_targetCounts);
 #endif
 
-		std::printf("2135: Elevator Init inches %f -> %f counts %d -> %f\n", curInches, m_targetInches, curCounts, m_targetCounts);
+		std::printf("2135: Elevator Move inches %f -> %f counts %d -> %f\n",
+				curInches, m_targetInches, curCounts, m_targetCounts);
 	}
 	else {
 		std::printf("2135: Elevator is not calibrated\n");
@@ -247,7 +248,7 @@ bool Elevator::MoveToPositionIsFinished() {
 	double errorInInches = 0;
 
 	// If a real move was requeted, check for completion
-	if (m_elevatorHeight != NOCHANGE_HEIGHT)
+	if (m_elevatorLevel != NOCHANGE_HEIGHT)
 	{
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
 		curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
@@ -256,7 +257,7 @@ bool Elevator::MoveToPositionIsFinished() {
 #endif
 
 		// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
-		std::printf("2135: EncCount %d, CLE %d, M_Output %f\n", curCounts, closedLoopError, motorOutput);
+		std::printf("2135: Elevator EncCount %d, CLE %d, M_Output %f\n", curCounts, closedLoopError, motorOutput);
 
 		// Check to see if the Safety Timer has timed out.
 		if (m_safetyTimer.Get() >= m_safetyTimeout) {
@@ -268,8 +269,7 @@ bool Elevator::MoveToPositionIsFinished() {
 		if (fabs(errorInInches) < 2.0) {
 			pidFinished = true;
 			m_safetyTimer.Stop();
-			std::printf("2135: Finished\n");
-			std::printf("2135: Time To Target for %f inches: %f\n", m_targetInches, m_safetyTimer.Get());
+			std::printf("2135: Elevator Move Finished - Time %f\n", m_safetyTimer.Get());
 		}
 		else {
 			pidFinished = false;
@@ -281,8 +281,8 @@ bool Elevator::MoveToPositionIsFinished() {
 
 void Elevator::MoveToPositionStop() {
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
-	motorL7->Set(ControlMode::PercentOutput, 0.0);
-	std::printf("2135: Safety timer has timed out\n");
+//	motorL7->Set(ControlMode::PercentOutput, 0.0);
+	std::printf("2135: Elevator Move Safety timer has timed out\n");
 #endif
 }
 
