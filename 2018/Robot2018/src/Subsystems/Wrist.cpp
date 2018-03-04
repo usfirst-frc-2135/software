@@ -48,7 +48,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	config->GetValueAsDouble("WR_WristStowed", m_stowedAngle, 0);
 	config->GetValueAsDouble("WR_SafetyTimeout", m_safetyTimeout, 4.0);
 
-	motorW14->SetInverted(false); //TODO check when motor comes in
+	motorW14->SetInverted(false);
 
     // Set the control mode and target to disable any movement
     motorW14->Set(ControlMode::PercentOutput, 0.0);
@@ -82,9 +82,9 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	motorW14->ConfigAllowableClosedloopError(0, m_pidAllowableCLE, m_timeout);
 
 	// Enable wrist PID with existing sensor reading (no movement)
-//	motorW14->Set(ControlMode::Position, DegreesToCounts(m_curDegrees));
+	motorW14->Set(ControlMode::Position, DegreesToCounts(m_curDegrees));
 	// Disable motor output until calibrated
-	motorW14->Set(ControlMode::PercentOutput, 0.0);
+//	motorW14->Set(ControlMode::PercentOutput, 0.0);
 #endif
 
 #endif
@@ -128,14 +128,14 @@ void Wrist::Periodic() {
 double Wrist::DegreesToCounts(double degrees) {
 	double counts;
 
-	counts = degrees * (COUNTS_PER_ROTATION / 360);
+	counts = -1 * (degrees * ((COUNTS_PER_ROTATION * 2)/ 360) );
 	return counts;
 }
 
 double Wrist::CountsToDegrees(int counts) {
 	double degrees;
 
-	degrees = (double) counts * (360 / COUNTS_PER_ROTATION);
+	degrees = -1 *( (double) counts * (360 / (COUNTS_PER_ROTATION *2)) );
 	return degrees;
 }
 
@@ -183,10 +183,12 @@ void Wrist::MoveToPosition(int level)
 	}
 
 	// Constrain input request to a valid and safe range between full down and max height
-	if (m_targetDegrees < CountsToDegrees(m_wristMinCounts)) {
+	//std::printf("2135: m_targetDegrees: %f, CountstoDegrees: %f\n", m_targetDegrees, CountstoDegrees(m_targetCounts));
+
+	if (m_targetDegrees > CountsToDegrees(m_wristMinCounts)) {
 		m_targetDegrees = CountsToDegrees(m_wristMinCounts);
 	}
-	if (m_targetDegrees > CountsToDegrees(m_wristMaxCounts)) { //TODO Determine upwards limit
+	if (m_targetDegrees < CountsToDegrees(m_wristMaxCounts)) {
 		m_targetDegrees = CountsToDegrees(m_wristMaxCounts);
 	}
 
@@ -195,7 +197,7 @@ void Wrist::MoveToPosition(int level)
 #ifndef ROBORIO_STANDALONE
 	// Set the mode and target
 #ifdef TALON_W14_PRESENT	// If wrist motor is on CAN bus
-	motorW14->Set(ControlMode::Position, m_targetDegrees);
+	motorW14->Set(ControlMode::Position, m_targetCounts);
 #else
 	(void) m_targetDegrees;
 #endif
@@ -254,4 +256,8 @@ void Wrist::BumpToPosition(bool direction) {
 	m_bumpDir = direction;
 
 	MoveToPosition(BUMP_ANGLE);
+}
+
+void Wrist::ZeroEncoder() {
+	motorW14->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 }
