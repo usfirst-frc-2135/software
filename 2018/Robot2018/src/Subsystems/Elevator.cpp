@@ -158,6 +158,8 @@ bool Elevator::HallSensorIsTriggered() {
 #endif
 }
 
+//	Elevator PID loop state management
+
 void Elevator::MoveToPosition(int height) {
 
 	double curInches = 0.0;
@@ -238,6 +240,8 @@ void Elevator::MoveToPosition(int height) {
 	}
 }
 
+// Elevator PID loop completion monitoring
+
 bool Elevator::MoveToPositionIsFinished() {
 	bool pidFinished = false;
 	int curCounts = 0;
@@ -277,6 +281,8 @@ bool Elevator::MoveToPositionIsFinished() {
 	return pidFinished;
 }
 
+// Elevator PID loop movement failed
+
 void Elevator::MoveToPositionStop() {
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
 //	motorL7->Set(ControlMode::PercentOutput, 0.0);
@@ -284,11 +290,15 @@ void Elevator::MoveToPositionStop() {
 #endif
 }
 
+// Elevator PID loop setup to do a bump movement
+
 void Elevator::BumpToPosition(bool direction) {
 	m_bumpDir = direction;
 
 	MoveToPosition(BUMP_HEIGHT);
 }
+
+// Elevator PID calibration setup and initialization
 
 void Elevator::CalibrationInit() {
 	m_calibrated = false;
@@ -297,6 +307,8 @@ void Elevator::CalibrationInit() {
 	motorL7->Set(ControlMode::PercentOutput, 0.0);
 #endif
 }
+
+// Elevator PID calibration execution loop
 
 void Elevator::CalibrationExecute() {
 
@@ -360,10 +372,14 @@ void Elevator::CalibrationExecute() {
 #endif
 }
 
+// Elevator PID calibration monitoring
+
 bool Elevator::CalibrationIsFinished() {
 	// Hall sensor is false when near magnet
 	return m_calibrated;
 }
+
+// Elevator PID calibration force step
 
 void Elevator::CalibrationOverride() {
 	m_calibrationState = CALIB_DONE;
