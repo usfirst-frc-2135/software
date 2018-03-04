@@ -158,7 +158,7 @@ void Wrist::MoveToPosition(int level)
 	// Validate and set the requested level to move
 	switch (level) {
 	case WRIST_NOCHANGE:	// Do not change from current level!
-		m_targetDegrees = m_targetDegrees;
+		// m_targetDegrees = m_targetDegrees;
 		break;
 	case WRIST_FLAT:
 		m_targetDegrees = m_flatAngle;

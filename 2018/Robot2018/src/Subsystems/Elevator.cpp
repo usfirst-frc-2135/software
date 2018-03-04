@@ -168,7 +168,7 @@ void Elevator::MoveToPosition(int height) {
 	// Validate and set the requested position to move
 	switch (height) {
 	case NOCHANGE_HEIGHT:	// Do not change from current height!
-		m_targetInches = m_targetInches;
+		// m_targetInches = m_targetInches;
 		break;
 	case FLOOR_HEIGHT:
 		m_targetInches = m_floorHeight;
