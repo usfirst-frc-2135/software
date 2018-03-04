@@ -1,11 +1,11 @@
 # Comment lines start with '#'
 # DriveTrain settings
+ DT_PeakOutput = 1.0
  DT_DriveScaling = 1.0   
  DT_TurnScaling = 1.0
  DT_DriveSpin = 0.45
- DT_AutonTurnKP = 0.08 
- DT_Proportional = 0.75
- DT_PercentOutput = 1.0
+ DT_DriveKp = 0.75
+ DT_AutonTurnKp = 0.08 
  DT_AllowedCLError = 0
 # Elevator settings
  E_PidSpeed = 1.0
