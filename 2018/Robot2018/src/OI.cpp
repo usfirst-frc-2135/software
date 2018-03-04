@@ -107,7 +107,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("Elevator Run: CLIMB_HEIGHT", new ElevatorRun(4));
     frc::SmartDashboard::PutData("Elevator Run: LEVITATE_HEIGHT", new ElevatorRun(5));
     frc::SmartDashboard::PutData("Elevator Run: SMARTDASH_HEIGHT", new ElevatorRun(6));
-    frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT_DIST", new AutoDriveDist(97.25));
+    frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT_DIST", new AutoDriveDist(48.0));
     frc::SmartDashboard::PutData("Auto Drive Turn: DEFAULT_ANGLE", new AutoDriveTurn(45.0));
     frc::SmartDashboard::PutData("Auto Stop", new AutoStop());
 
