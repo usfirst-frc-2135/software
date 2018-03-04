@@ -246,6 +246,11 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches)
 	 m_safetyTimer.Reset();
 	 m_safetyTimer.Start();
 
+//	 motorL1->SetSafetyEnabled(false);
+//	 motorR3->SetSafetyEnabled(false);
+
+	 diffDrive->SetSafetyEnabled(false);
+
 #endif
 }
 
@@ -317,7 +322,7 @@ void Drivetrain::MoveDriveDistancePIDStop(void)
 		m_pidTargetCounts, GetEncoderPosition(motorL1), GetEncoderPosition(motorR3));
 
 	// Re-enable the motor safety helper (temporarily disabled)
-	//drive->SetSafetyEnabled(false); //commented out in case there is another auton command is running before teleop
+	diffDrive->SetSafetyEnabled(false); //commented out in case there is another auton command is running before teleop
 
 #endif
 }
