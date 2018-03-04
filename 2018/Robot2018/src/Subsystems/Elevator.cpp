@@ -40,20 +40,21 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 
     // Get any config file settings
     RobotConfig* config = RobotConfig::GetInstance();
-    config->GetValueAsDouble("E_CalibSpeed", m_calibrationSpeed, 0.2);
-    config->GetValueAsDouble("E_PidSpeed", m_pidSpeed, 0.4);
-    config->GetValueAsDouble("E_PidKp", m_pidKp, 0.25);
-    config->GetValueAsInt("E_PidAllowableCLE", m_pidAllowableCLE, 0);
-    config->GetValueAsDouble("E_MaxHeight", m_elevatorMaxHeight, 22.0);
-    config->GetValueAsDouble("E_MinHeight", m_elevatorMinHeight, 0.0);
-	config->GetValueAsDouble("E_BumpHeight", m_bumpHeight, 1.0);
-	config->GetValueAsDouble("E_FloorHeight", m_floorHeight, 0.0);
-	config->GetValueAsDouble("E_SwitchHeight", m_switchHeight, 5.0);
-	config->GetValueAsDouble("E_ScaleLoHeight", m_scaleLoHeight, 10.0);
-	config->GetValueAsDouble("E_ScaleHiHeight", m_scaleHiHeight, 15.0);
-	config->GetValueAsDouble("E_ClimbHeight", m_climbHeight, 20.0);
-	config->GetValueAsDouble("E_LevitateHeight", m_levitateHeight, 18.0);
-	config->GetValueAsDouble("E_SafetyTimeout", m_safetyTimeout, 4.0);
+    config->GetValueAsDouble("EL_CalibSpeed", m_calibrationSpeed, 0.2);
+    config->GetValueAsDouble("EL_PidSpeed", m_pidSpeed, 0.4);
+    config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.25);
+    config->GetValueAsInt("EL_PidAllowableCLE", m_pidAllowableCLE, 0);
+    config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 22.0);
+    config->GetValueAsDouble("EL_MinHeight", m_elevatorMinHeight, 0.0);
+	config->GetValueAsDouble("EL_BumpHeight", m_bumpHeight, 1.0);
+	config->GetValueAsDouble("EL_FloorHeight", m_floorHeight, 0.0);
+	config->GetValueAsDouble("EL_SwitchHeight", m_switchHeight, 5.0);
+	config->GetValueAsDouble("EL_ScaleLoHeight", m_scaleLoHeight, 10.0);
+	config->GetValueAsDouble("EL_ScaleHiHeight", m_scaleHiHeight, 15.0);
+	config->GetValueAsDouble("EL_ClimbHeight", m_climbHeight, 20.0);
+	config->GetValueAsDouble("EL_LevitateHeight", m_levitateHeight, 18.0);
+	config->GetValueAsDouble("EL_SafetyTimeout", m_safetyTimeout, 4.0);
+	config->GetValueAsDouble("EL_LowGearHeight", m_lowGearHeight, 15.00);
 
     // Initialize Talon SRX motor controller direction and encoder sensor slot
     motorL7->SetInverted(false);			// Sets the Talon inversion to false
@@ -163,6 +164,11 @@ bool Elevator::HallSensorIsTriggered() {
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
 	return !hallLimit->Get();
 #endif
+}
+
+bool Elevator::HeightLimitToLowGear() {
+
+	return (Robot::elevator->GetCurrentInches() > m_lowGearHeight);
 }
 
 //	Elevator PID loop state management

@@ -80,6 +80,7 @@ private:
 	double			m_scaleHiHeight;				// Setpoint for delivery to scale when high
 	double			m_climbHeight;					// Setpoint for lining up to climb
 	double			m_levitateHeight;				// Setpoint for a valid levitation
+	double			m_lowGearHeight;				// Height for forcing drivetrain to low gear
 
 #ifdef ROBOTBENCHTOPTEST
 	const double 	m_circumInches = (1.875*M_PI*2);		//Circumference in inches for Benchtop Testing
@@ -102,6 +103,7 @@ public:
 	double CountsToInches(int counts);
 	double GetCurrentInches();
 	bool HallSensorIsTriggered(void);
+	bool HeightLimitToLowGear(void);
 
 	void MoveToPosition(int height);
 	bool MoveToPositionIsFinished(void);

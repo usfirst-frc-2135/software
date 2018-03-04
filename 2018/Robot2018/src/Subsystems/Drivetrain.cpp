@@ -141,14 +141,10 @@ void Drivetrain::Periodic() {
 	SmartDashboard::PutNumber("DT_Encoder_R", motorR3->GetSelectedSensorPosition(0));
 	SmartDashboard::PutNumber("DT_GyroAngle", gyro->GetAngle());
 
-	double safetyHL;
-
-    RobotConfig* config = RobotConfig::GetInstance();
-	config->GetValueAsDouble("E_SafetyHeightLimit", safetyHL, 15.00);
-
-	if (Robot::elevator->GetCurrentInches() > safetyHL)	{
-		m_lowGear = true;
-	    MoveShiftGears(m_lowGear);
+	// If elevator is too high, set to low gear
+	// TODO: This does not correctly limit low gear, just sets it temporarily
+	if (Robot::elevator->HeightLimitToLowGear()) {
+	    MoveShiftGears(true);
 	}
 #endif
 }

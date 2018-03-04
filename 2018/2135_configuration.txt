@@ -8,20 +8,20 @@
  DT_AutonTurnKp = 0.08 
  DT_AllowedCLError = 0
 # Elevator settings
- E_CalibSpeed = 0.25
- E_PidSpeed = 1.0
- E_PidKp = 0.25
- E_PidAllowableCLE = 0
- E_MaxHeight = 27.0
- E_MinHeight = 0.0
- E_BumpHeight = 2.0
- E_FloorHeight = 0.0
- E_SwitchHeight = 5.1
- E_ScaleLoHeight = 10.1
- E_ScaleHiHeight = 15.1
- E_ClimbHeight = 20.1
- E_LevitateHeight = 18.1
- E_SafetyTimeout = 4.0
+ EL_CalibSpeed = 0.25
+ EL_PidSpeed = 1.0
+ EL_PidKp = 0.25
+ EL_PidAllowableCLE = 0
+ EL_MaxHeight = 27.0
+ EL_MinHeight = 0.0
+ EL_BumpHeight = 2.0
+ EL_FloorHeight = 0.0
+ EL_SwitchHeight = 5.1
+ EL_ScaleLoHeight = 10.1
+ EL_ScaleHiHeight = 15.1
+ EL_ClimbHeight = 20.1
+ EL_LevitateHeight = 18.1
+ EL_SafetyTimeout = 4.0
  E_SafetyHeightLimit = 15.0
 # Gripper settings
  GR_MotorSpeed = 1.0
