@@ -8,10 +8,10 @@
  DT_AutonTurnKp = 0.08 
  DT_AllowedCLError = 0
 # Elevator settings
+ E_CalibSpeed = 0.25
  E_PidSpeed = 1.0
  E_PidKp = 0.25
  E_PidAllowableCLE = 0
- E_CalibSpeed = 0.25
  E_MaxHeight = 27.0
  E_MinHeight = 0.0
  E_BumpHeight = 2.0

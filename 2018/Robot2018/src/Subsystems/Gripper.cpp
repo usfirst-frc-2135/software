@@ -36,27 +36,28 @@ Gripper::Gripper() : frc::Subsystem("Gripper") {
     std::printf("2135: Motor L11 ID %d ver %d.%d\n", motorL11->GetDeviceID(), motorL11->GetFirmwareVersion()/256, motorL11->GetFirmwareVersion()%256);
     std::printf("2135: Motor R12 ID %d ver %d.%d\n", motorR12->GetDeviceID(), motorR12->GetFirmwareVersion()/256, motorR12->GetFirmwareVersion()%256);
 
+    // Initialize Variables
+    RobotConfig* config = RobotConfig::GetInstance();
+    config->GetValueAsDouble("GR_MotorSpeed", m_gripperSpeed, 1.0);
+
+    // Set motor directions
     motorL11->SetInverted(true);
     motorR12->SetInverted(false);
 
+    // Turn on Brake mode (not coast)
     motorL11->SetNeutralMode(NeutralMode::Brake);
     motorR12->SetNeutralMode(NeutralMode::Brake);
 
-    motorL11->ConfigPeakOutputForward(1.0, m_timeout);
-    motorR12->ConfigPeakOutputForward(1.0, m_timeout);
+    // Set motor peak outputs
+    motorL11->ConfigPeakOutputForward(m_gripperSpeed, m_timeout);
+    motorL11->ConfigPeakOutputReverse(-m_gripperSpeed, m_timeout);
+    motorR12->ConfigPeakOutputForward(m_gripperSpeed, m_timeout);
+    motorR12->ConfigPeakOutputReverse(-m_gripperSpeed, m_timeout);
 
-    motorL11->ConfigPeakOutputReverse(-1.0, m_timeout);
-    motorR12->ConfigPeakOutputReverse(-1.0, m_timeout);
-
+    // Initialize modes and set power to off
     motorL11->Set(ControlMode::PercentOutput, 0.0);
     motorR12->Set(ControlMode::PercentOutput, 0.0);
-
-
 #endif
-    // Initialize Variables
-
-    RobotConfig* config = RobotConfig::GetInstance();
-    config->GetValueAsDouble("G_MotorSpeed", m_gripperSpeed, 1.0);
 }
 
 void Gripper::InitDefaultCommand() {
@@ -71,16 +72,6 @@ void Gripper::InitDefaultCommand() {
 #endif
 }
 
-void Gripper::Initialize(frc::Preferences *RobotConfig)
-{
-#ifndef ROBORIO_STANDALONE
-	std::printf("2135: Gripper Init\n");
-	motorL11->Set(ControlMode::PercentOutput, 0.0);
-	motorR12->Set(ControlMode::PercentOutput, 0.0);
-#endif
-
-}
-
 void Gripper::Periodic() {
     // Put code here to be run every loop
 }
@@ -88,6 +79,11 @@ void Gripper::Periodic() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+void Gripper::Initialize(frc::Preferences *RobotConfig)
+{
+	std::printf("2135: Gripper Init\n");
+}
 
 void Gripper::SetGripperMotorSpeed(int direction)
 {

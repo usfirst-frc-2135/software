@@ -125,6 +125,12 @@ void Wrist::Periodic() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+void Wrist::Initialize(frc::Preferences *RobotConfig)
+{
+	std::printf("2135: Wrist Init\n");
+}
+
 double Wrist::DegreesToCounts(double degrees) {
 	double counts;
 

@@ -129,6 +129,11 @@ void Elevator::Periodic() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void Elevator::Initialize(frc::Preferences *RobotConfig)
+{
+	std::printf("2135: Elevator Init\n");
+}
+
 double Elevator::InchesToCounts(double inches) {
 	double counts;
 
