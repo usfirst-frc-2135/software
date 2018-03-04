@@ -241,9 +241,11 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches)
 	 m_CL_pidStarted = false;
 
 	 // Start safety timer
+	 m_safetyTimeout = 3.5; //TODO check if needs to be longer and if this needs to loaded from RobotConfig
+
 	 m_safetyTimer.Reset();
 	 m_safetyTimer.Start();
-	 m_safetyTimeout = 3.5; //TODO check if needs to be longer and if this needs to loaded from RobotConfig
+
 #endif
 }
 
@@ -254,13 +256,15 @@ void Drivetrain::MoveDriveDistancePIDExecute()
 
 bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 {
-#ifndef ROBORIO_STANDALONE
-
 	bool pidFinished = false;
 	int closedLoopErrorLeft = 0, closedLoopErrorRight = 0;
 
+#ifndef ROBORIO_STANDALONE
+
 	closedLoopErrorLeft = motorL1->GetClosedLoopError(m_pidIndex);
 	closedLoopErrorRight = motorR3->GetClosedLoopError(m_pidIndex);
+
+#endif
 
 	if (!m_CL_pidStarted && (abs(closedLoopErrorLeft) > Encoder_CPR) &&
 				(abs(closedLoopErrorRight) > Encoder_CPR))
@@ -287,9 +291,6 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 	// If on target or safety time has expired
 	return pidFinished;
 
-#endif
-
-	return true;
 }
 
 // MoveDriveDistancePIDStop is called to clean up after the PID loop reaches the target position
