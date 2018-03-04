@@ -9,10 +9,11 @@
 #include <fstream>      // std::ifstream
 #include <map>
 #include <algorithm>
+#include <unistd.h>		// gethostname
+#include <string.h>		// strncmp
 #include "RobotConfig.h"
 
 RobotConfig* RobotConfig::currentConfig = nullptr;
-const std::string CONFIGFILENAME = "/home/lvuser/2135_configuration.txt";
 //////////////////////////////////////////////////////////
 
 
@@ -40,9 +41,33 @@ RobotConfig::RobotConfig() {
 	//std::printf("2135: After Config Dump\n");
 }
 
+void RobotConfig::GetConfigFileName(std::string& fileName)
+{
+	// Initialize with the absolute path to the home directory
+	fileName = "/home/lvuser/";
+
+	// Get the host name of the roboRIO
+	const size_t NAMEBUFSIZE = 12;
+	char nameBuf[NAMEBUFSIZE+1];
+	gethostname(nameBuf, NAMEBUFSIZE);
+	nameBuf[NAMEBUFSIZE] = '\0';
+
+	// Extract the robot number from the hostname (assumed to be of the form roboRIO-<4-digit-number>-FRC)
+	char numBuf[5];
+	strncpy(numBuf, nameBuf+8, 4);
+	numBuf[4] = '\0';
+
+	// Add the robot number to the file name
+	fileName += numBuf;
+
+	// Add the configuration file name suffix
+	fileName += "_configuration.txt";
+}
+
 bool RobotConfig::LoadConfig() {
 	//std::printf("2135: Starting Load Config\n");
-	std::string fileName = CONFIGFILENAME;
+	std::string fileName;
+	GetConfigFileName(fileName);
 	std::ifstream configFile(fileName.c_str());
 	if (configFile.good() == false)
 	{
