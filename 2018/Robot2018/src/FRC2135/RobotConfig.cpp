@@ -14,31 +14,33 @@
 #include "RobotConfig.h"
 
 RobotConfig* RobotConfig::currentConfig = nullptr;
-//////////////////////////////////////////////////////////
-
-
 
 //////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////
+
 void trimWhitespace(std::string& line) {
 	line.erase(std::remove_if( line.begin(), line.end(), [](char c){ return (c =='\r' || c =='\t' || c == ' ' || c == '\n');}), line.end() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
 RobotConfig* RobotConfig::GetInstance() {
 	if (RobotConfig::currentConfig == nullptr) {
-		//std::printf("2135:Creating new robot config object\n");
+		std::printf("2135:Creating new robot config object\n");
 		RobotConfig::currentConfig = new RobotConfig();
 	}
+
 	return RobotConfig::currentConfig;
 }
 
 
 RobotConfig::RobotConfig() {
-	//std::printf("2135: Before Config Load\n");
+	std::printf("2135: --- Before Config Load ---\n");
 	LoadConfig();
-	//std::printf("2135: After Config Load, Before Dump\n");
+	std::printf("2135: --- After Config Load, Before Dump ---\n");
 	DumpConfig();
-	//std::printf("2135: After Config Dump\n");
+	std::printf("2135: --- After Config Dump ---\n");
 }
 
 void RobotConfig::GetConfigFileName(std::string& fileName)
@@ -49,11 +51,13 @@ void RobotConfig::GetConfigFileName(std::string& fileName)
 	// Get the host name of the roboRIO
 	const size_t NAMEBUFSIZE = 12;
 	char nameBuf[NAMEBUFSIZE+1];
+
 	gethostname(nameBuf, NAMEBUFSIZE);
 	nameBuf[NAMEBUFSIZE] = '\0';
 
 	// Extract the robot number from the hostname (assumed to be of the form roboRIO-<4-digit-number>-FRC)
 	char numBuf[5];
+
 	strncpy(numBuf, nameBuf+8, 4);
 	numBuf[4] = '\0';
 
@@ -67,6 +71,7 @@ void RobotConfig::GetConfigFileName(std::string& fileName)
 bool RobotConfig::LoadConfig() {
 	//std::printf("2135: Starting Load Config\n");
 	std::string fileName;
+
 	GetConfigFileName(fileName);
 	std::ifstream configFile(fileName.c_str());
 	if (configFile.good() == false)
@@ -74,7 +79,9 @@ bool RobotConfig::LoadConfig() {
 		std::printf("2135: No such Config file %s.\n", fileName.c_str());
 		return false;
 	}
+
     m_configMap.clear();
+
     std::printf("2135: Loading Config File %s\n", fileName.c_str());
 	while (configFile.eof() == false) {
 		std::string name;
@@ -113,7 +120,8 @@ bool RobotConfig::LoadConfig() {
 	return true;
 }
 
-//will return false only if there is no value found or specified (default or from file)
+// will return false only if there is no value found or specified (default or from file)
+
 bool RobotConfig::GetValueAsString(const std::string& name, std::string& valueStr, std::string defaultStr/*=""*/)
 {
 	//std::printf("2135: Starting GetValueAsString\n");
@@ -133,16 +141,19 @@ bool RobotConfig::GetValueAsString(const std::string& name, std::string& valueSt
 			std::printf("2135: %s NOT found in RobotConfig; using default value %s\n", name.c_str(), defaultStr.c_str());
 			rtnStatus = true;
 		}
-		else std::printf("2135: %s NOT found in RobotConfig and no default value specified.\n", name.c_str());
+		else
+			std::printf("2135: %s NOT found in RobotConfig and no default value specified.\n", name.c_str());
 	}
 	return rtnStatus;
 }
 
-//Returns true if successful, puts value in valueInt.
+// Returns true if successful, puts value in valueInt.
+
 bool RobotConfig::GetValueAsInt(const std::string& name, int& valueInt, int defaultInt/*=DUMMY_DEFAULT_INT*/)
 {
 	bool rtnStatus = false;
 	std::string valueStr = m_configMap[name];
+
 	if (!valueStr.empty())
 	{
 		valueInt = atoi(valueStr.c_str());  // convert to int
@@ -158,15 +169,19 @@ bool RobotConfig::GetValueAsInt(const std::string& name, int& valueInt, int defa
 			std::printf("2135: %s not found in RobotConfig; using default value %d\n", name.c_str(), defaultInt);
 			rtnStatus = true;
 		}
-		else std::printf("2135: %s not found in RobotConfig and no default value specified.\n", name.c_str());
+		else
+			std::printf("2135: %s not found in RobotConfig and no default value specified.\n", name.c_str());
 	}
+
 	return rtnStatus;
 }
 
-//Returns true if given name is found in config map & puts its value in valueBool.
+// Returns true if given name is found in config map & puts its value in valueBool.
+
 bool RobotConfig::GetValueAsBool(const std::string& name, bool& valueBool, bool defaultBool/*=false*/) // default bool if no default is specified  will be false
 {
 	bool rtnStatus = false;
+
 	std::string valueStr = m_configMap[name];
 	if (!valueStr.empty())
 	{
@@ -186,12 +201,14 @@ bool RobotConfig::GetValueAsBool(const std::string& name, bool& valueBool, bool 
 		std::printf("2135: %s not found in RobotConfig; using default value %d\n", name.c_str(), defaultBool);
 		rtnStatus = true;
 	}
+
 	return rtnStatus;
 }
 
 bool RobotConfig::GetValueAsFloat(const std::string& name, float& valueFloat, float defaultFloat/*=DUMMY_DEFAULT_FLOAT*/)
 {
 	bool rtnStatus = false;
+
 	std::string valueStr = m_configMap[name];
 	if (!valueStr.empty())
 	{
@@ -208,7 +225,8 @@ bool RobotConfig::GetValueAsFloat(const std::string& name, float& valueFloat, fl
 			std::printf("2135: %s not found in RobotConfig; using default value %f\n", name.c_str(), defaultFloat);
 			rtnStatus = true;
 		}
-		else std::printf("2135: %s not found in RobotConfig and no default value specified\n", name.c_str());
+		else
+			std::printf("2135: %s not found in RobotConfig and no default value specified\n", name.c_str());
 	}
 
 	return rtnStatus;
@@ -218,6 +236,7 @@ bool RobotConfig::GetValueAsDouble(const std::string& name, double& valueDouble,
 {
 	//std::printf("2135: Starting GetValueAsDouble\n");
 	bool rtnStatus = false;
+
 	std::string valueStr = m_configMap[name];
 	if (!valueStr.empty())
 	{
@@ -240,6 +259,7 @@ bool RobotConfig::GetValueAsDouble(const std::string& name, double& valueDouble,
 		else std::printf("2135: %s not found in RobotConfig and no default value specified\n", name.c_str());
 	}
 	//std::printf("2135: Done with GetValueAsDouble %d\n", rtnStatus);
+
 	return rtnStatus;
 }
 
@@ -250,7 +270,7 @@ void RobotConfig::DumpConfig()
 	    std::cout << itr->first << " = " << itr->second << "\n";
 	}
 
-//This is testing the get functions with our dummy file. We can remove this once we are confident with the functions.
+// This is testing the get functions with our dummy file. We can remove this once we are confident with the functions.
 
 /*float valueFloat;
 if (GetValueAsFloat("AutonDriveSpeed", valueFloat))
