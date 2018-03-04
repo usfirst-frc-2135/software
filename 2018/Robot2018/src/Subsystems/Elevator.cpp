@@ -276,7 +276,9 @@ bool Elevator::MoveToPositionIsFinished() {
 
 		// Check to see if the Safety Timer has timed out.
 		if (m_safetyTimer.Get() >= m_safetyTimeout) {
-			MoveToPositionStop();
+			pidFinished = true;
+			m_safetyTimer.Stop();
+			std::printf("2135: Elevator Move Safety timer has timed out\n");
 		}
 
 		// Check to see if the error is in an acceptable number of inches.
@@ -292,15 +294,6 @@ bool Elevator::MoveToPositionIsFinished() {
 	}
 
 	return pidFinished;
-}
-
-// Elevator PID loop movement failed
-
-void Elevator::MoveToPositionStop() {
-#if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
-//	motorL7->Set(ControlMode::PercentOutput, 0.0);
-	std::printf("2135: Elevator Move Safety timer has timed out\n");
-#endif
 }
 
 // Elevator PID loop setup to do a bump movement
@@ -390,6 +383,14 @@ void Elevator::CalibrationExecute() {
 bool Elevator::CalibrationIsFinished() {
 	// Hall sensor is false when near magnet
 	return m_calibrated;
+}
+
+// Elevator PID calibration movement failed
+
+void Elevator::CalibrationStop() {
+#if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
+	motorL7->Set(ControlMode::PercentOutput, 0.0);
+#endif
 }
 
 // Elevator PID calibration force step

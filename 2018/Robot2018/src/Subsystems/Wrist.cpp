@@ -49,14 +49,16 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	config->GetValueAsDouble("WR_WristStowed", m_stowedAngle, 0);
 	config->GetValueAsDouble("WR_SafetyTimeout", m_safetyTimeout, 4.0);
 
+	// Set the motor direction for the wrist
 	motorW14->SetInverted(false);
 
-    // Set the control mode and target to disable any movement
+    // Set the control mode and target to initially disable any movement
     motorW14->Set(ControlMode::PercentOutput, 0.0);
 
     // Set to brake mode (in comparison to coast)
     motorW14->SetNeutralMode(NeutralMode::Brake);
 
+    // Configure the encoder
 	motorW14->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
 	motorW14->SetSensorPhase(false);
 	m_curDegrees = CountsToDegrees(motorW14->GetSelectedSensorPosition(m_pidIndex));
@@ -95,7 +97,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     m_targetCounts = DegreesToCounts(m_curDegrees);
 
     // Field for manually progamming elevator height
-	SmartDashboard::PutNumber("WR Setpoint", CountsToDegrees(m_curDegrees));
+	SmartDashboard::PutNumber("WR Setpoint", m_curDegrees);
 }
 
 void Wrist::InitDefaultCommand() {
@@ -135,14 +137,14 @@ void Wrist::Initialize(frc::Preferences *RobotConfig)
 double Wrist::DegreesToCounts(double degrees) {
 	double counts;
 
-	counts = -1 * (degrees * ((COUNTS_PER_ROTATION * 2)/ 360) );
+	counts = -1 * (degrees * ((COUNTS_PER_ROTATION * OUTPUT_SHAFT_REDUCTION)/ 360) );
 	return counts;
 }
 
 double Wrist::CountsToDegrees(int counts) {
 	double degrees;
 
-	degrees = -1 *( (double) counts * (360 / (COUNTS_PER_ROTATION *2)) );
+	degrees = -1 *( (double) counts * (360 / (COUNTS_PER_ROTATION * OUTPUT_SHAFT_REDUCTION)) );
 	return degrees;
 }
 
@@ -231,13 +233,14 @@ bool Wrist::MoveToPositionIsFinished(void)
 		motorOutput = motorW14->GetMotorOutputPercent();
 #endif
 #endif
-
 		// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
 		std::printf("2135: Wrist EncCount %d, CLE %d, M_Output %f\n", curCounts, closedLoopError, motorOutput);
 
 		// Check to see if the Safety Timer has timed out.
 		if (m_safetyTimer.Get() >= m_safetyTimeout) {
-			MoveToPositionStop();
+			pidFinished = true;
+			m_safetyTimer.Stop();
+			std::printf("2135: Wrist Move Safety timer has timed out\n");
 		}
 
 		// Check to see if the error is in an acceptable number of inches.
@@ -250,13 +253,6 @@ bool Wrist::MoveToPositionIsFinished(void)
 	}
 
 	return pidFinished;
-}
-
-void Wrist::MoveToPositionStop() {
-#if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
-//	motorW14->Set(ControlMode::PercentOutput, 0.0);
-	std::printf("2135: Wrist Move Safety timer has timed out\n");
-#endif
 }
 
 void Wrist::BumpToPosition(bool direction) {

@@ -107,12 +107,12 @@ public:
 
 	void MoveToPosition(int height);
 	bool MoveToPositionIsFinished(void);
-	void MoveToPositionStop(void);
 	void BumpToPosition(bool direction);
 
 	void CalibrationInit(void);
 	void CalibrationExecute(void);
 	bool CalibrationIsFinished(void);
+	void CalibrationStop(void);
 	void CalibrationOverride(void);
 };
 
