@@ -155,7 +155,7 @@ void Robot::RobotFaultDump(void) {
 
 	std::printf("2135: %s --------------\n", "PDP FAULTS");
 	// TODO: Check and fix faults
-	RobotMap::powerPDP->ClearStickyFaults();
+//	RobotMap::powerPDP->ClearStickyFaults();
 }
 
 void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<WPI_TalonSRX> talonPtr) {
