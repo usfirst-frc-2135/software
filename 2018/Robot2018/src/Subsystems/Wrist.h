@@ -87,7 +87,7 @@ public:
 	bool MoveToPositionIsFinished(void);
 	void BumpToPosition(bool direction);
 
-	void ZeroEncoder();
+	void Calibrate();
 };
 
 #endif

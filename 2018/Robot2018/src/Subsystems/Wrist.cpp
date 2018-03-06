@@ -261,6 +261,6 @@ void Wrist::BumpToPosition(bool direction) {
 	MoveToPosition(BUMP_ANGLE);
 }
 
-void Wrist::ZeroEncoder() {
+void Wrist::Calibrate() {
 	motorW14->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 }
