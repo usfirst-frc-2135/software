@@ -58,8 +58,8 @@ void Robot::RobotInit() {
 //	LogitechCamera.SetVideoMode(cs::VideoMode::kMJPEG, 640, 360, 30);
 
 	// Camera - Microsoft LifeCam
-	cs::UsbCamera MicrosoftCamera = CameraServer::GetInstance()->StartAutomaticCapture(1);
-	MicrosoftCamera.SetVideoMode(cs::VideoMode::kMJPEG, 640, 360, 30);
+	cs::UsbCamera MicrosoftCamera = CameraServer::GetInstance()->StartAutomaticCapture();
+	MicrosoftCamera.SetVideoMode(cs::VideoMode::kMJPEG, 640, 360, 15);
 #endif
 	SmartDashboardStartChooser();
 }
