@@ -272,7 +272,7 @@ bool Elevator::MoveToPositionIsFinished() {
 #endif
 
 		// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
-		std::printf("2135: Elevator EncCount %d, CLE %d, M_Output %f\n", curCounts, closedLoopError, motorOutput);
+		std::printf("2135: Elevator Counts %d, CLE %d, Out %f\n", curCounts, closedLoopError, motorOutput);
 
 		// Check to see if the Safety Timer has timed out.
 		if (m_safetyTimer.Get() >= m_safetyTimeout) {
