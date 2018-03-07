@@ -83,6 +83,9 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+	drivetrain->MoveSetBrakeMode(true);
+	drivetrain->MoveShiftGears(true);
+
 	// Initializes the gameData that read switch and scale colors from the FMS
 	std::string gameData;
 	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
@@ -109,6 +112,9 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
+	drivetrain->MoveSetBrakeMode(false);
+	drivetrain->MoveShiftGears(true);
+
 	// This makes sure that the autonomous stops running when
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
