@@ -45,7 +45,7 @@ void ElevatorBump::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool ElevatorBump::IsFinished() {
 	// Elevator runs forever (except when interrupted by other commands)
-    return false;
+    return Robot::elevator->MoveToPositionIsFinished();
 }
 
 // Called once after isFinished returns true
