@@ -24,13 +24,13 @@ AutoStop::AutoStop(): frc::Command() {
 
 // Called just before this Command runs the first time
 void AutoStop::Initialize() {
-	std::printf("2135: AutoDriveTurn - Init\n");
+	std::printf("2135: AutoStop - Init\n");
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoStop::Execute() {
-
+	Robot::drivetrain->MoveStop();
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -40,13 +40,13 @@ bool AutoStop::IsFinished() {
 
 // Called once after isFinished returns true
 void AutoStop::End() {
-	std::printf("2135: AutoDriveTurn - End\n");
+	std::printf("2135: AutoStop - End\n");
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoStop::Interrupted() {
-	std::printf("2135: AutoDriveTurn - Interrupted\n");
+	std::printf("2135: AutoStop - Interrupted\n");
 
 }
