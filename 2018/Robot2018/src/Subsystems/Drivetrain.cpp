@@ -209,6 +209,15 @@ void Drivetrain::MoveSpin(bool spinRight)
 #endif
 }
 
+//	Automatic Drive Spin movement
+
+void Drivetrain::MoveStop()
+{
+#ifndef ROBORIO_STANDALONE
+	diffDrive->TankDrive(0.0, 0.0, false);
+#endif
+}
+
 //	Shift transmission gears
 
 void Drivetrain::MoveShiftGears(bool lowGear)

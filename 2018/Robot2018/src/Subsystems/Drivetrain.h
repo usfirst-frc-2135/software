@@ -84,6 +84,7 @@ public:
 	void Initialize(frc::Preferences *RobotConfig);
 	void MoveWithJoystick(std::shared_ptr<Joystick>);
 	void MoveSpin(bool spinRight);
+	void MoveStop(void);
 
 	// Shifting Gears
     void MoveShiftGears(bool lowGear);
