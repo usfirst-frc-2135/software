@@ -42,10 +42,10 @@ private:
 	const int					m_slotIndex = 0;					// Motor controller profile slot index
 	const int 					m_pidIndex = 0; 					// PID slot index for sensors
 	const int 					m_timeout = 10; 					// CAN timeout in msec to wait for response
-	const double				WheelDiaInches = 6.0;
-	const unsigned short int	CTRE_Mag_CPR = 1024; 				// CTRE magnetic encoder is 1024 counts per rev
-	const unsigned short int	Encoder_CPR = (CTRE_Mag_CPR * 4); 	// Talons report CPR * 4
-	const double				CountsPerInch = (double) Encoder_CPR / (WheelDiaInches * M_PI);
+	const double				COUNTS_PER_ROTATION = (1024*4);		// CPR is 1024 and multipled by 4 because it is a quadrature encoder
+	const double				WHEEL_DIA_INCHES = 6.0;
+	const double 				m_circumInches = (WHEEL_DIA_INCHES*M_PI);		//Circumference in inches (Real Robot)
+	const double				CountsPerInch = COUNTS_PER_ROTATION / (WHEEL_DIA_INCHES * M_PI);
 
 	// Declare module variables
 	double	m_driveScaling;			// Scaling applied to Joystick, on high gear only
@@ -59,6 +59,7 @@ private:
 	double  m_safetyTimeout; 		// Time in seconds for safety timer
 
 	double 	m_distTargetCounts;		// Drive distance target count value
+	double 	m_distTargetInches;		// Drive distance target inches value
 	double 	m_distKp;				// Drive distance proportional value
 	bool 	m_CL_pidStarted; 		// Flag to indicate PID has started and CL error is invalid
 	int		m_CL_allowError;		// Closed loop allowable error
@@ -87,6 +88,10 @@ public:
     void MoveShiftGears(bool lowGear);
     //Brake or Coast Mode
     void MoveSetBrakeMode(bool m_brakeMode);
+
+	double InchesToCounts(double inches);
+	double CountsToInches(int counts);
+	double GetCurrentInches(WPI_TalonSRX& motor);
 
     //Autonomous Programs
     void MoveDriveDistancePIDInit(double distance);

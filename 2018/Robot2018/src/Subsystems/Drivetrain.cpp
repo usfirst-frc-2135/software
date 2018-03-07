@@ -58,7 +58,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
     config->GetValueAsDouble("DT_DriveKp", m_distKp, 0.75);
     config->GetValueAsDouble("DT_AutonTurnKp", m_turnKp, 0.08);
-	config->GetValueAsInt("DT_AllowedCLError", m_CL_allowError, CTRE_Mag_CPR / 360);
+	config->GetValueAsInt("DT_AllowedCLError", m_CL_allowError, COUNTS_PER_ROTATION / 360);
 
     //Invert the direction of the motors
     motorL1->SetInverted(true);
@@ -98,6 +98,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
 	// Allowed Closed Loop Eroor - default in Talon
 
+//	diffDrive->SetExpiration(0.250);
 	diffDrive->SetSafetyEnabled(true);
 
  	gyro = new AHRS(SPI::Port::kMXP);
@@ -233,34 +234,56 @@ void Drivetrain::MoveSetBrakeMode(bool brakeMode)
 #endif
 }
 
+double Drivetrain::InchesToCounts(double inches) {
+	double counts;
+
+	counts = (inches / m_circumInches) * COUNTS_PER_ROTATION;
+	return counts;
+}
+
+double Drivetrain::CountsToInches(int counts) {
+	double inches;
+
+	inches = ((double) counts / COUNTS_PER_ROTATION) * m_circumInches;
+	return inches;
+}
+
+//double Drivetrain::GetCurrentInches (WPI_TalonSRX& motor) {
+//	double curCounts = 0.0;
+//
+//	curCounts = motor->GetSelectedSensorPosition(m_pidIndex);
+//	return CountsToInches(curCounts);
+//}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 // Autonomous driving PID initialization and setup
 
 void Drivetrain::MoveDriveDistancePIDInit(double inches)
 {
-	 m_distTargetCounts = inches * CountsPerInch;
-	 std::printf("2135: Encoder Distance Init %f counts, %f inches, %f CountsPerInch\n", m_distTargetCounts, inches, CountsPerInch);
+	m_distTargetInches = inches;
+	m_distTargetCounts = inches * CountsPerInch;
+	std::printf("2135: Drive Dist Init %f counts, %f inches, %f CountsPerInch\n", m_distTargetCounts, m_distTargetInches, CountsPerInch);
 
 #ifndef ROBORIO_STANDALONE
-	 // Initialize the encoders to start movement at reference of zero counts
-	 motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
-	 motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	// Initialize the encoders to start movement at reference of zero counts
+	motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 
-	 // Set the target distance in terms of wheel rotations
-	 motorL1->Set(ControlMode::Position, m_distTargetCounts);
-	 motorR3->Set(ControlMode::Position, -m_distTargetCounts);
+	// Set the target distance in terms of wheel rotations
+	motorL1->Set(ControlMode::Position, m_distTargetCounts);
+	motorR3->Set(ControlMode::Position, -m_distTargetCounts);
 
-	 // Set flag to indicate that the PID closed loop error is not yet valid
-	 m_CL_pidStarted = false;
+	// Set flag to indicate that the PID closed loop error is not yet valid
+	m_CL_pidStarted = false;
 
-	 // Start safety timer
-	 m_safetyTimeout = 3.5;
-	 m_safetyTimer.Reset();
-	 m_safetyTimer.Start();
+	// Start safety timer
+	m_safetyTimeout = 3.5;
+	m_safetyTimer.Reset();
+	m_safetyTimer.Start();
 
-	 // Disable motor safety helper during PID
-	 diffDrive->SetSafetyEnabled(false);
+	// Disable motor safety helper during PID
+	diffDrive->SetSafetyEnabled(false);
 #endif
 }
 
@@ -276,33 +299,46 @@ void Drivetrain::MoveDriveDistancePIDExecute()
 bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 {
 	bool pidFinished = false;
-	int closedLoopErrorLeft = 0, closedLoopErrorRight = 0;
+	int curCounts_L = 0;
+	int closedLoopError_L = 0;
+	double motorOutput_L = 0.0;
+	double errorInInches_L = 0;
+	int curCounts_R = 0;
+	int closedLoopError_R = 0;
+	double motorOutput_R = 0.0;
+	double errorInInches_R = 0;
 
-#ifndef ROBORIO_STANDALONE
-	closedLoopErrorLeft = motorL1->GetClosedLoopError(m_pidIndex);
-	closedLoopErrorRight = motorR3->GetClosedLoopError(m_pidIndex);
+#if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
+	curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
+	closedLoopError_L = motorL1->GetClosedLoopError(m_pidIndex);
+	motorOutput_L = motorL1->GetMotorOutputPercent();
+	curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
+	closedLoopError_R = motorR3->GetClosedLoopError(m_pidIndex);
+	motorOutput_R = motorR3->GetMotorOutputPercent();
 #endif
 
-	if (!m_CL_pidStarted && (abs(closedLoopErrorLeft) > Encoder_CPR) &&
-				(abs(closedLoopErrorRight) > Encoder_CPR))
-		{
-			m_CL_pidStarted = true;
-			std::printf("2135: Closed loop error has changed\n");
-		}
-	if (m_CL_pidStarted) {
-		if ((abs(closedLoopErrorLeft) <= m_CL_allowError) &&
-				(abs(closedLoopErrorRight) <= m_CL_allowError))
-			{
-				std::printf("2135: ClosedLoopError:     L: %d  R: %d\n",
-					closedLoopErrorLeft, closedLoopErrorRight);
-				pidFinished = true;
-			}
+	// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
+	std::printf("2135: Drive (L R) Counts %5d %5d CLE %5d %5d, Out %5.3f %5.3f\n",
+			curCounts_L, curCounts_R, closedLoopError_L, closedLoopError_R,
+			motorOutput_L, motorOutput_R);
+
+	// Check to see if the Safety Timer has timed out.
+	if (m_safetyTimer.Get() >= m_safetyTimeout) {
+		pidFinished = true;
+		m_safetyTimer.Stop();
+		std::printf("2135: Drive Dist Safety timer has timed out\n");
 	}
 
-	// Check if safety timer has expired
-	if (m_safetyTimer.HasPeriodPassed(m_safetyTimeout)) {
-		std::printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
+	// Check to see if the error is in an acceptable number of inches.
+	errorInInches_L = CountsToInches(m_distTargetCounts - (double)curCounts_L);
+	errorInInches_R = CountsToInches(m_distTargetCounts - (double)curCounts_R);
+	if ((fabs(errorInInches_L) < 2.0) && (fabs(errorInInches_R) < 2.0)) {
 		pidFinished = true;
+		m_safetyTimer.Stop();
+		std::printf("2135: Drive Dist Finished - Time %f\n", m_safetyTimer.Get());
+	}
+	else {
+		pidFinished = false;
 	}
 
 	// If on target or safety time has expired
@@ -313,28 +349,34 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 
 void Drivetrain::MoveDriveDistancePIDStop(void)
 {
+	int	curCounts_L;
+	int	curCounts_R;
+
 #ifndef ROBORIO_STANDALONE
 	// Stop the safety timer
-	std::printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
+	std::printf("2135: Drive Dist TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
 
 	// Change from PID position-loop back to PercentVbus for driver control
 	motorL1->Set(ControlMode::PercentOutput, 0.0);
 	motorR3->Set(ControlMode::PercentOutput, 0.0);
 
+	curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
+	curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
+
 	// Snapshot of results to SmartDashboard
-	SmartDashboard::PutNumber("DD PID L", motorL1->GetSelectedSensorPosition(m_pidIndex));
-	SmartDashboard::PutNumber("DD PID R", motorR3->GetSelectedSensorPosition(m_pidIndex));
+	SmartDashboard::PutNumber("DD PID L", curCounts_L);
+	SmartDashboard::PutNumber("DD PID R", curCounts_R);
 	SmartDashboard::PutNumber("DD TIME", m_safetyTimer.Get());
 
 	// Print results to console
-	std::printf("2135: TargetCounts: %3.2f   L: %5d  R: %5d\n", m_distTargetCounts,
-		motorL1->GetSelectedSensorPosition(m_pidIndex), motorR3->GetSelectedSensorPosition(m_pidIndex));
+	std::printf("2135: Drive Dist TargetCounts: %3.2f   L: %5d  R: %5d\n",
+			m_distTargetCounts, curCounts_L, curCounts_R);
 
 	// Do not shift back to high gear in case another auton command is running
 
 	// Re-enable the motor safety helper
-	diffDrive->SetSafetyEnabled(false);
+	diffDrive->SetSafetyEnabled(true);
 #endif
 }
 
