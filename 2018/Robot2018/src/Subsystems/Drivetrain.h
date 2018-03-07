@@ -60,6 +60,7 @@ private:
 
 	double 	m_distTargetCounts;		// Drive distance target count value
 	double 	m_distTargetInches;		// Drive distance target inches value
+	double	m_distErrInches;		// Drive distance tolerance in inches
 	double 	m_distKp;				// Drive distance proportional value
 	bool 	m_CL_pidStarted; 		// Flag to indicate PID has started and CL error is invalid
 	int		m_CL_allowError;		// Closed loop allowable error

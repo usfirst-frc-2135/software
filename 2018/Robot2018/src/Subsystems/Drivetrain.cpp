@@ -60,6 +60,8 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     config->GetValueAsDouble("DT_AutonTurnKp", m_turnKp, 0.08);
 	config->GetValueAsInt("DT_AllowedCLError", m_CL_allowError, COUNTS_PER_ROTATION / 360);
 
+	config->GetValueAsDouble("DT_DistErrInches", m_distErrInches, 1.0);
+
     //Invert the direction of the motors
     motorL1->SetInverted(true);
     motorL2->SetInverted(true);
@@ -263,7 +265,7 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches)
 {
 	m_distTargetInches = inches;
 	m_distTargetCounts = inches * CountsPerInch;
-	std::printf("2135: Drive Dist Init %f counts, %f inches, %f CountsPerInch\n", m_distTargetCounts, m_distTargetInches, CountsPerInch);
+	std::printf("2135: Drive Dist Init %5.2f counts, %5.2f inches, %5.2f CountsPerInch\n", m_distTargetCounts, m_distTargetInches, CountsPerInch);
 
 #ifndef ROBORIO_STANDALONE
 	// Initialize the encoders to start movement at reference of zero counts
@@ -318,7 +320,7 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 #endif
 
 	// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
-	std::printf("2135: Drive (L R) Counts %5d %5d CLE %5d %5d, Out %5.3f %5.3f\n",
+	std::printf("2135: Drive Dist (L R) Counts %5d %5d CLE %5d %5d, Out %5.3f %5.3f\n",
 			curCounts_L, curCounts_R, closedLoopError_L, closedLoopError_R,
 			motorOutput_L, motorOutput_R);
 
@@ -329,10 +331,11 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 		std::printf("2135: Drive Dist Safety timer has timed out\n");
 	}
 
-	// Check to see if the error is in an acceptable number of inches.
+	// Check to see if the error is in an acceptable number of inches. (R is negated)
 	errorInInches_L = CountsToInches(m_distTargetCounts - (double)curCounts_L);
-	errorInInches_R = CountsToInches(m_distTargetCounts - (double)curCounts_R);
-	if ((fabs(errorInInches_L) < 2.0) && (fabs(errorInInches_R) < 2.0)) {
+	errorInInches_R = CountsToInches(-m_distTargetCounts - (double)curCounts_R);
+//	printf("errorInInches %5.2f %5.2f\n", errorInInches_L, errorInInches_R);
+	if ((fabs(errorInInches_L) < m_distErrInches) && (fabs(errorInInches_R) < m_distErrInches)) {
 		pidFinished = true;
 		m_safetyTimer.Stop();
 		std::printf("2135: Drive Dist Finished - Time %f\n", m_safetyTimer.Get());
@@ -370,8 +373,8 @@ void Drivetrain::MoveDriveDistancePIDStop(void)
 	SmartDashboard::PutNumber("DD TIME", m_safetyTimer.Get());
 
 	// Print results to console
-	std::printf("2135: Drive Dist TargetCounts: %3.2f   L: %5d  R: %5d\n",
-			m_distTargetCounts, curCounts_L, curCounts_R);
+	std::printf("2135: Drive Dist End target %3.2f (L R) %5d  %5d, inches: %5.2f %5.2f\n",
+			m_distTargetCounts, curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R));
 
 	// Do not shift back to high gear in case another auton command is running
 
