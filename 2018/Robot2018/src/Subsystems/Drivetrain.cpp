@@ -224,6 +224,8 @@ void Drivetrain::MoveShiftGears(bool lowGear)
 {
 	m_lowGear = lowGear;
 
+	printf("2135: Drive %s gear\n", (lowGear) ? "LOW" : "HIGH");
+
 #ifndef ROBORIO_STANDALONE
     shifter->Set( (lowGear) ? shifter->kForward : shifter->kReverse);
 #endif
@@ -234,6 +236,8 @@ void Drivetrain::MoveShiftGears(bool lowGear)
 void Drivetrain::MoveSetBrakeMode(bool brakeMode)
 {
 	m_brakeMode = brakeMode;
+
+	printf("2135: Drive %s mode\n", (brakeMode) ? "BRAKE" : "COAST");
 
 #ifndef ROBORIO_STANDALONE
 	NeutralMode brakeOutput;
