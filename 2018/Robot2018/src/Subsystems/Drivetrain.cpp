@@ -56,8 +56,8 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 		std::printf("2135: ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
 	}
     config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
-    config->GetValueAsDouble("DT_DriveKp", m_distKp, 0.75);
-    config->GetValueAsDouble("DT_AutonTurnKp", m_turnKp, 0.08);
+    config->GetValueAsDouble("DT_DriveKp", m_distKp, 0.40);
+    config->GetValueAsDouble("DT_AutonTurnKp", m_turnKp, 0.020);
 	config->GetValueAsInt("DT_AllowedCLError", m_CL_allowError, COUNTS_PER_ROTATION / 360);
 
 	config->GetValueAsDouble("DT_DistErrInches", m_distErrInches, 1.0);
@@ -92,6 +92,14 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 	motorL1->Config_kP(m_slotIndex, m_distKp, m_timeout);
 	motorR3->Config_kP(m_slotIndex, m_distKp, m_timeout);
 
+	// TODO: Tune these PID loop controls
+	// Ramp rate is "seconds to full speed"
+	motorL1->ConfigClosedloopRamp(0.100, m_timeout);
+	motorR3->ConfigClosedloopRamp(0.100, m_timeout);
+	// Peak output is percent of full speed
+	motorL1->ConfigClosedLoopPeakOutput(m_slotIndex, 0.65, m_timeout);
+	motorR3->ConfigClosedLoopPeakOutput(m_slotIndex, 0.65, m_timeout);
+
 	// Set motor peak output levels
 	motorL1->ConfigPeakOutputForward(peakOutput, m_timeout);
 	motorL1->ConfigPeakOutputReverse(-peakOutput, m_timeout);
@@ -114,10 +122,10 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
  	// Initialize PID for Turn PID
    	driveTurnPIDOutput = new PIDOutputDriveTurn(diffDrive);
-   	driveTurnPIDLoop = new PIDController(0.08, 0.0, 0.0, gyro, driveTurnPIDOutput);
-
+   	driveTurnPIDLoop = new PIDController(0.0002, 0.0, 0.0, gyro, driveTurnPIDOutput, 0.010);
+   	driveTurnPIDLoop->
    	// Settings for Turn PID // TODO: Calculate real PID and outputs and get from either defaults or Robot Config
-   	driveTurnPIDLoop->SetPID(0.08, 0.0, 0.0);
+   	driveTurnPIDLoop->SetPID(0.040, 0.0, 0.0);
    	driveTurnPIDLoop->SetOutputRange(-1.0, 1.0);
    	driveTurnPIDLoop->SetAbsoluteTolerance(2.0);
 #endif
@@ -225,6 +233,7 @@ void Drivetrain::MoveShiftGears(bool lowGear)
 	m_lowGear = lowGear;
 
 	printf("2135: Drive %s gear\n", (lowGear) ? "LOW" : "HIGH");
+	SmartDashboard::PutBoolean("DT Low Gear", lowGear);
 
 #ifndef ROBORIO_STANDALONE
     shifter->Set( (lowGear) ? shifter->kForward : shifter->kReverse);
@@ -238,6 +247,7 @@ void Drivetrain::MoveSetBrakeMode(bool brakeMode)
 	m_brakeMode = brakeMode;
 
 	printf("2135: Drive %s mode\n", (brakeMode) ? "BRAKE" : "COAST");
+	SmartDashboard::PutBoolean("DT Brake Mode", brakeMode);
 
 #ifndef ROBORIO_STANDALONE
 	NeutralMode brakeOutput;
@@ -414,7 +424,8 @@ void Drivetrain::MoveDriveTurnPIDInit(double angle) {
 
 void Drivetrain::MoveDriveTurnPIDExecute(void) {
 	// No work needed
-	std::printf("2135: Move Drive Turn Exec %f degrees\n", gyro->GetAngle());
+	std::printf("2135: Move Drive Turn Exec %f degrees (%f %f)\n", gyro->GetAngle(),
+			motorL1->GetMotorOutputPercent(), motorR3->GetMotorOutputPercent());
 }
 
 // Autonomous turn PID setpoint monitoring
