@@ -17,12 +17,6 @@ PIDOutputDriveTurn::~PIDOutputDriveTurn(void) {
 }
 
 void PIDOutputDriveTurn::PIDWrite(double output) {
-	// Output applied to each motor to make the robot turn depending on if positive or negative angle given
-	if (output > 0.0) {
-		m_robotDrive->TankDrive(0.0, -output);
-	}
-	else {
-		m_robotDrive->TankDrive(output, 0.0);
-	}
+	m_robotDrive->TankDrive(output, -output);
 }
 

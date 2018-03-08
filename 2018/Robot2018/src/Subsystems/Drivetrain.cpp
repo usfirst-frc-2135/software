@@ -56,8 +56,9 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 		std::printf("2135: ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
 	}
     config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
-    config->GetValueAsDouble("DT_DriveKp", m_distKp, 0.40);
-    config->GetValueAsDouble("DT_AutonTurnKp", m_turnKp, 0.020);
+    config->GetValueAsDouble("DT_PidDistKp", m_distKp, 0.40);
+    config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.020);
+    config->GetValueAsDouble("DT_PidTurnMaxOutput", m_turnMaxOut, 1.0);
 	config->GetValueAsInt("DT_AllowedCLError", m_CL_allowError, COUNTS_PER_ROTATION / 360);
 
 	config->GetValueAsDouble("DT_DistErrInches", m_distErrInches, 1.0);
@@ -122,11 +123,11 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
  	// Initialize PID for Turn PID
    	driveTurnPIDOutput = new PIDOutputDriveTurn(diffDrive);
-   	driveTurnPIDLoop = new PIDController(0.0002, 0.0, 0.0, gyro, driveTurnPIDOutput, 0.010);
-   	driveTurnPIDLoop->
+   	driveTurnPIDLoop = new PIDController(m_turnKp, 0.0, 0.0, gyro, driveTurnPIDOutput, 0.010);
+
    	// Settings for Turn PID // TODO: Calculate real PID and outputs and get from either defaults or Robot Config
-   	driveTurnPIDLoop->SetPID(0.040, 0.0, 0.0);
-   	driveTurnPIDLoop->SetOutputRange(-1.0, 1.0);
+   	driveTurnPIDLoop->SetPID(m_turnKp, 0.0, 0.0);
+   	driveTurnPIDLoop->SetOutputRange(-m_turnMaxOut, m_turnMaxOut);
    	driveTurnPIDLoop->SetAbsoluteTolerance(2.0);
 #endif
 }

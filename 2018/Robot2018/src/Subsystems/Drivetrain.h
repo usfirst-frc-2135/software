@@ -66,6 +66,7 @@ private:
 	int		m_CL_allowError;		// Closed loop allowable error
 
 	double 	m_turnKp;				// Proportional value for PID for DriveTurn function
+	double 	m_turnMaxOut;			// Max motor output value for PID for DriveTurn function
 
 	AHRS 	*gyro;					// Initializes NavX Board and gyro
 
