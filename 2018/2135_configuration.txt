@@ -4,7 +4,7 @@
  DT_DriveScaling = 1.0   
  DT_TurnScaling = 1.0
  DT_DriveSpin = 0.45
- DT_DriveKp = 0.75
+ DT_DriveKp = 0.50
  DT_AutonTurnKp = 0.08 
  DT_AllowedCLError = 0
 # Elevator settings
