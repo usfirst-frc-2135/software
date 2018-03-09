@@ -173,16 +173,16 @@ bool Elevator::HeightLimitToLowGear() {
 
 //	Elevator PID loop state management
 
-void Elevator::MoveToPosition(int height) {
+void Elevator::MoveToPosition(int level) {
 
 	double curInches = 0.0;
 	int curCounts = 0;
 
-	m_elevatorLevel = height;
+	m_elevatorLevel = level;
 
 	// Validate and set the requested position to move
-	switch (height) {
-	case NOCHANGE_HEIGHT:	// Do not change from current height!
+	switch (level) {
+	case NOCHANGE_HEIGHT:	// Do not change from current level!
 		// m_targetInches = m_targetInches;
 		break;
 	case FLOOR_HEIGHT:
@@ -212,7 +212,7 @@ void Elevator::MoveToPosition(int height) {
 		m_targetInches = GetCurrentInches() + bumpHeight;
 		break;
 	default:
-		std::printf("2135: Elevator invalid height requested - %d\n", height);
+		std::printf("2135: Elevator invalid height requested - %d\n", level);
 		return;
 	}
 
