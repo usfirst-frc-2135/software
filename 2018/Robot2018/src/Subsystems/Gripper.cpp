@@ -43,8 +43,8 @@ Gripper::Gripper() : frc::Subsystem("Gripper") {
     config->GetValueAsDouble("GR_MotorSpeed", m_gripperSpeed, 1.0);
 
     // Set motor directions
-    motorL11->SetInverted(true);
-    motorR12->SetInverted(false);
+    motorL11->SetInverted(false);
+    motorR12->SetInverted(true);
 
     // Turn on Brake mode (not coast)
     motorL11->SetNeutralMode(NeutralMode::Brake);
