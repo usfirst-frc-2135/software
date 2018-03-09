@@ -234,9 +234,9 @@ void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<WPI_Ta
 void Robot::SmartDashboardStartChooser() {
 	chooser.AddDefault("Auton Default", new AutoStop());
 	chooser.AddObject("Pos 123 Move", new AutoPos123Move());
-	chooser.AddObject("Pos 1 Gear", new AutoPos1Switch());
-	chooser.AddObject("Pos 2 Gear", new AutoPos2Switch());
-	chooser.AddObject("Pos 3 Gear", new AutoPos3Switch());
+	chooser.AddObject("Pos 1 Switch", new AutoPos1Switch());
+	chooser.AddObject("Pos 2 Switch", new AutoPos2Switch());
+	chooser.AddObject("Pos 3 Switch", new AutoPos3Switch());
 	frc::SmartDashboard::PutData("Auto Modes", &chooser);
 }
 
