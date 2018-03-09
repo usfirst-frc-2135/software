@@ -16,7 +16,7 @@
  EL_MaxHeight = 27.0
  EL_MinHeight = 0.0
  EL_BumpHeight = 2.0
- EL_FloorHeight = 0.0
+ EL_FloorHeight = 0.5
  EL_SwitchHeight = 5.1
  EL_ScaleLoHeight = 10.1
  EL_ScaleHiHeight = 15.1
