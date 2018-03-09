@@ -43,7 +43,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, 0);
     config->GetValueAsDouble("WR_OffsetDegrees", m_offsetDegrees);
-	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 1.0);
+	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 5.1);
 	config->GetValueAsDouble("WR_WristFlat", m_flatAngle, 0);
 	config->GetValueAsDouble("WR_WristDelivery", m_deliveryAngle, 0);
 	config->GetValueAsDouble("WR_WristStowed", m_stowedAngle, 0);
@@ -98,6 +98,8 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 
     // Field for manually progamming elevator height
 	SmartDashboard::PutNumber("WR Setpoint", m_curDegrees);
+
+	SmartDashboard::PutBoolean("WR Calibrated", false);
 }
 
 void Wrist::InitDefaultCommand() {
@@ -137,7 +139,7 @@ void Wrist::Initialize(frc::Preferences *RobotConfig)
 double Wrist::DegreesToCounts(double degrees) {
 	double counts;
 
-	counts = -1 * (degrees * ((COUNTS_PER_ROTATION * OUTPUT_SHAFT_REDUCTION)/ 360) );
+	counts = -1 * (degrees * ((COUNTS_PER_ROTATION * OUTPUT_SHAFT_REDUCTION) / 360) );
 	return counts;
 }
 
@@ -263,4 +265,5 @@ void Wrist::BumpToPosition(bool direction) {
 
 void Wrist::Calibrate() {
 	motorW14->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	SmartDashboard::PutBoolean("WR Calibrated", true);
 }
