@@ -34,7 +34,7 @@
  WR_MaxCounts = 100
  WR_MinCounts = -2300
  WR_OffsetDegrees = 0.0
- WR_WristFlat = 5.0
+ WR_WristFlat = 3.0
 # Estimate at 70.0?
  WR_WristDelivery = 55.0
  WR_WristStowed = 50.0

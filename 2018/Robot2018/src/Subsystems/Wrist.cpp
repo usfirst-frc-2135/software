@@ -247,7 +247,7 @@ bool Wrist::MoveToPositionIsFinished(void)
 
 		// Check to see if the error is in an acceptable number of inches.
 		errorInDegrees = CountsToDegrees(m_targetCounts - (double)curCounts);
-		if (fabs(errorInDegrees < 2.0)) {
+		if (fabs(errorInDegrees < 3.0)) {
 			pidFinished = true;
 			m_safetyTimer.Stop();
 			std::printf("2135: Wrist Move Finished\n");
