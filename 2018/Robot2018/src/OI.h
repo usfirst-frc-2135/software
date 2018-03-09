@@ -34,23 +34,23 @@ private:
 	
 	
 	std::shared_ptr<frc::Joystick> operatorBoard2;
-	std::shared_ptr<frc::JoystickButton> wristFromDash;
 	std::shared_ptr<frc::JoystickButton> elevatorFromDash;
+	std::shared_ptr<frc::JoystickButton> wristFromDash;
+	std::shared_ptr<frc::JoystickButton> wristStow;
+	std::shared_ptr<frc::JoystickButton> wristDeliver;
+	std::shared_ptr<frc::JoystickButton> wristAcquire;
+	std::shared_ptr<frc::Joystick> operatorBoard1;
+	std::shared_ptr<frc::JoystickButton> gripperExpel;
+	std::shared_ptr<frc::JoystickButton> gripperSpin;
+	std::shared_ptr<frc::JoystickButton> gripperAcquire;
+	std::shared_ptr<frc::JoystickButton> elevatorBumpDown;
+	std::shared_ptr<frc::JoystickButton> elevatorBumpUp;
 	std::shared_ptr<frc::JoystickButton> elevatorLevitate;
 	std::shared_ptr<frc::JoystickButton> elevatorClimb;
-	std::shared_ptr<frc::JoystickButton> elevatorBumpDown;
-	std::shared_ptr<frc::Joystick> operatorBoard1;
-	std::shared_ptr<frc::JoystickButton> elevatorBumpUp;
-	std::shared_ptr<frc::JoystickButton> elevatorScaleHigh;
-	std::shared_ptr<frc::JoystickButton> elevatorScaleLow;
-	std::shared_ptr<frc::JoystickButton> elevatorSwitch;
 	std::shared_ptr<frc::JoystickButton> elevatorFloor;
-	std::shared_ptr<frc::JoystickButton> wristAcquire;
-	std::shared_ptr<frc::JoystickButton> wristDeliver;
-	std::shared_ptr<frc::JoystickButton> wristStow;
-	std::shared_ptr<frc::JoystickButton> gripperSpin;
-	std::shared_ptr<frc::JoystickButton> gripperExpel;
-	std::shared_ptr<frc::JoystickButton> gripperAcquire;
+	std::shared_ptr<frc::JoystickButton> elevatorSwitch;
+	std::shared_ptr<frc::JoystickButton> elevatorScaleLow;
+	std::shared_ptr<frc::JoystickButton> elevatorScaleHigh;
 	std::shared_ptr<frc::Joystick> dStick;
 	std::shared_ptr<frc::JoystickButton> elevatorUp;
 	std::shared_ptr<frc::JoystickButton> elevatorDown;
