@@ -58,7 +58,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
     config->GetValueAsDouble("DT_PidDistKp", m_distKp, 0.40);
     config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.020);
-    config->GetValueAsDouble("DT_PidTurnMaxOutput", m_turnMaxOut, 1.0);
+    config->GetValueAsDouble("DT_PidTurnMaxOut", m_turnMaxOut, 1.0);
 	config->GetValueAsInt("DT_AllowedCLError", m_CL_allowError, COUNTS_PER_ROTATION / 360);
 
 	config->GetValueAsDouble("DT_DistErrInches", m_distErrInches, 1.0);
@@ -156,7 +156,7 @@ void Drivetrain::Periodic() {
 	// If elevator is too high, set to low gear
 	// TODO: This does not correctly limit low gear, just sets it temporarily
 	if (Robot::elevator->HeightLimitToLowGear()) {
-	    MoveShiftGears(true);
+//	    MoveShiftGears(true);
 	}
 #endif
 }
