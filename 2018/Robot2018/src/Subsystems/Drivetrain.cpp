@@ -287,14 +287,17 @@ double Drivetrain::CountsToInches(int counts) {
 
 void Drivetrain::MoveDriveDistancePIDInit(double inches)
 {
+	ctre::phoenix::ErrorCode errCode;
 	m_distTargetInches = inches;
 	m_distTargetCounts = inches * CountsPerInch;
 	std::printf("2135: Drive Dist Init %5.2f counts, %5.2f inches, %5.2f CountsPerInch\n", m_distTargetCounts, m_distTargetInches, CountsPerInch);
 
 #ifndef ROBORIO_STANDALONE
 	// Initialize the encoders to start movement at reference of zero counts
-	motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
-	motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	errCode = motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	printf("2135: !!! MoveDriveDistance Left Encoder Reset Error: %d\n", errCode);
+	errCode = motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	printf("2135: !!! MoveDriveDistance Right Encoder Reset Error: %d\n", errCode);
 
 	// Set the target distance in terms of wheel rotations
 	motorL1->Set(ControlMode::Position, m_distTargetCounts);
@@ -358,7 +361,7 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 	// Check to see if the error is in an acceptable number of inches. (R is negated)
 	errorInInches_L = CountsToInches(m_distTargetCounts - (double)curCounts_L);
 	errorInInches_R = CountsToInches(-m_distTargetCounts - (double)curCounts_R);
-//	printf("errorInInches %5.2f %5.2f\n", errorInInches_L, errorInInches_R);
+	printf("errorInInches %5.2f %5.2f\n", errorInInches_L, errorInInches_R);
 	if ((fabs(errorInInches_L) < m_distErrInches) && (fabs(errorInInches_R) < m_distErrInches)) {
 		pidFinished = true;
 		m_safetyTimer.Stop();
@@ -449,4 +452,9 @@ void Drivetrain::MoveDriveTurnPIDStop(void){
 
 	driveTurnPIDLoop->Disable();
 #endif
+}
+
+void Drivetrain::ResetEncoders(void) {
+	motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 }

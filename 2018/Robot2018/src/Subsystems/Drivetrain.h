@@ -106,6 +106,9 @@ public:
     void MoveDriveTurnPIDExecute();
     bool MoveDriveTurnIsPIDAtSetPoint();
     void MoveDriveTurnPIDStop();
+
+    //Manual Reset of Drivetrain Encoders
+    void ResetEncoders();
 };
 
 #endif
