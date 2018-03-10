@@ -219,14 +219,19 @@ void Elevator::MoveToPosition(int level) {
 		return;
 	}
 
+	std::printf("2135: Elevator m_targetInches: %f, InchesToCounts: %f\n",
+			m_targetInches, InchesToCounts(m_targetInches));
+
 	// Save the requested target height inches
 	if (m_calibrated == true) {
 
 		// Constrain input request to a valid and safe range between full down and max height
 		if (m_targetInches < m_elevatorMinHeight) {
+			std::printf("2135: Elevator m_targetInches limited by m_elevatorMinHeight %f\n", m_elevatorMinHeight);
 			m_targetInches = m_elevatorMinHeight;
 		}
 		if (m_targetInches > m_elevatorMaxHeight) { //TODO Determine upwards limit
+			std::printf("2135: Elevator m_targetInches limited by m_elevatorMaxHeight %f\n", m_elevatorMaxHeight);
 			m_targetInches = m_elevatorMaxHeight;
 		}
 

@@ -194,12 +194,15 @@ void Wrist::MoveToPosition(int level)
 	}
 
 	// Constrain input request to a valid and safe range between full down and max height
-	//std::printf("2135: m_targetDegrees: %f, CountstoDegrees: %f\n", m_targetDegrees, CountstoDegrees(m_targetCounts));
+	std::printf("2135: Wrist m_targetDegrees: %f, counts: %f\n",
+			m_targetDegrees, DegreesToCounts(m_targetDegrees));
 
 	if (m_targetDegrees > CountsToDegrees(m_wristMinCounts)) {
+		std::printf("2135: Wrist m_targetDegrees limited by m_wristMinCounts %d\n", m_wristMinCounts);
 		m_targetDegrees = CountsToDegrees(m_wristMinCounts);
 	}
 	if (m_targetDegrees < CountsToDegrees(m_wristMaxCounts)) {
+		std::printf("2135: Wrist m_targetDegrees limited by m_wristMaxCounts %d\n", m_wristMaxCounts);
 		m_targetDegrees = CountsToDegrees(m_wristMaxCounts);
 	}
 
