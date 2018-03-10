@@ -73,7 +73,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	motorW14->EnableCurrentLimit(false);
 
  	// Set proportional constant
-	motorW14->Config_kP(0, m_pidKp, m_timeout); // TODO: Set the proportional
+	motorW14->Config_kP(m_slotIndex, m_pidKp, m_timeout); // TODO: Set the proportional
 	//    motorW14->Config_kD(m_slotIndex, 10 * m_pidKp, m_timeout);
 
 	motorW14->ConfigForwardSoftLimitThreshold(m_wristMaxCounts, m_timeout);
@@ -82,7 +82,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	motorW14->ConfigReverseSoftLimitEnable(true, m_timeout);
 
 	// Set closed loop error
-	motorW14->ConfigAllowableClosedloopError(0, m_pidAllowableCLE, m_timeout);
+	motorW14->ConfigAllowableClosedloopError(m_slotIndex, m_pidAllowableCLE, m_timeout);
 
 	// Enable wrist PID with existing sensor reading (no movement)
 	motorW14->Set(ControlMode::Position, DegreesToCounts(m_curDegrees));
