@@ -40,4 +40,8 @@
  WR_WristDelivery = 55.0
  WR_WristStowed = 60.0
 # Autonomous settings
- Pos123Move_D = 97.25
+ AutoDriveDist = 97.25
+ AutoPos123Move = 97.25
+ AutoPos1Switch = 97.25
+ AutoPos2Switch = 97.25
+ AutoPos3Switch = 97.25
