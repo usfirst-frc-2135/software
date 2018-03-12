@@ -27,8 +27,8 @@ AutoDriveDist::AutoDriveDist(double distance): frc::Command() {
 void AutoDriveDist::Initialize(){
 	// If distance is less than 0.1 (default is 0.0), then read RobotConfig
 	//	auton programs will pass in larger value
-		RobotConfig* config = RobotConfig::GetInstance();
-		config->GetValueAsDouble("Pos123Move_D", m_distance, 97.25);
+	RobotConfig* config = RobotConfig::GetInstance();
+	config->GetValueAsDouble("Pos123Move_D", m_distance, 97.25);
 
 	std::printf("2135: AutoDriveDist - Init\n");
 	Robot::drivetrain->MoveDriveDistancePIDInit(m_distance);
