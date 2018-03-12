@@ -108,7 +108,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
 	// Allowed Closed Loop Eroor - default in Talon
 
-//	diffDrive->SetExpiration(0.250);
+	diffDrive->SetExpiration(0.250);
 	diffDrive->SetSafetyEnabled(true);
 
  	gyro = new AHRS(SPI::Port::kMXP);
