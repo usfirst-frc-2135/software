@@ -25,7 +25,7 @@ ElevatorCalibrateOverride::ElevatorCalibrateOverride(): frc::Command() {
 
 // Called just before this Command runs the first time
 void ElevatorCalibrateOverride::Initialize() {
-	std::printf("2135: Elevator Calibrate Override - Init\n");
+	std::printf("2135: ElevatorCalibrateOverride - Init\n");
 	Robot::elevator->CalibrationOverride();
 }
 
@@ -41,11 +41,13 @@ bool ElevatorCalibrateOverride::IsFinished() {
 
 // Called once after isFinished returns true
 void ElevatorCalibrateOverride::End() {
+	std::printf("2135: ElevatorCalibrateOverride - End\n");
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ElevatorCalibrateOverride::Interrupted() {
+	std::printf("2135: ElevatorCalibrateOverride - Interrupted\n");
 
 }

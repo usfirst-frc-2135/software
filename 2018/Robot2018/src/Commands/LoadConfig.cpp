@@ -24,7 +24,7 @@ LoadConfig::LoadConfig(): frc::Command() {
 
 // Called just before this Command runs the first time
 void LoadConfig::Initialize() {
-	 std::printf("2135: Load Config Initialized\n");
+	 std::printf("2135: LoadConfig Initialized\n");
 	 RobotConfig*myRC = RobotConfig::GetInstance();
 	myRC->LoadConfig();
 }
@@ -41,11 +41,11 @@ bool LoadConfig::IsFinished() {
 
 // Called once after isFinished returns true
 void LoadConfig::End() {
-	std::printf("2135: Load Config Ended\n");
+	std::printf("2135: LoadConfig Ended\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void LoadConfig::Interrupted() {
-	std::printf("2135: Load Config Interrupted\n");
+	std::printf("2135: LoadConfig Interrupted\n");
 }

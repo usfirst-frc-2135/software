@@ -25,7 +25,7 @@ WristRun::WristRun(int position): frc::Command() {
 
 // Called just before this Command runs the first time
 void WristRun::Initialize() {
-	std::printf("2135: Wrist Run - Init [%d]\n", m_position);
+	std::printf("2135: WristRun - Init [%d]\n", m_position);
 	Robot::wrist->MoveToPosition(m_position);
 }
 
@@ -44,11 +44,11 @@ bool WristRun::IsFinished() {
 
 // Called once after isFinished returns true
 void WristRun::End() {
-	std::printf("2135: Wrist Run - End\n");
+	std::printf("2135: WristRun - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void WristRun::Interrupted() {
-	std::printf("2135: Wrist Run - Interrupted\n");
+	std::printf("2135: WristRun - Interrupted\n");
 }
