@@ -41,18 +41,18 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 
     // Get any config file settings
     RobotConfig* config = RobotConfig::GetInstance();
-    config->GetValueAsDouble("EL_CalibSpeed", m_calibrationSpeed, 0.2);
-    config->GetValueAsDouble("EL_PidSpeed", m_pidSpeed, 0.4);
+    config->GetValueAsDouble("EL_CalibSpeed", m_calibrationSpeed, 0.25);
+    config->GetValueAsDouble("EL_PidSpeed", m_pidSpeed, 1.0);
     config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.25);
     config->GetValueAsInt("EL_PidAllowableCLE", m_pidAllowableCLE, 0);
-    config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 22.0);
+    config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 27.0);
     config->GetValueAsDouble("EL_MinHeight", m_elevatorMinHeight, 0.0);
 	config->GetValueAsDouble("EL_BumpHeight", m_bumpHeight, 1.0);
-	config->GetValueAsDouble("EL_FloorHeight", m_floorHeight, 0.0);
-	config->GetValueAsDouble("EL_SwitchHeight", m_switchHeight, 5.0);
-	config->GetValueAsDouble("EL_ScaleLoHeight", m_scaleLoHeight, 10.0);
-	config->GetValueAsDouble("EL_ScaleHiHeight", m_scaleHiHeight, 15.0);
-	config->GetValueAsDouble("EL_ClimbHeight", m_climbHeight, 20.0);
+	config->GetValueAsDouble("EL_FloorHeight", m_floorHeight, 0.5);
+	config->GetValueAsDouble("EL_SwitchHeight", m_switchHeight, 15.0);
+	config->GetValueAsDouble("EL_ScaleLoHeight", m_scaleLoHeight, 32.0);
+	config->GetValueAsDouble("EL_ScaleHiHeight", m_scaleHiHeight, 33.0);
+	config->GetValueAsDouble("EL_ClimbHeight", m_climbHeight, 33.0);
 	config->GetValueAsDouble("EL_LevitateHeight", m_levitateHeight, 18.0);
 	config->GetValueAsDouble("EL_SafetyTimeout", m_safetyTimeout, 4.0);
 	config->GetValueAsDouble("EL_LowGearHeight", m_lowGearHeight, 15.00);

@@ -5,9 +5,10 @@
  DT_TurnScaling = 1.0
  DT_DriveSpin = 0.45
  DT_PidDistKp = 0.40
- DT_PidTurnKp = 0.02 
+ DT_PidTurnKp = 0.020 
  DT_PidTurnMaxOut = 0.6 
  DT_AllowedCLError = 0
+ DT_PidDistErrInches = 1.0
 # Elevator settings
  EL_CalibSpeed = 0.25
  EL_PidSpeed = 1.0
@@ -31,14 +32,12 @@
  WR_PidSpeed = 0.6
  WR_PidKp = 1.5
  WR_PidAllowableCLE = 0
- WR_MaxCounts = 100
- WR_MinCounts = -2300
+ WR_MaxCounts = 0
+ WR_MinCounts = -1800
+ WR_BumpAngle = 5.0
  WR_OffsetDegrees = 0.0
  WR_WristFlat = 3.0
-# Estimate at 70.0?
  WR_WristDelivery = 55.0
- WR_WristStowed = 50.0
- WR_BumpAngle = 5.0
+ WR_WristStowed = 60.0
 # Autonomous settings
-# Estimated 105.0?
  Pos123Move_D = 97.25

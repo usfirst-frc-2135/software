@@ -37,16 +37,16 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 
     // Get any config file settings
     RobotConfig* config = RobotConfig::GetInstance();
-    config->GetValueAsDouble("WR_PidSpeed", m_pidSpeed, 0.4);
-    config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.25);
+    config->GetValueAsDouble("WR_PidSpeed", m_pidSpeed, 0.6);
+    config->GetValueAsDouble("WR_PidKp", m_pidKp, 1.5);
     config->GetValueAsInt("WR_PidAllowableCLE", m_pidAllowableCLE, 0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
-    config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, 0);
-    config->GetValueAsDouble("WR_OffsetDegrees", m_offsetDegrees);
-	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 5.1);
-	config->GetValueAsDouble("WR_WristFlat", m_flatAngle, 0);
-	config->GetValueAsDouble("WR_WristDelivery", m_deliveryAngle, 0);
-	config->GetValueAsDouble("WR_WristStowed", m_stowedAngle, 0);
+    config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1500);
+    config->GetValueAsDouble("WR_OffsetDegrees", m_offsetDegrees, 0.0);
+	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 5.0);
+	config->GetValueAsDouble("WR_WristFlat", m_flatAngle, 3.0);
+	config->GetValueAsDouble("WR_WristDelivery", m_deliveryAngle, 55.0);
+	config->GetValueAsDouble("WR_WristStowed", m_stowedAngle, 60.0);
 	config->GetValueAsDouble("WR_SafetyTimeout", m_safetyTimeout, 1.5);
 
 	// Set the motor direction for the wrist
