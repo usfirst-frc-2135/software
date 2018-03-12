@@ -60,6 +60,11 @@ void Robot::RobotInit() {
 	MicrosoftCamera.SetVideoMode(cs::VideoMode::kMJPEG, 640, 360, 15);
 #endif
 	SmartDashboardStartChooser();
+
+	m_FMSAlliSwitch = SIDE_UNINIT;
+	m_FMSScale = SIDE_UNINIT;
+	m_FMSOppSwitch = SIDE_UNINIT;
+	FMSGameDataRead();
 }
 
 /**
@@ -84,21 +89,8 @@ void Robot::AutonomousInit() {
 	drivetrain->MoveSetBrakeMode(true);
 	drivetrain->MoveShiftGears(true);
 
-	// Initializes the gameData that read switch and scale colors from the FMS
-	std::string gameData;
-	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
-
-	// Reads switch closest to Alliance Station
-	m_FMSAllianceSwitch = gameData[0];
-	std::printf("2135: Auto Level 1 Alliance Switch %s Side\n", (m_FMSAllianceSwitch == 'L') ? "LEFT" : "RIGHT");
-
-	// Reads scale
-	m_FMSScale = gameData[1];
-	std::printf("2135: Auto Level 2 Scale %s Side\n", (m_FMSScale == 'L') ? "LEFT" : "RIGHT");
-
-	// Reads switch farthest from the Alliance Station
-	m_FMSOpponentSwitch = gameData[2];
-	std::printf("2135: Auto Level 3 Opponent Switch %s Side \n", (m_FMSOpponentSwitch == 'L') ? "LEFT" : "RIGHT");
+	std::printf("2135: Auton Init - FMS Read Game Data\n");
+	FMSGameDataRead();
 
 	autonomousCommand = chooser.GetSelected();
 	if (autonomousCommand != nullptr)
@@ -106,6 +98,7 @@ void Robot::AutonomousInit() {
 }
 
 void Robot::AutonomousPeriodic() {
+	FMSGameDataRead();
 	frc::Scheduler::GetInstance()->Run();
 }
 
@@ -125,17 +118,88 @@ void Robot::TeleopPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
 }
 
-bool Robot::FMSAllianceSwitchIsLeft(void) {
-	return (m_FMSAllianceSwitch == 'L');
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Evalulate game data character into an enum for internal use
+
+Robot::fmsSide_t Robot::FMSGameDataSide(char c) {
+
+	fmsSide_t	side;
+
+	switch (c) {
+	case 'L':
+		side = SIDE_LEFT;
+		break;
+	case 'R':
+		side = SIDE_RIGHT;
+		break;
+	default:
+		side = SIDE_UNKNOWN;
+	}
+	return side;
 }
 
-bool Robot::FMSScaleIsLeft(void) {
-	return (m_FMSScale == 'L');
+// Return correct string for a specified enum
+
+const char *Robot::FMSGameDataString(fmsSide_t side) {
+
+	const char *str;
+
+	switch (side) {
+	case SIDE_LEFT:
+		str = FMS_Left;
+		break;
+	case SIDE_RIGHT:
+		str = FMS_Right;
+		break;
+	case SIDE_UNKNOWN:
+		str = FMS_Unknown;
+		break;
+	default:
+		str = FMS_Uninit;
+	}
+	return str;
 }
 
-bool Robot::FMSOpponentSwitchIsLeft(void) {
-	return (m_FMSOpponentSwitch == 'L');
+void Robot::FMSGameDataRead(void) {
+	std::string gameData;		// Game specific data from driver station
+	fmsSide_t	fmsAlliSwitch = SIDE_UNINIT;
+	fmsSide_t	fmsScale = SIDE_UNINIT;
+	fmsSide_t	fmsOppSwitch = SIDE_UNINIT;
+
+	// Initializes the gameData that read switch and scale colors from the FMS
+	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+
+	// Update dashboard only if data received
+	if (!gameData.empty()) {
+		// Reads switch closest to Alliance Station
+		fmsAlliSwitch = FMSGameDataSide(gameData[0]);
+
+		// Reads scale
+		fmsScale = FMSGameDataSide(gameData[1]);
+
+		// Reads switch farthest from the Alliance Station
+		fmsOppSwitch = FMSGameDataSide(gameData[2]);
+	}
+
+	// If data has changed update smart dashboard and print to console
+	if (m_FMSAlliSwitch != fmsAlliSwitch) {
+		m_FMSAlliSwitch = fmsAlliSwitch;
+		std::printf("2135: FMS Alli Switch %s Side\n", FMSGameDataString(m_FMSAlliSwitch));
+		SmartDashboard::PutString(ROBOT_FMSALLISWITCH, FMSGameDataString(m_FMSAlliSwitch));
+	}
+	if (m_FMSScale != fmsScale) {
+		m_FMSScale = fmsScale;
+		std::printf("2135: FMS Scale %s Side\n", FMSGameDataString(m_FMSScale));
+		SmartDashboard::PutString(ROBOT_FMSSCALE, FMSGameDataString(m_FMSScale));
+	}
+	if (m_FMSOppSwitch != fmsOppSwitch) {
+		m_FMSOppSwitch = fmsOppSwitch;
+		std::printf("2135: FMS Opponent Switch %s Side\n", FMSGameDataString(m_FMSOppSwitch));
+		SmartDashboard::PutString(ROBOT_FMSOPPSWITCH, FMSGameDataString(m_FMSOppSwitch));
+	}
 }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 //	Fault handling utilities

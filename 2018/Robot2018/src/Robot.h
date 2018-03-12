@@ -37,9 +37,6 @@
 class Robot : public frc::TimedRobot {
 public:
 	frc::Command* autonomousCommand = nullptr;
-	char m_FMSAllianceSwitch;
-	char m_FMSScale;
-	char m_FMSOpponentSwitch;
 
 	static std::unique_ptr<OI> oi;
 	frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
@@ -60,12 +57,20 @@ public:
 	void TeleopInit() override;
 	void TeleopPeriodic() override;
 
-	bool FMSAllianceSwitchIsLeft(void);
-	bool FMSScaleIsLeft(void);
-	bool FMSOpponentSwitchIsLeft(void);
-
 private:
+	enum fmsSide_t { SIDE_UNINIT, SIDE_UNKNOWN, SIDE_LEFT, SIDE_RIGHT };
+	const char *FMS_Left = "LEFT";
+	const char *FMS_Right = "RIGHT";
+	const char *FMS_Unknown = "UNKNOWN";
+	const char *FMS_Uninit = "UNINIT";
+	fmsSide_t m_FMSAlliSwitch;
+	fmsSide_t m_FMSScale;
+	fmsSide_t m_FMSOppSwitch;
 	bool m_faultsCleared;
+
+	fmsSide_t FMSGameDataSide(char c);
+	const char *FMSGameDataString(fmsSide_t side);
+	void FMSGameDataRead(void);
 
 	void RobotFaultDump(void);
 	void RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<WPI_TalonSRX> talonPtr);
