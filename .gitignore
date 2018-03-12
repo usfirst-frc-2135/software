@@ -1,5 +1,14 @@
 # filter the following file types from git diff processing
 
+# RobotBuilder backup files
 *~
-/**/sysProps.xml
-/**/.settings/language.settings.xml
+
+# Windows backup files (WinMerge creates)
+**/*.bak
+
+# Windows executable files
+**/*.exe
+
+# Eclipse internal files
+**/sysProps.xml
+**/.settings/language.settings.xml
