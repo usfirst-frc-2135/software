@@ -15,27 +15,30 @@
  EL_PidAllowableCLE = 0
  EL_MaxHeight = 27.0
  EL_MinHeight = 0.0
- EL_BumpHeight = 2.0
- EL_FloorHeight = 0.0
- EL_SwitchHeight = 5.1
- EL_ScaleLoHeight = 10.1
- EL_ScaleHiHeight = 15.1
- EL_ClimbHeight = 20.1
- EL_LevitateHeight = 18.1
+ EL_BumpHeight = 1.0
+ EL_FloorHeight = 0.5
+ EL_SwitchHeight = 15.0
+ EL_ScaleLoHeight = 32.0
+# Until higher values are tested
+ EL_ScaleHiHeight = 33.0
+ EL_ClimbHeight = 33.0
+ EL_LevitateHeight = 18.0
  EL_SafetyTimeout = 4.0
  EL_LowGearHeight = 15.0
 # Gripper settings
  GR_MotorSpeed = 1.0
 # Wrist settings
- WR_PidSpeed = 0.4
+ WR_PidSpeed = 0.6
  WR_PidKp = 1.5
  WR_PidAllowableCLE = 0
  WR_MaxCounts = 100
  WR_MinCounts = -2300
  WR_OffsetDegrees = 0.0
- WR_BumpAngle = 2.0
- WR_WristFlat = 0.0
- WR_WristDelivery = 25.0
+ WR_WristFlat = 3.0
+# Estimate at 70.0?
+ WR_WristDelivery = 55.0
  WR_WristStowed = 50.0
+ WR_BumpAngle = 5.0
 # Autonomous settings
+# Estimated 105.0?
  Pos123Move_D = 97.25
