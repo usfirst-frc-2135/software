@@ -1,6 +1,5 @@
 # filter the following file types from git diff processing
 
 *~
-2016/Robot2016/.settings/language.settings.xml
-2016/Robot2016/sysProps.xml
-2017/Robot2017/.settings/language.settings.xml
+/**/sysProps.xml
+/**/.settings/language.settings.xml
