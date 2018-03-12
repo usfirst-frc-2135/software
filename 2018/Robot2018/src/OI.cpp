@@ -24,7 +24,6 @@
 #include "Commands/DriveReset.h"
 #include "Commands/DriveShift.h"
 #include "Commands/DriveSpin.h"
-#include "Commands/DriveStop.h"
 #include "Commands/DriveTeleop.h"
 #include "Commands/ElevatorBump.h"
 #include "Commands/ElevatorCalibrate.h"
@@ -98,7 +97,6 @@ OI::OI() {
     shiftSpeed->WhileHeld(new DriveShift(true));
 
     // SmartDashboard Buttons
-    frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
     frc::SmartDashboard::PutData("Load Config", new LoadConfig());
     frc::SmartDashboard::PutData("Wrist Calibrate", new WristCalibrate());
     frc::SmartDashboard::PutData("Wrist Bump: BUMP_UP", new WristBump(true));
@@ -119,6 +117,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("Elevator Run: CLIMB_HEIGHT", new ElevatorRun(4));
     frc::SmartDashboard::PutData("Elevator Run: LEVITATE_HEIGHT", new ElevatorRun(5));
     frc::SmartDashboard::PutData("Elevator Run: SMARTDASH_HEIGHT", new ElevatorRun(6));
+    frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
     frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT_DIST", new AutoDriveDist(48.0));
     frc::SmartDashboard::PutData("Auto Drive Turn: DEFAULT_ANGLE", new AutoDriveTurn(45.0));
     frc::SmartDashboard::PutData("Auto Stop", new AutoStop());
