@@ -277,8 +277,9 @@ bool Elevator::MoveToPositionIsFinished() {
 		motorOutput = motorL7->GetMotorOutputPercent();
 #endif
 
-		// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
-		std::printf("2135: EL cts %d, in %5.2f, CLE %d, Out %f\n",
+		double secs = (double)RobotController::GetFPGATime() / 1000000.0;
+		// cts = Encoder Counts, CLE = Closed Loop Error, Out = Motor Output
+		std::printf("2135: EL %5.3f cts %d, in %5.2f, CLE %d, Out %4.2f\n", secs,
 				curCounts, CountsToInches(curCounts), closedLoopError, motorOutput);
 
 		// Check to see if the Safety Timer has timed out.

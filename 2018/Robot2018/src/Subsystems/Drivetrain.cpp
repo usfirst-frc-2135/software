@@ -345,9 +345,10 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 	motorOutput_R = motorR3->GetMotorOutputPercent();
 #endif
 
+	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
 	// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
-	std::printf("2135: DD (L R) cts %5d %5d, in %5.2f %5.2f, CLE %5d %5d, Out %5.3f %5.3f\n",
-			curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R),
+	std::printf("2135: DD %5.3f (L R) cts %5d %5d, in %5.2f %5.2f, CLE %5d %5d, Out %4.2f %4.2f\n",
+			secs, curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R),
 			closedLoopError_L, closedLoopError_R, motorOutput_L, motorOutput_R);
 
 	// Check to see if the Safety Timer has timed out.
