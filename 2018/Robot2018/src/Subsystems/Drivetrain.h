@@ -42,29 +42,30 @@ private:
 	const int					m_slotIndex = 0;					// Motor controller profile slot index
 	const int 					m_pidIndex = 0; 					// PID slot index for sensors
 	const int 					m_timeout = 10; 					// CAN timeout in msec to wait for response
-	const double				COUNTS_PER_ROTATION = (1024*4);		// CPR is 1024 and multipled by 4 because it is a quadrature encoder
-	const double				WHEEL_DIA_INCHES = 6.0;
+	const double					COUNTS_PER_ROTATION = (1024*4);		// CPR is 1024 and multipled by 4 because it is a quadrature encoder
+	const double					WHEEL_DIA_INCHES = 6.0;
 	const double 				m_circumInches = (WHEEL_DIA_INCHES*M_PI);		//Circumference in inches (Real Robot)
-	const double				CountsPerInch = COUNTS_PER_ROTATION / (WHEEL_DIA_INCHES * M_PI);
+	const double					CountsPerInch = COUNTS_PER_ROTATION / (WHEEL_DIA_INCHES * M_PI);
 
 	// Declare module variables
 	double	m_driveScaling;			// Scaling applied to Joystick, on high gear only
 	double	m_turnScaling;			// Turn scaling (1.0 is disabled, < 1.0 is max X output)
-	double	m_driveSpin;			// Spin turn power setting
+	double	m_driveSpin;				// Spin turn power setting
 
 	bool 	m_lowGear;				// Low Gear or High Gear
-	bool 	m_brakeMode;			// Brake or Coast Mode for Talons
+	bool 	m_brakeMode;				// Brake or Coast Mode for Talons
 
 	Timer 	m_safetyTimer;			// Safety timer for use during autonomous modes
 	double  m_safetyTimeout; 		// Time in seconds for safety timer
 
 	double 	m_distTargetCounts;		// Drive distance target count value
 	double 	m_distTargetInches;		// Drive distance target inches value
-	double	m_distErrInches;		// Drive distance tolerance in inches
+	double	m_distErrInches;			// Drive distance tolerance in inches
 	double 	m_distKp;				// Drive distance proportional value
 	bool 	m_CL_pidStarted; 		// Flag to indicate PID has started and CL error is invalid
-	int		m_CL_allowError;		// Closed loop allowable error
+	int		m_CL_allowError;			// Closed loop allowable error
 
+	double 	m_turnAngle;				// Desired turn angle from present course
 	double 	m_turnKp;				// Proportional value for PID for DriveTurn function
 	double 	m_turnMaxOut;			// Max motor output value for PID for DriveTurn function
 

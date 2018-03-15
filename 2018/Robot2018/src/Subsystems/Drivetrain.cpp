@@ -345,12 +345,6 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 	motorOutput_R = motorR3->GetMotorOutputPercent();
 #endif
 
-	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
-	// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
-	std::printf("2135: DD %5.3f (L R) cts %5d %5d, in %5.2f %5.2f, CLE %5d %5d, Out %4.2f %4.2f\n",
-			secs, curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R),
-			closedLoopError_L, closedLoopError_R, motorOutput_L, motorOutput_R);
-
 	// Check to see if the Safety Timer has timed out.
 	if (m_safetyTimer.Get() >= m_safetyTimeout) {
 		pidFinished = true;
@@ -361,7 +355,13 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 	// Check to see if the error is in an acceptable number of inches. (R is negated)
 	errorInInches_L = CountsToInches(m_distTargetCounts - (double)curCounts_L);
 	errorInInches_R = CountsToInches(-m_distTargetCounts - (double)curCounts_R);
-	printf("errorInInches %5.2f %5.2f\n", errorInInches_L, errorInInches_R);
+
+	// cts = Encoder Counts, CLE = Closed Loop Error, Out = Motor Output
+	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
+	std::printf("2135: DD %5.3f (L R) cts %5d %5d in %5.2f %5.2f CLE %5d %5d, Out %5.3f %5.3f errIn %5.2f %5.2f\n",
+			secs, curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R),
+			closedLoopError_L, closedLoopError_R, motorOutput_L, motorOutput_R, errorInInches_L, errorInInches_R);
+
 	if ((fabs(errorInInches_L) < m_distErrInches) && (fabs(errorInInches_R) < m_distErrInches)) {
 		pidFinished = true;
 		m_safetyTimer.Stop();
@@ -417,6 +417,7 @@ void Drivetrain::MoveDriveDistancePIDStop(void)
 void Drivetrain::MoveDriveTurnPIDInit(double angle) {
 #ifndef ROBORIO_STANDALONE
 	gyro->ZeroYaw();
+	m_turnAngle = angle;
 
 	std::printf("2135: Move Drive Turn Init %f degrees\n", angle);
 	driveTurnPIDLoop->SetSetpoint(angle);
@@ -427,9 +428,23 @@ void Drivetrain::MoveDriveTurnPIDInit(double angle) {
 // Autonomous turn PID periodic execution
 
 void Drivetrain::MoveDriveTurnPIDExecute(void) {
+	int curCounts_L = 0;
+	double motorOutput_L = 0.0;
+	int curCounts_R = 0;
+	double motorOutput_R = 0.0;
+
+#if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
+	curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
+	motorOutput_L = motorL1->GetMotorOutputPercent();
+	curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
+	motorOutput_R = motorR3->GetMotorOutputPercent();
+#endif
+
 	// No work needed
-	std::printf("2135: Move Drive Turn Exec %f degrees (%f %f)\n", gyro->GetAngle(),
-			motorL1->GetMotorOutputPercent(), motorR3->GetMotorOutputPercent());
+	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
+	std::printf("2135: DT %5.3f deg %4.2f -> %4.2f (err %4.2f) cts %5d %5d Out %4.2f %4.2f\n",
+			secs, gyro->GetAngle(), m_turnAngle, m_turnAngle - gyro->GetAngle(),
+			curCounts_L, curCounts_R, motorOutput_L, motorOutput_R);
 }
 
 // Autonomous turn PID setpoint monitoring
