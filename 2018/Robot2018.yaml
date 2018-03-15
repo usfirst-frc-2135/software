@@ -789,7 +789,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: intakeDirection,
-            type: int, value: '0'}
+            type: int, value: '2'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id003
           default: '1'
@@ -1323,7 +1323,23 @@ Children:
                 default: []
                 name: Parameter presets
                 validators: null
-                value: []
+                value:
+                - !!robotbuilder.data.properties.ParameterSet
+                  name: GRIPPER_REVERSE
+                  parameters:
+                  - {name: intakeDirection, type: int, value: '-1'}
+                - !!robotbuilder.data.properties.ParameterSet
+                  name: GRIPPER_STOP
+                  parameters:
+                  - {name: intakeDirection, type: int, value: '0'}
+                - !!robotbuilder.data.properties.ParameterSet
+                  name: GRIPPER_FORWARD
+                  parameters:
+                  - {name: intakeDirection, type: int, value: '1'}
+                - !!robotbuilder.data.properties.ParameterSet
+                  name: GRIPPER_SPIN
+                  parameters:
+                  - {name: intakeDirection, type: int, value: '2'}
               Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {
                 default: true, name: Button on SmartDashboard, validators: null, value: false}
           hasMatch: true

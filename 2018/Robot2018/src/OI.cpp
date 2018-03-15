@@ -60,7 +60,7 @@ OI::OI() {
     gripperExpel.reset(new frc::JoystickButton(operatorBoard1.get(), 11));
     gripperExpel->WhileHeld(new GripperRun(-1));
     gripperSpin.reset(new frc::JoystickButton(operatorBoard1.get(), 10));
-    gripperSpin->WhileHeld(new GripperRun(0));
+    gripperSpin->WhileHeld(new GripperRun(2));
     gripperAcquire.reset(new frc::JoystickButton(operatorBoard1.get(), 9));
     gripperAcquire->WhileHeld(new GripperRun(1));
     elevatorBumpDown.reset(new frc::JoystickButton(operatorBoard1.get(), 8));
