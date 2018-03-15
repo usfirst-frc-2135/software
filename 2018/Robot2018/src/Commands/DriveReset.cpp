@@ -26,7 +26,7 @@ DriveReset::DriveReset(): frc::Command() {
 // Called just before this Command runs theDriveResetme
 void DriveReset::Initialize() {
 	std::printf("2135: DriveReset - Init\n");
-	Robot::drivetrain->ResetEncoders();
+	Robot::drivetrain->ResetSensors();
 
 }
 

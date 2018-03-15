@@ -453,7 +453,8 @@ void Drivetrain::MoveDriveTurnPIDStop(void){
 #endif
 }
 
-void Drivetrain::ResetEncoders(void) {
+void Drivetrain::ResetSensors(void) {
 	motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 	motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	gyro->Reset();
 }

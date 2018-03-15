@@ -108,7 +108,7 @@ public:
     void MoveDriveTurnPIDStop();
 
     //Manual Reset of Drivetrain Encoders
-    void ResetEncoders();
+    void ResetSensors();
 };
 
 #endif
