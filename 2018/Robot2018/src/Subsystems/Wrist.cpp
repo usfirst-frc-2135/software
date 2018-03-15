@@ -208,6 +208,9 @@ void Wrist::MoveToPosition(int level)
 
 	m_targetCounts = DegreesToCounts(m_targetDegrees);
 
+	curCounts = motorW14->GetSelectedSensorPosition(m_pidIndex);
+	m_curDegrees = CountsToDegrees(curCounts);
+
 	//Start the safety timer.
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
@@ -222,7 +225,7 @@ void Wrist::MoveToPosition(int level)
 
 #endif
 	std::printf("2135: Wrist Move degrees %f -> %f counts %d -> %f\n",
-			CountsToDegrees(curCounts), m_targetDegrees, curCounts, m_targetCounts);
+			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
 }
 
 bool Wrist::MoveToPositionIsFinished(void)
@@ -243,7 +246,8 @@ bool Wrist::MoveToPositionIsFinished(void)
 #endif
 #endif
 		// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
-		std::printf("2135: Wrist EncCount %d, CLE %d, M_Output %f\n", curCounts, closedLoopError, motorOutput);
+		std::printf("2135: WR cts %d, deg %4.2f, CLE %d, Out %f\n",
+				curCounts, CountsToDegrees(curCounts), closedLoopError, motorOutput);
 
 		// Check to see if the Safety Timer has timed out.
 		if (m_safetyTimer.Get() >= m_safetyTimeout) {

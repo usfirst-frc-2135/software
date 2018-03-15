@@ -178,7 +178,6 @@ bool Elevator::HeightLimitToLowGear() {
 
 void Elevator::MoveToPosition(int level) {
 
-	double curInches = 0.0;
 	int curCounts = 0;
 
 	m_elevatorLevel = level;
@@ -240,8 +239,7 @@ void Elevator::MoveToPosition(int level) {
 #if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
 		// Get current position in inches and set position mode and target counts
 		curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
-		curInches = CountsToInches(curCounts);
-		m_curInches = curInches;
+		m_curInches = CountsToInches(curCounts);
 
 		//Start the safety timer.
 		m_safetyTimer.Reset();
@@ -251,7 +249,7 @@ void Elevator::MoveToPosition(int level) {
 #endif
 
 		std::printf("2135: Elevator Move inches %f -> %f counts %d -> %f\n",
-				curInches, m_targetInches, curCounts, m_targetCounts);
+				m_curInches, m_targetInches, curCounts, m_targetCounts);
 	}
 	else {
 		std::printf("2135: Elevator is not calibrated\n");
@@ -280,7 +278,8 @@ bool Elevator::MoveToPositionIsFinished() {
 #endif
 
 		// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
-		std::printf("2135: Elevator Counts %d, CLE %d, Out %f\n", curCounts, closedLoopError, motorOutput);
+		std::printf("2135: EL cts %d, in %5.2f, CLE %d, Out %f\n",
+				curCounts, CountsToInches(curCounts), closedLoopError, motorOutput);
 
 		// Check to see if the Safety Timer has timed out.
 		if (m_safetyTimer.Get() >= m_safetyTimeout) {

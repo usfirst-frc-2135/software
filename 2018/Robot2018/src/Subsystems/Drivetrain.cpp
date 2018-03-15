@@ -346,9 +346,9 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 #endif
 
 	// EncCount = Encoder Counts, CLE = Closed Loop Error, M_Output = Motor Output
-	std::printf("2135: Drive Dist (L R) Counts %5d %5d CLE %5d %5d, Out %5.3f %5.3f\n",
-			curCounts_L, curCounts_R, closedLoopError_L, closedLoopError_R,
-			motorOutput_L, motorOutput_R);
+	std::printf("2135: DD (L R) cts %5d %5d, in %5.2f %5.2f, CLE %5d %5d, Out %5.3f %5.3f\n",
+			curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R),
+			closedLoopError_L, closedLoopError_R, motorOutput_L, motorOutput_R);
 
 	// Check to see if the Safety Timer has timed out.
 	if (m_safetyTimer.Get() >= m_safetyTimeout) {
