@@ -273,13 +273,6 @@ double Drivetrain::CountsToInches(int counts) {
 	return inches;
 }
 
-//double Drivetrain::GetCurrentInches (WPI_TalonSRX& motor) {
-//	double curCounts = 0.0;
-//
-//	curCounts = motor->GetSelectedSensorPosition(m_pidIndex);
-//	return CountsToInches(curCounts);
-//}
-
 ///////////////////////////////////////////////////////////////////////////////
 
 // Autonomous driving PID initialization and setup
@@ -336,7 +329,7 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 	double motorOutput_R = 0.0;
 	double errorInInches_R = 0;
 
-#if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
+#ifndef ROBORIO_STANDALONE
 	curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
 	closedLoopError_L = motorL1->GetClosedLoopError(m_pidIndex);
 	motorOutput_L = motorL1->GetMotorOutputPercent();
@@ -433,7 +426,7 @@ void Drivetrain::MoveDriveTurnPIDExecute(void) {
 	int curCounts_R = 0;
 	double motorOutput_R = 0.0;
 
-#if !defined (ROBORIO_STANDALONE) || defined (ROBOTBENCHTOPTEST)
+#ifndef ROBORIO_STANDALONE
 	curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
 	motorOutput_L = motorL1->GetMotorOutputPercent();
 	curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
@@ -470,7 +463,9 @@ void Drivetrain::MoveDriveTurnPIDStop(void){
 }
 
 void Drivetrain::ResetSensors(void) {
+#ifndef ROBORIO_STANDALONE
 	motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 	motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 	gyro->Reset();
+#endif
 }
