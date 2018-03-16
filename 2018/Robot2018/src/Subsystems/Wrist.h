@@ -16,8 +16,6 @@
 #include "../RobotDefaults.h"
 #include "../frc2135/RobotConfig.h"
 
-#define	TALON_W14_PRESENT
-
 /**
  *
  *
