@@ -1,117 +1,159 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="DT_GyroAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="16" y="64"/>
+	<widget field="DD TIME" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="352" y="544"/>
 	</widget>
-	<widget field="EL Hall Sensor" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="496" y="78"/>
-		<width>237</width>
+	<widget field="DD PID R" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="352" y="518"/>
 	</widget>
-	<widget field="EL Calibrated" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="496" y="102"/>
-		<width>229</width>
-	</widget>
-	<widget field="Wrist Run: WRIST_SMARTDASH" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="2" y="369"/>
-	</widget>
-	<widget field="Wrist Run: WRIST_DELIVER" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="18" y="290"/>
-	</widget>
-	<widget field="Wrist Run: WRIST_STOWED" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="15" y="329"/>
-	</widget>
-	<widget field="Wrist Run: WRIST_NOCHANGE" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="-7" y="215"/>
-	</widget>
-	<widget field="Wrist Run: WRIST_FLAT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="43" y="253"/>
-	</widget>
-	<widget field="WR Degrees" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="35" y="113"/>
-	</widget>
-	<widget field="WR Counts" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="43" y="144"/>
-	</widget>
-	<widget field="WR Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="40" y="413"/>
-	</widget>
-	<widget field="EL Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="464" y="438"/>
-	</widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="800" y="4"/>
-		<width>1100</width>
-		<height>626</height>
-		<property name="Camera Choice" value=""/>
-	</static-widget>
-	<widget field="Elevator Run: LEVITATE_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="389" y="361"/>
-	</widget>
-	<widget field="Auto Drive Dist: DEFAULT_DIST" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="434" y="580"/>
-	</widget>
-	<widget field="Elevator Run: SCALE_LO_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="384" y="265"/>
-	</widget>
-	<widget field="Elevator Bump: BUMP_UP" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="446" y="473"/>
-	</widget>
-	<widget field="Elevator Run: SMARTDASH_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="368" y="393"/>
-	</widget>
-	<widget field="Elevator Bump: BUMP_DOWN" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="418" y="505"/>
-	</widget>
-	<widget field="Auto Drive Turn: DEFAULT_ANGLE" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="410" y="543"/>
-	</widget>
-	<widget field="Elevator Run: SCALE_HI_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="389" y="297"/>
-	</widget>
-	<widget field="Elevator Run: CLIMB_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="416" y="329"/>
-	</widget>
-	<widget field="Elevator Run: SWITCH_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="400" y="233"/>
-	</widget>
-	<widget field="Elevator Run: FLOOR_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="412" y="201"/>
-	</widget>
-	<widget field="Cube Height" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="503" y="38"/>
-	</widget>
-	<widget field="EL Height" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="522" y="6"/>
-	</widget>
-	<widget field="Elevator Calibrate Override" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="432" y="160"/>
+	<widget field="DD PID L" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="352" y="496"/>
 	</widget>
 	<widget field="Auto Modes" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="10" y="450"/>
-	</widget>
-	<widget field="Auto Stop" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="213" y="456"/>
-	</widget>
-	<widget field="Load Config" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="304" y="12"/>
-	</widget>
-	<widget field="Elevator Calibrate" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="496" y="128"/>
-	</widget>
-	<widget field="DT_Encoder_R" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="16" y="32"/>
-	</widget>
-	<widget field="DT_Encoder_L" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="16" y="0"/>
-		<height>26</height>
-	</widget>
-	<widget field="Wrist Calibrate" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="113" y="179"/>
+		<location x="656" y="272"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="800" y="4"/>
-		<width>1280</width>
-		<height>720</height>
+		<location x="931" y="3"/>
+		<width>983</width>
+		<height>549</height>
+		<property name="Camera Choice" value=""/>
+	</static-widget>
+	<widget field="DT Brake Mode" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="16" y="28"/>
+		<width>256</width>
+	</widget>
+	<widget field="WR Calibrated" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="16" y="278"/>
+		<width>240</width>
+	</widget>
+	<widget field="EL Calibrated" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="16" y="172"/>
+		<width>240</width>
+	</widget>
+	<widget field="EL Hall Sensor" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="16" y="140"/>
+		<width>256</width>
+	</widget>
+	<widget field="DT Low Gear" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="16" y="0"/>
+		<width>240</width>
+	</widget>
+	<widget field="FMS Opp Switch" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="11" y="432"/>
+	</widget>
+	<widget field="FMS Scale" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="56" y="406"/>
+	</widget>
+	<widget field="FMS Alli Switch" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="18" y="384"/>
+		<height>26</height>
+	</widget>
+	<widget field="Load Config" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="400" y="128"/>
+	</widget>
+	<widget field="Wrist Run: WRIST_SMARTDASH" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="590" y="144"/>
+	</widget>
+	<widget field="Wrist Bump: BUMP_DOWN" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="615" y="217"/>
+	</widget>
+	<widget field="Wrist Run: WRIST_DELIVER" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="621" y="80"/>
+	</widget>
+	<widget field="Elevator Run: LEVITATE_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="277" y="329"/>
+	</widget>
+	<widget field="Auto Drive Dist: DEFAULT_DIST" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="16" y="521"/>
+	</widget>
+	<widget field="Elevator Run: SCALE_LO_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="272" y="233"/>
+	</widget>
+	<widget field="Wrist Bump: BUMP_UP" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="640" y="185"/>
+	</widget>
+	<widget field="Elevator Calibrate Override" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="296" y="64"/>
+	</widget>
+	<widget field="Wrist Calibrate" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="383" y="96"/>
+	</widget>
+	<widget field="Drive Reset" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="400" y="0"/>
+	</widget>
+	<widget field="Elevator Calibrate" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="362" y="32"/>
+	</widget>
+	<widget field="Elevator Bump: BUMP_UP" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="334" y="409"/>
+	</widget>
+	<widget field="Elevator Run: SMARTDASH_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="256" y="368"/>
+	</widget>
+	<widget field="Auto Test Init" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="68" y="457"/>
+	</widget>
+	<widget field="Elevator Bump: BUMP_DOWN" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="306" y="441"/>
+	</widget>
+	<widget field="Wrist Run: WRIST_STOWED" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="619" y="112"/>
+	</widget>
+	<widget field="Wrist Run: WRIST_NOCHANGE" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="592" y="9"/>
+	</widget>
+	<widget field="Auto Drive Turn: DEFAULT_ANGLE" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="553"/>
+	</widget>
+	<widget field="Elevator Run: SCALE_HI_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="277" y="265"/>
+	</widget>
+	<widget field="Auto Stop" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="96" y="489"/>
+	</widget>
+	<widget field="Elevator Run: CLIMB_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="304" y="297"/>
+	</widget>
+	<widget field="Elevator Run: SWITCH_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="288" y="201"/>
+	</widget>
+	<widget field="Elevator Run: FLOOR_HEIGHT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="288" y="169"/>
+	</widget>
+	<widget field="Wrist Run: WRIST_FLAT" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="640" y="48"/>
+	</widget>
+	<widget field="WR Degrees" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="40" y="326"/>
+	</widget>
+	<widget field="WR Counts" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="48" y="304"/>
+	</widget>
+	<widget field="WR Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="39" y="352"/>
+	</widget>
+	<widget field="Cube Height" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="39" y="224"/>
+	</widget>
+	<widget field="EL Height" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="58" y="198"/>
+	</widget>
+	<widget field="DT_Encoder_R" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="20" y="80"/>
+	</widget>
+	<widget field="DT_Encoder_L" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="22" y="54"/>
+	</widget>
+	<widget field="EL Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="46" y="246"/>
+	</widget>
+	<widget field="DT_GyroAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="21" y="102"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="931" y="3"/>
+		<width>983</width>
+		<height>549</height>
 		<property name="Camera Choice" value=""/>
 	</static-widget>
 </dashboard>
