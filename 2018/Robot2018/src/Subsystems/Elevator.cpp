@@ -357,7 +357,7 @@ void Elevator::CalibrationExecute() {
 		break;
 	case CALIB_MOVE_UP:
 		// Check to see if moved up 3 rotations
-		printf("2135: EL Encoder Counts %d\n", motorL7->GetSelectedSensorPosition(m_pidIndex));
+		std::printf("2135: EL Encoder Counts %d\n", motorL7->GetSelectedSensorPosition(m_pidIndex));
 		if (abs(motorL7->GetSelectedSensorPosition(m_pidIndex)) > (COUNTS_PER_ROTATION)) {
 			std::printf("2135: EL Calibration - done moving up\n");
 			motorL7->Set(ControlMode::PercentOutput, 0.0);
