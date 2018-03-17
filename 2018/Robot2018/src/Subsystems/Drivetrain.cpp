@@ -295,8 +295,6 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches)
 	motorL1->Set(ControlMode::Position, m_distTargetCounts);
 	motorR3->Set(ControlMode::Position, -m_distTargetCounts);
 
-	// Set flag to indicate that the PID closed loop error is not yet valid
-	m_CL_pidStarted = false;
 
 	// Start safety timer
 	m_safetyTimeout = 3.5;
