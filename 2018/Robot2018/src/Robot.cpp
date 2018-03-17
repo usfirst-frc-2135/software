@@ -69,6 +69,7 @@ void Robot::RobotInit() {
 	m_FMSAlliSwitch = SIDE_UNINIT;
 	m_FMSScale = SIDE_UNINIT;
 	m_FMSOppSwitch = SIDE_UNINIT;
+	SmartDashboardStartChooser();
 	FMSGameDataRead();
 }
 
@@ -127,6 +128,7 @@ void Robot::TeleopPeriodic() {
 
 void Robot::SmartDashboardStartChooser() {
 
+	// Keep names short due to bug in smartdashboard
 	chooser.AddObject("Pos 123 Move", new AutoPos123Move());
 	chooser.AddObject("Pos 1 Switch", new AutoPos1Switch());
 	chooser.AddObject("Pos 2 Switch", new AutoPos2Switch());
