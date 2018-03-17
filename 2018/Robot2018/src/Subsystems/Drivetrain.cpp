@@ -150,7 +150,7 @@ void Drivetrain::Periodic() {
 #ifndef ROBORIO_STANDALONE
 	SmartDashboard::PutNumber("DT_Encoder_L", motorL1->GetSelectedSensorPosition(0));
 	SmartDashboard::PutNumber("DT_Encoder_R", motorR3->GetSelectedSensorPosition(0));
-	SmartDashboard::PutNumber("DT_GyroAngle", gyro->GetAngle());
+	SmartDashboard::PutNumber("DT_GyroAngle", gyro->GetYaw());
 
 	// If elevator is too high, set to low gear
 	// TODO: This does not correctly limit low gear, just sets it temporarily
@@ -282,7 +282,8 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches)
 	ctre::phoenix::ErrorCode errCode;
 	m_distTargetInches = inches;
 	m_distTargetCounts = inches * CountsPerInch;
-	std::printf("2135: Drive Dist Init %5.2f counts, %5.2f inches, %5.2f CountsPerInch\n", m_distTargetCounts, m_distTargetInches, CountsPerInch);
+	std::printf("2135: Drive Dist Init %5.2f counts, %5.2f inches, %5.2f CountsPerInch\n",
+			m_distTargetCounts, m_distTargetInches, CountsPerInch);
 
 #ifndef ROBORIO_STANDALONE
 	// Initialize the encoders to start movement at reference of zero counts
@@ -295,15 +296,14 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches)
 	motorL1->Set(ControlMode::Position, m_distTargetCounts);
 	motorR3->Set(ControlMode::Position, -m_distTargetCounts);
 
+	// Disable motor safety helper during PID
+	diffDrive->SetSafetyEnabled(false);
+#endif
 
 	// Start safety timer
 	m_safetyTimeout = 3.5;
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
-
-	// Disable motor safety helper during PID
-	diffDrive->SetSafetyEnabled(false);
-#endif
 }
 
 // Autonomous driving PID periodic execution
@@ -319,21 +319,21 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 {
 	bool pidFinished = false;
 	int curCounts_L = 0;
-	int closedLoopError_L = 0;
-	double motorOutput_L = 0.0;
-	double errorInInches_L = 0;
 	int curCounts_R = 0;
+	int closedLoopError_L = 0;
 	int closedLoopError_R = 0;
+	double motorOutput_L = 0.0;
 	double motorOutput_R = 0.0;
-	double errorInInches_R = 0;
+	double errorInInches_L = 0.0;
+	double errorInInches_R = 0.0;
 
 #ifndef ROBORIO_STANDALONE
 	curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
-	closedLoopError_L = motorL1->GetClosedLoopError(m_pidIndex);
-	motorOutput_L = motorL1->GetMotorOutputPercent();
 	curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
-	closedLoopError_R = motorR3->GetClosedLoopError(m_pidIndex);
+	motorOutput_L = motorL1->GetMotorOutputPercent();
 	motorOutput_R = motorR3->GetMotorOutputPercent();
+	closedLoopError_L = motorL1->GetClosedLoopError(m_pidIndex);
+	closedLoopError_R = motorR3->GetClosedLoopError(m_pidIndex);
 #endif
 
 	// Check to see if the Safety Timer has timed out.
@@ -370,100 +370,167 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 
 void Drivetrain::MoveDriveDistancePIDStop(void)
 {
-	int	curCounts_L;
-	int	curCounts_R;
+	int curCounts_L = 0;
+	int curCounts_R = 0;
+	int closedLoopError_L = 0;
+	int closedLoopError_R = 0;
+	double motorOutput_L = 0.0;
+	double motorOutput_R = 0.0;
+	double errorInInches_L = 0.0;
+	double errorInInches_R = 0.0;
 
-#ifndef ROBORIO_STANDALONE
 	// Stop the safety timer
 	std::printf("2135: Drive Dist TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
 	m_safetyTimer.Stop();
 
+#ifndef ROBORIO_STANDALONE
 	// Change from PID position-loop back to PercentVbus for driver control
 	motorL1->Set(ControlMode::PercentOutput, 0.0);
 	motorR3->Set(ControlMode::PercentOutput, 0.0);
 
 	curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
 	curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
+	motorOutput_L = motorL1->GetMotorOutputPercent();
+	motorOutput_R = motorR3->GetMotorOutputPercent();
+	closedLoopError_L = motorL1->GetClosedLoopError(m_pidIndex);
+	closedLoopError_R = motorR3->GetClosedLoopError(m_pidIndex);
+
+	// Re-enable the motor safety helper
+	diffDrive->SetSafetyEnabled(true);
+#endif
 
 	// Snapshot of results to SmartDashboard
 	SmartDashboard::PutNumber("DD PID L", curCounts_L);
 	SmartDashboard::PutNumber("DD PID R", curCounts_R);
 	SmartDashboard::PutNumber("DD TIME", m_safetyTimer.Get());
 
-	// Print results to console
-	std::printf("2135: Drive Dist End target %3.2f (L R) %5d  %5d, inches: %5.2f %5.2f\n",
-			m_distTargetCounts, curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R));
+	// Check to see if the error is in an acceptable number of inches. (R is negated)
+	errorInInches_L = CountsToInches(m_distTargetCounts - (double)curCounts_L);
+	errorInInches_R = CountsToInches(-m_distTargetCounts - (double)curCounts_R);
 
-	// Do not shift back to high gear in case another auton command is running
-
-	// Re-enable the motor safety helper
-	diffDrive->SetSafetyEnabled(true);
-#endif
+	// Print final results to console
+	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
+	std::printf("2135: DD %5.3f (L R) cts %5d %5d in %5.2f %5.2f CLE %5d %5d, Out %5.3f %5.3f errIn %5.2f %5.2f\n",
+			secs, curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R),
+			closedLoopError_L, closedLoopError_R, motorOutput_L, motorOutput_R, errorInInches_L, errorInInches_R);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 
 // Autonomous turn PID initialization and setup
 
-void Drivetrain::MoveDriveTurnPIDInit(double angle) {
+void Drivetrain::MoveDriveTurnPIDInit(double angle)
+{
+	m_turnAngle = angle;
+	std::printf("2135: Move Drive Turn Init %f degrees\n", m_turnAngle);
+
 #ifndef ROBORIO_STANDALONE
 	gyro->ZeroYaw();
-	m_turnAngle = angle;
-
-	std::printf("2135: Move Drive Turn Init %f degrees\n", angle);
 	driveTurnPIDLoop->SetSetpoint(angle);
 	driveTurnPIDLoop->Enable();
+
+	// Disable motor safety helper during PID
+	diffDrive->SetSafetyEnabled(false);
 #endif
+
+	// Start safety timer
+	m_safetyTimeout = 2.0;
+	m_safetyTimer.Reset();
+	m_safetyTimer.Start();
 }
 
 // Autonomous turn PID periodic execution
 
-void Drivetrain::MoveDriveTurnPIDExecute(void) {
+void Drivetrain::MoveDriveTurnPIDExecute(void)
+{
+	// No work needed since done by PID controller
+}
+
+// Autonomous turn PID setpoint monitoring
+
+bool Drivetrain::MoveDriveTurnIsPIDAtSetPoint(void)
+{
+	bool pidFinished = false;
 	int curCounts_L = 0;
-	double motorOutput_L = 0.0;
 	int curCounts_R = 0;
+	double motorOutput_L = 0.0;
 	double motorOutput_R = 0.0;
+	double curAngle = 0.0;
+	double errorInDegrees = 0.0;
 
 #ifndef ROBORIO_STANDALONE
 	curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
 	motorOutput_L = motorL1->GetMotorOutputPercent();
 	curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
 	motorOutput_R = motorR3->GetMotorOutputPercent();
+	curAngle = gyro->GetYaw();
 #endif
 
-	// No work needed
+	// Check to see if the Safety Timer has timed out.
+	if (m_safetyTimer.Get() >= m_safetyTimeout) {
+		pidFinished = true;
+		m_safetyTimer.Stop();
+		std::printf("2135: Drive Turn Safety timer has timed out\n");
+	}
+
+	errorInDegrees = m_turnAngle - curAngle;
+
 	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
 	std::printf("2135: DT %5.3f deg %4.2f -> %4.2f (err %4.2f) cts %5d %5d Out %4.2f %4.2f\n",
-			secs, gyro->GetAngle(), m_turnAngle, m_turnAngle - gyro->GetAngle(),
+			secs, curAngle, m_turnAngle, errorInDegrees,
 			curCounts_L, curCounts_R, motorOutput_L, motorOutput_R);
-}
-
-// Autonomous turn PID setpoint monitoring
-
-bool Drivetrain::MoveDriveTurnIsPIDAtSetPoint(void) {
-	bool pidFinished = false;
 
 #ifndef ROBORIO_STANDALONE
 	if (driveTurnPIDLoop->OnTarget())
 		pidFinished = true;
 #endif
+
+	// If on target or safety time has expired
 	return pidFinished;
 }
 
 // Autonomous turn PID to clean up after reaching the target position
 
-void Drivetrain::MoveDriveTurnPIDStop(void){
-#ifndef ROBORIO_STANDALONE
-	std::printf("2135: Move Drive Turn Stop at %f degrees\n", gyro->GetAngle());
+void Drivetrain::MoveDriveTurnPIDStop(void)
+{
+	int curCounts_L = 0;
+	int curCounts_R = 0;
+	double motorOutput_L = 0.0;
+	double motorOutput_R = 0.0;
+	double curAngle = 0.0;
+	double errorInDegrees = 0.0;
 
+	// Stop the safety timer
+	std::printf("2135: Drive Turn TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
+	m_safetyTimer.Stop();
+
+#ifndef ROBORIO_STANDALONE
 	driveTurnPIDLoop->Disable();
+	curAngle = gyro->GetYaw();
+
+	// Re-enable the motor safety helper
+	diffDrive->SetSafetyEnabled(true);
 #endif
+
+	// Snapshot of results to SmartDashboard
+	SmartDashboard::PutNumber("DT DEG", curAngle);
+	SmartDashboard::PutNumber("DT TIME", m_safetyTimer.Get());
+
+	errorInDegrees = m_turnAngle - curAngle;
+
+	// Print final results to console
+	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
+	std::printf("2135: DT %5.3f deg %4.2f -> %4.2f (err %4.2f) cts %5d %5d Out %4.2f %4.2f\n",
+			secs, curAngle, m_turnAngle, errorInDegrees,
+			curCounts_L, curCounts_R, motorOutput_L, motorOutput_R);
 }
+
+///////////////////////////////////////////////////////////////////////////////
 
 void Drivetrain::ResetSensors(void) {
 #ifndef ROBORIO_STANDALONE
 	motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 	motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
-	gyro->Reset();
+	gyro->ZeroYaw();
 #endif
 }
