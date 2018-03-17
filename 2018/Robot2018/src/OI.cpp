@@ -15,8 +15,11 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/AutoDriveDist.h"
 #include "Commands/AutoDriveTurn.h"
+#include "Commands/AutoPos1.h"
 #include "Commands/AutoPos1Switch.h"
+#include "Commands/AutoPos2.h"
 #include "Commands/AutoPos2Switch.h"
+#include "Commands/AutoPos3.h"
 #include "Commands/AutoPos3Switch.h"
 #include "Commands/AutoPosANYMove.h"
 #include "Commands/AutoStop.h"
@@ -119,6 +122,9 @@ OI::OI() {
     frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
     frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT", new AutoDriveDist(48.0));
     frc::SmartDashboard::PutData("Auto Drive Turn: DEFAULT", new AutoDriveTurn(45.0));
+    frc::SmartDashboard::PutData("Auto Pos 3", new AutoPos3());
+    frc::SmartDashboard::PutData("Auto Pos 2", new AutoPos2());
+    frc::SmartDashboard::PutData("Auto Pos 1", new AutoPos1());
     frc::SmartDashboard::PutData("Auto Stop", new AutoStop());
     frc::SmartDashboard::PutData("Auto Test Init", new AutoTestInit());
 
