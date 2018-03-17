@@ -215,7 +215,7 @@ void Robot::FMSGameDataRead(void) {
 	}
 	if (m_FMSOppSwitch != fmsOppSwitch) {
 		m_FMSOppSwitch = fmsOppSwitch;
-		std::printf("2135: FMS Opponent Switch %s Side\n", FMSGameDataString(m_FMSOppSwitch));
+		std::printf("2135: FMS Opp Switch %s Side\n", FMSGameDataString(m_FMSOppSwitch));
 		SmartDashboard::PutString(ROBOT_FMSOPPSWITCH, FMSGameDataString(m_FMSOppSwitch));
 	}
 }
