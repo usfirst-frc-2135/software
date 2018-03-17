@@ -37,11 +37,7 @@ void AutoDriveTurn::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDriveTurn::IsFinished() {
-	bool isFinished;
-
-	isFinished = Robot::drivetrain->MoveDriveTurnIsPIDAtSetPoint();
-
-    return isFinished;
+    return (Robot::drivetrain->MoveDriveTurnIsPIDAtSetPoint());
 }
 
 // Called once after isFinished returns true
