@@ -15,10 +15,10 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/AutoDriveDist.h"
 #include "Commands/AutoDriveTurn.h"
-#include "Commands/AutoPos123Move.h"
 #include "Commands/AutoPos1Switch.h"
 #include "Commands/AutoPos2Switch.h"
 #include "Commands/AutoPos3Switch.h"
+#include "Commands/AutoPosANYMove.h"
 #include "Commands/AutoStop.h"
 #include "Commands/AutoTestInit.h"
 #include "Commands/DriveReset.h"
@@ -99,27 +99,26 @@ OI::OI() {
     // SmartDashboard Buttons
     frc::SmartDashboard::PutData("Load Config", new LoadConfig());
     frc::SmartDashboard::PutData("Wrist Calibrate", new WristCalibrate());
-    frc::SmartDashboard::PutData("Wrist Bump: BUMP_UP", new WristBump(true));
-    frc::SmartDashboard::PutData("Wrist Bump: BUMP_DOWN", new WristBump(false));
-    frc::SmartDashboard::PutData("Wrist Run: WRIST_STOWED", new WristRun(2));
-    frc::SmartDashboard::PutData("Wrist Run: WRIST_DELIVER", new WristRun(1));
-    frc::SmartDashboard::PutData("Wrist Run: WRIST_FLAT", new WristRun(0));
-    frc::SmartDashboard::PutData("Wrist Run: WRIST_SMARTDASH", new WristRun(3));
-    frc::SmartDashboard::PutData("Wrist Run: WRIST_NOCHANGE", new WristRun(-1));
+    frc::SmartDashboard::PutData("Wrist Bump: UP", new WristBump(true));
+    frc::SmartDashboard::PutData("Wrist Bump: DOWN", new WristBump(false));
+    frc::SmartDashboard::PutData("Wrist Run: STOWED", new WristRun(2));
+    frc::SmartDashboard::PutData("Wrist Run: DELIVER", new WristRun(1));
+    frc::SmartDashboard::PutData("Wrist Run: FLAT", new WristRun(0));
+    frc::SmartDashboard::PutData("Wrist Run: SMARTDASH", new WristRun(3));
     frc::SmartDashboard::PutData("Elevator Calibrate Override", new ElevatorCalibrateOverride());
     frc::SmartDashboard::PutData("Elevator Calibrate", new ElevatorCalibrate());
-    frc::SmartDashboard::PutData("Elevator Bump: BUMP_UP", new ElevatorBump(true));
-    frc::SmartDashboard::PutData("Elevator Bump: BUMP_DOWN", new ElevatorBump(false));
-    frc::SmartDashboard::PutData("Elevator Run: FLOOR_HEIGHT", new ElevatorRun(0));
-    frc::SmartDashboard::PutData("Elevator Run: SWITCH_HEIGHT", new ElevatorRun(1));
-    frc::SmartDashboard::PutData("Elevator Run: SCALE_LO_HEIGHT", new ElevatorRun(2));
-    frc::SmartDashboard::PutData("Elevator Run: SCALE_HI_HEIGHT", new ElevatorRun(3));
-    frc::SmartDashboard::PutData("Elevator Run: CLIMB_HEIGHT", new ElevatorRun(4));
-    frc::SmartDashboard::PutData("Elevator Run: LEVITATE_HEIGHT", new ElevatorRun(5));
-    frc::SmartDashboard::PutData("Elevator Run: SMARTDASH_HEIGHT", new ElevatorRun(6));
+    frc::SmartDashboard::PutData("Elevator Bump: UP", new ElevatorBump(true));
+    frc::SmartDashboard::PutData("Elevator Bump: DOWN", new ElevatorBump(false));
+    frc::SmartDashboard::PutData("Elevator Run: FLOOR", new ElevatorRun(0));
+    frc::SmartDashboard::PutData("Elevator Run: SWITCH", new ElevatorRun(1));
+    frc::SmartDashboard::PutData("Elevator Run: SCALE_LO", new ElevatorRun(2));
+    frc::SmartDashboard::PutData("Elevator Run: SCALE_HI", new ElevatorRun(3));
+    frc::SmartDashboard::PutData("Elevator Run: CLIMB", new ElevatorRun(4));
+    frc::SmartDashboard::PutData("Elevator Run: LEVITATE", new ElevatorRun(5));
+    frc::SmartDashboard::PutData("Elevator Run: SMARTDASH", new ElevatorRun(6));
     frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
-    frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT_DIST", new AutoDriveDist(48.0));
-    frc::SmartDashboard::PutData("Auto Drive Turn: DEFAULT_ANGLE", new AutoDriveTurn(45.0));
+    frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT", new AutoDriveDist(48.0));
+    frc::SmartDashboard::PutData("Auto Drive Turn: DEFAULT", new AutoDriveTurn(45.0));
     frc::SmartDashboard::PutData("Auto Stop", new AutoStop());
     frc::SmartDashboard::PutData("Auto Test Init", new AutoTestInit());
 
