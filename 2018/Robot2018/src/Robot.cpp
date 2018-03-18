@@ -78,7 +78,9 @@ void Robot::RobotInit() {
  * You can use it to reset subsystems before shutting down.
  */
 void Robot::DisabledInit(){
-
+	SmartDashboard::PutString(ROBOT_FMSALLISWITCH, "");
+	SmartDashboard::PutString(ROBOT_FMSSCALE, "");
+	SmartDashboard::PutString(ROBOT_FMSOPPSWITCH, "");
 }
 
 void Robot::DisabledPeriodic() {
