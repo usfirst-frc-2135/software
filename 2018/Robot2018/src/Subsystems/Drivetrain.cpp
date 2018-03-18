@@ -341,9 +341,8 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 
 	// Check to see if the Safety Timer has timed out.
 	if (m_safetyTimer.Get() >= m_safetyTimeout) {
-		pidFinished = true;
-		m_safetyTimer.Stop();
 		std::printf("2135: DTDD Safety timer has timed out\n");
+		pidFinished = true;
 	}
 
 	// Check to see if the error is in an acceptable number of inches. (R is negated)
@@ -358,7 +357,6 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 
 	if ((fabs(errorInInches_L) < m_distErrInches) && (fabs(errorInInches_R) < m_distErrInches)) {
 		pidFinished = true;
-		m_safetyTimer.Stop();
 	}
 	else {
 		pidFinished = false;
@@ -477,9 +475,8 @@ bool Drivetrain::MoveDriveTurnIsPIDAtSetPoint(void)
 
 	// Check to see if the Safety Timer has timed out.
 	if (m_safetyTimer.Get() >= m_safetyTimeout) {
-		pidFinished = true;
-		m_safetyTimer.Stop();
 		std::printf("2135: DTDT Safety timer has timed out\n");
+		pidFinished = true;
 	}
 
 	errorInDegrees = m_turnAngle - curAngle;

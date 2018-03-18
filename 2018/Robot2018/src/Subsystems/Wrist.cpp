@@ -46,7 +46,6 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	config->GetValueAsDouble("WR_WristFlat", m_flatAngle, 3.0);
 	config->GetValueAsDouble("WR_WristDelivery", m_deliveryAngle, 55.0);
 	config->GetValueAsDouble("WR_WristStowed", m_stowedAngle, 60.0);
-	config->GetValueAsDouble("WR_SafetyTimeout", m_safetyTimeout, 1.5);
 
 	// Set the motor direction for the wrist
 	motorW14->SetInverted(false);
@@ -207,6 +206,7 @@ void Wrist::MoveToPosition(int level)
 	m_curDegrees = CountsToDegrees(curCounts);
 
 	//Start the safety timer.
+	m_safetyTimeout = 1.5;
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
 

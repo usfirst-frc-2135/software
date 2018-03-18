@@ -55,7 +55,6 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	config->GetValueAsDouble("EL_ScaleHiHeight", m_scaleHiHeight, 33.0);
 	config->GetValueAsDouble("EL_ClimbHeight", m_climbHeight, 33.0);
 	config->GetValueAsDouble("EL_LevitateHeight", m_levitateHeight, 18.0);
-	config->GetValueAsDouble("EL_SafetyTimeout", m_safetyTimeout, 4.0);
 	config->GetValueAsDouble("EL_LowGearHeight", m_lowGearHeight, 15.00);
 
     // Initialize Talon SRX motor controller direction and encoder sensor slot
@@ -251,6 +250,7 @@ void Elevator::MoveToPosition(int level) {
 		m_curInches = CountsToInches(curCounts);
 
 		//Start the safety timer.
+		m_safetyTimeout = 4.0;
 		m_safetyTimer.Reset();
 		m_safetyTimer.Start();
 

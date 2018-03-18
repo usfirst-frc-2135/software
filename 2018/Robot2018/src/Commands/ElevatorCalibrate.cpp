@@ -30,9 +30,9 @@ void ElevatorCalibrate::Initialize() {
 	Robot::elevator->CalibrationInit();
 
 	//Set safety timer.
+	m_safetyTimeout = 3.0;
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
-	m_safetyTimeout = 3.0;
 }
 
 // Called repeatedly when this Command is scheduled to run
