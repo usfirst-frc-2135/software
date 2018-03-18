@@ -56,11 +56,14 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 		std::printf("2135: DT ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
 	}
     config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
-    config->GetValueAsDouble("DT_PidDistKp", m_distKp, 0.40);
+    config->GetValueAsDouble("DT_PidDistKp", m_distKp, 0.20);
+    config->GetValueAsDouble("DT_PidDistMaxOut", m_distMaxOut, 0.65);
 	config->GetValueAsDouble("DT_PidDistErrInches", m_distErrInches, 1.0);
-    config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.020);
-    config->GetValueAsDouble("DT_PidTurnMaxOut", m_turnMaxOut, 0.6);
-	config->GetValueAsInt("DT_AllowedCLError", m_CL_allowError, 0);
+    config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.040);
+    config->GetValueAsDouble("DT_PidTurnMaxOut", m_turnMaxOut, 0.65);
+	config->GetValueAsDouble("DT_PidTurnErrDeg", m_turnErrDeg, 1.0);
+	config->GetValueAsDouble("DT_CLRampRate", m_CL_rampRate, 0.300);
+	config->GetValueAsInt("DT_CLAllowedError", m_CL_allowError, 0);
 
     //Invert the direction of the motors
     motorL1->SetInverted(true);
@@ -94,11 +97,11 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
 	// TODO: Tune these PID loop controls
 	// Ramp rate is "seconds to full speed"
-	motorL1->ConfigClosedloopRamp(0.100, m_timeout);
-	motorR3->ConfigClosedloopRamp(0.100, m_timeout);
+	motorL1->ConfigClosedloopRamp(m_CL_rampRate, m_timeout);
+	motorR3->ConfigClosedloopRamp(m_CL_rampRate, m_timeout);
 	// Peak output is percent of full speed
-	motorL1->ConfigClosedLoopPeakOutput(m_slotIndex, 0.65, m_timeout);
-	motorR3->ConfigClosedLoopPeakOutput(m_slotIndex, 0.65, m_timeout);
+	motorL1->ConfigClosedLoopPeakOutput(m_slotIndex, m_distMaxOut, m_timeout);
+	motorR3->ConfigClosedLoopPeakOutput(m_slotIndex, m_distMaxOut, m_timeout);
 
 	// Set motor peak output levels
 	motorL1->ConfigPeakOutputForward(peakOutput, m_timeout);
@@ -127,7 +130,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
    	// Settings for Turn PID // TODO: Calculate real PID and outputs and get from either defaults or Robot Config
    	driveTurnPIDLoop->SetPID(m_turnKp, 0.0, 0.0);
    	driveTurnPIDLoop->SetOutputRange(-m_turnMaxOut, m_turnMaxOut);
-   	driveTurnPIDLoop->SetAbsoluteTolerance(2.0);
+   	driveTurnPIDLoop->SetAbsoluteTolerance(m_turnErrDeg);
 #endif
 }
 

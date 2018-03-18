@@ -61,10 +61,13 @@ private:
 	double 	m_distTargetCounts;		// Drive distance target count value
 	double 	m_distTargetInches;		// Drive distance target inches value
 	double	m_distErrInches;		// Drive distance tolerance in inches
-	double 	m_distKp;				// Drive distance proportional value
-	int		m_CL_allowError;			// Closed loop allowable error
+	double 	m_distKp;				// Drive distance proportional value for PID
+	double 	m_distMaxOut;			// Drive distance max motor output value for PID
+	double	m_CL_rampRate;			// Closed loop ramp rate for PID
+	int		m_CL_allowError;		// Closed loop allowable error for PID
 
 	double 	m_turnAngle;			// Desired turn angle from present course
+	double	m_turnErrDeg;			// DriveTurn tolerance in degrees
 	double 	m_turnKp;				// Proportional value for PID for DriveTurn function
 	double 	m_turnMaxOut;			// Max motor output value for PID for DriveTurn function
 

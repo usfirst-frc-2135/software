@@ -4,11 +4,14 @@
  DT_DriveScaling = 1.0   
  DT_TurnScaling = 1.0
  DT_DriveSpin = 0.45
- DT_PidDistKp = 0.40
- DT_PidTurnKp = 0.020 
- DT_PidTurnMaxOut = 0.6 
- DT_AllowedCLError = 0
+ DT_PidDistKp = 0.200
+ DT_PidDistMaxOut = 0.65
  DT_PidDistErrInches = 1.0
+ DT_PidTurnKp = 0.040 
+ DT_PidTurnMaxOut = 0.65
+ DT_PidTurnErrDeg = 1.0 
+ DT_CLRampRate = 0.300
+ DT_CLAllowedError = 0
 # Elevator settings
  EL_CalibSpeed = 0.25
  EL_PidSpeed = 1.0
