@@ -82,7 +82,7 @@ void Gripper::Periodic() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Gripper::Initialize(frc::Preferences *RobotConfig)
+void Gripper::Initialize(void)
 {
 	std::printf("2135: GR Init\n");
 }

@@ -167,7 +167,7 @@ void Drivetrain::Periodic() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Drivetrain::Initialize(frc::Preferences *RobotConfig) {
+void Drivetrain::Initialize(void) {
 	std::printf("2135: DT Initialize\n");
 
 	//Robot switches from low gear in auton to high gear in teleop

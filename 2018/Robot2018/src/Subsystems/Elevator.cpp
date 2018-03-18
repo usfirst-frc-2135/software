@@ -141,7 +141,7 @@ void Elevator::Periodic() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Elevator::Initialize(frc::Preferences *RobotConfig)
+void Elevator::Initialize(void)
 {
 	std::printf("2135: EL Init\n");
 }
