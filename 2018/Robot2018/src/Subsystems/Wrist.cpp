@@ -251,7 +251,7 @@ bool Wrist::MoveToPositionIsFinished(void)
 		if (fabs(errorInDegrees < 3.0)) {
 			pidFinished = true;
 			m_safetyTimer.Stop();
-			std::printf("2135: WR Move Finished\n");
+			std::printf("2135: WR Move Finished - Time %f\n", m_safetyTimer.Get());
 		}
 	}
 
