@@ -34,7 +34,29 @@ void AutoPos2::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoPos2::IsFinished() {
-    return false;
+	bool	isFinished = false;
+
+	// Check if gameData has been sent
+	std::string alliSwitch;
+	std::string scale;
+
+	alliSwitch = SmartDashboard::GetString(ROBOT_FMSALLISWITCH, ROBOT_FMS_UNINIT);
+	// If not the uninitialized string, then new data received
+    if(alliSwitch.compare(ROBOT_FMS_UNINIT))
+    {
+    	scale = SmartDashboard::GetString(ROBOT_FMSSCALE, ROBOT_FMS_UNINIT);
+    	std::printf("2135: Auto Pos 2 - switch: %s scale %s\n",alliSwitch.c_str(), scale.c_str());
+    	// Build group command for Pos 2 decisions here!
+
+    	// If switch == left
+    	//		attack the switch plate on the left
+    	// Else		/* switch is right */
+    	//		attack the switch plate on the right
+
+    	// Let this command finish
+    	isFinished = true;
+    }
+    return isFinished;
 }
 
 // Called once after isFinished returns true
