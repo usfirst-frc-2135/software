@@ -68,9 +68,10 @@ private:
 
 	// Configuration file parameters
 	double			m_calibrationSpeed;				// Motor output speed used during calibration
-	double 			m_pidSpeed;						// Elevator maximum speed during movement
+	double 			m_pidMaxOut;						// Elevator maximum speed during movement
 	double			m_pidKp;						// Elevator PID proportional constant
-	int				m_pidAllowableCLE;				// Elevator PID allowable closed loop error
+	int				m_CLAllowedError;				// Elevator PID allowable closed loop error
+	double			m_CLRampRate;					// Elevator PID ramp rate
 	double			m_elevatorMaxHeight;			// Elevator maximum allowable height
 	double			m_elevatorMinHeight;			// Elevator minimum allowable height
 	double			m_bumpHeight;					// Incremental height when bumping the elevator up/down

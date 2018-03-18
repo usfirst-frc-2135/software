@@ -36,9 +36,9 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 
     // Get any config file settings
     RobotConfig* config = RobotConfig::GetInstance();
-    config->GetValueAsDouble("WR_PidSpeed", m_pidSpeed, 0.6);
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 1.5);
-    config->GetValueAsInt("WR_PidAllowableCLE", m_pidAllowableCLE, 0);
+    config->GetValueAsDouble("WR_PidMaxOut", m_pidMaxOut, 0.6);
+    config->GetValueAsInt("WR_CLAllowedError", m_CLAllowedError, 0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1500);
     config->GetValueAsDouble("WR_OffsetDegrees", m_offsetDegrees, 0.0);
@@ -63,8 +63,8 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	m_curDegrees = CountsToDegrees(motorW14->GetSelectedSensorPosition(m_pidIndex));
 
 	// Set maximum power and ramp rate
-	motorW14->ConfigPeakOutputForward(m_pidSpeed, m_timeout);
-	motorW14->ConfigPeakOutputReverse(-m_pidSpeed, m_timeout);
+	motorW14->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
+	motorW14->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
 //	motorW14->ConfigClosedLoopRamp(0.25, m_timeout);
 
 	// Set maximum current draw allowed
@@ -81,7 +81,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	motorW14->ConfigReverseSoftLimitEnable(true, m_timeout);
 
 	// Set closed loop error
-	motorW14->ConfigAllowableClosedloopError(m_slotIndex, m_pidAllowableCLE, m_timeout);
+	motorW14->ConfigAllowableClosedloopError(m_slotIndex, m_CLAllowedError, m_timeout);
 
 	// Enable wrist PID with existing sensor reading (no movement)
 	motorW14->Set(ControlMode::Position, DegreesToCounts(m_curDegrees));

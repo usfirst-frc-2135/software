@@ -42,9 +42,10 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     // Get any config file settings
     RobotConfig* config = RobotConfig::GetInstance();
     config->GetValueAsDouble("EL_CalibSpeed", m_calibrationSpeed, 0.25);
-    config->GetValueAsDouble("EL_PidSpeed", m_pidSpeed, 1.0);
-    config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.25);
-    config->GetValueAsInt("EL_PidAllowableCLE", m_pidAllowableCLE, 0);
+    config->GetValueAsDouble("EL_PidMaxOut", m_pidMaxOut, 1.0);
+    config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.250);
+    config->GetValueAsDouble("EL_CLRampRate", m_CLRampRate, 0.250);
+    config->GetValueAsInt("EL_CLAllowedError", m_CLAllowedError, 0);
     config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 27.0);
     config->GetValueAsDouble("EL_MinHeight", m_elevatorMinHeight, 0.0);
 	config->GetValueAsDouble("EL_BumpHeight", m_bumpHeight, 1.0);
@@ -75,9 +76,9 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     motorL7->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 
 	// Set maximum power and ramp rate
-	motorL7->ConfigPeakOutputForward(m_pidSpeed, m_timeout);
-	motorL7->ConfigPeakOutputReverse(-m_pidSpeed, m_timeout);
-	motorL7->ConfigClosedloopRamp(0.25, m_timeout);
+	motorL7->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
+	motorL7->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
+	motorL7->ConfigClosedloopRamp(m_CLRampRate, m_timeout);
 
 	// Set maximum current draw allowed
 	motorL7->ConfigPeakCurrentLimit(10.0, m_timeout);
@@ -95,7 +96,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     motorL7->ConfigReverseSoftLimitEnable(true, m_timeout);
 
     // Set allowable closed loop error
-    motorL7->ConfigAllowableClosedloopError(m_slotIndex, m_pidAllowableCLE, m_timeout);
+    motorL7->ConfigAllowableClosedloopError(m_slotIndex, m_CLAllowedError, m_timeout);
 #endif
 
     // Initialize variables
