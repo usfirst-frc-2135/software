@@ -228,6 +228,8 @@ void Robot::FMSGameDataRead(void) {
 
 void Robot::RobotFaultDump(void) {
 	std::printf("2135: %s --------------\n", "TALON SRX FAULTS");
+
+#ifndef ROBORIO_STANDALONE
 	RobotFaultDumpTalonSRX("drivetrainMotorL1", RobotMap::drivetrainMotorL1);
 	RobotFaultDumpTalonSRX("drivetrainMotorL2", RobotMap::drivetrainMotorL2);
 	RobotFaultDumpTalonSRX("drivetrainMotorR3", RobotMap::drivetrainMotorR3);
@@ -246,6 +248,7 @@ void Robot::RobotFaultDump(void) {
 	if (RobotMap::pneumaticsCompressor->GetCompressorShortedFault())
 		std::printf("\tCompressorShortedFault\n");
 	RobotMap::pneumaticsCompressor->ClearAllPCMStickyFaults();
+#endif
 
 	std::printf("2135: %s --------------\n", "PDP FAULTS");
 	// TODO: Check and fix faults
