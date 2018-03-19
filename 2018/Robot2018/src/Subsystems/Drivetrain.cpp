@@ -304,7 +304,7 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches)
 #endif
 
 	// Start safety timer
-	m_safetyTimeout = 3.5;
+	m_safetyTimeout = 5.0;
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
 }
@@ -343,6 +343,7 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 	if (m_safetyTimer.Get() >= m_safetyTimeout) {
 		std::printf("2135: DTDD Safety timer has timed out\n");
 		pidFinished = true;
+		return pidFinished;
 	}
 
 	// Check to see if the error is in an acceptable number of inches. (R is negated)
