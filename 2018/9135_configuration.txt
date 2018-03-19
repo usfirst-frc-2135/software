@@ -43,7 +43,8 @@
  WR_WristStowed = 60.0
 # Autonomous settings
  AutoDriveDist = 97.25
- AutoPos123Move = 97.25
  AutoPos1Switch = 97.25
  AutoPos2Switch = 97.25
  AutoPos3Switch = 97.25
+ AutoPosANYMove = 97.25
+ 
