@@ -310,8 +310,9 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches)
 	diffDrive->SetSafetyEnabled(false);
 #endif
 
-	// Start safety timer
-	m_safetyTimeout = 5.0;
+	// Start safety timer to be distance divided by 80 inches plus 2.0 sec extra
+	// 97.5 -> 3.2 seconds, 320 -> 6.0 seconds
+	m_safetyTimeout = (m_distTargetInches / 80.0) + 2.0;
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
 }
