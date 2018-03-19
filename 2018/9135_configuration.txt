@@ -6,6 +6,7 @@
  DT_DriveSpin = 0.45
  DT_PidDistKp = 0.200
  DT_PidDistMaxOut = 0.65
+ DT_PidDistMaxInches = 310.0
  DT_CLRampRate = 0.300
  DT_CLAllowedError = 0
  DT_PidDistErrInches = 1.0
