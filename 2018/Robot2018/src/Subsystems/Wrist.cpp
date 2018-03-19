@@ -239,19 +239,19 @@ bool Wrist::MoveToPositionIsFinished(void)
 		std::printf("2135: WR %5.3f cts %d, deg %4.1f, CLE %d, Out %4.2f\n", secs,
 				curCounts, CountsToDegrees(curCounts), closedLoopError, motorOutput);
 
-		// Check to see if the Safety Timer has timed out.
-		if (m_safetyTimer.Get() >= m_safetyTimeout) {
-			pidFinished = true;
-			m_safetyTimer.Stop();
-			std::printf("2135: WR Move Safety timer has timed out\n");
-		}
-
 		// Check to see if the error is in an acceptable number of inches.
 		errorInDegrees = CountsToDegrees(m_targetCounts - (double)curCounts);
 		if (fabs(errorInDegrees < 3.0)) {
 			pidFinished = true;
 			m_safetyTimer.Stop();
 			std::printf("2135: WR Move Finished - Time %f\n", m_safetyTimer.Get());
+		}
+
+		// Check to see if the Safety Timer has timed out.
+		if (m_safetyTimer.Get() >= m_safetyTimeout) {
+			pidFinished = true;
+			m_safetyTimer.Stop();
+			std::printf("2135: WR Move Safety timer has timed out\n");
 		}
 	}
 

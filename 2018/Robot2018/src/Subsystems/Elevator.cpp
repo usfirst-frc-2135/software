@@ -291,13 +291,6 @@ bool Elevator::MoveToPositionIsFinished() {
 		std::printf("2135: EL %5.3f cts %d, in %5.2f, CLE %d, Out %4.2f\n", secs,
 				curCounts, CountsToInches(curCounts), closedLoopError, motorOutput);
 
-		// Check to see if the Safety Timer has timed out.
-		if (m_safetyTimer.Get() >= m_safetyTimeout) {
-			pidFinished = true;
-			m_safetyTimer.Stop();
-			std::printf("2135: EL Move Safety timer has timed out\n");
-		}
-
 		// Check to see if the error is in an acceptable number of inches.
 		errorInInches = CountsToInches(m_targetCounts - (double)curCounts);
 		if (fabs(errorInInches) < 2.0) {
@@ -305,8 +298,12 @@ bool Elevator::MoveToPositionIsFinished() {
 			m_safetyTimer.Stop();
 			std::printf("2135: EL Move Finished - Time %f\n", m_safetyTimer.Get());
 		}
-		else {
-			pidFinished = false;
+
+		// Check to see if the Safety Timer has timed out.
+		if (m_safetyTimer.Get() >= m_safetyTimeout) {
+			pidFinished = true;
+			m_safetyTimer.Stop();
+			std::printf("2135: EL Move Safety timer has timed out\n");
 		}
 	}
 

@@ -59,6 +59,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     config->GetValueAsDouble("DT_PidDistKp", m_distKp, 0.20);
     config->GetValueAsDouble("DT_PidDistMaxOut", m_distMaxOut, 0.65);
 	config->GetValueAsDouble("DT_PidDistErrInches", m_distErrInches, 1.0);
+	config->GetValueAsDouble("DT_PidDistMaxInches", m_distMaxInches, 310.0);
     config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.040);
     config->GetValueAsDouble("DT_PidTurnMaxOut", m_turnMaxOut, 0.65);
 	config->GetValueAsDouble("DT_PidTurnErrDeg", m_turnErrDeg, 1.0);
@@ -283,6 +284,12 @@ double Drivetrain::CountsToInches(int counts) {
 void Drivetrain::MoveDriveDistancePIDInit(double inches)
 {
 	ctre::phoenix::ErrorCode errCode;
+
+	// Range check the requested distance
+	if (inches > m_distMaxInches) {
+		inches = m_distMaxInches;
+		std::printf("2135: DT m_distTargetInches limited by m_distMaxInches %f\n", m_distMaxInches);
+	}
 	m_distTargetInches = inches;
 	m_distTargetCounts = inches * CountsPerInch;
 	std::printf("2135: DTDD Init %5.2f counts, %5.2f inches, %5.2f CountsPerInch\n",
@@ -339,13 +346,6 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 	closedLoopError_R = motorR3->GetClosedLoopError(m_pidIndex);
 #endif
 
-	// Check to see if the Safety Timer has timed out.
-	if (m_safetyTimer.Get() >= m_safetyTimeout) {
-		std::printf("2135: DTDD Safety timer has timed out\n");
-		pidFinished = true;
-		return pidFinished;
-	}
-
 	// Check to see if the error is in an acceptable number of inches. (R is negated)
 	errorInInches_L = CountsToInches(m_distTargetCounts - (double)curCounts_L);
 	errorInInches_R = CountsToInches(-m_distTargetCounts - (double)curCounts_R);
@@ -359,8 +359,11 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint()
 	if ((fabs(errorInInches_L) < m_distErrInches) && (fabs(errorInInches_R) < m_distErrInches)) {
 		pidFinished = true;
 	}
-	else {
-		pidFinished = false;
+
+	// Check to see if the Safety Timer has timed out.
+	if (m_safetyTimer.Get() >= m_safetyTimeout) {
+		std::printf("2135: DTDD Safety timer has timed out\n");
+		pidFinished = true;
 	}
 
 	// If on target or safety time has expired
@@ -474,12 +477,6 @@ bool Drivetrain::MoveDriveTurnIsPIDAtSetPoint(void)
 	curAngle = gyro->GetYaw();
 #endif
 
-	// Check to see if the Safety Timer has timed out.
-	if (m_safetyTimer.Get() >= m_safetyTimeout) {
-		std::printf("2135: DTDT Safety timer has timed out\n");
-		pidFinished = true;
-	}
-
 	errorInDegrees = m_turnAngle - curAngle;
 
 	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
@@ -491,6 +488,12 @@ bool Drivetrain::MoveDriveTurnIsPIDAtSetPoint(void)
 	if (driveTurnPIDLoop->OnTarget())
 		pidFinished = true;
 #endif
+
+	// Check to see if the Safety Timer has timed out.
+	if (m_safetyTimer.Get() >= m_safetyTimeout) {
+		std::printf("2135: DTDT Safety timer has timed out\n");
+		pidFinished = true;
+	}
 
 	// If on target or safety time has expired
 	return pidFinished;
