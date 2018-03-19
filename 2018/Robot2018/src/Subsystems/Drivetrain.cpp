@@ -64,7 +64,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     config->GetValueAsDouble("DT_PidTurnMaxOut", m_turnMaxOut, 0.65);
 	config->GetValueAsDouble("DT_PidTurnErrDeg", m_turnErrDeg, 1.0);
 	config->GetValueAsDouble("DT_CLRampRate", m_CL_rampRate, 0.300);
-	config->GetValueAsInt("DT_CLAllowedError", m_CL_allowError, 0);
+	config->GetValueAsInt("DT_CLAllowedError", m_CLAllowedError, 0);
 
     //Invert the direction of the motors
     motorL1->SetInverted(true);

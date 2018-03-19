@@ -65,7 +65,7 @@ private:
 	double 	m_distKp;				// Drive distance proportional value for PID
 	double 	m_distMaxOut;			// Drive distance max motor output value for PID
 	double	m_CL_rampRate;			// Closed loop ramp rate for PID
-	int		m_CL_allowError;		// Closed loop allowable error for PID
+	int		m_CLAllowedError;		// Closed loop allowable error for PID
 
 	double 	m_turnAngle;			// Desired turn angle from present course
 	double	m_turnErrDeg;			// DriveTurn tolerance in degrees
