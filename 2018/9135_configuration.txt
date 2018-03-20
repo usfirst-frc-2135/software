@@ -9,7 +9,7 @@
  DT_PidDistMaxInches = 310.0
  DT_CLRampRate = 0.300
  DT_CLAllowedError = 0
- DT_PidDistErrInches = 1.0
+ DT_PidDistErrInches = 1.8
  DT_PidTurnKp = 0.0225 
  DT_PidTurnMaxOut = 0.65
  DT_PidTurnErrDeg = 1.0 
