@@ -50,8 +50,6 @@ bool AutoPos1::IsFinished() {
     	scale = SmartDashboard::GetString(ROBOT_FMSSCALE, ROBOT_FMS_UNINIT);
     	std::printf("2135: Auto Pos 1 - AlliSwitch: %s Scale %s\n",alliSwitch.c_str(), scale.c_str());
 
-    	std::printf("2135: AutoPos1 - AutoPos1Switch Init\n");
-
     	cmd = new(AutoPos1Switch);
     	cmd->Start();
 
