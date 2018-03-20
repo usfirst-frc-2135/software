@@ -78,6 +78,8 @@ void Robot::RobotInit() {
  * You can use it to reset subsystems before shutting down.
  */
 void Robot::DisabledInit(){
+	std::printf("2135: ***** Disabled Init *****\n");
+
 	SmartDashboard::PutString(ROBOT_FMSALLISWITCH, "");
 	SmartDashboard::PutString(ROBOT_FMSSCALE, "");
 	SmartDashboard::PutString(ROBOT_FMSOPPSWITCH, "");
@@ -97,7 +99,7 @@ void Robot::AutonomousInit() {
 	drivetrain->MoveSetBrakeMode(true);
 	drivetrain->MoveShiftGears(true);
 
-	std::printf("2135: Auton Init - FMS Read Game Data\n");
+	std::printf("2135: ***** Auton Init ***** - FMS Read Game Data\n");
 	FMSGameDataRead();
 
 	autonomousCommand = chooser.GetSelected();
@@ -111,6 +113,7 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
+	std::printf("2135: ***** Teleop Init *****\n");
 	drivetrain->MoveSetBrakeMode(false);
 	drivetrain->MoveShiftGears(true);
 
