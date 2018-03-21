@@ -37,13 +37,12 @@ void AutoPos1::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoPos1::IsFinished() {
-	bool	isFinished = false;
+	bool			isFinished = false;
+	std::string 	alliSwitch;		// Holds alliance switch game data setting
+	std::string 	scale;			// Holds scale game data setting
+	frc::Command	*cmd;			// Pointer to command/command group to run
 
 	// Check if gameData has been sent
-	std::string alliSwitch;
-	std::string scale;
-	frc::Command	*cmd;
-
 	alliSwitch = SmartDashboard::GetString(ROBOT_FMSALLISWITCH, ROBOT_FMS_UNINIT);
 	// If not the uninitialized string, then new data received
 	if (alliSwitch.compare(ROBOT_FMS_UNINIT) && !(alliSwitch.empty()))
