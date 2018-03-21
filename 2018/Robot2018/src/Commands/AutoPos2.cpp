@@ -38,36 +38,31 @@ void AutoPos2::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool AutoPos2::IsFinished() {
 	bool	isFinished = false;
+	std::string 	alliSwitch;			// Holds alliance switch game data setting
+	std::string 	scale;				// Holds scale game data setting
+	frc::Command	* cmd = nullptr;		// Pointer to command/command group to run
 
 	// Check if gameData has been sent
-	std::string alliSwitch;
-	std::string scale;
-	frc::Command* cmd;
-
 	alliSwitch = SmartDashboard::GetString(ROBOT_FMSALLISWITCH, ROBOT_FMS_UNINIT);
 	// If not the uninitialized string, then new data received
-    if(alliSwitch.compare(ROBOT_FMS_UNINIT) && !alliSwitch.empty())
-    {
-    	scale = SmartDashboard::GetString(ROBOT_FMSSCALE, ROBOT_FMS_UNINIT);
-    	std::printf("2135: Auto Pos 2 - switch: %s scale %s\n",alliSwitch.c_str(), scale.c_str());
-    	// Build group command for Pos 2 decisions here!
+	if (alliSwitch.compare(ROBOT_FMS_UNINIT) != 0)	{
 
-    	if (alliSwitch == ROBOT_FMS_LEFT) {
-    		cmd = new(AutoPos2SwitchLeft);
-    		cmd->Start();
+		// Select group command for Pos 2 decisions here
+
+		scale = SmartDashboard::GetString(ROBOT_FMSSCALE, ROBOT_FMS_UNINIT);
+    	std::printf("2135: Auto Pos 2 - AlliSwitch: %s Scale: %s\n", alliSwitch.c_str(), scale.c_str());
+
+   		if (alliSwitch.compare(ROBOT_FMS_RIGHT) == 0) {		 // If alliance switch is RIGHT
+    		cmd = new(AutoPos2SwitchRight);					 // Attack the switch plate on the right
     	}
-    	else {
-    		cmd = new(AutoPos2SwitchRight);
-    		cmd->Start();
+		else if (alliSwitch.compare(ROBOT_FMS_LEFT) == 0 ) { // Else alliance switch is LEFT
+    		cmd = new(AutoPos2SwitchLeft);				     // Attack the switch plate on the left
     	}
 
-    	// If switch == left
-    	//		attack the switch plate on the left
-    	// Else		/* switch is right */
-    	//		attack the switch plate on the right
-
-    	// Let this command finish
-    	isFinished = true;
+		if (cmd != nullptr) {
+			cmd->Start();	// Start the correct command
+		}
+		isFinished = true;	// Let this command finish
     }
     return isFinished;
 }
