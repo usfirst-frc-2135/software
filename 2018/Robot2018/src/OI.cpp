@@ -20,6 +20,8 @@
 #include "Commands/AutoPos1Scale.h"
 #include "Commands/AutoPos1Switch.h"
 #include "Commands/AutoPos2.h"
+#include "Commands/AutoPos2SwitchLeft.h"
+#include "Commands/AutoPos2SwitchRight.h"
 #include "Commands/AutoPos3.h"
 #include "Commands/AutoPos3Scale.h"
 #include "Commands/AutoPos3Switch.h"
