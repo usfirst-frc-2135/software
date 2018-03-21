@@ -46,55 +46,38 @@ bool AutoPos1::IsFinished() {
 
 	alliSwitch = SmartDashboard::GetString(ROBOT_FMSALLISWITCH, ROBOT_FMS_UNINIT);
 	// If not the uninitialized string, then new data received
-    if(alliSwitch.compare(ROBOT_FMS_UNINIT) && !(alliSwitch.empty()))
-    	{
-    	scale = SmartDashboard::GetString(ROBOT_FMSSCALE, ROBOT_FMS_UNINIT);
-    	std::printf("2135: Auto Pos 1 - AlliSwitch: %s Scale %s\n",alliSwitch.c_str(), scale.c_str());
+	if (alliSwitch.compare(ROBOT_FMS_UNINIT) && !(alliSwitch.empty()))
+	{
+		// Select group command for Pos 1 decisions here
 
-       		if (alliSwitch == ROBOT_FMS_RIGHT) {
-        		if (scale == ROBOT_FMS_RIGHT) {
-        			cmd = new(AutoPosANYMove);
-        			cmd->Start();
-        		}
-        		else {
-        			cmd = new(AutoPos1Scale);
-        			cmd->Start();
-        		}
-        	}
-        	else {
-        		if (scale == ROBOT_FMS_RIGHT) {
-        			cmd = new(AutoPos1Switch);
-        			cmd->Start();
-        		}
-        		else {
-        			cmd = new(AutoPos1Scale);
-        			cmd->Start();
-        			//Put in logic to choose from SmartDashboard (switch or scale)
-        		}
-        }
-    	// Build group command for Pos 1 decisions here!
+		scale = SmartDashboard::GetString(ROBOT_FMSSCALE, ROBOT_FMS_UNINIT);
+		std::printf("2135: Auto Pos 1 - AlliSwitch: %s Scale %s\n",alliSwitch.c_str(), scale.c_str());
 
-    	// If switch == right
-    	//		If scale == right
-    	//			drive forward to take the autonomous line
-    	// *** This should be enough to start a group command even if the calling command finishes ***
-    	// cmd = new (AutoPosANYMove);
-    	// cmd->Start();
-    	//		Else	/* scale is left */
-    	//			attack the scale
-    	// Else		/* switch is left */
-    	//		If scale == right
-    	//			attack the switch
-    	//		Else	/* scale is left */
-    	//			If dashboard setting says TAKE THE SCALE
-    	//				attack the scale
-    	//			Else
-    	//				attack the switch
-
-    	// Let this command finish
-    	isFinished = true;
-    }
-    return isFinished;
+		if (alliSwitch.compare(ROBOT_FMS_RIGHT)) {	// If alliance switch is RIGHT
+			if (scale.compare(ROBOT_FMS_RIGHT)) {	// If scale is RIGHT (case RR)
+				cmd = new(AutoPosANYMove);			// Drive to auto line
+			}
+			else {									// Else scale is LEFT (case RL)
+				cmd = new(AutoPos1Scale);			// Attack the scale
+			}
+		}
+		else {										// Else alliance switch is LEFT
+			if (scale.compare(ROBOT_FMS_RIGHT)) {	// If scale is RIGHT (case LR)
+				cmd = new(AutoPos1Switch);			// Attack the switch
+			}
+			else {									// Else scale is LEFT (case LL)
+				// TODO: Put in logic to choose from SmartDashboard (switch or scale)
+				// If dashboard setting says TAKE THE SCALE
+				//		attack the scale
+				// Else
+				//		attack the switch
+				cmd = new(AutoPos1Scale);
+			}
+		}
+		cmd->Start();							// Start the correct command
+		isFinished = true;						// Let this command finish
+	}
+	return isFinished;
 }
 
 // Called once after isFinished returns true

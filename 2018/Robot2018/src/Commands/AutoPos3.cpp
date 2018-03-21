@@ -38,6 +38,7 @@ void AutoPos3::Execute() {
 bool AutoPos3::IsFinished() {
 	bool	isFinished = false;
 
+	// TODO: Make this look like AutoPos1.cpp
 	// Check if gameData has been sent
 	std::string alliSwitch;
 	std::string scale;
