@@ -96,7 +96,6 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 	motorL1->Config_kP(m_slotIndex, m_distKp, m_timeout);
 	motorR3->Config_kP(m_slotIndex, m_distKp, m_timeout);
 
-	// TODO: Tune these PID loop controls
 	// Ramp rate is "seconds to full speed"
 	motorL1->ConfigClosedloopRamp(m_CL_rampRate, m_timeout);
 	motorR3->ConfigClosedloopRamp(m_CL_rampRate, m_timeout);
@@ -128,7 +127,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
    	driveTurnPIDOutput = new PIDOutputDriveTurn(diffDrive);
    	driveTurnPIDLoop = new PIDController(m_turnKp, 0.0, 0.0, gyro, driveTurnPIDOutput, 0.010);
 
-   	// Settings for Turn PID // TODO: Calculate real PID and outputs and get from either defaults or Robot Config
+   	// Settings for Turn PID
    	driveTurnPIDLoop->SetPID(m_turnKp, 0.0, 0.0);
    	driveTurnPIDLoop->SetOutputRange(-m_turnMaxOut, m_turnMaxOut);
    	driveTurnPIDLoop->SetAbsoluteTolerance(m_turnErrDeg);

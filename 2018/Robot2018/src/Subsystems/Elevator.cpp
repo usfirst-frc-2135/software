@@ -237,7 +237,7 @@ void Elevator::MoveToPosition(int level) {
 			std::printf("2135: EL m_targetInches limited by m_elevatorMinHeight %f\n", m_elevatorMinHeight);
 			m_targetInches = m_elevatorMinHeight;
 		}
-		if (m_targetInches > m_elevatorMaxHeight) { //TODO Determine upwards limit
+		if (m_targetInches > m_elevatorMaxHeight) {
 			std::printf("2135: EL m_targetInches limited by m_elevatorMaxHeight %f\n", m_elevatorMaxHeight);
 			m_targetInches = m_elevatorMaxHeight;
 		}
