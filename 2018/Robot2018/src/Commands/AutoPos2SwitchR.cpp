@@ -10,7 +10,7 @@
 
 
 
-#include <Commands/AutoPos2SwitchRight.h>
+#include <Commands/AutoPos2SwitchR.h>
 #include "Commands/ElevatorRun.h"
 #include "Commands/WristRun.h"
 #include "Commands/AutoDriveDist.h"
