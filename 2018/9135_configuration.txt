@@ -9,7 +9,7 @@
  DT_PidDistMaxInches = 310.0
  DT_CLRampRate = 0.300
  DT_CLAllowedError = 0
- DT_PidDistErrInches = 1.8
+ DT_PidDistErrInches = 1.5
  DT_PidTurnKp = 0.0225 
  DT_PidTurnMaxOut = 0.65
  DT_PidTurnErrDeg = 1.0 
@@ -44,8 +44,12 @@
  WR_WristStowed = 60.0
 # Autonomous settings
  AutoDriveDist = 97.25
+ AutoDriveTurn = 90.0
+ AutoPosANYMove = 97.25
  AutoPos1Switch = 97.25
+ AutoPos1SwitchLeg1 = 145.25
+ AutoPos1SwitchTurn1 = 90.0
+ AutoPos1SwitchLeg2 = 18.0
  AutoPos2Switch = 97.25
  AutoPos3Switch = 97.25
- AutoPosANYMove = 97.25
  
