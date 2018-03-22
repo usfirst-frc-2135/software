@@ -71,7 +71,10 @@ bool AutoPos3::IsFinished() {
     			cmd = new(AutoPos3Scale);
     		}
     	}
-    	cmd->Start();				// Start the correct command
+
+    	if (cmd != nullptr) {
+    		cmd->Start();				// Start the correct command
+    	}
     	isFinished = true;			// Let this command finish
     }
     return isFinished;
