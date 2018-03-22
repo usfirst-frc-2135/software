@@ -36,30 +36,29 @@ void AutoPos3::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoPos3::IsFinished() {
-	bool	isFinished = false;
-	std::string alliSwitch;			// Holds alliance switch game data setting
-	std::string scale;				// Holds scale game data setting
-	frc::Command * cmd = nullptr;	// Pointer to command/command group to run
+	bool			isFinished = false;
+	std::string 	alliSwitch;			// Holds alliance switch game data setting
+	std::string 	scale;				// Holds scale game data setting
+	frc::Command	* cmd = nullptr;	// Pointer to command/command group to run
 
+	// Check if gameData has been sent
 	alliSwitch = SmartDashboard::GetString(ROBOT_FMSALLISWITCH, ROBOT_FMS_UNINIT);
 	// If not the uninitialized string, then new data received
-    if(alliSwitch.compare(ROBOT_FMS_UNINIT) != 0)
-    {
+    if (alliSwitch.compare(ROBOT_FMS_UNINIT) != 0) {
     	// Select group command for Pos 3 decisions here
-
     	scale = SmartDashboard::GetString(ROBOT_FMSSCALE, ROBOT_FMS_UNINIT);
     	std::printf("2135: Auto Pos 3 - AlliSwitch: %s Scale: %s\n", alliSwitch.c_str(), scale.c_str());
 
-    	if (alliSwitch.compare(ROBOT_FMS_LEFT) == 0) {	    // If alliance switch is LEFT
-    		if (scale.compare(ROBOT_FMS_LEFT) == 0) {    	// If scale is LEFT (case LL)
+    	if (alliSwitch.compare(ROBOT_FMS_LEFT) == 0) {		// If alliance switch is LEFT
+    		if (scale.compare(ROBOT_FMS_LEFT) == 0) {		// If scale is LEFT (case LL)
     			cmd = new(AutoPosANYMove);    				// Drive to auto line
     		}
     		else if (scale.compare(ROBOT_FMS_RIGHT) == 0) {	// Else	scale is RIGHT (case LR)
     			cmd = new(AutoPos3Scale);    	    		// Attack the scale
     		}
     	}
-    	else if (alliSwitch.compare(ROBOT_FMS_RIGHT) == 0) { // Else	alliance switch is RIGHT
-    		if (scale.compare(ROBOT_FMS_LEFT) == 0) {    	 // If scale is LEFT (case RL)
+    	else if (alliSwitch.compare(ROBOT_FMS_RIGHT) == 0) { // Else alliance switch is RIGHT
+    		if (scale.compare(ROBOT_FMS_LEFT) == 0) {		 // If scale is LEFT (case RL)
     			cmd = new(AutoPos3Switch);    				 // Attack the switch
     		}
     		else if (scale.compare(ROBOT_FMS_RIGHT) == 0) {  // Else scale is RIGHT (case RR)
@@ -73,9 +72,9 @@ bool AutoPos3::IsFinished() {
     	}
 
     	if (cmd != nullptr) {
-    		cmd->Start();				// Start the correct command
+    		cmd->Start();									// Start the correct command
     	}
-    	isFinished = true;			// Let this command finish
+    	isFinished = true;									// Let this command finish
     }
     return isFinished;
 }

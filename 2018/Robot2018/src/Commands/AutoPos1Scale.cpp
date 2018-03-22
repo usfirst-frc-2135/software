@@ -43,15 +43,14 @@ AutoPos1Scale::AutoPos1Scale() {
     // arm.
 
 	RobotConfig* config = RobotConfig::GetInstance();
-	double	cmdDistLeg1;
-	double	cmdDistTurn1;
-	double	cmdDistLeg2;
+	double	cmdDistLeg1 = 0.0;
+	double	cmdDistTurn1 = 0.0;
+	double	cmdDistLeg2 = 0.0;
 
 	config->GetValueAsDouble("AutoPos1ScaleLeg1", cmdDistLeg1, 304.5);
 	config->GetValueAsDouble("AutoPos1ScaleTurn1", cmdDistTurn1, 90.0);
 	config->GetValueAsDouble("AutoPos1ScaleLeg2", cmdDistLeg2, 5.5);
 
-	std::string	alliSwitch;
 	std::printf("2135: Auto Pos 1 Scale - Init Leg1 %4.2f in, Turn1 %4.1f deg, Leg2 %4.2f in\n",
 	cmdDistLeg1, cmdDistTurn1, cmdDistLeg2);
 

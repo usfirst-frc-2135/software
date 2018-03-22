@@ -40,15 +40,14 @@ AutoPos3Switch::AutoPos3Switch() {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
 	RobotConfig* config = RobotConfig::GetInstance();
-	double	cmdDistLeg1;
-	double	cmdDistTurn;
-	double	cmdDistLeg2;
+	double	cmdDistLeg1 = 0.0;
+	double	cmdDistTurn = 0.0;
+	double	cmdDistLeg2 = 0.0;
 
 	config->GetValueAsDouble("AutoPos3SwitchLeg1", cmdDistLeg1, 83.75);
 	config->GetValueAsDouble("AutoPos3SwitchTurn", cmdDistTurn, -45.0);
 	config->GetValueAsDouble("AutoPos3SwitchLeg2", cmdDistLeg2, 30.88);
 
-	std::string	alliSwitch;
 	std::printf("2135: Auto Pos 3 Switch -  Init Leg1 %4.2f in, Turn1 %4.1f deg, Leg2 %4.2f in\n",
 			cmdDistLeg1, cmdDistTurn, cmdDistLeg2);
 

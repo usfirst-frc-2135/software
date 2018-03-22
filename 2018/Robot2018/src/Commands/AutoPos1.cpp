@@ -40,15 +40,13 @@ bool AutoPos1::IsFinished() {
 	bool			isFinished = false;
 	std::string 	alliSwitch;			// Holds alliance switch game data setting
 	std::string 	scale;				// Holds scale game data setting
-	frc::Command	* cmd = nullptr;		// Pointer to command/command group to run
+	frc::Command	* cmd = nullptr;	// Pointer to command/command group to run
 
 	// Check if gameData has been sent
 	alliSwitch = SmartDashboard::GetString(ROBOT_FMSALLISWITCH, ROBOT_FMS_UNINIT);
 	// If not the uninitialized string, then new data received
-	if (alliSwitch.compare(ROBOT_FMS_UNINIT) != 0)	{
-
+	if (alliSwitch.compare(ROBOT_FMS_UNINIT) != 0) {
 		// Select group command for Pos 1 decisions here
-
 		scale = SmartDashboard::GetString(ROBOT_FMSSCALE, ROBOT_FMS_UNINIT);
 		std::printf("2135: Auto Pos 1 - AlliSwitch: %s Scale: %s\n", alliSwitch.c_str(), scale.c_str());
 
@@ -60,7 +58,7 @@ bool AutoPos1::IsFinished() {
 				cmd = new(AutoPos1Scale);					// Attack the scale
 			}
 		}
-		else if (alliSwitch.compare(ROBOT_FMS_LEFT) == 0 ) { // Else alliance switch is LEFT
+		else if (alliSwitch.compare(ROBOT_FMS_LEFT) == 0) {	 // Else alliance switch is LEFT
 			if (scale.compare(ROBOT_FMS_RIGHT) == 0) {		 // If scale is RIGHT (case LR)
 				cmd = new(AutoPos1Switch);					 // Attack the switch
 			}
@@ -75,9 +73,9 @@ bool AutoPos1::IsFinished() {
 		}
 
 		if (cmd != nullptr) {
-			cmd->Start();						// Start the correct command
+			cmd->Start();									// Start the correct command
 		}
-		isFinished = true;						// Let this command finish
+		isFinished = true;									// Let this command finish
 	}
 	return isFinished;
 }

@@ -39,11 +39,11 @@ AutoPos2SwitchLeft::AutoPos2SwitchLeft() {
     // arm.
 
 	RobotConfig* config = RobotConfig::GetInstance();
-	double	cmdDistLeg1;
-	double	cmdDistTurn1;
-	double  cmdDistLeg2;
-	double	cmdDistTurn2;
-	double  cmdDistLeg3;
+	double	cmdDistLeg1 = 0.0;
+	double	cmdDistTurn1 = 0.0;
+	double  cmdDistLeg2 = 0.0;
+	double	cmdDistTurn2 = 0.0;
+	double  cmdDistLeg3 = 0.0;
 
 	config->GetValueAsDouble("AutoPos2SwitchLeftLeg1", cmdDistLeg1, 9.50);
 	config->GetValueAsDouble("AutoPos2SwitchLeftTurn1", cmdDistTurn1, -45.0);
@@ -51,7 +51,6 @@ AutoPos2SwitchLeft::AutoPos2SwitchLeft() {
 	config->GetValueAsDouble("AutoPos2SwitchLeftTurn2", cmdDistTurn2, 45.0);
 	config->GetValueAsDouble("AutoPos2SwitchLeftLeg3", cmdDistLeg2, 28.75);
 
-	std::string	alliSwitch;
 	std::printf("2135: Auto Pos 2 Switch Left -  Init Leg1 %4.2f in, Turn1 %4.1f deg, Leg2 %4.2f in, Turn2 %4.1f deg, Leg3 %4.2f in,\n",
 			cmdDistLeg1, cmdDistTurn1, cmdDistLeg2, cmdDistTurn2, cmdDistLeg3);
 
