@@ -9,8 +9,8 @@
 // it from being updated in the future.
 
 
-#include <Commands/AutoPos2SwitchL.h>
-#include <Commands/AutoPos2SwitchR.h>
+#include <Commands/AutoPos2SwitchLeft.h>
+#include <Commands/AutoPos2SwitchRight.h>
 #include "AutoPos2.h"
 #include "AutoPosANYMove.h"
 
