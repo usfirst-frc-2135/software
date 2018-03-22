@@ -45,11 +45,26 @@
 # Autonomous settings
  AutoDriveDist = 97.25
  AutoDriveTurn = 90.0
- AutoPosANYMove = 97.25
- AutoPos1Switch = 97.25
  AutoPos1SwitchLeg1 = 145.25
  AutoPos1SwitchTurn1 = 90.0
  AutoPos1SwitchLeg2 = 18.0
- AutoPos2Switch = 97.25
- AutoPos3Switch = 97.25
+ AutoPos1ScaleLeg1 = 304.5
+ AutoPos1ScaleTurn1 = 90.0
+ AutoPos1ScaleLeg2 = 5.5
+ AutoPos2SwitchLeftLeg1 = 9.50
+ AutoPos2SwitchLeftTurn1 = -45.0
+ AutoPos2SwitchLeftLeg1 = 83.44
+ AutoPos2SwitchLeftTurn1 = 45.0
+ AutoPos2SwitchLeftLeg1 = 28.75
+ AutoPos2SwitchRightLeg1 = 9.50
+ AutoPos2SwitchRightTurn1 = 45.0
+ AutoPos2SwitchRightLeg1 = 69.30
+ AutoPos2SwitchRightTurn1 = -45.0
+ AutoPos2SwitchRightLeg1 = 38.75
+ AutoPos3SwitchLeg1 = 83.75
+ AutoPos3SwitchTurn1 = -45.0
+ AutoPos3SwitchLeg2 = 30.88
+ AutoPos3ScaleLeg1 = 261.50
+ AutoPos3ScaleTurn1 = -45.0
+ AutoPos3ScaleLeg2 = 11.61 
  
