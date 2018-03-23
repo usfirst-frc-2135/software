@@ -170,19 +170,17 @@ void Drivetrain::Periodic() {
 void Drivetrain::Initialize(void) {
 	std::printf("2135: DT Initialize\n");
 
-	//Robot switches from low gear in auton to high gear in teleop
-	if (frc::RobotState::IsAutonomous()) {
-		m_lowGear = true;
-		m_brakeMode = true;
-	}
-	else {
+	//Robot switches to high gear and coast mode in teleop
+	if (frc::RobotState::IsOperatorControl()) {
 		m_lowGear = false;
 		m_brakeMode = false;
 	}
+	else {
+		m_lowGear = true;
+		m_brakeMode = true;
+	}
 
-    // Set all motors to use coast mode and low gear when initialized.
 	MoveShiftGears(m_lowGear);
-    m_brakeMode = false;
     MoveSetBrakeMode(m_brakeMode);
 }
 
