@@ -71,6 +71,8 @@ void Robot::RobotInit() {
 	m_FMSOppSwitch = SIDE_UNINIT;
 	SmartDashboardStartChooser();
 	FMSGameDataRead();
+
+	frc::SmartDashboard::PutBoolean(ROBOT_PREF_SCALE, false);
 }
 
 /**
@@ -83,8 +85,6 @@ void Robot::DisabledInit(){
 	SmartDashboard::PutString(ROBOT_FMSALLISWITCH, ROBOT_FMS_UNINIT);
 	SmartDashboard::PutString(ROBOT_FMSSCALE, ROBOT_FMS_UNINIT);
 	SmartDashboard::PutString(ROBOT_FMSOPPSWITCH, ROBOT_FMS_UNINIT);
-
-	frc::SmartDashboard::PutBoolean(ROBOT_PREF_SCALE, false);
 }
 
 void Robot::DisabledPeriodic() {
