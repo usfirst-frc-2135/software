@@ -27,6 +27,7 @@
 #include "Commands/AutoPosANYMove.h"
 #include "Commands/AutoStop.h"
 #include "Commands/AutoTestInit.h"
+#include "Commands/BuildChooser.h"
 #include "Commands/DriveReset.h"
 #include "Commands/DriveShift.h"
 #include "Commands/DriveSpin.h"
@@ -103,6 +104,7 @@ OI::OI() {
     shiftSpeed->WhileHeld(new DriveShift(true));
 
     // SmartDashboard Buttons
+    frc::SmartDashboard::PutData("Build Chooser", new BuildChooser());
     frc::SmartDashboard::PutData("Load Config", new LoadConfig());
     frc::SmartDashboard::PutData("Wrist Calibrate", new WristCalibrate());
     frc::SmartDashboard::PutData("Wrist Bump: UP", new WristBump(true));
