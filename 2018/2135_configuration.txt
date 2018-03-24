@@ -26,8 +26,8 @@
  EL_SwitchHeight = 15.0
  EL_ScaleLoHeight = 32.0
  EL_ScaleHiHeight = 33.0
- EL_ClimbHeight = 33.0
- EL_LevitateHeight = 18.0
+ EL_ClimbHeight = 31.0
+ EL_LevitateHeight = 16.0
  EL_LowGearHeight = 15.0
 # Gripper settings
  GR_MotorSpeed = 1.0

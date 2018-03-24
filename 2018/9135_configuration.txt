@@ -9,7 +9,7 @@
  DT_PidDistMaxInches = 310.0
  DT_CLRampRate = 0.300
  DT_CLAllowedError = 0
- DT_PidDistErrInches = 1.5
+ DT_PidDistErrInches = 1.0
  DT_PidTurnKp = 0.0225 
  DT_PidTurnMaxOut = 0.65
  DT_PidTurnErrDeg = 1.0 
@@ -26,8 +26,8 @@
  EL_SwitchHeight = 15.0
  EL_ScaleLoHeight = 32.0
  EL_ScaleHiHeight = 33.0
- EL_ClimbHeight = 33.0
- EL_LevitateHeight = 18.0
+ EL_ClimbHeight = 31.0
+ EL_LevitateHeight = 16.0
  EL_LowGearHeight = 15.0
 # Gripper settings
  GR_MotorSpeed = 1.0
