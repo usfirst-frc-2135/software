@@ -10,7 +10,6 @@
 
 // Comment both to test with only the RoboRio
 //#define ROBORIO_STANDALONE
-//#define ROBOTBENCHTOPTEST //Leave defined to test with the Benchtop Test
 
 //	SmartDashboard string definitions
 

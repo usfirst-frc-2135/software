@@ -4,34 +4,37 @@
  DT_DriveScaling = 1.0   
  DT_TurnScaling = 1.0
  DT_DriveSpin = 0.45
- DT_PidDistKp = 0.40
- DT_PidTurnKp = 0.020 
- DT_PidTurnMaxOut = 0.6 
- DT_AllowedCLError = 0
+ DT_PidDistKp = 0.200
+ DT_PidDistMaxOut = 0.65
+ DT_PidDistMaxInches = 310.0
+ DT_CLRampRate = 0.300
+ DT_CLAllowedError = 0
  DT_PidDistErrInches = 1.0
+ DT_PidTurnKp = 0.0225 
+ DT_PidTurnMaxOut = 0.65
+ DT_PidTurnErrDeg = 1.0 
 # Elevator settings
  EL_CalibSpeed = 0.25
- EL_PidSpeed = 1.0
- EL_PidKp = 0.25
- EL_PidAllowableCLE = 0
+ EL_PidKp = 0.250
+ EL_PidMaxOut = 1.00
+ EL_CLRampRate = 0.250
+ EL_CLAllowedError = 0
  EL_MaxHeight = 35.0
  EL_MinHeight = 0.0
  EL_BumpHeight = 1.0
  EL_FloorHeight = 0.5
  EL_SwitchHeight = 15.0
  EL_ScaleLoHeight = 32.0
-# Until higher values are tested
  EL_ScaleHiHeight = 33.0
  EL_ClimbHeight = 33.0
  EL_LevitateHeight = 18.0
- EL_SafetyTimeout = 4.0
  EL_LowGearHeight = 15.0
 # Gripper settings
  GR_MotorSpeed = 1.0
 # Wrist settings
- WR_PidSpeed = 0.6
  WR_PidKp = 1.5
- WR_PidAllowableCLE = 0
+ WR_PidMaxOut = 0.6
+ WR_CLAllowedError = 0
  WR_MaxCounts = 0
  WR_MinCounts = -1800
  WR_BumpAngle = 5.0
@@ -41,7 +44,30 @@
  WR_WristStowed = 60.0
 # Autonomous settings
  AutoDriveDist = 97.25
- AutoPos123Move = 97.25
- AutoPos1Switch = 97.25
- AutoPos2Switch = 97.25
- AutoPos3Switch = 97.25
+ AutoDriveTurn = 90.0
+# Auto Pos 1 settings
+ AutoPos1SwitchLeg1 = 145.25
+ AutoPos1SwitchTurn1 = 90.0
+ AutoPos1SwitchLeg2 = 18.0
+ AutoPos1ScaleLeg1 = 304.5
+ AutoPos1ScaleTurn1 = 90.0
+ AutoPos1ScaleLeg2 = 5.5
+#Auto Pos 2 settings
+ AutoPos2SwitchLeftLeg1 = 9.50
+ AutoPos2SwitchLeftTurn1 = -45.0
+ AutoPos2SwitchLeftLeg1 = 83.44
+ AutoPos2SwitchLeftTurn1 = 45.0
+ AutoPos2SwitchLeftLeg1 = 28.75
+ AutoPos2SwitchRightLeg1 = 9.50
+ AutoPos2SwitchRightTurn1 = 45.0
+ AutoPos2SwitchRightLeg1 = 69.30
+ AutoPos2SwitchRightTurn1 = -45.0
+ AutoPos2SwitchRightLeg1 = 38.75
+# Auto Pos 3 settings
+ AutoPos3SwitchLeg1 = 83.75
+ AutoPos3SwitchTurn1 = -45.0
+ AutoPos3SwitchLeg2 = 30.88
+ AutoPos3ScaleLeg1 = 261.50
+ AutoPos3ScaleTurn1 = -45.0
+ AutoPos3ScaleLeg2 = 11.61 
+ 

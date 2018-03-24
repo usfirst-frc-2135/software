@@ -38,7 +38,7 @@ void GripperRun::Initialize() {
 			strName = "OppSpin";
 	else
 		strName = "Off";
-	std::printf("2135: Gripper Run %s - Start\n", strName);
+	std::printf("2135: GripperRun %s - Start\n", strName);
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -17,6 +17,7 @@ PIDOutputDriveTurn::~PIDOutputDriveTurn(void) {
 }
 
 void PIDOutputDriveTurn::PIDWrite(double output) {
-	m_robotDrive->TankDrive(output, -output);
+	// Send right/left motor outputs and disable squaring of the TankDrive input values
+	m_robotDrive->TankDrive(output, -output, false);
 }
 

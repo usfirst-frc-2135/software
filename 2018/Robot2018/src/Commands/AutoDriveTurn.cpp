@@ -25,8 +25,16 @@ AutoDriveTurn::AutoDriveTurn(double angle): frc::Command() {
 
 // Called just before this Command runs the first time
 void AutoDriveTurn::Initialize() {
-	std::printf("2135: AutoDriveTurn - Init\n");
-	Robot::drivetrain->MoveDriveTurnPIDInit(90.0); // TODO: Hard coded for now and will use a preference/robot default to get the value
+	RobotConfig *config;
+	// If distance is less than 0.1 (default is 0.0), then read RobotConfig
+	//	auton programs will pass in larger value
+	if (fabs(m_angle) < 0.1) {
+		config = RobotConfig::GetInstance();
+		config->GetValueAsDouble("AutoDriveTurn", m_angle, 90.0);
+	}
+
+	std::printf("2135: AutoDriveTurn - Init %4.1f degrees\n", m_angle);
+	Robot::drivetrain->MoveDriveTurnPIDInit(m_angle);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -37,11 +45,7 @@ void AutoDriveTurn::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDriveTurn::IsFinished() {
-	bool isFinished;
-
-	isFinished = Robot::drivetrain->MoveDriveTurnIsPIDAtSetPoint();
-
-    return isFinished;
+    return (Robot::drivetrain->MoveDriveTurnIsPIDAtSetPoint());
 }
 
 // Called once after isFinished returns true

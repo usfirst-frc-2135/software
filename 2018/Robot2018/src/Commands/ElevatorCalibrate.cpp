@@ -30,9 +30,9 @@ void ElevatorCalibrate::Initialize() {
 	Robot::elevator->CalibrationInit();
 
 	//Set safety timer.
+	m_safetyTimeout = 3.0;
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
-	m_safetyTimeout = 3.0;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -54,7 +54,7 @@ bool ElevatorCalibrate::IsFinished() {
 
 // Called once after isFinished returns true
 void ElevatorCalibrate::End() {
-	std::printf("2135: Elevator Calibrate Ended\n");
+	std::printf("2135: ElevatorCalibrate Ended\n");
 	Robot::elevator->CalibrationStop();
 	m_safetyTimer.Stop();
 }

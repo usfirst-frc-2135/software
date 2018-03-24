@@ -53,7 +53,7 @@ public:
 		GRIPPER_SPIN = 2
 	};
 
-	void Initialize(frc::Preferences *RobotConfig);
+	void Initialize(void);
 	void SetGripperMotorSpeed(int speed);
 };
 
