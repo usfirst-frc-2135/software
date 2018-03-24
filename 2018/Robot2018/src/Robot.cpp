@@ -84,7 +84,7 @@ void Robot::DisabledInit(){
 	SmartDashboard::PutString(ROBOT_FMSSCALE, ROBOT_FMS_UNINIT);
 	SmartDashboard::PutString(ROBOT_FMSOPPSWITCH, ROBOT_FMS_UNINIT);
 
-	frc::SmartDashboard::PutBoolean("PREF_SCALE", true);
+	frc::SmartDashboard::PutBoolean(ROBOT_PREF_SCALE, false);
 }
 
 void Robot::DisabledPeriodic() {

@@ -18,8 +18,10 @@
 #define ROBOT_FMS_UNKNOWN 	"UNKNOWN"
 #define ROBOT_FMS_UNINIT	"UNINIT"
 
-#define	ROBOT_FMSALLISWITCH		"FMS Alli Switch"
-#define	ROBOT_FMSSCALE			"FMS Scale"
-#define	ROBOT_FMSOPPSWITCH		"FMS Opp Switch"
+#define	ROBOT_FMSALLISWITCH	"FMS Alli Switch"
+#define	ROBOT_FMSSCALE		"FMS Scale"
+#define	ROBOT_FMSOPPSWITCH	"FMS Opp Switch"
+
+#define ROBOT_PREF_SCALE	"PREF_SCALE"
 
 #endif /* ROBOTDEFAULTS_H_ */
