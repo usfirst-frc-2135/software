@@ -100,7 +100,7 @@ void Robot::AutonomousInit() {
 	std::printf("2135: ***** Auton Init ***** - FMS Read Game Data\n");
 	FMSGameDataRead();
 
-	autonomousCommand = chooser.GetSelected();
+	autonomousCommand = chooser->GetSelected();
 	if (autonomousCommand != nullptr)
 		autonomousCommand->Start();
 }
@@ -131,14 +131,16 @@ void Robot::TeleopPeriodic() {
 
 void Robot::SmartDashboardStartChooser() {
 
+	delete chooser;
+	chooser = new frc::SendableChooser<frc::Command*>;
 	// Keep names short due to bug in smartdashboard
-	chooser.AddDefault("Auto Stop", new AutoStop());
-	chooser.AddObject("Pos ANY Move", new AutoPosANYMove());
-	chooser.AddObject("Pos 1", new AutoPos1());
-	chooser.AddObject("Pos 2", new AutoPos2());
-	chooser.AddObject("Pos 3", new AutoPos3());
+	chooser->AddDefault("Auto Stop", new AutoStop());
+	chooser->AddObject("Pos ANY Move", new AutoPosANYMove());
+	chooser->AddObject("Pos 1", new AutoPos1());
+	chooser->AddObject("Pos 2", new AutoPos2());
+	chooser->AddObject("Pos 3", new AutoPos3());
 
-	frc::SmartDashboard::PutData("Auto Modes", &chooser);
+	frc::SmartDashboard::PutData("Auto Modes", chooser);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
