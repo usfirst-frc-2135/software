@@ -81,10 +81,6 @@ void Robot::RobotInit() {
  */
 void Robot::DisabledInit(){
 	std::printf("2135: ***** Disabled Init *****\n");
-
-	SmartDashboard::PutString(ROBOT_FMSALLISWITCH, ROBOT_FMS_UNINIT);
-	SmartDashboard::PutString(ROBOT_FMSSCALE, ROBOT_FMS_UNINIT);
-	SmartDashboard::PutString(ROBOT_FMSOPPSWITCH, ROBOT_FMS_UNINIT);
 }
 
 void Robot::DisabledPeriodic() {
