@@ -66,6 +66,13 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 	config->GetValueAsDouble("DT_CLRampRate", m_CL_rampRate, 0.300);
 	config->GetValueAsInt("DT_CLAllowedError", m_CLAllowedError, 0);
 
+	// Load autonomous command values at boot from config file
+	double	temp;
+	config->GetValueAsDouble("AutoDriveDist", temp, 48.0);
+	SmartDashboard::PutNumber(AUTO_DT_DD, temp);
+	config->GetValueAsDouble("AutoDriveTurn", temp, 90.0);
+	SmartDashboard::PutNumber(AUTO_DT_DT, temp);
+
     //Invert the direction of the motors
     motorL1->SetInverted(true);
     motorL2->SetInverted(true);

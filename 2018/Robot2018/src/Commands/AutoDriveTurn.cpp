@@ -25,12 +25,10 @@ AutoDriveTurn::AutoDriveTurn(double angle): frc::Command() {
 
 // Called just before this Command runs the first time
 void AutoDriveTurn::Initialize() {
-	RobotConfig *config;
-	// If distance is less than 0.1 (default is 0.0), then read RobotConfig
+	// If distance is less than 0.1 (default is 0.0), then read from SmartDashboard
 	//	auton programs will pass in larger value
 	if (fabs(m_angle) < 0.1) {
-		config = RobotConfig::GetInstance();
-		config->GetValueAsDouble("AutoDriveTurn", m_angle, 90.0);
+		m_angle = SmartDashboard::GetNumber(AUTO_DT_DT, 90.0);
 	}
 
 	std::printf("2135: AutoDriveTurn - Init %4.1f degrees\n", m_angle);

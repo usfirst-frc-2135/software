@@ -23,5 +23,7 @@
 #define	ROBOT_FMSOPPSWITCH	"FMS Opp Switch"
 
 #define ROBOT_PREF_SCALE	"PREF_SCALE"
+#define AUTO_DT_DD			"DT_DDist"
+#define AUTO_DT_DT			"DT_DTurn"
 
 #endif /* ROBOTDEFAULTS_H_ */
