@@ -39,11 +39,11 @@ void GripperRun::Initialize() {
 	else
 		strName = "Off";
 	std::printf("2135: GripperRun %s - Start\n", strName);
+	Robot::gripper->SetGripperMotorSpeed(m_intakeDirection);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void GripperRun::Execute() {
-	Robot::gripper->SetGripperMotorSpeed(m_intakeDirection);
 }
 
 // Make this return true when this Command no longer needs to run execute()

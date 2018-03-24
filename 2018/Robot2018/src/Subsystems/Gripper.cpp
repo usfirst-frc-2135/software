@@ -60,6 +60,7 @@ Gripper::Gripper() : frc::Subsystem("Gripper") {
     motorL11->Set(ControlMode::PercentOutput, 0.0);
     motorR12->Set(ControlMode::PercentOutput, 0.0);
 #endif
+	m_spinLeft = false;
 }
 
 void Gripper::InitDefaultCommand() {
@@ -108,8 +109,15 @@ void Gripper::SetGripperMotorSpeed(int direction)
 		outputR = -m_gripperSpeed;
 		break;
 	case GRIPPER_SPIN:
-		outputL = m_gripperSpeed;
-		outputR = -m_gripperSpeed;
+		if (m_spinLeft) {
+			outputL = m_gripperSpeed;
+			outputR = -m_gripperSpeed;
+		}
+		else {
+			outputL = -m_gripperSpeed;
+			outputR = m_gripperSpeed;
+		}
+		m_spinLeft = !m_spinLeft;		// Alternate direction each time we set speed
 		break;
 	}
 
