@@ -13,7 +13,7 @@
 		<width>151</width>
 	</widget>
 	<widget field="DT Brake Mode" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="9" y="18"/>
+		<location x="8" y="18"/>
 		<width>165</width>
 	</widget>
 	<widget field="DT Low Gear" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
@@ -21,7 +21,7 @@
 		<width>154</width>
 	</widget>
 	<widget field="PREF_SCALE" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
-		<location x="497" y="409"/>
+		<location x="514" y="389"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
 		<location x="597" y="1"/>
@@ -48,7 +48,7 @@
 		<location x="429" y="102"/>
 	</widget>
 	<widget field="Auto Modes" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="427" y="267"/>
+		<location x="410" y="265"/>
 	</widget>
 	<widget field="Elevator Calibrate Override" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="186" y="57"/>
@@ -123,10 +123,10 @@
 		<location x="27" y="240"/>
 	</widget>
 	<widget field="DD PID L" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="226" y="388"/>
+		<location x="352" y="417"/>
 	</widget>
 	<widget field="DD PID R" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="224" y="408"/>
+		<location x="350" y="437"/>
 	</widget>
 	<widget field="FMS Scale" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="33" y="339"/>
@@ -136,7 +136,7 @@
 		<location x="21" y="276"/>
 	</widget>
 	<widget field="DT DEG" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="364" y="407"/>
+		<location x="488" y="418"/>
 	</widget>
 	<widget field="Cube Height" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="21" y="163"/>
@@ -153,18 +153,21 @@
 	<widget field="FMS Alli Switch" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="11" y="320"/>
 	</widget>
-	<widget field="DT TIME" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="360" y="427"/>
-	</widget>
-	<widget field="DD TIME" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="227" y="428"/>
-	</widget>
 	<widget field="EL Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="26" y="182"/>
 		<width>140</width>
 	</widget>
 	<widget field="DT_GyroAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="8" y="73"/>
+	</widget>
+	<widget field="Build Chooser" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="226" y="376"/>
+	</widget>
+	<widget field="DT_DDist" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="212" y="418"/>
+	</widget>
+	<widget field="DT_DTurn" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="208" y="438"/>
 	</widget>
 </dashboard>
 <live-window>
