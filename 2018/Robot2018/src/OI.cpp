@@ -125,8 +125,8 @@ OI::OI() {
     frc::SmartDashboard::PutData("Elevator Run: LEVITATE", new ElevatorRun(5));
     frc::SmartDashboard::PutData("Elevator Run: SMARTDASH", new ElevatorRun(6));
     frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
-    frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT", new AutoDriveDist(48.0));
-    frc::SmartDashboard::PutData("Auto Drive Turn: DEFAULT", new AutoDriveTurn(45.0));
+    frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT", new AutoDriveDist(0));
+    frc::SmartDashboard::PutData("Auto Drive Turn: DEFAULT", new AutoDriveTurn(0));
     frc::SmartDashboard::PutData("Auto Pos 3", new AutoPos3());
     frc::SmartDashboard::PutData("Auto Pos 2", new AutoPos2());
     frc::SmartDashboard::PutData("Auto Pos 1", new AutoPos1());
