@@ -34,7 +34,7 @@ private:
 	const int 		m_slotIndex = 0;				// Motor controller profile slot index
 	const int 		m_pidIndex = 0; 				// PID Slot index for sensors
 	const int 		m_timeout = 10;					// CAN timeout in msec to wait for response
-	const int		OUTPUT_SHAFT_REDUCTION = 2;		// Pulley reduction on output shaft
+	const int		OUTPUT_SHAFT_REDUCTION = 1.375;	// Sprocket reduction on output shaft
 	const double COUNTS_PER_ROTATION = (1024 * 4); 	// CPR is 1024 and multipled by 4 because it is a quadrature encoder
 	enum {											// Wrist subsystem movement states
 		WRIST_NOCHANGE = -1,						// No change in wrist angle--maintain current position
