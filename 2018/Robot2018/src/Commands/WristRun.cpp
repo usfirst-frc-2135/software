@@ -35,11 +35,8 @@ void WristRun::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool WristRun::IsFinished() {
-	bool isFinished;
-
-	isFinished = Robot::wrist->MoveToPositionIsFinished();
-
-    return isFinished;
+	// Wrist runs forever (except when interrupted by other commands)
+    return Robot::wrist->MoveToPositionIsFinished();
 }
 
 // Called once after isFinished returns true
