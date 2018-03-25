@@ -49,7 +49,7 @@ AutoPos2SwitchRight::AutoPos2SwitchRight() {
 	config->GetValueAsDouble("AutoPos2SwitchRightTurn1", cmdDistTurn1, 45.0);
 	config->GetValueAsDouble("AutoPos2SwitchRightLeg2", cmdDistLeg2, 69.30);
 	config->GetValueAsDouble("AutoPos2SwitchRightTurn2", cmdDistTurn2, -45.0);
-	config->GetValueAsDouble("AutoPos2SwitchRightLeg3", cmdDistLeg2, 38.75);
+	config->GetValueAsDouble("AutoPos2SwitchRightLeg3", cmdDistLeg3, 38.75);
 
 	std::printf("2135: Auto Pos 2 Switch Right -  Init Leg1 %4.2f in, Turn1 %4.1f deg, Leg2 %4.2f in, Turn2 %4.1f deg, Leg3 %4.2f in,\n",
 			cmdDistLeg1, cmdDistTurn1, cmdDistLeg2, cmdDistTurn2, cmdDistLeg3);
