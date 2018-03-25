@@ -41,21 +41,21 @@ AutoPos3Switch::AutoPos3Switch() {
     // arm.
 	RobotConfig* config = RobotConfig::GetInstance();
 	double	cmdDistLeg1 = 0.0;
-	double	cmdDistTurn = 0.0;
+	double	cmdDistTurn1 = 0.0;
 	double	cmdDistLeg2 = 0.0;
 
-	config->GetValueAsDouble("AutoPos3SwitchLeg1", cmdDistLeg1, 83.75);
-	config->GetValueAsDouble("AutoPos3SwitchTurn", cmdDistTurn, -45.0);
-	config->GetValueAsDouble("AutoPos3SwitchLeg2", cmdDistLeg2, 30.88);
+	config->GetValueAsDouble("AutoPos3SwitchLeg1", cmdDistLeg1, 145.25);
+	config->GetValueAsDouble("AutoPos3SwitchTurn1", cmdDistTurn1, -90.0);
+	config->GetValueAsDouble("AutoPos3SwitchLeg2", cmdDistLeg2, 18.0);
 
 	std::printf("2135: Auto Pos 3 Switch -  Init Leg1 %4.2f in, Turn1 %4.1f deg, Leg2 %4.2f in\n",
-			cmdDistLeg1, cmdDistTurn, cmdDistLeg2);
+			cmdDistLeg1, cmdDistTurn1, cmdDistLeg2);
 
 	AddParallel(new ElevatorRun(1)); 				// Elevator Switch Position
 	AddParallel(new WristRun(0)); 					// Wrist ready to Deliver - Flat
 	AddSequential(new AutoDriveDist(cmdDistLeg1)); 	// Drive to the turning point
 
-	AddSequential(new AutoDriveTurn(cmdDistTurn));	// Turn towards switch (45 degrees)
+	AddSequential(new AutoDriveTurn(cmdDistTurn1));	// Turn towards switch (45 degrees)
 
 	AddSequential(new AutoDriveDist(cmdDistLeg2));	// Drive to the switch fence at an angle
 
