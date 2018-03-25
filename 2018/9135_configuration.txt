@@ -10,9 +10,9 @@
  DT_CLRampRate = 0.300
  DT_CLAllowedError = 0
  DT_PidDistErrInches = 1.0
- DT_PidTurnKp = 0.0225 
+ DT_PidTurnKp = 0.030 
  DT_PidTurnMaxOut = 0.42
- DT_PidTurnErrDeg = 1.0 
+ DT_PidTurnErrDeg = 1.5 
 # Elevator settings
  EL_CalibSpeed = 0.25
  EL_PidKp = 0.250
@@ -31,7 +31,7 @@
  EL_LowGearHeight = 15.0
 # Gripper settings
  GR_MotorSpeed = 1.0
- GR_LowMotorSpeed = 0.25
+ GR_HoldSpeed = 0.25
 # Wrist settings
  WR_PidKp = 1.5
  WR_PidMaxOut = 0.6
@@ -52,9 +52,9 @@
  AutoPos1SwitchTurn1 = 90.0
  AutoPos1SwitchLeg2 = 18.0
 # Auto Pos 1 SCALE settings
- AutoPos1ScaleLeg1 = 304.5
- AutoPos1ScaleTurn1 = 90.0
- AutoPos1ScaleLeg2 = 5.5
+ AutoPos1ScaleLeg1 = 261.50
+ AutoPos1ScaleTurn1 = 45.0
+ AutoPos1ScaleLeg2 = 11.61 
 # Auto Pos 2 SWITCH LEFT settings
  AutoPos2SwitchLeftLeg1 = 9.50
  AutoPos2SwitchLeftTurn1 = -45.0
@@ -68,18 +68,18 @@
  AutoPos2SwitchRightTurn2 = -45.0
  AutoPos2SwitchRightLeg3 = 38.75
 # Auto Pos 3 SWITCH settings
-#AutoPos3SwitchLeg1 = 145.25
-#AutoPos3SwitchTurn1 = -90.0
-#AutoPos3SwitchLeg2 = 18.0
-# Auto Pos 3 SCALE settings
-#AutoPos3ScaleLeg1 = 261.50
-#AutoPos3ScaleTurn1 = -45.0
-#AutoPos3ScaleLeg2 = 11.61 
-# Flipped settings for Auto Pos 3
  AutoPos3SwitchLeg1 = 145.25
  AutoPos3SwitchTurn1 = -90.0
  AutoPos3SwitchLeg2 = 18.0
- AutoPos3ScaleLeg1 = 304.5
- AutoPos3ScaleTurn1 = -90.0
- AutoPos3ScaleLeg2 = 5.5 
- 
+# Auto Pos 3 SCALE settings
+ AutoPos3ScaleLeg1 = 261.50
+ AutoPos3ScaleTurn1 = -45.0
+ AutoPos3ScaleLeg2 = 11.61 
+# UNUSED - Auto Pos 1/3 SWITCH settings 45 degree
+# AutoPos3ScaleLeg1 = 83.75
+# AutoPos3ScaleTurn1 = 90.0
+# AutoPos3ScaleLeg2 = 30.88
+# UNUSED - Auto Pos 1/3 SCALE settings 90 degree
+# AutoPos3ScaleLeg1 = 304.5
+# AutoPos3ScaleTurn1 = 90.0
+# AutoPos3ScaleLeg2 = 5.5 
