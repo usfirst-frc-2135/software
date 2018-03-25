@@ -50,6 +50,7 @@ bool AutoDriveTurn::IsFinished() {
 void AutoDriveTurn::End() {
 	std::printf("2135: AutoDriveTurn - End\n");
 	Robot::drivetrain->MoveDriveTurnPIDStop();
+	m_angle = 0.0;		// Erase current angle for next call
 }
 
 // Called when another command which requires one or more of the same
@@ -57,4 +58,5 @@ void AutoDriveTurn::End() {
 void AutoDriveTurn::Interrupted() {
 	std::printf("2135: AutoDriveTurn - Interrupted\n");
 	Robot::drivetrain->MoveDriveTurnPIDStop();
+	m_angle = 0.0;		// Erase current angle for next call
 }
