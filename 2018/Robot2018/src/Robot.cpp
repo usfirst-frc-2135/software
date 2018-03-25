@@ -71,7 +71,7 @@ void Robot::RobotInit() {
 	m_FMSAlliSwitch = SIDE_UNINIT;
 	m_FMSScale = SIDE_UNINIT;
 	m_FMSOppSwitch = SIDE_UNINIT;
-//	SmartDashboardStartChooser();
+	SmartDashboardStartChooser();
 	FMSGameDataRead();
 
 	frc::SmartDashboard::PutBoolean(ROBOT_PREF_SCALE, false);
