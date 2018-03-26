@@ -9,7 +9,7 @@
  DT_PidDistMaxInches = 310.0
  DT_CLRampRate = 0.300
  DT_CLAllowedError = 0
- DT_PidDistErrInches = 1.0
+ DT_PidDistErrInches = 1.5
  DT_PidTurnKp = 0.030 
  DT_PidTurnMaxOut = 0.42
  DT_PidTurnErrDeg = 1.5 
@@ -23,7 +23,7 @@
  EL_MinHeight = 0.0
  EL_BumpHeight = 1.0
  EL_FloorHeight = 0.5
- EL_SwitchHeight = 15.0
+ EL_SwitchHeight = 13.5
  EL_ScaleLoHeight = 32.0
  EL_ScaleHiHeight = 33.0
  EL_ClimbHeight = 31.0
@@ -33,16 +33,16 @@
  GR_MotorSpeed = 1.0
  GR_HoldSpeed = 0.25
 # Wrist settings
- WR_PidKp = 1.5
- WR_PidMaxOut = 0.6
+ WR_PidKp = 0.375
+ WR_PidMaxOut = 1.0
  WR_CLAllowedError = 0
  WR_MaxCounts = 0
  WR_MinCounts = -1800
  WR_BumpAngle = 10.0
  WR_OffsetDegrees = 0.0
- WR_WristFlat = 10.0 #3.00
- WR_WristDelivery = 62.0 #55.00
- WR_WristStowed = 77.0 #70.0
+ WR_WristFlat = 10.0
+ WR_WristDelivery = 62.0
+ WR_WristStowed = 77.0
 # Autonomous settings
  AutoDriveDist = 97.25
  AutoDriveTurn = 90.0
