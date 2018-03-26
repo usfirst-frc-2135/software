@@ -316,7 +316,7 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches)
 
 	// Start safety timer to be distance divided by 80 inches plus 2.0 sec extra
 	// 97.5 -> 3.2 seconds, 320 -> 6.0 seconds
-	m_safetyTimeout = (m_distTargetInches / 80.0) + 2.0;
+	m_safetyTimeout = (fabs(m_distTargetInches) / 80.0) + 2.0;
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
 }
@@ -449,8 +449,8 @@ void Drivetrain::MoveDriveTurnPIDInit(double angle)
 	diffDrive->SetSafetyEnabled(false);
 #endif
 
-	// Start safety timer
-	m_safetyTimeout = 2.0;
+	// Start safety timer with 1.0 sec padding (45 deg -> 0.75 sec, 90 deg -> 1.30 sec)
+	m_safetyTimeout = (fabs(m_turnAngle) * 0.020) + 1.0;
 	m_safetyTimer.Reset();
 	m_safetyTimer.Start();
 }
