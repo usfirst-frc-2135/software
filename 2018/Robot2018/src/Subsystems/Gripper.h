@@ -34,6 +34,7 @@ private:
 #endif
 	const int	m_timeout = 10;					// CAN timeout in msec to wait for response
 	double 		m_gripperSpeed;
+	double 		m_holdSpeed;
 	bool		m_spinLeft;
 
 public:
@@ -50,7 +51,8 @@ public:
 		GRIPPER_STOP = 0,
 		GRIPPER_FORWARD = 1,
 		GRIPPER_REVERSE = -1,
-		GRIPPER_SPIN = 2
+		GRIPPER_SPIN = 2,
+		GRIPPER_HOLD = 3
 	};
 
 	void Initialize(void);

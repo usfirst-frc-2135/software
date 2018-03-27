@@ -64,12 +64,18 @@ OI::OI() {
     wristAcquire->WhenPressed(new WristRun(0));
     operatorBoard1.reset(new frc::Joystick(1));
     
+    gripperExpelStop.reset(new frc::JoystickButton(operatorBoard1.get(), 11));
+    gripperExpelStop->WhenReleased(new GripperRun(0));
     gripperExpel.reset(new frc::JoystickButton(operatorBoard1.get(), 11));
-    gripperExpel->WhileHeld(new GripperRun(-1));
+    gripperExpel->WhenPressed(new GripperRun(-1));
+    gripperSpinStop.reset(new frc::JoystickButton(operatorBoard1.get(), 10));
+    gripperSpinStop->WhenReleased(new GripperRun(0));
     gripperSpin.reset(new frc::JoystickButton(operatorBoard1.get(), 10));
-    gripperSpin->WhileHeld(new GripperRun(2));
+    gripperSpin->WhenPressed(new GripperRun(2));
+    gripperHold.reset(new frc::JoystickButton(operatorBoard1.get(), 9));
+    gripperHold->WhenReleased(new GripperRun(3));
     gripperAcquire.reset(new frc::JoystickButton(operatorBoard1.get(), 9));
-    gripperAcquire->WhileHeld(new GripperRun(1));
+    gripperAcquire->WhenPressed(new GripperRun(1));
     elevatorBumpDown.reset(new frc::JoystickButton(operatorBoard1.get(), 8));
     elevatorBumpDown->WhenPressed(new ElevatorBump(false));
     elevatorBumpUp.reset(new frc::JoystickButton(operatorBoard1.get(), 7));

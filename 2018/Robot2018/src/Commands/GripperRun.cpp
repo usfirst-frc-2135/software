@@ -27,18 +27,6 @@ GripperRun::GripperRun(int intakeDirection): frc::Command() {
 // Called just before this Command runs the first time
 void GripperRun::Initialize() {
 	std::printf("2135: GripperRun - Init\n");
-
-	const char *strName;
-
-	if (m_intakeDirection == Robot::gripper->GRIPPER_FORWARD)
-		strName = "CubeAcquire";
-	else if (m_intakeDirection == Robot::gripper->GRIPPER_REVERSE)
-		strName = "CubeExpel";
-	else if (m_intakeDirection == Robot::gripper->GRIPPER_SPIN)
-			strName = "OppSpin";
-	else
-		strName = "Off";
-	std::printf("2135: GripperRun %s - Start\n", strName);
 	Robot::gripper->SetGripperMotorSpeed(m_intakeDirection);
 }
 
@@ -48,18 +36,16 @@ void GripperRun::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool GripperRun::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
 void GripperRun::End() {
 	std::printf("2135: GripperRun - End \n");
-	Robot::gripper->SetGripperMotorSpeed(Robot::gripper->GRIPPER_STOP);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void GripperRun::Interrupted() {
 	std::printf("2135: GripperRun - Interrupted \n");
-	Robot::gripper->SetGripperMotorSpeed(Robot::gripper->GRIPPER_STOP);
 }

@@ -45,8 +45,11 @@ private:
 	std::shared_ptr<frc::JoystickButton> wristDeliver;
 	std::shared_ptr<frc::JoystickButton> wristAcquire;
 	std::shared_ptr<frc::Joystick> operatorBoard1;
+	std::shared_ptr<frc::JoystickButton> gripperExpelStop;
 	std::shared_ptr<frc::JoystickButton> gripperExpel;
+	std::shared_ptr<frc::JoystickButton> gripperSpinStop;
 	std::shared_ptr<frc::JoystickButton> gripperSpin;
+	std::shared_ptr<frc::JoystickButton> gripperHold;
 	std::shared_ptr<frc::JoystickButton> gripperAcquire;
 	std::shared_ptr<frc::JoystickButton> elevatorBumpDown;
 	std::shared_ptr<frc::JoystickButton> elevatorBumpUp;
