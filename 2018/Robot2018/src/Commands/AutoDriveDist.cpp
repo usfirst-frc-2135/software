@@ -48,6 +48,7 @@ bool AutoDriveDist::IsFinished() {
 void AutoDriveDist::End() {
 	Robot::drivetrain->MoveDriveDistancePIDStop();
 	std::printf("2135: AutoDriveDist - End\n");
+	m_distance = 0.0;
 }
 
 // Called when another command which requires one or more of the same
@@ -55,4 +56,5 @@ void AutoDriveDist::End() {
 void AutoDriveDist::Interrupted() {
 	Robot::drivetrain->MoveDriveDistancePIDStop();
 	std::printf("2135: AutoDriveDist - Interrupted\n");
+	m_distance = 0.0;
 }
