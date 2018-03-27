@@ -3,21 +3,6 @@
 	<widget field="DT Brake Mode" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="146" y="24"/>
 	</widget>
-	<widget field="DT TIME" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="607" y="622"/>
-	</widget>
-	<widget field="DT DEG" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="613" y="600"/>
-	</widget>
-	<widget field="DD TIME" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="606" y="552"/>
-	</widget>
-	<widget field="DD PID R" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="602" y="528"/>
-	</widget>
-	<widget field="DD PID L" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="604" y="504"/>
-	</widget>
 	<widget field="FMS Opp Switch" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="3" y="456"/>
 	</widget>

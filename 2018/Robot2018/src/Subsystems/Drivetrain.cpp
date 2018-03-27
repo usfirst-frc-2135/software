@@ -409,9 +409,9 @@ void Drivetrain::MoveDriveDistancePIDStop(void)
 #endif
 
 	// Snapshot of results to SmartDashboard
-	SmartDashboard::PutNumber("DD PID L", curCounts_L);
-	SmartDashboard::PutNumber("DD PID R", curCounts_R);
-	SmartDashboard::PutNumber("DD TIME", m_safetyTimer.Get());
+//	SmartDashboard::PutNumber("DD PID L", curCounts_L);
+//	SmartDashboard::PutNumber("DD PID R", curCounts_R);
+//	SmartDashboard::PutNumber("DD TIME", m_safetyTimer.Get());
 
 	// Check to see if the error is in an acceptable number of inches. (R is negated)
 	errorInInches_L = CountsToInches(m_distTargetCounts - (double)curCounts_L);
@@ -528,8 +528,8 @@ void Drivetrain::MoveDriveTurnPIDStop(void)
 #endif
 
 	// Snapshot of results to SmartDashboard
-	SmartDashboard::PutNumber("DT DEG", curAngle);
-	SmartDashboard::PutNumber("DT TIME", m_safetyTimer.Get());
+//	SmartDashboard::PutNumber("DT DEG", curAngle);
+//	SmartDashboard::PutNumber("DT TIME", m_safetyTimer.Get());
 
 	errorInDegrees = m_turnAngle - curAngle;
 
