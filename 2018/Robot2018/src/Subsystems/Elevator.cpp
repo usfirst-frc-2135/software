@@ -326,6 +326,11 @@ void Elevator::CalibrationInit() {
 #ifndef ROBORIO_STANDALONE
 	motorL7->Set(ControlMode::PercentOutput, 0.0);
 #endif
+
+	//Set safety timer.
+	m_safetyTimeout = 3.0;
+	m_safetyTimer.Reset();
+	m_safetyTimer.Start();
 }
 
 // Elevator PID calibration execution loop
@@ -395,6 +400,13 @@ void Elevator::CalibrationExecute() {
 // Elevator PID calibration monitoring
 
 bool Elevator::CalibrationIsFinished() {
+
+	//Check to see if it has passed the safety timeout.
+	if (m_safetyTimer.Get() >= m_safetyTimeout) {
+		std::printf("2135: EL Calibration - Safety Timer Timeout!\n");
+		return true;	// exits without valid calibration
+	}
+
 	// Hall sensor is false when near magnet
 	return m_calibrated;
 }
@@ -402,6 +414,8 @@ bool Elevator::CalibrationIsFinished() {
 // Elevator PID calibration movement failed
 
 void Elevator::CalibrationStop() {
+	m_safetyTimer.Stop();
+
 #ifndef ROBORIO_STANDALONE
 	motorL7->Set(ControlMode::PercentOutput, 0.0);
 #endif
