@@ -63,7 +63,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	// Set maximum power and ramp rate
 	motorW14->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
 	motorW14->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
-//	motorW14->ConfigClosedLoopRamp(0.25, m_timeout);
+	motorW14->ConfigClosedloopRamp(0.150, m_timeout);
 
 	// Set maximum current draw allowed
 	motorW14->ConfigPeakCurrentLimit(10.0, m_timeout);
@@ -249,7 +249,7 @@ bool Wrist::MoveToPositionIsFinished(void)
 
 		// Check to see if the error is in an acceptable number of inches.
 		errorInDegrees = CountsToDegrees(m_targetCounts - (double)curCounts);
-		if (fabs(errorInDegrees < 3.0)) {
+		if (fabs(errorInDegrees < 5.0)) {
 			pidFinished = true;
 			m_safetyTimer.Stop();
 			std::printf("2135: WR Move Finished - Time %f\n", m_safetyTimer.Get());
