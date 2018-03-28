@@ -41,7 +41,6 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsInt("WR_CLAllowedError", m_CLAllowedError, 0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1500);
-    config->GetValueAsDouble("WR_OffsetDegrees", m_offsetDegrees, 0.0);
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 5.0);
 	config->GetValueAsDouble("WR_WristFlat", m_flatAngle, 3.0);
 	config->GetValueAsDouble("WR_WristDelivery", m_deliveryAngle, 55.0);

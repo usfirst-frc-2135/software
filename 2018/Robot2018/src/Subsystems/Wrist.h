@@ -51,7 +51,6 @@ private:
 	int				m_CLAllowedError;				// Wrist PID allowable closed loop error
 	int				m_wristMaxCounts;				// Wrist maximum allowable counts
 	int				m_wristMinCounts;				// Wrist minimum allowable counts
-	double			m_offsetDegrees;				// Wrist offset to flat position in degrees
 	double			m_bumpAngle;					// Incremental angle when bumping the wrist up/down
 	double			m_flatAngle;					// Setpoint for floor level (full down)
 	double			m_deliveryAngle;				// Setpoint to deliver to switch
