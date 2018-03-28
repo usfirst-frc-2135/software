@@ -138,14 +138,16 @@ void Wrist::Initialize(void)
 double Wrist::DegreesToCounts(double degrees) {
 	double counts;
 
-	counts = -1 * (degrees * ((COUNTS_PER_ROTATION * OUTPUT_SHAFT_REDUCTION) / 360) );
+	// counts = -degrees * (counts / degree) * reduction
+	counts = -degrees * (COUNTS_PER_ROTATION / 360.0) * OUTPUT_SHAFT_REDUCTION;
 	return counts;
 }
 
 double Wrist::CountsToDegrees(int counts) {
 	double degrees;
 
-	degrees = -1 *( (double) counts * (360 / (COUNTS_PER_ROTATION * OUTPUT_SHAFT_REDUCTION)) );
+	// degrees = -counts * (degrees / count) / reduction
+	degrees = -(double)counts * (360.0 / COUNTS_PER_ROTATION) / OUTPUT_SHAFT_REDUCTION;
 	return degrees;
 }
 
