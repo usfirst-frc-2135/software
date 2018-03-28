@@ -177,14 +177,21 @@ void Drivetrain::Periodic() {
 void Drivetrain::Initialize(void) {
 	std::printf("2135: DT Initialize\n");
 
-	//Robot switches to high gear and coast mode in teleop
-	if (frc::RobotState::IsOperatorControl()) {
-		m_lowGear = false;
+	// When disabled, low gear and coast mode to allow easier pushing
+	if (frc::RobotState::IsDisabled()) {
+		m_lowGear = true;
 		m_brakeMode = false;
 	}
 	else {
-		m_lowGear = true;
-		m_brakeMode = true;
+		// Enabled and teleop - high gear and coast mode
+		if (frc::RobotState::IsOperatorControl()) {
+			m_lowGear = false;
+			m_brakeMode = false;
+		}
+		else {	// Auton always low gear and brake mode
+			m_lowGear = true;
+			m_brakeMode = true;
+		}
 	}
 
 	MoveShiftGears(m_lowGear);
