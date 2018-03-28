@@ -36,15 +36,15 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 
     // Get any config file settings
     RobotConfig* config = RobotConfig::GetInstance();
-    config->GetValueAsDouble("WR_PidKp", m_pidKp, 1.5);
-    config->GetValueAsDouble("WR_PidMaxOut", m_pidMaxOut, 0.6);
+    config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.375);
+    config->GetValueAsDouble("WR_PidMaxOut", m_pidMaxOut, 1.0);
     config->GetValueAsInt("WR_CLAllowedError", m_CLAllowedError, 0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
-    config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1500);
-	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 5.0);
-	config->GetValueAsDouble("WR_WristFlat", m_flatAngle, 3.0);
+    config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1800);
+	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 10.0);
+	config->GetValueAsDouble("WR_WristFlat", m_flatAngle, 5.0);
 	config->GetValueAsDouble("WR_WristDelivery", m_deliveryAngle, 55.0);
-	config->GetValueAsDouble("WR_WristStowed", m_stowedAngle, 60.0);
+	config->GetValueAsDouble("WR_WristStowed", m_stowedAngle, 70.0);
 
 	// Set the motor direction for the wrist
 	motorW14->SetInverted(false);

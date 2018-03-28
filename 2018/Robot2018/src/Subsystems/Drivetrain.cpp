@@ -58,17 +58,17 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
     config->GetValueAsDouble("DT_PidDistKp", m_distKp, 0.20);
     config->GetValueAsDouble("DT_PidDistMaxOut", m_distMaxOut, 0.65);
-	config->GetValueAsDouble("DT_PidDistErrInches", m_distErrInches, 1.0);
 	config->GetValueAsDouble("DT_PidDistMaxInches", m_distMaxInches, 310.0);
-    config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.040);
-    config->GetValueAsDouble("DT_PidTurnMaxOut", m_turnMaxOut, 0.65);
-	config->GetValueAsDouble("DT_PidTurnErrDeg", m_turnErrDeg, 1.0);
 	config->GetValueAsDouble("DT_CLRampRate", m_CL_rampRate, 0.300);
 	config->GetValueAsInt("DT_CLAllowedError", m_CLAllowedError, 0);
+	config->GetValueAsDouble("DT_PidDistErrInches", m_distErrInches, 1.5);
+    config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.030);
+    config->GetValueAsDouble("DT_PidTurnMaxOut", m_turnMaxOut, 0.42);
+	config->GetValueAsDouble("DT_PidTurnErrDeg", m_turnErrDeg, 1.5);
 
 	// Load autonomous command values at boot from config file
 	double	temp;
-	config->GetValueAsDouble("AutoDriveDist", temp, 48.0);
+	config->GetValueAsDouble("AutoDriveDist", temp, 97.5);
 	SmartDashboard::PutNumber(AUTO_DT_DD, temp);
 	config->GetValueAsDouble("AutoDriveTurn", temp, 90.0);
 	SmartDashboard::PutNumber(AUTO_DT_DT, temp);

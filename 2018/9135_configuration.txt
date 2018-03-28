@@ -39,10 +39,9 @@
  WR_MaxCounts = 0
  WR_MinCounts = -1800
  WR_BumpAngle = 10.0
- WR_OffsetDegrees = 0.0
- WR_WristFlat = 10.0
- WR_WristDelivery = 62.0
- WR_WristStowed = 77.0
+ WR_WristFlat = 5.0
+ WR_WristDelivery = 55.0
+ WR_WristStowed = 70.0
 # Autonomous settings
  AutoDriveDist = 97.25
  AutoDriveTurn = 90.0
