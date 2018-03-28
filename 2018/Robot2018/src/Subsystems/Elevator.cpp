@@ -226,7 +226,7 @@ void Elevator::MoveToPosition(int level) {
 	case BUMP_HEIGHT:
 		double bumpHeight;
 		bumpHeight = (m_bumpDir) ? m_bumpHeight : -m_bumpHeight;
-		m_targetInches = GetCurrentInches() + bumpHeight;
+		m_targetInches += bumpHeight;
 		break;
 	default:
 		std::printf("2135: EL invalid height requested - %d\n", level);

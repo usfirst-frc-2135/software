@@ -186,7 +186,7 @@ void Wrist::MoveToPosition(int level)
 	case BUMP_ANGLE:
 		double bumpAngle;
 		bumpAngle = (m_bumpDir) ? m_bumpAngle : -m_bumpAngle;
-		m_targetDegrees = GetCurrentDegrees() + bumpAngle;
+		m_targetDegrees += bumpAngle;
 		break;
 	default:
 		std::printf("2135: WR invalid angle requested - %d\n", level);
