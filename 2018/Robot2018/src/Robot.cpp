@@ -198,12 +198,16 @@ void Robot::FMSGameDataRead(void) {
 	fmsSide_t	fmsAlliSwitch = SIDE_UNINIT;
 	fmsSide_t	fmsScale = SIDE_UNINIT;
 	fmsSide_t	fmsOppSwitch = SIDE_UNINIT;
+	double 		secs;
+
+	secs = (double)RobotController::GetFPGATime() / 1000000.0;
 
 	// Initializes the gameData that read switch and scale colors from the FMS
 	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
 	// Update dashboard only if data received
 	if (!gameData.empty()) {
+		std::printf("2135: FMS %5.3f Game data %s\n", secs, gameData.c_str());
 		// Reads switch closest to Alliance Station
 		fmsAlliSwitch = FMSGameDataSide(gameData[0]);
 
@@ -212,23 +216,26 @@ void Robot::FMSGameDataRead(void) {
 
 		// Reads switch farthest from the Alliance Station
 		fmsOppSwitch = FMSGameDataSide(gameData[2]);
-	}
 
-	// If data has changed update smart dashboard and print to console
-	if (m_FMSAlliSwitch != fmsAlliSwitch) {
-		m_FMSAlliSwitch = fmsAlliSwitch;
-		std::printf("2135: FMS Alli Switch %s Side\n", FMSGameDataString(m_FMSAlliSwitch));
-		SmartDashboard::PutString(ROBOT_FMSALLISWITCH, FMSGameDataString(m_FMSAlliSwitch));
+		// If data has changed update smart dashboard and print to console
+		if (m_FMSAlliSwitch != fmsAlliSwitch) {
+			m_FMSAlliSwitch = fmsAlliSwitch;
+			std::printf("2135: FMS %5.3f Alli Switch %s Side\n", secs, FMSGameDataString(m_FMSAlliSwitch));
+			SmartDashboard::PutString(ROBOT_FMSALLISWITCH, FMSGameDataString(m_FMSAlliSwitch));
+		}
+		if (m_FMSScale != fmsScale) {
+			m_FMSScale = fmsScale;
+			std::printf("2135: FMS %5.3f Scale %s Side\n", secs, FMSGameDataString(m_FMSScale));
+			SmartDashboard::PutString(ROBOT_FMSSCALE, FMSGameDataString(m_FMSScale));
+		}
+		if (m_FMSOppSwitch != fmsOppSwitch) {
+			m_FMSOppSwitch = fmsOppSwitch;
+			std::printf("2135: FMS %5.3f Opp Switch %s Side\n", secs, FMSGameDataString(m_FMSOppSwitch));
+			SmartDashboard::PutString(ROBOT_FMSOPPSWITCH, FMSGameDataString(m_FMSOppSwitch));
+		}
 	}
-	if (m_FMSScale != fmsScale) {
-		m_FMSScale = fmsScale;
-		std::printf("2135: FMS Scale %s Side\n", FMSGameDataString(m_FMSScale));
-		SmartDashboard::PutString(ROBOT_FMSSCALE, FMSGameDataString(m_FMSScale));
-	}
-	if (m_FMSOppSwitch != fmsOppSwitch) {
-		m_FMSOppSwitch = fmsOppSwitch;
-		std::printf("2135: FMS Opp Switch %s Side\n", FMSGameDataString(m_FMSOppSwitch));
-		SmartDashboard::PutString(ROBOT_FMSOPPSWITCH, FMSGameDataString(m_FMSOppSwitch));
+	else {
+		std::printf("2135: FMS %5.3f Game data EMPTY\n", secs);
 	}
 }
 
