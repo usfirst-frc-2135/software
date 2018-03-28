@@ -47,17 +47,25 @@ bool AutoPos3::IsFinished() {
 	alliSwitch = SmartDashboard::GetString(ROBOT_FMSALLISWITCH, ROBOT_FMS_UNINIT);
 	// If not the uninitialized string, then new data received
     if (alliSwitch.compare(ROBOT_FMS_UNINIT) != 0) {
+		bool allowScale;
+		allowScale = frc::SmartDashboard::GetBoolean(ROBOT_ALLOW_SCALE, false);
+
     	// Select group command for Pos 3 decisions here
     	scale = SmartDashboard::GetString(ROBOT_FMSSCALE, ROBOT_FMS_UNINIT);
-    	std::printf("2135: Auto Pos 3 - AlliSwitch: %s Scale: %s\n", alliSwitch.c_str(), scale.c_str());
+    	std::printf("2135: Auto Pos 3 - AlliSwitch: %s Scale: %s Dash: %s\n",
+				alliSwitch.c_str(), scale.c_str(), (allowScale) ? "TRUE" : "FALSE");
 
     	if (alliSwitch.compare(ROBOT_FMS_LEFT) == 0) {		// If alliance switch is LEFT
-    		if (scale.compare(ROBOT_FMS_LEFT) == 0) {		// If scale is LEFT (case LL)
+    		if ((scale.compare(ROBOT_FMS_RIGHT) == 0) && allowScale) {	// Else	scale is RIGHT (case LR) and allowed
+    		    cmd = new(AutoPos3Scale);    	    		// Attack the scale
+    		}
+    		else if (scale.compare(ROBOT_FMS_LEFT) == 0) {	// If scale is LEFT (case LL)
     			cmd = new(AutoPosANYMove);    				// Drive to auto line
     		}
-    		else if (scale.compare(ROBOT_FMS_RIGHT) == 0) {	// Else	scale is RIGHT (case LR)
-    			cmd = new(AutoPos3Scale);    	    		// Attack the scale
-    		}
+			else {
+				std::printf("2135: Auto Pos 3 - unrecognized scale side\n");
+				cmd = new(AutoPosANYMove);					// Drive to auto line
+			}
     	}
     	else if (alliSwitch.compare(ROBOT_FMS_RIGHT) == 0) { // Else alliance switch is RIGHT
     		if (scale.compare(ROBOT_FMS_LEFT) == 0) {		 // If scale is LEFT (case RL)
@@ -65,16 +73,17 @@ bool AutoPos3::IsFinished() {
     		}
     		else if (scale.compare(ROBOT_FMS_RIGHT) == 0) {  // Else scale is RIGHT (case RR)
 				// Both are RIGHT, use SmartDashboard (switch or scale)
-				bool scaleNotSwitch;
-
-				scaleNotSwitch = frc::SmartDashboard::GetBoolean(ROBOT_PREF_SCALE, false);
-				if (scaleNotSwitch) {						// If dashboard setting says TAKE THE SCALE
+				if (allowScale) {						// If dashboard setting says TAKE THE SCALE
 					cmd = new(AutoPos3Scale);				//		prefer the scale
 				}
 				else {										// Else (any other value)
 					cmd = new(AutoPos3Switch);				//		go for the switch
 				}
      		}
+			else {
+				std::printf("2135: Auto Pos 3 - unrecognized scale side\n");
+				cmd = new(AutoPosANYMove);					// Drive to auto line
+			}
     	}
 
     	if (cmd != nullptr) {

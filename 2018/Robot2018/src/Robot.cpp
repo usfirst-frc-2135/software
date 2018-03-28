@@ -74,7 +74,7 @@ void Robot::RobotInit() {
 	SmartDashboardStartChooser();
 	FMSGameDataRead();
 
-	frc::SmartDashboard::PutBoolean(ROBOT_PREF_SCALE, false);
+	frc::SmartDashboard::PutBoolean(ROBOT_ALLOW_SCALE, false);
 }
 
 /**
@@ -236,6 +236,9 @@ void Robot::FMSGameDataRead(void) {
 	}
 	else {
 		std::printf("2135: FMS %5.3f Game data EMPTY\n", secs);
+		SmartDashboard::PutString(ROBOT_FMSALLISWITCH, FMSGameDataString(SIDE_UNINIT));
+		SmartDashboard::PutString(ROBOT_FMSSCALE, FMSGameDataString(SIDE_UNINIT));
+		SmartDashboard::PutString(ROBOT_FMSOPPSWITCH, FMSGameDataString(SIDE_UNINIT));
 	}
 }
 
