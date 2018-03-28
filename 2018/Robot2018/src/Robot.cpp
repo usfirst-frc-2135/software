@@ -83,6 +83,7 @@ void Robot::RobotInit() {
  */
 void Robot::DisabledInit(){
 	std::printf("2135: ***** Disabled Init *****\n");
+	drivetrain->Initialize();
 }
 
 void Robot::DisabledPeriodic() {
@@ -96,10 +97,12 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
-	drivetrain->MoveSetBrakeMode(true);
-	drivetrain->MoveShiftGears(true);
-
 	std::printf("2135: ***** Auton Init ***** - FMS Read Game Data\n");
+	drivetrain->Initialize();
+	elevator->Initialize();
+	gripper->Initialize();
+	wrist->Initialize();
+
 	FMSGameDataRead();
 
 	autonomousCommand = chooser->GetSelected();
@@ -114,8 +117,10 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {
 	std::printf("2135: ***** Teleop Init *****\n");
-	drivetrain->MoveSetBrakeMode(false);
-	drivetrain->MoveShiftGears(true);
+	drivetrain->Initialize();
+	elevator->Initialize();
+	gripper->Initialize();
+	wrist->Initialize();
 
 	// This makes sure that the autonomous stops running when
 	// teleop starts running. If you want the autonomous to

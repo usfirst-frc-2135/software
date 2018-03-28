@@ -125,7 +125,14 @@ void Wrist::Periodic() {
 
 void Wrist::Initialize(void)
 {
+	double	curCounts = 0.0;
+
 	std::printf("2135: WR Wrist Init\n");
+	// Set PID target to current encoder reading
+#ifndef ROBORIO_STANDALONE
+	curCounts = motorW14->GetSelectedSensorPosition(m_pidIndex);
+#endif
+	m_targetDegrees = CountsToDegrees(curCounts);
 }
 
 double Wrist::DegreesToCounts(double degrees) {

@@ -143,7 +143,14 @@ void Elevator::Periodic() {
 
 void Elevator::Initialize(void)
 {
+	double	curCounts = 0.0;
+
 	std::printf("2135: EL Init\n");
+	// Set PID target to current encoder reading
+#ifndef ROBORIO_STANDALONE
+	curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
+#endif
+	m_targetInches = CountsToInches(curCounts);
 }
 
 double Elevator::InchesToCounts(double inches) {

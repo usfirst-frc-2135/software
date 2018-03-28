@@ -86,6 +86,9 @@ void Gripper::Periodic() {
 void Gripper::Initialize(void)
 {
 	std::printf("2135: GR Init\n");
+	// All motors off
+    motorL11->Set(ControlMode::PercentOutput, 0.0);
+    motorR12->Set(ControlMode::PercentOutput, 0.0);
 }
 
 void Gripper::SetGripperMotorSpeed(int direction)
