@@ -48,6 +48,7 @@ private:
 	// Configuration file parameters
 	double 			m_pidMaxOut;						// Wrist maximum speed during movement
 	double			m_pidKp;						// Wrist PID proportional constant
+	int				m_CLRampRate;					// Wrist PID ramp rate
 	int				m_CLAllowedError;				// Wrist PID allowable closed loop error
 	int				m_wristMaxCounts;				// Wrist maximum allowable counts
 	int				m_wristMinCounts;				// Wrist minimum allowable counts
