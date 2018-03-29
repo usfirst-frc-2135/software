@@ -38,6 +38,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     RobotConfig* config = RobotConfig::GetInstance();
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.375);
     config->GetValueAsDouble("WR_PidMaxOut", m_pidMaxOut, 1.0);
+    config->GetValueAsDouble("WR_CLRampRate", m_CLRampRate, 0.080);
     config->GetValueAsInt("WR_CLAllowedError", m_CLAllowedError, 0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1800);
@@ -63,7 +64,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	// Set maximum power and ramp rate
 	motorW14->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
 	motorW14->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
-	motorW14->ConfigClosedloopRamp(0.150, m_timeout);
+	motorW14->ConfigClosedloopRamp(m_CLRampRate, m_timeout);
 
 	// Set maximum current draw allowed
 	motorW14->ConfigPeakCurrentLimit(10.0, m_timeout);
