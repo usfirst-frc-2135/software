@@ -117,8 +117,8 @@ void Gripper::SetGripperMotorSpeed(int direction)
 		break;
 	case GRIPPER_REVERSE:
 		strName = "REVERSE";
-		outputL = -m_gripperSpeed;
-		outputR = -m_gripperSpeed;
+		outputL = -m_gripperSpeed/2.0;
+		outputR = -m_gripperSpeed/2.0;
 		break;
 	case GRIPPER_SPIN:
 		strName = "SPIN";

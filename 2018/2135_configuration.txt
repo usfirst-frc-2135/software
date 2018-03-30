@@ -33,7 +33,7 @@
  GR_MotorSpeed = 1.0
  GR_HoldSpeed = 0.25
 # Wrist settings
- WR_PidKp = 0.750
+ WR_PidKp = 2.25
  WR_PidMaxOut = 1.0
  WR_CLRampRate = 0.080
  WR_CLAllowedError = 0
@@ -41,7 +41,7 @@
  WR_MinCounts = -1800
  WR_BumpAngle = 10.0
  WR_WristFlat = 0.0
- WR_WristDelivery = 50.0
+ WR_WristDelivery = 45.0
  WR_WristStowed = 70.0
 # Autonomous settings
  AutoDriveDist = 97.25
