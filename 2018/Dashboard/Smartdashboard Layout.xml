@@ -1,5 +1,17 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="FMS Opp Switch" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="5" y="352"/>
+	</widget>
+	<widget field="FMS Scale" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="34" y="332"/>
+	</widget>
+	<widget field="FMS Alli Switch" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="12" y="312"/>
+	</widget>
+	<widget field="ALLOW_SCALE" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
+		<location x="438" y="395"/>
+	</widget>
 	<widget field="WR Calibrated" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="12" y="216"/>
 		<width>143</width>
@@ -19,9 +31,6 @@
 	<widget field="DT Low Gear" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="9" y="3"/>
 		<width>154</width>
-	</widget>
-	<widget field="PREF_SCALE" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
-		<location x="514" y="389"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
 		<location x="597" y="1"/>
@@ -116,27 +125,11 @@
 	<widget field="WR Degrees" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="21" y="258"/>
 	</widget>
-	<widget field="FMS Opp Switch" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="4" y="358"/>
-	</widget>
 	<widget field="WR Counts" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="27" y="240"/>
 	</widget>
-	<widget field="DD PID L" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="352" y="417"/>
-	</widget>
-	<widget field="DD PID R" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="350" y="437"/>
-	</widget>
-	<widget field="FMS Scale" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="33" y="339"/>
-		<height>20</height>
-	</widget>
 	<widget field="WR Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="21" y="276"/>
-	</widget>
-	<widget field="DT DEG" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="488" y="418"/>
 	</widget>
 	<widget field="Cube Height" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="21" y="163"/>
@@ -149,9 +142,6 @@
 	</widget>
 	<widget field="DT_Encoder_L" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="8" y="35"/>
-	</widget>
-	<widget field="FMS Alli Switch" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="11" y="320"/>
 	</widget>
 	<widget field="EL Setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="26" y="182"/>
