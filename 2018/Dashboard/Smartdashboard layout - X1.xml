@@ -1,7 +1,11 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="ALLOW_SCALE" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
+		<location x="717" y="589"/>
+	</widget>
 	<widget field="DT Brake Mode" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="146" y="24"/>
+		<location x="25" y="24"/>
+		<width>252</width>
 	</widget>
 	<widget field="FMS Opp Switch" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="3" y="456"/>
@@ -19,7 +23,7 @@
 		<location x="11" y="561"/>
 	</widget>
 	<widget field="Auto Pos 1" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="408" y="537"/>
+		<location x="528" y="543"/>
 	</widget>
 	<widget field="Elevator Run: SCALE_LO" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="309" y="264"/>
@@ -28,7 +32,7 @@
 		<location x="637" y="153"/>
 	</widget>
 	<widget field="Auto Pos 2" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="408" y="576"/>
+		<location x="528" y="576"/>
 	</widget>
 	<widget field="Elevator Run: SMARTDASH" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="291" y="408"/>
@@ -43,7 +47,7 @@
 		<location x="352" y="441"/>
 	</widget>
 	<widget field="Auto Pos 3" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="408" y="609"/>
+		<location x="528" y="609"/>
 	</widget>
 	<widget field="Elevator Run: SWITCH" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="325" y="225"/>
@@ -67,7 +71,7 @@
 		<location x="600" y="81"/>
 	</widget>
 	<widget field="Elevator Bump: DOWN" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="324" y="480"/>
+		<location x="324" y="478"/>
 	</widget>
 	<widget field="Elevator Run: SCALE_HI" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="312" y="297"/>
@@ -77,19 +81,19 @@
 	</widget>
 	<widget field="WR Calibrated" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="24" y="288"/>
-		<width>240</width>
+		<width>244</width>
 	</widget>
 	<widget field="EL Calibrated" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="24" y="168"/>
 		<width>240</width>
 	</widget>
 	<widget field="EL Hall Sensor" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="8" y="144"/>
-		<width>256</width>
+		<location x="24" y="148"/>
+		<width>249</width>
 	</widget>
 	<widget field="DT Low Gear" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="24" y="4"/>
-		<width>240</width>
+		<width>238</width>
 	</widget>
 	<widget field="Load Config" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="401" y="144"/>
@@ -145,6 +149,21 @@
 		<height>540</height>
 		<property name="Camera Choice" value=""/>
 	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="962" y="103"/>
+		<width>803</width>
+		<height>393</height>
+		<property name="Camera Choice" value=""/>
+	</static-widget>
+	<widget field="Build Chooser" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="388" y="513"/>
+	</widget>
+	<widget field="DT_DDist" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="299" y="568"/>
+	</widget>
+	<widget field="DT_DTurn" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="293" y="603"/>
+	</widget>
 </dashboard>
 <live-window>
 </live-window>
