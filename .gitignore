@@ -12,3 +12,5 @@
 # Eclipse internal files
 **/sysProps.xml
 **/.settings/language.settings.xml
+DS Log Parser/Debug/
+DS Log Parser/.vs/
