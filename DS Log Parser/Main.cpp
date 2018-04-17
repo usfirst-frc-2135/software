@@ -25,7 +25,7 @@ void ProcessMessage(const std::string& message, std::ostream& csvStream);
 void PrintUsage(const std::string& errMsg)
 {
     std::cerr << errMsg << std::endl;
-    std::cerr << "Usage: dsParser <log-file> <output-file>" << std::endl;
+    std::cerr << "Usage: dsParser <log-file> <output-file> [<filter-string>]" << std::endl;
 }
 
 // Convert 2 hex characters to ascii string
@@ -211,6 +211,23 @@ bool ProcessLogBlocks(std::ifstream& iEvtFile, std::ofstream& oRawFile, std::ofs
 */
 void ProcessMessage(const std::string& message, std::ostream& csvStream)
 {
+#if 0   // saving code to print header one time
+    // Print header to csv file
+    oCsvFile << "\"Match Time\","
+        << "\"Drive Time (s)\","
+        << "\"Left Encoder Counts\","
+        << "\"Right Encoder Counts\","
+        << "\"Left Distance (in)\","
+        << "\"Right Distance (in)\","
+        << "\"Left CLE\","
+        << "\"Right CLE\","
+        << "\"Left Motor Output\","
+        << "\"Right Motor Output\","
+        << "\"Left Error Input\","
+        << "\"Right Error Input\""
+        << std::endl;
+#endif
+
     // Only process DriveDistance messages
     if (message.find("DTDD") == std::string::npos) {
         return;
@@ -260,20 +277,14 @@ void ProcessSearchString(std::ofstream& oMsgFile, std::ofstream& oCsvFile, char 
 
     // Read message file, place selected lines in CSV file
 
-    // Print header to csv file
-    oCsvFile << "\"Match Time\","
-        << "\"Drive Time (s)\","
-        << "\"Left Encoder Counts\","
-        << "\"Right Encoder Counts\","
-        << "\"Left Distance (in)\","
-        << "\"Right Distance (in)\","
-        << "\"Left CLE\","
-        << "\"Right CLE\","
-        << "\"Left Motor Output\","
-        << "\"Right Motor Output\","
-        << "\"Left Error Input\","
-        << "\"Right Error Input\""
-        << std::endl;
+//    oMsgFile.beg();
+
+    do {
+        char    line[512];
+
+//        oMsgFile.read
+    } while (false);
+
 }
 
 //  Main processing - form filenames, open and check file streams
@@ -282,14 +293,15 @@ int main(int argc, char* argv[])
 {
     char            inEvtName[128];
     char            inLogName[128];
-    char            outRawName[128];
-    char            outEvtName[128];
-    char            outLogName[128];
-    char            outCsvName[128];
+    char            outRawName[128] = "";
+    char            outEvtName[128] = "";
+    char            outLogName[128] = "";
+    char            outCsvName[128] = "";
+    char            outFiltName[128] = "";
 
     // Verify all arguments are present on command line
     if (argc < 3) {
-        PrintUsage("Error: Incorrect number of arguments on command line");
+        PrintUsage("Error: Not enough arguments on command line");
         return -1;
     }
 
@@ -312,6 +324,15 @@ int main(int argc, char* argv[])
     std::cout << "Info: output event file     " << outEvtName << std::endl;
     std::cout << "Info: output log file       " << outLogName << std::endl;
     std::cout << "Info: output csv file       " << outCsvName << std::endl;
+
+    // Check for filter argument
+    if (argc >= 4) {
+        strcpy_s(outFiltName, sizeof(outFiltName), argv[2]);
+        strcat_s(outFiltName, "-");
+        strcat_s(outFiltName, argv[3]);
+        strcat_s(outFiltName, sizeof(outFiltName), ".filt");
+
+    }
 
     // Open the input file
     std::ifstream inEvtFile(inEvtName, std::ifstream::binary);
