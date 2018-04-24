@@ -1,23 +1,24 @@
 
 #include <ctime>
+#include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <fstream>
+#include <stdio.h>
 #include <string>
 #include <vector>
-#include <stdio.h>
-#include <string.h>
-#include <malloc.h>
+//#include <malloc.h>
 
 
-#define LABVIEW_EPOCH_OFFSET  2082844800
+#define LABVIEW_EPOCH_OFFSET	2082844800
+#define DS_POLL_PERIOD			(0xffffffff / 50)
 
 void PrintUsage(const std::string& errMsg);
-void HexToChar(char c, char *buf);
 int HexBufToString(char *inBuf, int bufSize, char *outBuf);
-bool ProcessLogBlocks(std::ifstream& iEvtFile, std::ofstream& oMsgFile, std::ofstream& oCsvFile);
-bool ProcessLogHeader(std::ifstream& iEvtFile, std::ofstream& oMsgFile, std::ofstream& oCsvFile);
-void ProcessBlock(std::ifstream& iEvtFile, std::ofstream& oMsgFile, std::ofstream& oCsvFile);
+bool ProcessDSFileHeader(std::ifstream& iEvtFile, std::ofstream& oMsgFile, std::ofstream& oCsvFile);
+bool ProcessEventBlocks(std::ifstream& iEvtFile, std::ofstream& oMsgFile, std::ofstream& oCsvFile);
+bool ProcessLogBlocks(std::ifstream& iLogFile);
+void ProcessSearchString(std::fstream& oMsgFile, std::ofstream& oFiltFile, char *srchStr);
+
 void ProcessMessage(const std::string& message, std::ostream& csvStream);
 
 // Print command line usage string
@@ -26,17 +27,6 @@ void PrintUsage(const std::string& errMsg)
 {
     std::cerr << errMsg << std::endl;
     std::cerr << "Usage: dsParser <log-file> <output-file> [<filter-string>]" << std::endl;
-}
-
-// Convert 2 hex characters to ascii string
-
-void HexToChar(char c, char *buf)
-{
-    const char  *cnv = "0123456789abcdef";
-
-    buf[0] = cnv[(c & 0xff) >> 4];
-    buf[1] = cnv[c & 0x0f];
-    buf[2] = '\0';
 }
 
 // Process the data log blocks
@@ -56,7 +46,7 @@ int HexBufToString(char *inBuf, int bufSize, char *outBuf) {
 
 // Process the data log header at the beginning of the input file
 
-bool ProcessLogHeader(std::ifstream& iEvtFile, std::ofstream& oMsgFile) {
+bool ProcessDSFileHeader(std::ifstream& iEvtFile) {
     char    hdrBuf[8];
     char    achar[2*8+1];
 
@@ -76,11 +66,13 @@ bool ProcessLogHeader(std::ifstream& iEvtFile, std::ofstream& oMsgFile) {
 
 // Process the data log blocks
 
-bool ProcessLogBlocks(std::ifstream& iEvtFile, std::ofstream& oRawFile, std::ofstream& oMsgFile) {
+bool ProcessEventBlocks(std::ifstream& iEvtFile, std::ofstream& oRawFile, std::fstream& oMsgFile) {
     char    buf[16];
     char    achar[16*2+1];
     int     blockBytes = 0, totalBytes = 8, totalBlocks = 0;
-    time_t      ts;
+    time_t  ts;
+
+	std::cout << "Info: Processing input ds events file" << std::endl;
 
     while (1) {
         // Pull off the block header characters from input file
@@ -100,7 +92,7 @@ bool ProcessLogBlocks(std::ifstream& iEvtFile, std::ofstream& oRawFile, std::ofs
 
         // Put header to output files and update byte count
         HexBufToString(buf, sizeof(buf), achar);
-        std::cout << achar;
+        std::cout << achar << " ";
         oRawFile << achar << std::endl;
 
         // Get timestamp for block
@@ -127,8 +119,8 @@ bool ProcessLogBlocks(std::ifstream& iEvtFile, std::ofstream& oRawFile, std::ofs
         // Calculate block length
         blockBytes = (unsigned char)buf[12] << 24 | (unsigned char)buf[13] << 16 |
             (unsigned char)buf[14] << 8 | (unsigned char)buf[15];
-        std::cout << "Info: processing block " << std::setw(3) << totalBlocks << " of " << std::setw(4) 
-            << blockBytes << " bytes | bytes read " << (totalBytes + blockBytes) << std::endl;
+        std::cout << "Info: read block " << std::setw(3) << totalBlocks << " of " << std::setw(4) 
+            << blockBytes << " bytes | total bytes " << (totalBytes + blockBytes) << std::endl;
 
         // Process the data bytes in the block
 
@@ -137,7 +129,7 @@ bool ProcessLogBlocks(std::ifstream& iEvtFile, std::ofstream& oRawFile, std::ofs
 
             iEvtFile.read(entry, blockBytes);
             totalBytes = totalBytes + (int)iEvtFile.gcount();
-            if (iEvtFile.eof() || (iEvtFile.gcount() != blockBytes)) {
+            if (iEvtFile.gcount() != blockBytes) {
                 std::cerr << "Error: Received too few bytes in data block " << totalBlocks << " at block byte " 
                     << iEvtFile.gcount() << " of " << blockBytes << " | bytes read " << totalBytes << std::endl;
                 delete entry;
@@ -273,18 +265,139 @@ void ProcessMessage(const std::string& message, std::ostream& csvStream)
     delete[] msgBuf;
 }
 
-void ProcessSearchString(std::ofstream& oMsgFile, std::ofstream& oCsvFile, char *srchStr) {
+// Process the search string into a filtered file
+
+void ProcessSearchString(std::fstream& oMsgFile, std::ofstream& oFiltFile, char *srchStr) {
+
+	char    line[512];
+	int		lineCount = 0;
 
     // Read message file, place selected lines in CSV file
 
-//    oMsgFile.beg();
+	std::cout << "Re-reading message file for desired tags" << std::endl;
+	oMsgFile.seekg(0, oMsgFile.beg);
 
-    do {
-        char    line[512];
+    while (oMsgFile.getline(line, sizeof(line))) {
+		if (std::strstr(line, srchStr) != nullptr) {
+			oFiltFile.write(line, strlen(line));
+			oFiltFile << std::endl;
+		}
+		if (++lineCount % 1000 == 0)
+			std::cout << "line count " << lineCount << std::endl;
+	}
+	std::wcout << "Inserted " << lineCount << " lines" << std::endl;
+}
 
-//        oMsgFile.read
-    } while (false);
+// Process the DS log blocks
 
+bool ProcessLogBlocks(std::ifstream& iLogFile)
+{
+	bool	retCode = false;
+	char    buf[8];
+	char    achar[8+1];
+	int     blockBytes = 0, totalBytes = 8, totalBlocks = 0;
+
+	std::cout << "Info: Processing input ds log file" << std::endl;
+
+	std::ofstream oRawFile("tempRawFile.txt");
+	std::ofstream oMsgFile("tempLogFile.txt");
+
+	// Pull off the block header characters from input file
+	iLogFile.read(buf, sizeof(buf));
+	totalBytes +=  (int)iLogFile.gcount();
+	if (iLogFile.gcount() == 0) {
+		std::cout << "Info: No bytes at start of block: "
+			<< totalBytes << " bytes read in block " << totalBlocks << std::endl;
+		return retCode;
+	}
+	// Check for bad header or end of file and update block count
+	if ((iLogFile.gcount() < sizeof(buf)) || iLogFile.eof()) {
+		std::cerr << "Error: EOF within a log block header or missing bytes: "
+			<< totalBytes << " bytes read in block " << totalBlocks << std::endl;
+		return retCode;
+	}
+
+	// Put header to display and update byte count
+	HexBufToString(buf, sizeof(buf), achar);
+	std::cout << achar;
+
+	// Calculate number of seconds since 1904 (LabView epoch) and convert to 1970 (Unix epoch)
+	time_t		ts;
+	uint32_t    fs;
+	uint32_t	ms;
+
+	// Timestamp in LabView form
+	ts = ((buf[0] & 0xff) << 24 | (buf[1] & 0xff) << 16 |
+		(buf[2] & 0xff) << 8 | (buf[3] & 0xff)) & 0x00000000ffffffff;
+	ts -= LABVIEW_EPOCH_OFFSET;
+
+	// Get fractional msec and calculate integer msec digits
+	fs = (buf[4] & 0xff) << 24 | (buf[5] & 0xff) << 16 | (buf[6] & 0xff) << 8 | (buf[7] & 0xff);
+	ms = (uint32_t)trunc(((double)fs / 0xffffffff) * 1000);
+
+	// Read off the 4 extra leading bytes 
+	char	dummy[4];
+	iLogFile.read(dummy, sizeof(dummy));
+	totalBytes += (int)iLogFile.gcount();
+	HexBufToString(dummy, sizeof(dummy), achar);
+	std::cout << achar;
+
+	// Process the data bytes in the log entry -- all entries are 35 bytes
+	char        timeBuf[64];
+	char        msecBuf[8];
+	blockBytes = 35;
+	char        *entry = new char[blockBytes];
+	char		*hexChar = new char[blockBytes * 2 + 1];
+
+	// Entry processing loop
+	while (1) {
+
+		// Print date and time, then add msec digits
+		std::strftime(timeBuf, sizeof(timeBuf), "%y-%m-%d %H:%M:%S.", localtime(&ts));
+		std::sprintf(msecBuf, "%03d ", ms);
+		std::strcat(timeBuf, msecBuf);
+
+		if ((totalBlocks % 100) == 0) {
+			std::cout << timeBuf;
+			std::cout << "Info: read block " << std::setw(3) << totalBlocks << " of " << std::setw(4)
+				<< blockBytes << " bytes | total bytes " << (totalBytes + blockBytes) << std::endl;
+		}
+
+		iLogFile.read(entry, blockBytes);
+		totalBytes = totalBytes + (int)iLogFile.gcount();
+		if (iLogFile.gcount() == 0) {
+			std::cout << "Info: No bytes at start of block: "
+				<< totalBytes << " bytes read in block " << totalBlocks << std::endl;
+			retCode = true;		// success is an empty block
+			break;
+		}
+		if (iLogFile.gcount() != blockBytes) {
+			std::cerr << "Error: Received too few bytes in data block " << totalBlocks << " at block byte "
+				<< iLogFile.gcount() << " of " << blockBytes << " | bytes read " << totalBytes << std::endl;
+			break;
+		}
+
+		oRawFile << timeBuf;
+		for (int i = 0; i < blockBytes; i++) {
+			HexBufToString(entry+i, 1, hexChar);
+			oRawFile << "=HEX2DEC(\"" << hexChar << "\") ";
+		}
+		oRawFile << std::endl;
+
+		ms += 20;
+		if (ms >= 1000) {
+			ts += 1;
+			ms -= 1000;
+		}
+
+		totalBlocks++;
+	}
+
+	// Clean up memory allocators
+	delete entry;
+	delete hexChar;
+
+	return retCode;
 }
 
 //  Main processing - form filenames, open and check file streams
@@ -293,11 +406,11 @@ int main(int argc, char* argv[])
 {
     char            inEvtName[128];
     char            inLogName[128];
+
     char            outRawName[128] = "";
     char            outEvtName[128] = "";
-    char            outLogName[128] = "";
-    char            outCsvName[128] = "";
-    char            outFiltName[128] = "";
+	char            outFiltName[128] = "";
+	char            outLogName[128] = "";
 
     // Verify all arguments are present on command line
     if (argc < 3) {
@@ -309,30 +422,21 @@ int main(int argc, char* argv[])
     strcat_s(inEvtName, sizeof(inEvtName), ".dsevents");
     strcpy_s(inLogName, sizeof(inLogName), argv[1]);
     strcat_s(inLogName, sizeof(inLogName), ".dslog");
+
     strcpy_s(outRawName, sizeof(outRawName), argv[2]);
     strcat_s(outRawName, sizeof(outRawName), "-raw.txt");
     strcpy_s(outEvtName, sizeof(outEvtName), argv[2]);
     strcat_s(outEvtName, sizeof(outEvtName), "-evt.txt");
     strcpy_s(outLogName, sizeof(outLogName), argv[2]);
     strcat_s(outLogName, sizeof(outLogName), "-log.txt");
-    strcpy_s(outCsvName, sizeof(outCsvName), argv[2]);
-    strcat_s(outCsvName, sizeof(outCsvName), ".csv");
+//	strcpy_s(outCsvName, sizeof(outCsvName), argv[2]);
+//  strcat_s(outCsvName, sizeof(outCsvName), ".csv");
 
     std::cout << "Info: input DS events file  " << inEvtName << std::endl;
     std::cout << "Info: input DS log file     " << inLogName << std::endl;
     std::cout << "Info: output raw event file " << outRawName << std::endl;
     std::cout << "Info: output event file     " << outEvtName << std::endl;
-    std::cout << "Info: output log file       " << outLogName << std::endl;
-    std::cout << "Info: output csv file       " << outCsvName << std::endl;
-
-    // Check for filter argument
-    if (argc >= 4) {
-        strcpy_s(outFiltName, sizeof(outFiltName), argv[2]);
-        strcat_s(outFiltName, "-");
-        strcat_s(outFiltName, argv[3]);
-        strcat_s(outFiltName, sizeof(outFiltName), ".filt");
-
-    }
+	std::cout << "Info: output log file       " << outLogName << std::endl;
 
     // Open the input file
     std::ifstream inEvtFile(inEvtName, std::ifstream::binary);
@@ -346,41 +450,61 @@ int main(int argc, char* argv[])
     std::cout << "Info: input events size   " << inEvtFile.tellg() << " bytes" << std::endl;
     inEvtFile.seekg(0, inEvtFile.beg);
 
-    // Open the output raw file
+    // Open the output raw file as output only
     std::ofstream outRawFile(outRawName);
     if (!outRawFile.good()) {
         PrintUsage("Error: could not open output message file");
         return -1;
     }
 
-    // Open the output text file
-    std::ofstream outMsgFile(outEvtName);
-    if (!outMsgFile.good()) {
+    // Open the output event file as in/out file
+    std::fstream outEvtFile(outEvtName);
+    if (!outEvtFile.good()) {
         PrintUsage("Error: could not open output message file");
         return -1;
     }
 
-    // Open the output csv file
-    std::ofstream outCsvFile(outCsvName);
-    if (!outCsvFile.good()) {
+	// Check for filter argument
+	if (argc >= 4) {
+		strcpy_s(outFiltName, sizeof(outFiltName), argv[2]);
+		strcat_s(outFiltName, "-");
+		strcat_s(outFiltName, argv[3]);
+		strcat_s(outFiltName, sizeof(outFiltName), ".filt");
+	}
+	std::cout << "Info: output filtered file  " << outFiltName << std::endl;
+
+	// Open the output csv file
+    std::ofstream outFiltFile(outFiltName);
+    if (!outFiltFile.good()) {
         PrintUsage("Error: could not open output CSV file");
         return -1;
     }
 
     // Print file name in first line of msg file
-    outMsgFile << "Text from file: " << inEvtName << std::endl;
+    outEvtFile << "Text from file: " << inEvtName << std::endl;
 
     // Process header and if valid, the blocks
-    if (ProcessLogHeader(inEvtFile, outMsgFile)) {
-        ProcessLogBlocks(inEvtFile, outRawFile, outMsgFile);
-        ProcessSearchString(outMsgFile, outCsvFile, argv[3]);
+    if (ProcessDSFileHeader(inEvtFile)) {
+        ProcessEventBlocks(inEvtFile, outRawFile, outEvtFile);
+        ProcessSearchString(outEvtFile, outFiltFile, argv[3]);
     }
+
+	// Open the output event file as in/out file
+	std::ifstream inLogFile(inLogName, std::ifstream::binary);
+	if (!inLogFile.good()) {
+		PrintUsage("Error: could not input DS log file");
+		return -1;
+	}
+
+	if (ProcessDSFileHeader(inLogFile)) {
+		ProcessLogBlocks(inLogFile);
+	}
 
     // Close up files to be polite
     inEvtFile.close();
     outRawFile.close();
-    outMsgFile.close();
-    outCsvFile.close();
+    outEvtFile.close();
+    outFiltFile.close();
 
     return 0;
 }
