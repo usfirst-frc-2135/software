@@ -6,8 +6,10 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
-//#include <malloc.h>
 
+///////////////////////////////////////////////////////////////////////////////
+
+#define MAX_FILENAME_LEN		512
 
 #define LABVIEW_EPOCH_OFFSET	2082844800
 #define DS_POLL_PERIOD			(0xffffffff / 50)
@@ -17,9 +19,9 @@ int HexBufToString(char *inBuf, int bufSize, char *outBuf);
 bool ProcessDSFileHeader(std::ifstream& iEvtFile, std::ofstream& oMsgFile, std::ofstream& oCsvFile);
 bool ProcessEventBlocks(std::ifstream& iEvtFile, std::ofstream& oMsgFile, std::ofstream& oCsvFile);
 bool ProcessLogBlocks(std::ifstream& iLogFile);
-void ProcessSearchString(std::fstream& oMsgFile, std::ofstream& oFiltFile, char *srchStr);
+void ProcessSearchString(std::ifstream& oMsgFile, std::ofstream& oFiltFile, char *srchStr);
 
-void ProcessMessage(const std::string& message, std::ostream& csvStream);
+///////////////////////////////////////////////////////////////////////////////
 
 // Print command line usage string
 
@@ -28,6 +30,8 @@ void PrintUsage(const std::string& errMsg)
     std::cerr << errMsg << std::endl;
     std::cerr << "Usage: dsParser <log-file> <output-file> [<filter-string>]" << std::endl;
 }
+
+///////////////////////////////////////////////////////////////////////////////
 
 // Process the data log blocks
 
@@ -43,6 +47,8 @@ int HexBufToString(char *inBuf, int bufSize, char *outBuf) {
 
     return i;
 }
+
+///////////////////////////////////////////////////////////////////////////////
 
 // Process the data log header at the beginning of the input file
 
@@ -63,6 +69,8 @@ bool ProcessDSFileHeader(std::ifstream& iEvtFile) {
 
     return true;
 }
+
+///////////////////////////////////////////////////////////////////////////////
 
 // Process the data log blocks
 
@@ -198,109 +206,50 @@ bool ProcessEventBlocks(std::ifstream& iEvtFile, std::ofstream& oRawFile, std::f
     return false;
 }
 
-/**
-* Processes a single message string
-*/
-void ProcessMessage(const std::string& message, std::ostream& csvStream)
-{
-#if 0   // saving code to print header one time
-    // Print header to csv file
-    oCsvFile << "\"Match Time\","
-        << "\"Drive Time (s)\","
-        << "\"Left Encoder Counts\","
-        << "\"Right Encoder Counts\","
-        << "\"Left Distance (in)\","
-        << "\"Right Distance (in)\","
-        << "\"Left CLE\","
-        << "\"Right CLE\","
-        << "\"Left Motor Output\","
-        << "\"Right Motor Output\","
-        << "\"Left Error Input\","
-        << "\"Right Error Input\""
-        << std::endl;
-#endif
-
-    // Only process DriveDistance messages
-    if (message.find("DTDD") == std::string::npos) {
-        return;
-    }
-
-    char* msgBuf = new char[message.length() + 1];
-    strcpy(msgBuf, message.c_str());
-    msgBuf[message.length()] = '\0';
-
-    size_t tokenIdx = 1;
-    char* token = strtok(msgBuf, " \n");
-    do
-    {
-        switch (tokenIdx)
-        {
-        case 3: // Match time
-        case 7: // Drive time
-        case 11: // L counts
-        case 12: // R counts
-        case 14: // L dist
-        case 15: // R dist
-        case 17: // L CLE
-        case 18: // R CLE
-        case 20: // L Out
-        case 21: // R Out
-        case 23: // L errIn
-            csvStream << "\"" << token << "\",";
-            break;
-
-        case 24: // R errIn
-            csvStream << "\"" << token << "\"";
-            break;
-
-        default:
-            break;
-        };
-
-        ++tokenIdx;
-    } while ((token = strtok(NULL, " \n")) != NULL);
-
-    csvStream << std::endl;
-
-    delete[] msgBuf;
-}
+///////////////////////////////////////////////////////////////////////////////
 
 // Process the search string into a filtered file
 
-void ProcessSearchString(std::fstream& oMsgFile, std::ofstream& oFiltFile, char *srchStr) {
+void ProcessSearchString(std::fstream& ioMsgFile, std::ofstream& oFiltFile, char *srchStr) {
 
-	char    line[512];
+	char    line[1024];
 	int		lineCount = 0;
 
-    // Read message file, place selected lines in CSV file
+	// Read message file, place selected lines in CSV file
 
-	std::cout << "Re-reading message file for desired tags" << std::endl;
-	oMsgFile.seekg(0, oMsgFile.beg);
+	std::cout << "Re-reading output event file for desired tags" << std::endl;
+	ioMsgFile.flush();
+	ioMsgFile.sync();
+	ioMsgFile.clear(std::fstream::eofbit);
+	ioMsgFile.seekg(0, ioMsgFile.beg);
 
-    while (oMsgFile.getline(line, sizeof(line))) {
+	while (1) {
+		ioMsgFile.getline(line, sizeof(line));
+		if (ioMsgFile.gcount() == 0 || ioMsgFile.eof())
+			break;
 		if (std::strstr(line, srchStr) != nullptr) {
+			std::cout << line << std::endl;
 			oFiltFile.write(line, strlen(line));
 			oFiltFile << std::endl;
 		}
-		if (++lineCount % 1000 == 0)
+		if (++lineCount % 100 == 0)
 			std::cout << "line count " << lineCount << std::endl;
 	}
-	std::wcout << "Inserted " << lineCount << " lines" << std::endl;
+	std::cout << "Filtered " << lineCount << " lines" << std::endl;
 }
+
+///////////////////////////////////////////////////////////////////////////////
 
 // Process the DS log blocks
 
-bool ProcessLogBlocks(std::ifstream& iLogFile)
+bool ProcessLogBlocks(std::ifstream& iLogFile, std::ofstream& oLogFile)
 {
 	bool	retCode = false;
 	char    buf[8];
-	char    achar[8+1];
+	char    achar[8*2+1];
 	int     blockBytes = 0, totalBytes = 8, totalBlocks = 0;
 
 	std::cout << "Info: Processing input ds log file" << std::endl;
-
-	std::ofstream oRawFile("tempRawFile.txt");
-	std::ofstream oMsgFile("tempLogFile.txt");
 
 	// Pull off the block header characters from input file
 	iLogFile.read(buf, sizeof(buf));
@@ -377,12 +326,12 @@ bool ProcessLogBlocks(std::ifstream& iLogFile)
 			break;
 		}
 
-		oRawFile << timeBuf;
+		oLogFile << timeBuf;
 		for (int i = 0; i < blockBytes; i++) {
 			HexBufToString(entry+i, 1, hexChar);
-			oRawFile << "=HEX2DEC(\"" << hexChar << "\") ";
+			oLogFile << "=HEX2DEC(\"" << hexChar << "\") ";
 		}
-		oRawFile << std::endl;
+		oLogFile << std::endl;
 
 		ms += 20;
 		if (ms >= 1000) {
@@ -400,96 +349,107 @@ bool ProcessLogBlocks(std::ifstream& iLogFile)
 	return retCode;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+
 //  Main processing - form filenames, open and check file streams
 
 int main(int argc, char* argv[])
 {
-    char            inEvtName[128];
-    char            inLogName[128];
+    char            inEvtName[MAX_FILENAME_LEN];
+    char            inLogName[MAX_FILENAME_LEN];
 
-    char            outRawName[128] = "";
-    char            outEvtName[128] = "";
-	char            outFiltName[128] = "";
-	char            outLogName[128] = "";
+    char            outRawName[MAX_FILENAME_LEN] = "";
+    char            outEvtName[MAX_FILENAME_LEN] = "";
+	char            outFiltName[MAX_FILENAME_LEN] = "";
+	char            outLogName[MAX_FILENAME_LEN] = "";
 
     // Verify all arguments are present on command line
-    if (argc < 3) {
+    if (argc < 2) {
         PrintUsage("Error: Not enough arguments on command line");
         return -1;
     }
+	if (strlen(argv[1]) > MAX_FILENAME_LEN - 24) {
+		PrintUsage("Error: Input file name is too long");
+		return -1;
+	}
 
+	// Form input file names
     strcpy_s(inEvtName, sizeof(inEvtName), argv[1]);
     strcat_s(inEvtName, sizeof(inEvtName), ".dsevents");
     strcpy_s(inLogName, sizeof(inLogName), argv[1]);
     strcat_s(inLogName, sizeof(inLogName), ".dslog");
 
-    strcpy_s(outRawName, sizeof(outRawName), argv[2]);
+	// Form output file names
+    strcpy_s(outRawName, sizeof(outRawName), argv[1]);
     strcat_s(outRawName, sizeof(outRawName), "-raw.txt");
-    strcpy_s(outEvtName, sizeof(outEvtName), argv[2]);
+    strcpy_s(outEvtName, sizeof(outEvtName), argv[1]);
     strcat_s(outEvtName, sizeof(outEvtName), "-evt.txt");
-    strcpy_s(outLogName, sizeof(outLogName), argv[2]);
+    strcpy_s(outLogName, sizeof(outLogName), argv[1]);
     strcat_s(outLogName, sizeof(outLogName), "-log.txt");
-//	strcpy_s(outCsvName, sizeof(outCsvName), argv[2]);
-//  strcat_s(outCsvName, sizeof(outCsvName), ".csv");
+	strcpy_s(outFiltName, sizeof(outFiltName), argv[1]);
+	if (argc > 2) {		// third arg is a filter string
+		strcat_s(outFiltName, "-");
+		strcat_s(outFiltName, argv[2]);
+	}
+	strcat_s(outFiltName, sizeof(outFiltName), "-filt.txt");
 
     std::cout << "Info: input DS events file  " << inEvtName << std::endl;
     std::cout << "Info: input DS log file     " << inLogName << std::endl;
     std::cout << "Info: output raw event file " << outRawName << std::endl;
     std::cout << "Info: output event file     " << outEvtName << std::endl;
 	std::cout << "Info: output log file       " << outLogName << std::endl;
+	std::cout << "Info: output filtered file  " << outFiltName << std::endl;
 
-    // Open the input file
+    // Open the input file -- must be binary format
     std::ifstream inEvtFile(inEvtName, std::ifstream::binary);
     if (!inEvtFile.good()) {
         PrintUsage("Error: could not open input DS event file");
         return -1;
     }
 
-    // Report the file size and then rewind
-    inEvtFile.seekg(0, inEvtFile.end);
-    std::cout << "Info: input events size   " << inEvtFile.tellg() << " bytes" << std::endl;
-    inEvtFile.seekg(0, inEvtFile.beg);
-
     // Open the output raw file as output only
     std::ofstream outRawFile(outRawName);
     if (!outRawFile.good()) {
-        PrintUsage("Error: could not open output message file");
+        PrintUsage("Error: could not open output raw file");
         return -1;
     }
 
     // Open the output event file as in/out file
-    std::fstream outEvtFile(outEvtName);
+    std::fstream outEvtFile(outEvtName, std::fstream::in | std::fstream::out);
     if (!outEvtFile.good()) {
-        PrintUsage("Error: could not open output message file");
+        PrintUsage("Error: could not open output event file");
         return -1;
     }
 
-	// Check for filter argument
-	if (argc >= 4) {
-		strcpy_s(outFiltName, sizeof(outFiltName), argv[2]);
-		strcat_s(outFiltName, "-");
-		strcat_s(outFiltName, argv[3]);
-		strcat_s(outFiltName, sizeof(outFiltName), ".filt");
+	// Open the output filtered file
+	std::ofstream outFiltFile(outFiltName);
+	if (!outFiltFile.good()) {
+		PrintUsage("Error: could not open output filtered file");
+		return -1;
 	}
-	std::cout << "Info: output filtered file  " << outFiltName << std::endl;
 
-	// Open the output csv file
-    std::ofstream outFiltFile(outFiltName);
-    if (!outFiltFile.good()) {
-        PrintUsage("Error: could not open output CSV file");
-        return -1;
-    }
+	// Open the output event file as out file
+	std::ofstream outLogFile(outLogName);
+	if (!outLogFile.good()) {
+		PrintUsage("Error: could not open output log file");
+		return -1;
+	}
 
-    // Print file name in first line of msg file
-    outEvtFile << "Text from file: " << inEvtName << std::endl;
+	// Report the file size and then rewind
+	inEvtFile.seekg(0, inEvtFile.end);
+	std::cout << "Info: input events size   " << inEvtFile.tellg() << " bytes" << std::endl;
+	inEvtFile.seekg(0, inEvtFile.beg);
 
-    // Process header and if valid, the blocks
+	// Process header and if valid, the blocks
     if (ProcessDSFileHeader(inEvtFile)) {
         ProcessEventBlocks(inEvtFile, outRawFile, outEvtFile);
-        ProcessSearchString(outEvtFile, outFiltFile, argv[3]);
+		if (argc > 2) {		// filter argument specified
+			outEvtFile.sync();
+			ProcessSearchString(outEvtFile, outFiltFile, argv[2]);
+		}
     }
 
-	// Open the output event file as in/out file
+	// Open the output event file as in/out file -- must be binary
 	std::ifstream inLogFile(inLogName, std::ifstream::binary);
 	if (!inLogFile.good()) {
 		PrintUsage("Error: could not input DS log file");
@@ -497,14 +457,16 @@ int main(int argc, char* argv[])
 	}
 
 	if (ProcessDSFileHeader(inLogFile)) {
-		ProcessLogBlocks(inLogFile);
+		ProcessLogBlocks(inLogFile, outLogFile);
 	}
 
     // Close up files to be polite
     inEvtFile.close();
+	inLogFile.close();
     outRawFile.close();
     outEvtFile.close();
-    outFiltFile.close();
+	outFiltFile.close();
+	outLogFile.close();
 
     return 0;
 }
