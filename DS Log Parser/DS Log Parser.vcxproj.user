@@ -6,7 +6,7 @@
     <LocalDebuggerCommandArguments>2018_03_31_15_12_05_Sat output</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>2018_03_31_15_12_05_Sat output EL</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>2018_03_31_15_12_05_Sat EL</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>
