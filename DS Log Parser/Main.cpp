@@ -302,8 +302,8 @@ bool ProcessLogBlocks(std::ifstream& iLogFile, std::ofstream& oLogFile)
 	while (1) {
 
 		// Print date and time, then add msec digits
-		std::strftime(timeBuf, sizeof(timeBuf), "%y-%m-%d %H:%M:%S.", localtime(&ts));
-		std::sprintf(msecBuf, "%03d ", ms);
+		std::strftime(timeBuf, sizeof(timeBuf), "%y-%m-%d,%H:%M:%S.", localtime(&ts));
+		std::sprintf(msecBuf, "%03d", ms);
 		std::strcat(timeBuf, msecBuf);
 
 		if ((totalBlocks % 100) == 0) {
@@ -328,8 +328,7 @@ bool ProcessLogBlocks(std::ifstream& iLogFile, std::ofstream& oLogFile)
 
 		oLogFile << timeBuf;
 		for (int i = 0; i < blockBytes; i++) {
-			HexBufToString(entry+i, 1, hexChar);
-			oLogFile << "=HEX2DEC(\"" << hexChar << "\") ";
+			oLogFile << "," << int((unsigned char)entry[i]);
 		}
 		oLogFile << std::endl;
 
