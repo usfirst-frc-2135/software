@@ -83,8 +83,8 @@ void RobotMap::init() {
     pneumaticsCompressor.reset(new frc::Compressor(0));
     lw->AddActuator("Pneumatics", "Compressor", pneumaticsCompressor);
     
-    powerPDP.reset(new frc::PowerDistributionPanel(0));
-    lw->AddSensor("Power", "PDP", powerPDP);
+//    powerPDP.reset(new frc::PowerDistributionPanel(0));
+//    lw->AddSensor("Power", "PDP", powerPDP);
     
 
 
