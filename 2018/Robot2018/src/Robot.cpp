@@ -77,6 +77,7 @@ void Robot::RobotInit() {
 	FMSGameDataRead();
 
 	frc::SmartDashboard::PutBoolean(ROBOT_ALLOW_SCALE, false);
+
 }
 
 /**
