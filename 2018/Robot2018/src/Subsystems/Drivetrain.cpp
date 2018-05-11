@@ -207,11 +207,8 @@ void Drivetrain::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	double xValue;
 	double yValue;
 
-	xValue = joystick->GetX();
-	yValue = joystick->GetY();
-
-	xValue = xValue * m_driveXScaling;
-	yValue = yValue * m_driveYScaling;
+	xValue = joystick->GetX() * m_driveXScaling;
+	yValue = joystick->GetY() * m_driveYScaling;
 
 	diffDrive->ArcadeDrive(-yValue, xValue, true);
 #endif
