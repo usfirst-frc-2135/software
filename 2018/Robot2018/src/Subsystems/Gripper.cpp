@@ -40,9 +40,9 @@ Gripper::Gripper() : frc::Subsystem("Gripper") {
 
     // Initialize Variables
     RobotConfig* config = RobotConfig::GetInstance();
-    config->GetValueAsDouble("GR_MotorSpeed", m_gripperSpeed, 1.0);
+    config->GetValueAsDouble("GR_AcquireSpeed", m_acquireSpeed, 0.70);
     config->GetValueAsDouble("GR_HoldSpeed", m_holdSpeed, 0.25);
-    config->GetValueAsDouble("GR_ExpelSpeed", m_expelSpeed, 0.5);
+    config->GetValueAsDouble("GR_ExpelSpeed", m_expelSpeed, 0.50);
 
     // Set motor directions
     motorL11->SetInverted(false);
@@ -52,11 +52,11 @@ Gripper::Gripper() : frc::Subsystem("Gripper") {
     motorL11->SetNeutralMode(NeutralMode::Brake);
     motorR12->SetNeutralMode(NeutralMode::Brake);
 
-    // Set motor peak outputs
-    motorL11->ConfigPeakOutputForward(m_gripperSpeed, m_timeout);
-    motorL11->ConfigPeakOutputReverse(-m_gripperSpeed, m_timeout);
-    motorR12->ConfigPeakOutputForward(m_gripperSpeed, m_timeout);
-    motorR12->ConfigPeakOutputReverse(-m_gripperSpeed, m_timeout);
+    // Set motor peak outputs - acquire is fastest speed
+    motorL11->ConfigPeakOutputForward(m_acquireSpeed, m_timeout);
+    motorL11->ConfigPeakOutputReverse(-m_acquireSpeed, m_timeout);
+    motorR12->ConfigPeakOutputForward(m_acquireSpeed, m_timeout);
+    motorR12->ConfigPeakOutputReverse(-m_acquireSpeed, m_timeout);
 
     // Initialize modes and set power to off
     motorL11->Set(ControlMode::PercentOutput, 0.0);
@@ -111,8 +111,8 @@ void Gripper::SetGripperMotorSpeed(int direction)
 		break;
 	case GRIPPER_FORWARD:
 		strName = "FORWARD";
-		outputL = m_gripperSpeed;
-		outputR = m_gripperSpeed;
+		outputL = m_acquireSpeed;
+		outputR = m_acquireSpeed;
 		break;
 	case GRIPPER_HOLD:
 		strName = "HOLD";
@@ -127,12 +127,12 @@ void Gripper::SetGripperMotorSpeed(int direction)
 	case GRIPPER_SPIN:
 		strName = "SPIN";
 		if (m_spinLeft) {
-			outputL = m_gripperSpeed;
-			outputR = -m_gripperSpeed;
+			outputL = m_acquireSpeed;
+			outputR = -m_acquireSpeed;
 		}
 		else {
-			outputL = -m_gripperSpeed;
-			outputR = m_gripperSpeed;
+			outputL = -m_acquireSpeed;
+			outputR = m_acquireSpeed;
 		}
 		m_spinLeft = !m_spinLeft;		// Alternate direction each time we set speed
 		break;

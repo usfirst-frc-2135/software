@@ -34,7 +34,7 @@
  EL_LevitateHeight = 16.0
  EL_LowGearHeight = 15.0
 # Gripper settings
- GR_MotorSpeed = 0.70
+ GR_AcquireSpeed = 0.70
  GR_HoldSpeed = 0.25
  GR_ExpelSpeed = 0.50
 # Wrist settings
