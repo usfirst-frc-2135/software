@@ -30,7 +30,7 @@
  EL_LevitateHeight = 16.0
  EL_LowGearHeight = 15.0
 # Gripper settings
- GR_MotorSpeed = 1.0
+ GR_MotorSpeed = 0.70
  GR_HoldSpeed = 0.25
 # Wrist settings
  WR_PidKp = 2.25

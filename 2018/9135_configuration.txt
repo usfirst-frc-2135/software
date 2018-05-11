@@ -16,7 +16,7 @@
 # Elevator settings
  EL_CalibSpeed = 0.25
  EL_PidKp = 0.250
- EL_PidMaxOut = 1.00
+ EL_PidMaxOut = 0.75
  EL_CLRampRate = 0.250
  EL_CLAllowedError = 0
  EL_MaxHeight = 35.0
@@ -30,10 +30,10 @@
  EL_LevitateHeight = 16.0
  EL_LowGearHeight = 15.0
 # Gripper settings
- GR_MotorSpeed = 1.0
+ GR_MotorSpeed = 0.70
  GR_HoldSpeed = 0.25
 # Wrist settings
- WR_PidKp = 0.750
+ WR_PidKp = 2.25
  WR_PidMaxOut = 1.00
  WR_CLRampRate = 0.080
  WR_CLAllowedError = 0
@@ -41,7 +41,7 @@
  WR_MinCounts = -1800
  WR_BumpAngle = 10.0
  WR_WristFlat = 0.0
- WR_WristDelivery = 50.0
+ WR_WristDelivery = 45.0
  WR_WristStowed = 70.0
 # Autonomous settings
  AutoDriveDist = 97.25
