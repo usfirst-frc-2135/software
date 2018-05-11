@@ -42,6 +42,7 @@ Gripper::Gripper() : frc::Subsystem("Gripper") {
     RobotConfig* config = RobotConfig::GetInstance();
     config->GetValueAsDouble("GR_MotorSpeed", m_gripperSpeed, 1.0);
     config->GetValueAsDouble("GR_HoldSpeed", m_holdSpeed, 0.25);
+    config->GetValueAsDouble("GR_ExpelSpeed", m_expelSpeed, 0.5);
 
     // Set motor directions
     motorL11->SetInverted(false);
@@ -117,8 +118,8 @@ void Gripper::SetGripperMotorSpeed(int direction)
 		break;
 	case GRIPPER_REVERSE:
 		strName = "REVERSE";
-		outputL = -m_gripperSpeed/2.0;
-		outputR = -m_gripperSpeed/2.0;
+		outputL = -m_expelSpeed;
+		outputR = -m_expelSpeed;
 		break;
 	case GRIPPER_SPIN:
 		strName = "SPIN";

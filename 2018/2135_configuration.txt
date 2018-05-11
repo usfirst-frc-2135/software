@@ -32,6 +32,7 @@
 # Gripper settings
  GR_MotorSpeed = 0.70
  GR_HoldSpeed = 0.25
+ GR_ExpelSpeed = 0.50
 # Wrist settings
  WR_PidKp = 2.25
  WR_PidMaxOut = 1.00

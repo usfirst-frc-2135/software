@@ -35,6 +35,7 @@ private:
 	const int	m_timeout = 10;					// CAN timeout in msec to wait for response
 	double 		m_gripperSpeed;
 	double 		m_holdSpeed;
+	double 		m_expelSpeed;
 	bool		m_spinLeft;
 
 public:
