@@ -50,7 +50,8 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     //Retrieve drivetrain modifiers from RobotConfig
     RobotConfig* config = RobotConfig::GetInstance();
 	config->GetValueAsDouble("DT_PeakOutput", peakOutput, 1.0);
-	config->GetValueAsDouble("DT_DriveScaling", m_driveScaling, 1.0);
+	config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 1.0);
+	config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 1.0);
     config->GetValueAsDouble("DT_TurnScaling", m_turnScaling, 1.0);
 	if ((m_turnScaling < 0.0) || (m_turnScaling > 1.0)) {
 		std::printf("2135: DT ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
@@ -209,10 +210,8 @@ void Drivetrain::MoveWithJoystick(std::shared_ptr<Joystick> joystick)
 	xValue = joystick->GetX();
 	yValue = joystick->GetY();
 
-	if (!m_lowGear) {
-		xValue = xValue * m_driveScaling;
-		yValue = yValue * m_driveScaling;
-	}
+	xValue = xValue * m_driveXScaling;
+	yValue = yValue * m_driveYScaling;
 
 	diffDrive->ArcadeDrive(-yValue, xValue, true);
 #endif

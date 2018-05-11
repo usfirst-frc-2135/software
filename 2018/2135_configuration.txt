@@ -1,7 +1,11 @@
 # Comment lines start with '#'
 # DriveTrain settings
- DT_DriveScaling = 1.0   
  DT_PeakOutput = 1.00
+ DT_DriveXScaling = 1.00
+# Competition mode
+#DT_DriveYScaling = 1.00
+# Training mode
+ DT_DriveYScaling =  0.70
  DT_TurnScaling = 1.00
  DT_DriveSpin = 0.45
  DT_PidDistKp = 0.200
@@ -10,7 +14,7 @@
  DT_CLRampRate = 0.300
  DT_CLAllowedError = 0
  DT_PidDistErrInches = 1.5
- DT_PidTurnKp = 0.030 
+ DT_PidTurnKp = 0.030
  DT_PidTurnMaxOut = 0.42
  DT_PidTurnErrDeg = 1.5 
 # Elevator settings
@@ -55,7 +59,7 @@
 # Auto Pos 1 SCALE settings
  AutoPos1ScaleLeg1 = 261.50
  AutoPos1ScaleTurn1 = 45.0
- AutoPos1ScaleLeg2 = 11.61 
+ AutoPos1ScaleLeg2 = 11.61
 # Auto Pos 2 SWITCH LEFT settings
  AutoPos2SwitchLeftLeg1 = 9.50
  AutoPos2SwitchLeftTurn1 = -45.0
@@ -75,7 +79,7 @@
 # Auto Pos 3 SCALE settings
  AutoPos3ScaleLeg1 = 261.50
  AutoPos3ScaleTurn1 = -45.0
- AutoPos3ScaleLeg2 = 11.61 
+ AutoPos3ScaleLeg2 = 11.61
 # UNUSED - Auto Pos 1/3 SWITCH settings 45 degree
 # AutoPos3ScaleLeg1 = 83.75
 # AutoPos3ScaleTurn1 = 90.0

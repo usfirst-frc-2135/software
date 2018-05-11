@@ -48,9 +48,10 @@ private:
 	const double				CountsPerInch = COUNTS_PER_ROTATION / (WHEEL_DIA_INCHES * M_PI);
 
 	// Declare module variables
-	double	m_driveScaling;			// Scaling applied to Joystick, on high gear only
+	double	m_driveXScaling;		// Scaling applied to Joystick
+	double	m_driveYScaling;		// Scaling applied to Joystick
 	double	m_turnScaling;			// Turn scaling (1.0 is disabled, < 1.0 is max X output)
-	double	m_driveSpin;				// Spin turn power setting
+	double	m_driveSpin;			// Spin turn power setting
 
 	bool 	m_lowGear;				// Low Gear or High Gear
 	bool 	m_brakeMode;			// Brake or Coast Mode for Talons

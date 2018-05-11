@@ -1,7 +1,11 @@
 # Comment lines start with '#'
 # DriveTrain settings
  DT_PeakOutput = 1.00
- DT_DriveScaling = 1.0   
+ DT_DriveXScaling = 1.00
+# Competition mode
+#DT_DriveYScaling = 1.00
+# Training mode
+ DT_DriveYScaling =  0.70
  DT_TurnScaling = 1.00
  DT_DriveSpin = 0.45
  DT_PidDistKp = 0.200
