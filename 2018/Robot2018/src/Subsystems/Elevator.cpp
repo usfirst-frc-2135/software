@@ -128,6 +128,8 @@ void Elevator::Periodic() {
 
 #ifndef ROBORIO_STANDALONE
 	curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
+	SmartDashboard::PutNumber("EL L7 Volts", Robot::elevator->motorL7->GetMotorOutputVoltage());
+	SmartDashboard::PutNumber("EL R8 Volts", Robot::elevator->motorR8->GetMotorOutputVoltage());
 #endif
 
     // Put code here to be run every loop

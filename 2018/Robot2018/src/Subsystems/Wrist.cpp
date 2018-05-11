@@ -114,6 +114,7 @@ void Wrist::Periodic() {
 
 #ifndef ROBORIO_STANDALONE
 	curCounts = motorW14->GetSelectedSensorPosition(m_pidIndex);
+	SmartDashboard::PutNumber("WR W14 Volts", Robot::wrist->motorW14->GetMotorOutputVoltage());
 #endif
 	SmartDashboard::PutNumber("WR Counts", curCounts);
 	SmartDashboard::PutNumber("WR Degrees", CountsToDegrees(curCounts));

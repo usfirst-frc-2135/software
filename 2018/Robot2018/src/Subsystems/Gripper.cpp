@@ -77,7 +77,10 @@ void Gripper::InitDefaultCommand() {
 }
 
 void Gripper::Periodic() {
-    // Put code here to be run every loop
+#ifndef ROBORIO_STANDALONE
+	SmartDashboard::PutNumber("GR L11 Volts", Robot::gripper->motorL11->GetMotorOutputVoltage());
+	SmartDashboard::PutNumber("GR R12 Volts", Robot::gripper->motorR12->GetMotorOutputVoltage());
+#endif
 }
 
 
