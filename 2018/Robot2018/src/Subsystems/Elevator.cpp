@@ -143,6 +143,52 @@ void Elevator::Periodic() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void Elevator::ResetTalonSRX(WPI_TalonSRX* talonSRX) {
+	talonSRX->ConfigOpenloopRamp(0.0, m_timeout);
+	talonSRX->ConfigClosedloopRamp(0.0, m_timeout);
+	talonSRX->ConfigPeakOutputForward(1.0, m_timeout);
+	talonSRX->ConfigPeakOutputReverse(-1.0, m_timeout);
+	talonSRX->ConfigNominalOutputForward(0.0, m_timeout);
+	talonSRX->ConfigNominalOutputReverse(0.0, m_timeout);
+	talonSRX->ConfigNeutralDeadband(0.04, m_timeout);
+	talonSRX->ConfigVoltageCompSaturation(0.0, m_timeout);
+	talonSRX->ConfigVoltageMeasurementFilter(32, m_timeout);
+	talonSRX->ConfigSelectedFeedbackSensor(QuadEncoder, m_pidIndex, m_timeout);
+	talonSRX->ConfigSelectedFeedbackCoefficient(1.0, m_pidIndex, m_timeout);
+	talonSRX->ConfigRemoteFeedbackFilter(0, RemoteSensorSource::RemoteSensorSource_Off, 0, m_timeout);
+	talonSRX->ConfigRemoteFeedbackFilter(0, RemoteSensorSource::RemoteSensorSource_Off, 1, m_timeout);
+	talonSRX->ConfigSensorTerm(SensorTerm::SensorTerm_Sum0, QuadEncoder, m_timeout);
+	talonSRX->ConfigSensorTerm(SensorTerm::SensorTerm_Sum1, QuadEncoder, m_timeout);
+	talonSRX->ConfigSensorTerm(SensorTerm::SensorTerm_Diff0, QuadEncoder, m_timeout);
+	talonSRX->ConfigSensorTerm(SensorTerm::SensorTerm_Diff1, QuadEncoder, m_timeout);
+	talonSRX->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_100Ms, m_timeout);
+	talonSRX->ConfigVelocityMeasurementWindow(64, m_timeout);
+	talonSRX->ConfigForwardLimitSwitchSource(LimitSwitchSource_Deactivated , LimitSwitchNormal_NormallyOpen, m_timeout);
+	talonSRX->ConfigReverseLimitSwitchSource(LimitSwitchSource_Deactivated , LimitSwitchNormal_NormallyOpen, m_timeout);
+	talonSRX->ConfigForwardSoftLimitThreshold(0, m_timeout);
+	talonSRX->ConfigReverseSoftLimitThreshold(0, m_timeout);
+	talonSRX->ConfigForwardSoftLimitEnable(false, m_timeout);
+	talonSRX->ConfigReverseSoftLimitEnable(false, m_timeout);
+	talonSRX->Config_kP(m_slotIndex, 0.0, m_timeout);
+	talonSRX->Config_kI(m_slotIndex, 0.0, m_timeout);
+	talonSRX->Config_kD(m_slotIndex, 0.0, m_timeout);
+	talonSRX->Config_kF(m_slotIndex, 0.0, m_timeout);
+	talonSRX->Config_IntegralZone(m_slotIndex, 0, m_timeout);
+	talonSRX->ConfigAllowableClosedloopError(m_slotIndex, 0, m_timeout);
+	talonSRX->ConfigMaxIntegralAccumulator(m_slotIndex, 0.0, m_timeout);
+	talonSRX->ConfigClosedLoopPeakOutput(m_slotIndex, 1.0, m_timeout);
+	talonSRX->ConfigClosedLoopPeriod(m_slotIndex, 1, m_timeout);
+	talonSRX->ConfigAuxPIDPolarity(false, m_timeout);
+	talonSRX->ConfigMotionCruiseVelocity(0, m_timeout);
+	talonSRX->ConfigMotionAcceleration(0, m_timeout);
+	talonSRX->ConfigMotionProfileTrajectoryPeriod(0, m_timeout);
+	talonSRX->ConfigSetCustomParam(0, 0, m_timeout);
+	talonSRX->ConfigSetCustomParam(0, 1, m_timeout);
+	talonSRX->ConfigPeakCurrentLimit(0, m_timeout);
+	talonSRX->ConfigPeakCurrentDuration(0, m_timeout);
+	talonSRX->ConfigContinuousCurrentLimit(0, m_timeout);
+}
+
 void Elevator::Initialize(void)
 {
 	double	curCounts = 0.0;

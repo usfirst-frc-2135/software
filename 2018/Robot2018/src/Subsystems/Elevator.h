@@ -97,6 +97,7 @@ public:
 		BUMP_HEIGHT = 7				//	Move by bumping height up or down
 	};
 
+	void ResetTalonSRX(WPI_TalonSRX* talonSRX);
 	void Initialize(void);
 
 	double InchesToCounts(double inches);
