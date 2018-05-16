@@ -17,11 +17,12 @@ static const int DUMMY_DEFAULT_INT = 999999;
 static const float DUMMY_DEFAULT_FLOAT = 999999.999;
 static const double DUMMY_DEFAULT_DOUBLE = 999999.999999;
 
+namespace frc2135 {
+
 class RobotConfig {
 
 public:
 	static RobotConfig* GetInstance();
-	static RobotConfig* currentConfig; //TODO: Should this be private?
 	bool LoadConfig();
 	void DumpConfig();
 	bool GetValueAsString(const std::string& name, std::string& valueString, std::string defaultValue = "");
@@ -34,10 +35,12 @@ private:
 
 	RobotConfig();
 	virtual ~RobotConfig();
-
 	static void GetConfigFileName(std::string& fileName);
 
+	static RobotConfig* currentConfig;
 	std::map<std::string, std::string> m_configMap;
 };
+
+} /* namespace frc2135 */
 
 #endif /* ROBOTCONFIG_H_ */

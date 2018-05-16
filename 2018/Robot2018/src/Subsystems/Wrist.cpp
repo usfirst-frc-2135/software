@@ -35,7 +35,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     		motorW14->GetFirmwareVersion()/256, motorW14->GetFirmwareVersion()%256);
 
     // Get any config file settings
-    RobotConfig* config = RobotConfig::GetInstance();
+    frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.375);
     config->GetValueAsDouble("WR_PidMaxOut", m_pidMaxOut, 1.0);
     config->GetValueAsDouble("WR_CLRampRate", m_CLRampRate, 0.080);

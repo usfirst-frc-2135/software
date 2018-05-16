@@ -12,7 +12,7 @@
 //#include <Commands/AutoDriveDist.h>
 #include "Robot.h"
 
-#include "FRC2135/RobotConfig.h"
+#include "frc2135/RobotConfig.h"
 
 frc::SendableChooser<frc::Command*>* Robot::chooser = nullptr;
 

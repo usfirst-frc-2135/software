@@ -48,7 +48,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     		motorR4->GetFirmwareVersion()/256, motorR4->GetFirmwareVersion()%256);
 
     //Retrieve drivetrain modifiers from RobotConfig
-    RobotConfig* config = RobotConfig::GetInstance();
+    frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
 	config->GetValueAsDouble("DT_PeakOutput", peakOutput, 1.0);
 	config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 1.0);
 	config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 1.0);

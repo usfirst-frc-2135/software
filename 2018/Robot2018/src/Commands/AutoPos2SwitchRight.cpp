@@ -38,7 +38,7 @@ AutoPos2SwitchRight::AutoPos2SwitchRight() {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
 
-	RobotConfig* config = RobotConfig::GetInstance();
+	frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
 	double	cmdDistLeg1 = 0.0;
 	double	cmdDistTurn1 = 0.0;
 	double  cmdDistLeg2 = 0.0;

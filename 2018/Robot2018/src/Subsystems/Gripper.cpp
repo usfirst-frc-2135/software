@@ -39,7 +39,7 @@ Gripper::Gripper() : frc::Subsystem("Gripper") {
     		motorR12->GetFirmwareVersion()/256, motorR12->GetFirmwareVersion()%256);
 
     // Initialize Variables
-    RobotConfig* config = RobotConfig::GetInstance();
+    frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("GR_AcquireSpeed", m_acquireSpeed, 0.70);
     config->GetValueAsDouble("GR_HoldSpeed", m_holdSpeed, 0.25);
     config->GetValueAsDouble("GR_ExpelSpeed", m_expelSpeed, 0.50);

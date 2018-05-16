@@ -25,7 +25,7 @@ LoadConfig::LoadConfig(): frc::Command() {
 // Called just before this Command runs the first time
 void LoadConfig::Initialize() {
 	std::printf("2135: LoadConfig Initialized\n");
-	RobotConfig *myRC = RobotConfig::GetInstance();
+	frc2135::RobotConfig *myRC = frc2135::RobotConfig::GetInstance();
 	myRC->LoadConfig();
 }
 
