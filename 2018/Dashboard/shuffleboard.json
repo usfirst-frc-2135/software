@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.2118768328445748,
+  "dividerPosition": 0.2120253164556962,
   "tabPane": [
     {
       "title": "SmartDashboard",
@@ -419,6 +419,61 @@
               "_source0": "network_table:///SmartDashboard/Auto Drive Dist: DEFAULT",
               "_title": "Auto Drive Dist: DEFAULT"
             }
+          },
+          "10,2": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Run: LEVITATE",
+              "_title": "Elevator Run: LEVITATE"
+            }
+          },
+          "16,8": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Cube Height",
+              "_title": "Cube Height"
+            }
+          },
+          "13,10": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FMS Scale",
+              "_title": "FMS Scale"
+            }
+          },
+          "15,10": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/WR Counts",
+              "_title": "WR Counts"
+            }
+          },
+          "17,10": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FMS Opp Switch",
+              "_title": "FMS Opp Switch"
+            }
           }
         }
       }
@@ -511,6 +566,40 @@
                   "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
                   "_title": "PowerDistributionPanel[0]",
                   "showIndicatorText": true
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[0]/Value",
+                  "_title": "DigitalInput[0]/Value",
+                  "colorWhenTrue": "#7CFC00FF",
+                  "colorWhenFalse": "#8B0000FF"
+                },
+                {
+                  "_type": "Differential Drivebase",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DifferentialDrive[1]",
+                  "_title": "DifferentialDrive[1]",
+                  "numberOfWheels": 4,
+                  "wheelDiameter": 80.0,
+                  "showVectors": true
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Pressure switch",
+                  "_title": "Compressor[0]/Pressure switch",
+                  "colorWhenTrue": "#7CFC00FF",
+                  "colorWhenFalse": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DoubleSolenoid[0,0]/Value",
+                  "_title": "DoubleSolenoid[0,0]/Value"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Enabled",
+                  "_title": "Compressor[0]/Enabled",
+                  "colorWhenTrue": "#7CFC00FF",
+                  "colorWhenFalse": "#8B0000FF"
                 }
               ]
             }
@@ -566,7 +655,348 @@
     },
     {
       "title": "DriveTrain",
-      "autoPopulate": false,
+      "autoPopulate": true,
+      "autoPopulatePrefix": "SmartDashboard/D",
+      "widgetPane": {
+        "gridSize": 32.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/DT Brake Mode",
+              "_title": "SmartDashboard/DT Brake Mode",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "0,3": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/DT Low Gear",
+              "_title": "SmartDashboard/DT Low Gear",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "0,6": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Drive Reset",
+              "_title": "SmartDashboard/Drive Reset"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Elevator",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "SmartDashboard/E",
+      "widgetPane": {
+        "gridSize": 32.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "3,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Run: SCALE_HI",
+              "_title": "SmartDashboard/Elevator Run: SCALE_HI"
+            }
+          },
+          "6,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Bump: DOWN",
+              "_title": "SmartDashboard/Elevator Bump: DOWN"
+            }
+          },
+          "3,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Run: FLOOR",
+              "_title": "SmartDashboard/Elevator Run: FLOOR"
+            }
+          },
+          "6,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Run: CLIMB",
+              "_title": "SmartDashboard/Elevator Run: CLIMB"
+            }
+          },
+          "0,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Calibrate",
+              "_title": "SmartDashboard/Elevator Calibrate"
+            }
+          },
+          "6,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Run: LEVITATE",
+              "_title": "SmartDashboard/Elevator Run: LEVITATE"
+            }
+          },
+          "3,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Run: SWITCH",
+              "_title": "SmartDashboard/Elevator Run: SWITCH"
+            }
+          },
+          "6,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Bump: UP",
+              "_title": "SmartDashboard/Elevator Bump: UP"
+            }
+          },
+          "9,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Run: SMARTDASH",
+              "_title": "SmartDashboard/Elevator Run: SMARTDASH"
+            }
+          },
+          "0,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Calibrate Override",
+              "_title": "SmartDashboard/Elevator Calibrate Override"
+            }
+          },
+          "0,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/EL Hall Sensor",
+              "_title": "SmartDashboard/EL Hall Sensor",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "0,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/EL Calibrated",
+              "_title": "SmartDashboard/EL Calibrated",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "3,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Run: SCALE_LO",
+              "_title": "SmartDashboard/Elevator Run: SCALE_LO"
+            }
+          },
+          "3,5": {
+            "size": [
+              8,
+              2
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/EL Height",
+              "_title": "SmartDashboard/EL Height",
+              "min": 0.0,
+              "max": 35.0,
+              "center": 0.0,
+              "numTickMarks": 5.0,
+              "showText": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Wrist",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "SmartDashboard/W",
+      "widgetPane": {
+        "gridSize": 32.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Wrist Bump: UP",
+              "_title": "SmartDashboard/Wrist Bump: UP"
+            }
+          },
+          "0,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Wrist Run: STOWED",
+              "_title": "SmartDashboard/Wrist Run: STOWED"
+            }
+          },
+          "1,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Wrist Bump: DOWN",
+              "_title": "SmartDashboard/Wrist Bump: DOWN"
+            }
+          },
+          "3,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Wrist Run: FLAT",
+              "_title": "SmartDashboard/Wrist Run: FLAT"
+            }
+          },
+          "0,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Wrist Run: DELIVER",
+              "_title": "SmartDashboard/Wrist Run: DELIVER"
+            }
+          },
+          "3,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Wrist Run: SMARTDASH",
+              "_title": "SmartDashboard/Wrist Run: SMARTDASH"
+            }
+          },
+          "0,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Wrist Calibrate",
+              "_title": "SmartDashboard/Wrist Calibrate"
+            }
+          },
+          "0,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/WR Counts",
+              "_title": "SmartDashboard/WR Counts"
+            }
+          },
+          "8,3": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/WR Degrees",
+              "_title": "SmartDashboard/WR Degrees",
+              "minValue": 0.0,
+              "maxValue": 120.0,
+              "valueVisible": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Gripper",
+      "autoPopulate": true,
       "autoPopulatePrefix": "",
       "widgetPane": {
         "gridSize": 32.0,
@@ -574,6 +1004,197 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {}
+      }
+    },
+    {
+      "title": "Auto",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "SmartDashboard/A",
+      "widgetPane": {
+        "gridSize": 32.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "6,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Auto Drive Turn: DEFAULT",
+              "_title": "SmartDashboard/Auto Drive Turn: DEFAULT"
+            }
+          },
+          "3,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Auto Pos 3",
+              "_title": "SmartDashboard/Auto Pos 3"
+            }
+          },
+          "3,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Auto Stop",
+              "_title": "SmartDashboard/Auto Stop"
+            }
+          },
+          "6,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Auto Drive Dist: DEFAULT",
+              "_title": "SmartDashboard/Auto Drive Dist: DEFAULT"
+            }
+          },
+          "3,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Auto Pos 1",
+              "_title": "SmartDashboard/Auto Pos 1"
+            }
+          },
+          "6,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Auto Test Init",
+              "_title": "SmartDashboard/Auto Test Init"
+            }
+          },
+          "0,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto Modes",
+              "_title": "SmartDashboard/Auto Modes"
+            }
+          },
+          "3,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Auto Pos 2",
+              "_title": "SmartDashboard/Auto Pos 2"
+            }
+          },
+          "0,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///SmartDashboard/ALLOW_SCALE",
+              "_title": "SmartDashboard/ALLOW_SCALE"
+            }
+          },
+          "9,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Build Chooser",
+              "_title": "SmartDashboard/Build Chooser"
+            }
+          },
+          "9,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Load Config",
+              "_title": "SmartDashboard/Load Config"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Competition",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 32.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "8,0": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///FMSInfo/GameSpecificMessage",
+              "_title": "FMSInfo/GameSpecificMessage"
+            }
+          },
+          "8,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FMS Alli Switch",
+              "_title": "SmartDashboard/FMS Alli Switch"
+            }
+          },
+          "8,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FMS Opp Switch",
+              "_title": "SmartDashboard/FMS Opp Switch"
+            }
+          },
+          "8,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FMS Scale",
+              "_title": "SmartDashboard/FMS Scale"
+            }
+          }
+        }
       }
     }
   ]
