@@ -80,11 +80,11 @@ void Robot::RobotInit() {
 	m_FMSAlliSwitch = SIDE_UNINIT;
 	m_FMSScale = SIDE_UNINIT;
 	m_FMSOppSwitch = SIDE_UNINIT;
+
 	SmartDashboardStartChooser();
 	FMSGameDataRead();
 
 	frc::SmartDashboard::PutBoolean(ROBOT_ALLOW_SCALE, false);
-
 }
 
 /**

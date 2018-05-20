@@ -56,6 +56,9 @@ public:
 		GRIPPER_HOLD = 3
 	};
 
+	bool			m_talonValidL11;				// Health indicator for gripper Talon Left 11
+	bool			m_talonValidR12;				// Health indicator for gripper Talon Right 12
+
 	void Initialize(void);
 	void SetGripperMotorSpeed(int speed);
 };

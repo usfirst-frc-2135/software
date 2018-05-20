@@ -19,14 +19,18 @@ TalonSRXUtils::~TalonSRXUtils() {
 	// TODO Auto-generated destructor stub
 }
 
-ErrorCode TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, const char *subsystem, const char *name) {
+bool TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, const char *subsystem, const char *name) {
 	int					i;
 	int					deviceID = 0;
 	int					fwVersion = 0;
 	bool				talonValid = false;
 	ErrorCode			error = OKAY;
 
-	// Display Talon SRX firmware versions
+	// Configure subsystem and component name
+    talonSRX->SetName(subsystem, name);
+   	std::printf("2135: DT TalonSRX Sub %s Name %s\n", talonSRX->GetSubsystem().c_str(), talonSRX->GetName().c_str());
+
+    // Display Talon SRX firmware versions
 	deviceID = talonSRX->GetDeviceID();
 	if ((error = talonSRX->GetLastError()) != OKAY) {
 		std::printf("2135: ERROR: %s Motor %s GetDeviceID error - %d\n", subsystem, name, error);
@@ -50,53 +54,165 @@ ErrorCode TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, c
 		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 	}
 
-	if ((error = talonSRX->ConfigOpenloopRamp(0.0, m_timeout)) != OKAY) {
-		std::printf("2135: ERROR: %s Motor %s ConfigOpenloopRamp error - %d\n", subsystem, name, error);
-	}
-	talonSRX->ConfigClosedloopRamp(0.0, m_timeout);
-	talonSRX->ConfigPeakOutputForward(1.0, m_timeout);
-	talonSRX->ConfigPeakOutputReverse(-1.0, m_timeout);
-	talonSRX->ConfigNominalOutputForward(0.0, m_timeout);
-	talonSRX->ConfigNominalOutputReverse(0.0, m_timeout);
-	talonSRX->ConfigNeutralDeadband(0.04, m_timeout);
-	talonSRX->ConfigVoltageCompSaturation(0.0, m_timeout);
-	talonSRX->ConfigVoltageMeasurementFilter(32, m_timeout);
-	talonSRX->ConfigSelectedFeedbackSensor(QuadEncoder, m_pidIndex, m_timeout);
-	talonSRX->ConfigSelectedFeedbackCoefficient(1.0, m_pidIndex, m_timeout);
-	talonSRX->ConfigRemoteFeedbackFilter(0, RemoteSensorSource::RemoteSensorSource_Off, 0, m_timeout);
-	talonSRX->ConfigRemoteFeedbackFilter(0, RemoteSensorSource::RemoteSensorSource_Off, 1, m_timeout);
-	talonSRX->ConfigSensorTerm(SensorTerm::SensorTerm_Sum0, QuadEncoder, m_timeout);
-	talonSRX->ConfigSensorTerm(SensorTerm::SensorTerm_Sum1, QuadEncoder, m_timeout);
-	talonSRX->ConfigSensorTerm(SensorTerm::SensorTerm_Diff0, QuadEncoder, m_timeout);
-	talonSRX->ConfigSensorTerm(SensorTerm::SensorTerm_Diff1, QuadEncoder, m_timeout);
-	talonSRX->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_100Ms, m_timeout);
-	talonSRX->ConfigVelocityMeasurementWindow(64, m_timeout);
-	talonSRX->ConfigForwardLimitSwitchSource(LimitSwitchSource_Deactivated , LimitSwitchNormal_NormallyOpen, m_timeout);
-	talonSRX->ConfigReverseLimitSwitchSource(LimitSwitchSource_Deactivated , LimitSwitchNormal_NormallyOpen, m_timeout);
-	talonSRX->ConfigForwardSoftLimitThreshold(0, m_timeout);
-	talonSRX->ConfigReverseSoftLimitThreshold(0, m_timeout);
-	talonSRX->ConfigForwardSoftLimitEnable(false, m_timeout);
-	talonSRX->ConfigReverseSoftLimitEnable(false, m_timeout);
-	talonSRX->Config_kP(m_slotIndex, 0.0, m_timeout);
-	talonSRX->Config_kI(m_slotIndex, 0.0, m_timeout);
-	talonSRX->Config_kD(m_slotIndex, 0.0, m_timeout);
-	talonSRX->Config_kF(m_slotIndex, 0.0, m_timeout);
-	talonSRX->Config_IntegralZone(m_slotIndex, 0, m_timeout);
-	talonSRX->ConfigAllowableClosedloopError(m_slotIndex, 0, m_timeout);
-	talonSRX->ConfigMaxIntegralAccumulator(m_slotIndex, 0.0, m_timeout);
-	talonSRX->ConfigClosedLoopPeakOutput(m_slotIndex, 1.0, m_timeout);
-	talonSRX->ConfigClosedLoopPeriod(m_slotIndex, 1, m_timeout);
-	talonSRX->ConfigAuxPIDPolarity(false, m_timeout);
-	talonSRX->ConfigMotionCruiseVelocity(0, m_timeout);
-	talonSRX->ConfigMotionAcceleration(0, m_timeout);
-	talonSRX->ConfigMotionProfileTrajectoryPeriod(0, m_timeout);
-	talonSRX->ConfigSetCustomParam(0, 0, m_timeout);
-	talonSRX->ConfigSetCustomParam(0, 1, m_timeout);
-	talonSRX->ConfigPeakCurrentLimit(0, m_timeout);
-	talonSRX->ConfigPeakCurrentDuration(0, m_timeout);
-	talonSRX->ConfigContinuousCurrentLimit(0, m_timeout);
-
 	if (talonValid) {
+		int		i;
+
+		// Initialize ramp rates, peak and nominal outputs
+		if ((error = talonSRX->ConfigOpenloopRamp(0.0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigOpenloopRamp error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigClosedloopRamp(0.0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigOpenloopRamp error - %d\n", subsystem, name, error);
+		}
+
+		if ((error = talonSRX->ConfigPeakOutputForward(1.0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigPeakOutputForward error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigPeakOutputReverse(-1.0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigPeakOutputReverse error - %d\n", subsystem, name, error);
+		}
+
+		if ((error = talonSRX->ConfigNominalOutputForward(0.0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigNominalOutputForward error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigNominalOutputReverse(0.0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigNominalOutputReverse error - %d\n", subsystem, name, error);
+		}
+
+		// Initialize neutral deadband back to default
+		if ((error = talonSRX->ConfigNeutralDeadband(0.04, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigNeutralDeadband error - %d\n", subsystem, name, error);
+		}
+
+		// Initialize voltage compensation filter
+		if ((error = talonSRX->ConfigVoltageCompSaturation(0.0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigVoltageCompSaturation error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigVoltageMeasurementFilter(32, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigVoltageMeasurementFilter error - %d\n", subsystem, name, error);
+		}
+
+		// Initialize feedback sensor settings
+		if ((error = talonSRX->ConfigSelectedFeedbackSensor(QuadEncoder, m_pidIndex, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigSelectedFeedbackSensor error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigSelectedFeedbackCoefficient(1.0, m_pidIndex, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigSelectedFeedbackCoefficient error - %d\n", subsystem, name, error);
+		}
+
+		//	Initialize remote sensors
+		for (i = 0; i < 2; i++) {
+			if ((error = talonSRX->ConfigRemoteFeedbackFilter(0, RemoteSensorSource::RemoteSensorSource_Off, i, m_timeout)) != OKAY) {
+				std::printf("2135: ERROR: %s Motor %s ConfigRemoteFeedbackFilter (%d)error - %d\n", subsystem, name, i, error);
+			}
+		}
+
+		if ((error = talonSRX->ConfigSensorTerm(SensorTerm::SensorTerm_Sum0, QuadEncoder, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigSensorTerm error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigSensorTerm(SensorTerm::SensorTerm_Sum1, QuadEncoder, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigSensorTerm error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigSensorTerm(SensorTerm::SensorTerm_Diff0, QuadEncoder, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigSensorTerm error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigSensorTerm(SensorTerm::SensorTerm_Diff1, QuadEncoder, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigSensorTerm error - %d\n", subsystem, name, error);
+		}
+
+		if ((error = talonSRX->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_100Ms, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigVelocityMeasurementPeriod error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigVelocityMeasurementWindow(64, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigVelocityMeasurementWindow error - %d\n", subsystem, name, error);
+		}
+
+		// Initialize limit switch settings
+		if ((error = talonSRX->ConfigForwardLimitSwitchSource(LimitSwitchSource_Deactivated , LimitSwitchNormal_NormallyOpen, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigForwardLimitSwitchSource error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigReverseLimitSwitchSource(LimitSwitchSource_Deactivated , LimitSwitchNormal_NormallyOpen, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigReverseLimitSwitchSource error - %d\n", subsystem, name, error);
+		}
+
+		if ((error = talonSRX->ConfigForwardSoftLimitThreshold(0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigForwardSoftLimitThreshold error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigReverseSoftLimitThreshold(0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigReverseSoftLimitThreshold error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigForwardSoftLimitEnable(false, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigForwardSoftLimitEnable error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigReverseSoftLimitEnable(false, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigReverseSoftLimitEnable error - %d\n", subsystem, name, error);
+		}
+
+		// Initialize PID settings for both slots
+		for (i = 0; i < 2; i++) {
+			if ((error = talonSRX->Config_kP(i, 0.0, m_timeout)) != OKAY) {
+				std::printf("2135: ERROR: %s Motor %s Config_kP error - %d\n", subsystem, name, error);
+			}
+			if ((error = talonSRX->Config_kI(i, 0.0, m_timeout)) != OKAY) {
+				std::printf("2135: ERROR: %s Motor %s Config_kI error - %d\n", subsystem, name, error);
+			}
+			if ((error = talonSRX->Config_kD(i, 0.0, m_timeout)) != OKAY) {
+				std::printf("2135: ERROR: %s Motor %s Config_kD error - %d\n", subsystem, name, error);
+			}
+			if ((error = talonSRX->Config_kF(i, 0.0, m_timeout)) != OKAY) {
+				std::printf("2135: ERROR: %s Motor %s Config_kF error - %d\n", subsystem, name, error);
+			}
+			if ((error = talonSRX->Config_IntegralZone(i, 0, m_timeout)) != OKAY) {
+				std::printf("2135: ERROR: %s Motor %s Config_IntegralZone error - %d\n", subsystem, name, error);
+			}
+			if ((error = talonSRX->ConfigAllowableClosedloopError(i, 0, m_timeout)) != OKAY) {
+				std::printf("2135: ERROR: %s Motor %s ConfigAllowableClosedloopError error - %d\n", subsystem, name, error);
+			}
+			if ((error = talonSRX->ConfigMaxIntegralAccumulator(i, 0.0, m_timeout)) != OKAY) {
+				std::printf("2135: ERROR: %s Motor %s ConfigMaxIntegralAccumulator error - %d\n", subsystem, name, error);
+			}
+
+			if ((error = talonSRX->ConfigClosedLoopPeakOutput(i, 1.0, m_timeout)) != OKAY) {
+				std::printf("2135: ERROR: %s Motor %s ConfigClosedLoopPeakOutput error - %d\n", subsystem, name, error);
+			}
+			if ((error = talonSRX->ConfigClosedLoopPeriod(i, 1, m_timeout)) != OKAY) {
+				std::printf("2135: ERROR: %s Motor %s ConfigClosedLoopPeriod error - %d\n", subsystem, name, error);
+			}
+		}
+
+		if ((error = talonSRX->ConfigAuxPIDPolarity(false, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigAuxPIDPolarity error - %d\n", subsystem, name, error);
+		}
+
+		// Initialize motion profile settings
+		if ((error = talonSRX->ConfigMotionCruiseVelocity(0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigMotionCruiseVelocity error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigMotionAcceleration(0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigMotionAcceleration error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigMotionProfileTrajectoryPeriod(0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigMotionProfileTrajectoryPeriod error - %d\n", subsystem, name, error);
+		}
+
+		// Initialize custom paremeter settings
+		for (i = 0; i < 2; i++) {
+			if ((error = talonSRX->ConfigSetCustomParam(0, i, m_timeout)) != OKAY) {
+				std::printf("2135: ERROR: %s Motor %s ConfigSetCustomParam error - %d\n", subsystem, name, error);
+			}
+		}
+
+		// Initialize current limiting features
+		if ((error = talonSRX->ConfigPeakCurrentLimit(0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigPeakCurrentLimit error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigPeakCurrentDuration(0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigPeakCurrentDuration error - %d\n", subsystem, name, error);
+		}
+		if ((error = talonSRX->ConfigContinuousCurrentLimit(0, m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s Motor %s ConfigContinuousCurrentLimit error - %d\n", subsystem, name, error);
+		}
+
 		std::printf("2135: %s Motor %s ID %d ver %d.%d is RESPONSIVE and INITIALIZED (error %d)\n",
 				subsystem, name, deviceID, fwVersion/256, fwVersion&0xff, error);
 	}
@@ -105,7 +221,7 @@ ErrorCode TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, c
 				subsystem, name, deviceID, fwVersion/256, fwVersion&0xff, error);
 	}
 
-	return error;
+	return talonValid;
 }
 
 } /* namespace frc2135 */

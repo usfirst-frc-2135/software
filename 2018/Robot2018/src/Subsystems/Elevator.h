@@ -46,6 +46,9 @@ private:
 		CALIB_DONE
 	};
 
+	bool			m_talonValidL7;					// Health indicator for elevator Talon Left 7
+	bool			m_talonValidR8;					// Health indicator for elevator Talon Right 8
+
 	int				m_elevatorLevel;				// Current elevator level (FLOOR, SCALE, etc--not inches)
 	double			m_targetInches;					// Target inches of height that are requested of the elevator
 	double			m_targetCounts;					// Target encoder counts of height that are requested of the elevator
