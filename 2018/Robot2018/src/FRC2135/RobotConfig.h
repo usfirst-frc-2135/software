@@ -24,17 +24,17 @@ class RobotConfig {
 public:
 	static RobotConfig* GetInstance();
 	bool LoadConfig();
-	void DumpConfig();
 	bool GetValueAsString(const std::string& name, std::string& valueString, std::string defaultValue = "");
 	bool GetValueAsInt(const std::string& name, int& valueInt, int defaultInt = DUMMY_DEFAULT_INT);
 	bool GetValueAsBool(const std::string& name, bool& valueBool, bool defaultBool = false); // default boolean if no default is specified will be false
 	bool GetValueAsFloat(const std::string& name, float& valueFloat, float defaultFloat = DUMMY_DEFAULT_FLOAT);
 	bool GetValueAsDouble(const std::string& name, double& valueDouble, double defaultDouble = DUMMY_DEFAULT_DOUBLE);
+	void DumpConfig();
 
 private:
-
 	RobotConfig();
 	virtual ~RobotConfig();
+
 	static void GetConfigFileName(std::string& fileName);
 
 	static RobotConfig* currentConfig;
