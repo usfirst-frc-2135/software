@@ -224,4 +224,67 @@ bool TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, const 
 	return talonValid;
 }
 
+void TalonSRXUtils::TalonSRXFaultDump(const char *talonName, std::shared_ptr<WPI_TalonSRX> talonSRX) {
+
+	Faults			faults;
+	StickyFaults	stickyFaults;
+
+	talonSRX->GetFaults(faults);
+	talonSRX->GetStickyFaults(stickyFaults);
+	talonSRX->ClearStickyFaults(100);
+
+	std::printf("2135: %s --------------\n", talonName);
+
+	if (faults.HasAnyFault())
+		std::printf("At Least one fault below\n");
+	if (faults.ForwardLimitSwitch)
+		std::printf("\tForwardLimitSwitch\n");
+	if (faults.ForwardSoftLimit)
+		std::printf("\tForwardSoftLimit\n");
+	if (faults.HardwareESDReset)
+		std::printf("\tHardwareESDReset\n");
+	if (faults.HardwareFailure)
+		std::printf("\tHardwareFailure\n");
+	if (faults.RemoteLossOfSignal)
+		std::printf("\tRemoteLossOfSignal\n");
+	if (faults.ResetDuringEn)
+		std::printf("\tResetDuringEn\n");
+	if (faults.ReverseLimitSwitch)
+		std::printf("\tReverseLimitSwitch\n");
+	if (faults.ReverseSoftLimit)
+		std::printf("\tReverseSoftLimit\n");
+	if  (faults.SensorOutOfPhase)
+		std::printf("\tSensorOutOfPhase\n");
+	if (faults.SensorOverflow)
+		std::printf("\tSensorOverflow\n");
+	if (faults.UnderVoltage)
+		std::printf("\tUnderVoltage\n");
+
+	if (stickyFaults.HasAnyFault())
+		std::printf("At Least one STICKY fault below\n");
+	if (stickyFaults.ForwardLimitSwitch)
+		std::printf("\tForwardLimitSwitch\n");
+	if (stickyFaults.ForwardSoftLimit)
+		std::printf("\tForwardSoftLimit\n");
+	if (stickyFaults.HardwareESDReset)
+		std::printf("\tHardwareESDReset\n");
+//	if (stickyFaults.HardwareFailure)
+//		std::printf("\tHardwareFailure\n");
+	if (stickyFaults.RemoteLossOfSignal)
+		std::printf("\tRemoteLossOfSignal\n");
+	if (stickyFaults.ResetDuringEn)
+		std::printf("\tResetDuringEn\n");
+	if (stickyFaults.ReverseLimitSwitch)
+		std::printf("\tReverseLimitSwitch\n");
+	if (stickyFaults.ReverseSoftLimit)
+		std::printf("\tReverseSoftLimit\n");
+	if  (stickyFaults.SensorOutOfPhase)
+		std::printf("\tSensorOutOfPhase\n");
+	if (stickyFaults.SensorOverflow)
+		std::printf("\tSensorOverflow\n");
+	if (stickyFaults.UnderVoltage)
+		std::printf("\tUnderVoltage\n");
+
+}
+
 } /* namespace frc2135 */

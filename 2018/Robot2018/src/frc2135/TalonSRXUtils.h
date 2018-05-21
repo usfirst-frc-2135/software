@@ -18,6 +18,7 @@ public:
 	TalonSRXUtils();
 	virtual ~TalonSRXUtils();
 	static bool TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, const char *subsystem, const char *name);
+	static void TalonSRXFaultDump(const char *talonName, std::shared_ptr<WPI_TalonSRX> talonPtr);
 
 private:
 	static const int		m_slotIndex = 0;				// Motor controller profile slot index

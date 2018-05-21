@@ -78,6 +78,5 @@ private:
 	void FMSGameDataRead(void);
 
 	void RobotFaultDump(void);
-	void RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<WPI_TalonSRX> talonPtr);
 };
 #endif

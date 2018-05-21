@@ -13,6 +13,7 @@
 #include "Robot.h"
 
 #include "frc2135/RobotConfig.h"
+#include "frc2135/TalonSRXUtils.h"
 
 frc::SendableChooser<frc::Command*>* Robot::chooser = nullptr;
 
@@ -257,95 +258,48 @@ void Robot::FMSGameDataRead(void) {
 //	Fault handling utilities
 
 void Robot::RobotFaultDump(void) {
-	std::printf("2135: %s --------------\n", "TALON SRX FAULTS");
+	std::shared_ptr<frc::Compressor>				pcm;
+	std::shared_ptr<frc::PowerDistributionPanel>	pdp;
+
+	pcm = RobotMap::pneumaticsCompressor;
+	pdp = RobotMap::powerPDP;
 
 #ifndef ROBORIO_STANDALONE
-	RobotFaultDumpTalonSRX("drivetrainMotorL1", RobotMap::drivetrainMotorL1);
-	RobotFaultDumpTalonSRX("drivetrainMotorL2", RobotMap::drivetrainMotorL2);
-	RobotFaultDumpTalonSRX("drivetrainMotorR3", RobotMap::drivetrainMotorR3);
-	RobotFaultDumpTalonSRX("drivetrainMotorR4", RobotMap::drivetrainMotorR4);
-	RobotFaultDumpTalonSRX("elevatorMotorL7", RobotMap::elevatorMotorL7);
-	RobotFaultDumpTalonSRX("elevatorMotorR8", RobotMap::elevatorMotorR8);
-	RobotFaultDumpTalonSRX("gripperMotorL11", RobotMap::gripperMotorL11);
-	RobotFaultDumpTalonSRX("gripperMotorR12", RobotMap::gripperMotorR12);
-	RobotFaultDumpTalonSRX("wristMotorW14", RobotMap::wristMotorW14);
-
-	std::printf("2135: %s --------------\n", "PCM FAULTS");
-	if (RobotMap::pneumaticsCompressor->GetCompressorCurrentTooHighStickyFault())
-		std::printf("\tCurrentTooHighFault\n");
-	if (RobotMap::pneumaticsCompressor->GetCompressorNotConnectedFault())
-		std::printf("\tCompressorNotConnectedFault\n");
-	if (RobotMap::pneumaticsCompressor->GetCompressorShortedFault())
-		std::printf("\tCompressorShortedFault\n");
-	RobotMap::pneumaticsCompressor->ClearAllPCMStickyFaults();
+	//	Print out talon SRX faults and clear sticky ones
+	std::printf("2135: %s --------------\n", "TALON SRX FAULTS");
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("drivetrainMotorL1", RobotMap::drivetrainMotorL1);
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("drivetrainMotorL2", RobotMap::drivetrainMotorL2);
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("drivetrainMotorR3", RobotMap::drivetrainMotorR3);
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("drivetrainMotorR4", RobotMap::drivetrainMotorR4);
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("elevatorMotorL7", RobotMap::elevatorMotorL7);
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("elevatorMotorR8", RobotMap::elevatorMotorR8);
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("gripperMotorL11", RobotMap::gripperMotorL11);
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("gripperMotorR12", RobotMap::gripperMotorR12);
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("wristMotorW14", RobotMap::wristMotorW14);
 #endif
 
+	// Print out PCM faults and clear sticky ones
+	std::printf("2135: %s --------------\n", "PCM FAULTS");
+	int		i;
+	if (pcm->GetCompressorCurrentTooHighStickyFault())
+		std::printf("\tCurrentTooHighFault\n");
+	if (pcm->GetCompressorNotConnectedFault())
+		std::printf("\tCompressorNotConnectedFault\n");
+	if (pcm->GetCompressorShortedFault())
+		std::printf("\tCompressorShortedFault\n");
+	pcm->ClearAllPCMStickyFaults();
+
+	// Print out PDP faults and clear sticky ones
 	std::printf("2135: %s --------------\n", "PDP FAULTS");
-	// TODO: Check and fix faults
-//	RobotMap::powerPDP->ClearStickyFaults();
-}
-
-void Robot::RobotFaultDumpTalonSRX(const char *talonName, std::shared_ptr<WPI_TalonSRX> talonPtr) {
-
-	Faults			faults;
-	StickyFaults	stickyFaults;
-
-	talonPtr->GetFaults(faults);
-	talonPtr->GetStickyFaults(stickyFaults);
-	talonPtr->ClearStickyFaults(100);
-
-	std::printf("2135: %s --------------\n", talonName);
-
-	if (faults.HasAnyFault())
-		std::printf("At Least one fault below\n");
-	if (faults.ForwardLimitSwitch)
-		std::printf("\tForwardLimitSwitch\n");
-	if (faults.ForwardSoftLimit)
-		std::printf("\tForwardSoftLimit\n");
-	if (faults.HardwareESDReset)
-		std::printf("\tHardwareESDReset\n");
-	if (faults.HardwareFailure)
-		std::printf("\tHardwareFailure\n");
-	if (faults.RemoteLossOfSignal)
-		std::printf("\tRemoteLossOfSignal\n");
-	if (faults.ResetDuringEn)
-		std::printf("\tResetDuringEn\n");
-	if (faults.ReverseLimitSwitch)
-		std::printf("\tReverseLimitSwitch\n");
-	if (faults.ReverseSoftLimit)
-		std::printf("\tReverseSoftLimit\n");
-	if  (faults.SensorOutOfPhase)
-		std::printf("\tSensorOutOfPhase\n");
-	if (faults.SensorOverflow)
-		std::printf("\tSensorOverflow\n");
-	if (faults.UnderVoltage)
-		std::printf("\tUnderVoltage\n");
-
-	if (stickyFaults.HasAnyFault())
-		std::printf("At Least one STICKY fault below\n");
-	if (stickyFaults.ForwardLimitSwitch)
-		std::printf("\tForwardLimitSwitch\n");
-	if (stickyFaults.ForwardSoftLimit)
-		std::printf("\tForwardSoftLimit\n");
-	if (stickyFaults.HardwareESDReset)
-		std::printf("\tHardwareESDReset\n");
-//	if (stickyFaults.HardwareFailure)
-//		std::printf("\tHardwareFailure\n");
-	if (stickyFaults.RemoteLossOfSignal)
-		std::printf("\tRemoteLossOfSignal\n");
-	if (stickyFaults.ResetDuringEn)
-		std::printf("\tResetDuringEn\n");
-	if (stickyFaults.ReverseLimitSwitch)
-		std::printf("\tReverseLimitSwitch\n");
-	if (stickyFaults.ReverseSoftLimit)
-		std::printf("\tReverseSoftLimit\n");
-	if  (stickyFaults.SensorOutOfPhase)
-		std::printf("\tSensorOutOfPhase\n");
-	if (stickyFaults.SensorOverflow)
-		std::printf("\tSensorOverflow\n");
-	if (stickyFaults.UnderVoltage)
-		std::printf("\tUnderVoltage\n");
-
+	std::printf("2135: Temperature      %5.1f\n", pdp->GetTemperature());
+	std::printf("2135: Input Voltage    %5.1f\n", pdp->GetVoltage());
+	for (i = 0; i <= 15; i++)
+		std::printf("2135: Chan %2d Current %5.1f\n", i, pdp->GetCurrent(i));
+	std::printf("2135: Total Current    %5.1f\n", pdp->GetTotalCurrent());
+	std::printf("2135: Total Power      %5.1f\n", pdp->GetTotalPower());
+	std::printf("2135: Total Energy     %5.1f\n", pdp->GetTotalEnergy());
+	pdp->ResetTotalEnergy();
+	pdp->ClearStickyFaults();
 }
 
 START_ROBOT_CLASS(Robot);
