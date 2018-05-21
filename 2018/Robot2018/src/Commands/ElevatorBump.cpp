@@ -26,14 +26,7 @@ ElevatorBump::ElevatorBump(bool direction): frc::Command() {
 
 // Called just before this Command runs the first time
 void ElevatorBump::Initialize() {
-	const char *strName;
-
-	if (m_direction)
-		strName = "UP";
-	else
-		strName = "DOWN";
-
-	std::printf("2135: ElevatorBump %s - Init\n", strName);
+	std::printf("2135: ElevatorBump %s - Init\n", (m_direction) ? "UP" : "DOWN");
 	Robot::elevator->BumpToPosition(m_direction);
 }
 

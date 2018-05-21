@@ -25,14 +25,7 @@ WristBump::WristBump(bool direction): frc::Command() {
 
 // Called just before this Command runs the first time
 void WristBump::Initialize() {
-	const char *strName;
-
-	if (m_direction)
-		strName = "UP";
-	else
-		strName = "DOWN";
-
-	std::printf("2135: WristBump %s - Init\n", strName);
+	std::printf("2135: WristBump %s - Init\n", (m_direction) ? "UP" : "DOWN");
 	Robot::wrist->BumpToPosition(m_direction);
 }
 

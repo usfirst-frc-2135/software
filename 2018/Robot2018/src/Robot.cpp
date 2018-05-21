@@ -163,7 +163,7 @@ void Robot::SmartDashboardStartChooser() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Evalulate game data character into an enum for internal use
+// Evalulate game data string into an enum for internal use
 
 Robot::fmsSide_t Robot::FMSGameDataSide(char c) {
 
