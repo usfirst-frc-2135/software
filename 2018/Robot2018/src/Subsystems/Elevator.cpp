@@ -60,7 +60,6 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     // Set the control mode and target to disable any movement
     // Set to brake mode (in comparison to coast)
     // Set encoder as a CTRE magnetic in relative mode with sensor in phase with output
-
 	if (m_talonValidL7) {
 	    motorL7->SetInverted(false);			// Sets the Talon inversion to false
 	    motorL7->SetNeutralMode(NeutralMode::Brake);
@@ -80,7 +79,6 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     // Set proportional
     // Set allowable closed loop error
 	// Set maximum current draw allowed
-
 	if (m_talonValidL7) {
 		motorL7->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
 		motorL7->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
@@ -112,7 +110,6 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 
     // Field for manually progamming elevator height
 	SmartDashboard::PutNumber("EL Setpoint", 0.0);
-
 	SmartDashboard::PutBoolean("EL Calibrated", m_calibrated);
 }
 
@@ -149,12 +146,12 @@ void Elevator::Periodic() {
 	SmartDashboard::PutNumber("EL R8 Volts", outVoltsR8);
 }
 
+///////////////////////////////////////////////////////////////////////////////
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Elevator::Initialize(void)
-{
+void Elevator::Initialize(void) {
 	double	curCounts = 0.0;
 
 	std::printf("2135: EL Init\n");
@@ -202,7 +199,6 @@ bool Elevator::HeightLimitToLowGear() {
 //	Elevator PID loop state management
 
 void Elevator::MoveToPosition(int level) {
-
 	int curCounts = 0;
 
 	m_elevatorLevel = level;
@@ -424,7 +420,6 @@ void Elevator::CalibrationExecute() {
 // Elevator PID calibration monitoring
 
 bool Elevator::CalibrationIsFinished() {
-
 	//Check to see if it has passed the safety timeout.
 	if (m_safetyTimer.Get() >= m_safetyTimeout) {
 		std::printf("2135: EL Calibration - Safety Timer Timeout!\n");

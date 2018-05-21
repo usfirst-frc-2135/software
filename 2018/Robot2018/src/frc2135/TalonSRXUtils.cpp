@@ -12,7 +12,6 @@ namespace frc2135 {
 
 TalonSRXUtils::TalonSRXUtils() {
 	// TODO Auto-generated constructor stub
-
 }
 
 TalonSRXUtils::~TalonSRXUtils() {
@@ -225,7 +224,6 @@ bool TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, const 
 }
 
 void TalonSRXUtils::TalonSRXFaultDump(const char *talonName, std::shared_ptr<WPI_TalonSRX> talonSRX) {
-
 	Faults			faults;
 	StickyFaults	stickyFaults;
 
@@ -284,7 +282,6 @@ void TalonSRXUtils::TalonSRXFaultDump(const char *talonName, std::shared_ptr<WPI
 		std::printf("\tSensorOverflow\n");
 	if (stickyFaults.UnderVoltage)
 		std::printf("\tUnderVoltage\n");
-
 }
 
 } /* namespace frc2135 */

@@ -21,5 +21,4 @@ public:
 	void PIDWrite(double output);
 };
 
-
 #endif /* SRC_FRC2135_PIDOUTPUTDRIVETURN_H_ */

@@ -119,6 +119,7 @@ void Wrist::Periodic() {
 	SmartDashboard::PutNumber("WR W14 Volts", outVolts);
 }
 
+///////////////////////////////////////////////////////////////////////////////
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
@@ -227,8 +228,7 @@ void Wrist::MoveToPosition(int level)
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
 }
 
-bool Wrist::MoveToPositionIsFinished(void)
-{
+bool Wrist::MoveToPositionIsFinished(void) {
 	bool pidFinished = false;
 	int curCounts = 0;
 	int closedLoopError = 0;

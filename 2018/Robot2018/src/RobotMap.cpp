@@ -99,4 +99,5 @@ void RobotMap::init() {
     // TODO: Check to see if this is fixed in 2019 beta
 
     lw->DisableAllTelemetry();
+    //lw->DisableTelemetry(powerPDP);
 }
