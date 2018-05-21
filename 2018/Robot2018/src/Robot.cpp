@@ -264,7 +264,6 @@ void Robot::RobotFaultDump(void) {
 	pcm = RobotMap::pneumaticsCompressor;
 	pdp = RobotMap::powerPDP;
 
-#ifndef ROBORIO_STANDALONE
 	//	Print out talon SRX faults and clear sticky ones
 	std::printf("2135: %s --------------\n", "TALON SRX FAULTS");
 	frc2135::TalonSRXUtils::TalonSRXFaultDump("drivetrainMotorL1", RobotMap::drivetrainMotorL1);
@@ -276,7 +275,6 @@ void Robot::RobotFaultDump(void) {
 	frc2135::TalonSRXUtils::TalonSRXFaultDump("gripperMotorL11", RobotMap::gripperMotorL11);
 	frc2135::TalonSRXUtils::TalonSRXFaultDump("gripperMotorR12", RobotMap::gripperMotorR12);
 	frc2135::TalonSRXUtils::TalonSRXFaultDump("wristMotorW14", RobotMap::wristMotorW14);
-#endif
 
 	// Print out PCM faults and clear sticky ones
 	std::printf("2135: %s --------------\n", "PCM FAULTS");

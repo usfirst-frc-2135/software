@@ -8,9 +8,6 @@
 #ifndef ROBOTDEFAULTS_H_
 #define ROBOTDEFAULTS_H_
 
-// Comment both to test with only the RoboRio
-//#define ROBORIO_STANDALONE
-
 //	SmartDashboard string definitions
 
 #define ROBOT_FMS_LEFT 		"LEFT"
