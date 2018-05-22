@@ -126,15 +126,18 @@ void Elevator::InitDefaultCommand() {
 
 void Elevator::Periodic() {
 	double	curCounts = 0.0;
-	double	outVoltsL7 = 0.0;
-	double	outVoltsR8 = 0.0;
+	double	outputL7 = 0.0, currentL7 = 0.0;
+	double	outputR8 = 0.0, currentR8 = 0.0;
 
 	if (m_talonValidL7) {
 		curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
-		outVoltsL7 = motorL7->GetMotorOutputVoltage();
+		outputL7 = motorL7->GetMotorOutputVoltage();
+		currentL7 = motorL7->GetOutputCurrent();
 	}
+
 	if (m_talonValidR8) {
-		outVoltsR8 = motorR8->GetMotorOutputVoltage();
+		outputR8 = motorR8->GetMotorOutputVoltage();
+		currentR8 = motorR8->GetOutputCurrent();
 	}
 
     // Put code here to be run every loop
@@ -142,8 +145,11 @@ void Elevator::Periodic() {
 	SmartDashboard::PutBoolean("EL Hall Sensor", HallSensorIsTriggered());
 	SmartDashboard::PutNumber("EL Height", CountsToInches(curCounts));
 	SmartDashboard::PutNumber("Cube Height", 2 * CountsToInches(curCounts));
-	SmartDashboard::PutNumber("EL L7 Volts", outVoltsL7);
-	SmartDashboard::PutNumber("EL R8 Volts", outVoltsR8);
+
+	SmartDashboard::PutNumber("EL_Output_L7", outputL7);
+	SmartDashboard::PutNumber("EL_Current_L7", currentL7);
+	SmartDashboard::PutNumber("EL_Output_R8", outputR8);
+	SmartDashboard::PutNumber("EL_Current_R8", currentR8);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

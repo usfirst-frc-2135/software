@@ -177,16 +177,48 @@ void Drivetrain::Periodic() {
     // Put code here to be run every loop
 	double	encoderLeft = 0.0;
 	double	encoderRight = 0.0;
+	double	outputL1 = 0.0, currentL1 = 0.0;
+	double	outputL2 = 0.0, currentL2 = 0.0;;
+	double	outputR3 = 0.0, currentR3 = 0.0;;
+	double	outputR4 = 0.0, currentR4 = 0.0;;
 	double	gyroYaw = 0.0;
 
-	if (m_talonValidL1)
+	if (m_talonValidL1) {
 		encoderLeft = motorL1->GetSelectedSensorPosition(0);
-	if (m_talonValidR3)
+		outputL1 = motorL1->GetMotorOutputPercent();
+		currentL1 = motorL1->GetOutputCurrent();
+	}
+
+	if (m_talonValidL2) {
+		outputL2 = motorL2->GetMotorOutputPercent();
+		currentL2 = motorL2->GetOutputCurrent();
+	}
+
+	if (m_talonValidR3) {
 		encoderRight = motorR3->GetSelectedSensorPosition(0);
+		outputR3 = motorR3->GetMotorOutputPercent();
+		currentR3 = motorR3->GetOutputCurrent();
+	}
+
+	if (m_talonValidR4) {
+		outputR4 = motorR4->GetMotorOutputPercent();
+		currentR4 = motorR4->GetOutputCurrent();
+	}
+
 	gyroYaw = gyro->GetYaw();
 
 	SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
+	SmartDashboard::PutNumber("DT_Output_L1", outputL1);
+	SmartDashboard::PutNumber("DT_Current_L1", currentL1);
+	SmartDashboard::PutNumber("DT_Output_L2", outputL2);
+	SmartDashboard::PutNumber("DT_Current_L2", currentL2);
+
 	SmartDashboard::PutNumber("DT_Encoder_R", encoderRight);
+	SmartDashboard::PutNumber("DT_Output_R3", outputR3);
+	SmartDashboard::PutNumber("DT_Current_R3", currentR3);
+	SmartDashboard::PutNumber("DT_Output_R4", outputR4);
+	SmartDashboard::PutNumber("DT_Current_R4", currentR4);
+
 	SmartDashboard::PutNumber("DT_GyroAngle", gyroYaw);
 }
 

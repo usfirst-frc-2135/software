@@ -76,16 +76,23 @@ void Gripper::InitDefaultCommand() {
 }
 
 void Gripper::Periodic() {
-	double	outVoltsL11 = 0.0;
-	double	outVoltsR12 = 0.0;
+	double	outputL11 = 0.0, currentL11 = 0.0;
+	double	outputR12 = 0.0, currentR12 = 0.0;
 
-	if (m_talonValidL11)
-		outVoltsL11 = motorL11->GetMotorOutputVoltage();
-	if (m_talonValidR12)
-		outVoltsR12 = motorR12->GetMotorOutputVoltage();
+	if (m_talonValidL11) {
+		outputL11 = motorL11->GetMotorOutputVoltage();
+		currentL11 = motorL11->GetOutputCurrent();
+	}
 
-	SmartDashboard::PutNumber("GR L11 Volts", outVoltsL11);
-	SmartDashboard::PutNumber("GR R12 Volts", outVoltsR12);
+	if (m_talonValidR12) {
+		outputR12 = motorR12->GetMotorOutputVoltage();
+		currentR12 = motorR12->GetOutputCurrent();
+	}
+
+	SmartDashboard::PutNumber("GR_Output_L11", outputL11);
+	SmartDashboard::PutNumber("GR_Current_L11", currentL11);
+	SmartDashboard::PutNumber("GR_Output_R12", outputR12);
+	SmartDashboard::PutNumber("GR_Current_R12", currentR12);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

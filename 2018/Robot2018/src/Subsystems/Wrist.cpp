@@ -107,16 +107,18 @@ void Wrist::InitDefaultCommand() {
 void Wrist::Periodic() {
     // Put code here to be run every loop
 	int		curCounts = 0;
-	double	outVolts = 0.0;
+	double	outputW14 = 0.0, currentW14 = 0.0;
 
 	if (m_talonValidW14) {
 		curCounts = motorW14->GetSelectedSensorPosition(m_pidIndex);
-		outVolts = motorW14->GetMotorOutputVoltage();
+		outputW14 = motorW14->GetMotorOutputVoltage();
+		currentW14 = motorW14->GetOutputCurrent();
 	}
 
 	SmartDashboard::PutNumber("WR Counts", curCounts);
 	SmartDashboard::PutNumber("WR Degrees", CountsToDegrees(curCounts));
-	SmartDashboard::PutNumber("WR W14 Volts", outVolts);
+	SmartDashboard::PutNumber("WR_Output_W14", outputW14);
+	SmartDashboard::PutNumber("WR_Current_W14", currentW14);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
