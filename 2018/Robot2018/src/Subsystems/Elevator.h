@@ -50,7 +50,7 @@ private:
 
 	int				m_elevatorLevel;				// Current elevator level (FLOOR, SCALE, etc--not inches)
 	double			m_targetInches;					// Target inches of height that are requested of the elevator
-	double			m_targetCounts;					// Target encoder counts of height that are requested of the elevator
+	int				m_targetCounts;					// Target encoder counts of height that are requested of the elevator
 	double			m_curInches;
 	bool			m_calibrated;					// Indicates whether the elevator has been calibrated
 	int				m_calibrationState;				// State variable for calibration sequence
@@ -64,6 +64,7 @@ private:
 	double 			m_pidMaxOut;						// Elevator maximum speed during movement
 	double			m_pidKp;						// Elevator PID proportional constant
 	int				m_CLAllowedError;				// Elevator PID allowable closed loop error
+	double			m_toleranceInches;				// Elevator PID tolerance in inches
 	double			m_CLRampRate;					// Elevator PID ramp rate
 	double			m_elevatorMaxHeight;			// Elevator maximum allowable height
 	double			m_elevatorMinHeight;			// Elevator minimum allowable height
@@ -101,7 +102,7 @@ public:
 
 	void Initialize(void);
 
-	double InchesToCounts(double inches);
+	int InchesToCounts(double inches);
 	double CountsToInches(int counts);
 	double GetCurrentInches();
 	bool HallSensorIsTriggered(void);

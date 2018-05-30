@@ -59,10 +59,10 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 	config->GetValueAsDouble("DT_PidDistMaxInches", m_distMaxInches, 310.0);
 	config->GetValueAsDouble("DT_CLRampRate", m_CL_rampRate, 0.300);
 	config->GetValueAsInt("DT_CLAllowedError", m_CLAllowedError, 0);
-	config->GetValueAsDouble("DT_PidDistErrInches", m_distErrInches, 1.5);
+	config->GetValueAsDouble("DT_PidDistTolInches", m_distTolInches, 1.5);
     config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.030);
     config->GetValueAsDouble("DT_PidTurnMaxOut", m_turnMaxOut, 0.42);
-	config->GetValueAsDouble("DT_PidTurnErrDeg", m_turnErrDeg, 1.5);
+	config->GetValueAsDouble("DT_PidTurnTolDeg", m_turnTolDeg, 1.5);
 
 	// Load autonomous command values at boot from config file
 	double	temp;
@@ -159,7 +159,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
    	// Settings for Turn PID
    	driveTurnPIDLoop->SetPID(m_turnKp, 0.0, 0.0);
    	driveTurnPIDLoop->SetOutputRange(-m_turnMaxOut, m_turnMaxOut);
-   	driveTurnPIDLoop->SetAbsoluteTolerance(m_turnErrDeg);
+   	driveTurnPIDLoop->SetAbsoluteTolerance(m_turnTolDeg);
 }
 
 void Drivetrain::InitDefaultCommand() {
@@ -339,8 +339,8 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches) {
 		std::printf("2135: DT m_distTargetInches limited by m_distMaxInches %f\n", m_distMaxInches);
 	}
 	m_distTargetInches = inches;
-	m_distTargetCounts = inches * CountsPerInch;
-	std::printf("2135: DTDD Init %5.2f counts, %5.2f inches, %5.2f CountsPerInch\n",
+	m_distTargetCounts = (int) round(inches * CountsPerInch);
+	std::printf("2135: DTDD Init %d counts, %5.2f inches, %5.2f CountsPerInch\n",
 			m_distTargetCounts, m_distTargetInches, CountsPerInch);
 
 	// Initialize the encoders to start movement at reference of zero counts
@@ -351,9 +351,9 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches) {
 
 	// Set the target distance in terms of wheel rotations
 	if (m_talonValidL1)
-		motorL1->Set(ControlMode::Position, m_distTargetCounts);
+		motorL1->Set(ControlMode::Position, (double)m_distTargetCounts);
 	if (m_talonValidR3)
-		motorR3->Set(ControlMode::Position, -m_distTargetCounts);
+		motorR3->Set(ControlMode::Position, (double)-m_distTargetCounts);
 
 	// Disable motor safety helper during PID
    	diffDrive->SetSafetyEnabled(false);
@@ -387,17 +387,17 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint() {
 	if (m_talonValidL1) {
 		curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
 		motorOutput_L = motorL1->GetMotorOutputPercent();
-		closedLoopError_L = motorL1->GetClosedLoopError(m_pidIndex);
 	}
 	if (m_talonValidR3) {
 		curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
 		motorOutput_R = motorR3->GetMotorOutputPercent();
-		closedLoopError_R = motorR3->GetClosedLoopError(m_pidIndex);
 	}
 
 	// Check to see if the error is in an acceptable number of inches. (R is negated)
-	errorInInches_L = CountsToInches(m_distTargetCounts - (double)curCounts_L);
-	errorInInches_R = CountsToInches(-m_distTargetCounts - (double)curCounts_R);
+	closedLoopError_L = m_distTargetCounts - curCounts_L;
+	closedLoopError_R = -m_distTargetCounts - curCounts_R;
+	errorInInches_L = CountsToInches(closedLoopError_L);
+	errorInInches_R = CountsToInches(closedLoopError_R);
 
 	// cts = Encoder Counts, CLE = Closed Loop Error, Out = Motor Output
 	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
@@ -405,7 +405,7 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint() {
 			secs, curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R),
 			closedLoopError_L, closedLoopError_R, motorOutput_L, motorOutput_R, errorInInches_L, errorInInches_R);
 
-	if ((fabs(errorInInches_L) < m_distErrInches) && (fabs(errorInInches_R) < m_distErrInches)) {
+	if ((fabs(errorInInches_L) < m_distTolInches) && (fabs(errorInInches_R) < m_distTolInches)) {
 		pidFinished = true;
 	}
 
@@ -460,8 +460,8 @@ void Drivetrain::MoveDriveDistancePIDStop(void) {
 //	SmartDashboard::PutNumber("DD TIME", m_safetyTimer.Get());
 
 	// Check to see if the error is in an acceptable number of inches. (R is negated)
-	errorInInches_L = CountsToInches(m_distTargetCounts - (double)curCounts_L);
-	errorInInches_R = CountsToInches(-m_distTargetCounts - (double)curCounts_R);
+	errorInInches_L = CountsToInches(m_distTargetCounts - curCounts_L);
+	errorInInches_R = CountsToInches(-m_distTargetCounts - curCounts_R);
 
 	// Print final results to console
 	double secs = (double)RobotController::GetFPGATime() / 1000000.0;

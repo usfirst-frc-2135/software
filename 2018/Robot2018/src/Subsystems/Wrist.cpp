@@ -40,6 +40,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsDouble("WR_PidMaxOut", m_pidMaxOut, 1.0);
     config->GetValueAsDouble("WR_CLRampRate", m_CLRampRate, 0.080);
     config->GetValueAsInt("WR_CLAllowedError", m_CLAllowedError, 0);
+	config->GetValueAsDouble("WR_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1800);
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 10.0);
@@ -80,7 +81,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 		motorW14->EnableCurrentLimit(false);
 
 		// Enable wrist PID with existing sensor reading (no movement)
-		motorW14->Set(ControlMode::Position, DegreesToCounts(m_curDegrees));
+		motorW14->Set(ControlMode::Position, (double)DegreesToCounts(m_curDegrees));
 	}
 
 	//Initialize Variables
@@ -139,11 +140,11 @@ void Wrist::Initialize(void)
 	m_targetDegrees = CountsToDegrees(curCounts);
 }
 
-double Wrist::DegreesToCounts(double degrees) {
-	double counts;
+int Wrist::DegreesToCounts(double degrees) {
+	int counts;
 
 	// counts = -degrees * (counts / degree) * reduction
-	counts = -degrees * (COUNTS_PER_ROTATION / 360.0) * OUTPUT_SHAFT_REDUCTION;
+	counts = (int) round(-degrees * (COUNTS_PER_ROTATION / 360.0) * OUTPUT_SHAFT_REDUCTION);
 	return counts;
 }
 
@@ -199,7 +200,7 @@ void Wrist::MoveToPosition(int level)
 	}
 
 	// Constrain input request to a valid and safe range between full down and max height
-	std::printf("2135: WR m_targetDegrees: %f, counts: %f\n",
+	std::printf("2135: WR m_targetDegrees: %f, counts: %d\n",
 			m_targetDegrees, DegreesToCounts(m_targetDegrees));
 
 	if (m_targetDegrees > CountsToDegrees(m_wristMinCounts)) {
@@ -224,9 +225,9 @@ void Wrist::MoveToPosition(int level)
 
 	// Set the mode and target
 	if (m_talonValidW14)
-		motorW14->Set(ControlMode::Position, m_targetCounts);
+		motorW14->Set(ControlMode::Position, (double)m_targetCounts);
 
-	std::printf("2135: WR Move degrees %f -> %f counts %d -> %f\n",
+	std::printf("2135: WR Move degrees %f -> %f counts %d -> %d\n",
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
 }
 
@@ -237,22 +238,24 @@ bool Wrist::MoveToPositionIsFinished(void) {
 	double motorOutput = 0.0;
 	double errorInDegrees = 0;
 
-	if (m_wristLevel != WRIST_NOCHANGE)
-	{
+	// If a real move was requested, check for completion
+	if (m_wristLevel != WRIST_NOCHANGE) {
 		if (m_talonValidW14) {
 			curCounts = motorW14->GetSelectedSensorPosition(m_pidIndex);
-			closedLoopError = motorW14->GetClosedLoopError(m_pidIndex);
 			motorOutput = motorW14->GetMotorOutputPercent();
 		}
 
 		double secs = (double)RobotController::GetFPGATime() / 1000000.0;
+
+		closedLoopError = m_targetCounts - curCounts;
+		errorInDegrees = CountsToDegrees(closedLoopError);
+
 		// cts = Encoder Counts, CLE = Closed Loop Error, Out = Motor Output
 		std::printf("2135: WR %5.3f cts %d, deg %4.1f, CLE %d, Out %4.2f\n", secs,
 				curCounts, CountsToDegrees(curCounts), closedLoopError, motorOutput);
 
 		// Check to see if the error is in an acceptable number of inches.
-		errorInDegrees = CountsToDegrees(m_targetCounts - (double)curCounts);
-		if (fabs(errorInDegrees < 5.0)) {
+		if (fabs(errorInDegrees < m_toleranceDegrees)) {
 			pidFinished = true;
 			m_safetyTimer.Stop();
 			std::printf("2135: WR Move Finished - Time %f\n", m_safetyTimer.Get());

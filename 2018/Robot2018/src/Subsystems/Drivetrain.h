@@ -63,9 +63,9 @@ private:
 	Timer 	m_safetyTimer;			// Safety timer for use during autonomous modes
 	double  m_safetyTimeout; 		// Time in seconds for safety timer
 
-	double 	m_distTargetCounts;		// Drive distance target count value
+	int 	m_distTargetCounts;		// Drive distance target count value
 	double 	m_distTargetInches;		// Drive distance target inches value
-	double	m_distErrInches;		// Drive distance tolerance in inches
+	double	m_distTolInches;		// Drive distance tolerance in inches
 	double	m_distMaxInches;		// Drive distance maximum inches allowed as input
 	double 	m_distKp;				// Drive distance proportional value for PID
 	double 	m_distMaxOut;			// Drive distance max motor output value for PID
@@ -73,7 +73,7 @@ private:
 	int		m_CLAllowedError;		// Closed loop allowable error for PID
 
 	double 	m_turnAngle;			// Desired turn angle from present course
-	double	m_turnErrDeg;			// DriveTurn tolerance in degrees
+	double	m_turnTolDeg;			// DriveTurn tolerance in degrees
 	double 	m_turnKp;				// Proportional value for PID for DriveTurn function
 	double 	m_turnMaxOut;			// Max motor output value for PID for DriveTurn function
 

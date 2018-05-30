@@ -41,7 +41,7 @@ private:
 
 	int				m_wristLevel;					// Current wrist level (FLAT, STOWED, etc--not degrees)
 	double			m_targetDegrees;				// Target angle of degrees that are requested of the wrist
-	double			m_targetCounts;					// Target encoder counts of angle that are requested of the wrist
+	int				m_targetCounts;					// Target encoder counts of angle that are requested of the wrist
 	double			m_curDegrees;
 	bool			m_bumpDir;						// State variable for bumping up or down
 
@@ -53,6 +53,7 @@ private:
 	double			m_pidKp;						// Wrist PID proportional constant
 	double			m_CLRampRate;					// Wrist PID ramp rate
 	int				m_CLAllowedError;				// Wrist PID allowable closed loop error
+	double			m_toleranceDegrees;				// Wrist PID tolerance in degrees
 	int				m_wristMaxCounts;				// Wrist maximum allowable counts
 	int				m_wristMinCounts;				// Wrist minimum allowable counts
 	double			m_bumpAngle;					// Incremental angle when bumping the wrist up/down
@@ -80,7 +81,7 @@ public:
 
 	void Initialize(void);
 
-	double DegreesToCounts(double degrees);
+	int DegreesToCounts(double degrees);
 	double CountsToDegrees(int counts);
 	double GetCurrentDegrees();
 

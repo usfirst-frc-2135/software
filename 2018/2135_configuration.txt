@@ -13,16 +13,17 @@
  DT_PidDistMaxInches = 310.0
  DT_CLRampRate = 0.300
  DT_CLAllowedError = 0
- DT_PidDistErrInches = 1.5
+ DT_PidDistTolInches = 1.5
  DT_PidTurnKp = 0.030
  DT_PidTurnMaxOut = 0.42
- DT_PidTurnErrDeg = 1.5 
+ DT_PidTurnTolDeg = 1.5 
 # Elevator settings
  EL_CalibSpeed = 0.25
  EL_PidKp = 0.250
  EL_PidMaxOut = 0.75
  EL_CLRampRate = 0.250
  EL_CLAllowedError = 0
+ EL_ToleranceInches = 2.0
  EL_MaxHeight = 35.0
  EL_MinHeight = 0.0
  EL_BumpHeight = 1.0
@@ -42,6 +43,7 @@
  WR_PidMaxOut = 1.00
  WR_CLRampRate = 0.080
  WR_CLAllowedError = 0
+ WR_ToleranceDegrees = 5.0
  WR_MaxCounts = 0
  WR_MinCounts = -1800
  WR_BumpAngle = 10.0
