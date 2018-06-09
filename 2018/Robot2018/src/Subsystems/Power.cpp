@@ -40,19 +40,19 @@ void Power::InitDefaultCommand() {
 }
 
 void Power::Periodic() {
-	char			chanStr[32];
-	int				i;
+//	char			chanStr[32];
+//	int				i;
 
     // Put code here to be run every loop
-	SmartDashboard::PutNumber("PDP Temp", pDP->GetTemperature());
-	SmartDashboard::PutNumber("PDP Total Amps", pDP->GetTotalCurrent());
-	SmartDashboard::PutNumber("PDP Total Watts", pDP->GetTotalPower());
-	SmartDashboard::PutNumber("PDP Total Joules", pDP->GetTotalEnergy());
-
-	for (i = 0; i <= 15; i++) {
-		std::sprintf(chanStr, "PDP Chan %2d A\n", i);
-		SmartDashboard::PutNumber(chanStr, pDP->GetCurrent(i));
-	}
+//	SmartDashboard::PutNumber("PDP Temp", pDP->GetTemperature());
+//	SmartDashboard::PutNumber("PDP Total Amps", pDP->GetTotalCurrent());
+//	SmartDashboard::PutNumber("PDP Total Watts", pDP->GetTotalPower());
+//	SmartDashboard::PutNumber("PDP Total Joules", pDP->GetTotalEnergy());
+//
+//	for (i = 0; i <= 15; i++) {
+//		std::sprintf(chanStr, "PDP Chan %2d A\n", i);
+//		SmartDashboard::PutNumber(chanStr, pDP->GetCurrent(i));
+//	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
