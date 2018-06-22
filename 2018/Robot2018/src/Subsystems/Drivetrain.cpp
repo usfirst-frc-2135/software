@@ -137,20 +137,29 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
    	std::printf("2135: DT Gyro Sub %s Name %s\n", gyro->GetSubsystem().c_str(), gyro->GetName().c_str());
 
  	// Wait for gyro to be connected before proceeding to reset
- 	while (!gyro->IsConnected()) {
- 		static 	double 	time = frc::GetTime();
- 		if (frc::GetTime() - time > 0.250)
- 			std::printf("2135: Waiting for gyro\n");
+   	std::string gyroVer = nullptr;
+	double	startTime = frc::GetTime();
+	while (!gyro->IsConnected() && ((frc::GetTime() - startTime) < 2.0)) {
+		std::printf("2135: Waiting for gyro %5.3f\n", frc::GetTime());
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
  	}
 
-   	std::printf("2135: DT Gyro Firmware Version - %s\n", gyro->GetFirmwareVersion().c_str());
-   	gyro->Reset();
-   	gyro->ResetDisplacement();
+	gyroVer = gyro->GetFirmwareVersion();
+   	std::printf("2135: DT Gyro Firmware Version - %s\n", gyroVer.c_str());
+   	if (std::strcmp(gyroVer.c_str(), m_gyroReqVer)) {
+   		m_gyroValid = true;
+   	   	gyro->Reset();
+   	   	gyro->ResetDisplacement();
 
-   	// Calibrate the gyro
-   	std::printf("2135: DT Gyro Calibration Started\n");
-   	gyro->ZeroYaw();
-   	std::printf("2135: DT Gyro Calibration Finished\n");
+   	   	// Calibrate the gyro
+   	   	std::printf("2135: DT Gyro Calibration Started\n");
+   	   	gyro->ZeroYaw();
+   	   	std::printf("2135: DT Gyro Calibration Finished\n");
+   	}
+   	else {
+   	   	m_gyroValid = false;
+   		std::printf("2135: ERROR: Gyro timed out - missing or defective\n");
+   	}
 
  	// Initialize PID for Turn PID
    	driveTurnPIDOutput = new PIDOutputDriveTurn(diffDrive);
@@ -182,6 +191,8 @@ void Drivetrain::Periodic() {
 	double	outputR3 = 0.0, currentR3 = 0.0;;
 	double	outputR4 = 0.0, currentR4 = 0.0;;
 	double	gyroYaw = 0.0;
+	double	gyroDispX = 0.0;
+	double	gyroDispY = 0.0;
 
 	if (m_talonValidL1) {
 		encoderLeft = motorL1->GetSelectedSensorPosition(0);
@@ -205,7 +216,11 @@ void Drivetrain::Periodic() {
 		currentR4 = motorR4->GetOutputCurrent();
 	}
 
-	gyroYaw = gyro->GetYaw();
+	if (m_gyroValid) {
+		gyroYaw = gyro->GetYaw();
+		gyroDispX = gyro->GetDisplacementX();
+		gyroDispY = gyro->GetDisplacementY();
+	}
 
 	SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
 	SmartDashboard::PutNumber("DT_Output_L1", outputL1);
@@ -220,6 +235,8 @@ void Drivetrain::Periodic() {
 	SmartDashboard::PutNumber("DT_Current_R4", currentR4);
 
 	SmartDashboard::PutNumber("DT_GyroAngle", gyroYaw);
+	SmartDashboard::PutNumber("DT_GyroDispX", gyroDispX);
+	SmartDashboard::PutNumber("DT_GyroDispY", gyroDispY);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
