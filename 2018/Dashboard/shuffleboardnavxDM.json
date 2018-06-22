@@ -1,0 +1,410 @@
+{
+  "dividerPosition": 0.1564945226917058,
+  "tabPane": [
+    {
+      "title": "SmartDashboard",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "SmartDashboard/",
+      "widgetPane": {
+        "gridSize": 32.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/IMU_Connected",
+              "_title": "IMU_Connected",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "18,10": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/IMU_Yaw",
+              "_title": "IMU_Yaw"
+            }
+          },
+          "18,6": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/IMU_Pitch",
+              "_title": "IMU_Pitch"
+            }
+          },
+          "18,8": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/IMU_Roll",
+              "_title": "IMU_Roll"
+            }
+          },
+          "6,10": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/IMU_CompassHeading",
+              "_title": "IMU_CompassHeading"
+            }
+          },
+          "0,6": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/IMU_Update_Count",
+              "_title": "IMU_Update_Count"
+            }
+          },
+          "0,8": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/IMU_Byte_Count",
+              "_title": "IMU_Byte_Count"
+            }
+          },
+          "0,10": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/IMU_Timestamp",
+              "_title": "IMU_Timestamp"
+            }
+          },
+          "3,6": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/IMU_TotalYaw",
+              "_title": "IMU_TotalYaw"
+            }
+          },
+          "3,4": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/IMU_YawRateDPS",
+              "_title": "IMU_YawRateDPS"
+            }
+          },
+          "0,2": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/IMU_IsMoving",
+              "_title": "IMU_IsMoving",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "3,2": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/IMU_Temp_C",
+              "_title": "IMU_Temp_C"
+            }
+          },
+          "0,4": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/IMU_IsCalibrating",
+              "_title": "IMU_IsCalibrating",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "3,10": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/YawAxisDirection",
+              "_title": "YawAxisDirection"
+            }
+          },
+          "3,8": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/YawAxis",
+              "_title": "YawAxis"
+            }
+          },
+          "3,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FirmwareVersion",
+              "_title": "FirmwareVersion"
+            }
+          },
+          "15,0": {
+            "size": [
+              3,
+              6
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Displacement",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Displacement_X",
+                  "_title": "Displacement_X"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Displacement_Y",
+                  "_title": "Displacement_Y"
+                }
+              ]
+            }
+          },
+          "6,0": {
+            "size": [
+              3,
+              8
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "RawGyro",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/RawGyro_X",
+                  "_title": "RawGyro_X"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/RawGyro_Y",
+                  "_title": "RawGyro_Y"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/RawGyro_Z",
+                  "_title": "RawGyro_Z"
+                }
+              ]
+            }
+          },
+          "12,0": {
+            "size": [
+              3,
+              10
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Quarternion",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/QuaternionW",
+                  "_title": "QuaternionW"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/QuaternionX",
+                  "_title": "QuaternionX"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/QuaternionY",
+                  "_title": "QuaternionY"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/QuaternionZ",
+                  "_title": "QuaternionZ"
+                }
+              ]
+            }
+          },
+          "9,0": {
+            "size": [
+              3,
+              8
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "RawMag",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/RawMag_X",
+                  "_title": "RawMag_X"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/RawMag_Y",
+                  "_title": "RawMag_Y"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/RawMag_Z",
+                  "_title": "RawMag_Z"
+                }
+              ]
+            }
+          },
+          "15,6": {
+            "size": [
+              3,
+              6
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Velocity",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Velocity_X",
+                  "_title": "Velocity_X"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Velocity_Y",
+                  "_title": "Velocity_Y"
+                }
+              ]
+            }
+          },
+          "18,0": {
+            "size": [
+              3,
+              6
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "IMU_Accel",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/IMU_Accel_X",
+                  "_title": "IMU_Accel_X"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/IMU_Accel_Y",
+                  "_title": "IMU_Accel_Y"
+                }
+              ]
+            }
+          },
+          "6,8": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RawAccel_X",
+              "_title": "RawAccel_X"
+            }
+          },
+          "8,8": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RawAccel_Y",
+              "_title": "RawAccel_Y"
+            }
+          },
+          "10,8": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RawAccel_Z",
+              "_title": "RawAccel_Z"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "LiveWindow",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "LiveWindow/",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Ungrouped",
+              "_title": "Ungrouped",
+              "_children": []
+            }
+          }
+        }
+      }
+    }
+  ]
+}
