@@ -1,4 +1,5 @@
 # Comment lines start with '#'
+ RB_Name = 9135-Belix
 # DriveTrain settings
  DT_PeakOutput = 1.00
  DT_DriveXScaling = 1.00
