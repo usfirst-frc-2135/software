@@ -27,7 +27,7 @@ Power::Power() : frc::Subsystem("Power") {
 
     pDP->ResetTotalEnergy();
 
-    std::printf("2135: PDP Voltage %5.1f\n", pDP->GetVoltage());
+    std::printf("2135: PDP Voltage %5.1f Volts\n", pDP->GetVoltage());
 }
 
 void Power::InitDefaultCommand() {

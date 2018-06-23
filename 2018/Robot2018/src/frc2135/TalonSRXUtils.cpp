@@ -27,7 +27,7 @@ bool TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, const 
 
 	// Configure subsystem and component name
     talonSRX->SetName(subsystem, name);
-   	std::printf("2135: DT TalonSRX Sub %s Name %s\n", talonSRX->GetSubsystem().c_str(), talonSRX->GetName().c_str());
+   	std::printf("2135: TalonSRX Subsystem %s Name %s\n", talonSRX->GetSubsystem().c_str(), talonSRX->GetName().c_str());
 
     // Display Talon SRX firmware versions
 	deviceID = talonSRX->GetDeviceID();

@@ -158,7 +158,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
    	}
    	else {
    	   	m_gyroValid = false;
-   		std::printf("2135: ERROR: Gyro timed out - missing or defective\n");
+   		std::printf("2135: ERROR: DT Gyro timed out - missing or defective\n");
    	}
 
  	// Initialize PID for Turn PID

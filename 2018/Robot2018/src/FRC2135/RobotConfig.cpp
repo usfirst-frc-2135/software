@@ -29,11 +29,12 @@ void trimWhitespace(std::string& line) {
 ////////////////////////////////////////////////////////////////////////////////
 
 RobotConfig::RobotConfig() {
-	std::printf("2135: RobotConfig --- Before LoadConfig ---\n");
+	std::printf("2135: RobotConfig -- LoadConfig Started  --\n");
 	LoadConfig();
-	std::printf("2135: RobotConfig --- After LoadConfig, Before DumpConfig ---\n");
+	std::printf("2135: RobotConfig -- LoadConfig Finished --\n");
+	std::printf("2135: RobotConfig -- DumpConfig Started  --\n");
 	DumpConfig();
-	std::printf("2135: RobotConfig --- After DumpConfig ---\n");
+	std::printf("2135: RobotConfig -- DumpConfig Finished --\n");
 }
 
 RobotConfig::~RobotConfig() {
@@ -44,7 +45,7 @@ RobotConfig::~RobotConfig() {
 
 RobotConfig* RobotConfig::GetInstance() {
 	if (RobotConfig::currentConfig == nullptr) {
-		std::printf("2135: RobotConfig - Creating new RobotConfig object\n");
+		std::printf("2135: RobotConfig -- Creating new RobotConfig object\n");
 		RobotConfig::currentConfig = new RobotConfig();
 	}
 
@@ -87,13 +88,13 @@ bool RobotConfig::LoadConfig() {
 	std::ifstream configFile(fileName.c_str());
 	if (configFile.good() == false)
 	{
-		std::printf("2135: ERROR: RobotConfig - No such file %s\n", fileName.c_str());
+		std::printf("2135: ERROR: RobotConfig -- No such file %s\n", fileName.c_str());
 		return false;
 	}
 
     m_configMap.clear();
 
-    std::printf("2135: RobotConfig - Loading File %s\n", fileName.c_str());
+    std::printf("2135: RobotConfig --  Loading File %s\n", fileName.c_str());
 	while (configFile.eof() == false) {
 		std::string name;
 		std::string valueStr;
@@ -122,7 +123,7 @@ bool RobotConfig::LoadConfig() {
 
 			if (configFile.bad() == true)
 			{
-				std::printf("2135: ERROR: RobotConfig - configFile %s bad\n", fileName.c_str());
+				std::printf("2135: ERROR: RobotConfig -- configFile %s bad\n", fileName.c_str());
 				return false;
 			}
 		}
@@ -151,11 +152,11 @@ bool RobotConfig::GetValueAsString(const std::string& name, std::string& valueSt
 		{
 			valueStr = defaultStr;
 			m_configMap[name] = valueStr;
-			std::printf("2135: WARNING: RobotConfig - %s NOT found - using default value %s\n", name.c_str(), defaultStr.c_str());
+			std::printf("2135: WARNING: RobotConfig -- %s NOT found - using default value %s\n", name.c_str(), defaultStr.c_str());
 			rtnStatus = true;
 		}
 		else
-			std::printf("2135: ERROR: RobotConfig - %s NOT found and no default value\n", name.c_str());
+			std::printf("2135: ERROR: RobotConfig -- %s NOT found and no default value\n", name.c_str());
 	}
 
 	return rtnStatus;
@@ -183,11 +184,11 @@ bool RobotConfig::GetValueAsInt(const std::string& name, int& valueInt, int defa
 			valueInt = defaultInt;
 			std::string valueStr = std::to_string(defaultInt);
 			m_configMap[name] = valueStr;
-			std::printf("2135: WARNING: RobotConfig - %s not found - using default value %d\n", name.c_str(), defaultInt);
+			std::printf("2135: WARNING: RobotConfig -- %s not found - using default value %d\n", name.c_str(), defaultInt);
 			rtnStatus = true;
 		}
 		else
-			std::printf("2135: ERROR: RobotConfig - %s not found and no default value\n", name.c_str());
+			std::printf("2135: ERROR: RobotConfig -- %s not found and no default value\n", name.c_str());
 	}
 
 	return rtnStatus;
@@ -220,7 +221,7 @@ bool RobotConfig::GetValueAsBool(const std::string& name, bool& valueBool, bool 
 		if (defaultBool)
 			defaultStr = "true";
 		m_configMap[name] = defaultStr;
-		std::printf("2135: WARNING: RobotConfig - %s not found - using default value %d\n", name.c_str(), defaultBool);
+		std::printf("2135: WARNING: RobotConfig -- %s not found - using default value %d\n", name.c_str(), defaultBool);
 		rtnStatus = true;
 	}
 
@@ -247,11 +248,11 @@ bool RobotConfig::GetValueAsFloat(const std::string& name, float& valueFloat, fl
 			valueFloat = defaultFloat;
 			std::string defaultStr = std::to_string(defaultFloat);
 			m_configMap[name] = defaultStr;
-			std::printf("2135: WARNING: RobotConfig - %s not found using default value %f\n", name.c_str(), defaultFloat);
+			std::printf("2135: WARNING: RobotConfig -- %s not found using default value %f\n", name.c_str(), defaultFloat);
 			rtnStatus = true;
 		}
 		else
-			std::printf("2135: ERROR: RobotConfig - %s not found and no default value specified\n", name.c_str());
+			std::printf("2135: ERROR: RobotConfig -- %s not found and no default value specified\n", name.c_str());
 	}
 
 	return rtnStatus;
@@ -277,11 +278,11 @@ bool RobotConfig::GetValueAsDouble(const std::string& name, double& valueDouble,
 			valueDouble = defaultDouble;
 			std::string defaultStr = std::to_string(defaultDouble);
 			m_configMap[name] = defaultStr;
-			std::printf("2135: WARNING: RobotConfig - %s not found - using default value %f\n", name.c_str(), defaultDouble);
+			std::printf("2135: WARNING: RobotConfig -- %s not found - using default value %f\n", name.c_str(), defaultDouble);
 			rtnStatus = true;
 		}
 		else
-			std::printf("2135: ERROR: RobotConfig - %s not found and no default value specified\n", name.c_str());
+			std::printf("2135: ERROR: RobotConfig -- %s not found and no default value specified\n", name.c_str());
 	}
 
 	return rtnStatus;
