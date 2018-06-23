@@ -224,16 +224,39 @@ bool TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, const 
 }
 
 void TalonSRXUtils::TalonSRXFaultDump(const char *talonName, std::shared_ptr<WPI_TalonSRX> talonSRX) {
+	int				fwVersion = 0;
+	ErrorCode		error = OKAY;
 	Faults			faults;
 	StickyFaults	stickyFaults;
 
+	std::printf("2135: %s --------------\n", talonName);
+
+    // Check Talon SRX by getting device ID and validating firmware versions
+	talonSRX->GetDeviceID();
+	if ((error = talonSRX->GetLastError()) != OKAY) {
+		std::printf("2135: ERROR: %s Motor %s GetDeviceID error - %d\n",
+			talonSRX->GetSubsystem().c_str(), talonSRX->GetName().c_str(), error);
+		return;
+	}
+
+	fwVersion = talonSRX->GetFirmwareVersion();
+	if ((error = talonSRX->GetLastError()) != OKAY) {
+		std::printf("2135: ERROR: %s Motor %s GetFirmwareVersion error - %d\n",
+			talonSRX->GetSubsystem().c_str(), talonSRX->GetName().c_str(), error);
+		return;
+	}
+	if (fwVersion != m_reqVersion) {
+		std::printf("2135: WARNING: %s Motor %s Incorrect FW version %d.%d expected %d.%d\n",
+			talonSRX->GetSubsystem().c_str(), talonSRX->GetName().c_str(), fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
+		return;
+	}
+
+	// Now the Talon has been validated
 	talonSRX->GetFaults(faults);
 	talonSRX->GetStickyFaults(stickyFaults);
 	talonSRX->ClearStickyFaults(100);
 
-	std::printf("2135: %s --------------\n", talonName);
-
-	if (faults.HasAnyFault())
+	if (faults.HasAnyFault()) {
 		std::printf("At Least one fault below\n");
 	if (faults.ForwardLimitSwitch)
 		std::printf("\tForwardLimitSwitch\n");
@@ -257,8 +280,12 @@ void TalonSRXUtils::TalonSRXFaultDump(const char *talonName, std::shared_ptr<WPI
 		std::printf("\tSensorOverflow\n");
 	if (faults.UnderVoltage)
 		std::printf("\tUnderVoltage\n");
+	}
+	else {
+		std::printf("2135: NO Talon SRX active faults detected\n");
+	}
 
-	if (stickyFaults.HasAnyFault())
+	if (stickyFaults.HasAnyFault()) {
 		std::printf("At Least one STICKY fault below\n");
 	if (stickyFaults.ForwardLimitSwitch)
 		std::printf("\tForwardLimitSwitch\n");
@@ -282,6 +309,10 @@ void TalonSRXUtils::TalonSRXFaultDump(const char *talonName, std::shared_ptr<WPI
 		std::printf("\tSensorOverflow\n");
 	if (stickyFaults.UnderVoltage)
 		std::printf("\tUnderVoltage\n");
+	}
+	else {
+		std::printf("2135: NO Talon SRX sticky faults detected\n");
+	}
 }
 
 } /* namespace frc2135 */
