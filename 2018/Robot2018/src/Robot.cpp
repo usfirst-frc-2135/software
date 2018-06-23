@@ -74,9 +74,22 @@ void Robot::RobotInit() {
 //	cs::UsbCamera cam = CameraServer::GetInstance()->StartAutomaticCapture();
 
 	// Camera - Microsoft LifeCam
-	cs::UsbCamera cam = CameraServer::GetInstance()->StartAutomaticCapture();
+	cs::UsbCamera	cam = CameraServer::GetInstance()->StartAutomaticCapture();
 
-	cam.SetVideoMode(cs::VideoMode::kMJPEG, 640, 360, 15);
+	std::string		camName = cam.GetName();
+
+	if (cam.IsConnected()) {
+		std::printf("2135: CAM Camera %s is CONNECTED\n", camName.c_str());
+		std::printf("2135: CAM Camera Desc %s\n", cam.GetDescription().c_str());
+		std::printf("2135: CAM Camera Path %s\n", cam.GetPath().c_str());
+		cam.SetVideoMode(cs::VideoMode::kMJPEG, 640, 360, 15);
+		std::printf("2135: CAM Camera data rate %5.1f\n", cam.GetActualDataRate());
+		std::printf("2135: CAM Camera FPS       %5.1f\n", cam.GetActualFPS());
+	}
+	else {
+		std::printf("2135: ERROR: CAM Camera %s is NOT CONNECTED\n", camName.c_str());
+		CameraServer::GetInstance()->RemoveCamera(camName);
+	}
 
 	m_FMSAlliSwitch = SIDE_UNINIT;
 	m_FMSScale = SIDE_UNINIT;
