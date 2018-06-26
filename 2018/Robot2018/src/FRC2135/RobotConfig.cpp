@@ -94,7 +94,7 @@ bool RobotConfig::LoadConfig() {
 
     m_configMap.clear();
 
-    std::printf("2135: RobotConfig --  Loading File %s\n", fileName.c_str());
+    std::printf("2135: RobotConfig -- Loading File %s\n", fileName.c_str());
 	while (configFile.eof() == false) {
 		std::string name;
 		std::string valueStr;
