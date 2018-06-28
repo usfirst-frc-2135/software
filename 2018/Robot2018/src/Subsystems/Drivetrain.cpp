@@ -139,17 +139,23 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
  	// Wait for gyro to be connected before proceeding to reset
    	std::string gyroVer = "";
 	double	startTime = frc::GetTime();
-	double	maxTime = 5.0;
+	double	maxTime = 3.0;
 	while (!gyro->IsConnected() && ((frc::GetTime() - startTime) < maxTime)) {
 		std::printf("2135: DT Waiting for gyro to connect %5.3f\n", frc::GetTime() - startTime);
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
  	}
-	std::printf("2135: DT Gyro is %s\n", (gyro->IsConnected() ? "CONNECTED" : "NOT CONNECTED"));
+
+	if (gyro->IsConnected()) {
+		std::printf("2135: DT Gyro is CONNECTED\n");
+	}
+	else {
+		std::printf("2135: ERROR: DT Gyro is NOT CONNECTED\n");
+	}
 
 	// Read version and check it
 	while (std::strcmp(gyro->GetFirmwareVersion().c_str(), m_gyroReqVer) && ((frc::GetTime() - startTime) < maxTime)) {
 		std::printf("2135: DT Waiting for gyro FW version %5.3f\n", frc::GetTime() - startTime);
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 	}
 
 	gyroVer = gyro->GetFirmwareVersion();
