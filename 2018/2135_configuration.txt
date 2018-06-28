@@ -21,7 +21,7 @@
 # Elevator settings
  EL_CalibSpeed = 0.25
  EL_PidKp = 0.250
- EL_PidMaxOut = 0.75
+ EL_PidMaxOut = 0.85
  EL_CLRampRate = 0.250
  EL_CLAllowedError = 0
  EL_ToleranceInches = 2.0
