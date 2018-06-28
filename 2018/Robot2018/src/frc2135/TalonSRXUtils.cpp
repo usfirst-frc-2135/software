@@ -11,11 +11,11 @@
 namespace frc2135 {
 
 TalonSRXUtils::TalonSRXUtils() {
-	// TODO Auto-generated constructor stub
+	// Auto-generated constructor stub
 }
 
 TalonSRXUtils::~TalonSRXUtils() {
-	// TODO Auto-generated destructor stub
+	// Auto-generated destructor stub
 }
 
 bool TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, const char *subsystem, const char *name) {
