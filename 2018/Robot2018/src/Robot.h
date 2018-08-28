@@ -68,9 +68,6 @@ private:
 	const char *FMS_Right = "RIGHT";
 	const char *FMS_Unknown = "UNKNOWN";
 	const char *FMS_Uninit = "UNINIT";
-	fmsSide_t m_FMSAlliSwitch;
-	fmsSide_t m_FMSScale;
-	fmsSide_t m_FMSOppSwitch;
 	bool m_faultsCleared;
 
 	fmsSide_t FMSGameDataSide(char c);
