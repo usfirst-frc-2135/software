@@ -379,6 +379,8 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches) {
 		motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 	if (m_talonValidR3)
 		motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	if (m_gyroValid)
+		gyro->ResetDisplacement();
 
 	// Set the target distance in terms of wheel rotations
 	if (m_talonValidL1)
@@ -412,16 +414,37 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint() {
 	int closedLoopError_R = 0;
 	double motorOutput_L = 0.0;
 	double motorOutput_R = 0.0;
+	double motorAmps_L1 = 0.0;
+	double motorAmps_L2 = 0.0;
+	double motorAmps_R3 = 0.0;
+	double motorAmps_R4 = 0.0;
 	double errorInInches_L = 0.0;
 	double errorInInches_R = 0.0;
+	double gyroAngle = 0.0;
+	double gyroDispX = 0.0;
+	double gyroDispY = 0.0;
 
 	if (m_talonValidL1) {
 		curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
 		motorOutput_L = motorL1->GetMotorOutputPercent();
+		motorAmps_L1 = motorL1->GetOutputCurrent();
+	}
+	if (m_talonValidL2) {
+		motorAmps_L2 = motorL2->GetOutputCurrent();
 	}
 	if (m_talonValidR3) {
 		curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
 		motorOutput_R = motorR3->GetMotorOutputPercent();
+		motorAmps_R3 = motorR3->GetOutputCurrent();
+	}
+	if (m_talonValidR4) {
+		motorAmps_R4 = motorR4->GetOutputCurrent();
+	}
+
+	if (m_gyroValid) {
+		gyroDispX = gyro->GetDisplacementX();
+		gyroDispY = gyro->GetDisplacementY();
+		gyroAngle = gyro->GetAngle();
 	}
 
 	// Check to see if the error is in an acceptable number of inches. (R is negated)
@@ -432,9 +455,18 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint() {
 
 	// cts = Encoder Counts, CLE = Closed Loop Error, Out = Motor Output
 	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
-	std::printf("2135: DTDD %5.3f (L R) cts %5d %5d in %5.2f %5.2f CLE %5d %5d, Out %5.3f %5.3f errIn %5.2f %5.2f\n",
-			secs, curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R),
-			closedLoopError_L, closedLoopError_R, motorOutput_L, motorOutput_R, errorInInches_L, errorInInches_R);
+//	std::printf("2135: DTDD %5.3f (L R) cts %5d %5d in %5.2f %5.2f CLE %5d %5d, Out %5.3f %5.3f errIn %5.2f %5.2f\n",
+//			secs, curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R),
+//			closedLoopError_L, closedLoopError_R, motorOutput_L, motorOutput_R, errorInInches_L, errorInInches_R);
+
+	std::printf("2135: DTDD %6.3f LR encCts %5d %5d GyroAngle %5.1f X %5.3f Y %5.3f Out %5.3f %5.3f Amps %6.3f %6.3f %6.3f %6.3f\n",
+				secs, curCounts_L, -curCounts_R, gyroAngle, gyroDispX, gyroDispY,
+				motorOutput_L, -motorOutput_R, motorAmps_L1, motorAmps_L2, motorAmps_R3, motorAmps_R4);
+//	std::printf("2135: DTDD %5.3f (L R) cts %5d %5d, Gyro %5.3f, Disp (X Y) %5.3f %5.3f\n",
+//					secs, curCounts_L, curCounts_R, gyroAngle, gyroDispX, gyroDispY);
+//	std::printf("2135: DTDD %5.3f MotorOut (L R) %5.3f %5.3f Amps %5.3f %5.3f, Gyro Disp (X Y) %5.3f %5.3f\n",
+//					secs, motorOutput_L, motorOutput_R, motorAmp_L, motorAmp_R, gyroDispX, gyroDispY);
+
 
 	if ((fabs(errorInInches_L) < m_distTolInches) && (fabs(errorInInches_R) < m_distTolInches)) {
 		pidFinished = true;
