@@ -235,7 +235,7 @@ void Robot::FMSGameDataRead(void) {
 	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
 	// See if the game specific data has changed
-	if (!gameData.compare(prevGameData)) {
+	if (gameData.compare(prevGameData) != 0) {
 		secs = (double)RobotController::GetFPGATime() / 1000000.0;
 
 		std::printf("2135: FMS %5.3f Game data %s\n", secs, gameData.c_str());
