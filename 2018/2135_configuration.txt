@@ -68,13 +68,13 @@
  AutoPos2SwitchLeftTurn1 = -45.0
  AutoPos2SwitchLeftLeg2 = 83.44
  AutoPos2SwitchLeftTurn2 = 45.0
- AutoPos2SwitchLeftLeg3 = 28.75
+ AutoPos2SwitchLeftLeg3 = 33.50
 # Auto Pos 2 SWITCH RIGHT settings
  AutoPos2SwitchRightLeg1 = 9.50
  AutoPos2SwitchRightTurn1 = 45.0
  AutoPos2SwitchRightLeg2 = 69.30
  AutoPos2SwitchRightTurn2 = -45.0
- AutoPos2SwitchRightLeg3 = 38.75
+ AutoPos2SwitchRightLeg3 = 43.50
 # Auto Pos 3 SWITCH settings
  AutoPos3SwitchLeg1 = 145.25
  AutoPos3SwitchTurn1 = -90.0
