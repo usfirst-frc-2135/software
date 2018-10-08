@@ -49,7 +49,7 @@ AutoPos2SwitchLeft::AutoPos2SwitchLeft() {
 	config->GetValueAsDouble("AutoPos2SwitchLeftTurn1", cmdDistTurn1, -45.0);
 	config->GetValueAsDouble("AutoPos2SwitchLeftLeg2", cmdDistLeg2, 83.44);
 	config->GetValueAsDouble("AutoPos2SwitchLeftTurn2", cmdDistTurn2, 45.0);
-	config->GetValueAsDouble("AutoPos2SwitchLeftLeg3", cmdDistLeg3, 28.75);
+	config->GetValueAsDouble("AutoPos2SwitchLeftLeg3", cmdDistLeg3, 33.50);
 
 	std::printf("2135: Auto Pos 2 Switch Left -  Init Leg1 %4.2f in, Turn1 %4.1f deg, Leg2 %4.2f in, Turn2 %4.1f deg, Leg3 %4.2f in,\n",
 			cmdDistLeg1, cmdDistTurn1, cmdDistLeg2, cmdDistTurn2, cmdDistLeg3);
