@@ -55,9 +55,11 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 	}
     config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
     config->GetValueAsDouble("DT_PidDistKp", m_distKp, 0.20);
-    config->GetValueAsDouble("DT_PidDistMaxOut", m_distMaxOut, 0.65);
+    config->GetValueAsDouble("DT_PidDistMaxOutL", m_distMaxOutL, 0.65);
+    config->GetValueAsDouble("DT_PidDistMaxOutR", m_distMaxOutR, 0.65);
 	config->GetValueAsDouble("DT_PidDistMaxInches", m_distMaxInches, 310.0);
-	config->GetValueAsDouble("DT_CLRampRate", m_CL_rampRate, 0.300);
+	config->GetValueAsDouble("DT_CLRampRateL", m_CL_rampRateL, 0.300);
+	config->GetValueAsDouble("DT_CLRampRateR", m_CL_rampRateR, 0.300);
 	config->GetValueAsInt("DT_CLAllowedError", m_CLAllowedError, 0);
 	config->GetValueAsDouble("DT_PidDistTolInches", m_distTolInches, 1.5);
     config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.030);
@@ -114,16 +116,16 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 	// Set motor peak output levels
     if (m_talonValidL1) {
     	motorL1->Config_kP(m_slotIndex, m_distKp, m_timeout);
-    	motorL1->ConfigClosedloopRamp(m_CL_rampRate, m_timeout);
-    	motorL1->ConfigClosedLoopPeakOutput(m_slotIndex, m_distMaxOut, m_timeout);
+    	motorL1->ConfigClosedloopRamp(m_CL_rampRateL, m_timeout);
+    	motorL1->ConfigClosedLoopPeakOutput(m_slotIndex, m_distMaxOutL, m_timeout);
     	motorL1->ConfigPeakOutputForward(peakOutput, m_timeout);
     	motorL1->ConfigPeakOutputReverse(-peakOutput, m_timeout);
     }
 
     if (m_talonValidR3) {
     	motorR3->Config_kP(m_slotIndex, m_distKp, m_timeout);
-    	motorR3->ConfigClosedloopRamp(m_CL_rampRate, m_timeout);
-    	motorR3->ConfigClosedLoopPeakOutput(m_slotIndex, m_distMaxOut, m_timeout);
+    	motorR3->ConfigClosedloopRamp(m_CL_rampRateR, m_timeout);
+    	motorR3->ConfigClosedLoopPeakOutput(m_slotIndex, m_distMaxOutR, m_timeout);
     	motorR3->ConfigPeakOutputForward(peakOutput, m_timeout);
     	motorR3->ConfigPeakOutputReverse(-peakOutput, m_timeout);
     }
@@ -455,18 +457,10 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint() {
 
 	// cts = Encoder Counts, CLE = Closed Loop Error, Out = Motor Output
 	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
-//	std::printf("2135: DTDD %5.3f (L R) cts %5d %5d in %5.2f %5.2f CLE %5d %5d, Out %5.3f %5.3f errIn %5.2f %5.2f\n",
-//			secs, curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R),
-//			closedLoopError_L, closedLoopError_R, motorOutput_L, motorOutput_R, errorInInches_L, errorInInches_R);
 
 	std::printf("2135: DTDD %6.3f LR encCts %5d %5d GyroAngle %5.1f X %5.3f Y %5.3f Out %5.3f %5.3f Amps %6.3f %6.3f %6.3f %6.3f\n",
 				secs, curCounts_L, -curCounts_R, gyroAngle, gyroDispX, gyroDispY,
 				motorOutput_L, -motorOutput_R, motorAmps_L1, motorAmps_L2, motorAmps_R3, motorAmps_R4);
-//	std::printf("2135: DTDD %5.3f (L R) cts %5d %5d, Gyro %5.3f, Disp (X Y) %5.3f %5.3f\n",
-//					secs, curCounts_L, curCounts_R, gyroAngle, gyroDispX, gyroDispY);
-//	std::printf("2135: DTDD %5.3f MotorOut (L R) %5.3f %5.3f Amps %5.3f %5.3f, Gyro Disp (X Y) %5.3f %5.3f\n",
-//					secs, motorOutput_L, motorOutput_R, motorAmp_L, motorAmp_R, gyroDispX, gyroDispY);
-
 
 	if ((fabs(errorInInches_L) < m_distTolInches) && (fabs(errorInInches_R) < m_distTolInches)) {
 		pidFinished = true;
