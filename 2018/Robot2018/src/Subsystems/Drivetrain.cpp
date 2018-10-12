@@ -378,11 +378,19 @@ void Drivetrain::MoveDriveDistancePIDInit(double inches) {
 
 	// Initialize the encoders to start movement at reference of zero counts
 	if (m_talonValidL1)
+	{
 		motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	}
 	if (m_talonValidR3)
+	{
 		motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	}
 	if (m_gyroValid)
+	{
 		gyro->ResetDisplacement();
+		gyro->ZeroYaw();
+	}
+
 
 	// Set the target distance in terms of wheel rotations
 	if (m_talonValidL1)
@@ -446,8 +454,7 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint() {
 	if (m_gyroValid) {
 		gyroDispX = gyro->GetDisplacementX();
 		gyroDispY = gyro->GetDisplacementY();
-		gyroAngle = gyro->GetAngle();
-	}
+		gyroAngle = gyro->GetYaw();
 
 	// Check to see if the error is in an acceptable number of inches. (R is negated)
 	closedLoopError_L = m_distTargetCounts - curCounts_L;
