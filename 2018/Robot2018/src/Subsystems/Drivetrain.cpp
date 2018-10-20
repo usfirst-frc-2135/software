@@ -456,6 +456,7 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint() {
 		gyroDispX = gyro->GetDisplacementX();
 		gyroDispY = gyro->GetDisplacementY();
 		gyroAngle = gyro->GetYaw();
+	}
 
 	// Check to see if the error is in an acceptable number of inches. (R is negated)
 	closedLoopError_L = m_distTargetCounts - curCounts_L;
