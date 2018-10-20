@@ -54,7 +54,8 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 		std::printf("2135: DT ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
 	}
     config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
-    config->GetValueAsDouble("DT_PidDistKp", m_distKp, 0.20);
+    config->GetValueAsDouble("DT_PidDistKpL", m_distKpL, 0.20);
+    config->GetValueAsDouble("DT_PidDistKpR", m_distKpR, 0.20);
     config->GetValueAsDouble("DT_PidDistMaxOutL", m_distMaxOutL, 0.65);
     config->GetValueAsDouble("DT_PidDistMaxOutR", m_distMaxOutR, 0.65);
 	config->GetValueAsDouble("DT_PidDistMaxInches", m_distMaxInches, 310.0);
@@ -115,7 +116,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 	// Peak output is percent of full speed
 	// Set motor peak output levels
     if (m_talonValidL1) {
-    	motorL1->Config_kP(m_slotIndex, m_distKp, m_timeout);
+    	motorL1->Config_kP(m_slotIndex, m_distKpL, m_timeout);
     	motorL1->ConfigClosedloopRamp(m_CL_rampRateL, m_timeout);
     	motorL1->ConfigClosedLoopPeakOutput(m_slotIndex, m_distMaxOutL, m_timeout);
     	motorL1->ConfigPeakOutputForward(peakOutput, m_timeout);
@@ -123,7 +124,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     }
 
     if (m_talonValidR3) {
-    	motorR3->Config_kP(m_slotIndex, m_distKp, m_timeout);
+    	motorR3->Config_kP(m_slotIndex, m_distKpR, m_timeout);
     	motorR3->ConfigClosedloopRamp(m_CL_rampRateR, m_timeout);
     	motorR3->ConfigClosedLoopPeakOutput(m_slotIndex, m_distMaxOutR, m_timeout);
     	motorR3->ConfigPeakOutputForward(peakOutput, m_timeout);

@@ -9,9 +9,10 @@
  DT_DriveYScaling =  0.70
  DT_TurnScaling = 1.00
  DT_DriveSpin = 0.45
- DT_PidDistKp = 0.200
  DT_PidDistMaxOutL = 0.65
  DT_PidDistMaxOutR = 0.65
+ DT_PidDistKpL = 0.200
+ DT_PidDistKpR = 0.200
  DT_PidDistMaxInches = 310.0
  DT_CLRampRateL = 0.300
  DT_CLRampRateR = 0.330

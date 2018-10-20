@@ -68,7 +68,8 @@ private:
 	double 	m_distTargetInches;		// Drive distance target inches value
 	double	m_distTolInches;		// Drive distance tolerance in inches
 	double	m_distMaxInches;		// Drive distance maximum inches allowed as input
-	double 	m_distKp;				// Drive distance proportional value for PID
+	double 	m_distKpL;				// Drive distance proportional value for PID for left drive motors
+	double  m_distKpR;				// Drive distance proportional value for PID for right drive motors
 	double 	m_distMaxOutL;			// Drive distance max left motor output value for PID
 	double 	m_distMaxOutR;			// Drive distance max right motor output value for PID
 	double	m_CL_rampRateL;			// Closed loop ramp rate for PID for left side motors
