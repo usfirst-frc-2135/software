@@ -58,7 +58,7 @@
  AutoDriveTurn = 90.0
  AutoPosANYMove = 97.25
 # Auto Pos 1 SWITCH settings
- AutoPos1SwitchLeg1 = 145.25
+ AutoPos1SwitchLeg1 = 148.0
  AutoPos1SwitchTurn1 = 90.0
  AutoPos1SwitchLeg2 = 18.00
 # Auto Pos 1 SCALE settings
@@ -78,7 +78,7 @@
  AutoPos2SwitchRightTurn2 = -45.0
  AutoPos2SwitchRightLeg3 = 43.50
 # Auto Pos 3 SWITCH settings
- AutoPos3SwitchLeg1 = 145.25
+ AutoPos3SwitchLeg1 = 148.0
  AutoPos3SwitchTurn1 = -90.0
  AutoPos3SwitchLeg2 = 18.00
 # Auto Pos 3 SCALE settings
