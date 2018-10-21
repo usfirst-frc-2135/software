@@ -2,11 +2,11 @@
  RB_Name = 2135-Felix
 # DriveTrain settings
  DT_PeakOutput = 1.00
- DT_DriveXScaling = 1.00
+ DT_DriveXScaling = 0.5
 # Competition mode
- DT_DriveYScaling = 1.00
+#DT_DriveYScaling = 1.00
 # Training mode
-#DT_DriveYScaling =  0.70
+ DT_DriveYScaling =  0.85
  DT_DriveSpin = 0.45
  DT_PidDistMaxOutL = 0.65
  DT_PidDistMaxOutR = 0.65
