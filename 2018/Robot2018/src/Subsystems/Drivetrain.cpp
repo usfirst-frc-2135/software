@@ -49,10 +49,6 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 	config->GetValueAsDouble("DT_PeakOutput", peakOutput, 1.0);
 	config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 1.0);
 	config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 1.0);
-    config->GetValueAsDouble("DT_TurnScaling", m_turnScaling, 1.0);
-	if ((m_turnScaling < 0.0) || (m_turnScaling > 1.0)) {
-		std::printf("2135: DT ERROR - m_turnScaling preference invalid - %f [0.0 .. 1.0]\n", m_turnScaling);
-	}
     config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
     config->GetValueAsDouble("DT_PidDistKpL", m_distKpL, 0.20);
     config->GetValueAsDouble("DT_PidDistKpR", m_distKpR, 0.20);

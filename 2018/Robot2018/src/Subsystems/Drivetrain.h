@@ -55,7 +55,6 @@ private:
 	bool	m_talonValidR4;			// Health indicator for drive Talon Right 4
 	double	m_driveXScaling;		// Scaling applied to Joystick
 	double	m_driveYScaling;		// Scaling applied to Joystick
-	double	m_turnScaling;			// Turn scaling (1.0 is disabled, < 1.0 is max X output)
 	double	m_driveSpin;			// Spin turn power setting
 
 	bool 	m_lowGear;				// Low Gear or High Gear
