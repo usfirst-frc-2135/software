@@ -17,8 +17,8 @@
  DT_CLRampRateR = 0.330
  DT_CLAllowedError = 0
  DT_PidDistTolInches = 1.5
- DT_PidTurnKp = 0.030
- DT_PidTurnMaxOut = 0.42
+ DT_PidTurnKp = 0.0125
+ DT_PidTurnMaxOut = 0.40
  DT_PidTurnTolDeg = 1.5 
 # Elevator settings
  EL_CalibSpeed = 0.25
