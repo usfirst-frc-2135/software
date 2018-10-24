@@ -68,12 +68,12 @@ AutoPos3Scale::AutoPos3Scale() {
 																	// This will cause drivetrain motor safety help messages
 
 																	// Gripper still holding
-																	// Elevator still at switch height
+																	// Elevator at scale height
 																	// Wrist still at deliver angle
 	AddSequential(new AutoDriveDist(cmdDistLeg2));					// Drive up to the scale
 
 	AddParallel(new GripperRun(Robot::gripper->GRIPPER_REVERSE));	// Expel cube (instantaneous)
-																	// Elevator still at switch height
+																	// Elevator at scale height
 																	// Wrist still deliver level
 	AddSequential(new AutoStop(), 1.0);								// Tell drive motors to explicitly stop for 1 second
 
