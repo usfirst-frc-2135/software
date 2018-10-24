@@ -27,7 +27,7 @@
  EL_CLRampRate = 0.250
  EL_CLAllowedError = 0
  EL_ToleranceInches = 2.0
- EL_MaxHeight = 35.0
+ EL_MaxHeight = 36.0
  EL_MinHeight = 0.0
  EL_BumpHeight = 1.0
  EL_FloorHeight = 0.5
