@@ -42,35 +42,35 @@ AutoPos3Scale::AutoPos3Scale() {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
 
-	frc2135::RobotConfig * config = frc2135::RobotConfig::GetInstance();
-	double cmdDistLeg1 = 0.0;
-	double cmdDistTurn1 = 0.0;
-	double cmdDistLeg2 = 0.0;
+	frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
+	double	cmdDistLeg1 = 0.0;
+	double	cmdDistTurn1 = 0.0;
+	double	cmdDistLeg2 = 0.0;
 
 	config->GetValueAsDouble("AutoPos3ScaleLeg1", cmdDistLeg1, 261.5);
 	config->GetValueAsDouble("AutoPos3ScaleTurn1", cmdDistTurn1, -45.0);
 	config->GetValueAsDouble("AutoPos3ScaleLeg2", cmdDistLeg2, 11.61);
 
-	std::printf("2135: Auto Pos 3 Scale -  Init Leg1 %4.2f in, Turn1 %4.1f deg, Leg2 %4.2f in\n",
+	std::printf("2135: Auto Pos 3 Scale - Init Leg1 %4.2f in, Turn1 %4.1f deg, Leg2 %4.2f in\n",
 			cmdDistLeg1, cmdDistTurn1, cmdDistLeg2);
 
 	AddParallel(new GripperRun(Robot::gripper->GRIPPER_HOLD));		// Gripper should hold cube (instantaneous)
 	AddParallel(new ElevatorRun(Robot::elevator->SWITCH_HEIGHT));	// Elevator to switch height - takes about 1 sec
 	AddParallel(new WristRun(Robot::wrist->WRIST_DELIVER)); 		// Wrist ready to deliver angle < 1 sec
-	AddSequential(new AutoDriveDist(cmdDistLeg1));  // Drive to the turn
+	AddSequential(new AutoDriveDist(cmdDistLeg1));					// Drive to the turn
 
 																	// Gripper still holding
 																	// Elevator still at switch height
 																	// Wrist still at deliver angle
 	AddSequential(new AutoDriveTurn(cmdDistTurn1));					// Drive turn to aim at scale
 
+	AddSequential(new ElevatorRun(Robot::elevator->SCALE_HI_HEIGHT)); // Raise to scale position
+																	// This will cause drivetrain motor safety help messages
+
 																	// Gripper still holding
 																	// Elevator still at switch height
 																	// Wrist still at deliver angle
 	AddSequential(new AutoDriveDist(cmdDistLeg2));					// Drive up to the scale
-
-	AddSequential(new ElevatorRun(Robot::elevator->SCALE_HI_HEIGHT)); // Raise to scale position
-																	// This will cause drivetrain motor safety help messages
 
 	AddParallel(new GripperRun(Robot::gripper->GRIPPER_REVERSE));	// Expel cube (instantaneous)
 																	// Elevator still at switch height
