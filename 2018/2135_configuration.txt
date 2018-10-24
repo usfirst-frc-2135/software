@@ -31,9 +31,9 @@
  EL_MinHeight = 0.0
  EL_BumpHeight = 1.0
  EL_FloorHeight = 0.5
- EL_SwitchHeight = 13.5
+ EL_SwitchHeight = 14.0
  EL_ScaleLoHeight = 32.0
- EL_ScaleHiHeight = 33.0
+ EL_ScaleHiHeight = 35.0
  EL_ClimbHeight = 31.0
  EL_LevitateHeight = 16.0
  EL_LowGearHeight = 15.0
