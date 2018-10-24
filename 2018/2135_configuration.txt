@@ -21,9 +21,10 @@
  DT_PidTurnMaxOut = 0.40
  DT_PidTurnTolDeg = 1.5 
 # Elevator settings
+# Elevator heights for max and scale are diff for Felix and Belix.
  EL_CalibSpeed = 0.25
  EL_PidKp = 0.250
- EL_PidMaxOut = 0.70
+ EL_PidMaxOut = 0.90
  EL_CLRampRate = 0.250
  EL_CLAllowedError = 0
  EL_ToleranceInches = 2.0
