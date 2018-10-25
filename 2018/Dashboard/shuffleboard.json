@@ -905,6 +905,28 @@
               "_source0": "network_table:///SmartDashboard/DT_Output_L2",
               "_title": "/SmartDashboard/DT_Output_L2"
             }
+          },
+          "6,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/DT_GyroDispX",
+              "_title": "/SmartDashboard/DT_GyroDispX"
+            }
+          },
+          "12,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/DT_GyroDispY",
+              "_title": "/SmartDashboard/DT_GyroDispY"
+            }
           }
         }
       }
@@ -1115,7 +1137,7 @@
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/EL_Output_L7",
-              "_title": "/SmartDashboard/EL_Output_L7",
+              "_title": "SmartDashboard/EL_Output_L7",
               "Visible time": 10.0,
               "SmartDashboard/EL_Output_L7 visible": true
             }
@@ -1142,7 +1164,7 @@
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/EL_Output_R8",
-              "_title": "/SmartDashboard/EL_Output_R8",
+              "_title": "SmartDashboard/EL_Output_R8",
               "Visible time": 10.0,
               "SmartDashboard/EL_Output_R8 visible": true
             }
@@ -1295,7 +1317,7 @@
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/WR_Output_W14",
-              "_title": "/SmartDashboard/WR_Output_W14",
+              "_title": "SmartDashboard/WR_Output_W14",
               "Visible time": 10.0,
               "SmartDashboard/WR_Output_W14 visible": true
             }
@@ -1334,7 +1356,7 @@
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/GR_Output_L11",
-              "_title": "/SmartDashboard/GR_Output_L11",
+              "_title": "SmartDashboard/GR_Output_L11",
               "Visible time": 10.0,
               "SmartDashboard/GR_Output_L11 visible": true
             }
@@ -1361,7 +1383,7 @@
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/GR_Output_R12",
-              "_title": "/SmartDashboard/GR_Output_R12",
+              "_title": "SmartDashboard/GR_Output_R12",
               "Visible time": 10.0,
               "SmartDashboard/GR_Output_R12 visible": true
             }
@@ -1527,7 +1549,154 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "10,0": {
+          "0,10": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Auto Test Init",
+              "_title": "/SmartDashboard/Auto Test Init"
+            }
+          },
+          "0,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Drive Reset",
+              "_title": "/SmartDashboard/Drive Reset"
+            }
+          },
+          "0,2": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Elevator Calibrate Override",
+              "_title": "/SmartDashboard/Elevator Calibrate Override"
+            }
+          },
+          "0,4": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Wrist Calibrate",
+              "_title": "/SmartDashboard/Wrist Calibrate"
+            }
+          },
+          "3,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/DT Low Gear",
+              "_title": "/SmartDashboard/DT Low Gear",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "3,4": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/WR Calibrated",
+              "_title": "/SmartDashboard/WR Calibrated",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "3,2": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/EL Calibrated",
+              "_title": "/SmartDashboard/EL Calibrated",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "3,8": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Cube Height",
+              "_title": "/SmartDashboard/Cube Height"
+            }
+          },
+          "3,6": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/DT Brake Mode",
+              "_title": "/SmartDashboard/DT Brake Mode",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "6,0": {
+            "size": [
+              14,
+              11
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://USB Camera 0",
+              "_title": "USB Camera 0",
+              "showControls": true,
+              "showCrosshair": true,
+              "crosshairColor": "#FFFFFFFF",
+              "compression": 0.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
+          },
+          "0,6": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto Modes",
+              "_title": "/SmartDashboard/Auto Modes"
+            }
+          },
+          "0,8": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///SmartDashboard/ALLOW_SCALE",
+              "_title": "SmartDashboard/ALLOW_SCALE"
+            }
+          },
+          "3,10": {
             "size": [
               3,
               2
@@ -1536,39 +1705,6 @@
               "_type": "Text View",
               "_source0": "network_table:///FMSInfo/GameSpecificMessage",
               "_title": "FMSInfo/GameSpecificMessage"
-            }
-          },
-          "10,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/FMS Alli Switch",
-              "_title": "SmartDashboard/FMS Alli Switch"
-            }
-          },
-          "10,6": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/FMS Opp Switch",
-              "_title": "SmartDashboard/FMS Opp Switch"
-            }
-          },
-          "10,4": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/FMS Scale",
-              "_title": "SmartDashboard/FMS Scale"
             }
           }
         }
