@@ -60,6 +60,7 @@ private:
 	std::shared_ptr<frc::JoystickButton> elevatorScaleLow;
 	std::shared_ptr<frc::JoystickButton> elevatorScaleHigh;
 	std::shared_ptr<frc::Joystick> dStick;
+	std::shared_ptr<frc::JoystickButton> shiftSpeed2;
 	std::shared_ptr<frc::JoystickButton> elevatorUp;
 	std::shared_ptr<frc::JoystickButton> elevatorDown;
 	std::shared_ptr<frc::JoystickButton> cubeExpel;
