@@ -21,9 +21,10 @@
  DT_PidTurnMaxOut = 0.40
  DT_PidTurnTolDeg = 1.5 
 # Elevator settings
+# Elevator heights for max and scale are diff for Felix and Belix.
  EL_CalibSpeed = 0.25
  EL_PidKp = 0.250
- EL_PidMaxOut = 0.70
+ EL_PidMaxOut = 0.90
  EL_CLRampRate = 0.250
  EL_CLAllowedError = 0
  EL_ToleranceInches = 2.0
@@ -31,9 +32,9 @@
  EL_MinHeight = 0.0
  EL_BumpHeight = 1.0
  EL_FloorHeight = 0.5
- EL_SwitchHeight = 13.5
+ EL_SwitchHeight = 14.0
  EL_ScaleLoHeight = 32.0
- EL_ScaleHiHeight = 33.0
+ EL_ScaleHiHeight = 35.0
  EL_ClimbHeight = 31.0
  EL_LevitateHeight = 16.0
  EL_LowGearHeight = 15.0
@@ -64,7 +65,7 @@
 # Auto Pos 1 SCALE settings
  AutoPos1ScaleLeg1 = 261.50
  AutoPos1ScaleTurn1 = 45.0
- AutoPos1ScaleLeg2 = 11.61 
+ AutoPos1ScaleLeg2 = 11.61
 # Auto Pos 2 SWITCH LEFT settings
  AutoPos2SwitchLeftLeg1 = 9.50
  AutoPos2SwitchLeftTurn1 = -45.0
@@ -84,7 +85,7 @@
 # Auto Pos 3 SCALE settings
  AutoPos3ScaleLeg1 = 261.50
  AutoPos3ScaleTurn1 = -45.0
- AutoPos3ScaleLeg2 = 11.61 
+ AutoPos3ScaleLeg2 = 11.61
 # UNUSED - Auto Pos 1/3 SWITCH settings 45 degree
 # AutoPos3ScaleLeg1 = 83.75
 # AutoPos3ScaleTurn1 = 90.0
