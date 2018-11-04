@@ -95,7 +95,7 @@ OI::OI() {
     dStick.reset(new frc::Joystick(0));
     
     shiftSpeed2.reset(new frc::JoystickButton(dStick.get(), 9));
-    shiftSpeed2->WhileHeld(new DriveShift(true));
+    shiftSpeed2->WhenPressed(new DriveShift(true));
     elevatorUp.reset(new frc::JoystickButton(dStick.get(), 11));
     elevatorUp->WhileHeld(new ElevatorRun(0));
     elevatorDown.reset(new frc::JoystickButton(dStick.get(), 10));
