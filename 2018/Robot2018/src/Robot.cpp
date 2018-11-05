@@ -72,34 +72,34 @@ void Robot::RobotInit() {
 
     // Camera - Logitech C920
 //	cs::UsbCamera cam = CameraServer::GetInstance()->StartAutomaticCapture();
-
-	// Camera - Microsoft LifeCam
-	cs::UsbCamera	cam = CameraServer::GetInstance()->StartAutomaticCapture(0);
-
-	std::string		camName = cam.GetName();
-
-	double	startTime = frc::GetTime();
-	double	maxTime = 3.0;
-
-	while (!cam.IsConnected() && ((frc::GetTime() - startTime) < maxTime)) {
-		std::printf("2135: CAM Waiting for camera to connect %5.3f\n", frc::GetTime() - startTime);
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
- 	}
-
-	if (cam.IsConnected()) {
-		std::printf("2135: CAM Camera is CONNECTED\n");
-		std::printf("2135: CAM Camera Desc %s\n", cam.GetDescription().c_str());
-		std::printf("2135: CAM Camera Path %s\n", cam.GetPath().c_str());
-		cam.SetVideoMode(cs::VideoMode::kMJPEG, 640, 360, 15);
-		std::printf("2135: CAM Camera data rate %5.1f\n", cam.GetActualDataRate());
-		std::printf("2135: CAM Camera FPS       %5.1f\n", cam.GetActualFPS());
-	}
-	else {
-		std::printf("2135: ERROR: CAM Camera is NOT CONNECTED\n");
-		std::printf("2135: CAM Camera removal %s\n", cam.GetDescription().c_str());
-		// TODO: Remove camera to make console quieter when no camera is needed
-//		CameraServer::GetInstance()->RemoveCamera(camName);
-	}
+//
+//	// Camera - Microsoft LifeCam
+//	cs::UsbCamera	cam = CameraServer::GetInstance()->StartAutomaticCapture(0);
+//
+//	std::string		camName = cam.GetName();
+//
+//	double	startTime = frc::GetTime();
+//	double	maxTime = 3.0;
+//
+//	while (!cam.IsConnected() && ((frc::GetTime() - startTime) < maxTime)) {
+//		std::printf("2135: CAM Waiting for camera to connect %5.3f\n", frc::GetTime() - startTime);
+//		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+// 	}
+//
+//	if (cam.IsConnected()) {
+//		std::printf("2135: CAM Camera is CONNECTED\n");
+//		std::printf("2135: CAM Camera Desc %s\n", cam.GetDescription().c_str());
+//		std::printf("2135: CAM Camera Path %s\n", cam.GetPath().c_str());
+//		cam.SetVideoMode(cs::VideoMode::kMJPEG, 640, 360, 15);
+//		std::printf("2135: CAM Camera data rate %5.1f\n", cam.GetActualDataRate());
+//		std::printf("2135: CAM Camera FPS       %5.1f\n", cam.GetActualFPS());
+//	}
+//	else {
+//		std::printf("2135: ERROR: CAM Camera is NOT CONNECTED\n");
+//		std::printf("2135: CAM Camera removal %s\n", cam.GetDescription().c_str());
+//		// TODO: Remove camera to make console quieter when no camera is needed
+////		CameraServer::GetInstance()->RemoveCamera(camName);
+//	}
 
 	SmartDashboardStartChooser();
 	FMSGameDataRead();
