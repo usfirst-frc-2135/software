@@ -89,10 +89,12 @@ void Gripper::Periodic() {
 		currentR12 = motorR12->GetOutputCurrent();
 	}
 
-	SmartDashboard::PutNumber("GR_Output_L11", outputL11);
-	SmartDashboard::PutNumber("GR_Current_L11", currentL11);
-	SmartDashboard::PutNumber("GR_Output_R12", outputR12);
-	SmartDashboard::PutNumber("GR_Current_R12", currentR12);
+	if (m_gripperDebug) {
+		SmartDashboard::PutNumber("GR_Output_L11", outputL11);
+		SmartDashboard::PutNumber("GR_Current_L11", currentL11);
+		SmartDashboard::PutNumber("GR_Output_R12", outputR12);
+		SmartDashboard::PutNumber("GR_Current_R12", currentR12);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////

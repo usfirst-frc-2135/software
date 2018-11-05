@@ -116,10 +116,12 @@ void Wrist::Periodic() {
 		currentW14 = motorW14->GetOutputCurrent();
 	}
 
-	SmartDashboard::PutNumber("WR Counts", curCounts);
-	SmartDashboard::PutNumber("WR Degrees", CountsToDegrees(curCounts));
-	SmartDashboard::PutNumber("WR_Output_W14", outputW14);
-	SmartDashboard::PutNumber("WR_Current_W14", currentW14);
+	if (m_wristDebug) {
+		SmartDashboard::PutNumber("WR Counts", curCounts);
+		SmartDashboard::PutNumber("WR Degrees", CountsToDegrees(curCounts));
+		SmartDashboard::PutNumber("WR_Output_W14", outputW14);
+		SmartDashboard::PutNumber("WR_Current_W14", currentW14);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -235,21 +235,23 @@ void Drivetrain::Periodic() {
 		gyroDispY = gyro->GetDisplacementY();
 	}
 
-	SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
-	SmartDashboard::PutNumber("DT_Output_L1", outputL1);
-	SmartDashboard::PutNumber("DT_Current_L1", currentL1);
-	SmartDashboard::PutNumber("DT_Output_L2", outputL2);
-	SmartDashboard::PutNumber("DT_Current_L2", currentL2);
+	if (m_driveDebug) {
+		SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
+		SmartDashboard::PutNumber("DT_Output_L1", outputL1);
+		SmartDashboard::PutNumber("DT_Current_L1", currentL1);
+		SmartDashboard::PutNumber("DT_Output_L2", outputL2);
+		SmartDashboard::PutNumber("DT_Current_L2", currentL2);
 
-	SmartDashboard::PutNumber("DT_Encoder_R", encoderRight);
-	SmartDashboard::PutNumber("DT_Output_R3", outputR3);
-	SmartDashboard::PutNumber("DT_Current_R3", currentR3);
-	SmartDashboard::PutNumber("DT_Output_R4", outputR4);
-	SmartDashboard::PutNumber("DT_Current_R4", currentR4);
+		SmartDashboard::PutNumber("DT_Encoder_R", encoderRight);
+		SmartDashboard::PutNumber("DT_Output_R3", outputR3);
+		SmartDashboard::PutNumber("DT_Current_R3", currentR3);
+		SmartDashboard::PutNumber("DT_Output_R4", outputR4);
+		SmartDashboard::PutNumber("DT_Current_R4", currentR4);
 
-	SmartDashboard::PutNumber("DT_GyroAngle", gyroYaw);
-	SmartDashboard::PutNumber("DT_GyroDispX", gyroDispX);
-	SmartDashboard::PutNumber("DT_GyroDispY", gyroDispY);
+		SmartDashboard::PutNumber("DT_GyroAngle", gyroYaw);
+		SmartDashboard::PutNumber("DT_GyroDispX", gyroDispX);
+		SmartDashboard::PutNumber("DT_GyroDispY", gyroDispY);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -143,14 +143,16 @@ void Elevator::Periodic() {
 
     // Put code here to be run every loop
 	SmartDashboard::PutBoolean("EL Calibrated", m_calibrated);
-	SmartDashboard::PutBoolean("EL Hall Sensor", HallSensorIsTriggered());
 	SmartDashboard::PutNumber("EL Height", CountsToInches(curCounts));
-	SmartDashboard::PutNumber("Cube Height", 2 * CountsToInches(curCounts));
+	if (m_elevatorDebug) {
+		SmartDashboard::PutBoolean("EL Hall Sensor", HallSensorIsTriggered());
+		SmartDashboard::PutNumber("Cube Height", 2 * CountsToInches(curCounts));
 
-	SmartDashboard::PutNumber("EL_Output_L7", outputL7);
-	SmartDashboard::PutNumber("EL_Current_L7", currentL7);
-	SmartDashboard::PutNumber("EL_Output_R8", outputR8);
-	SmartDashboard::PutNumber("EL_Current_R8", currentR8);
+		SmartDashboard::PutNumber("EL_Output_L7", outputL7);
+		SmartDashboard::PutNumber("EL_Current_L7", currentL7);
+		SmartDashboard::PutNumber("EL_Output_R8", outputR8);
+		SmartDashboard::PutNumber("EL_Current_R8", currentR8);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
