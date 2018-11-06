@@ -1166,6 +1166,16 @@ Children:
         value: '2'
     Base: Joystick
     Name: Operator Board 2
+  - Children: []
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: *id006
+        default: 1
+        name: Number
+        validators: *id007
+        value: '3'
+    Base: Joystick
+    Name: DStick2
   Properties: {}
   Base: OI
   Name: Operator Interface
