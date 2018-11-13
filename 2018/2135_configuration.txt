@@ -22,14 +22,15 @@
  DT_PidTurnTolDeg = 1.5 
 # Elevator settings
 # Elevator heights for max and scale are diff for Felix and Belix.
+# Felix has a 16T sprocket on output shaft
  EL_CalibSpeed = 0.25
  EL_PidKp = 0.250
  EL_PidMaxOut = 0.90
  EL_CLRampRate = 0.250
  EL_CLAllowedError = 0
  EL_ToleranceInches = 2.0
- EL_MaxHeight = 36.0
  EL_MinHeight = 0.0
+ EL_MaxHeight = 36.0
  EL_BumpHeight = 1.0
  EL_FloorHeight = 0.5
  EL_SwitchHeight = 14.0

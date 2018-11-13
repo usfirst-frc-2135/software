@@ -22,21 +22,30 @@
  DT_PidTurnTolDeg = 1.5 
 # Elevator settings
 # Elevator heights for max and scale are diff for Felix and Belix.
+# Belix elevator has an 18T sprocket on output shaft
  EL_CalibSpeed = 0.25
  EL_PidKp = 0.250
- EL_PidMaxOut = 0.90
+ EL_PidMaxOut = 0.80
  EL_CLRampRate = 0.250
  EL_CLAllowedError = 0
  EL_ToleranceInches = 2.0
- EL_MaxHeight = 35.0
  EL_MinHeight = 0.0
- EL_BumpHeight = 1.0
- EL_FloorHeight = 0.5
- EL_SwitchHeight = 14.0
- EL_ScaleLoHeight = 32.0
- EL_ScaleHiHeight = 35.0
- EL_ClimbHeight = 31.0
- EL_LevitateHeight = 16.0
+ # EL_MaxHeight = 35.0
+ # EL_BumpHeight = 1.0
+ # EL_FloorHeight = 0.5
+ # EL_SwitchHeight = 14.0
+ # EL_ScaleLoHeight = 32.0
+ # EL_ScaleHiHeight = 35.0
+ # EL_ClimbHeight = 31.0
+ # EL_LevitateHeight = 16.0
+ EL_MaxHeight = 31.11
+ EL_BumpHeight = 0.88
+ EL_FloorHeight = 0.44
+ EL_SwitchHeight = 12.44
+ EL_ScaleLoHeight = 28.44
+ EL_ScaleHiHeight = 31.11
+ EL_ClimbHeight = 27.55
+ EL_LevitateHeight = 14.22
  EL_LowGearHeight = 15.0
 # Gripper settings
  GR_AcquireSpeed = 0.70
