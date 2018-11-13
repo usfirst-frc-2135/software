@@ -2,7 +2,7 @@
  RB_Name = 9135-Belix
 # DriveTrain settings
  DT_PeakOutput = 1.00
- DT_DriveXScaling = 0.5
+ DT_DriveXScaling = 0.6
 # Competition mode
 #DT_DriveYScaling = 1.00
 # Training mode
