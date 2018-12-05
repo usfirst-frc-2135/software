@@ -1,0 +1,79 @@
+
+	Guide for Porting 2018 Robot Project into 2019 Beta Tools	
+	
+	- Language C++ 
+	- Command-based Robot template
+	- Constructed using RobotBuilder
+	- Utilizes CAN TalonSRX
+	- Utilizes NavX MXP
+
+1) (Workaround) Delete the unnecessary target platform in build.gradle
+(This failed for any configuration that tried to use CTRE libraries)
+
+Delete the following line (and leave the 'roborio' target platform)
+
+    targetPlatform 'Desktop'
+
+2) (Workaround) Modify the WPILib.h in the base include to remove SampleRobot.h
+(Removes annoying warnings about SampleRobot being deprecated)
+
+From within VS Code:
+	- Locate the build entry in the left-hand navigation pane
+	- Expand the path: 
+
+build/tmp/expandedArchives/expandedArchives\wpilibc-cpp-2019.1.1-beta-2-headers.zip_...
+	
+From Windows Explorer
+	- Locate the file (for our team the project root is at Robot2019)
+	
+C:\Users\<yourPathToYourProject>\Robot2019\build\tmp\expandedArchives\wpilibc-cpp-2019.1.1-beta-2-headers.zip_...
+
+Locate frc/WPILib.h (NOT the WPILib.h at top level!) and comment out the line
+	#include "frc/SampleRobot.h"
+
+3) (Porting change) All WPILib includes must be prefixed with frc/ and update the namespace
+(Allows existing include files to be located by Intellisense and linker)
+
+Ex.
+	#incluce "WPILib.h"
+	#include "LiveWindow/LiveWindow.h"
+	#include "Commands/Subsystem.h"
+	#include "Commands/Command.h"
+	#include "Commands/CommandGroup.h"
+
+becomes
+
+	#include "frc/WPILib.h"
+	#include "frc/livewindow/LiveWindow.h"
+	#include "frc/Commands/Subsystem.h"
+	#include "frc/Commands/Command.h"
+	#include "frc/Commands/CommandGroup.h"
+
+	
+4) (Porting change) All WPILib calls and references must be prefixed with frc:: or else the 
+namespace needs to be added after the include references
+(Allows existing WPILib calls to be defined correctly)
+
+Ex.
+	shared_ptr<DifferentialDrive> robotDrive;
+	SmartDashboard::GetNumber(...);
+	Timer	timer1;
+
+becomes
+	
+	shared_ptr<frc::DifferentialDrive> robotDrive;
+	frc::SmartDashboard::GetNumber(...);
+	frc::Timer	timer1;
+
+or add this line after the includes in each file that uses WPILib
+
+	using namespace frc;
+	
+5) (Porting change) Add CTRE include reference into subsystem include files when using the 
+libraries for CAN TalonSRX, etc. This impacts in making calls in Subsystems.
+
+(This worked previously in .cpp files in our code but has changed in 2019.)
+
+	#include "ctre/Phoenix.h"
+	
+	
