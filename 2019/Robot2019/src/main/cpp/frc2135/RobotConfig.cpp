@@ -57,7 +57,7 @@ RobotConfig* RobotConfig::GetInstance() {
 void RobotConfig::GetConfigFileName(std::string& fileName)
 {
 	// Initialize with the absolute path to the home directory
-	fileName = "/home/lvuser/";
+	fileName = "/home/lvuser/deploy/";
 
 	// Get the host name of the roboRIO
 	const size_t NAMEBUFSIZE = 12;
