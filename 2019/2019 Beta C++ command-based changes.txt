@@ -76,4 +76,13 @@ libraries for CAN TalonSRX, etc. This impacts in making calls in Subsystems.
 
 	#include "ctre/Phoenix.h"
 	
+6)	Any RoboRIO file references need to be adjusted if using the VS Code "deploy" mechansim
+
+Ex.
+	/home/lvuser/
+
+becomes
+
+	/home/lvuser/deploy/
+
 	
