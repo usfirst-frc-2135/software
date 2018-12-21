@@ -12,7 +12,6 @@
 #ifndef AUTO_POS_1_H
 #define AUTO_POS_1_H
 
-
 #include "frc/commands/Subsystem.h"
 #include "../Robot.h"
 

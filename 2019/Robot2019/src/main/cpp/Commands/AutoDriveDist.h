@@ -12,7 +12,6 @@
 #ifndef AUTO_DRIVE_DIST_H
 #define AUTO_DRIVE_DIST_H
 
-
 #include "frc/commands/Subsystem.h"
 #include "../Robot.h"
 

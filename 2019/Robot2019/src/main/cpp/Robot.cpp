@@ -120,7 +120,7 @@ void Robot::DisabledPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
 
 	// If RoboRIO User button is pressed, dump all CAN faults
-	if (RobotController::GetUserButton() && !m_faultsCleared) {
+	if (frc::RobotController::GetUserButton() && !m_faultsCleared) {
 		m_faultsCleared = true;
 		RobotFaultDump();
 	}
@@ -171,11 +171,11 @@ void Robot::SmartDashboardStartChooser() {
 	delete chooser;
 	chooser = new frc::SendableChooser<frc::Command*>;
 	// Keep names short due to bug in smartdashboard
-	chooser->AddDefault("Auto Stop", new AutoStop());
-	chooser->AddObject("Pos ANY Move", new AutoPosANYMove());
-	chooser->AddObject("Pos 1", new AutoPos1());
-	chooser->AddObject("Pos 2", new AutoPos2());
-	chooser->AddObject("Pos 3", new AutoPos3());
+	chooser->SetDefaultOption("Auto Stop", new AutoStop());
+	chooser->AddOption("Pos ANY Move", new AutoPosANYMove());
+	chooser->AddOption("Pos 1", new AutoPos1());
+	chooser->AddOption("Pos 2", new AutoPos2());
+	chooser->AddOption("Pos 3", new AutoPos3());
 
 	frc::SmartDashboard::PutData("Auto Modes", chooser);
 }
@@ -236,7 +236,7 @@ void Robot::FMSGameDataRead(void) {
 
 	// See if the game specific data has changed
 	if (gameData.compare(prevGameData) != 0) {
-		secs = (double)RobotController::GetFPGATime() / 1000000.0;
+		secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
 		std::printf("2135: FMS %5.3f Game data %s\n", secs, gameData.c_str());
 		prevGameData = gameData;

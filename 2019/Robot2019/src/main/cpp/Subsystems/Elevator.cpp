@@ -302,7 +302,7 @@ bool Elevator::MoveToPositionIsFinished() {
 			motorOutput = motorL7->GetMotorOutputPercent();
 		}
 
-		double secs = (double)RobotController::GetFPGATime() / 1000000.0;
+		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
 		closedLoopError = m_targetCounts - curCounts;
 		errorInInches = CountsToInches(m_targetCounts - curCounts);

@@ -172,7 +172,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
  	// Initialize PID for Turn PID
    	driveTurnPIDOutput = new PIDOutputDriveTurn(diffDrive);
-   	driveTurnPIDLoop = new PIDController(m_turnKp, 0.0, 0.0, gyro, driveTurnPIDOutput, 0.010);
+   	driveTurnPIDLoop = new frc::PIDController(m_turnKp, 0.0, 0.0, gyro, driveTurnPIDOutput, 0.010);
 
    	// Settings for Turn PID
    	driveTurnPIDLoop->SetPID(m_turnKp, 0.0, 0.0);
@@ -281,7 +281,7 @@ void Drivetrain::Initialize(void) {
 
 //	Joystick movement during Teleop
 
-//void Drivetrain::MoveWithJoystick(std::shared_ptr<Joystick> joystick) {
+//void Drivetrain::MoveWithJoystick(std::shared_ptr<frc::Joystick> joystick) {
 //	double xValue;
 //	double yValue;
 //
@@ -296,7 +296,7 @@ void Drivetrain::Initialize(void) {
 //		diffDrive->ArcadeDrive(-yValue, xValue, true);
 //}
 
-void Drivetrain::MoveWithJoystick(std::shared_ptr<Joystick> throttleJstick, std::shared_ptr<Joystick> turnJstick) {
+void Drivetrain::MoveWithJoystick(std::shared_ptr<frc::Joystick> throttleJstick, std::shared_ptr<frc::Joystick> turnJstick) {
 	double xValue;
 	double yValue;
 
@@ -478,7 +478,7 @@ bool Drivetrain::MoveDriveDistanceIsPIDAtSetpoint() {
 	errorInInches_R = CountsToInches(closedLoopError_R);
 
 	// cts = Encoder Counts, CLE = Closed Loop Error, Out = Motor Output
-	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
+	double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
 	std::printf("2135: DTDD %6.3f LR encCts %5d %5d GyroAngle %5.1f X %5.3f Y %5.3f Out %5.3f %5.3f Amps %6.3f %6.3f %6.3f %6.3f\n",
 				secs, curCounts_L, -curCounts_R, gyroAngle, gyroDispX, gyroDispY,
@@ -543,7 +543,7 @@ void Drivetrain::MoveDriveDistancePIDStop(void) {
 	errorInInches_R = CountsToInches(-m_distTargetCounts - curCounts_R);
 
 	// Print final results to console
-	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
+	double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 	std::printf("2135: DTDD %5.3f (L R) cts %5d %5d in %5.2f %5.2f CLE %5d %5d, Out %5.3f %5.3f errIn %5.2f %5.2f\n",
 			secs, curCounts_L, curCounts_R, CountsToInches(curCounts_L), CountsToInches(curCounts_R),
 			closedLoopError_L, closedLoopError_R, motorOutput_L, motorOutput_R, errorInInches_L, errorInInches_R);
@@ -605,7 +605,7 @@ bool Drivetrain::MoveDriveTurnIsPIDAtSetPoint(void) {
 
 	errorInDegrees = m_turnAngle - curAngle;
 
-	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
+	double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 	std::printf("2135: DTDT %5.3f deg %4.2f -> %4.2f (err %4.2f) cts %5d %5d Out %4.2f %4.2f\n",
 			secs, curAngle, m_turnAngle, errorInDegrees,
 			curCounts_L, curCounts_R, motorOutput_L, motorOutput_R);
@@ -651,7 +651,7 @@ void Drivetrain::MoveDriveTurnPIDStop(void) {
 	errorInDegrees = m_turnAngle - curAngle;
 
 	// Print final results to console
-	double secs = (double)RobotController::GetFPGATime() / 1000000.0;
+	double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 	std::printf("2135: DTDT %5.3f deg %4.2f -> %4.2f (err %4.2f) cts %5d %5d Out %4.2f %4.2f\n",
 			secs, curAngle, m_turnAngle, errorInDegrees,
 			curCounts_L, curCounts_R, motorOutput_L, motorOutput_R);

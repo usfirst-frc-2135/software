@@ -50,7 +50,7 @@ private:
 	double			m_curDegrees;
 	bool			m_bumpDir;						// State variable for bumping up or down
 
-	frc::Timer			m_safetyTimer;					// Safety timer for use in Wrist
+	frc::Timer		m_safetyTimer;					// Safety timer for use in Wrist
 	double			m_safetyTimeout;				// Seconds that the timer ran before stopping
 
 	// Configuration file parameters
