@@ -309,5 +309,7 @@ void Robot::RobotFaultDump(void) {
 	pdp->ClearStickyFaults();
 }
 
-START_ROBOT_CLASS(Robot);
+// START_ROBOT_CLASS(Robot);
+
+int main() { return frc::StartRobot<Robot>(); }
 
