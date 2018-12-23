@@ -11,11 +11,15 @@
 
 #ifndef DRIVETRAIN_H
 #define DRIVETRAIN_H
-#include "Commands/Subsystem.h"
 #include "WPILib.h"
-#include "../RobotDefaults.h"
-#include "../frc2135/RobotConfig.h"
+#include "ctre/Phoenix.h"
 #include "AHRS.h"
+
+#include "../RobotDefaults.h"
+#include "../RobotMap.h"
+#include "../frc2135/TalonSRXUtils.h"
+#include "../frc2135/RobotConfig.h"
+
 #include "../frc2135/PIDOutputDriveTurn.h"
 
 /**

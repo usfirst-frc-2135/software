@@ -11,8 +11,12 @@
 
 #ifndef POWER_H
 #define POWER_H
-#include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "ctre/Phoenix.h"
+
+#include "../RobotDefaults.h"
+#include "../RobotMap.h"
+#include "../frc2135/RobotConfig.h"
 
 /**
  *

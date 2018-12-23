@@ -11,9 +11,12 @@
 
 #ifndef GRIPPER_H
 #define GRIPPER_H
-#include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "ctre/Phoenix.h"
+
 #include "../RobotDefaults.h"
+#include "../RobotMap.h"
+#include "../frc2135/TalonSRXUtils.h"
 #include "../frc2135/RobotConfig.h"
 
 /**

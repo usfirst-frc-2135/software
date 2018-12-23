@@ -9,7 +9,6 @@
 #define SRC_FRC2135_PIDOUTPUTDRIVETURN_H_
 
 #include "WPILib.h" // To use the WPI Library
-#include "../RobotDefaults.h" // To get values from Robot Defaults
 
 class PIDOutputDriveTurn: public frc::PIDOutput {
 private:

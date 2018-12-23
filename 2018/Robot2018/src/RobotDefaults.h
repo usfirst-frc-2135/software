@@ -8,6 +8,10 @@
 #ifndef ROBOTDEFAULTS_H_
 #define ROBOTDEFAULTS_H_
 
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
+
 //	SmartDashboard string definitions
 
 #define ROBOT_FMS_LEFT 		"LEFT"
