@@ -24,8 +24,9 @@ private:
 	static const int		m_slotIndex = 0;				// Motor controller profile slot index
 	static const int		m_pidIndex = 0; 				// PID Slot index for sensors
 	static const int		m_timeout = 10;					// CAN timeout in msec to wait for response
+	static const int		m_retries = 4;					// Number of version check attempts
 
-	static const int		m_reqVersion = ((3*256)+10);		// Talon SRX version is 3.8
+	static const int		m_reqVersion = ((4*256)+1);		// Talon SRX version is 3.8
 };
 
 } /* namespace frc2135 */

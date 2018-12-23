@@ -36,7 +36,7 @@ bool TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, const 
 		return error;
 	}
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < m_retries; i++) {
 		fwVersion = talonSRX->GetFirmwareVersion();
 		if ((error = talonSRX->GetLastError()) != OKAY) {
 			std::printf("2135: ERROR: %s Motor %s GetFirmwareVersion error - %d\n", subsystem, name, error);
