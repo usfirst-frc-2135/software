@@ -294,7 +294,7 @@ void RobotConfig::DumpConfig()
 {
 	for (std::map<std::string, std::string>::iterator itr = m_configMap.begin(); itr != m_configMap.end(); itr++)
 	{
-	    std::cout << itr->first << " = " << itr->second << "\n";
+	    std::cout << itr->first << ": " << itr->second << "\n";
 	}
 
 // This is testing the get functions with our dummy file. We can remove this once we are confident with the functions.
