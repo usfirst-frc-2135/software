@@ -56,7 +56,6 @@ model {
                     srcDir 'src/main/cpp'
                 }
                 exportedHeaders {
-                    srcDir '/frc/usr/include'
                     srcDir 'src/main/include'
                     if (includeSrcInIncludeRoot) {
                         srcDir 'src/main/cpp'
