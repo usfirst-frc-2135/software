@@ -38,7 +38,7 @@ deploy {
 // to the compiler. Some eclipse project imports depend on this behavior.
 // We recommend leaving this disabled if possible. Note for eclipse project
 // imports this is enabled by default. For new projects, its disabled
-def includeSrcInIncludeRoot = true
+def includeSrcInIncludeRoot = false
 
 // Set this to true to enable desktop support.
 def includeDesktopSupport = false

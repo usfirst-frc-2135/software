@@ -9,10 +9,10 @@
 // it from being updated in the future.
 
 
-#include "AutoPos1.h"
-#include "AutoPosANYMove.h"
-#include "AutoPos1Switch.h"
-#include "AutoPos1Scale.h"
+#include "Commands/AutoPos1.h"
+#include "Commands/AutoPosANYMove.h"
+#include "Commands/AutoPos1Switch.h"
+#include "Commands/AutoPos1Scale.h"
 
 #include "RobotDefaults.h"
 

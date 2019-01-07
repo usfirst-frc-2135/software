@@ -12,7 +12,7 @@
 #include <unistd.h>		// gethostname
 #include <string.h>		// strncmp
 
-#include "RobotConfig.h"
+#include "frc2135/RobotConfig.h"
 
 //////////////////////////////////////////////////////////
 

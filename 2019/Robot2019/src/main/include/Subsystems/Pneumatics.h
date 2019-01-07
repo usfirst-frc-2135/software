@@ -14,9 +14,9 @@
 #include "frc/WPILib.h"
 #include "ctre/Phoenix.h"
 
-#include "../RobotDefaults.h"
-#include "../RobotMap.h"
-#include "../frc2135/RobotConfig.h"
+#include "RobotDefaults.h"
+#include "RobotMap.h"
+#include "frc2135/RobotConfig.h"
 
 /**
  *
