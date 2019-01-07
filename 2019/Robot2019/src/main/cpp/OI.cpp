@@ -113,7 +113,6 @@ OI::OI() {
     shiftSpeed->WhileHeld(new DriveShift(true));
 
     // SmartDashboard Buttons
-    frc::SmartDashboard::PutData("Build Chooser", new BuildChooser());
     frc::SmartDashboard::PutData("Load Config", new LoadConfig());
     frc::SmartDashboard::PutData("Wrist Calibrate", new WristCalibrate());
     frc::SmartDashboard::PutData("Wrist Bump: UP", new WristBump(true));

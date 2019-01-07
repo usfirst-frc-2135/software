@@ -59,8 +59,6 @@ public:
 	void TeleopInit() override;
 	void TeleopPeriodic() override;
 
-	static void SmartDashboardStartChooser(void);
-
 
 private:
 	enum fmsSide_t { SIDE_UNINIT, SIDE_UNKNOWN, SIDE_LEFT, SIDE_RIGHT };

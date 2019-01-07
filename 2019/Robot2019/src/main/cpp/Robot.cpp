@@ -101,7 +101,6 @@ void Robot::RobotInit() {
 ////		CameraServer::GetInstance()->RemoveCamera(camName);
 //	}
 
-	SmartDashboardStartChooser();
 	FMSGameDataRead();
 
 	frc::SmartDashboard::PutBoolean(ROBOT_ALLOW_SCALE, false);
