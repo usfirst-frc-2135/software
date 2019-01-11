@@ -26,7 +26,7 @@ DriveTeleop::DriveTeleop(): frc::Command() {
 
 // Called just before this Command runs the first time
 void DriveTeleop::Initialize() {
-    std::printf("2135: Drive Teleop - Init/n");
+    std::printf("2135: Drive Teleop - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run

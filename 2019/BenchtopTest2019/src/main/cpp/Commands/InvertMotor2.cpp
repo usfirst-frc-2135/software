@@ -24,22 +24,22 @@ InvertMotor2::InvertMotor2(): frc::Command() {
 
 // Called just before this Command runs the first time
 void InvertMotor2::Initialize() {
-
+    std::printf("2135: Invert Talon SRX 2 - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
 void InvertMotor2::Execute() {
-
+    Robot::prototype->InvertMotor2();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool InvertMotor2::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
 void InvertMotor2::End() {
-
+    std::printf("2135: Invert Talon SRX 2 - End\n");
 }
 
 // Called when another command which requires one or more of the same
