@@ -59,10 +59,13 @@ void Prototype::Periodic() {
 void Prototype::MoveWithJoystick(std::shared_ptr<frc::Joystick> jstick) {
     double speed1;
     double speed2;
-    speed1 = jstick->GetY();
-    speed2 = jstick->GetZ();
-    talonSRX1->Set(ControlMode::PercentOutput, -speed1);
-    talonSRX2->Set(ControlMode::PercentOutput, -speed2);
+    speed1 = -jstick->GetY();
+    speed2 = -jstick->GetZ();
+    talonSRX1->Set(ControlMode::PercentOutput, speed1);
+    talonSRX2->Set(ControlMode::PercentOutput, speed2);
+
+    frc::SmartDashboard::PutNumber("Motor1_Output", speed1);
+    frc::SmartDashboard::PutNumber("Motor2_Output", speed2);    
 }
 
 void Prototype::InvertMotor1() {
