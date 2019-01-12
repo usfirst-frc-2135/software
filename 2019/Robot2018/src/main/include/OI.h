@@ -37,7 +37,6 @@ private:
 	
 	
 	
-	
 	std::shared_ptr<frc::Joystick> dStick2;
 	std::shared_ptr<frc::Joystick> operatorBoard2;
 	std::shared_ptr<frc::JoystickButton> wristBumpDown;

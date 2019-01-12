@@ -2203,4 +2203,4 @@ Properties:
   Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS_User\FRCProjects',
     extension: null, folder: true, name: Export Directory, validators: null, value: 'C:\Users\PHS_User\Documents\git\software\2019'}
 Base: Robot
-Name: Robot2019
+Name: Robot2018
