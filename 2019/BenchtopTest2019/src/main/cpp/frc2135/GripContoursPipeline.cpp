@@ -42,14 +42,14 @@ void GripContoursPipeline::Process(cv::Mat& source0){
 	double filterContoursMinArea = 59.0;  // default Double
 	double filterContoursMinPerimeter = 0.0;  // default Double
 	double filterContoursMinWidth = 5.0;  // default Double
-	double filterContoursMaxWidth = 65.0;  // default Double
-	double filterContoursMinHeight = 12.0;  // default Double
-	double filterContoursMaxHeight = 160.0;  // default Double
+	double filterContoursMaxWidth = 100.0;  // default Double
+	double filterContoursMinHeight = 8.0;  // default Double
+	double filterContoursMaxHeight = 240.0;  // default Double
 	double filterContoursSolidity[] = {0, 100};
 	double filterContoursMaxVertices = 1000000.0;  // default Double
 	double filterContoursMinVertices = 0.0;  // default Double
-	double filterContoursMinRatio = 0.20;  // default Double
-	double filterContoursMaxRatio = 0.60;  // default Double
+	double filterContoursMinRatio = 0.40;  // default Double
+	double filterContoursMaxRatio = 0.80;  // default Double
 	filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, this->filterContoursOutput);
 }
 

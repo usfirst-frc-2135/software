@@ -26,11 +26,10 @@ void VisionLoop::Run() {
 
 	m_res.width = 320;							// Camera Resolution setting in pixels
 	m_res.height = 240;
-	m_targSize.width = 2.0;						// 2017 Vision target dimensions
-	m_targSize.height = 5.0;
-	m_pegSize.width = 10.25;					// 2017 Peg (two targets) dimensions
-	m_pegSize.height = 5.0;
-
+	m_targSize.width = 3.3771;					// 2019 Vision target dimensions
+	m_targSize.height = 5.8256;
+	m_pegSize.width = 14.69;					// 2019 Hatch (two targets) dimensions
+	m_pegSize.height = 5.8256;
 
 	// CameraServer structures for processing vision frames
 	cs::CvSink inStream;
@@ -233,7 +232,7 @@ void VisionLoop::ConvertValidTargetsToValidPegs(std::vector<tData> *targets, std
 						* (m_pegSize.height / m_pegSize.width));
 
 				// If the bounding rect score is close to 100, save it in the hold list
-				if ((score > 50) && (score < 200)) {
+				if ((score > 50) && (score < 150)) {
 					// Finding the distance from the camera to the peg - group rect (in)
 					p.r = pegRect;
 					p.score = score;
