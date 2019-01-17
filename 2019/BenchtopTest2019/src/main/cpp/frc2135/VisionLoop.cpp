@@ -43,6 +43,7 @@ void VisionLoop::Run() {
 	// Image processing structures for identifying targets and pegs
 	std::vector<std::vector<cv::Point>> *contours;
 	std::vector<cv::Rect> boundingRects;
+	std::vector<tData> rawData;
 	std::vector<tData> validTargets;
 	std::vector<tData> validPegs;
 	tData goal;
@@ -80,8 +81,8 @@ void VisionLoop::Run() {
 			gripFrame = *(gripPipe->gethslThresholdOutput());
 			contours = gripPipe->getfilterContoursOutput();
 
-			ConvertContoursToBoundingRects(contours, &boundingRects);
-			ConvertBoundingRectsToValidTargets(&boundingRects, &validTargets);
+			ConvertContoursToBoundingRects(contours, &rawData);
+			ConvertBoundingRectsToValidTargets(&rawData, &validTargets);
 			ConvertValidTargetsToValidPegs(&validTargets, &validPegs);
 			ChooseGoalPeg(&validPegs, &goal);
 
@@ -165,28 +166,66 @@ void VisionLoop::ConfigureCamera(cs::UsbCamera cam, int resWidth, int resHeight,
 		std::printf("2135: Cam Exposure not set - %d\n", cam.GetLastStatus());
 }
 
-void VisionLoop::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<cv::Rect> *rects) {
+bool VisionLoop::DetermineSlant(cv::RotatedRect *rotRect){
+	cv::Point2f vert[4];
+	bool bSlantRight(false); 
+	if (rotRect != NULL){
+		rotRect->points(vert);
 
-	rects->clear();
+		printf("2135: ");
+		for (int i = 0; i < 4; i++) {
+			printf("vert[%d]=(%3f,%3f) ", i, (float)vert[i].x, (float)vert[i].y);
+		}
+		printf(" \n");
+
+		float currLowestY = 500.0;
+		float currGreatestY = 0.0;
+
+		cv::Point2f lowestY;
+		cv::Point2f greatestY;
+
+		for (int i=0; i < 4; i++) {
+			if (vert[i].y < currLowestY) {
+				currLowestY = vert[i].y;
+				lowestY = vert[i];
+			}
+			if (vert[i].y > currGreatestY) {
+				currGreatestY = vert[i].y;
+				greatestY = vert[i];
+			}
+		}
+
+		if (lowestY.x < greatestY.x) bSlantRight = true;
+	}
+	return bSlantRight;
+}
+
+void VisionLoop::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rawData) {
+
+	rawData->clear();
 
 	// If contours are available, loop through up to 8 of them and create a vector of bounding rects
 	if (!contours->empty()) {
 		for (uint32_t i = 0; i < contours->size() && i < 8; i++) {
-			rects->push_back(cv::boundingRect(contours->at(i)));
+			tData rawt;
+			rawt.r = cv::boundingRect(contours->at(i)); 
+			cv::RotatedRect rotRect = cv::minAreaRect(contours->at(i));
+			rawt.bSlantRight = DetermineSlant(&rotRect);
+			rawData->push_back(rawt);
 		}
 	}
 }
 
-void VisionLoop::ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *boundingRects, std::vector<tData> *targets) {
+void VisionLoop::ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData, std::vector<tData> *targets) {
 	double	score;
 	tData t;
 
 	targets->clear();
 
 	// If boundingRects are available, loop through them and create a vector of valid targets
-	if (!boundingRects->empty()) {
-		for (uint32_t i = 0; i < boundingRects->size(); i++) {
-			cv::Rect r = boundingRects->at(i);
+	if (!rawData->empty()) {
+		for (uint32_t i = 0; i < rawData->size(); i++) {
+			cv::Rect r = rawData->at(i).r;
 
 			// Translate width and height to floating point and calculate normalized score 0..100
 			score = 100 * ((double)r.width / (double)r.height)
@@ -198,7 +237,9 @@ void VisionLoop::ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *bound
 				t.score = score;
 				t.dist = CalcInchesToTarget(m_targSize.width , r);
 				t.angle = CalcCenteringAngle(m_targSize.width, r, t.dist);
+				t.bSlantRight = rawData->at(i).bSlantRight; 
 				targets->push_back(t);
+				std::printf("2135: Found valid target. bSlantRight = %d\n", t.bSlantRight);
 			}
 			PrintTargetData('T', i, t);
 		}
@@ -218,6 +259,19 @@ void VisionLoop::ConvertValidTargetsToValidPegs(std::vector<tData> *targets, std
 
 			for (uint32_t j = i+1; j < targets->size(); j++) {
 				cv::Rect targB = targets->at(j).r;
+
+				int targATopLeftX = targA.tl().x;
+				int targBTopLeftX = targB.tl().x;
+
+				//Determine whether A or B is the leftmost target.
+				if ((targATopLeftX < targBTopLeftX) && (targets->at(i).bSlantRight == false)) {
+					continue; 
+					// A is the leftmost target and not slanted right.					
+				}
+				else if ((targBTopLeftX < targATopLeftX) && (targets->at(j).bSlantRight == false)) {
+					continue;
+					//B is the leftmost target and not slanted right. No need to go farther. 
+				}
 
 				// Build a virtual contour around RectA and RectB (use top left/bottom right)
 				std::vector<cv::Point> pegPoints;
@@ -239,6 +293,8 @@ void VisionLoop::ConvertValidTargetsToValidPegs(std::vector<tData> *targets, std
 					p.dist = CalcInchesToTarget(m_pegSize.width, pegRect);
 					p.angle = CalcCenteringAngle(m_pegSize.width, pegRect, p.dist);
 					pegs->push_back(p);
+					std::printf("2135: Found a valid hatch.\n"); //For testing-
+
 				}
 			}
 			PrintTargetData('P', i, p);

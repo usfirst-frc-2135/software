@@ -8,9 +8,9 @@
 #ifndef SRC_VISIONLOOP_H_
 #define SRC_VISIONLOOP_H_
 
-#include "frc2135/GripContoursPipeline.h"
 #include <frc/SmartDashboard/SmartDashboard.h>
 #include "../RobotDefaults.h"
+#include "frc2135/GripContoursPipeline.h"
 
 class VisionLoop {
 private:
@@ -27,6 +27,7 @@ private:
 	struct dimRect m_pegSize;		// Vision Peg target dimensions
 	typedef struct targetData {		// Validated Target data (or Peg data)
 		cv::Rect	r;				// Target rect in pixel coordinates
+		bool 		bSlantRight; 
 		double		score;			// Target score as compared to theoretical
 		double		dist;			// Calculated distance to target
 		double		angle;			// Calculated angle to target
@@ -37,8 +38,9 @@ private:
 	void InitializeSmartdashboard(void);
 	void SetCamConfig(cs::UsbCamera cam);
 	void ConfigureCamera(cs::UsbCamera cam, int resWidth, int resHeight, int fps, int bright, int expos);
-	void ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<cv::Rect> *rects);
-	void ConvertBoundingRectsToValidTargets(std::vector<cv::Rect> *rects, std::vector<tData> *targets);
+	bool DetermineSlant(cv::RotatedRect *rotRect);
+	void ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rawData);
+	void ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData, std::vector<tData> *targets);
 	void ConvertValidTargetsToValidPegs(std::vector<tData> *targets, std::vector<tData> *pegs);
 	void ChooseGoalPeg(std::vector<tData> *pegs, tData *goal);
 	void PrintTargetData(char name, int idx, tData t);
