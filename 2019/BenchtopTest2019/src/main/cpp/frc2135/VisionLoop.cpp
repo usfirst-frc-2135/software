@@ -68,6 +68,10 @@ void VisionLoop::Run() {
 		SetCamConfig(cam);
 		int validFrame = inStream.GrabFrame(inFrame, 1000);
 
+		// std::string imgFileName = "/home/lvuser/deploy/CargoTest24.jpg";		
+		// inFrame = cv::imread(imgFileName.c_str(), CV_LOAD_IMAGE_COLOR);
+		// int validFrame = 1;
+
 		if ((validFrame == 0) || (inFrame.empty())) {
 		    std::string error = inStream.GetError();
 		    frc::DriverStation::ReportError(error);
