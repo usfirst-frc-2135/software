@@ -24,8 +24,8 @@ private:
 		double height;
 	};
 	struct dimRect m_targSize;		// Vision Target dimensions
-	struct dimRect m_pegSize;		// Vision Peg target dimensions
-	typedef struct targetData {		// Validated Target data (or Peg data)
+	struct dimRect m_hatchSize;		// Vision Hatch target dimensions
+	typedef struct targetData {		// Validated Target data (or Hatch data)
 		cv::Rect	r;				// Target rect in pixel coordinates
 		bool 		bSlantRight; 
 		double		score;			// Target score as compared to theoretical
@@ -41,8 +41,8 @@ private:
 	bool DetermineSlant(cv::RotatedRect *rotRect);
 	void ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rawData);
 	void ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData, std::vector<tData> *targets);
-	void ConvertValidTargetsToValidPegs(std::vector<tData> *targets, std::vector<tData> *pegs);
-	void ChooseGoalPeg(std::vector<tData> *pegs, tData *goal);
+	void ConvertValidTargetsToValidHatches(std::vector<tData> *targets, std::vector<tData> *hatches);
+	void ChooseGoalHatch(std::vector<tData> *hatches, tData *goal);
 	void PrintTargetData(char name, int idx, tData t);
 	void ApplyGridToFrame(cv::Mat frame, pixelRect res, double dist, double angle);
 	void ApplyRectsToFrame(cv::Mat frame, std::vector<cv::Rect> rects);

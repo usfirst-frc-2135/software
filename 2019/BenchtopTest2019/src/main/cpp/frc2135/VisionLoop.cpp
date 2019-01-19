@@ -28,8 +28,8 @@ void VisionLoop::Run() {
 	m_res.height = 240;
 	m_targSize.width = 3.3771;					// 2019 Vision target dimensions
 	m_targSize.height = 5.8256;
-	m_pegSize.width = 14.69;					// 2019 Hatch (two targets) dimensions
-	m_pegSize.height = 5.8256;
+	m_hatchSize.width = 14.69;					// 2019 Hatch (two targets) dimensions
+	m_hatchSize.height = 5.8256;
 
 	// CameraServer structures for processing vision frames
 	cs::CvSink inStream;
@@ -40,12 +40,12 @@ void VisionLoop::Run() {
 	cv::Mat inFrame;
 	cv::Mat gripFrame;
 
-	// Image processing structures for identifying targets and pegs
+	// Image processing structures for identifying targets and hatches
 	std::vector<std::vector<cv::Point>> *contours;
 	std::vector<cv::Rect> boundingRects;
 	std::vector<tData> rawData;
 	std::vector<tData> validTargets;
-	std::vector<tData> validPegs;
+	std::vector<tData> validHatches;
 	tData goal;
 
 	// Get initial settings from SmartDashboard
@@ -87,11 +87,11 @@ void VisionLoop::Run() {
 
 			ConvertContoursToBoundingRects(contours, &rawData);
 			ConvertBoundingRectsToValidTargets(&rawData, &validTargets);
-			ConvertValidTargetsToValidPegs(&validTargets, &validPegs);
-			ChooseGoalPeg(&validPegs, &goal);
+			ConvertValidTargetsToValidHatches(&validTargets, &validHatches);
+			ChooseGoalHatch(&validHatches, &goal);
 
 //			std::printf("C %d, B %d, T %d, P %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
-//				contours->size(), boundingRects.size(), validTargets.size(), validPegs.size(),
+//				contours->size(), boundingRects.size(), validTargets.size(), validHatches.size(),
 //				goal.r.x, goal.r.y, goal.r.width, goal.r.height, goal.dist, goal.angle);
 		}
 
@@ -250,13 +250,13 @@ void VisionLoop::ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData,
 	}
 }
 
-void VisionLoop::ConvertValidTargetsToValidPegs(std::vector<tData> *targets, std::vector<tData> *pegs) {
+void VisionLoop::ConvertValidTargetsToValidHatches(std::vector<tData> *targets, std::vector<tData> *hatches) {
 	double 	score;
-	tData	p;
+	tData	h;
 
-	pegs->clear();
+	hatches->clear();
 
-	// If any validTargets are available, loop through them and create a vector of valid pegs
+	// If any validTargets are available, loop through them and create a vector of valid hatches
 	if (targets->size() >= 2) {
 		for (uint32_t i = 0; i < targets->size() - 1; i++) {
 			cv::Rect targA = targets->at(i).r;
@@ -278,48 +278,49 @@ void VisionLoop::ConvertValidTargetsToValidPegs(std::vector<tData> *targets, std
 				}
 
 				// Build a virtual contour around RectA and RectB (use top left/bottom right)
-				std::vector<cv::Point> pegPoints;
-				pegPoints.push_back(targA.tl());
-				pegPoints.push_back(targA.br());
-				pegPoints.push_back(targB.tl());
-				pegPoints.push_back(targB.br());
-				cv::Rect pegRect = cv::boundingRect(pegPoints);
+				std::vector<cv::Point> hatchPoints;
+				hatchPoints.push_back(targA.tl());
+				hatchPoints.push_back(targA.br());
+				hatchPoints.push_back(targB.tl());
+				hatchPoints.push_back(targB.br());
+				cv::Rect hatchRect = cv::boundingRect(hatchPoints);
 
 				// Translate width and height to floating point and calculate normalized score 0..100
-				score = 100 * (((double)pegRect.width / (double)pegRect.height)
-						* (m_pegSize.height / m_pegSize.width));
+				score = 100 * (((double)hatchRect.width / (double)hatchRect.height)
+						* (m_hatchSize.height / m_hatchSize.width));
 
 				// If the bounding rect score is close to 100, save it in the hold list
 				if ((score > 50) && (score < 150)) {
-					// Finding the distance from the camera to the peg - group rect (in)
-					p.r = pegRect;
-					p.score = score;
-					p.dist = CalcInchesToTarget(m_pegSize.width, pegRect);
-					p.angle = CalcCenteringAngle(m_pegSize.width, pegRect, p.dist);
-					pegs->push_back(p);
-					std::printf("2135: Found a valid hatch.\n"); //For testing-
+					// Finding the distance from the camera to the hatch - group rect (in)
+					h.r = hatchRect;
+					h.score = score;
+					h.dist = CalcInchesToTarget(m_hatchSize.width, hatchRect);
+					h.angle = CalcCenteringAngle(m_hatchSize.width, hatchRect, h.dist);
+					hatches->push_back(h);
+					std::printf("2135: Found a valid hatch. Score: %f\n", score); //For testing-
+					std::printf("Valid Hatch Pt 2: Distance: %f | Angle: %f\n", h.dist, h.angle); //For testing-
 
 				}
 			}
-			PrintTargetData('P', i, p);
+			PrintTargetData('H', i, h);
 		}
 	}
 }
 
-void VisionLoop::ChooseGoalPeg(std::vector<tData> *pegs, tData *goal) {
-	tData	*p = pegs->data();
+void VisionLoop::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal) {
+	tData	*h = hatches->data();
 
 	std::memset(goal, 0, sizeof(tData));
 
-	if (!pegs->empty()) {
-		goal->r = p->r;
-		goal->score = p->score;
-		goal->dist = p->dist;
-		goal->angle = p->angle;
+	if (!hatches->empty()) {
+		goal->r = h->r;
+		goal->score = h->score;
+		goal->dist = h->dist;
+		goal->angle = h->angle;
 
 		frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
-		frc::SmartDashboard::PutNumber(CAM_TURNANGLE, p->angle);
-		frc::SmartDashboard::PutNumber(CAM_DISTANCE, p->dist);
+		frc::SmartDashboard::PutNumber(CAM_TURNANGLE, h->angle);
+		frc::SmartDashboard::PutNumber(CAM_DISTANCE, h->dist);
 	}
 
 	else {
