@@ -264,17 +264,18 @@ void VisionLoop::ConvertValidTargetsToValidHatches(std::vector<tData> *targets, 
 			for (uint32_t j = i+1; j < targets->size(); j++) {
 				cv::Rect targB = targets->at(j).r;
 
-				int targATopLeftX = targA.tl().x;
-				int targBTopLeftX = targB.tl().x;
+				// Determine whether A or B is the leftmost target.
+				tData leftMost = targets->at(i); 
+				tData rightMost = targets->at(j); 
 
-				//Determine whether A or B is the leftmost target.
-				if ((targATopLeftX < targBTopLeftX) && (targets->at(i).bSlantRight == false)) {
-					continue; 
-					// A is the leftmost target and not slanted right.					
+				if (targA.tl().x > targB.tl().x) {
+					leftMost = targets->at(j);
+					rightMost = targets->at(i);
 				}
-				else if ((targBTopLeftX < targATopLeftX) && (targets->at(j).bSlantRight == false)) {
+
+				// Check if left target is slanted right and right target is slanted left
+				if (!leftMost.bSlantRight || rightMost.bSlantRight) {
 					continue;
-					//B is the leftmost target and not slanted right. No need to go farther. 
 				}
 
 				// Build a virtual contour around RectA and RectB (use top left/bottom right)
