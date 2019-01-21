@@ -88,7 +88,8 @@ void VisionLoop::Run() {
 			ConvertContoursToBoundingRects(contours, &rawData);
 			ConvertBoundingRectsToValidTargets(&rawData, &validTargets);
 			ConvertValidTargetsToValidHatches(&validTargets, &validHatches);
-			ChooseGoalHatch(&validHatches, &goal);
+			SortValidHatches(&validHatches);
+			//ChooseGoalHatch(&validHatches, &goal);
 
 //			std::printf("C %d, B %d, T %d, P %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
 //				contours->size(), boundingRects.size(), validTargets.size(), validHatches.size(),
@@ -99,9 +100,9 @@ void VisionLoop::Run() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(65));
 
 		// Draw the boundingRects on the frame bring processed -- white
-		ApplyGridToFrame(inFrame, m_res, goal.dist, goal.angle);
-		ApplyRectsToFrame(inFrame, boundingRects);
-		ApplyGoalToFrame(inFrame, goal);
+		ApplyGridToFrame(inFrame, m_res /*, goal.dist, goal.angle*/);
+		ApplyRectsToFrame(inFrame, &validTargets);
+		ApplyHatchesToFrame(inFrame, &validHatches);
 		outStream.PutFrame(inFrame);
 	}
 }
@@ -308,27 +309,27 @@ void VisionLoop::ConvertValidTargetsToValidHatches(std::vector<tData> *targets, 
 	}
 }
 
-void VisionLoop::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal) {
-	tData	*h = hatches->data();
+void VisionLoop::SortValidHatches(std::vector<tData> *hatches) {
+	
+	int size = hatches->size();
 
-	std::memset(goal, 0, sizeof(tData));
+	if (size < 2) return;
 
-	if (!hatches->empty()) {
-		goal->r = h->r;
-		goal->score = h->score;
-		goal->dist = h->dist;
-		goal->angle = h->angle;
+	int i;
+	int j;
+	tData key;
 
-		frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
-		frc::SmartDashboard::PutNumber(CAM_TURNANGLE, h->angle);
-		frc::SmartDashboard::PutNumber(CAM_DISTANCE, h->dist);
+	for (i = 1; i < size; i++) {
+		key = hatches->at(i);
+		j = i-1;
+
+		while ((j >= 0) && (hatches->at(j).r.tl().x > key.r.tl().x)) {
+			hatches->at(j+1) = hatches->at(j);
+			j = j-1;
+		}
+		hatches->at(j+1) = key;
 	}
 
-	else {
-		frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
-		frc::SmartDashboard::PutNumber(CAM_TURNANGLE, 0.0);
-		frc::SmartDashboard::PutNumber(CAM_DISTANCE, 0.0);
-	}
 }
 
 void VisionLoop::PrintTargetData(char name, int idx, tData t) {
@@ -336,7 +337,7 @@ void VisionLoop::PrintTargetData(char name, int idx, tData t) {
 		t.r.x, t.r.y, t.r.width, t.r.height, t.score, t.dist, t.angle);
 }
 
-void VisionLoop::ApplyGridToFrame(cv::Mat frame, pixelRect res, double dist, double angle) {
+void VisionLoop::ApplyGridToFrame(cv::Mat frame, pixelRect res/*, double dist, double angle*/) {
 	cv::Point	pt1, pt2;
 	char	str[32];
 
@@ -350,39 +351,45 @@ void VisionLoop::ApplyGridToFrame(cv::Mat frame, pixelRect res, double dist, dou
 	pt1.x = pt2.x = res.width / 2;
 	cv::line(frame, pt1, pt2, cv::Scalar(255, 255, 255), 1, cv::LineTypes::LINE_4, 0);
 
-	std::sprintf(str, "%5.1f in", dist);
-	pt1.x = 5;
-	pt1.y = res.height - 5;
-	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
-		1, cv::LineTypes::LINE_8, false);
+	// std::sprintf(str, "%5.1f in", dist);
+	// pt1.x = 5;
+	// pt1.y = res.height - 5;
+	// cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
+	// 	1, cv::LineTypes::LINE_8, false);
 
-	std::sprintf(str, "%5.1f deg", angle);
-	pt1.x = res.width/2 - 10;
-	pt1.y = res.height - 5;
-	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
-		1, cv::LineTypes::LINE_8, false);
+	// std::sprintf(str, "%5.1f deg", angle);
+	// pt1.x = res.width/2 - 10;
+	// pt1.y = res.height - 5;
+	// cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
+	// 	1, cv::LineTypes::LINE_8, false);
 }
 
-void VisionLoop::ApplyRectsToFrame(cv::Mat frame, std::vector<cv::Rect> rects) {
-	for (uint32_t i = 0; i < rects.size(); i++) {
-		cv::rectangle(frame, rects[i], cv::Scalar(68, 68, 255), 2, cv::LineTypes::LINE_8);
+void VisionLoop::ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *targets) {
+	for (uint32_t i = 0; i < targets->size(); i++) {
+		cv::Rect& tRect = targets->at(i).r;
+		cv::rectangle(frame, tRect, cv::Scalar(68, 68, 255), 2, cv::LineTypes::LINE_8);
 	}
 }
 
-void VisionLoop::ApplyGoalToFrame(cv::Mat frame, tData goal) {
-	cv::Point	pt1, pt2;
+void VisionLoop::ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches) {
 
-	cv::rectangle(frame, goal.r, cv::Scalar(68, 255, 68), 2, cv::LineTypes::LINE_8);
+for (uint32_t i = 0; i < hatches->size(); i++) {
+		tData& tHatch = hatches->at(i);
 
-	pt1.x = goal.r.x + goal.r.width/2 - 5;
-	pt2.x = pt1.x + 10;
-	pt1.y = pt2.y = goal.r.y + goal.r.height/2;
-	cv::line(frame, pt1, pt2, cv::Scalar(68, 255, 68), 1, cv::LineTypes::LINE_4, 0);
+		cv::Point	pt1, pt2;
 
-	pt1.y = goal.r.y + goal.r.height/2 - 5;
-	pt2.y = pt1.y + 10;
-	pt1.x = pt2.x = goal.r.x + goal.r.width/2;
-	cv::line(frame, pt1, pt2, cv::Scalar(68, 255, 68), 1, cv::LineTypes::LINE_4, 0);
+		cv::rectangle(frame, tHatch.r, cv::Scalar(68, 255, 68), 2, cv::LineTypes::LINE_8);
+
+		pt1.x = tHatch.r.x + tHatch.r.width/2 - 5;
+		pt2.x = pt1.x + 10;
+		pt1.y = pt2.y = tHatch.r.y + tHatch.r.height/2;
+		cv::line(frame, pt1, pt2, cv::Scalar(68, 255, 68), 1, cv::LineTypes::LINE_4, 0);
+
+		pt1.y = tHatch.r.y + tHatch.r.height/2 - 5;
+		pt2.y = pt1.y + 10;
+		pt1.x = pt2.x = tHatch.r.x + tHatch.r.width/2;
+		cv::line(frame, pt1, pt2, cv::Scalar(68, 255, 68), 1, cv::LineTypes::LINE_4, 0);
+	}
 }
 
 double VisionLoop::CalcInchesToTarget(double targetWidthInches, cv::Rect rect) {

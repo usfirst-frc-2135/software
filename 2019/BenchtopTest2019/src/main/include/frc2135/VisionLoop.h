@@ -42,11 +42,11 @@ private:
 	void ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rawData);
 	void ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData, std::vector<tData> *targets);
 	void ConvertValidTargetsToValidHatches(std::vector<tData> *targets, std::vector<tData> *hatches);
-	void ChooseGoalHatch(std::vector<tData> *hatches, tData *goal);
+	void SortValidHatches(std::vector<tData> *targets);
 	void PrintTargetData(char name, int idx, tData t);
-	void ApplyGridToFrame(cv::Mat frame, pixelRect res, double dist, double angle);
-	void ApplyRectsToFrame(cv::Mat frame, std::vector<cv::Rect> rects);
-	void ApplyGoalToFrame(cv::Mat frame, tData goal);
+	void ApplyGridToFrame(cv::Mat frame, pixelRect res /*,double dist, double angle*/);
+	void ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *targets);
+	void ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches);
 	double CalcInchesToTarget(double targetWidthInches, cv::Rect rect);
 	double CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget);
 
