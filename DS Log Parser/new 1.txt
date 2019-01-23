@@ -1,0 +1,39 @@
+3:12:05.732 3:12:05.732 3:12:05.732
+3:18:38.900 3:18:43.344 3:18:43.352
+
+2?
+1/1 - Trip Time - Latency ms 0-120
+2 - Lost packets - Percent 0-120
+4/34/3 - Voltage - Volts 0-17
+5/4 - roboRIO percent - 0-120
+7/5 - CAN percent - 0-120
+6 - WiFi DB - 0-120 (?)
+7 - WiFi Mb - 0-120 (?)
+series 6
+8 - Robot Disable - 1/0
+9 - Robot Auto - 1/0
+10 - Robot Tele - 1/0
+11 - DS Disable - 1/0
+12 - DS Auto - 1/0
+13 - DS Tele - 1/0
+--------
+14 - Brownout - 
+15 - Watchdog -
+14/16 - PDP 0 - Amps 0-120
+15/17 - PDP 1 - Amps 0-120
+16/18 - PDP 2 - Amps 0-120
+17/19 - PDP 3 - Amps 0-120
+18/20 - PDP 4 - Amps 0-120
+21 - PDP 5 - Amps 0-120
+22 - PDP 6 - Amps 0-120
+23 - PDP 7 - Amps 0-120
+24 - PDP 8 - Amps 0-120
+25 - PDP 9 - Amps 0-120
+26 - PDP 10 - Amps 0-120
+27 - PDP 11 - Amps 0-120
+28 - PDP 12 - Amps 0-120
+29 - PDP 13 - Amps 0-120
+30 - PDP 14 - Amps 0-120
+31 - PDP 15 - Amps 0-120
+
+
