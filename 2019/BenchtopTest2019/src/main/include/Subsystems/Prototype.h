@@ -38,6 +38,8 @@ private:
 	bool m_talonInvert1 = false;
 	bool m_talonInvert2 = false;
 
+	frc::AnalogInput *reflSensor;
+
 public:
 	Prototype();
 	void InitDefaultCommand() override;
