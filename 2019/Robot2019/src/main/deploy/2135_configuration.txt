@@ -1,0 +1,11 @@
+# Comment lines start with '#'
+ RB_Name = 2135-DeepSpace
+# DriveTrain settings
+ DT_PeakOutput = 1.00
+ DT_DriveXScaling = 0.6
+ DT_SeparateJoysticks = false
+# Competition mode
+#DT_DriveYScaling = 1.00
+# Training mode
+#DT_DriveYScaling =  0.85
+
