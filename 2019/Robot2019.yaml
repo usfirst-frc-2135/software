@@ -502,6 +502,153 @@ Children:
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: Drive Shift
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: direction, type: int}
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Lifter}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: Lifter Motor Run
+  - Children: []
+    Properties: &id011
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: extended, type: boolean}
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Lifter}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: Lifter Front Extend
+  - Children: []
+    Properties: &id013
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: extended, type: boolean}
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Lifter}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: Lifter Back Extend
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
+      Commands: !!robotbuilder.data.properties.ListProperty
+        default: []
+        name: Commands
+        validators: [List]
+        value:
+        - &id014 !!robotbuilder.data.CommandGroupEntry
+          command:
+            base: &id012
+              help: A command specifies an action that the robot can perform.
+              name: Command
+              properties:
+              - !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+                name: Requires, type: Subsystem, validators: null, value: None}
+              - !!robotbuilder.data.properties.BooleanProperty {default: true, name: Button on SmartDashboard,
+                validators: null, value: true}
+              - !!robotbuilder.data.properties.ParametersProperty
+                default: []
+                name: Parameters
+                validators: null
+                value: []
+              - !!robotbuilder.data.properties.ParameterSetProperty
+                default: &id010 []
+                name: Parameter presets
+                validators: null
+                value: *id010
+              - !!robotbuilder.data.properties.BooleanProperty {default: false, name: Run When Disabled,
+                validators: null, value: false}
+              - !!robotbuilder.data.properties.BooleanProperty {default: false, name: Autonomous Selection,
+                validators: null, value: false}
+              supports: {}
+              type: Command
+            name: Lifter Front Extend
+            properties: *id011
+          hasMatch: true
+          order: Sequential
+          parameters:
+            default: []
+            name: ParametersProperty
+            validators: null
+            value:
+            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: extended,
+              type: boolean, value: 'false'}
+          previous: null
+        - !!robotbuilder.data.CommandGroupEntry
+          command:
+            base: *id012
+            name: Lifter Back Extend
+            properties: *id013
+          hasMatch: true
+          order: Parallel
+          parameters:
+            default: []
+            name: ParametersProperty
+            validators: null
+            value:
+            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: extended,
+              type: boolean, value: 'false'}
+          previous: *id014
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command Group
+    Name: Lifter Extend
   Properties: {}
   Base: Commands
   Name: Commands
