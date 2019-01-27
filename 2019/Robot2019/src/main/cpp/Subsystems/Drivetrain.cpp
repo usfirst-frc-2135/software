@@ -82,6 +82,14 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     m_lowGear = true;
     MoveShiftGears(m_lowGear);
 
+    // If both drive talons not valid, disable safety timer
+    if (m_talonValidL1 || m_talonValidR3) {
+        diffDrive->SetSafetyEnabled(true);
+    }
+    else {
+        diffDrive->SetSafetyEnabled(false);
+    }
+   	
 }
 
 void Drivetrain::InitDefaultCommand() {
