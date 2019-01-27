@@ -20,7 +20,9 @@ private:
 	
 	
 	
+	
 	std::shared_ptr<frc::Joystick> controlBoard;
+	std::shared_ptr<frc::JoystickButton> intakeAcquire;
 	std::shared_ptr<frc::Joystick> dStick;
 	std::shared_ptr<frc::JoystickButton> shiftSpeed;
 
