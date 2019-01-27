@@ -13,6 +13,7 @@
 #define LIFTER_H
 #include "frc/commands/Subsystem.h"
 #include "frc/WPILib.h"
+#include "ctre/Phoenix.h"
 
 /**
  *
