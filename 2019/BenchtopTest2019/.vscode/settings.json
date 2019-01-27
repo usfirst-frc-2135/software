@@ -59,6 +59,9 @@
     "tuple": "cpp",
     "type_traits": "cpp",
     "typeinfo": "cpp",
-    "utility": "cpp"
+    "utility": "cpp",
+    "codecvt": "cpp",
+    "filesystem": "cpp",
+    "string_view": "cpp"
   }
 }
