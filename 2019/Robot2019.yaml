@@ -298,7 +298,7 @@ Children:
           validators: *id002
           value: '16'
       Base: Talon SRX
-      Name: Motor LI16
+      Name: Motor LF16
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
