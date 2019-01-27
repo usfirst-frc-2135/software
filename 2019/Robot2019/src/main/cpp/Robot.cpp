@@ -20,7 +20,7 @@ std::shared_ptr<Elevator> Robot::elevator;
 std::shared_ptr<Elbow> Robot::elbow;
 std::shared_ptr<Wrist> Robot::wrist;
 std::shared_ptr<Intake> Robot::intake;
-std::shared_ptr<LiftKit> Robot::liftKit;
+std::shared_ptr<Lifter> Robot::lifter;
 std::shared_ptr<Pnuematics> Robot::pnuematics;
 std::shared_ptr<Power> Robot::power;
 std::unique_ptr<OI> Robot::oi;
@@ -34,7 +34,7 @@ void Robot::RobotInit() {
     elbow.reset(new Elbow());
     wrist.reset(new Wrist());
     intake.reset(new Intake());
-    liftKit.reset(new LiftKit());
+    lifter.reset(new Lifter());
     pnuematics.reset(new Pnuematics());
     power.reset(new Power());
 

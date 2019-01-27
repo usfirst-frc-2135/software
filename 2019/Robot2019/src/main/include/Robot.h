@@ -21,7 +21,7 @@
 #include "Subsystems/Elbow.h"
 #include "Subsystems/Elevator.h"
 #include "Subsystems/Intake.h"
-#include "Subsystems/LiftKit.h"
+#include "Subsystems/Lifter.h"
 #include "Subsystems/Pnuematics.h"
 #include "Subsystems/Power.h"
 #include "Subsystems/Wrist.h"
@@ -42,7 +42,7 @@ public:
 	static std::shared_ptr<Elbow> elbow;
 	static std::shared_ptr<Wrist> wrist;
 	static std::shared_ptr<Intake> intake;
-	static std::shared_ptr<LiftKit> liftKit;
+	static std::shared_ptr<Lifter> lifter;
 	static std::shared_ptr<Pnuematics> pnuematics;
 	static std::shared_ptr<Power> power;
 
