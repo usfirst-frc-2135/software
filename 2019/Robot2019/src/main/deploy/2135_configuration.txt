@@ -8,4 +8,8 @@
 #DT_DriveYScaling = 1.00
 # Training mode
 #DT_DriveYScaling =  0.85
+# Intake settings
+  IN_AcquireSpeed = 0.50
+  IN_HoldSpeed = 0.25
+  IN_ExpelSpeed = 0.75
 
