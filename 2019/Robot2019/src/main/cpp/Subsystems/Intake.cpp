@@ -29,6 +29,12 @@ Intake::Intake() : frc::Subsystem("Intake") {
     //Validate Talon SRX controllers, initialize and display firmware versions
     m_talonValidIN14 = frc2135::TalonSRXUtils::TalonSRXCheck(motorIN14, "IN", "M14"); 
 
+     // Check if solenoids are functional or blacklisted
+    if (panelDelivery->IsBlackListed())
+        std::printf("2135: ERROR: IN Panel Delivery Solenoid is BLACKLISTED\n");
+    else
+        std::printf("2135: IN Panel Delivery Solenoid is FUNCTIONAL\n");
+
     //Initialize Variables 
     //defaults are random
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
@@ -90,6 +96,9 @@ void Intake::Initialize(void) {
     //Motor off
     if (m_talonValidIN14) 
         motorIN14->Set(ControlMode::PercentOutput, 0.0);
+
+    //Solenoid retracted.
+    panelDelivery->Set(false);
  }
 
 void Intake::SetIntakeMotorDirection(int direction) {
@@ -125,6 +134,13 @@ void Intake::SetIntakeMotorDirection(int direction) {
 
 }
 
+void Intake::SetDeliverySolenoid(bool extend) {
+
+    if (extend) std::printf("2135: Intake Hatch Panel  - Delivery");
+    else std::printf("2135: Intake Hatch Panel - Retract");
+
+    panelDelivery->Set(extend);
+}
 
 
 

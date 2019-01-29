@@ -61,6 +61,7 @@ public:
 	void Initialize(void);
 	void SetIntakeMotorDirection(int direction);
 
+	void SetDeliverySolenoid(bool extend);
 
 
 };
