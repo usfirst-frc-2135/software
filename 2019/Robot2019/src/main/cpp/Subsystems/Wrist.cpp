@@ -112,7 +112,6 @@ void Wrist::Periodic() {
 		frc::SmartDashboard::PutNumber("WR_Output_WR12", outputWR12);
 		frc::SmartDashboard::PutNumber("WR_Current_WR12", currentWR12);
 	}
-
 }
 
 ///////////////////////////////////////////////////////////////////////////////
