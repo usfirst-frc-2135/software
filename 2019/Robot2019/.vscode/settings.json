@@ -2,14 +2,15 @@
   "java.configuration.updateBuildConfiguration": "disabled",
   "java.import.gradle.enabled": false,
   "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "bin/": true,
     ".classpath": true,
-    ".project": true
+    ".project": true,
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.svn": true,
+    "**/*.*~": true,
+    "**/CVS": true,
+    "bin/": true
   },
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "wpilib.online": true,

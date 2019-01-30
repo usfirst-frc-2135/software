@@ -16,6 +16,7 @@
 #include "Commands/AutoStop.h"
 #include "Commands/DriveShift.h"
 #include "Commands/DriveTeleop.h"
+#include "Commands/ElevatorRun.h"
 #include "Commands/IntakeDelivery.h"
 #include "Commands/IntakeRun.h"
 #include "Commands/LifterBackExtend.h"
