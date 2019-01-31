@@ -38,6 +38,10 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1800);
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 10.0);
+	config->GetValueAsDouble("WR_WristGround", m_groundAngle, 0.0);
+	config->GetValueAsDouble("WR_WristStowed", m_stowedAngle, 90.0);
+	config->GetValueAsDouble("WR_WristDelivery", m_deliveryAngle, 150.0);
+
 	// config->GetValueAsDouble("WR_WristFlat", m_flatAngle, 5.0);
 
      if (m_talonValidWR12) {
@@ -168,9 +172,14 @@ void Wrist::MoveToPosition(int level)
 	case WRIST_NOCHANGE:	// Do not change from current level!
 		// m_targetDegrees = m_targetDegrees;
 		break;
-	// case WRIST_FLAT:
-	// 	m_targetDegrees = m_flatAngle;
-	// 	break;
+	case WRIST_GROUND:
+		m_targetDegrees = m_groundAngle;
+		break;
+	case WRIST_STOWED:
+		m_targetDegrees = m_stowedAngle;
+		break;
+	case WRIST_DELIVER:
+		m_targetDegrees = m_deliveryAngle;
 	case WRIST_SMARTDASH:
 		m_targetDegrees = frc::SmartDashboard::GetNumber("WR Setpoint", 0.0);
 		break;

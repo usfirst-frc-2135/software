@@ -37,6 +37,9 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
     config->GetValueAsInt("EB_MaxCounts", m_elbowMaxCounts, 0);
     config->GetValueAsInt("EB_MinCounts", m_elbowMinCounts, -1800);
 	config->GetValueAsDouble("EB_BumpAngle", m_bumpAngle, 10.0);
+	config->GetValueAsDouble("EB_GroundAngle", m_groundAngle, 0.0);
+	config->GetValueAsDouble("EB_StowedAngle", m_stowedAngle, 15.0);
+	config->GetValueAsDouble("EB_DeliveryAngle", m_deliveryAngle, 45.0);
 	// config->GetValueAsDouble("EB_ElbowFlat", m_flatAngle, 5.0);
 
      if (m_talonValidEB10) {
@@ -167,9 +170,14 @@ void Elbow::MoveToPosition(int level)
 	case ELBOW_NOCHANGE:	// Do not change from current level!
 		// m_targetDegrees = m_targetDegrees;
 		break;
-	// case ELBOW_FLAT:
-	// 	m_targetDegrees = m_flatAngle;
-	// 	break;
+	case ELBOW_GROUND:
+		m_targetDegrees = m_groundAngle;
+	 	break;
+	case ELBOW_STOWED:
+		m_targetDegrees = m_stowedAngle;
+		break;
+	case ELBOW_DELIVER:
+		m_targetDegrees = m_deliveryAngle;
 	case ELBOW_SMARTDASH:
 		m_targetDegrees = frc::SmartDashboard::GetNumber("EB Setpoint", 0.0);
 		break;

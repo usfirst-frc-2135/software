@@ -177,11 +177,11 @@ bool VisionLoop::DetermineSlant(cv::RotatedRect *rotRect){
 	if (rotRect != NULL){
 		rotRect->points(vert);
 
-		printf("2135: ");
-		for (int i = 0; i < 4; i++) {
-			printf("vert[%d]=(%3f,%3f) ", i, (float)vert[i].x, (float)vert[i].y);
-		}
-		printf(" \n");
+		// printf("2135: ");
+		// for (int i = 0; i < 4; i++) {
+		// 	printf("vert[%d]=(%3f,%3f) ", i, (float)vert[i].x, (float)vert[i].y);
+		// }
+		// printf(" \n");
 
 		float currLowestY = 500.0;
 		float currGreatestY = 0.0;
@@ -244,7 +244,7 @@ void VisionLoop::ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData,
 				t.angle = CalcCenteringAngle(m_targSize.width, r, t.dist);
 				t.bSlantRight = rawData->at(i).bSlantRight; 
 				targets->push_back(t);
-				std::printf("2135: Found valid target. bSlantRight = %d\n", t.bSlantRight);
+				//std::printf("2135: Found valid target. bSlantRight = %d\n", t.bSlantRight);
 			}
 			PrintTargetData('T', i, t);
 		}
@@ -292,15 +292,15 @@ void VisionLoop::ConvertValidTargetsToValidHatches(std::vector<tData> *targets, 
 						* (m_hatchSize.height / m_hatchSize.width));
 
 				// If the bounding rect score is close to 100, save it in the hold list
-				if ((score > 50) && (score < 150)) {
+				if ((score > 50) && (score < 175)) {
 					// Finding the distance from the camera to the hatch - group rect (in)
 					h.r = hatchRect;
 					h.score = score;
 					h.dist = CalcInchesToTarget(m_hatchSize.width, hatchRect);
 					h.angle = CalcCenteringAngle(m_hatchSize.width, hatchRect, h.dist);
 					hatches->push_back(h);
-					std::printf("2135: Found a valid hatch. Score: %f\n", score); //For testing-
-					std::printf("Valid Hatch Pt 2: Distance: %f | Angle: %f\n", h.dist, h.angle); //For testing-
+					//std::printf("2135: Found a valid hatch. Score: %f\n", score); //For testing-
+					//std::printf("Valid Hatch Pt 2: Distance: %f | Angle: %f\n", h.dist, h.angle); //For testing-
 
 				}
 			}
@@ -330,11 +330,14 @@ void VisionLoop::SortValidHatches(std::vector<tData> *hatches) {
 		hatches->at(j+1) = key;
 	}
 
+	for (int i=0; i<hatches->size(); i++) {
+		std::printf("2135: Hatch %d: Top Left X: %d\n", i, hatches->at(i).r.tl().x);
+	}
 }
 
 void VisionLoop::PrintTargetData(char name, int idx, tData t) {
-	std::printf("-%c %d: x %d, y %d, w %d, h %d, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
-		t.r.x, t.r.y, t.r.width, t.r.height, t.score, t.dist, t.angle);
+	// std::printf("-%c %d: x %d, y %d, w %d, h %d, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
+	// 	t.r.x, t.r.y, t.r.width, t.r.height, t.score, t.dist, t.angle);
 }
 
 void VisionLoop::ApplyGridToFrame(cv::Mat frame, pixelRect res/*, double dist, double angle*/) {

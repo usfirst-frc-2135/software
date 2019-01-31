@@ -12,4 +12,29 @@
   IN_AcquireSpeed = 0.50
   IN_HoldSpeed = 0.25
   IN_ExpelSpeed = 0.75
+# Wrist settings
+ WR_PidKp = 2.25
+ WR_PidMaxOut = 1.00
+ WR_CLRampRate = 0.080
+ WR_CLAllowedError = 0
+ WR_ToleranceDegrees = 5.0
+ WR_MaxCounts = 0
+ WR_MinCounts = -1800
+ WR_BumpAngle = 10.0
+ WR_WristGround = 0.0
+ WR_WristStowed = 90.0
+ WR_WristDelivery = 150.0
+# Elbow settings
+ EB_PidKp = 2.25
+ EB_PidMaxOut = 1.00
+ EB_CLRampRate = 0.080
+ EB_CLAllowedError = 0
+ EB_ToleranceDegrees = 5.0
+ EB_MaxCounts = 0
+ EB_MinCounts = -1800
+ EB_BumpAngle = 10.0
+ EB_ElbowGround = 0.0
+ EB_ElbowStowed = 15.0
+ EB_ElbowDelivery = 45.0
+
 

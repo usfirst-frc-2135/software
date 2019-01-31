@@ -61,7 +61,9 @@ private:
 	int				m_wristMaxCounts;				// Wrist maximum allowable counts
 	int				m_wristMinCounts;				// Wrist minimum allowable counts
 	double			m_bumpAngle;					// Incremental angle when bumping the wrist up/down
-	double			m_flatAngle;					// Setpoint for floor level (full down)
+	double			m_groundAngle;					// Setpoint for floor level (full down)
+	double 			m_stowedAngle; 					// Setpoint for full up
+	double 			m_deliveryAngle; 				// Setpoint to deliver to the cargoship or rocket
 
 public:
 	Wrist();
@@ -73,9 +75,11 @@ public:
 	
 	enum {											// Wrist subsystem movement states
 		WRIST_NOCHANGE = -1,						// No change in wrist angle--maintain current position
-		// WRIST_FLAT = 0,							// Move to flat floor position
-		WRIST_SMARTDASH = 1,						// Move to an angle read from dashboard
-		BUMP_ANGLE = 2								// Move by bumping angle up or down
+		WRIST_GROUND = 0,							// Move to angle facing ground
+		WRIST_STOWED = 1,							// Move to stowed angle
+		WRIST_DELIVER = 2,							// Move to delivery angle
+		WRIST_SMARTDASH = 3,						// Move to an angle read from dashboard
+		BUMP_ANGLE = 4								// Move by bumping angle up or down
 	};
 
 	void Initialize(void);

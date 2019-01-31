@@ -54,7 +54,7 @@ private:
 	double			m_safetyTimeout;				// Seconds that the timer ran before stopping
 
 	// Configuration file parameters
-	double 			m_pidMaxOut;						// Wrist maximum speed during movement
+	double 			m_pidMaxOut;					// Wrist maximum speed during movement
 	double			m_pidKp;						// Wrist PID proportional constant
 	double			m_CLRampRate;					// Wrist PID ramp rate
 	int				m_CLAllowedError;				// Wrist PID allowable closed loop error

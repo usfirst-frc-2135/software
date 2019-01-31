@@ -60,7 +60,9 @@ private:
 	int				m_elbowMaxCounts;				// Elbow maximum allowable counts
 	int				m_elbowMinCounts;				// Elbow minimum allowable counts
 	double			m_bumpAngle;					// Incremental angle when bumping the elbow up/down
-	double			m_flatAngle;					// Setpoint for floor level (full down)
+	double			m_groundAngle;					// Setpoint for floor level (full down)
+	double 			m_stowedAngle; 					// Setpoint for full up
+	double 			m_deliveryAngle; 				// Setpoint to deliver to the cargoship or rocket
 
 public:
 	Elbow();
@@ -72,9 +74,11 @@ public:
 
 	enum {											// Elbow subsystem movement states
 		ELBOW_NOCHANGE = -1,						// No change in elbow angle--maintain current position
-		// ELBOW_FLAT = 0,							// Move to flat floor position
-		ELBOW_SMARTDASH = 1,						// Move to an angle read from dashboard
-		BUMP_ANGLE = 2								// Move by bumping angle up or down
+		ELBOW_GROUND = 0,							// Move to angle facing ground
+		ELBOW_STOWED = 1,							// Move to stowed angle
+		ELBOW_DELIVER = 2,							// Move to delivery angle
+		ELBOW_SMARTDASH = 3,						// Move to an angle read from dashboard
+		BUMP_ANGLE = 4								// Move by bumping angle up or down
 	};
 
 	void Initialize(void);
