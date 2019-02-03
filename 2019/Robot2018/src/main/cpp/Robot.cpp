@@ -31,7 +31,6 @@ std::unique_ptr<OI> Robot::oi;
 void Robot::RobotInit() {
 	std::string		nameStr;
 
-	RobotMap::init();
 	std::printf("2135: RobotInit\n");
 
 	// Create RobotConfig object to load values from file before subsystems are built
@@ -250,6 +249,7 @@ void Robot::FMSGameDataRead(void) {
 //	Fault handling utilities
 
 void Robot::RobotFaultDump(void) {
+	#if 0
 	std::shared_ptr<frc::Compressor>				pcm;
 	std::shared_ptr<frc::PowerDistributionPanel>	pdp;
 
@@ -290,6 +290,7 @@ void Robot::RobotFaultDump(void) {
 	std::printf("2135: Total Energy     %5.1f\n", pdp->GetTotalEnergy());
 	pdp->ResetTotalEnergy();
 	pdp->ClearStickyFaults();
+	#endif
 }
 
 // START_ROBOT_CLASS(Robot);
