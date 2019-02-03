@@ -44,11 +44,11 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     
 
     // Invert the direction of the motors
-    // Set to coast mode (in comparison to brake)
+    // Set to brake mode (in comparison to coast)
     // Set encoder as a CTRE magnetic in relative mode with sensor in phase with output
     if (m_talonValidL1) {
         motorL1->SetInverted(true);
-        motorL1->SetNeutralMode(NeutralMode::Coast);
+        motorL1->SetNeutralMode(NeutralMode::Brake);
         motorL1->Set(ControlMode::PercentOutput, 0.0);
         motorL1->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
         motorL1->SetSensorPhase(false);
@@ -57,13 +57,13 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
     if (m_talonValidL2) {
     	motorL2->SetInverted(true);
-        motorL2->SetNeutralMode(NeutralMode::Coast);
+        motorL2->SetNeutralMode(NeutralMode::Brake);
         motorL2->Set(ControlMode::Follower, 1);
     }
 
     if (m_talonValidR3) {
         motorR3->SetInverted(true);
-        motorR3->SetNeutralMode(NeutralMode::Coast);
+        motorR3->SetNeutralMode(NeutralMode::Brake);
         motorR3->Set(ControlMode::PercentOutput, 0.0);
         motorR3->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
         motorR3->SetSensorPhase(false);
@@ -72,7 +72,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
     if (m_talonValidR4) {
         motorR4->SetInverted(true);
-        motorR4->SetNeutralMode(NeutralMode::Coast);
+        motorR4->SetNeutralMode(NeutralMode::Brake);
         motorR4->Set(ControlMode::Follower, 3);
     }
 
@@ -185,7 +185,7 @@ void Drivetrain::MoveWithJoystick(std::shared_ptr<frc::Joystick> throttleJstick,
 	double xValue;
 	double yValue;
 
-    if (turnJstick = nullptr) {
+    if (turnJstick == nullptr) {
         xValue = throttleJstick->GetX();
 	    yValue = throttleJstick->GetZ();
     }
