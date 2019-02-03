@@ -26,7 +26,7 @@ private:
 	static const int		m_timeout = 10;					// CAN timeout in msec to wait for response
 	static const int		m_retries = 4;					// Number of version check attempts
 
-	static const int		m_reqVersion = ((4*256)+1);		// Talon SRX version is 3.8
+	static const int		m_reqVersion = ((4*256)+15);	// Talon SRX version is 4.15
 };
 
 } /* namespace frc2135 */
