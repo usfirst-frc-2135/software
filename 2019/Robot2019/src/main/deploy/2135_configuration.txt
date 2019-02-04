@@ -3,7 +3,7 @@
 # DriveTrain settings
  DT_PeakOutput = 1.00
  DT_DriveXScaling = 0.6
- DT_SeparateJoysticks = false
+ DT_SeparateJoysticks = true
 # Competition mode
 #DT_DriveYScaling = 1.00
 # Training mode
@@ -36,5 +36,4 @@
  EB_ElbowGround = 0.0
  EB_ElbowStowed = 15.0
  EB_ElbowDelivery = 45.0
-
 
