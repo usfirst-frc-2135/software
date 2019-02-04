@@ -10,7 +10,11 @@
     "**/.svn": true,
     "**/*.*~": true,
     "**/CVS": true,
-    "bin/": true
+    "bin/": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
   },
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "wpilib.online": true,
