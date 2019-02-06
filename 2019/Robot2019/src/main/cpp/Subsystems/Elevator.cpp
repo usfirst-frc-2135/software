@@ -33,19 +33,21 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("EL_CalibSpeed", m_calibrationSpeed, 0.25);
+	config->GetValueAsDouble("EL_PidMaxOut", m_pidMaxOut, 1.0);
     config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.250);
-    config->GetValueAsDouble("EL_PidMaxOut", m_pidMaxOut, 1.0);
     config->GetValueAsDouble("EL_CLRampRate", m_CLRampRate, 0.250);
     config->GetValueAsInt("EL_CLAllowedError", m_CLAllowedError, 0);
 	config->GetValueAsDouble("EL_ToleranceInches", m_toleranceInches, 2.0);
     config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 35.0);
     config->GetValueAsDouble("EL_MinHeight", m_elevatorMinHeight, 0.0);
+	config->GetValueAsDouble("EL_LowGearHeight", m_lowGearHeight, 15.00);
 	config->GetValueAsDouble("EL_BumpHeight", m_bumpHeight, 1.0);
 	config->GetValueAsDouble("EL_FloorHeight", m_floorHeight, 0.5);
-	config->GetValueAsDouble("EL_ShipHeight", m_shipHeight, 13.5);
-	config->GetValueAsDouble("EL_RocketL2Height", m_rocketL2Height, 32.0);
-	config->GetValueAsDouble("EL_RocketL3Height", m_rocketL3Height, 33.0);
-	config->GetValueAsDouble("EL_LowGearHeight", m_lowGearHeight, 15.00);
+	config->GetValueAsDouble("EL_ShipHatchHeight", m_shipHatchHeight, 13.5);
+	config->GetValueAsDouble("EL_ShipCargoHeight", m_shipCargoHeight, 18.0);
+	config->GetValueAsDouble("EL_RocketL2HatchHeight", m_rocketL2HatchHeight, 32.0);
+	config->GetValueAsDouble("EL_RocketL3HatchHeight", m_rocketL3HatchHeight, 33.0);
+	config->GetValueAsDouble("EL_RocketCargoBumpHeight", m_rocketCargoBumpHeight, 6.0);
 
     if (m_talonValidEL8) {
 	    motorEL8->SetInverted(false);			// Sets the Talon inversion to false
@@ -193,14 +195,20 @@ void Elevator::MoveToPosition(int level) {
 	case FLOOR_HEIGHT:
 		m_targetInches = m_floorHeight;
 		break;
-	case SHIP_HEIGHT:
-		m_targetInches = m_shipHeight;
+	case SHIP_HATCH_HEIGHT:
+		m_targetInches = m_shipHatchHeight;
 		break;
-	case ROCKET_L2_HEIGHT:
-		m_targetInches = m_rocketL2Height;
+	case SHIP_CARGO_HEIGHT:
+		m_targetInches = m_shipCargoHeight;
 		break;
-	case ROCKET_L3_HEIGHT:
-		m_targetInches = m_rocketL3Height;
+	case ROCKET_L2_HATCH_HEIGHT:
+		m_targetInches = m_rocketL2HatchHeight;
+		break;
+	case ROCKET_L3_HATCH_HEIGHT:
+		m_targetInches = m_rocketL3HatchHeight;
+		break;
+	case ROCKET_CARGO_BUMP_HEIGHT:
+		m_targetInches = m_rocketCargoBumpHeight;
 		break;
 	case SMARTDASH_HEIGHT:
 		m_targetInches = frc::SmartDashboard::GetNumber("EL Setpoint", 0.0);
