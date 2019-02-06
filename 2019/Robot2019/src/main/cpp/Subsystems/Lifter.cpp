@@ -51,6 +51,9 @@ Lifter::Lifter() : frc::Subsystem("Lifter") {
     if (m_talonValidLF16) {
         motorLF16->SetInverted(true);
         motorLF16->SetNeutralMode(NeutralMode::Brake);
+        motorLF16->ConfigVoltageCompSaturation(12.0, 0);
+        motorLF16->EnableVoltageCompensation(true);
+
         motorLF16->ConfigPeakOutputForward(m_driveSpeed, m_timeout);
         motorLF16->ConfigPeakOutputReverse(-m_driveSpeed, m_timeout);    
     }

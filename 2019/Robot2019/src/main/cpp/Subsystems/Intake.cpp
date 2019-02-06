@@ -49,6 +49,9 @@ Intake::Intake() : frc::Subsystem("Intake") {
 if (m_talonValidIN14) { 
     motorIN14->SetInverted(false);
     motorIN14->SetNeutralMode(NeutralMode::Brake);
+    motorIN14->ConfigVoltageCompSaturation(12.0, 0);
+    motorIN14->EnableVoltageCompensation(true);
+
     motorIN14->Set(ControlMode::PercentOutput, 0.0);
     motorIN14->ConfigPeakOutputForward(m_acquireSpeed, m_timeout);
     motorIN14->ConfigPeakOutputReverse(-m_acquireSpeed, m_timeout);

@@ -51,6 +51,9 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	    // Configure the encoder
 		motorWR12->SetInverted(false);
 	    motorWR12->SetNeutralMode(NeutralMode::Brake);
+		motorWR12->ConfigVoltageCompSaturation(12.0, 0);
+        motorWR12->EnableVoltageCompensation(true);
+
 	    motorWR12->Set(ControlMode::PercentOutput, 0.0);
 		motorWR12->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
 		motorWR12->SetSensorPhase(false);

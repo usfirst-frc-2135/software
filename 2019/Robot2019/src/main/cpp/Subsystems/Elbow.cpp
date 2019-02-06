@@ -49,6 +49,9 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 	    // Configure the encoder
 		motorEB10->SetInverted(false);
 	    motorEB10->SetNeutralMode(NeutralMode::Brake);
+		motorEB10->ConfigVoltageCompSaturation(12.0, 0);
+        motorEB10->EnableVoltageCompensation(true);
+
 	    motorEB10->Set(ControlMode::PercentOutput, 0.0);
 		motorEB10->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
 		motorEB10->SetSensorPhase(false);

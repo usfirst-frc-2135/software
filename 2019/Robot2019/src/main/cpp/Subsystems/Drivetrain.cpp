@@ -47,10 +47,14 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
     // Invert the direction of the motors
     // Set to brake mode (in comparison to coast)
+    // Set Voltage Compensation to 12V
     // Set encoder as a CTRE magnetic in relative mode with sensor in phase with output
     if (m_talonValidL1) {
         motorL1->SetInverted(true);
         motorL1->SetNeutralMode(NeutralMode::Brake);
+        motorL1->ConfigVoltageCompSaturation(12.0, 0);
+        motorL1->EnableVoltageCompensation(true);
+
         motorL1->Set(ControlMode::PercentOutput, 0.0);
         motorL1->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
         motorL1->SetSensorPhase(false);
@@ -66,6 +70,9 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     if (m_talonValidR3) {
         motorR3->SetInverted(true);
         motorR3->SetNeutralMode(NeutralMode::Brake);
+        motorL1->ConfigVoltageCompSaturation(12.0, 0);
+        motorL1->EnableVoltageCompensation(true);
+
         motorR3->Set(ControlMode::PercentOutput, 0.0);
         motorR3->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
         motorR3->SetSensorPhase(false);
