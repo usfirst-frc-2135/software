@@ -73,6 +73,9 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	    motorEL8->ConfigForwardSoftLimitEnable(true, m_timeout);
 	    motorEL8->ConfigReverseSoftLimitEnable(true, m_timeout);
 
+		motorEL8->ConfigVoltageCompSaturation(12.0, 0);
+		motorEL8->EnableVoltageCompensation(true);
+
 		motorEL8->ConfigPeakCurrentLimit(10.0, m_timeout);
 		motorEL8->EnableCurrentLimit(false);
 	}
