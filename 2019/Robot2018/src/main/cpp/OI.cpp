@@ -34,6 +34,7 @@
 #include "Commands/ElevatorBump.h"
 #include "Commands/ElevatorCalibrate.h"
 #include "Commands/ElevatorCalibrateOverride.h"
+#include "Commands/ElevatorMMRun.h"
 #include "Commands/ElevatorRun.h"
 #include "Commands/GripperRun.h"
 #include "Commands/LoadConfig.h"
@@ -113,6 +114,7 @@ OI::OI() {
     shiftSpeed->WhileHeld(new DriveShift(true));
 
     // SmartDashboard Buttons
+    frc::SmartDashboard::PutData("Elevator MM Run", new ElevatorMMRun());
     frc::SmartDashboard::PutData("Load Config", new LoadConfig());
     frc::SmartDashboard::PutData("Wrist Calibrate", new WristCalibrate());
     frc::SmartDashboard::PutData("Wrist Bump: UP", new WristBump(true));

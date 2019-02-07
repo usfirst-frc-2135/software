@@ -121,6 +121,10 @@ public:
 	bool CalibrationIsFinished(void);
 	void CalibrationStop(void);
 	void CalibrationOverride(void);
+
+	// Motion Magic Test - Moves to a Position
+	void MoveToPositionMMInit(double inches);
+	bool MoveToPositionMMIsFinished();
 };
 
 #endif
