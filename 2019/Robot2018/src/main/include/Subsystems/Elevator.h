@@ -101,7 +101,8 @@ public:
 		CLIMB_HEIGHT = 4,			//	Move to climb height to approach run
 		LEVITATE_HEIGHT = 5,		//	Move to levitate height to lift robot
 		SMARTDASH_HEIGHT = 6,		//	Move to a height prescribed on dashboard (debug only)
-		BUMP_HEIGHT = 7				//	Move by bumping height up or down
+		BUMP_HEIGHT = 7,			//	Move by bumping height up or down
+		REQUESTED_HEIGHT = 11		//  Move to requested height (set within MoveToPosition function)
 	};
 
 	void Initialize(void);
@@ -122,9 +123,6 @@ public:
 	void CalibrationStop(void);
 	void CalibrationOverride(void);
 
-	// Motion Magic Test - Moves to a Position
-	void MoveToPositionMMInit(double inches);
-	bool MoveToPositionMMIsFinished();
 };
 
 #endif

@@ -65,12 +65,14 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	    motorL7->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
 	    motorL7->SetSensorPhase(true);
 	    motorL7->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+		motorL7->SetSafetyEnabled(false);
 	}
 
 	if (m_talonValidR8) {
 	    motorR8->SetInverted(false);			// Sets the Talon inversion to false
 	    motorR8->SetNeutralMode(NeutralMode::Brake);
 	    motorR8->Set(ControlMode::Follower, 7);
+		motorR8->SetSafetyEnabled(false);
 	}
 
 	// Set maximum power and ramp rate
@@ -127,21 +129,23 @@ void Elevator::Periodic() {
 	double	outputL7 = 0.0, currentL7 = 0.0;
 	double	outputR8 = 0.0, currentR8 = 0.0;
 
-	if (m_talonValidL7) {
-		curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
-		outputL7 = motorL7->GetMotorOutputVoltage();
-		currentL7 = motorL7->GetOutputCurrent();
-	}
-
-	if (m_talonValidR8) {
-		outputR8 = motorR8->GetMotorOutputVoltage();
-		currentR8 = motorR8->GetOutputCurrent();
-	}
-
-    // Put code here to be run every loop
 	frc::SmartDashboard::PutBoolean("EL Calibrated", m_calibrated);
 	frc::SmartDashboard::PutNumber("EL Height", CountsToInches(curCounts));
+
 	if (m_elevatorDebug) {
+
+		if (m_talonValidL7) {
+			curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
+			outputL7 = motorL7->GetMotorOutputVoltage();
+			currentL7 = motorL7->GetOutputCurrent();
+		}
+
+		if (m_talonValidR8) {
+			outputR8 = motorR8->GetMotorOutputVoltage();
+			currentR8 = motorR8->GetOutputCurrent();
+		}
+
+		// Put code here to be run every loop
 		frc::SmartDashboard::PutBoolean("EL Hall Sensor", HallSensorIsTriggered());
 		frc::SmartDashboard::PutNumber("Cube Height", 2 * CountsToInches(curCounts));
 
@@ -166,6 +170,8 @@ void Elevator::Initialize(void) {
 		curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
 
 	m_targetInches = CountsToInches(curCounts);
+
+	std::printf("2135: EL Init Target Inches: %5.2f\n", m_targetInches);
 }
 
 int Elevator::InchesToCounts(double inches) {
@@ -201,6 +207,8 @@ bool Elevator::HeightLimitToLowGear() {
 
 	return (Robot::elevator->GetCurrentInches() > m_lowGearHeight);
 }
+
+#if 0
 
 //	Elevator PID loop state management
 
@@ -329,6 +337,8 @@ bool Elevator::MoveToPositionIsFinished() {
 	return pidFinished;
 }
 
+#endif
+
 // Elevator PID loop setup to do a bump movement
 
 void Elevator::BumpToPosition(bool direction) {
@@ -453,17 +463,35 @@ void Elevator::CalibrationOverride() {
 	CalibrationExecute();
 }
 
+
+#if 1
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
 
-void Elevator::MoveToPositionMMInit(double inches) {
+void Elevator::MoveToPosition(int level) {
 	int curCounts = 0;
 
-    m_targetInches = 15.0; 								// TODO: hard-coded to 15.0
+	m_elevatorLevel = level;
+
+	// Validate and set the requested position to move
+	switch (level) {
+	case NOCHANGE_HEIGHT:	// Do not change from current level!
+		// m_targetInches = m_targetInches
+		std::printf("2135: EL NO CHANGE IN HEIGHT!\n");
+		break;
+	case REQUESTED_HEIGHT:
+		m_targetInches = 10.0;
+		std::printf("2135: EL REQUESTED HEIGHT - 5 INCHES!\n");
+		break;
+	default:
+		std::printf("2135: EL invalid height requested - %d\n", level);
+		return;
+	}
+
     m_targetCounts = InchesToCounts(m_targetInches);
     std::printf("2135: EL MM Init %d counts, %5.2f inches\n", 
         (int) m_targetCounts, m_targetInches);
 	
-	if (m_calibrated = true) {
+	if (m_calibrated) {
 
 		// Constrain input request to a valid and safe range between full down and max height
 		if (m_targetInches < m_elevatorMinHeight) {
@@ -477,38 +505,27 @@ void Elevator::MoveToPositionMMInit(double inches) {
 		
 		m_targetCounts = InchesToCounts(m_targetInches);
 
-		// Get current position in inches and set position mode and target counts
+		// Get current position in inches and set target counts
 		if (m_talonValidL7)
 			curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
 		m_curInches = CountsToInches(curCounts);
 
 		//Start the safety timer.
-		m_safetyTimeout = 6.0;
+		m_safetyTimeout = 5.0;
 		m_safetyTimer.Reset();
 		m_safetyTimer.Start();
 
 		if (m_talonValidL7) {
 			motorL7->SelectProfileSlot(0, 0);
-			motorL7->Config_kF(0, 0.123679, 0);         	// TODO: test to determine
-			motorL7->Config_kP(0, 0.0, 0);			  	// TODO: test to determine
+			motorL7->Config_kF(0, 0.995136, 0);         // Based off 0.1 percent output needed to maintain elevator position
+			motorL7->Config_kP(0, 0.6, 0);			  	// TODO: test to determine // Based off previous EL_kP/4
 			motorL7->Config_kI(0, 0.0, 0);				// TODO: test to determine
 			motorL7->Config_kD(0, 0.0, 0);				// TODO: test to determine
-			motorL7->ConfigMotionCruiseVelocity(410);  // Set to move at 4 in/s
-			motorL7->ConfigMotionAcceleration(410);	// Accelerates to max velocity over 1 second
-		}
-
-		if (m_talonValidR8) {
-			motorR8->SelectProfileSlot(0, 0);
-			motorR8->Config_kF(0, 0.123679, 0);         	// TODO: test to determine
-			motorR8->Config_kP(0, 0.0, 0);			  	// TODO: test to determine
-			motorR8->Config_kI(0, 0.0, 0);				// TODO: test to determine
-			motorR8->Config_kD(0, 0.0, 0);				// TODO: test to determine
-			motorR8->ConfigMotionCruiseVelocity(410);  // Set to move at 4 in/s
-			motorR8->ConfigMotionAcceleration(410);	// Accelerates to max velocity over 1 second
+			motorL7->ConfigMotionCruiseVelocity(820);  	// Set to move at 4 in/s
+			motorL7->ConfigMotionAcceleration(1640);		// Accelerates to max velocity in 1/2 seconds
 		}
 
 		motorL7->Set(ControlMode::MotionMagic, m_targetCounts);
-		motorR8->Set(ControlMode::MotionMagic, m_targetCounts);
 
 		std::printf("2135: EL MM Move inches %f -> %f counts %d -> %d\n",
 				m_curInches, m_targetInches, curCounts, m_targetCounts);
@@ -523,7 +540,7 @@ void Elevator::MoveToPositionMMInit(double inches) {
 	}	
 }
 
-bool Elevator::MoveToPositionMMIsFinished() {
+bool Elevator::MoveToPositionIsFinished() {
     bool mmIsFinished = false;
     int curCounts = 0;
     double motorOutputL = 0.0;
@@ -532,40 +549,43 @@ bool Elevator::MoveToPositionMMIsFinished() {
 	double motorAmpsR = 0.0;
     double errorInInches = 0.0;
 
-    if (m_talonValidL7) {
-        curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
-        motorOutputL = motorL7->GetMotorOutputPercent();
-        motorAmpsL = motorL7->GetOutputCurrent();
-    }
-	if (m_talonValidR8) {
-        curCounts = motorR8->GetSelectedSensorPosition(m_pidIndex);
-        motorOutputR = motorR8->GetMotorOutputPercent();
-        motorAmpsR = motorR8->GetOutputCurrent();
-    }
+	if (m_elevatorLevel != NOCHANGE_HEIGHT) {
+		m_toleranceInches = 0.5;             // tolerance
 
-	double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
+		if (m_talonValidL7) {
+			curCounts = motorL7->GetSelectedSensorPosition(m_pidIndex);
+			motorOutputL = motorL7->GetMotorOutputPercent();
+			motorAmpsL = motorL7->GetOutputCurrent();
+		}
+		if (m_talonValidR8) {
+			motorOutputR = motorR8->GetMotorOutputPercent();
+			motorAmpsR = motorR8->GetOutputCurrent();
+		}
 
-    errorInInches = CountsToInches(m_targetCounts- curCounts);
+		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
-	// cts = Encoder Counts, error = Error In Inches, Out = Motor Output
-	std::printf("2135: EL MM %5.3f cts %d, in %5.2f, error %5.2f, Out %4.2f %4.2f, Amps %6.3f %6.3f\n", 
-		secs, curCounts, CountsToInches(curCounts), errorInInches, motorOutputL, motorOutputR, motorAmpsL, motorAmpsR);
+		errorInInches = CountsToInches(m_targetCounts - curCounts);
 
-    m_toleranceInches = 1.0;             // tolerance
+		// cts = Encoder Counts, error = Error In Inches, Out = Motor Output
+		std::printf("2135: EL MM %5.3f cts %d, in %5.2f, error %5.2f, Out %4.2f %4.2f, Amps %6.3f %6.3f\n", 
+			secs, curCounts, CountsToInches(curCounts), errorInInches, motorOutputL, motorOutputR, motorAmpsL, motorAmpsR);
 
-	// Check to see if the error is in an acceptable number of inches.
-    if (fabs(errorInInches) < m_toleranceInches) {
-        mmIsFinished = true;
-		m_safetyTimer.Stop();
-		std::printf("2135: EL MM Move Finished - Time %f\n", m_safetyTimer.Get());
-    }
-	
-	// Check to see if the Safety Timer has timed out.
-	if (m_safetyTimer.Get() >= m_safetyTimeout) {
-		mmIsFinished = true;
-		m_safetyTimer.Stop();
-		std::printf("2135: EL Move Safety timer has timed out\n");
+		// Check to see if the error is in an acceptable number of inches.
+		if (fabs(errorInInches) < m_toleranceInches) {
+			mmIsFinished = true;
+			m_safetyTimer.Stop();
+			std::printf("2135: EL MM Move Finished - Time %f\n", m_safetyTimer.Get());
+		}
+		
+		// Check to see if the Safety Timer has timed out.
+		if (m_safetyTimer.Get() >= m_safetyTimeout) {
+			mmIsFinished = true;
+			m_safetyTimer.Stop();
+			std::printf("2135: EL Move Safety timer has timed out\n");
+		}
 	}
 
     return mmIsFinished;
 }
+
+#endif
