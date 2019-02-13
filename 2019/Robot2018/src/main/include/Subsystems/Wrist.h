@@ -48,7 +48,8 @@ private:
 	int				m_targetCounts;					// Target encoder counts of angle that are requested of the wrist
 	double			m_curDegrees;
 	bool			m_bumpDir;						// State variable for bumping up or down
-
+	bool			m_calibrated;				
+	
 	frc::Timer		m_safetyTimer;					// Safety timer for use in Wrist
 	double			m_safetyTimeout;				// Seconds that the timer ran before stopping
 
