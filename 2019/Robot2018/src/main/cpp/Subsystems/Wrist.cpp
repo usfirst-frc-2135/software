@@ -82,13 +82,14 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	}
 
 	//Initialize Variables
+	m_calibrated = false;
     m_targetDegrees = m_curDegrees;
     m_targetCounts = DegreesToCounts(m_curDegrees);
 
     // Field for manually progamming elevator height
 	frc::SmartDashboard::PutNumber("WR Setpoint", m_curDegrees);
 
-	frc::SmartDashboard::PutBoolean("WR Calibrated", false);
+	frc::SmartDashboard::PutBoolean("WR Calibrated", m_calibrated);
 }
 
 void Wrist::InitDefaultCommand() {
@@ -106,6 +107,8 @@ void Wrist::Periodic() {
     // Put code here to be run every loop
 	int		curCounts = 0;
 	double	outputW14 = 0.0, currentW14 = 0.0;
+
+	frc::SmartDashboard::PutBoolean("WR Calibrated", m_calibrated);
 
 	if (m_talonValidW14) {
 		curCounts = motorW14->GetSelectedSensorPosition(m_pidIndex);
@@ -164,7 +167,7 @@ double Wrist::GetCurrentDegrees() {
 	m_curDegrees = CountsToDegrees(curCounts);
 	return m_curDegrees;
 }
-
+#if 0
 void Wrist::MoveToPosition(int level)
 {
 	int curCounts = 0;
@@ -270,7 +273,7 @@ bool Wrist::MoveToPositionIsFinished(void) {
 
 	return pidFinished;
 }
-
+#endif
 void Wrist::BumpToPosition(bool direction) {
 	m_bumpDir = direction;
 
@@ -281,6 +284,135 @@ void Wrist::Calibrate() {
 
 	if (m_talonValidW14)
 		motorW14->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
-
-	frc::SmartDashboard::PutBoolean("WR Calibrated", true);
+	m_calibrated = true;
+	frc::SmartDashboard::PutBoolean("WR Calibrated", m_calibrated);
 }
+
+#if 1
+/////////////////////////// MOTION MAGIC/////////////////////////
+
+void Wrist::MoveToPosition(int level)
+{
+	int curCounts = 0;
+
+	m_wristLevel = level;
+
+	// Validate and set the requested level to move
+	switch (level) {
+	case WRIST_NOCHANGE:	// Do not change from current level!
+		// m_targetDegrees = m_targetDegrees;
+		break;
+	case WRIST_FLAT:
+		m_targetDegrees = m_flatAngle;
+		break;
+	case WRIST_DELIVER:
+		m_targetDegrees = m_deliveryAngle;
+		break;
+	case WRIST_STOWED:
+		m_targetDegrees = m_stowedAngle;
+		break;
+	case WRIST_SMARTDASH:
+		m_targetDegrees = frc::SmartDashboard::GetNumber("WR Setpoint", 0.0);
+		break;
+	case BUMP_ANGLE:
+		double bumpAngle;
+		bumpAngle = (m_bumpDir) ? m_bumpAngle : -m_bumpAngle;
+		m_targetDegrees += bumpAngle;
+		break;
+	default:
+		std::printf("2135: WR invalid angle requested - %d\n", level);
+		return;
+	}
+
+	
+	// Constrain input request to a valid and safe range between full down and max height
+	std::printf("2135: WR m_targetDegrees: %f, counts: %d\n",
+			m_targetDegrees, DegreesToCounts(m_targetDegrees));
+if (m_calibrated) {
+
+
+	if (m_targetDegrees > CountsToDegrees(m_wristMinCounts)) {
+		std::printf("2135: WR m_targetDegrees limited by m_wristMinCounts %d\n", m_wristMinCounts);
+		m_targetDegrees = CountsToDegrees(m_wristMinCounts);
+	}
+	if (m_targetDegrees < CountsToDegrees(m_wristMaxCounts)) {
+		std::printf("2135: WR m_targetDegrees limited by m_wristMaxCounts %d\n", m_wristMaxCounts);
+		m_targetDegrees = CountsToDegrees(m_wristMaxCounts);
+	}
+
+	m_targetCounts = DegreesToCounts(m_targetDegrees);
+	std::printf("2135: WR MM Init %d counts, %5.3f degrees\n", (int) m_targetCounts, m_targetDegrees);
+	
+	if (m_talonValidW14)
+		curCounts = motorW14->GetSelectedSensorPosition(m_pidIndex);
+	m_curDegrees = CountsToDegrees(curCounts);
+
+	//Start the safety timer.
+	m_safetyTimeout = 2.0;
+	m_safetyTimer.Reset();
+	m_safetyTimer.Start();
+
+	if (m_talonValidW14) {
+		motorW14->SelectProfileSlot(0, 0);
+		motorW14->Config_kF(0, 0.7, 0);
+		motorW14->Config_kP(0, 0.0, 0);
+		motorW14->Config_kI(0, 0.0, 0);
+		motorW14->Config_kD(0, 0.0, 0);
+		motorW14->ConfigMotionCruiseVelocity(410);
+		motorW14->ConfigMotionAcceleration(410);
+	}
+
+	motorW14->Set(ControlMode::MotionMagic, m_targetCounts);
+
+	std::printf("2135: WR MM Move degrees %f -> %f counts %d -> %d\n", 
+			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
+}
+else {
+	std::printf("2135: WR is not calibrated\n");
+
+	if (m_talonValidW14) 
+		motorW14->Set(ControlMode::PercentOutput, 0.0);
+}
+}
+
+bool Wrist::MoveToPositionIsFinished(void) {
+	bool mmisFinished = false;
+	int curCounts = 0;
+	int closedLoopError = 0;
+	double motorOutput = 0.0;
+	double errorInDegrees = 0.0;
+
+	// If a real move was requested, check for completion
+	if (m_wristLevel != WRIST_NOCHANGE) {
+		if (m_talonValidW14) {
+			curCounts = motorW14->GetSelectedSensorPosition(m_pidIndex);
+			motorOutput = motorW14->GetMotorOutputPercent();
+		}
+
+		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
+
+		closedLoopError = m_targetCounts - curCounts;
+		errorInDegrees = CountsToDegrees(closedLoopError);
+
+		// cts = Encoder Counts, CLE = Closed Loop Error, Out = Motor Output
+		std::printf("2135: WR %5.3f cts %d, deg %4.1f, CLE %d, Out %4.2f\n", secs,
+				curCounts, CountsToDegrees(curCounts), closedLoopError, motorOutput);
+
+		// Check to see if the error is in an acceptable number of inches.
+		if (fabs(errorInDegrees < m_toleranceDegrees)) {
+			mmisFinished = true;
+			m_safetyTimer.Stop();
+			std::printf("2135: WR Move Finished - Time %f\n", m_safetyTimer.Get());
+		}
+
+		// Check to see if the Safety Timer has timed out.
+		if (m_safetyTimer.Get() >= m_safetyTimeout) {
+			mmisFinished = true;
+			m_safetyTimer.Stop();
+			std::printf("2135: WR Move Safety timer has timed out\n");
+		}
+	}
+
+	return mmisFinished;
+}
+#endif
