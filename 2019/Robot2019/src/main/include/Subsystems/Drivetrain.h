@@ -17,6 +17,7 @@
 
 #include "frc2135/TalonSRXUtils.h"
 #include "frc2135/RobotConfig.h"
+#include "frc2135/PIDOutputDriveTurn.h"
 
 /**
  *
@@ -66,6 +67,13 @@ private:
 	double	m_distTargetCounts;		// Drive to Position target counts value
 	double 	m_distTolInches;		// Tolerated error for MM PID loop
 
+	double 	m_turnAngle;			// Desired turn angle from present course
+	double	m_turnTolDeg;			// DriveTurn tolerance in degrees
+	double 	m_turnKp;				// Proportional value for PID for DriveTurn function
+	double 	m_turnMaxOut;			// Max motor output value for PID for DriveTurn function
+
+	PIDOutputDriveTurn	*driveTurnPIDOutput;	// Drive turn to angle with gyro
+	frc::PIDController	*driveTurnPIDLoop;		// Drive turn PID control
 
 public:
 	Drivetrain();
@@ -93,6 +101,11 @@ public:
 	void MoveDriveDistanceMMExecute();
 	bool MoveDriveDistanceMMIsFinished();
 	void MoveDriveDistanceMMEnd();
+
+	void MoveDriveTurnPIDInit(double angle);
+    void MoveDriveTurnPIDExecute();
+    bool MoveDriveTurnPIDIsFinished();
+    void MoveDriveTurnPIDStop();
 };
 
 #endif
