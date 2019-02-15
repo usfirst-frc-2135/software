@@ -59,9 +59,11 @@ private:
 	bool	m_lowGear;				// Low Gear or High Gear
 	bool 	m_brakeMode;			// Brake or Coast Mode for Talons
 
-	double 	m_distTargetInches;		// inches to target
-	double	m_distTargetCounts;		// counts to target
+	frc::Timer 	m_safetyTimer;		// Safety timer for use during autonomous modes
+	double  m_safetyTimeout; 		// Time in seconds for safety timer
 
+	double 	m_distTargetInches;		// Drive to Position target inches value
+	double	m_distTargetCounts;		// Drive to Position target counts value
 	double 	m_distTolInches;		// Tolerated error for MM PID loop
 
 
@@ -87,10 +89,10 @@ public:
 	double CountsToInches(int counts);
 
 	// Motion Magic Test - Moves to a Position
-	void DriveToPositionMMInit(double inches);
-	void DriveToPositionMMExecute();
-	bool DriveToPositionMMIsFinished();
-	void DriveToPositionMMEnd();
+	void MoveDriveDistanceMMInit(double inches);
+	void MoveDriveDistanceMMExecute();
+	bool MoveDriveDistanceMMIsFinished();
+	void MoveDriveDistanceMMEnd();
 };
 
 #endif

@@ -259,7 +259,7 @@ double Drivetrain::CountsToInches(int counts) {
 
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
 
-void Drivetrain::DriveToPositionMMInit(double inches) {
+void Drivetrain::MoveDriveDistanceMMInit(double inches) {
     m_distTargetInches = 60.0; // TODO: hardwired to 36.0 inches for now // inches;
     m_distTargetCounts = round(m_distTargetInches * CountsPerInch);
     std::printf("2135: DTDD Init %d counts, %5.2f inches, %5.2f CountsPerInch\n", 
@@ -301,11 +301,11 @@ void Drivetrain::DriveToPositionMMInit(double inches) {
      motorR3->Set(ControlMode::MotionMagic, -m_distTargetCounts);
 }
 
-void Drivetrain::DriveToPositionMMExecute() {
+void Drivetrain::MoveDriveDistanceMMExecute() {
     // Internal; Talon
 }
 
-bool Drivetrain::DriveToPositionMMIsFinished() {
+bool Drivetrain::MoveDriveDistanceMMIsFinished() {
     bool mmIsFinished = false;
     int curCounts_L = 0;
     int curCounts_R = 0;
@@ -337,19 +337,28 @@ bool Drivetrain::DriveToPositionMMIsFinished() {
     errorInInches_L = CountsToInches(m_distTargetCounts - curCounts_L);
     errorInInches_R = CountsToInches(-m_distTargetCounts - curCounts_R);
 
+    double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
+	std::printf("2135: DTDD %6.3f LR encCts %5d %5d Out %5.3f %5.3f Amps %6.3f %6.3f %6.3f %6.3f\n",
+		secs, curCounts_L, -curCounts_R, motorOutput_L, -motorOutput_R, motorAmps_L1, motorAmps_L2, motorAmps_R3, motorAmps_R4);
+
     m_distTolInches = 2.0;              // tolerance
 
+    // Check to see if the error is in an acceptable number of inches.
     if (/*(fabs(errorInInches_L) < m_distTolInches) &&*/ (fabs(errorInInches_R) < m_distTolInches)) {
         mmIsFinished = true;
     }
 
-	double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
-	std::printf("2135: DTDD %6.3f LR encCts %5d %5d Out %5.3f %5.3f Amps %6.3f %6.3f %6.3f %6.3f\n",
-				secs, curCounts_L, -curCounts_R, motorOutput_L, -motorOutput_R, motorAmps_L1, motorAmps_L2, motorAmps_R3, motorAmps_R4);
+    // Check to see if the Safety Timer has timed out.
+	if (m_safetyTimer.Get() >= m_safetyTimeout) {
+		mmIsFinished = true;
+		m_safetyTimer.Stop();
+		std::printf("2135: EL Move Safety timer has timed out\n");
+	}
+
     return mmIsFinished;
 }
 
-void Drivetrain::DriveToPositionMMEnd() {
+void Drivetrain::MoveDriveDistanceMMEnd() {
     motorL1->Set(ControlMode::PercentOutput, 0.0);
     motorR3->Set(ControlMode::PercentOutput, 0.0);
 
