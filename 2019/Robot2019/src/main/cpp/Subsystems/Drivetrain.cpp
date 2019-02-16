@@ -259,7 +259,7 @@ double Drivetrain::CountsToInches(int counts) {
 
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
 
-void Drivetrain::DriveToPositionMMInit(double inches) {
+void Drivetrain::MoveDriveDistanceMMInit(double inches) {
     m_distTargetInches = 60.0; // TODO: hardwired to 36.0 inches for now // inches;
     m_distTargetCounts = round(m_distTargetInches * CountsPerInch);
     std::printf("2135: DTDD Init %d counts, %5.2f inches, %5.2f CountsPerInch\n", 
@@ -301,11 +301,11 @@ void Drivetrain::DriveToPositionMMInit(double inches) {
      motorR3->Set(ControlMode::MotionMagic, -m_distTargetCounts);
 }
 
-void Drivetrain::DriveToPositionMMExecute() {
+void Drivetrain::MoveDriveDistanceMMExecute() {
     // Internal; Talon
 }
 
-bool Drivetrain::DriveToPositionMMIsFinished() {
+bool Drivetrain::MoveDriveDistanceMMIsFinished() {
     bool mmIsFinished = false;
     int curCounts_L = 0;
     int curCounts_R = 0;
@@ -337,21 +337,138 @@ bool Drivetrain::DriveToPositionMMIsFinished() {
     errorInInches_L = CountsToInches(m_distTargetCounts - curCounts_L);
     errorInInches_R = CountsToInches(-m_distTargetCounts - curCounts_R);
 
+    double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
+	std::printf("2135: DTDD %6.3f LR encCts %5d %5d Out %5.3f %5.3f Amps %6.3f %6.3f %6.3f %6.3f\n",
+		secs, curCounts_L, -curCounts_R, motorOutput_L, -motorOutput_R, motorAmps_L1, motorAmps_L2, motorAmps_R3, motorAmps_R4);
+
     m_distTolInches = 2.0;              // tolerance
 
+    // Check to see if the error is in an acceptable number of inches.
     if (/*(fabs(errorInInches_L) < m_distTolInches) &&*/ (fabs(errorInInches_R) < m_distTolInches)) {
         mmIsFinished = true;
     }
 
-	double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
-	std::printf("2135: DTDD %6.3f LR encCts %5d %5d Out %5.3f %5.3f Amps %6.3f %6.3f %6.3f %6.3f\n",
-				secs, curCounts_L, -curCounts_R, motorOutput_L, -motorOutput_R, motorAmps_L1, motorAmps_L2, motorAmps_R3, motorAmps_R4);
+    // Check to see if the Safety Timer has timed out.
+	if (m_safetyTimer.Get() >= m_safetyTimeout) {
+		mmIsFinished = true;
+		m_safetyTimer.Stop();
+		std::printf("2135: EL Move Safety timer has timed out\n");
+	}
+
     return mmIsFinished;
 }
 
-void Drivetrain::DriveToPositionMMEnd() {
+void Drivetrain::MoveDriveDistanceMMEnd() {
     motorL1->Set(ControlMode::PercentOutput, 0.0);
     motorR3->Set(ControlMode::PercentOutput, 0.0);
 
     diffDrive->SetSafetyEnabled(true);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+// Autonomous turn PID initialization and setup
+
+void Drivetrain::MoveDriveTurnPIDInit(double angle) {
+	m_turnAngle = angle;
+	std::printf("2135: DTDT Init %f degrees\n", m_turnAngle);
+
+	// Initialize the encoders to start movement at reference of zero counts
+	if (m_talonValidL1)
+		motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	if (m_talonValidR3)
+		motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+
+	pigeonIMU->SetYaw(0.0, 0);
+	driveTurnPIDLoop->SetSetpoint(angle);
+	driveTurnPIDLoop->Enable();
+
+	// Disable motor safety helper during PID
+   	diffDrive->SetSafetyEnabled(false);
+
+	// Start safety timer with 1.0 sec padding (45 deg -> 0.75 sec, 90 deg -> 1.30 sec)
+	m_safetyTimeout = (fabs(m_turnAngle) * 0.020) + 1.0;
+	m_safetyTimer.Reset();
+	m_safetyTimer.Start();
+}
+
+// Autonomous turn PID periodic execution
+
+void Drivetrain::MoveDriveTurnPIDExecute(void) {
+	// No work needed since done by PID controller
+}
+
+// Autonomous turn PID setpoint monitoring
+
+bool Drivetrain::MoveDriveTurnPIDIsFinished(void) {
+	bool pidFinished = false;
+	int curCounts_L = 0;
+	int curCounts_R = 0;
+	double motorOutput_L = 0.0;
+	double motorOutput_R = 0.0;
+	double curAngle = 0.0;
+	double errorInDegrees = 0.0;
+
+	if (m_talonValidL1) {
+		curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
+		motorOutput_L = motorL1->GetMotorOutputPercent();
+	}
+	if (m_talonValidR3) {
+		curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
+		motorOutput_R = motorR3->GetMotorOutputPercent();
+	}
+	curAngle = (double)pigeonIMU->GetYawPitchRoll(0);
+
+	errorInDegrees = m_turnAngle - curAngle;
+
+	double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
+	std::printf("2135: DTDT %5.3f deg %4.2f -> %4.2f (err %4.2f) cts %5d %5d Out %4.2f %4.2f\n",
+			secs, curAngle, m_turnAngle, errorInDegrees,
+			curCounts_L, curCounts_R, motorOutput_L, motorOutput_R);
+
+	if (driveTurnPIDLoop->OnTarget())
+		pidFinished = true;
+
+	// Check to see if the Safety Timer has timed out.
+	if (m_safetyTimer.Get() >= m_safetyTimeout) {
+		std::printf("2135: DTDT Safety timer has timed out\n");
+		pidFinished = true;
+	}
+
+	// If on target or safety time has expired
+	return pidFinished;
+}
+
+// Autonomous turn PID to clean up after reaching the target position
+
+void Drivetrain::MoveDriveTurnPIDStop(void) {
+	int curCounts_L = 0;
+	int curCounts_R = 0;
+	double motorOutput_L = 0.0;
+	double motorOutput_R = 0.0;
+	double curAngle = 0.0;
+	double errorInDegrees = 0.0;
+
+	// Stop the safety timer
+	std::printf("2135: DTDT TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
+	m_safetyTimer.Stop();
+
+	driveTurnPIDLoop->Disable();
+	curAngle = (double)pigeonIMU->GetYawPitchRoll(0);
+
+	// Re-enable the motor safety helper
+    if (m_talonValidL1 && m_talonValidR3)
+    	diffDrive->SetSafetyEnabled(true);
+
+	// Snapshot of results to SmartDashboard
+//	frc::SmartDashboard::PutNumber("DT DEG", curAngle);
+//	frc::SmartDashboard::PutNumber("DT TIME", m_safetyTimer.Get());
+
+	errorInDegrees = m_turnAngle - curAngle;
+
+	// Print final results to console
+	double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
+	std::printf("2135: DTDT %5.3f deg %4.2f -> %4.2f (err %4.2f) cts %5d %5d Out %4.2f %4.2f\n",
+			secs, curAngle, m_turnAngle, errorInDegrees,
+			curCounts_L, curCounts_R, motorOutput_L, motorOutput_R);
 }

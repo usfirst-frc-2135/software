@@ -26,28 +26,28 @@ DriveMMDistance::DriveMMDistance(double dist): frc::Command() {
 // Called just before this Command runs the first time
 void DriveMMDistance::Initialize() {
     std::printf("2135: DriveMMDistance Initialize\n");
-    Robot::drivetrain->DriveToPositionMMInit(m_dist);
+    Robot::drivetrain->MoveDriveDistanceMMInit(m_dist);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveMMDistance::Execute() {
-    Robot::drivetrain->DriveToPositionMMExecute();
+    Robot::drivetrain->MoveDriveDistanceMMExecute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveMMDistance::IsFinished() {
-    return Robot::drivetrain->DriveToPositionMMIsFinished();
+    return Robot::drivetrain->MoveDriveDistanceMMIsFinished();
 }
 
 // Called once after isFinished returns true
 void DriveMMDistance::End() {
     std::printf("2135: DriveMMDistance End\n");
-    Robot::drivetrain->DriveToPositionMMEnd();
+    Robot::drivetrain->MoveDriveDistanceMMEnd();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveMMDistance::Interrupted() {
     std::printf("2135: DriveMMDistance Interrupted\n");
-    Robot::drivetrain->DriveToPositionMMEnd();
+    Robot::drivetrain->MoveDriveDistanceMMEnd();
 }
