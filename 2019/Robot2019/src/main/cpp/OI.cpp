@@ -58,7 +58,7 @@ OI::OI() {
     elevatorBumpDown.reset(new frc::JoystickButton(controlBoard.get(), 5));
     elevatorBumpDown->WhileHeld(new ElevatorBump(false));
     gPShifter.reset(new frc::JoystickButton(controlBoard.get(), 3));
-    gPShifter->WhileHeld(new GPShift(true));
+    gPShifter->WhileHeld(new GPShift());
     elevatorBumpUp.reset(new frc::JoystickButton(controlBoard.get(), 4));
     elevatorBumpUp->WhileHeld(new ElevatorBump(false));
     intakePanelDeliver.reset(new frc::JoystickButton(controlBoard.get(), 2));

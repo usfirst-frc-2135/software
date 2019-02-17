@@ -661,9 +661,7 @@ Children:
           default: []
           name: Parameters
           validators: null
-          value:
-          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: cargo,
-            type: boolean, value: 'true'}
+          value: []
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id012
           default: '1'
@@ -2130,8 +2128,7 @@ Children:
         default: []
         name: Parameters
         validators: null
-        value:
-        - !!robotbuilder.data.properties.ParameterDescriptor {name: cargo, type: boolean}
+        value: []
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
