@@ -1,23 +1,24 @@
 /*
  * PIDOutputDriveTurn.h
  *
- *  Created on: Jan 28, 2018
- *      Author: Administrator
+ *  Created on: Nov 22, 2017
+ *      Author: jeffmullins
  */
 
-#ifndef SRC_FRC2135_PIDOUTPUTDRIVETURN_H_
-#define SRC_FRC2135_PIDOUTPUTDRIVETURN_H_
+#ifndef SRC_SUBSYSTEMS_PIDOUTPUTDRIVETURN_H_
+#define SRC_SUBSYSTEMS_PIDOUTPUTDRIVETURN_H_
 
-#include "frc/WPILib.h" // To use the WPI Library
+#include "frc/WPILib.h"
+#include "../RobotDefaults.h"
 
 class PIDOutputDriveTurn: public frc::PIDOutput {
 private:
-	std::shared_ptr<frc::DifferentialDrive> m_robotDrive; // Uses robotDrive motors
+	std::shared_ptr<frc::DifferentialDrive> m_robotDrive;
 
 public:
-	PIDOutputDriveTurn(std::shared_ptr<frc::DifferentialDrive> robotDrive);
-	virtual ~PIDOutputDriveTurn(void);
+	PIDOutputDriveTurn(std::shared_ptr<frc::DifferentialDrive> rDrive);
+	virtual ~PIDOutputDriveTurn();
 	void PIDWrite(double output);
 };
 
-#endif /* SRC_FRC2135_PIDOUTPUTDRIVETURN_H_ */
+#endif /* SRC_SUBSYSTEMS_PIDOUTPUTDRIVETURN_H_ */

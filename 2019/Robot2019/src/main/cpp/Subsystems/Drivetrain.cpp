@@ -257,6 +257,17 @@ double Drivetrain::CountsToInches(int counts) {
 	return inches;
 }
 
+double Drivetrain::GetAngle() {
+    return (double)pigeonIMU->GetYawPitchRoll(0);
+}
+
+double Drivetrain::GetEncoderPosition(int motorID) {
+    if (motorID == 1)
+        return motorL1->GetSelectedSensorPosition(0);
+    if (motorID == 3)
+        return motorR3->GetSelectedSensorPosition(0);
+}
+
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
 
 void Drivetrain::MoveDriveDistanceMMInit(double inches) {
