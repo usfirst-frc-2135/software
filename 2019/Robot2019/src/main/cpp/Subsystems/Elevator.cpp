@@ -453,7 +453,6 @@ void Elevator::MoveToPositionInit(int level) {
 		if (m_talonValidEL7)
 			motorEL7->Set(ControlMode::PercentOutput, 0.0);
 	}
-	
 }
 
 bool Elevator::MoveToPositionIsFinished() {

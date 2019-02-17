@@ -51,8 +51,8 @@ OI::OI() {
     wristBumpDown->WhileHeld(new WristBump(false));
     wristBumpUp.reset(new frc::JoystickButton(controlBoard.get(), 8));
     wristBumpUp->WhileHeld(new WristBump(false));
-    ebowBumpDown.reset(new frc::JoystickButton(controlBoard.get(), 7));
-    ebowBumpDown->WhileHeld(new ElbowBump(false));
+    elbowBumpDown.reset(new frc::JoystickButton(controlBoard.get(), 7));
+    elbowBumpDown->WhileHeld(new ElbowBump(false));
     elbowBumpUp.reset(new frc::JoystickButton(controlBoard.get(), 6));
     elbowBumpUp->WhileHeld(new ElbowBump(false));
     elevatorBumpDown.reset(new frc::JoystickButton(controlBoard.get(), 5));

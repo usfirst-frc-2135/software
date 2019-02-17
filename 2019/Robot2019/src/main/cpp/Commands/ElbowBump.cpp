@@ -26,7 +26,7 @@ ElbowBump::ElbowBump(bool direction): frc::Command() {
 // Called just before this Command runs the first time
 void ElbowBump::Initialize() {
     std::printf("2135: ElbowBump %s - Init\n", (m_direction) ? "UP" : "DOWN");
-    Robot::elbow->BumpToPosition();
+    Robot::elbow->BumpToPosition(m_direction);
 }
 
 // Called repeatedly when this Command is scheduled to run

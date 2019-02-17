@@ -776,7 +776,7 @@ Children:
           validators: null
           value: whileHeld
       Base: Joystick Button
-      Name: Ebow Bump Down
+      Name: Elbow Bump Down
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
