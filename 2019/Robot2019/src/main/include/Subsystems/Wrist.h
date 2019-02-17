@@ -52,6 +52,8 @@ private:
 	frc::Timer		m_safetyTimer;					// Safety timer for use in Wrist
 	double			m_safetyTimeout;				// Seconds that the timer ran before stopping
 
+	bool			m_gamePiece;					// Indicates whether the game piece is cargo or hatch panel. True means cargo; false means hatch panel.
+
 	// Configuration file parameters
 	double 			m_pidMaxOut;					// Wrist maximum speed during movement
 	double			m_pidKp;						// Wrist PID proportional constant
@@ -61,9 +63,12 @@ private:
 	int				m_wristMaxCounts;				// Wrist maximum allowable counts
 	int				m_wristMinCounts;				// Wrist minimum allowable counts
 	double			m_bumpAngle;					// Incremental angle when bumping the wrist up/down
-	double			m_groundAngle;					// Setpoint for floor level (full down)
-	double 			m_stowedAngle; 					// Setpoint for full up
-	double 			m_deliveryAngle; 				// Setpoint to deliver to the cargoship or rocket
+
+	double			m_groundCargoAngle;				// Setpoint for floor level (tilted for cargo pickup)
+	double			m_groundHatchAngle;				// Setpoint for floor level (full down for hatch pickup)
+	double			m_deliveryCargoAngle;			// Setpoint for cargo delivery (tilted)
+	double			m_deliveryHatchAngle;			// Setpoint for hatch delivery (perpendicular to floor)
+	double 			m_stowedAngle; 					// Setpoint for fully up
 
 public:
 	Wrist();
@@ -93,6 +98,9 @@ public:
 	void BumpToPosition(bool direction);
 
 	void Calibrate();
+
+	void SetGamePiece(bool setting);
+
 };
 
 #endif

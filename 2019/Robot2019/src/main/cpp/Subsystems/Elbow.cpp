@@ -37,9 +37,11 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
     config->GetValueAsInt("EB_MaxCounts", m_elbowMaxCounts, 0);
     config->GetValueAsInt("EB_MinCounts", m_elbowMinCounts, -1800);
 	config->GetValueAsDouble("EB_BumpAngle", m_bumpAngle, 10.0);
-	config->GetValueAsDouble("EB_GroundAngle", m_groundAngle, 0.0);
+	config->GetValueAsDouble("EB_GroundCargoAngle", m_groundCargoAngle, 0.0);
+	config->GetValueAsDouble("EB_GroundHatchAngle", m_groundHatchAngle, 0.0);
 	config->GetValueAsDouble("EB_StowedAngle", m_stowedAngle, 15.0);
-	config->GetValueAsDouble("EB_DeliveryAngle", m_deliveryAngle, 45.0);
+	config->GetValueAsDouble("EB_DeliveryCargoAngle", m_deliveryCargoAngle, 45.0);
+	config->GetValueAsDouble("EB_DeliveryHatchAngle", m_deliveryHatchAngle, 45.0);
 	// config->GetValueAsDouble("EB_ElbowFlat", m_flatAngle, 5.0);
 
      if (m_talonValidEB10) {
@@ -134,6 +136,8 @@ void Elbow::Initialize(void) {
 		curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
 
 	m_targetDegrees = CountsToDegrees(curCounts);
+
+	m_gamePiece = false;
 }
 
 int Elbow::DegreesToCounts(double degrees) {
@@ -174,13 +178,13 @@ void Elbow::MoveToPosition(int level)
 		// m_targetDegrees = m_targetDegrees;
 		break;
 	case ELBOW_GROUND:
-		m_targetDegrees = m_groundAngle;
+		m_targetDegrees = (m_gamePiece) ? m_groundCargoAngle : m_groundHatchAngle;
 	 	break;
 	case ELBOW_STOWED:
 		m_targetDegrees = m_stowedAngle;
 		break;
 	case ELBOW_DELIVER:
-		m_targetDegrees = m_deliveryAngle;
+		m_targetDegrees = (m_gamePiece) ? m_deliveryCargoAngle : m_deliveryHatchAngle;
 	case ELBOW_SMARTDASH:
 		m_targetDegrees = frc::SmartDashboard::GetNumber("EB Setpoint", 0.0);
 		break;
@@ -281,5 +285,8 @@ void Elbow::Calibrate() {
 	frc::SmartDashboard::PutBoolean("EB Calibrated", true);
 }
 
+void Elbow::SetGamePiece(bool setting) {
+	m_gamePiece = setting;
+}
 
 

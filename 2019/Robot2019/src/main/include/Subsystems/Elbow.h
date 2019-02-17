@@ -51,6 +51,8 @@ private:
 	frc::Timer		m_safetyTimer;					// Safety timer for use in Elbow
 	double			m_safetyTimeout;				// Seconds that the timer ran before stopping
 
+	bool			m_gamePiece;					// Indicates whether the game piece is cargo or hatch panel. True means cargo; false means hatch panel.
+
 	// Configuration file parameters
 	double 			m_pidMaxOut;					// Elbow maximum speed during movement
 	double			m_pidKp;						// Elbow PID proportional constant
@@ -60,9 +62,12 @@ private:
 	int				m_elbowMaxCounts;				// Elbow maximum allowable counts
 	int				m_elbowMinCounts;				// Elbow minimum allowable counts
 	double			m_bumpAngle;					// Incremental angle when bumping the elbow up/down
-	double			m_groundAngle;					// Setpoint for floor level (full down)
+
+	double			m_groundCargoAngle;				// Setpoint for floor level (full down)
+	double			m_groundHatchAngle;				// Setpoint for floor level (full down)
+	double 			m_deliveryCargoAngle; 			// Setpoint to deliver cargo
+	double 			m_deliveryHatchAngle; 			// Setpoint to deliver hatch panels
 	double 			m_stowedAngle; 					// Setpoint for full up
-	double 			m_deliveryAngle; 				// Setpoint to deliver to the cargoship or rocket
 
 public:
 	Elbow();
@@ -92,6 +97,8 @@ public:
 	void BumpToPosition(bool direction);
 
 	void Calibrate();
+
+	void SetGamePiece(bool setting);
 
 };
 

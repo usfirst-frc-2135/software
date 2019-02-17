@@ -38,9 +38,11 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1800);
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 10.0);
-	config->GetValueAsDouble("WR_WristGround", m_groundAngle, 0.0);
+	config->GetValueAsDouble("WR_WristGroundCargo", m_groundCargoAngle, 0.0);
+	config->GetValueAsDouble("WR_WristGroundHatch", m_groundHatchAngle, 0.0);
+	config->GetValueAsDouble("WR_WristDeliveryCargo", m_deliveryCargoAngle, 150.0);
+	config->GetValueAsDouble("WR_WristDeliveryHatch", m_deliveryCargoAngle, 150.0);
 	config->GetValueAsDouble("WR_WristStowed", m_stowedAngle, 90.0);
-	config->GetValueAsDouble("WR_WristDelivery", m_deliveryAngle, 150.0);
 
 	// config->GetValueAsDouble("WR_WristFlat", m_flatAngle, 5.0);
 
@@ -57,7 +59,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	    motorWR12->Set(ControlMode::PercentOutput, 0.0);
 		motorWR12->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
 		motorWR12->SetSensorPhase(false);
-		m_curDegrees = CountsToDegrees(motorWR12->GetSelectedSensorPosition(m_pidIndex)); //WRITE COUNTS TO DEGREES 
+		m_curDegrees = CountsToDegrees(motorWR12->GetSelectedSensorPosition(m_pidIndex)); 
 
 		// Set maximum power and ramp rate
 		// Set maximum current draw allowed
@@ -136,6 +138,8 @@ void Wrist::Initialize(void) {
 		curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
 
 	m_targetDegrees = CountsToDegrees(curCounts);
+
+	m_gamePiece = false;
 }
 
 int Wrist::DegreesToCounts(double degrees) {
@@ -176,13 +180,13 @@ void Wrist::MoveToPosition(int level)
 		// m_targetDegrees = m_targetDegrees;
 		break;
 	case WRIST_GROUND:
-		m_targetDegrees = m_groundAngle;
+		m_targetDegrees = (m_gamePiece) ? m_groundCargoAngle : m_groundHatchAngle;
 		break;
 	case WRIST_STOWED:
 		m_targetDegrees = m_stowedAngle;
 		break;
 	case WRIST_DELIVER:
-		m_targetDegrees = m_deliveryAngle;
+		m_targetDegrees = (m_gamePiece) ? m_deliveryCargoAngle : m_deliveryHatchAngle;
 	case WRIST_SMARTDASH:
 		m_targetDegrees = frc::SmartDashboard::GetNumber("WR Setpoint", 0.0);
 		break;
@@ -283,4 +287,7 @@ void Wrist::Calibrate() {
 	frc::SmartDashboard::PutBoolean("WR Calibrated", true);
 }
 
+void Wrist::SetGamePiece(bool setting) {
+	m_gamePiece = setting;
+}
 

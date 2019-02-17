@@ -58,6 +58,7 @@ private:
 	bool			m_calibrated;					// Indicates whether the elevator has been calibrated
 	int				m_calibrationState;				// State variable for calibration sequence
 	bool			m_bumpDir;						// State variable for bumping up or down
+	bool 			m_gamePiece; 					// true: cargo, false: hatch
 
 	frc::Timer			m_safetyTimer;					// Safety timer for use in elevator
 	double			m_safetyTimeout;				// Seconds that the timer ran before stopping
@@ -73,12 +74,16 @@ private:
 	double			m_elevatorMinHeight;			// Elevator minimum allowable height
 	double			m_lowGearHeight;				// Height for forcing drivetrain to low gear
 	double			m_bumpHeight;					// Incremental height when bumping the elevator up/down
-	double			m_floorHeight;					// Setpoint for floor level (full down)
+	double			m_floorCargoHeight;				// Setpoint for floor level for cargo (full down)
+	double 			m_floorHatchHeight; 			// Set point for floor level for hatch
 	double			m_shipHatchHeight;				// Setpoint to deliver hatches to cargo ship and rocket at first level
 	double			m_shipCargoHeight;				// Setpoint to deliver cargo in cargo ship
-	double			m_rocketL2HatchHeight;			// Setpoint for delivery to rocket at second level
-	double			m_rocketL3HatchHeight;			// Setpoint for delivery to rocket at third level
-	double			m_rocketCargoBumpHeight;		// Incremental height when bumping elevator up from rocket levels to deliver cargo
+	double 			m_rocketL1HatchHeight; 			// Setpoint for delivery of hatch to rocket at first level
+	double			m_rocketL1CargoHeight;			// Setpoint for delivery of cargo to rocket at first level
+	double			m_rocketL2HatchHeight;			// Setpoint for delivery of hatch to rocket at second level
+	double 			m_rocketL2CargoHeight; 			// Setpoint for delivery of cargo to rocket at second level 
+	double			m_rocketL3HatchHeight;			// Setpoint for delivery of hatch to rocket at third level
+	double 			m_rocketL3CargoHeight;			// Setpoint for delivery of cargo to rocket at third level 
 
 	const double 	m_circumInches = (1.273*M_PI);	// Circumference in inches //TODO: UPDATE WITH 2019 DIMENSIONS
 
@@ -93,16 +98,15 @@ public:
 enum {								// Elevator subsystem movement states
 		NOCHANGE_HEIGHT = -1,			//	No change in height--maintain current position
 		FLOOR_HEIGHT = 0,				//	Move to floor (full down) height
-		SHIP_HATCH_HEIGHT = 1,			//	Move to cargo ship hatch height
-		SHIP_CARGO_HEIGHT = 2,			//	Move to cargo ship cargo height
-		ROCKET_L2_HATCH_HEIGHT = 3,		//	Move to rocket second level
-		ROCKET_L3_HATCH_HEIGHT = 4,		//	Move to rocket third level
-		ROCKET_CARGO_BUMP_HEIGHT = 5,	//  Move to increment above rocket levels for cargo
-
+		SHIP_HEIGHT = 1,			//	Move to cargo ship hatch height
+		ROCKET_L1_HEIGHT = 2,
+		ROCKET_L2_HEIGHT = 3, 
+		ROCKET_L3_HEIGHT = 4,
+		
 		// Space for additional heights.
 
-		SMARTDASH_HEIGHT = 6,		//	Move to a height prescribed on dashboard (debug only)
-		BUMP_HEIGHT = 7				//	Move by bumping height up or down
+		SMARTDASH_HEIGHT = 5,		//	Move to a height prescribed on dashboard (debug only)
+		BUMP_HEIGHT = 6			//	Move by bumping height up or down
 	};
 
 	void Initialize(void);
@@ -117,6 +121,8 @@ enum {								// Elevator subsystem movement states
 	void BumpToPosition(bool direction);
 
 	void CalibrationOverride(void);
+
+	void SetGamePiece(bool setting);
 
 };
 
