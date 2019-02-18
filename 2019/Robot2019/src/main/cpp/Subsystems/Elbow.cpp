@@ -42,10 +42,14 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 	config->GetValueAsDouble("EB_BumpAngle", m_bumpAngle, 10.0);
 	config->GetValueAsDouble("EB_GroundCargoAngle", m_groundCargoAngle, 0.0);
 	config->GetValueAsDouble("EB_GroundHatchAngle", m_groundHatchAngle, 0.0);
-	config->GetValueAsDouble("EB_StowedAngle", m_stowedAngle, 15.0);
-	config->GetValueAsDouble("EB_DeliveryCargoAngle", m_deliveryCargoAngle, 45.0);
-	config->GetValueAsDouble("EB_DeliveryHatchAngle", m_deliveryHatchAngle, 45.0);
-	// config->GetValueAsDouble("EB_ElbowFlat", m_flatAngle, 5.0);
+	config->GetValueAsDouble("EB_ShipCargoAngle", m_shipCargoAngle, 20.0);
+	config->GetValueAsDouble("EB_ShipHatchAngle", m_shipHatchAngle, 20.0);
+	config->GetValueAsDouble("EB_RocketL1CargoAngle", m_rocketL1CargoAngle, 20.0);
+	config->GetValueAsDouble("EB_RocketL1HatchAngle", m_rocketL1HatchAngle, 20.0);
+	config->GetValueAsDouble("EB_RocketL2CargoAngle", m_rocketL2CargoAngle, 20.0);
+	config->GetValueAsDouble("EB_RocketL2HatchAngle", m_rocketL2HatchAngle, 20.0);
+	config->GetValueAsDouble("EB_RocketL3CargoAngle", m_rocketL3CargoAngle, 20.0);
+	config->GetValueAsDouble("EB_RocketL3HatchAngle", m_rocketL3HatchAngle, 20.0);
 
      if (m_talonValidEB10) {
 		// Set the motor direction for the elbow
@@ -140,7 +144,7 @@ void Elbow::Initialize(void) {
 
 	m_targetDegrees = CountsToDegrees(curCounts);
 
-	m_gamePiece = false;
+	m_isCargo = false;
 }
 
 int Elbow::DegreesToCounts(double degrees) {
@@ -177,18 +181,25 @@ void Elbow::MoveToPosition(int level)
 
 	// Validate and set the requested level to move
 	switch (level) {
-	case ELBOW_NOCHANGE:	// Do not change from current level!
+	case NOCHANGE_ANGLE:	// Do not change from current level!
 		// m_targetDegrees = m_targetDegrees;
 		break;
-	case ELBOW_GROUND:
-		m_targetDegrees = (m_gamePiece) ? m_groundCargoAngle : m_groundHatchAngle;
-	 	break;
-	case ELBOW_STOWED:
-		m_targetDegrees = m_stowedAngle;
+	case GROUND_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_groundCargoAngle : m_groundHatchAngle;
 		break;
-	case ELBOW_DELIVER:
-		m_targetDegrees = (m_gamePiece) ? m_deliveryCargoAngle : m_deliveryHatchAngle;
-	case ELBOW_SMARTDASH:
+	case SHIP_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_shipCargoAngle : m_shipHatchAngle;
+		break;
+	case ROCKET_L1_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_rocketL1CargoAngle : m_rocketL1HatchAngle;
+		break;
+	case ROCKET_L2_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_rocketL2CargoAngle : m_rocketL2HatchAngle;
+		break;
+	case ROCKET_L3_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_rocketL3CargoAngle : m_rocketL3HatchAngle;
+		break;
+	case SMARTDASH_ANGLE:
 		m_targetDegrees = frc::SmartDashboard::GetNumber("EB Setpoint", 0.0);
 		break;
 	case BUMP_ANGLE:
@@ -241,7 +252,7 @@ bool Elbow::MoveToPositionIsFinished(void) {
 	double errorInDegrees = 0;
 
 	// If a real move was requested, check for completion
-	if (m_elbowLevel != ELBOW_NOCHANGE) {
+	if (m_elbowLevel != NOCHANGE_ANGLE) {
 		if (m_talonValidEB10) {
 			curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
 			motorOutput = motorEB10->GetMotorOutputPercent();
@@ -288,8 +299,8 @@ void Elbow::Calibrate() {
 	frc::SmartDashboard::PutBoolean("EB Calibrated", true);
 }
 
-void Elbow::SetGamePiece(bool setting) {
-	m_gamePiece = setting;
+void Elbow::SetGamePiece(bool cargo) {
+	m_isCargo = cargo;
 }
 
 

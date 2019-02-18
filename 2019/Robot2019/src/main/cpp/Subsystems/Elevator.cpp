@@ -46,8 +46,8 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     config->GetValueAsDouble("EL_MinHeight", m_elevatorMinHeight, 0.0);
 	config->GetValueAsDouble("EL_LowGearHeight", m_lowGearHeight, 15.00);
 	config->GetValueAsDouble("EL_BumpHeight", m_bumpHeight, 1.0);
-	config->GetValueAsDouble("EL_FloorCargoHeight", m_floorCargoHeight, 20.0);
-	config->GetValueAsDouble("EL_FloorHatchHeight", m_floorHatchHeight, 20.0);
+	config->GetValueAsDouble("EL_GroundCargoHeight", m_groundCargoHeight, 20.0);
+	config->GetValueAsDouble("EL_GroundHatchHeight", m_groundHatchHeight, 20.0);
 	config->GetValueAsDouble("EL_ShipCargoHeight", m_shipCargoHeight, 20.0);
 	config->GetValueAsDouble("EL_ShipHatchHeight", m_shipHatchHeight, 20.0);
 	config->GetValueAsDouble("EL_RocketL1CargoHeight", m_rocketL1CargoHeight, 20.0);
@@ -56,8 +56,6 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	config->GetValueAsDouble("EL_RocketL2HatchHeight", m_rocketL2HatchHeight, 20.0);
 	config->GetValueAsDouble("EL_RocketL3CargoHeight", m_rocketL3CargoHeight, 20.0);
 	config->GetValueAsDouble("EL_RocketL3HatchHeight", m_rocketL3HatchHeight, 20.0);
-
-
 
 	// Initialize Talon SRX motor controller direction and encoder sensor slot
     // Set the control mode and target to disable any movement
@@ -118,7 +116,6 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     m_targetCounts = 0;
     m_calibrated = false;
     m_calibrationState = 0;
-	m_gamePiece = false;
 	
     // Field for manually progamming elevator height
 	frc::SmartDashboard::PutNumber("EL Setpoint", 0.0);
@@ -179,6 +176,7 @@ void Elevator:: Initialize(void) {
         curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
 
     m_targetInches = CountsToInches(curCounts);
+	m_isCargo = false;
 }
 
 int Elevator::InchesToCounts(double inches) {
@@ -359,8 +357,8 @@ void Elevator::CalibrationOverride() {
 	m_calibrated = true;
 }
 
-void Elevator::SetGamePiece(bool setting) {
-	m_gamePiece = setting;
+void Elevator::SetGamePiece(bool cargo) {
+	m_isCargo = cargo;
 }
 
 
@@ -378,19 +376,19 @@ void Elevator::MoveToPositionInit(int level) {
 	case NOCHANGE_HEIGHT:	// Do not change from current level!
 		// m_targetInches = m_targetInches;
 		break;
-	case FLOOR_HEIGHT:
-		m_targetInches = (m_gamePiece) ? m_floorCargoHeight : m_floorHatchHeight;
+	case GROUND_HEIGHT:
+		m_targetInches = (m_isCargo) ? m_groundCargoHeight : m_groundHatchHeight;
 		break;
 	case SHIP_HEIGHT:
-		m_targetInches = (m_gamePiece) ? m_shipCargoHeight : m_shipHatchHeight;
+		m_targetInches = (m_isCargo) ? m_shipCargoHeight : m_shipHatchHeight;
 		break;
 	case ROCKET_L1_HEIGHT:
-		m_targetInches = (m_gamePiece) ? m_rocketL1CargoHeight : m_rocketL1HatchHeight;
+		m_targetInches = (m_isCargo) ? m_rocketL1CargoHeight : m_rocketL1HatchHeight;
 	case ROCKET_L2_HEIGHT:
-		m_targetInches = (m_gamePiece) ? m_rocketL2CargoHeight : m_rocketL2HatchHeight;
+		m_targetInches = (m_isCargo) ? m_rocketL2CargoHeight : m_rocketL2HatchHeight;
 		break;
 	case ROCKET_L3_HEIGHT:
-		m_targetInches = (m_gamePiece) ? m_rocketL3CargoHeight : m_rocketL3HatchHeight;
+		m_targetInches = (m_isCargo) ? m_rocketL3CargoHeight : m_rocketL3HatchHeight;
 		break;
 	case SMARTDASH_HEIGHT:
 		m_targetInches = frc::SmartDashboard::GetNumber("EL Setpoint", 0.0);
