@@ -89,7 +89,7 @@ Children:
           default: '0'
           name: Reverse Channel (Solenoid)
           validators: &id009 [Solenoid]
-          value: '7'
+          value: '1'
         Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
           choices: &id010 ['0', '1', '2', '3', '4', '5', '6', '7']
           default: '0'
@@ -241,13 +241,13 @@ Children:
           default: '0'
           name: Reverse Channel (Solenoid)
           validators: *id009
-          value: '6'
+          value: '7'
         Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id010
           default: '0'
           name: Forward Channel (Solenoid)
           validators: *id011
-          value: '1'
+          value: '6'
       Base: Double Solenoid
       Name: Panel Delivery
     Properties:
@@ -297,7 +297,7 @@ Children:
           default: '0'
           name: Reverse Channel (Solenoid)
           validators: *id009
-          value: '5'
+          value: '3'
         Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id010
           default: '0'
@@ -325,13 +325,13 @@ Children:
           default: '0'
           name: Reverse Channel (Solenoid)
           validators: *id009
-          value: '4'
+          value: '5'
         Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id010
           default: '0'
           name: Forward Channel (Solenoid)
           validators: *id011
-          value: '3'
+          value: '4'
       Base: Double Solenoid
       Name: Back
     Properties:
@@ -379,7 +379,7 @@ Children:
         validators: null
         value: *id003
     Base: Subsystem
-    Name: Pnuematics
+    Name: Pneumatics
   - Children:
     - Children: []
       Properties:
