@@ -57,7 +57,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
      frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
      config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 1.0);
  	 config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 1.0);
-    
+	 config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
 
     // Invert the direction of the motors
     // Set to brake mode (in comparison to coast)
@@ -284,6 +284,23 @@ void Drivetrain::MoveWithJoystick(std::shared_ptr<frc::Joystick> throttleJstick,
 		diffDrive->ArcadeDrive(-yValue, xValue, true);
 }
 
+//	Automatic Drive Spin movement
+
+void Drivetrain::MoveSpin(bool spinRight) {
+	double spinSpeed = m_driveSpin;
+
+	if (!spinRight)
+		spinSpeed *= -1.0;
+
+	if (m_talonValidL1 && m_talonValidR3)
+		diffDrive->TankDrive(spinSpeed, -spinSpeed, false);
+}
+
+void Drivetrain::MoveStop() {
+	if (m_talonValidL1 && m_talonValidR3)
+		diffDrive->TankDrive(0.0, 0.0, false);
+}
+
 //	Shift transmission gears
 
 void Drivetrain::MoveShiftGears(bool lowGear) {
@@ -343,12 +360,12 @@ double Drivetrain::GetEncoderPosition(int motorID) {
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
 
 void Drivetrain::MoveDriveDistanceMMInit(double inches) {
-    m_distTargetInches = 60.0; // TODO: hardwired to 36.0 inches for now // inches;
+    m_distTargetInches = inches;
     m_distTargetCounts = round(m_distTargetInches * CountsPerInch);
     std::printf("2135: DTDD Init %d counts, %5.2f inches, %5.2f CountsPerInch\n", 
         (int) m_distTargetCounts, m_distTargetInches, CountsPerInch);
 
-    //Initialize the encoders ot start movement at reference of zero counts
+    // Initialize the encoders ot start movement at reference of zero counts
     if (m_talonValidL1) {
         motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
     }
@@ -385,7 +402,7 @@ void Drivetrain::MoveDriveDistanceMMInit(double inches) {
 }
 
 void Drivetrain::MoveDriveDistanceMMExecute() {
-    // Internal; Talon
+    // Internal - Talon
 }
 
 bool Drivetrain::MoveDriveDistanceMMIsFinished() {

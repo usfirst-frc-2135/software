@@ -60,6 +60,7 @@ private:
 
 	double	m_driveXScaling;		// Scaling applied to Joystick
 	double	m_driveYScaling;		// Scaling applied to Joystick
+	double  m_driveSpin;			// Spin turn power  setting
 
 	bool	m_lowGear;				// Low Gear or High Gear
 	bool 	m_brakeMode;			// Brake or Coast Mode for Talons
@@ -92,6 +93,8 @@ public:
 	bool InitializePigeonIMU();
 
 	void MoveWithJoystick(std::shared_ptr<frc::Joystick>, std::shared_ptr<frc::Joystick>);
+	void MoveSpin(bool spinRight);
+	void MoveStop();
 
 	// Shifting Gears
     void MoveShiftGears(bool lowGear);

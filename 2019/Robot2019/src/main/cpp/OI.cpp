@@ -24,6 +24,7 @@
 #include "Commands/AutoPosANYMove.h"
 #include "Commands/AutoStop.h"
 #include "Commands/DriveShift.h"
+#include "Commands/DriveSpin.h"
 #include "Commands/DriveTeleop.h"
 #include "Commands/ElbowBump.h"
 #include "Commands/ElbowRun.h"
@@ -32,9 +33,8 @@
 #include "Commands/GPShift.h"
 #include "Commands/IntakeDelivery.h"
 #include "Commands/IntakeRun.h"
-#include "Commands/LifterBackExtend.h"
-#include "Commands/LifterExtend.h"
-#include "Commands/LifterFrontExtend.h"
+#include "Commands/LifterBackDeploy.h"
+#include "Commands/LifterFrontDeploy.h"
 #include "Commands/LifterMotorRun.h"
 #include "Commands/WristBump.h"
 #include "Commands/WristRun.h"
@@ -67,12 +67,18 @@ OI::OI() {
     intakeAcquire->WhileHeld(new IntakeRun(1));
     dStick.reset(new frc::Joystick(0));
     
-    lifterDeploy.reset(new frc::JoystickButton(dStick.get(), 7));
-    lifterDeploy->WhenPressed(new LifterExtend());
+    spinRight.reset(new frc::JoystickButton(dStick.get(), 4));
+    spinRight->WhileHeld(new DriveSpin(true));
+    spinLeft.reset(new frc::JoystickButton(dStick.get(), 2));
+    spinLeft->WhileHeld(new DriveSpin(false));
     lifterBackRetract.reset(new frc::JoystickButton(dStick.get(), 6));
-    lifterBackRetract->WhenPressed(new LifterBackExtend(false));
-    lifterFrontRetract.reset(new frc::JoystickButton(dStick.get(), 5));
-    lifterFrontRetract->WhenPressed(new LifterFrontExtend(false));
+    lifterBackRetract->WhenReleased(new LifterBackDeploy(false));
+    lifterBackExtend.reset(new frc::JoystickButton(dStick.get(), 6));
+    lifterBackExtend->WhenPressed(new LifterBackDeploy(true));
+    lifterFrontRetract.reset(new frc::JoystickButton(dStick.get(), 7));
+    lifterFrontRetract->WhenReleased(new LifterFrontDeploy(false));
+    lifterFrontExtend.reset(new frc::JoystickButton(dStick.get(), 7));
+    lifterFrontExtend->WhenPressed(new LifterFrontDeploy(true));
     shiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
     shiftSpeed->WhileHeld(new DriveShift(false));
 
