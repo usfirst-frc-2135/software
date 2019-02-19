@@ -18,7 +18,10 @@
 #include "RobotDefaults.h"
 #include "frc2135/TalonSRXUtils.h"
 #include "frc2135/RobotConfig.h"
+#include "frc2135/PIDSourceDriveTurn.h"
 #include "frc2135/PIDOutputDriveTurn.h"
+#include "frc2135/PIDSourceDriveVision.h"
+#include "frc2135/PIDOutputDriveVision.h"
 
 /**
  *
@@ -75,10 +78,16 @@ private:
 	double 	m_turnAngle;			// Desired turn angle from present course
 	double	m_turnTolDeg;			// DriveTurn tolerance in degrees
 	double 	m_turnKp;				// Proportional value for PID for DriveTurn function
+	double	m_visionTurnKp;			// Proportional value for PID for Drive Turn with Vision-Assist
 	double 	m_turnMaxOut;			// Max motor output value for PID for DriveTurn function
 
-	PIDOutputDriveTurn	*driveTurnPIDOutput;	// Drive turn to angle with gyro
-	frc::PIDController	*driveTurnPIDLoop;		// Drive turn PID control
+	PIDOutputDriveTurn	*driveTurnPIDOutput;		// Drive turn to angle with gyro
+	PIDSourceDriveTurn	*driveTurnPIDSource;		// Drive turn PID source loop
+	frc::PIDController	*driveTurnPIDLoop;			// Drive turn PID control
+
+	PIDOutputDriveVision *driveVisionPIDOutput;		// Drive with Vision to angle using gyro - initialize output
+	PIDSourceDriveVision *driveVisionPIDSource;		// Drive with Vision PID source loop
+	frc::PIDController 	 *driveVisionPIDLoop;		// Drive with Vision PID controller loop
 
 public:
 	Drivetrain();
@@ -117,7 +126,7 @@ public:
 	void MoveDriveTurnPIDInit(double angle);
     void MoveDriveTurnPIDExecute();
     bool MoveDriveTurnPIDIsFinished();
-    void MoveDriveTurnPIDStop();
+    void MoveDriveTurnPIDEnd();
 };
 
 #endif

@@ -323,8 +323,6 @@ void Drivetrain::MoveSpin(bool spinRight) {
 		diffDrive->TankDrive(spinSpeed, -spinSpeed, false);
 }
 
-//	Automatic Drive Spin movement
-
 void Drivetrain::MoveStop() {
 	if (m_talonValidL1 && m_talonValidR3)
 		diffDrive->TankDrive(0.0, 0.0, false);

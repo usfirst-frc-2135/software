@@ -25,26 +25,29 @@ AutoDriveTurn::AutoDriveTurn(double angle): frc::Command() {
 
 // Called just before this Command runs the first time
 void AutoDriveTurn::Initialize() {
-
+    std::printf("2135: AutoDriveTurn - Init  %4.1f degrees\n", m_angle);
+    Robot::drivetrain->MoveDriveTurnPIDInit(m_angle);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveTurn::Execute() {
-
+    Robot::drivetrain->MoveDriveTurnPIDExecute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDriveTurn::IsFinished() {
-    return false;
+    return Robot::drivetrain->MoveDriveTurnPIDIsFinished();
 }
 
 // Called once after isFinished returns true
 void AutoDriveTurn::End() {
-
+    std::printf("2135: AutoDriveTurn -End\n");
+    Robot::drivetrain->MoveDriveTurnPIDEnd();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoDriveTurn::Interrupted() {
-
+    std::printf("2135: AutoDriveTurn - Interrupted\n");
+    Robot::drivetrain->MoveDriveTurnPIDEnd();
 }

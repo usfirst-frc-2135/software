@@ -9,7 +9,7 @@
 #include "Robot.h"
 #include "frc2135/PIDSourceDriveVision.h"
 
-// Drive Vision source class derived from PID Source
+//  Drive Vision source class derived from PID Source
 //	Used to drive toward a heading for a specified distance
 
 PIDSourceDriveVision::PIDSourceDriveVision() {

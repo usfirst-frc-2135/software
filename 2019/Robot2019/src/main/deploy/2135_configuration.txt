@@ -3,6 +3,8 @@
 # DriveTrain settings
  DT_PeakOutput = 1.00
  DT_DriveXScaling = 0.6
+ DT_DriveSpin = 0.45
+ DT_PidTurnKp = 0.030
  DT_SeparateJoysticks = true
 # Competition mode
 #DT_DriveYScaling = 1.00

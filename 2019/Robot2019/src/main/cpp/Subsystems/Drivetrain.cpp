@@ -58,6 +58,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
      config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 1.0);
  	 config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 1.0);
 	 config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
+	 config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.030);
 
     // Invert the direction of the motors
     // Set to brake mode (in comparison to coast)
@@ -113,6 +114,21 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
 	// Initialize and calibrate Pigeon IMU
 	m_pigeonValid = InitializePigeonIMU();
+
+	// Autonomous turn PID controller
+	driveTurnPIDSource = new PIDSourceDriveTurn();
+	driveTurnPIDOutput = new PIDOutputDriveTurn(diffDrive);
+    driveTurnPIDLoop = new frc::PIDController(m_turnKp, 0.0, 0.0, driveTurnPIDSource, driveTurnPIDOutput, 0.010);
+	
+	// Adjust Kp for encoder being used
+    driveVisionPIDSource = new PIDSourceDriveVision();
+    driveVisionPIDOutput = new PIDOutputDriveVision(diffDrive);
+    driveVisionPIDLoop = new frc::PIDController((m_visionTurnKp/COUNTS_PER_ROTATION) * 1.5, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
+
+   	// Settings for Turn PID
+   	driveTurnPIDLoop->SetPID(m_turnKp, 0.0, 0.0);
+   	driveTurnPIDLoop->SetOutputRange(-m_turnMaxOut, m_turnMaxOut);
+   	driveTurnPIDLoop->SetAbsoluteTolerance(m_turnTolDeg);
 }
 
 void Drivetrain::InitDefaultCommand() {
@@ -541,7 +557,7 @@ bool Drivetrain::MoveDriveTurnPIDIsFinished(void) {
 
 // Autonomous turn PID to clean up after reaching the target position
 
-void Drivetrain::MoveDriveTurnPIDStop(void) {
+void Drivetrain::MoveDriveTurnPIDEnd(void) {
 	int curCounts_L = 0;
 	int curCounts_R = 0;
 	double motorOutput_L = 0.0;
