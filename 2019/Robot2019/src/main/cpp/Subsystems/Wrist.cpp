@@ -38,9 +38,16 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1800);
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 10.0);
-	config->GetValueAsDouble("WR_WristGround", m_groundAngle, 0.0);
-	config->GetValueAsDouble("WR_WristStowed", m_stowedAngle, 90.0);
-	config->GetValueAsDouble("WR_WristDelivery", m_deliveryAngle, 150.0);
+	config->GetValueAsDouble("WR_GroundCargoAngle", m_groundCargoAngle, 0.0);
+	config->GetValueAsDouble("WR_GroundHatchAngle", m_groundHatchAngle, 0.0);
+	config->GetValueAsDouble("WR_ShipCargoAngle", m_shipCargoAngle, 20.0);
+	config->GetValueAsDouble("WR_ShipHatchAngle", m_shipHatchAngle, 20.0);
+	config->GetValueAsDouble("WR_RocketL1CargoAngle", m_rocketL1CargoAngle, 20.0);
+	config->GetValueAsDouble("WR_RocketL1HatchAngle", m_rocketL1HatchAngle, 20.0);
+	config->GetValueAsDouble("WR_RocketL2CargoAngle", m_rocketL2CargoAngle, 20.0);
+	config->GetValueAsDouble("WR_RocketL2HatchAngle", m_rocketL2HatchAngle, 20.0);
+	config->GetValueAsDouble("WR_RocketL3CargoAngle", m_rocketL3CargoAngle, 20.0);
+	config->GetValueAsDouble("WR_RocketL3HatchAngle", m_rocketL3HatchAngle, 20.0);
 
 	// config->GetValueAsDouble("WR_WristFlat", m_flatAngle, 5.0);
 
@@ -57,7 +64,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	    motorWR12->Set(ControlMode::PercentOutput, 0.0);
 		motorWR12->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
 		motorWR12->SetSensorPhase(false);
-		m_curDegrees = CountsToDegrees(motorWR12->GetSelectedSensorPosition(m_pidIndex)); //WRITE COUNTS TO DEGREES 
+		m_curDegrees = CountsToDegrees(motorWR12->GetSelectedSensorPosition(m_pidIndex)); 
 
 		// Set maximum power and ramp rate
 		// Set maximum current draw allowed
@@ -136,6 +143,8 @@ void Wrist::Initialize(void) {
 		curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
 
 	m_targetDegrees = CountsToDegrees(curCounts);
+
+	m_isCargo = false;
 }
 
 int Wrist::DegreesToCounts(double degrees) {
@@ -172,18 +181,25 @@ void Wrist::MoveToPosition(int level)
 
 	// Validate and set the requested level to move
 	switch (level) {
-	case WRIST_NOCHANGE:	// Do not change from current level!
+	case NOCHANGE_ANGLE:	// Do not change from current level!
 		// m_targetDegrees = m_targetDegrees;
 		break;
-	case WRIST_GROUND:
-		m_targetDegrees = m_groundAngle;
+	case GROUND_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_groundCargoAngle : m_groundHatchAngle;
 		break;
-	case WRIST_STOWED:
-		m_targetDegrees = m_stowedAngle;
+	case SHIP_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_shipCargoAngle : m_shipHatchAngle;
 		break;
-	case WRIST_DELIVER:
-		m_targetDegrees = m_deliveryAngle;
-	case WRIST_SMARTDASH:
+	case ROCKET_L1_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_rocketL1CargoAngle : m_rocketL1HatchAngle;
+		break;
+	case ROCKET_L2_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_rocketL2CargoAngle : m_rocketL2HatchAngle;
+		break;
+	case ROCKET_L3_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_rocketL3CargoAngle : m_rocketL3HatchAngle;
+		break;
+	case SMARTDASH_ANGLE:
 		m_targetDegrees = frc::SmartDashboard::GetNumber("WR Setpoint", 0.0);
 		break;
 	case BUMP_ANGLE:
@@ -236,7 +252,7 @@ bool Wrist::MoveToPositionIsFinished(void) {
 	double errorInDegrees = 0;
 
 	// If a real move was requested, check for completion
-	if (m_wristLevel != WRIST_NOCHANGE) {
+	if (m_wristLevel != NOCHANGE_ANGLE) {
 		if (m_talonValidWR12) {
 			curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
 			motorOutput = motorWR12->GetMotorOutputPercent();
@@ -283,4 +299,7 @@ void Wrist::Calibrate() {
 	frc::SmartDashboard::PutBoolean("WR Calibrated", true);
 }
 
+void Wrist::SetGamePiece(bool cargo) {
+	m_isCargo = cargo;
+}
 

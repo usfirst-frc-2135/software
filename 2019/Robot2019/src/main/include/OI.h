@@ -22,7 +22,26 @@ private:
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	std::shared_ptr<frc::Joystick> controlBoard;
+	std::shared_ptr<frc::JoystickButton> wristBumpDown;
+	std::shared_ptr<frc::JoystickButton> wristBumpUp;
+	std::shared_ptr<frc::JoystickButton> elbowBumpDown;
+	std::shared_ptr<frc::JoystickButton> elbowBumpUp;
+	std::shared_ptr<frc::JoystickButton> elevatorBumpDown;
+	std::shared_ptr<frc::JoystickButton> gPShifter;
+	std::shared_ptr<frc::JoystickButton> elevatorBumpUp;
 	std::shared_ptr<frc::JoystickButton> intakePanelDeliver;
 	std::shared_ptr<frc::JoystickButton> intakeAcquire;
 	std::shared_ptr<frc::Joystick> dStick;
