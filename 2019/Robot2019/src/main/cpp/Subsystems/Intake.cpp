@@ -21,7 +21,7 @@ Intake::Intake() : frc::Subsystem("Intake") {
     motorIN14.reset(new WPI_TalonSRX(14));
     
     
-    panelDelivery.reset(new frc::DoubleSolenoid(0, 1, 6));
+    panelDelivery.reset(new frc::DoubleSolenoid(0, 6, 7));
     AddChild("Panel Delivery", panelDelivery);
     
 

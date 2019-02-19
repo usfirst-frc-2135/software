@@ -19,10 +19,10 @@ Lifter::Lifter() : frc::Subsystem("Lifter") {
     motorLF16.reset(new WPI_TalonSRX(16));
     
     
-    front.reset(new frc::DoubleSolenoid(0, 2, 5));
+    front.reset(new frc::DoubleSolenoid(0, 2, 3));
     AddChild("Front", front);
     
-    back.reset(new frc::DoubleSolenoid(0, 3, 4));
+    back.reset(new frc::DoubleSolenoid(0, 4, 5));
     AddChild("Back", back);
     
 
