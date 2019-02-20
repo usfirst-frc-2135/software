@@ -29,6 +29,7 @@
 #include "Commands/ElbowBump.h"
 #include "Commands/ElbowRun.h"
 #include "Commands/ElevatorBump.h"
+#include "Commands/ElevatorCalibrate.h"
 #include "Commands/ElevatorRun.h"
 #include "Commands/GPShift.h"
 #include "Commands/IntakeDelivery.h"
@@ -37,6 +38,7 @@
 #include "Commands/LifterFrontDeploy.h"
 #include "Commands/LifterMotorRun.h"
 #include "Commands/WristBump.h"
+#include "Commands/WristCalibrate.h"
 #include "Commands/WristRun.h"
 
 
@@ -84,6 +86,7 @@ OI::OI() {
 
     // SmartDashboard Buttons
     frc::SmartDashboard::PutData("Arm Run", new ArmRun());
+    frc::SmartDashboard::PutData("Wrist Calibrate", new WristCalibrate());
     frc::SmartDashboard::PutData("Wrist Bump: UP", new WristBump(true));
     frc::SmartDashboard::PutData("Wrist Bump: DOWN", new WristBump(false));
     frc::SmartDashboard::PutData("Wrist Run: GROUND", new WristRun(0));
@@ -94,6 +97,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("Elbow Run: STOWED", new ElbowRun(1));
     frc::SmartDashboard::PutData("Elbow Run: DELIVERY", new ElbowRun(2));
     frc::SmartDashboard::PutData("Elbow Run: SMARTDASH", new ElbowRun(3));
+    frc::SmartDashboard::PutData("Elevator Calibrate", new ElevatorCalibrate());
     frc::SmartDashboard::PutData("Elevator Bump: UP", new ElevatorBump(true));
     frc::SmartDashboard::PutData("Elevator Bump: DOWN", new ElevatorBump(false));
     frc::SmartDashboard::PutData("Elbow Bump: UP", new ElbowBump(true));

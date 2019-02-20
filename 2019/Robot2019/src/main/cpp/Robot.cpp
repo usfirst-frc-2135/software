@@ -119,10 +119,10 @@ void Robot::DisabledPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
 
 	// If RoboRIO User button is pressed, dump all CAN faults
-	if (frc::RobotController::GetUserButton() && !m_faultsCleared) {
-		m_faultsCleared = true;
-		RobotFaultDump();
-	}
+	// if (frc::RobotController::GetUserButton() && !m_faultsCleared) {
+	// 	m_faultsCleared = true;
+	// 	RobotFaultDump();
+	// }
 }
 
 void Robot::AutonomousInit() {

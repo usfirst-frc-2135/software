@@ -440,15 +440,16 @@ void Elevator::MoveToPositionInit(int level) {
 
 		if (m_talonValidEL7) {
 			motorEL7->SelectProfileSlot(0, 0);
-			motorEL7->Config_kF(0, 0.123679, 0);        // TODO: test to determine
-			motorEL7->Config_kP(0, 0.0, 0);			  	// TODO: test to determine
+			motorEL7->Config_kF(0, 0.0, 0);             // TODO: test to determine
+			motorEL7->Config_kP(0, 0.6, 0);			  	// TODO: test to determine
 			motorEL7->Config_kI(0, 0.0, 0);				// TODO: test to determine
 			motorEL7->Config_kD(0, 0.0, 0);				// TODO: test to determine
-			motorEL7->ConfigMotionCruiseVelocity(410);  // TODO: calculate
-			motorEL7->ConfigMotionAcceleration(410);	// TODO: calculate
+			motorEL7->ConfigMotionCruiseVelocity(820);  // TODO: calculate
+			motorEL7->ConfigMotionAcceleration(1640);	// TODO: calculate
 		}
 
 		motorEL7->Set(ControlMode::MotionMagic, m_targetCounts);
+		motorEL7->Set(ControlMode::MotionMagic, m_targetCounts, DemandType::DemandType_ArbitraryFeedForward, 0.1);
 
 		std::printf("2135: EL MM Move inches %f -> %f counts %d -> %d\n",
 				m_curInches, m_targetInches, curCounts, m_targetCounts);
