@@ -78,7 +78,8 @@ void TalonSRXUtils::TalonSRXFaultDump(const char *talonName, std::shared_ptr<WPI
 	Faults			faults;
 	StickyFaults	stickyFaults;
 
-	std::printf("2135: %s --------------\n", talonName);
+	// Print out Talon SRX faults and clear sticky ones
+	std::printf("2135: %s -------------- %s\n", "Talon SRX", talonName);
 
     // Check Talon SRX by getting device ID and validating firmware versions
 	talonSRX->GetDeviceID();

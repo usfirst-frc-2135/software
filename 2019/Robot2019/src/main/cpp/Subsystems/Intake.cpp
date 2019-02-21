@@ -109,6 +109,12 @@ void Intake::Initialize(void) {
      SetDeliverySolenoid(m_deliveryExtended);
  }
 
+void Intake::FaultDump(void) {
+	
+	//	Dump all Talon faults
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("IN 14", motorIN14);
+}
+
 void Intake::SetIntakeMotorDirection(int direction) {
     const char *strName;
     double output = 0.0;        // Default: off

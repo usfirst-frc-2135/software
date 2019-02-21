@@ -108,6 +108,7 @@ enum {								// Elevator subsystem movement states
 	};
 
 	void Initialize(void);
+	void FaultDump(void);
 
 	int InchesToCounts(double inches);
 	double CountsToInches(int counts);

@@ -147,6 +147,12 @@ void Elbow::Initialize(void) {
 	m_isCargo = false;
 }
 
+void Elbow::FaultDump(void) {
+
+	//	Dump all Talon faults
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("EB 10", motorEB10);
+}
+
 int Elbow::DegreesToCounts(double degrees) {
 	int counts;
 

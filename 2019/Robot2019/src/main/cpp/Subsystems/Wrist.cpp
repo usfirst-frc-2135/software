@@ -147,6 +147,12 @@ void Wrist::Initialize(void) {
 	m_isCargo = false;
 }
 
+void Wrist::FaultDump(void) {
+	
+	//	Dump all Talon faults
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("WR 12", motorWR12);
+}
+
 int Wrist::DegreesToCounts(double degrees) {
 	int counts;
 

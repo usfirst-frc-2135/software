@@ -362,7 +362,7 @@ Children:
           validators: [PCMCompID]
           value: '0'
       Base: Compressor
-      Name: Compressor
+      Name: Pcm
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
@@ -391,7 +391,7 @@ Children:
           validators: null
           value: '0'
       Base: PowerDistributionPanel
-      Name: PDP
+      Name: Pdp
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}

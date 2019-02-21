@@ -61,6 +61,7 @@ public:
 	bool			m_talonValidIN14;		//Health indicator for intake Talon M14
 
 	void Initialize(void);
+	void FaultDump(void);
 	void SetIntakeMotorDirection(int direction);
 
 	void SetDeliverySolenoid(bool extended);

@@ -61,6 +61,7 @@ public:
 	};
 
 	void Initialize(void);
+	void FaultDump(void);
 	void SetLifterMotorSpeed(int direction);
 	void SetFrontSolenoid(bool extended);
 	void SetBackSolenoid(bool extended);

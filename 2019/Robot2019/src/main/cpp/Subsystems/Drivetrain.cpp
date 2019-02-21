@@ -230,6 +230,18 @@ void Drivetrain::Initialize(void) {
     MoveSetBrakeMode(m_brakeMode);
 }
 
+void Drivetrain::FaultDump(void) {
+	
+	//	Dump all Talon faults
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("DT L1", motorL1);
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("DT L2", motorL2);
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("DT R3", motorR3);
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("DT R4", motorR4);
+
+	// Dump Pigeon faults
+	//frc2135::TalonSRXUtils::PigeonIMUFaultDump("DT IMU", gyro);
+}
+
 bool Drivetrain::InitializePigeonIMU() {
 	bool pigeonValid = false;
 	double	startTime = frc::GetTime();

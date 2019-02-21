@@ -185,6 +185,13 @@ void Elevator:: Initialize(void) {
 	std::printf("2135: EL Init Target Inches: %5.2f\n", m_targetInches);
 }
 
+void Elevator::FaultDump(void) {
+	
+	//	Dump all Talon faults
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("EL  7", motorEL7);
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("EL  8", motorEL8);
+}
+
 int Elevator::InchesToCounts(double inches) {
 	int counts;
 

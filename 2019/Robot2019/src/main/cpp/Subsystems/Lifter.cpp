@@ -119,6 +119,12 @@ void Lifter::Initialize(void) {
     SetBackSolenoid(m_backExtended);  
 }
 
+void Lifter::FaultDump(void) {
+
+	//	Dump all Talon faults
+	frc2135::TalonSRXUtils::TalonSRXFaultDump("LF 16", motorLF16);	
+}
+
 void Lifter::SetLifterMotorSpeed(int direction) {
     const char *strName;
     double outputLF16 = 0.0;        // Default: off

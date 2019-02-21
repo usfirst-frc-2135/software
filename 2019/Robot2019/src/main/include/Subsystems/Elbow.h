@@ -94,6 +94,7 @@ public:
 	};
 
 	void Initialize(void);
+	void FaultDump(void);
 
 	int DegreesToCounts(double degrees);
 	double CountsToDegrees(int counts);
