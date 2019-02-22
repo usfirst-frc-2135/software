@@ -59,10 +59,10 @@ OI::OI() {
     elbowBumpUp->WhileHeld(new ElbowBump(false));
     elevatorBumpDown.reset(new frc::JoystickButton(controlBoard.get(), 5));
     elevatorBumpDown->WhileHeld(new ElevatorBump(false));
-    gPShifter.reset(new frc::JoystickButton(controlBoard.get(), 3));
-    gPShifter->WhileHeld(new GPShift());
     elevatorBumpUp.reset(new frc::JoystickButton(controlBoard.get(), 4));
     elevatorBumpUp->WhileHeld(new ElevatorBump(false));
+    gPShifter.reset(new frc::JoystickButton(controlBoard.get(), 3));
+    gPShifter->WhenPressed(new GPShift());
     intakePanelDeliver.reset(new frc::JoystickButton(controlBoard.get(), 2));
     intakePanelDeliver->WhileHeld(new IntakeDelivery(true));
     intakeAcquire.reset(new frc::JoystickButton(controlBoard.get(), 1));
