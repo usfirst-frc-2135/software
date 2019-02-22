@@ -1,5 +1,5 @@
 # Comment lines start with '#'
- RB_Name = 2135-DeepSpace
+ RB_Name = 2135-Nebula
 # DriveTrain settings
  DT_PeakOutput = 1.00
  DT_DriveXScaling = 0.6
