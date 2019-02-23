@@ -19,11 +19,11 @@ TalonSRXUtils::~TalonSRXUtils() {
 }
 
 bool TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, const char *subsystem, const char *name) {
-	int					i;
-	int					deviceID = 0;
-	int					fwVersion = 0;
-	bool				talonValid = false;
-	ErrorCode			error = OKAY;
+	int			i;
+	int			deviceID = 0;
+	int			fwVersion = 0;
+	bool		talonValid = false;
+	ErrorCode	error = OKAY;
 
 	// Configure subsystem and component name
     talonSRX->SetName(subsystem, name);
@@ -32,14 +32,16 @@ bool TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, const 
     // Display Talon SRX firmware versions
 	deviceID = talonSRX->GetDeviceID();
 	if ((error = talonSRX->GetLastError()) != OKAY) {
-		std::printf("2135: ERROR: %s Motor %s GetDeviceID error - %d\n", subsystem, name, error);
+		std::printf("2135: ERROR: %s Motor %s GetDeviceID error - %d\n", 
+			subsystem, name, error);
 		return error;
 	}
 
 	for (i = 0; i < m_retries; i++) {
 		fwVersion = talonSRX->GetFirmwareVersion();
 		if ((error = talonSRX->GetLastError()) != OKAY) {
-			std::printf("2135: ERROR: %s Motor %s GetFirmwareVersion error - %d\n", subsystem, name, error);
+			std::printf("2135: ERROR: %s Motor %s ID %d GetFirmwareVersion error - %d\n", 
+				subsystem, name, deviceID, error);
 			return error;
 		}
 		if (fwVersion == m_reqVersion) {
@@ -47,18 +49,17 @@ bool TalonSRXUtils::TalonSRXCheck(std::shared_ptr<WPI_TalonSRX> talonSRX, const 
 			break;
 		}
 		else {
-			std::printf("2135: WARNING: %s Motor %s Incorrect FW version %d.%d expected %d.%d\n",
-					subsystem, name, fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
+			std::printf("2135: WARNING: %s Motor %s ID %d Incorrect FW version %d.%d expected %d.%d\n",
+				subsystem, name, deviceID, fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 	}
 
 	if (talonValid) {
-		int		i;
-
-		// Initialize Talon SRX to all factory defaults
+			// Initialize Talon SRX to all factory defaults
 		if ((error = talonSRX->ConfigFactoryDefault(m_timeout)) != OKAY) {
-			std::printf("2135: ERROR: %s Motor %s ConfigFactoryDefault error - %d\n", subsystem, name, error);
+			std::printf("2135: ERROR: %s Motor %s ID %d ConfigFactoryDefault error - %d\n", 
+				subsystem, name, deviceID, error);
 		}
 
 		std::printf("2135: %s Motor %s ID %d ver %d.%d is RESPONSIVE and INITIALIZED (error %d)\n",
