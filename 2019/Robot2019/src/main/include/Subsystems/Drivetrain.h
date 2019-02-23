@@ -115,8 +115,8 @@ public:
 	double InchesToCounts(double inches);
 	double CountsToInches(int counts);
 
-	double GetAngle();
 	double GetEncoderPosition(int motorID);
+	double GetAngle();
 	
 	// Motion Magic Test - Moves to a Position
 	void MoveDriveDistanceMMInit(double inches);

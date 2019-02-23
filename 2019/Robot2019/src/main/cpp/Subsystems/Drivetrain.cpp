@@ -61,6 +61,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
  	 config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 1.0);
 	 config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
 	 config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.030);
+	 m_visionTurnKp = 0.0;	// TODO: Set config value and initialize
 
     // Invert the direction of the motors
     // Set to brake mode (in comparison to coast)
@@ -68,37 +69,57 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     // Set encoder as a CTRE magnetic in relative mode with sensor in phase with output
     if (m_talonValidL1) {
         motorL1->SetInverted(true);
-        motorL1->SetNeutralMode(NeutralMode::Brake);
-        motorL1->ConfigVoltageCompSaturation(12.0, 0);
+        motorL1->SetNeutralMode(NeutralMode::Coast);
+        motorL1->ConfigVoltageCompSaturation(12.0, m_timeout);
         motorL1->EnableVoltageCompensation(true);
 
         motorL1->Set(ControlMode::PercentOutput, 0.0);
         motorL1->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
         motorL1->SetSensorPhase(false);
         motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+
+		// Configure Magic Motion settings
+		motorL1->SelectProfileSlot(0, 0);
+       // motorL1->Config_kF(0, 0.0, m_timeout);
+        motorL1->Config_kF(0, 0.5832, m_timeout);         // 0.5832 for 6.73 fps?
+        motorL1->Config_kP(0, 0.0, m_timeout);
+        motorL1->Config_kI(0, 0.0, m_timeout);
+        motorL1->Config_kD(0, 0.0, m_timeout);
+        motorL1->ConfigMotionCruiseVelocity(950, m_timeout);   // 877 for 6.73 fps?
+        motorL1->ConfigMotionAcceleration(1100, m_timeout);
     }
 
     if (m_talonValidL2) {
     	motorL2->SetInverted(true);
-        motorL2->SetNeutralMode(NeutralMode::Brake);
+        motorL2->SetNeutralMode(NeutralMode::Coast);
         motorL2->Set(ControlMode::Follower, 1);
     }
 
     if (m_talonValidR3) {
         motorR3->SetInverted(true);
-        motorR3->SetNeutralMode(NeutralMode::Brake);
-        motorL1->ConfigVoltageCompSaturation(12.0, 0);
+        motorR3->SetNeutralMode(NeutralMode::Coast);
+        motorL1->ConfigVoltageCompSaturation(12.0, m_timeout);
         motorL1->EnableVoltageCompensation(true);
 
         motorR3->Set(ControlMode::PercentOutput, 0.0);
         motorR3->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
         motorR3->SetSensorPhase(false);
         motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+
+		// Configure Magic Motion settings
+        motorR3->SelectProfileSlot(0, 0);
+        //motorR3->Config_kF(0, 0.0, m_timeout);
+        motorR3->Config_kF(0, 0.5832, m_timeout);
+        motorR3->Config_kP(0, 0.0, m_timeout);
+        motorR3->Config_kI(0, 0.0, m_timeout);
+        motorR3->Config_kD(0, 0.0, m_timeout);
+        motorR3->ConfigMotionCruiseVelocity(877, m_timeout);
+        motorR3->ConfigMotionAcceleration(1000, m_timeout); 
     }
 
     if (m_talonValidR4) {
         motorR4->SetInverted(true);
-        motorR4->SetNeutralMode(NeutralMode::Brake);
+        motorR4->SetNeutralMode(NeutralMode::Coast);
         motorR4->Set(ControlMode::Follower, 3);
     }
 
@@ -125,7 +146,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 	// Adjust Kp for encoder being used
     driveVisionPIDSource = new PIDSourceDriveVision();
     driveVisionPIDOutput = new PIDOutputDriveVision(diffDrive);
-    driveVisionPIDLoop = new frc::PIDController((m_visionTurnKp/COUNTS_PER_ROTATION) * 1.5, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
+    driveVisionPIDLoop = new frc::PIDController(m_visionTurnKp, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
 
    	// Settings for Turn PID
    	driveTurnPIDLoop->SetPID(m_turnKp, 0.0, 0.0);
@@ -175,11 +196,7 @@ void Drivetrain::Periodic() {
 		currentR4 = motorR4->GetOutputCurrent();
 	}
 
-	if (m_pigeonValid) {
-		double	ypr[3];
-		pigeonIMU->GetYawPitchRoll(ypr);
-		gyroYaw = ypr[0];
-	}
+	gyroYaw = GetAngle();
 
     if (m_driveDebug) {
 		frc::SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
@@ -318,11 +335,12 @@ void Drivetrain::MoveWithJoystick(std::shared_ptr<frc::Joystick> throttleJstick,
 	double xValue = 0.0;
 	double yValue = 0.0;
 
+	// If no separate turn stick, then assume Thrustmaster HOTAS 4
     if (turnJstick == nullptr) {
         xValue = throttleJstick->GetX();
 	    yValue = throttleJstick->GetZ();
     }
-    else {
+    else {	// Separate throttle and turn stick
         xValue = turnJstick->GetX();
 	    yValue = throttleJstick->GetY();
     }
@@ -344,12 +362,12 @@ void Drivetrain::MoveSpin(bool spinRight) {
 	if (!spinRight)
 		spinSpeed *= -1.0;
 
-	if (m_talonValidL1 && m_talonValidR3)
+	if (m_talonValidL1 || m_talonValidR3)
 		diffDrive->TankDrive(spinSpeed, -spinSpeed, false);
 }
 
 void Drivetrain::MoveStop() {
-	if (m_talonValidL1 && m_talonValidR3)
+	if (m_talonValidL1 || m_talonValidR3)
 		diffDrive->TankDrive(0.0, 0.0, false);
 }
 
@@ -398,15 +416,20 @@ double Drivetrain::CountsToInches(int counts) {
 	return inches;
 }
 
-double Drivetrain::GetAngle() {
-    return (double)pigeonIMU->GetYawPitchRoll(0);
-}
-
 double Drivetrain::GetEncoderPosition(int motorID) {
     if (motorID == 1)
-        return motorL1->GetSelectedSensorPosition(0);
+        return motorL1->GetSelectedSensorPosition(m_pidIndex);
     if (motorID == 3)
-        return motorR3->GetSelectedSensorPosition(0);
+        return motorR3->GetSelectedSensorPosition(m_pidIndex);
+}
+
+double Drivetrain::GetAngle() {
+	double	ypr[3] = { 0.0, 0.0, 0.0};
+
+	if (m_pigeonValid) {
+		pigeonIMU->GetYawPitchRoll(ypr);
+	}
+    return ypr[0];
 }
 
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
@@ -418,35 +441,11 @@ void Drivetrain::MoveDriveDistanceMMInit(double inches) {
         (int) m_distTargetCounts, m_distTargetInches, CountsPerInch);
 
     // Initialize the encoders ot start movement at reference of zero counts
-    if (m_talonValidL1) {
+    if (m_talonValidL1)
         motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
-    }
 
-    if (m_talonValidR3) {
+    if (m_talonValidR3)
         motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
-    }
-
-    if (m_talonValidL1) {
-        motorL1->SelectProfileSlot(0, 0);
-       // motorL1->Config_kF(0, 0.0, 0);
-        motorL1->Config_kF(0, 0.5832, 0);         // 0.5832 for 6.73 fps?
-        motorL1->Config_kP(0, 0.0, 0);
-        motorL1->Config_kI(0, 0.0, 0);
-        motorL1->Config_kD(0, 0.0, 0);
-        motorL1->ConfigMotionCruiseVelocity(950);   // 877 for 6.73 fps?
-        motorL1->ConfigMotionAcceleration(1100);
-    }
-
-    if (m_talonValidR3) {
-        motorR3->SelectProfileSlot(0, 0);
-        //motorR3->Config_kF(0, 0.0, 0);
-        motorR3->Config_kF(0, 0.5832, 0);
-        motorR3->Config_kP(0, 0.0, 0);
-        motorR3->Config_kI(0, 0.0, 0);
-        motorR3->Config_kD(0, 0.0, 0);
-        motorR3->ConfigMotionCruiseVelocity(877);
-        motorR3->ConfigMotionAcceleration(1000); 
-    }
 
      diffDrive->SetSafetyEnabled(false);
      motorL1->Set(ControlMode::MotionMagic, m_distTargetCounts); 
@@ -569,7 +568,7 @@ bool Drivetrain::MoveDriveTurnPIDIsFinished(void) {
 		curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
 		motorOutput_R = motorR3->GetMotorOutputPercent();
 	}
-	curAngle = (double)pigeonIMU->GetYawPitchRoll(0);
+	curAngle = GetAngle();
 
 	errorInDegrees = m_turnAngle - curAngle;
 
@@ -606,10 +605,10 @@ void Drivetrain::MoveDriveTurnPIDEnd(void) {
 	m_safetyTimer.Stop();
 
 	driveTurnPIDLoop->Disable();
-	curAngle = (double)pigeonIMU->GetYawPitchRoll(0);
+	curAngle = GetAngle();
 
 	// Re-enable the motor safety helper
-    if (m_talonValidL1 && m_talonValidR3)
+    if (m_talonValidL1 || m_talonValidR3)
     	diffDrive->SetSafetyEnabled(true);
 
 	// Snapshot of results to SmartDashboard
