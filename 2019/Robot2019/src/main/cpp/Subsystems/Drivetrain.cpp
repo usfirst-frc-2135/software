@@ -210,18 +210,15 @@ void Drivetrain::Initialize(void) {
 	std::printf("2135: DT Initialize\n");
 
 	// When disabled, low gear and coast mode to allow easier pushing
+	m_lowGear = true;
+	m_brakeMode = false;
 	if (frc::RobotState::IsDisabled()) {
-		m_lowGear = true;
-		m_brakeMode = false;
 	}
 	else {
 		// Enabled and teleop - low gear and coast mode
 		if (frc::RobotState::IsOperatorControl()) {
-			m_lowGear = true;
-			m_brakeMode = false;
 		}
 		else {	// Auton always low gear and brake mode
-			m_lowGear = true;
 			m_brakeMode = true;
 		}
 	}
@@ -243,47 +240,71 @@ void Drivetrain::FaultDump(void) {
 }
 
 bool Drivetrain::InitializePigeonIMU() {
-	bool pigeonValid = false;
-	double	startTime = frc::GetTime();
-	double	maxTime = 4.5;
-	ErrorCode error = OKAY;
+	int			i;
+	int			retries = 5;
+	int			deviceID = 0;
+	int			pigeonVersion = 0;
+	bool 		pigeonValid = false;
+	ErrorCode 	error = OKAY;
+	char		subsystem[] = "DT";
+	char		name[] = "Pigeon IMU";
 
-	// Display Pigeon IMU firmware versions
-	while ((frc::GetTime() - startTime) < maxTime) {
-		int pigeonVer = pigeonIMU->GetFirmwareVersion();
+	std::printf("2135: TalonSRX Subsystem %s Name %s\n", subsystem, name);
+
+    // Display Pigeon IMU firmware versions
+	deviceID = pigeonIMU->GetDeviceNumber();
+	if ((error = pigeonIMU->GetLastError()) != OKAY) {
+		std::printf("2135: ERROR: %s %s GetDeviceNumber error - %d\n", 
+			subsystem, name, error);
+		return error;
+	}
+
+	for (i = 0; i < retries; i++) {
+		pigeonVersion = pigeonIMU->GetFirmwareVersion();
 		if ((error = pigeonIMU->GetLastError()) != OKAY) {
-			std::printf("2135: ERROR: Pigeon IMU GetFirmwareVersion error - %d\n", error);
+			std::printf("2135: ERROR: %s %s ID %d GetFirmwareVersion error - %d\n", 
+				subsystem, name, deviceID, error);
+			return error;
 		}
-		if (pigeonVer == m_reqPigeonVer) {
-			std::printf("2135: Pigeon IMU Firmware Version - %d.%d\n", pigeonVer/256, pigeonVer%256);
+		if (pigeonVersion == m_reqPigeonVer) {
 			pigeonValid = true;
 			break;
 		}
 		else {
-			std::printf("2135: DT Waiting for Pigeon IMU FW version %5.3f\n", frc::GetTime() - startTime);
+			std::printf("2135: WARNING: %s %s ID %d Incorrect FW version %d.%d expected %d.%d\n",
+				subsystem, name, deviceID, pigeonVersion/256, pigeonVersion%256, m_reqPigeonVer/256, m_reqPigeonVer%256);
 		}
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
-
+	
 	if (pigeonValid) {
-   	   	// Calibrate the Pigeon IMU
-   	   	std::printf("2135: Pigeon IMU Calibration Started\n");
-		int error = pigeonIMU->EnterCalibrationMode(PigeonIMU::BootTareGyroAccel);
-        if (error != 0) {
-            std::printf("2135: ERROR: Pigeon IMU Boot Calibration  error - %d\n", error);
-        }
-        else {
-            error = pigeonIMU->SetYaw(0.0);
-            if (error != 0) {
-                std::printf("2135: ERROR: Pigeon IMU Set Yaw Zero error - %d\n", error);
-            }
-            else {
-                std::printf("2135: Pigeon IMU Calibration Finished\n");
-            }
-        }
+		// Initialize Pigeon IMU to all factory defaults
+		if ((error = pigeonIMU->ConfigFactoryDefault(m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s %s ID %d ConfigFactoryDefault error - %d\n", 
+				subsystem, name, deviceID, error);
+			pigeonValid = false;
+		}
+
+		pigeonIMU->SetYaw(0.0, m_timeout);
+		if ((error = pigeonIMU->GetLastError()) != OKAY) {
+			std::printf("2135: ERROR: %s %s ID %d SetFusedHeading error - %d\n", 
+				subsystem, name, deviceID, error);
+			pigeonValid = false;
+		}
+
+		pigeonIMU->SetFusedHeading(0.0, m_timeout);
+		if ((error = pigeonIMU->GetLastError()) != OKAY) {
+			std::printf("2135: ERROR: %s %s ID %d SetYaw error - %d\n", 
+				subsystem, name, deviceID, error);
+			pigeonValid = false;
+		}
+
+		std::printf("2135: %s %s ID %d ver %d.%d is RESPONSIVE and INITIALIZED (error %d)\n",
+				subsystem, name, deviceID, pigeonVersion/256, pigeonVersion&0xff, error);
    	}
    	else {
-   		std::printf("2135: ERROR: Pigeon IMU does NOT meet required firmware version\n");
+		std::printf("2135: ERROR: %s %s ID %d ver %d.%d is UNRESPONSIVE, (error %d)\n",
+			subsystem, name, deviceID, pigeonVersion/256, pigeonVersion&0xff, error);
    	   	pigeonValid = false;
    	}
 
