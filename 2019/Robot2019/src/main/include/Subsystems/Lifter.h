@@ -39,7 +39,7 @@ private:
 	const int 	m_timeout = 30; 		// CAN timeout in msec to wait for response
 
 	// Declare module variables
-	bool		m_talonValidLF16;		// Health indicator for drive Talon 16
+	bool		m_talonValidLF16;		// Health indicator for lifter Talon 16
 
 	double 		m_driveSpeed;
 	

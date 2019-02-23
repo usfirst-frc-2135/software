@@ -50,9 +50,9 @@ private:
 	const int 		m_timeout = 30; 					// CAN timeout in msec to wait for response
 	const double	COUNTS_PER_ROTATION = (1024*4);		// CPR is 1024 and multiplied by 4
 	const double 	WHEEL_DIA_INCHES = 6.0;				
-	const double 	CountsPerInch = COUNTS_PER_ROTATION/(WHEEL_DIA_INCHES*3.1415926); 
-	const double	m_circumInches = (WHEEL_DIA_INCHES*3.1415926);
-	const int		m_reqPigeonVer = ((4*256)+13);		// Talon SRX version is 4.13
+	const double 	CountsPerInch = COUNTS_PER_ROTATION/(WHEEL_DIA_INCHES*M_PI); 
+	const double	m_circumInches = (WHEEL_DIA_INCHES*M_PI);
+	const int		m_reqPigeonVer = ((4*256)+13);		// Pigeon IMU version is 4.13
 
 	//Declare module variables
 	bool	m_talonValidL1;			// Health indicator for drive Talon Left 1
