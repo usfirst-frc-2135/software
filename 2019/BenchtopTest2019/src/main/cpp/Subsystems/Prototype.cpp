@@ -87,3 +87,7 @@ void Prototype::InvertMotor2() {
     talonSRX2->SetInverted((m_talonInvert2 == true ? false : true));
     m_talonInvert2 = (m_talonInvert1 == true ? false : true);
 }
+
+void Prototype::ReadSensorVelocity() {
+    std::printf("2135: Velocity: %d\n", talonSRX1->GetSelectedSensorVelocity()); 
+}
