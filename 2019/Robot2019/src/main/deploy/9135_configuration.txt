@@ -1,5 +1,5 @@
 # Comment lines start with '#'
- RB_Name = 9135-Nebula
+ RB_Name = 9135-Bebula
 # DriveTrain settings
  DT_PeakOutput = 1.00
  DT_DriveXScaling = 0.6
