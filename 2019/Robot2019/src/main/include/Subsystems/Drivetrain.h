@@ -47,7 +47,7 @@ private:
 	//	Declare constants
 	const bool		m_driveDebug = false;				// Debug flag to disable extra logging calls
 	const int 		m_pidIndex = 0; 					// PID slot index for sensors
-	const int 		m_timeout = 10; 					// CAN timeout in msec to wait for response
+	const int 		m_timeout = 30; 					// CAN timeout in msec to wait for response
 	const double	COUNTS_PER_ROTATION = (1024*4);		// CPR is 1024 and multiplied by 4
 	const double 	WHEEL_DIA_INCHES = 6.0;				
 	const double 	CountsPerInch = COUNTS_PER_ROTATION/(WHEEL_DIA_INCHES*3.1415926); 

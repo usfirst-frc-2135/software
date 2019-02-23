@@ -34,7 +34,7 @@ private:
 
 	// Declare constants 
 	const bool		m_intakeDebug = false;		//DEBUG flag to disable/enable extra logging calls		
-	const int 		m_timeout = 10;				//CAN timeout in msec to wait for response
+	const int 		m_timeout = 30;				//CAN timeout in msec to wait for response
 
 	double			m_acquireSpeed;
 	double 			m_holdSpeed;

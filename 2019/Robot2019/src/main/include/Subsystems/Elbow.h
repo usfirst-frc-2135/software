@@ -36,7 +36,7 @@ private:
 	bool 			m_elbowDebug = false; 			// Debug flag to disable extra logging calls
 	const int 		m_slotIndex = 0;				// Motor controller profile slot index
 	const int 		m_pidIndex = 0; 				// PID Slot index for sensors
-	const int 		m_timeout = 10;					// CAN timeout in msec to wait for response
+	const int 		m_timeout = 30;					// CAN timeout in msec to wait for response
 	const double	OUTPUT_SHAFT_REDUCTION = ((double)22/(double)16);	// Sprocket reduction on output shaft 16T to 22T sprockets
 	const double 	COUNTS_PER_ROTATION = (1024 * 4); 	// CPR is 1024 and multipled by 4 because it is a quadrature encoder
    

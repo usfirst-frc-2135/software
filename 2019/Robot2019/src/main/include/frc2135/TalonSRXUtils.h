@@ -23,7 +23,7 @@ public:
 private:
 	static const int		m_slotIndex = 0;				// Motor controller profile slot index
 	static const int		m_pidIndex = 0; 				// PID Slot index for sensors
-	static const int		m_timeout = 10;					// CAN timeout in msec to wait for response
+	static const int		m_timeout = 30;					// CAN timeout in msec to wait for response
 	static const int		m_retries = 4;					// Number of version check attempts
 
 	static const int		m_reqVersion = ((4*256)+17);		// Talon SRX version is 4.17

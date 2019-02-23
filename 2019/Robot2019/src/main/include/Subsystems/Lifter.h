@@ -36,7 +36,7 @@ private:
 
 	 // Declare constants
 	const bool 	m_lifterDebug = false;	// Debug flag to disable extra logging calls
-	const int 	m_timeout = 10; 		// CAN timeout in msec to wait for response
+	const int 	m_timeout = 30; 		// CAN timeout in msec to wait for response
 
 	// Declare module variables
 	bool		m_talonValidLF16;		// Health indicator for drive Talon 16
