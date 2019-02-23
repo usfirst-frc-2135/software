@@ -77,11 +77,11 @@ void Intake::Periodic() {
     double outputIN14 = 0.0, currentIN14 = 0.0;
     
     if (m_talonValidIN14) {
-        outputIN14 = motorIN14->GetMotorOutputVoltage();
+        outputIN14 = motorIN14->GetMotorOutputPercent();
         currentIN14 = motorIN14->GetOutputCurrent();
     }
 
-    if (m_gripperDebug) {
+    if (m_intakeDebug) {
         frc::SmartDashboard::PutNumber("IN_Output_IN14", outputIN14);
         frc::SmartDashboard::PutNumber("IN_Current_IN14", currentIN14);
     }

@@ -116,7 +116,7 @@ void Wrist::Periodic() {
 
 	if (m_talonValidWR12) {
 		curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
-		outputWR12 = motorWR12->GetMotorOutputVoltage();
+		outputWR12 = motorWR12->GetMotorOutputPercent();
 		currentWR12 = motorWR12->GetOutputCurrent();
 	}
 

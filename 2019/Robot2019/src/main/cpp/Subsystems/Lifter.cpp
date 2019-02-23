@@ -84,7 +84,7 @@ void Lifter::Periodic() {
     double outputLF16 = 0.0, currentLF16 = 0.0;
 
     if (m_talonValidLF16) {
-        outputLF16 = motorLF16->GetMotorOutputVoltage();
+        outputLF16 = motorLF16->GetMotorOutputPercent();
         currentLF16 = motorLF16->GetOutputCurrent();
     }
 

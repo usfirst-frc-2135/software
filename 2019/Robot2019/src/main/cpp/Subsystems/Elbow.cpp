@@ -116,7 +116,7 @@ void Elbow::Periodic() {
 
 	if (m_talonValidEB10) {
 		curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
-		outputEB10 = motorEB10->GetMotorOutputVoltage();
+		outputEB10 = motorEB10->GetMotorOutputPercent();
 		currentEB10 = motorEB10->GetOutputCurrent();
 	}
 
