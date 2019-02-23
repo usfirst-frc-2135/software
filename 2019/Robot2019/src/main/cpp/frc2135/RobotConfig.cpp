@@ -312,11 +312,11 @@ void RobotConfig::DumpConfig()
 //bool valueBool;
 //if (GetValueAsBool("BlahBlah", valueBool))
 //	std::cout<<"Test - BlahBlah (as bool)" <<" " <<valueBool <<"\n";
-//else std::printf("BlahBlah could not get bool value.");
+//else std::printf("BlahBlah could not get bool value.\n");
 //
 //if (GetValueAsBool("NatureWalk", valueBool ))
 //	std::cout<<"Test - NatureWalk" <<" " <<valueBool <<"\n";
-//else std::printf("NatureWalk could not get value.");
+//else std::printf("NatureWalk could not get value.\n");
 //
 //if (GetValueAsFloat("DeprecatedClimber", valueFloat))
 //	std::cout<<"Test - DeprecatedClimber" <<" " <<valueFloat <<"\n";
@@ -362,11 +362,11 @@ void RobotConfig::DumpConfig()
 //
 //if (GetValueAsBool("Tea", valueBool))
 //	std::cout<<"Test - Tea (as bool)" <<" " <<valueBool <<"\n";
-//else std::printf("Tea could not get bool value.");
+//else std::printf("Tea could not get bool value.\n");
 //
 //if (GetValueAsFloat("Chair",valueFloat, DUMMY_DEFAULT_FLOAT))
 //	std::cout << "Test - Chair (as float)" << " " << valueFloat << "\n";
-//else std::printf("Chair could not get float value.");
+//else std::printf("Chair could not get float value.\n");
 //
 //if (GetValueAsString("Sweatpants", valueString))
 //	std::cout<<"Test - Sweatpants (as string)" <<" " <<valueString <<"\n";

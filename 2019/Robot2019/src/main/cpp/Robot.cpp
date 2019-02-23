@@ -186,13 +186,13 @@ void Robot::RobotFaultDump(void) {
 	//	Print out talon SRX faults and clear sticky ones
 	std::printf("2135: %s --------------\n", "FAULT DUMPS");
 	drivetrain->FaultDump();
-	elbow->FaultDump();
 	elevator->FaultDump();
+	elbow->FaultDump();
+	wrist->FaultDump();
 	intake->FaultDump();
 	lifter->FaultDump();
 	pneumatics->FaultDump();
 	power->FaultDump();
-	wrist->FaultDump();
 }
 
 /* Robot Main */
