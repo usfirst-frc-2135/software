@@ -86,7 +86,7 @@ private:
 	double 			m_rocketL3CargoHeight;			// Setpoint for delivery of cargo to rocket at third level 
 	double			m_rocketL3HatchHeight;			// Setpoint for delivery of hatch to rocket at third level
 
-	const double 	m_circumInches = (1.273*M_PI);	// Circumference in inches //TODO: UPDATE WITH 2019 DIMENSIONS
+	const double 	m_circumInches = (1.751*M_PI);	// Circumference in inches 
 
 public:
 	Elevator();
