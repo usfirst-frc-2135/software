@@ -75,6 +75,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	    motorEL7->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
 	    motorEL7->SetSensorPhase(true);
 	    motorEL7->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+		motorEL7->SetSafetyEnabled(false);
 	}
 	
 	if (m_talonValidEL8) {
@@ -101,7 +102,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	    motorEL7->ConfigForwardSoftLimitEnable(true, m_timeout);
 	    motorEL7->ConfigReverseSoftLimitEnable(true, m_timeout);
 
-		motorEL7->ConfigVoltageCompSaturation(12.0, 0);
+		motorEL7->ConfigVoltageCompSaturation(12.0, m_timeout);
 		motorEL7->EnableVoltageCompensation(true);
 
 		motorEL7->ConfigPeakCurrentLimit(10.0, m_timeout);
@@ -109,7 +110,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	}
 
 	if (m_talonValidEL8) {
-		motorEL8->ConfigVoltageCompSaturation(12.0, 0);
+		motorEL8->ConfigVoltageCompSaturation(12.0, m_timeout);
 		motorEL8->EnableVoltageCompensation(true);
 
 		motorEL8->ConfigPeakCurrentLimit(10.0, m_timeout);
@@ -216,11 +217,6 @@ double Elevator::GetCurrentInches () {
 
 	m_curInches = CountsToInches(curCounts);
 	return m_curInches;
-}
-
-bool Elevator::HeightLimitToLowGear() {
-    // Check to see if we are above our set low gear height limit.
-	return (GetCurrentInches() > m_lowGearHeight);
 }
 
 #if 0
