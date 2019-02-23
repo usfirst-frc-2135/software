@@ -154,7 +154,7 @@ void Drivetrain::Periodic() {
 	double  gyroYaw = 0.0;
 
     if (m_talonValidL1) {
-		encoderLeft = motorL1->GetSelectedSensorPosition(0);
+		encoderLeft = motorL1->GetSelectedSensorPosition(m_pidIndex);
 		outputL1 = motorL1->GetMotorOutputPercent();
 		currentL1 = motorL1->GetOutputCurrent();
 	}
@@ -165,7 +165,7 @@ void Drivetrain::Periodic() {
 	}
 
 	if (m_talonValidR3) {
-		encoderRight = motorR3->GetSelectedSensorPosition(0);
+		encoderRight = motorR3->GetSelectedSensorPosition(m_pidIndex);
 		outputR3 = motorR3->GetMotorOutputPercent();
 		currentR3 = motorR3->GetOutputCurrent();
 	}
@@ -191,9 +191,7 @@ void Drivetrain::Periodic() {
 		frc::SmartDashboard::PutNumber("DT_Current_R3", currentR3);
 		frc::SmartDashboard::PutNumber("DT_Output_R4", outputR4);
 		frc::SmartDashboard::PutNumber("DT_Current_R4", currentR4);
-#if 0
 		frc::SmartDashboard::PutNumber("DT_GyroAngle", gyroYaw);
-#endif
 	}
 }
 
