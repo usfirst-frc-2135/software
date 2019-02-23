@@ -140,25 +140,23 @@ void Elevator::Periodic() {
 	double	outputEL7 = 0.0, currentEL7 = 0.0;
 	double	outputEL8 = 0.0, currentEL8 = 0.0;
 
-	frc::SmartDashboard::PutBoolean("EL Calibrated", m_calibrated);
-	frc::SmartDashboard::PutNumber("EL Height", CountsToInches(curCounts));
+	if (m_talonValidEL7) {
+		curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
+		outputEL7 = motorEL7->GetMotorOutputVoltage();
+		currentEL7 = motorEL7->GetOutputCurrent();
+	}
 
-	if (m_elevatorDebug) {
-
-		if (m_talonValidEL7) {
-			curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
-			outputEL7 = motorEL7->GetMotorOutputVoltage();
-			currentEL7 = motorEL7->GetOutputCurrent();
-		}
-
-		if (m_talonValidEL8) {
-			outputEL8 = motorEL8->GetMotorOutputVoltage();
-			currentEL8 = motorEL8->GetOutputCurrent();
-		}
+	if (m_talonValidEL8) {
+		outputEL8 = motorEL8->GetMotorOutputVoltage();
+		currentEL8 = motorEL8->GetOutputCurrent();
+	}
 
 		// Put code here to be run every loop
-	// frc::SmartDashboard::PutNumber("Cube Height", 2 * CountsToInches(curCounts));
+	frc::SmartDashboard::PutBoolean("EL Calibrated", m_calibrated);
+	frc::SmartDashboard::PutNumber("EL Height", CountsToInches(curCounts));
+	frc::SmartDashboard::PutNumber("Del Height", 2 * CountsToInches(curCounts));
 
+	if (m_elevatorDebug) {
 		frc::SmartDashboard::PutNumber("EL_Output_EL7", outputEL7);
 		frc::SmartDashboard::PutNumber("EL_Current_EL7", currentEL7);
 		frc::SmartDashboard::PutNumber("EL_Output_EL8", outputEL8);
