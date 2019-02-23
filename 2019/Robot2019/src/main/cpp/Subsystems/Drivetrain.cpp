@@ -294,8 +294,8 @@ bool Drivetrain::InitializePigeonIMU() {
 //	Joystick movement during Teleop
 
 void Drivetrain::MoveWithJoystick(std::shared_ptr<frc::Joystick> throttleJstick, std::shared_ptr<frc::Joystick> turnJstick) {
-	double xValue;
-	double yValue;
+	double xValue = 0.0;
+	double yValue = 0.0;
 
     if (turnJstick == nullptr) {
         xValue = throttleJstick->GetX();
@@ -311,7 +311,7 @@ void Drivetrain::MoveWithJoystick(std::shared_ptr<frc::Joystick> throttleJstick,
 		yValue *= m_driveYScaling;
 	}
 
-	if (m_talonValidL1 && m_talonValidR3)
+	if (m_talonValidL1 || m_talonValidR3)
 		diffDrive->ArcadeDrive(-yValue, xValue, true);
 }
 
