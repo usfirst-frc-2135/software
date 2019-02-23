@@ -174,11 +174,13 @@ void Drivetrain::Periodic() {
 		outputR4 = motorR4->GetMotorOutputPercent();
 		currentR4 = motorR4->GetOutputCurrent();
 	}
-#if 0
+
 	if (m_pigeonValid) {
-		gyroYaw = (double)pigeonIMU->GetYawPitchRoll(0);
+		double	ypr[3];
+		pigeonIMU->GetYawPitchRoll(ypr);
+		gyroYaw = ypr[0];
 	}
-#endif
+
     if (m_driveDebug) {
 		frc::SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
 		frc::SmartDashboard::PutNumber("DT_Output_L1", outputL1);
@@ -191,9 +193,7 @@ void Drivetrain::Periodic() {
 		frc::SmartDashboard::PutNumber("DT_Current_R3", currentR3);
 		frc::SmartDashboard::PutNumber("DT_Output_R4", outputR4);
 		frc::SmartDashboard::PutNumber("DT_Current_R4", currentR4);
-#if 0
 		frc::SmartDashboard::PutNumber("DT_GyroAngle", gyroYaw);
-#endif
 	}
 }
 
