@@ -223,7 +223,7 @@ void Elbow::MoveToPositionInit(int level) {
 	}
 
 	m_targetCounts = DegreesToCounts(m_targetDegrees);
-    std::printf("2135: EB MM Init %d counts, %5.2f inches\n", (int) m_targetCounts, m_targetDegrees);
+    std::printf("2135: EB MM Init %d counts, %5.2f degrees\n", (int) m_targetCounts, m_targetDegrees);
 	
 	if (m_calibrated) {
 

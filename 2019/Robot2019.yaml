@@ -1131,7 +1131,7 @@ Children:
                 - !!robotbuilder.data.properties.ParameterSet
                   name: SMARTDASH
                   parameters:
-                  - {name: level, type: int, value: '3'}
+                  - {name: level, type: int, value: '5'}
               Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {
                 default: true, name: Button on SmartDashboard, validators: null, value: true}
           hasMatch: true
@@ -1221,7 +1221,7 @@ Children:
                 - !!robotbuilder.data.properties.ParameterSet
                   name: SMARTDASH
                   parameters:
-                  - {name: level, type: int, value: '3'}
+                  - {name: level, type: int, value: '5'}
               Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {
                 default: true, name: Button on SmartDashboard, validators: null, value: true}
           hasMatch: true
@@ -2233,10 +2233,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Elbow}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id056 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id056
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command

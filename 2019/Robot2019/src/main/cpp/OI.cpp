@@ -94,13 +94,13 @@ OI::OI() {
     frc::SmartDashboard::PutData("Wrist Run: GROUND", new WristRun(0));
     frc::SmartDashboard::PutData("Wrist Run: STOWED", new WristRun(1));
     frc::SmartDashboard::PutData("Wrist Run: DELIVERY", new WristRun(2));
-    frc::SmartDashboard::PutData("Wrist Run: SMARTDASH", new WristRun(3));
+    frc::SmartDashboard::PutData("Wrist Run: SMARTDASH", new WristRun(5));
     frc::SmartDashboard::PutData("Elbow Bump: UP", new ElbowBump(true));
     frc::SmartDashboard::PutData("Elbow Bump: DOWN", new ElbowBump(false));
     frc::SmartDashboard::PutData("Elbow Run: GROUND", new ElbowRun(0));
     frc::SmartDashboard::PutData("Elbow Run: STOWED", new ElbowRun(1));
     frc::SmartDashboard::PutData("Elbow Run: DELIVERY", new ElbowRun(2));
-    frc::SmartDashboard::PutData("Elbow Run: SMARTDASH", new ElbowRun(3));
+    frc::SmartDashboard::PutData("Elbow Run: SMARTDASH", new ElbowRun(5));
     frc::SmartDashboard::PutData("Elevator Calibrate", new ElevatorCalibrate());
     frc::SmartDashboard::PutData("Elevator Bump: UP", new ElevatorBump(true));
     frc::SmartDashboard::PutData("Elevator Bump: DOWN", new ElevatorBump(false));
