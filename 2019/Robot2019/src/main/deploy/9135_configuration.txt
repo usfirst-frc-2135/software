@@ -1,7 +1,6 @@
 # Comment lines start with '#'
   RB_Name = 9135-Bebula
 # DriveTrain settings
-  DT_PeakOutput = 1.00
   DT_DriveXScaling = 0.6
   DT_DriveSpin = 0.45
   DT_PidTurnKp = 0.030
@@ -16,6 +15,7 @@
   EL_PidKp = 0.250
   EL_CLRampRate = 0.250
   EL_CLAllowedError = 0
+  EL_ArbFeedForward = 0.1
   EL_ToleranceInches = 2.0
   EL_MaxHeight = 32.0
   EL_MinHeight = 0.0
@@ -34,8 +34,7 @@
 # Elbow settings
   EB_PidKp = 2.25
   EB_PidMaxOut = 1.00
-  EB_CLRampRate = 0.080
-  EB_CLAllowedError = 0
+  EB_ArbFeedForward = 0.1
   EB_ToleranceDegrees = 5.0
   EB_MaxCounts = 0
   EB_MinCounts = -1800
@@ -53,8 +52,7 @@
 # Wrist settings
   WR_PidKp = 2.25
   WR_PidMaxOut = 1.00
-  WR_CLRampRate = 0.080
-  WR_CLAllowedError = 0
+  WR_ArbFeedForward = 0.1
   WR_ToleranceDegrees = 5.0
   WR_MaxCounts = 0
   WR_MinCounts = -1800
@@ -72,5 +70,6 @@
 # Intake settings
   IN_AcquireSpeed = 0.50
   IN_HoldSpeed = 0.25
-  IN_ExpelSpeed = 0.75
-0
+  IN_ExpelSpeed = -0.75
+# Lifter settings
+  LF_DriveSpeed = 0.5
