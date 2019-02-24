@@ -130,6 +130,11 @@ void Robot::AutonomousInit() {
 	std::printf("2135: ***** Auton Init ***** - FMS Read Game Data\n");
 	FMSGameDataRead();
 	drivetrain->Initialize();
+	elevator->Initialize();
+	elbow->Initialize();
+	wrist->Initialize();
+	intake->Initialize();
+	lifter->Initialize();
 	autonomousCommand = chooser.GetSelected();
 	if (autonomousCommand != nullptr)
 		autonomousCommand->Start();
@@ -148,6 +153,11 @@ void Robot::TeleopInit() {
 	if (autonomousCommand != nullptr)
 		autonomousCommand->Cancel();
 	drivetrain->Initialize();
+	elevator->Initialize();
+	elbow->Initialize();
+	wrist->Initialize();
+	intake->Initialize();
+	lifter->Initialize();
 }
 
 void Robot::TeleopPeriodic() {
