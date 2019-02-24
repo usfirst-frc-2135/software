@@ -27,6 +27,7 @@
 #include "Commands/DriveSpin.h"
 #include "Commands/DriveTeleop.h"
 #include "Commands/ElbowBump.h"
+#include "Commands/ElbowCalibrate.h"
 #include "Commands/ElbowRun.h"
 #include "Commands/ElevatorBump.h"
 #include "Commands/ElevatorCalibrate.h"
@@ -52,17 +53,17 @@ OI::OI() {
     wristBumpDown.reset(new frc::JoystickButton(controlBoard.get(), 9));
     wristBumpDown->WhileHeld(new WristBump(false));
     wristBumpUp.reset(new frc::JoystickButton(controlBoard.get(), 8));
-    wristBumpUp->WhileHeld(new WristBump(false));
+    wristBumpUp->WhileHeld(new WristBump(true));
     elbowBumpDown.reset(new frc::JoystickButton(controlBoard.get(), 7));
     elbowBumpDown->WhileHeld(new ElbowBump(false));
     elbowBumpUp.reset(new frc::JoystickButton(controlBoard.get(), 6));
-    elbowBumpUp->WhileHeld(new ElbowBump(false));
+    elbowBumpUp->WhileHeld(new ElbowBump(true));
     elevatorBumpDown.reset(new frc::JoystickButton(controlBoard.get(), 5));
     elevatorBumpDown->WhileHeld(new ElevatorBump(false));
     elevatorBumpUp.reset(new frc::JoystickButton(controlBoard.get(), 4));
-    elevatorBumpUp->WhileHeld(new ElevatorBump(false));
+    elevatorBumpUp->WhileHeld(new ElevatorBump(true));
     gPShifter.reset(new frc::JoystickButton(controlBoard.get(), 3));
-    gPShifter->WhenPressed(new GPShift());
+    gPShifter->WhileHeld(new GPShift());
     intakePanelDeliver.reset(new frc::JoystickButton(controlBoard.get(), 2));
     intakePanelDeliver->WhileHeld(new IntakeDelivery(true));
     intakeAcquire.reset(new frc::JoystickButton(controlBoard.get(), 1));
@@ -85,6 +86,7 @@ OI::OI() {
     shiftSpeed->WhileHeld(new DriveShift(false));
 
     // SmartDashboard Buttons
+    frc::SmartDashboard::PutData("Elbow Calibrate", new ElbowCalibrate());
     frc::SmartDashboard::PutData("Arm Run", new ArmRun());
     frc::SmartDashboard::PutData("Wrist Calibrate", new WristCalibrate());
     frc::SmartDashboard::PutData("Wrist Bump: UP", new WristBump(true));
@@ -93,6 +95,8 @@ OI::OI() {
     frc::SmartDashboard::PutData("Wrist Run: STOWED", new WristRun(1));
     frc::SmartDashboard::PutData("Wrist Run: DELIVERY", new WristRun(2));
     frc::SmartDashboard::PutData("Wrist Run: SMARTDASH", new WristRun(3));
+    frc::SmartDashboard::PutData("Elbow Bump: UP", new ElbowBump(true));
+    frc::SmartDashboard::PutData("Elbow Bump: DOWN", new ElbowBump(false));
     frc::SmartDashboard::PutData("Elbow Run: GROUND", new ElbowRun(0));
     frc::SmartDashboard::PutData("Elbow Run: STOWED", new ElbowRun(1));
     frc::SmartDashboard::PutData("Elbow Run: DELIVERY", new ElbowRun(2));
@@ -100,8 +104,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("Elevator Calibrate", new ElevatorCalibrate());
     frc::SmartDashboard::PutData("Elevator Bump: UP", new ElevatorBump(true));
     frc::SmartDashboard::PutData("Elevator Bump: DOWN", new ElevatorBump(false));
-    frc::SmartDashboard::PutData("Elbow Bump: UP", new ElbowBump(true));
-    frc::SmartDashboard::PutData("Elbow Bump: DOWN", new ElbowBump(false));
+    frc::SmartDashboard::PutData("Elevator Run: SMART_DASH", new ElevatorRun(5));
     frc::SmartDashboard::PutData("Auto Pos 3 Level 2 Ship", new AutoPos3Level2Ship());
     frc::SmartDashboard::PutData("Auto Pos 1 Level 2 Ship", new AutoPos1Level2Ship());
     frc::SmartDashboard::PutData("Auto Pos 3 Level 1 Ship", new AutoPos3Level1Ship());
