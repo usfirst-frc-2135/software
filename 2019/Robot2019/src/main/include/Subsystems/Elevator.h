@@ -61,12 +61,12 @@ private:
 	bool			m_bumpDir;						// State variable for bumping up or down
 	bool 			m_isCargo; 						// True - Game Piece is cargo, False - Game Piece is hatch
 
-	frc::Timer			m_safetyTimer;					// Safety timer for use in elevator
+	frc::Timer		m_safetyTimer;					// Safety timer for use in elevator
 	double			m_safetyTimeout;				// Seconds that the timer ran before stopping
 
 	// Configuration file parameters
 	double			m_calibrationSpeed;				// Motor output speed used during calibration
-	double 			m_pidMaxOut;						// Elevator maximum speed during movement
+	double 			m_pidMaxOut;					// Elevator maximum speed during movement
 	double			m_pidKp;						// Elevator PID proportional constant
 	int				m_CLAllowedError;				// Elevator PID allowable closed loop error
 	double			m_toleranceInches;				// Elevator PID tolerance in inches
@@ -75,7 +75,7 @@ private:
 	double			m_elevatorMinHeight;			// Elevator minimum allowable height
 	double			m_lowGearHeight;				// Height for forcing drivetrain to low gear
 	double			m_bumpHeight;					// Incremental height when bumping the elevator up/down
-	double			m_groundCargoHeight;				// Setpoint for floor level for cargo (full down)
+	double			m_groundCargoHeight;			// Setpoint for floor level for cargo (full down)
 	double 			m_groundHatchHeight; 			// Set point for floor level for hatch
 	double			m_shipCargoHeight;				// Setpoint to deliver cargo in cargo ship
 	double			m_shipHatchHeight;				// Setpoint to deliver hatches to rocket at first level

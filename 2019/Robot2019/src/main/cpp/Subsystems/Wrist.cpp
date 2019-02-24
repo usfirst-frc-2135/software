@@ -35,9 +35,8 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.375);
     config->GetValueAsDouble("WR_PidMaxOut", m_pidMaxOut, 1.0);
-    config->GetValueAsDouble("WR_CLRampRate", m_CLRampRate, 0.080);
-    config->GetValueAsInt("WR_CLAllowedError", m_CLAllowedError, 0);
 	config->GetValueAsDouble("WR_ToleranceDegrees", m_toleranceDegrees, 5.0);
+	config->GetValueAsDouble("WR_ArbFeedForward", m_arbFeedForward, 0.1);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1800);
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 10.0);
@@ -69,27 +68,31 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 		motorWR12->SetSensorPhase(false);
 		m_curDegrees = CountsToDegrees(motorWR12->GetSelectedSensorPosition(m_pidIndex)); 
 
-		// Set maximum power and ramp rate
+		// Set maximum power
+		 motorWR12->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
+		 motorWR12->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
+
 		// Set maximum current draw allowed
+		 motorWR12->ConfigPeakCurrentLimit(10.0, m_timeout);
+		 motorWR12->EnableCurrentLimit(true);
 
-	 	// Set proportional constant
-		// Set closed loop error
-		motorWR12->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
-		motorWR12->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
-		motorWR12->ConfigClosedloopRamp(m_CLRampRate, m_timeout);
-		motorWR12->Config_kP(m_slotIndex, m_pidKp, m_timeout);
-		motorWR12->ConfigAllowableClosedloopError(m_slotIndex, m_CLAllowedError, m_timeout);
+		// Set soft limits
+		 motorWR12->ConfigForwardSoftLimitThreshold(m_wristMaxCounts, m_timeout);
+		 motorWR12->ConfigReverseSoftLimitThreshold(m_wristMinCounts, m_timeout);
+		 motorWR12->ConfigForwardSoftLimitEnable(true, m_timeout);
+		 motorWR12->ConfigReverseSoftLimitEnable(true, m_timeout);
 
-		motorWR12->ConfigForwardSoftLimitThreshold(m_wristMaxCounts, m_timeout);
-		motorWR12->ConfigReverseSoftLimitThreshold(m_wristMinCounts, m_timeout);
-		motorWR12->ConfigForwardSoftLimitEnable(true, m_timeout);
-		motorWR12->ConfigReverseSoftLimitEnable(true, m_timeout);
+	 	// Configure Magic Motion settings
+		 motorWR12->SelectProfileSlot(0, 0);
+         motorWR12->Config_kF(0, 0.0, m_timeout);      
+         motorWR12->Config_kP(0, 0.0, m_timeout);
+         motorWR12->Config_kI(0, 0.0, m_timeout);
+         motorWR12->Config_kD(0, 0.0, m_timeout);
+         motorWR12->ConfigMotionCruiseVelocity(352/2, m_timeout);   // 90 degree rotation in 0.4*2 seconds
+         motorWR12->ConfigMotionAcceleration(352/2, m_timeout);		// 1 second to accelerate to max velocity
 
-		motorWR12->ConfigPeakCurrentLimit(10.0, m_timeout);
-		motorWR12->EnableCurrentLimit(true);
-
-		// Enable wrist PID with existing sensor reading (no movement)
-		motorWR12->Set(ControlMode::Position, (double)DegreesToCounts(m_curDegrees));
+		// Enable wrist Motion Magic with existing sensor reading (no movement)
+		 motorWR12->Set(ControlMode::MotionMagic, (double)DegreesToCounts(m_curDegrees), DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
      }
 
     // Initialize Variables
@@ -182,8 +185,7 @@ double Wrist::GetCurrentDegrees() {
 	return m_curDegrees;
 }
 
-void Wrist::MoveToPosition(int level)
-{
+void Wrist::MoveToPositionInit(int level) {
 	int curCounts = 0;
 
 	m_wristLevel = level;
@@ -221,83 +223,89 @@ void Wrist::MoveToPosition(int level)
 		return;
 	}
 
-	// Constrain input request to a valid and safe range between full down and max height
-	std::printf("2135: WR m_targetDegrees: %f, counts: %d\n",
-			m_targetDegrees, DegreesToCounts(m_targetDegrees));
-
-	if (m_targetDegrees > CountsToDegrees(m_wristMinCounts)) {
-		std::printf("2135: WR m_targetDegrees limited by m_wristMinCounts %d\n", m_wristMinCounts);
-		m_targetDegrees = CountsToDegrees(m_wristMinCounts);
-	}
-	if (m_targetDegrees < CountsToDegrees(m_wristMaxCounts)) {
-		std::printf("2135: WR m_targetDegrees limited by m_wristMaxCounts %d\n", m_wristMaxCounts);
-		m_targetDegrees = CountsToDegrees(m_wristMaxCounts);
-	}
-
 	m_targetCounts = DegreesToCounts(m_targetDegrees);
+    std::printf("2135: WR MM Init %d counts, %5.2f inches\n", (int) m_targetCounts, m_targetDegrees);
+	
+	if (m_calibrated) {
 
-	if (m_talonValidWR12)
-		curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
-	m_curDegrees = CountsToDegrees(curCounts);
+		// Constrain input request to a valid and safe range
+		if (m_targetCounts < m_wristMinCounts) {
+			std::printf("2135: WR MM m_targetCounts limited by m_wristMinCounts %d\n", m_wristMinCounts);
+			m_targetCounts = m_wristMinCounts;
+		}
+		if (m_targetCounts > m_wristMaxCounts) {
+			std::printf("2135: WR MM m_targetCounts limited by m_wristMaxCounts %d\n", m_wristMaxCounts);
+			m_targetCounts = m_wristMaxCounts;
+		}
 
-	//Start the safety timer.
-	m_safetyTimeout = 1.5;
-	m_safetyTimer.Reset();
-	m_safetyTimer.Start();
+		// Get current position in inches and set position mode and target counts
+		if (m_talonValidWR12)
+			curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
+		m_curDegrees = CountsToDegrees(curCounts);
 
-	// Set the mode and target
-	if (m_talonValidWR12)
-		motorWR12->Set(ControlMode::Position, (double)m_targetCounts);
+		//Start the safety timer.
+		m_safetyTimeout = 1.5;
+		m_safetyTimer.Reset();
+		m_safetyTimer.Start();
+ 
+		motorWR12->Set(ControlMode::MotionMagic, m_targetCounts, DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
 
-	std::printf("2135: WR Move degrees %f -> %f counts %d -> %d\n",
-			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
+		std::printf("2135: WR MM Move degrees %f -> %f counts %d -> %d\n",
+				m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
+	}
+	else {
+		std::printf("2135: Wrist is not calibrated\n");
+
+		if (m_talonValidWR12)
+			motorWR12->Set(ControlMode::PercentOutput, 0.0);
+	}
 }
 
 bool Wrist::MoveToPositionIsFinished(void) {
-	bool pidFinished = false;
+	bool mmIsFinished = false;
 	int curCounts = 0;
-	int closedLoopError = 0;
 	double motorOutput = 0.0;
-	double errorInDegrees = 0;
+	double motorAmps = 0.0;
+	double errorInDegrees = 0.0;
 
 	// If a real move was requested, check for completion
 	if (m_wristLevel != NOCHANGE_ANGLE) {
 		if (m_talonValidWR12) {
 			curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
 			motorOutput = motorWR12->GetMotorOutputPercent();
+			motorAmps = motorWR12->GetOutputCurrent();
 		}
 
 		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
-		closedLoopError = m_targetCounts - curCounts;
-		errorInDegrees = CountsToDegrees(closedLoopError);
+		errorInDegrees = CountsToDegrees(m_targetCounts - curCounts);
 
-		// cts = Encoder Counts, CLE = Closed Loop Error, Out = Motor Output
-		std::printf("2135: WR %5.3f cts %d, deg %4.1f, CLE %d, Out %4.2f\n", secs,
-				curCounts, CountsToDegrees(curCounts), closedLoopError, motorOutput);
+		// cts = Encoder Counts, error = Error In Degrees, Out = Motor Output
+		std::printf("2135: WR MM %5.3f cts %d, degrees %5.2f, error %5.2f, Out %4.2f, Amps %6.3f\n", 
+			secs, curCounts, CountsToDegrees(curCounts), errorInDegrees, motorOutput, motorAmps);
 
 		// Check to see if the error is in an acceptable number of inches.
-		if (fabs(errorInDegrees < m_toleranceDegrees)) {
-			pidFinished = true;
+		if (fabs(errorInDegrees) < m_toleranceDegrees) {
+			mmIsFinished = true;
 			m_safetyTimer.Stop();
-			std::printf("2135: WR Move Finished - Time %f\n", m_safetyTimer.Get());
+			std::printf("2135: WR MM Move Finished - Time %f\n", m_safetyTimer.Get());
 		}
-
+		
 		// Check to see if the Safety Timer has timed out.
 		if (m_safetyTimer.Get() >= m_safetyTimeout) {
-			pidFinished = true;
+			mmIsFinished = true;
 			m_safetyTimer.Stop();
 			std::printf("2135: WR Move Safety timer has timed out\n");
 		}
 	}
 
-	return pidFinished;
+	return mmIsFinished;
 }
 
 void Wrist::BumpToPosition(bool direction) {
 	m_bumpDir = direction;
 
-	MoveToPosition(BUMP_ANGLE);
+	MoveToPositionInit(BUMP_ANGLE);
 }
 
 void Wrist::Calibrate() {
@@ -306,6 +314,7 @@ void Wrist::Calibrate() {
 		motorWR12->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 
 	frc::SmartDashboard::PutBoolean("WR Calibrated", true);
+	m_calibrated = true;
 }
 
 void Wrist::SetGamePiece(bool cargo) {
