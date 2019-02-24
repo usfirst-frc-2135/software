@@ -34,9 +34,8 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("EB_PidKp", m_pidKp, 0.375);
     config->GetValueAsDouble("EB_PidMaxOut", m_pidMaxOut, 1.0);
-    config->GetValueAsDouble("EB_CLRampRate", m_CLRampRate, 0.080);
-    config->GetValueAsInt("EB_CLAllowedError", m_CLAllowedError, 0);
 	config->GetValueAsDouble("EB_ToleranceDegrees", m_toleranceDegrees, 5.0);
+	config->GetValueAsDouble("EB_ArbFeedForward", m_arbFeedForward, 0.1);
     config->GetValueAsInt("EB_MaxCounts", m_elbowMaxCounts, 0);
     config->GetValueAsInt("EB_MinCounts", m_elbowMinCounts, -1800);
 	config->GetValueAsDouble("EB_BumpAngle", m_bumpAngle, 10.0);
@@ -56,37 +55,41 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 	    // Set the control mode and target to initially disable any movement
 	    // Set to brake mode (in comparison to coast)
 	    // Configure the encoder
-		motorEB10->SetInverted(false);
-	    motorEB10->SetNeutralMode(NeutralMode::Brake);
-		motorEB10->ConfigVoltageCompSaturation(12.0, 0);
-        motorEB10->EnableVoltageCompensation(true);
+		 motorEB10->SetInverted(false);
+	     motorEB10->SetNeutralMode(NeutralMode::Brake);
+		 motorEB10->ConfigVoltageCompSaturation(12.0, 0);
+         motorEB10->EnableVoltageCompensation(true);
 
-	    motorEB10->Set(ControlMode::PercentOutput, 0.0);
-		motorEB10->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
-		motorEB10->SetSensorPhase(false);
-		m_curDegrees = CountsToDegrees(motorEB10->GetSelectedSensorPosition(m_pidIndex)); //WRITE COUNTS TO DEGREES 
+	     motorEB10->Set(ControlMode::PercentOutput, 0.0);
+		 motorEB10->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
+		 motorEB10->SetSensorPhase(false);
+		 m_curDegrees = CountsToDegrees(motorEB10->GetSelectedSensorPosition(m_pidIndex)); // TODO: WRITE COUNTS TO DEGREES 
 
-		// Set maximum power and ramp rate
+		// Set maximum power
+		 motorEB10->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
+		 motorEB10->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
+
 		// Set maximum current draw allowed
+		 motorEB10->ConfigPeakCurrentLimit(10.0, m_timeout);
+		 motorEB10->EnableCurrentLimit(true);
 
-	 	// Set proportional constant
-		// Set closed loop error
-		motorEB10->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
-		motorEB10->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
-		motorEB10->ConfigClosedloopRamp(m_CLRampRate, m_timeout);
-		motorEB10->Config_kP(m_slotIndex, m_pidKp, m_timeout);
-		motorEB10->ConfigAllowableClosedloopError(m_slotIndex, m_CLAllowedError, m_timeout);
+		// Set soft limits
+		 motorEB10->ConfigForwardSoftLimitThreshold(m_elbowMaxCounts, m_timeout);
+		 motorEB10->ConfigReverseSoftLimitThreshold(m_elbowMinCounts, m_timeout);
+		 motorEB10->ConfigForwardSoftLimitEnable(true, m_timeout);
+		 motorEB10->ConfigReverseSoftLimitEnable(true, m_timeout);
 
-		motorEB10->ConfigForwardSoftLimitThreshold(m_elbowMaxCounts, m_timeout);
-		motorEB10->ConfigReverseSoftLimitThreshold(m_elbowMinCounts, m_timeout);
-		motorEB10->ConfigForwardSoftLimitEnable(true, m_timeout);
-		motorEB10->ConfigReverseSoftLimitEnable(true, m_timeout);
+		// Configure Magic Motion settings
+		 motorEB10->SelectProfileSlot(0, 0);
+         motorEB10->Config_kF(0, 0.0, m_timeout);      
+         motorEB10->Config_kP(0, 0.0, m_timeout);
+         motorEB10->Config_kI(0, 0.0, m_timeout);
+         motorEB10->Config_kD(0, 0.0, m_timeout);
+         motorEB10->ConfigMotionCruiseVelocity(282/2, m_timeout);   	// 90 degree rotation in 0.5*2 seconds
+         motorEB10->ConfigMotionAcceleration(282/2, m_timeout);		// 1 second to accelerate to max velocity
 
-		motorEB10->ConfigPeakCurrentLimit(10.0, m_timeout);
-		motorEB10->EnableCurrentLimit(true);
-
-		// Enable elbow PID with existing sensor reading (no movement)
-		motorEB10->Set(ControlMode::Position, (double)DegreesToCounts(m_curDegrees));
+		// Enable elbow Motion Magic with existing sensor reading (no movement)
+		 motorEB10->Set(ControlMode::MotionMagic, (double)DegreesToCounts(m_curDegrees), DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
      }
 
     // Initialize Variables
@@ -148,7 +151,6 @@ void Elbow::Initialize(void) {
 }
 
 void Elbow::FaultDump(void) {
-
 	//	Dump all Talon faults
 	frc2135::TalonSRXUtils::TalonSRXFaultDump("EB 10", motorEB10);
 }
@@ -179,8 +181,7 @@ double Elbow::GetCurrentDegrees() {
 	return m_curDegrees;
 }
 
-void Elbow::MoveToPosition(int level)
-{
+void Elbow::MoveToPositionInit(int level) {
 	int curCounts = 0;
 
 	m_elbowLevel = level;
@@ -218,83 +219,89 @@ void Elbow::MoveToPosition(int level)
 		return;
 	}
 
-	// Constrain input request to a valid and safe range between full down and max height
-	std::printf("2135: EB m_targetDegrees: %f, counts: %d\n",
-			m_targetDegrees, DegreesToCounts(m_targetDegrees));
-
-	if (m_targetDegrees > CountsToDegrees(m_elbowMinCounts)) {
-		std::printf("2135: EB m_targetDegrees limited by m_elbowMinCounts %d\n", m_elbowMinCounts);
-		m_targetDegrees = CountsToDegrees(m_elbowMinCounts);
-	}
-	if (m_targetDegrees < CountsToDegrees(m_elbowMaxCounts)) {
-		std::printf("2135: EB m_targetDegrees limited by m_elbowMaxCounts %d\n", m_elbowMaxCounts);
-		m_targetDegrees = CountsToDegrees(m_elbowMaxCounts);
-	}
-
 	m_targetCounts = DegreesToCounts(m_targetDegrees);
+    std::printf("2135: EB MM Init %d counts, %5.2f inches\n", (int) m_targetCounts, m_targetDegrees);
+	
+	if (m_calibrated) {
 
-	if (m_talonValidEB10)
-		curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
-	m_curDegrees = CountsToDegrees(curCounts);
+		// Constrain input request to a valid and safe range
+		if (m_targetCounts < m_elbowMinCounts) {
+			std::printf("2135: EB MM m_targetCounts limited by m_elbowMinCounts %d\n", m_elbowMinCounts);
+			m_targetCounts = m_elbowMinCounts;
+		}
+		if (m_targetCounts > m_elbowMaxCounts) {
+			std::printf("2135: EB MM m_targetCounts limited by m_elbowMaxCounts %d\n", m_elbowMaxCounts);
+			m_targetCounts = m_elbowMaxCounts;
+		}
 
-	//Start the safety timer.
-	m_safetyTimeout = 1.5;
-	m_safetyTimer.Reset();
-	m_safetyTimer.Start();
+		// Get current position in inches and set position mode and target counts
+		if (m_talonValidEB10)
+			curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
+		m_curDegrees = CountsToDegrees(curCounts);
 
-	// Set the mode and target
-	if (m_talonValidEB10)
-		motorEB10->Set(ControlMode::Position, (double)m_targetCounts);
+		//Start the safety timer.
+		m_safetyTimeout = 1.5;
+		m_safetyTimer.Reset();
+		m_safetyTimer.Start();
+ 
+		motorEB10->Set(ControlMode::MotionMagic, m_targetCounts, DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
 
-	std::printf("2135: EB Move degrees %f -> %f counts %d -> %d\n",
-			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
+		std::printf("2135: EB MM Move degrees %f -> %f counts %d -> %d\n",
+				m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
+	}
+	else {
+		std::printf("2135: Elbow is not calibrated\n");
+
+		if (m_talonValidEB10)
+			motorEB10->Set(ControlMode::PercentOutput, 0.0);
+	}
 }
 
 bool Elbow::MoveToPositionIsFinished(void) {
-	bool pidFinished = false;
+	bool mmIsFinished = false;
 	int curCounts = 0;
-	int closedLoopError = 0;
 	double motorOutput = 0.0;
-	double errorInDegrees = 0;
+	double motorAmps = 0.0;
+	double errorInDegrees = 0.0;
 
 	// If a real move was requested, check for completion
 	if (m_elbowLevel != NOCHANGE_ANGLE) {
 		if (m_talonValidEB10) {
 			curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
 			motorOutput = motorEB10->GetMotorOutputPercent();
+			motorAmps = motorEB10->GetOutputCurrent();
 		}
 
 		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
-		closedLoopError = m_targetCounts - curCounts;
-		errorInDegrees = CountsToDegrees(closedLoopError);
+		errorInDegrees = CountsToDegrees(m_targetCounts - curCounts);
 
-		// cts = Encoder Counts, CLE = Closed Loop Error, Out = Motor Output
-		std::printf("2135: EB %5.3f cts %d, deg %4.1f, CLE %d, Out %4.2f\n", secs,
-				curCounts, CountsToDegrees(curCounts), closedLoopError, motorOutput);
+		// cts = Encoder Counts, error = Error In Degrees, Out = Motor Output
+		std::printf("2135: EB MM %5.3f cts %d, degrees %5.2f, error %5.2f, Out %4.2f, Amps %6.3f\n", 
+			secs, curCounts, CountsToDegrees(curCounts), errorInDegrees, motorOutput, motorAmps);
 
 		// Check to see if the error is in an acceptable number of inches.
-		if (fabs(errorInDegrees < m_toleranceDegrees)) {
-			pidFinished = true;
+		if (fabs(errorInDegrees) < m_toleranceDegrees) {
+			mmIsFinished = true;
 			m_safetyTimer.Stop();
-			std::printf("2135: EB Move Finished - Time %f\n", m_safetyTimer.Get());
+			std::printf("2135: EB MM Move Finished - Time %f\n", m_safetyTimer.Get());
 		}
-
+		
 		// Check to see if the Safety Timer has timed out.
 		if (m_safetyTimer.Get() >= m_safetyTimeout) {
-			pidFinished = true;
+			mmIsFinished = true;
 			m_safetyTimer.Stop();
 			std::printf("2135: EB Move Safety timer has timed out\n");
 		}
 	}
 
-	return pidFinished;
+	return mmIsFinished;
 }
 
 void Elbow::BumpToPosition(bool direction) {
 	m_bumpDir = direction;
 
-	MoveToPosition(BUMP_ANGLE);
+	MoveToPositionInit(BUMP_ANGLE);
 }
 
 void Elbow::Calibrate() {
@@ -303,6 +310,7 @@ void Elbow::Calibrate() {
 		motorEB10->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 
 	frc::SmartDashboard::PutBoolean("EB Calibrated", true);
+	m_calibrated = true;
 }
 
 void Elbow::SetGamePiece(bool cargo) {
