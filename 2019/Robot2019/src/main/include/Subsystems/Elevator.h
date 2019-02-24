@@ -68,9 +68,11 @@ private:
 	double			m_calibrationSpeed;				// Motor output speed used during calibration
 	double 			m_pidMaxOut;					// Elevator maximum speed during movement
 	double			m_pidKp;						// Elevator PID proportional constant
+	double			m_arbFeedForward;				// Elevator Motion Magic Arbitrary Feed Forward		
 	int				m_CLAllowedError;				// Elevator PID allowable closed loop error
 	double			m_toleranceInches;				// Elevator PID tolerance in inches
 	double			m_CLRampRate;					// Elevator PID ramp rate
+
 	double			m_elevatorMaxHeight;			// Elevator maximum allowable height
 	double			m_elevatorMinHeight;			// Elevator minimum allowable height
 	double			m_lowGearHeight;				// Height for forcing drivetrain to low gear
