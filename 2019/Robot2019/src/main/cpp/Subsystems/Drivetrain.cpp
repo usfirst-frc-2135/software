@@ -140,7 +140,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     }
 
 	// Initialize and calibrate Pigeon IMU
-	m_pigeonValid = InitializePigeonIMU();
+	m_pigeonValid = PigeonIMUInitialize();
 
 	// Autonomous turn PID controller
 	driveTurnPIDSource = new PIDSourceDriveTurn();
@@ -200,7 +200,7 @@ void Drivetrain::Periodic() {
 		currentR4 = motorR4->GetOutputCurrent();
 	}
 
-	gyroYaw = GetAngle();
+	gyroYaw = PigeonIMUGetAngle();
 
     if (m_driveDebug) {
 		frc::SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
@@ -352,15 +352,6 @@ double Drivetrain::GetEncoderPosition(int motorID) {
         return motorR3->GetSelectedSensorPosition(m_pidIndex);
 }
 
-double Drivetrain::GetAngle() {
-	double	ypr[3] = { 0.0, 0.0, 0.0 };
-
-	if (m_pigeonValid)
-		pigeonIMU->GetYawPitchRoll(ypr);
-
-    return ypr[0];
-}
-
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
 
 void Drivetrain::MoveDriveDistanceMMInit(double inches) {
@@ -497,7 +488,7 @@ bool Drivetrain::MoveDriveTurnPIDIsFinished(void) {
 		curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
 		motorOutput_R = motorR3->GetMotorOutputPercent();
 	}
-	curAngle = GetAngle();
+	curAngle = PigeonIMUGetAngle();
 
 	errorInDegrees = m_turnAngle - curAngle;
 
@@ -534,7 +525,7 @@ void Drivetrain::MoveDriveTurnPIDEnd(void) {
 	m_safetyTimer.Stop();
 
 	driveTurnPIDLoop->Disable();
-	curAngle = GetAngle();
+	curAngle = PigeonIMUGetAngle();
 
 	// Re-enable the motor safety helper
     if (m_talonValidL1 || m_talonValidR3)
@@ -557,7 +548,7 @@ void Drivetrain::MoveDriveTurnPIDEnd(void) {
 
 //	Pigeon IMU
 
-bool Drivetrain::InitializePigeonIMU() {
+bool Drivetrain::PigeonIMUInitialize() {
 	int			i;
 	int			retries = 5;
 	int			deviceID = 0;
@@ -634,6 +625,20 @@ void Drivetrain::PigeonIMUFaultDump(void) {
 	PigeonIMU_StickyFaults	stickyFaults;
 
 	pigeonIMU->GetFaults(faults);
+	if (faults.HasAnyFault())
+		std::printf("2135: ERROR: %s %s ID %d has a FAULT - %d\n",
+			"DT", "PigeonIMU", 2, faults.ToBitfield());
+
 	pigeonIMU->GetStickyFaults(stickyFaults);
 	pigeonIMU->ClearStickyFaults(m_timeout);
+}
+
+double Drivetrain::PigeonIMUGetAngle() {
+	double	ypr[3] = { 0.0, 0.0, 0.0 };
+
+	if (m_pigeonValid)
+		//pigeonIMU->GetState()
+		pigeonIMU->GetYawPitchRoll(ypr);
+
+    return ypr[0];
 }

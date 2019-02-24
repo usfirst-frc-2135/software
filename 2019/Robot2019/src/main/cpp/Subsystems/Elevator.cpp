@@ -133,7 +133,6 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     // Field for manually progamming elevator height
 	frc::SmartDashboard::PutNumber("EL Setpoint", 0.0);
 	frc::SmartDashboard::PutBoolean("EL Calibrated", m_calibrated);
-
 }
 
 void Elevator::InitDefaultCommand() {

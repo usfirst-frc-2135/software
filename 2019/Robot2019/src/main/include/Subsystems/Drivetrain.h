@@ -114,7 +114,6 @@ public:
 	double CountsToInches(int counts);
 
 	double GetEncoderPosition(int motorID);
-	double GetAngle();
 	
 	// Motion Magic Test - Moves to a Position
 	void MoveDriveDistanceMMInit(double inches);
@@ -127,8 +126,9 @@ public:
     bool MoveDriveTurnPIDIsFinished();
     void MoveDriveTurnPIDEnd();
 
-	bool InitializePigeonIMU();
+	bool PigeonIMUInitialize();
 	void PigeonIMUFaultDump(void);
+	double PigeonIMUGetAngle();
 };
 
 #endif
