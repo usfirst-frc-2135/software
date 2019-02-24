@@ -41,7 +41,7 @@ bool AutoDriveTurn::IsFinished() {
 
 // Called once after isFinished returns true
 void AutoDriveTurn::End() {
-    std::printf("2135: AutoDriveTurn -End\n");
+    std::printf("2135: AutoDriveTurn - End\n");
     Robot::drivetrain->MoveDriveTurnPIDEnd();
 }
 
