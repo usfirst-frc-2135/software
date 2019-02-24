@@ -66,7 +66,7 @@
   WR_RocketL2CargoAngle = 20.0
   WR_RocketL2HatchAngle = 20.0
   WR_RocketL3CargoAngle = 20.0
-  WR_RocketL3HatchAngle = 20.
+  WR_RocketL3HatchAngle = 20.0
 # Intake settings
   IN_AcquireSpeed = 0.50
   IN_HoldSpeed = 0.25
