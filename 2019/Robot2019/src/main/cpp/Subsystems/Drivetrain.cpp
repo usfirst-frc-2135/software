@@ -80,19 +80,21 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
 		// Configure Magic Motion settings
 		motorL1->SelectProfileSlot(0, 0);
-        // motorL1->Config_kF(0, 0.0, m_timeout);
-        motorL1->Config_kF(0, 0.5832, m_timeout);         // 0.5832 for 6.73 fps?
+        // motorL1->Config_kF(0, 0.0, m_timeout);			// TODO - kF should be zero
+        motorL1->Config_kF(0, 0.5832, m_timeout);         	// 0.5832 for 6.73 fps
         motorL1->Config_kP(0, 0.0, m_timeout);
         motorL1->Config_kI(0, 0.0, m_timeout);
         motorL1->Config_kD(0, 0.0, m_timeout);
-        motorL1->ConfigMotionCruiseVelocity(877, m_timeout);   // 877 for 6.73 fps?
+        motorL1->ConfigMotionCruiseVelocity(877, m_timeout);   // 877 for 6.73 fps
         motorL1->ConfigMotionAcceleration(1000, m_timeout);
     }
 
     if (m_talonValidL2) {
-    	motorL2->SetInverted(true);
-        motorL2->SetNeutralMode(NeutralMode::Coast);
         motorL2->Set(ControlMode::Follower, 1);
+    	motorL2->SetInverted(InvertType::FollowMaster);
+        motorL2->SetNeutralMode(NeutralMode::Coast);
+        motorL2->ConfigVoltageCompSaturation(12.0, m_timeout);
+        motorL2->EnableVoltageCompensation(true);
     }
 
     if (m_talonValidR3) {
@@ -118,16 +120,18 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     }
 
     if (m_talonValidR4) {
-        motorR4->SetInverted(true);
-        motorR4->SetNeutralMode(NeutralMode::Coast);
         motorR4->Set(ControlMode::Follower, 3);
-    }
+        motorR4->SetInverted(InvertType::FollowMaster);
+        motorR4->SetNeutralMode(NeutralMode::Coast);
+        motorR4->ConfigVoltageCompSaturation(12.0, m_timeout);
+        motorR4->EnableVoltageCompensation(true);
+   }
 
     // Set to low gear (default)
     m_lowGear = true;
     MoveShiftGears(m_lowGear);
 
-    // If both drive talons not valid, disable safety timer
+    // If both master drive talons not valid, disable safety timer
     if (m_talonValidL1 || m_talonValidR3) {
         diffDrive->SetSafetyEnabled(true);
     }
@@ -210,6 +214,7 @@ void Drivetrain::Periodic() {
 		frc::SmartDashboard::PutNumber("DT_Current_R3", currentR3);
 		frc::SmartDashboard::PutNumber("DT_Output_R4", outputR4);
 		frc::SmartDashboard::PutNumber("DT_Current_R4", currentR4);
+
 		frc::SmartDashboard::PutNumber("DT_GyroAngle", gyroYaw);
 	}
 }
@@ -229,91 +234,15 @@ void Drivetrain::Initialize(void) {
 	// When disabled, low gear and coast mode to allow easier pushing
 	m_lowGear = true;
 	m_brakeMode = false;
-	if (frc::RobotState::IsDisabled()) {
-	}
-	else {
-		// Enabled and teleop - low gear and coast mode
-		if (frc::RobotState::IsOperatorControl()) {
-		}
-		else {	// Auton always low gear and brake mode
+	// If ENABLED and AUTON mode, set brake mode
+	if (!frc::RobotState::IsDisabled()) {
+		if (!frc::RobotState::IsOperatorControl()) {
 			m_brakeMode = true;
 		}
 	}
 
 	MoveShiftGears(m_lowGear);
     MoveSetBrakeMode(m_brakeMode);
-}
-
-bool Drivetrain::InitializePigeonIMU() {
-	int			i;
-	int			retries = 5;
-	int			deviceID = 0;
-	int			pigeonVersion = 0;
-	bool 		pigeonValid = false;
-	ErrorCode 	error = OKAY;
-	char		subsystem[] = "DT";
-	char		name[] = "Pigeon IMU";
-
-	std::printf("2135: TalonSRX Subsystem %s Name %s\n", subsystem, name);
-
-    // Display Pigeon IMU firmware versions
-	deviceID = pigeonIMU->GetDeviceNumber();
-	if ((error = pigeonIMU->GetLastError()) != OKAY) {
-		std::printf("2135: ERROR: %s %s GetDeviceNumber error - %d\n", 
-			subsystem, name, error);
-		return error;
-	}
-
-	for (i = 0; i < retries; i++) {
-		pigeonVersion = pigeonIMU->GetFirmwareVersion();
-		if ((error = pigeonIMU->GetLastError()) != OKAY) {
-			std::printf("2135: ERROR: %s %s ID %d GetFirmwareVersion error - %d\n", 
-				subsystem, name, deviceID, error);
-			return error;
-		}
-		if (pigeonVersion == m_reqPigeonVer) {
-			pigeonValid = true;
-			break;
-		}
-		else {
-			std::printf("2135: WARNING: %s %s ID %d Incorrect FW version %d.%d expected %d.%d\n",
-				subsystem, name, deviceID, pigeonVersion/256, pigeonVersion%256, m_reqPigeonVer/256, m_reqPigeonVer%256);
-		}
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
-	}
-	
-	if (pigeonValid) {
-		// Initialize Pigeon IMU to all factory defaults
-		if ((error = pigeonIMU->ConfigFactoryDefault(m_timeout)) != OKAY) {
-			std::printf("2135: ERROR: %s %s ID %d ConfigFactoryDefault error - %d\n", 
-				subsystem, name, deviceID, error);
-			pigeonValid = false;
-		}
-
-		pigeonIMU->SetYaw(0.0, m_timeout);
-		if ((error = pigeonIMU->GetLastError()) != OKAY) {
-			std::printf("2135: ERROR: %s %s ID %d SetFusedHeading error - %d\n", 
-				subsystem, name, deviceID, error);
-			pigeonValid = false;
-		}
-
-		pigeonIMU->SetFusedHeading(0.0, m_timeout);
-		if ((error = pigeonIMU->GetLastError()) != OKAY) {
-			std::printf("2135: ERROR: %s %s ID %d SetYaw error - %d\n", 
-				subsystem, name, deviceID, error);
-			pigeonValid = false;
-		}
-
-		std::printf("2135: %s %s ID %d ver %d.%d is RESPONSIVE and INITIALIZED (error %d)\n",
-				subsystem, name, deviceID, pigeonVersion/256, pigeonVersion&0xff, error);
-   	}
-   	else {
-		std::printf("2135: ERROR: %s %s ID %d ver %d.%d is UNRESPONSIVE, (error %d)\n",
-			subsystem, name, deviceID, pigeonVersion/256, pigeonVersion&0xff, error);
-   	   	pigeonValid = false;
-   	}
-
-	return pigeonValid;
 }
 
 void Drivetrain::FaultDump(void) {
@@ -327,15 +256,6 @@ void Drivetrain::FaultDump(void) {
 
 	// Dump Pigeon faults
 	//frc2135::TalonSRXUtils::PigeonIMUFaultDump("DT IMU", gyro);
-}
-
-void Drivetrain::PigeonIMUFaultDump(void) {
-	PigeonIMU_Faults		faults;
-	PigeonIMU_StickyFaults	stickyFaults;
-
-	pigeonIMU->GetFaults(faults);
-	pigeonIMU->GetStickyFaults(stickyFaults);
-	pigeonIMU->ClearStickyFaults(m_timeout);
 }
 
 //	Joystick movement during Teleop
@@ -433,11 +353,11 @@ double Drivetrain::GetEncoderPosition(int motorID) {
 }
 
 double Drivetrain::GetAngle() {
-	double	ypr[3] = { 0.0, 0.0, 0.0};
+	double	ypr[3] = { 0.0, 0.0, 0.0 };
 
-	if (m_pigeonValid) {
+	if (m_pigeonValid)
 		pigeonIMU->GetYawPitchRoll(ypr);
-	}
+
     return ypr[0];
 }
 
@@ -631,4 +551,89 @@ void Drivetrain::MoveDriveTurnPIDEnd(void) {
 	std::printf("2135: DTDT %5.3f deg %4.2f -> %4.2f (err %4.2f) cts %5d %5d Out %4.2f %4.2f\n",
 			secs, curAngle, m_turnAngle, errorInDegrees,
 			curCounts_L, curCounts_R, motorOutput_L, motorOutput_R);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+//	Pigeon IMU
+
+bool Drivetrain::InitializePigeonIMU() {
+	int			i;
+	int			retries = 5;
+	int			deviceID = 0;
+	int			pigeonVersion = 0;
+	bool 		pigeonValid = false;
+	ErrorCode 	error = OKAY;
+	char		subsystem[] = "DT";
+	char		name[] = "Pigeon IMU";
+
+	std::printf("2135: TalonSRX Subsystem %s Name %s\n", subsystem, name);
+
+    // Display Pigeon IMU firmware versions
+	deviceID = pigeonIMU->GetDeviceNumber();
+	if ((error = pigeonIMU->GetLastError()) != OKAY) {
+		std::printf("2135: ERROR: %s %s GetDeviceNumber error - %d\n", 
+			subsystem, name, error);
+		return error;
+	}
+
+	for (i = 0; i < retries; i++) {
+		pigeonVersion = pigeonIMU->GetFirmwareVersion();
+		if ((error = pigeonIMU->GetLastError()) != OKAY) {
+			std::printf("2135: ERROR: %s %s ID %d GetFirmwareVersion error - %d\n", 
+				subsystem, name, deviceID, error);
+			return error;
+		}
+		if (pigeonVersion == m_reqPigeonVer) {
+			pigeonValid = true;
+			break;
+		}
+		else {
+			std::printf("2135: WARNING: %s %s ID %d Incorrect FW version %d.%d expected %d.%d\n",
+				subsystem, name, deviceID, pigeonVersion/256, pigeonVersion%256, m_reqPigeonVer/256, m_reqPigeonVer%256);
+		}
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	}
+	
+	if (pigeonValid) {
+		// Initialize Pigeon IMU to all factory defaults
+		if ((error = pigeonIMU->ConfigFactoryDefault(m_timeout)) != OKAY) {
+			std::printf("2135: ERROR: %s %s ID %d ConfigFactoryDefault error - %d\n", 
+				subsystem, name, deviceID, error);
+			pigeonValid = false;
+		}
+
+		pigeonIMU->SetYaw(0.0, m_timeout);
+		if ((error = pigeonIMU->GetLastError()) != OKAY) {
+			std::printf("2135: ERROR: %s %s ID %d SetFusedHeading error - %d\n", 
+				subsystem, name, deviceID, error);
+			pigeonValid = false;
+		}
+
+		pigeonIMU->SetFusedHeading(0.0, m_timeout);
+		if ((error = pigeonIMU->GetLastError()) != OKAY) {
+			std::printf("2135: ERROR: %s %s ID %d SetYaw error - %d\n", 
+				subsystem, name, deviceID, error);
+			pigeonValid = false;
+		}
+
+		std::printf("2135: %s %s ID %d ver %d.%d is RESPONSIVE and INITIALIZED (error %d)\n",
+				subsystem, name, deviceID, pigeonVersion/256, pigeonVersion&0xff, error);
+   	}
+   	else {
+		std::printf("2135: ERROR: %s %s ID %d ver %d.%d is UNRESPONSIVE, (error %d)\n",
+			subsystem, name, deviceID, pigeonVersion/256, pigeonVersion&0xff, error);
+   	   	pigeonValid = false;
+   	}
+
+	return pigeonValid;
+}
+
+void Drivetrain::PigeonIMUFaultDump(void) {
+	PigeonIMU_Faults		faults;
+	PigeonIMU_StickyFaults	stickyFaults;
+
+	pigeonIMU->GetFaults(faults);
+	pigeonIMU->GetStickyFaults(stickyFaults);
+	pigeonIMU->ClearStickyFaults(m_timeout);
 }
