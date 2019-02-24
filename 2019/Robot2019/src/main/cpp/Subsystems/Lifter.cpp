@@ -36,6 +36,7 @@ Lifter::Lifter() : frc::Subsystem("Lifter") {
         std::printf("2135: ERROR: LF Front FWD Solenoid is BLACKLISTED\n");
     else
         std::printf("2135: LF Front FWD Solenoid is FUNCTIONAL\n");
+
     if (front->IsRevSolenoidBlackListed())
         std::printf("2135: ERROR: LF Front REV Solenoid is BLACKLISTED\n");
     else
@@ -45,6 +46,7 @@ Lifter::Lifter() : frc::Subsystem("Lifter") {
         std::printf("2135: ERROR: LF Back FWD Solenoid is BLACKLISTED\n");
     else
         std::printf("2135: LF Back FWD Solenoid is FUNCTIONAL\n");
+        
     if (back->IsRevSolenoidBlackListed())
         std::printf("2135: ERROR: LF Back REV Solenoid is BLACKLISTED\n");
     else

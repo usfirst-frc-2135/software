@@ -92,7 +92,7 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
          motorEB10->ConfigMotionAcceleration(282/2, m_timeout);		// 1 second to accelerate to max velocity
 
 		// Enable elbow Motion Magic with existing sensor reading (no movement)
-		 motorEB10->Set(ControlMode::MotionMagic, (double)DegreesToCounts(m_curDegrees), DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
+//		 motorEB10->Set(ControlMode::MotionMagic, (double)DegreesToCounts(m_curDegrees), DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
      }
 
     // Initialize Variables
@@ -101,7 +101,6 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 
     // Field for manually progamming elbow angle
 	frc::SmartDashboard::PutNumber("EB Setpoint", m_curDegrees);
-
 	frc::SmartDashboard::PutBoolean("EB Calibrated", false);
 
 }
@@ -149,7 +148,6 @@ void Elbow::Initialize(void) {
 		curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
 
 	m_targetDegrees = CountsToDegrees(curCounts);
-
 	m_isCargo = false;
 }
 

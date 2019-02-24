@@ -41,9 +41,9 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     config->GetValueAsDouble("EL_CalibSpeed", m_calibrationSpeed, 0.25);
 	config->GetValueAsDouble("EL_PidMaxOut", m_pidMaxOut, 1.0);
     config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.250);
-	config->GetValueAsDouble("EL_ArbFeedForward", m_arbFeedForward, 0.1);
     config->GetValueAsDouble("EL_CLRampRate", m_CLRampRate, 0.250);
     config->GetValueAsInt("EL_CLAllowedError", m_CLAllowedError, 0);
+	config->GetValueAsDouble("EL_ArbFeedForward", m_arbFeedForward, 0.1);
 	config->GetValueAsDouble("EL_ToleranceInches", m_toleranceInches, 2.0);
     config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 35.0);
     config->GetValueAsDouble("EL_MinHeight", m_elevatorMinHeight, 0.0);
@@ -109,9 +109,9 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	}
 	
 	if (m_talonValidEL8) {
-	    motorEL8->SetInverted(false);					// Sets the Talon inversion to false
-	    motorEL8->SetNeutralMode(NeutralMode::Brake);	// Set to brake mode (as opposed to coast)
-	    motorEL8->Set(ControlMode::Follower, 7);		// Set to follow Elevator Motor 7
+	    motorEL8->Set(ControlMode::Follower, 7);			// Set to follow Elevator Motor 7
+	    motorEL8->SetInverted(InvertType::FollowMaster);	// Sets the Talon inversion to false
+	    motorEL8->SetNeutralMode(NeutralMode::Brake);		// Set to brake mode (as opposed to coast)
 		motorEL8->SetSafetyEnabled(false);
 
 		// Enable voltage compensation

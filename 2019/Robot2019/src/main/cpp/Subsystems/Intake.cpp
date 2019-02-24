@@ -36,6 +36,7 @@ Intake::Intake() : frc::Subsystem("Intake") {
         std::printf("2135: ERROR: IN Panel Delivery FWD Solenoid is BLACKLISTED\n");
     else
         std::printf("2135: IN Panel Delivery FWD Solenoid is FUNCTIONAL\n");
+
     if (panelDelivery->IsRevSolenoidBlackListed())
         std::printf("2135: ERROR: IN Panel Delivery REV Solenoid is BLACKLISTED\n");
     else
@@ -141,7 +142,7 @@ void Intake::SetIntakeMotorDirection(int direction) {
 
     std::printf("2135: Intake Set Speed - %s\n", strName); 
 
-    if(m_talonValidIN14)
+    if (m_talonValidIN14)
         motorIN14->Set(ControlMode::PercentOutput, output);
 }
 

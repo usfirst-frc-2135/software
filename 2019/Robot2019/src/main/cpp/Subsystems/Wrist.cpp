@@ -94,7 +94,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
          motorWR12->ConfigMotionAcceleration(352/2, m_timeout);		// 1 second to accelerate to max velocity
 
 		// Enable wrist Motion Magic with existing sensor reading (no movement)
-		 motorWR12->Set(ControlMode::MotionMagic, (double)DegreesToCounts(m_curDegrees), DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
+//		 motorWR12->Set(ControlMode::MotionMagic, (double)DegreesToCounts(m_curDegrees), DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
      }
 
     // Initialize Variables
@@ -103,7 +103,6 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 
     // Field for manually progamming wrist angle
 	frc::SmartDashboard::PutNumber("WR Setpoint", m_curDegrees);
-
 	frc::SmartDashboard::PutBoolean("WR Calibrated", false);
 
 }
@@ -322,4 +321,3 @@ void Wrist::Calibrate() {
 void Wrist::SetGamePiece(bool cargo) {
 	m_isCargo = cargo;
 }
-
