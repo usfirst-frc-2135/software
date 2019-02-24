@@ -32,9 +32,9 @@
   EL_RocketL3CargoHeight = 20.0
   EL_RocketL3HatchHeight = 20.0	
 # Elbow settings
-  EB_PidKp = 2.25
-  EB_PidMaxOut = 1.00
-  EB_ArbFeedForward = 0.1
+  EB_PidKp = 0.25
+  EB_PidMaxOut = 0.6
+  EB_ArbFeedForward = 0.2
   EB_ToleranceDegrees = 5.0
   EB_MaxCounts = 0
   EB_MinCounts = -1800
