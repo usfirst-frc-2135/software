@@ -58,7 +58,7 @@ private:
 	// Configuration file parameters
 	double 			m_pidMaxOut;					// Wrist maximum speed during movement
 	double			m_pidKp;						// Wrist PID proportional constant
-	double			m_arbFeedForward;				// Elbow Motion Magic Arbitrary Feed Forward		
+	double			m_arbFeedForward;				// Wrist Motion Magic Arbitrary Feed Forward		
 	double			m_toleranceDegrees;				// Wrist PID tolerance in degrees	
 	int				m_wristMaxCounts;				// Wrist maximum allowable counts
 	int				m_wristMinCounts;				// Wrist minimum allowable counts

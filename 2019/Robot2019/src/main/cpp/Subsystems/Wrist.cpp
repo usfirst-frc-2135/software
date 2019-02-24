@@ -35,8 +35,8 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.375);
     config->GetValueAsDouble("WR_PidMaxOut", m_pidMaxOut, 1.0);
-	config->GetValueAsDouble("WR_ToleranceDegrees", m_toleranceDegrees, 5.0);
 	config->GetValueAsDouble("WR_ArbFeedForward", m_arbFeedForward, 0.1);
+	config->GetValueAsDouble("WR_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1800);
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 10.0);
@@ -51,19 +51,21 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	config->GetValueAsDouble("WR_RocketL3CargoAngle", m_rocketL3CargoAngle, 20.0);
 	config->GetValueAsDouble("WR_RocketL3HatchAngle", m_rocketL3HatchAngle, 20.0);
 
-	// config->GetValueAsDouble("WR_WristFlat", m_flatAngle, 5.0);
-
      if (m_talonValidWR12) {
 		// Set the motor direction for the wrist
+		// Set to brake mode (in comparison to coast)
 	    // Set the control mode and target to initially disable any movement
-	    // Set to brake mode (in comparison to coast)
 	    // Configure the encoder
-		motorWR12->SetInverted(false);
-	    motorWR12->SetNeutralMode(NeutralMode::Brake);
+		 motorWR12->SetInverted(false);
+	     motorWR12->SetNeutralMode(NeutralMode::Brake);
+		 motorWR12->Set(ControlMode::PercentOutput, 0.0);
+		 motorWR12->SetSafetyEnabled(false);
+
+		// Enable voltage compensation
 		motorWR12->ConfigVoltageCompSaturation(12.0, 0);
         motorWR12->EnableVoltageCompensation(true);
 
-	    motorWR12->Set(ControlMode::PercentOutput, 0.0);
+		// Configure sensor settings
 		motorWR12->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
 		motorWR12->SetSensorPhase(false);
 		m_curDegrees = CountsToDegrees(motorWR12->GetSelectedSensorPosition(m_pidIndex)); 

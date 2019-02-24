@@ -34,8 +34,8 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("EB_PidKp", m_pidKp, 0.375);
     config->GetValueAsDouble("EB_PidMaxOut", m_pidMaxOut, 1.0);
-	config->GetValueAsDouble("EB_ToleranceDegrees", m_toleranceDegrees, 5.0);
 	config->GetValueAsDouble("EB_ArbFeedForward", m_arbFeedForward, 0.1);
+	config->GetValueAsDouble("EB_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("EB_MaxCounts", m_elbowMaxCounts, 0);
     config->GetValueAsInt("EB_MinCounts", m_elbowMinCounts, -1800);
 	config->GetValueAsDouble("EB_BumpAngle", m_bumpAngle, 10.0);
@@ -57,10 +57,13 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 	    // Configure the encoder
 		 motorEB10->SetInverted(false);
 	     motorEB10->SetNeutralMode(NeutralMode::Brake);
+		 motorEB10->Set(ControlMode::PercentOutput, 0.0);
+		 motorEB10->SetSafetyEnabled(false);
+		
+		// Enable voltage compensation
 		 motorEB10->ConfigVoltageCompSaturation(12.0, 0);
          motorEB10->EnableVoltageCompensation(true);
 
-	     motorEB10->Set(ControlMode::PercentOutput, 0.0);
 		 motorEB10->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
 		 motorEB10->SetSensorPhase(false);
 		 m_curDegrees = CountsToDegrees(motorEB10->GetSelectedSensorPosition(m_pidIndex)); // TODO: WRITE COUNTS TO DEGREES 
