@@ -11,12 +11,12 @@
 
 
 #include "Commands/AutoPos1Level2Ship.h"
-#include "Commands/ElbowBump.h"
-#include "Commands/ElevatorRun.h"
-#include "Commands/WristRun.h"
+#include "Commands/EBBump.h"
+#include "Commands/ELRun.h"
+#include "Commands/WRRun.h"
 #include "Commands/AutoDriveDist.h"
 #include "Commands/AutoDriveTurn.h"
-#include "Commands/IntakeDelivery.h"
+#include "Commands/INDelivery.h"
 #include "Commands/AutoStop.h"
 
 
