@@ -49,6 +49,8 @@ private:
 	void ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches);
 	double CalcInchesToTarget(double targetWidthInches, cv::Rect rect);
 	double CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget);
+	void ChooseGoalHatch(std::vector<tData> *hatches, tData *goal);
+	void ApplyGoalToFrame(cv::Mat frame, tData goal);
 
 public:
 	VisionLoop();
