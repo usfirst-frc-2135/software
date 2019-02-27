@@ -74,6 +74,7 @@ private:
 	double			m_rocketL2HatchAngle;			// Setpoint for delivery of hatch to rocket at second level
 	double 			m_rocketL3CargoAngle;			// Setpoint for delivery of cargo to rocket at third level 
 	double			m_rocketL3HatchAngle;			// Setpoint for delivery of hatch to rocket at third level
+	double 			m_stowedAngle;
 
 public:
 	Wrist();
@@ -91,7 +92,8 @@ public:
 		ROCKET_L2_ANGLE = 3, 				// Move to rocket level 2 angle
 		ROCKET_L3_ANGLE = 4,				// Move to rocket level 3 angle
 		SMARTDASH_ANGLE = 5,				// Move to an angle read from dashboard
-		BUMP_ANGLE = 6						// Move by bumping angle up or down
+		BUMP_ANGLE = 6,						// Move by bumping angle up or down
+		STOW_ANGLE = 7
 	};
 
 	void Initialize(void);

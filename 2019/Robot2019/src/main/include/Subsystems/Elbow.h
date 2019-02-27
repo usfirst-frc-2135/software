@@ -73,6 +73,7 @@ private:
 	double			m_rocketL2HatchAngle;			// Setpoint for delivery of hatch to rocket at second level
 	double 			m_rocketL3CargoAngle;			// Setpoint for delivery of cargo to rocket at third level 
 	double			m_rocketL3HatchAngle;			// Setpoint for delivery of hatch to rocket at third level
+	double			m_stowedAngle;
 
 public:
 	Elbow();

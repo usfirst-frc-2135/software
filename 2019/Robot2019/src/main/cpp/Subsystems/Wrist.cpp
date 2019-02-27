@@ -51,6 +51,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	config->GetValueAsDouble("WR_RocketL2HatchAngle", m_rocketL2HatchAngle, 55.5);
 	config->GetValueAsDouble("WR_RocketL3CargoAngle", m_rocketL3CargoAngle, 103.0);
 	config->GetValueAsDouble("WR_RocketL3HatchAngle", m_rocketL3HatchAngle, 55.5);
+	config->GetValueAsDouble("WR_StowAngle", m_stowedAngle, 40.0);
 
      if (m_talonValidWR12) {
 		// Set the motor direction for the wrist
@@ -220,6 +221,9 @@ void Wrist::MoveToPositionInit(int level) {
 		double bumpAngle;
 		bumpAngle = (m_bumpDir) ? m_bumpAngle : -m_bumpAngle;
 		m_targetDegrees += bumpAngle;
+		break;
+	case STOW_ANGLE: 
+		m_targetDegrees = m_stowedAngle;
 		break;
 	default:
 		std::printf("2135: WR invalid angle requested - %d\n", level);
