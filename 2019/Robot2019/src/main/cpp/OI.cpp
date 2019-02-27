@@ -67,7 +67,7 @@ OI::OI() {
     intakePanelDeliver.reset(new frc::JoystickButton(controlBoard.get(), 2));
     intakePanelDeliver->WhileHeld(new INDelivery(false));
     intakeAcquire.reset(new frc::JoystickButton(controlBoard.get(), 1));
-    intakeAcquire->WhileHeld(new INRun(0));
+    intakeAcquire->WhileHeld(new INRun(1));
     dStick.reset(new frc::Joystick(0));
     
     spinRight.reset(new frc::JoystickButton(dStick.get(), 4));
