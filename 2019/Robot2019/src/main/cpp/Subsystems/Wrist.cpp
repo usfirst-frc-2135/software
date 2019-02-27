@@ -40,16 +40,16 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1800);
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 10.0);
-	config->GetValueAsDouble("WR_GroundCargoAngle", m_groundCargoAngle, 0.0);
-	config->GetValueAsDouble("WR_GroundHatchAngle", m_groundHatchAngle, 0.0);
-	config->GetValueAsDouble("WR_ShipCargoAngle", m_shipCargoAngle, 20.0);
-	config->GetValueAsDouble("WR_ShipHatchAngle", m_shipHatchAngle, 20.0);
-	config->GetValueAsDouble("WR_RocketL1CargoAngle", m_rocketL1CargoAngle, 20.0);
-	config->GetValueAsDouble("WR_RocketL1HatchAngle", m_rocketL1HatchAngle, 20.0);
-	config->GetValueAsDouble("WR_RocketL2CargoAngle", m_rocketL2CargoAngle, 20.0);
-	config->GetValueAsDouble("WR_RocketL2HatchAngle", m_rocketL2HatchAngle, 20.0);
-	config->GetValueAsDouble("WR_RocketL3CargoAngle", m_rocketL3CargoAngle, 20.0);
-	config->GetValueAsDouble("WR_RocketL3HatchAngle", m_rocketL3HatchAngle, 20.0);
+	config->GetValueAsDouble("WR_GroundCargoAngle", m_groundCargoAngle, 92.0);
+	config->GetValueAsDouble("WR_GroundHatchAngle", m_groundHatchAngle, 115.0);
+	config->GetValueAsDouble("WR_ShipCargoAngle", m_shipCargoAngle, 92.0);
+	config->GetValueAsDouble("WR_ShipHatchAngle", m_shipHatchAngle, 115.0);
+	config->GetValueAsDouble("WR_RocketL1CargoAngle", m_rocketL1CargoAngle, 92.0);
+	config->GetValueAsDouble("WR_RocketL1HatchAngle", m_rocketL1HatchAngle, 115.0);
+	config->GetValueAsDouble("WR_RocketL2CargoAngle", m_rocketL2CargoAngle, 82.0);
+	config->GetValueAsDouble("WR_RocketL2HatchAngle", m_rocketL2HatchAngle, 55.5);
+	config->GetValueAsDouble("WR_RocketL3CargoAngle", m_rocketL3CargoAngle, 103.0);
+	config->GetValueAsDouble("WR_RocketL3HatchAngle", m_rocketL3HatchAngle, 55.5);
 
      if (m_talonValidWR12) {
 		// Set the motor direction for the wrist

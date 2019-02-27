@@ -39,16 +39,16 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
     config->GetValueAsInt("EB_MaxCounts", m_elbowMaxCounts, 1800);
     config->GetValueAsInt("EB_MinCounts", m_elbowMinCounts, 0);
 	config->GetValueAsDouble("EB_BumpAngle", m_bumpAngle, 10.0);
-	config->GetValueAsDouble("EB_GroundCargoAngle", m_groundCargoAngle, 0.0);
-	config->GetValueAsDouble("EB_GroundHatchAngle", m_groundHatchAngle, 0.0);
-	config->GetValueAsDouble("EB_ShipCargoAngle", m_shipCargoAngle, 20.0);
-	config->GetValueAsDouble("EB_ShipHatchAngle", m_shipHatchAngle, 20.0);
-	config->GetValueAsDouble("EB_RocketL1CargoAngle", m_rocketL1CargoAngle, 20.0);
-	config->GetValueAsDouble("EB_RocketL1HatchAngle", m_rocketL1HatchAngle, 20.0);
-	config->GetValueAsDouble("EB_RocketL2CargoAngle", m_rocketL2CargoAngle, 20.0);
-	config->GetValueAsDouble("EB_RocketL2HatchAngle", m_rocketL2HatchAngle, 20.0);
-	config->GetValueAsDouble("EB_RocketL3CargoAngle", m_rocketL3CargoAngle, 20.0);
-	config->GetValueAsDouble("EB_RocketL3HatchAngle", m_rocketL3HatchAngle, 20.0);
+	config->GetValueAsDouble("EB_GroundCargoAngle", m_groundCargoAngle, 48.0);
+	config->GetValueAsDouble("EB_GroundHatchAngle", m_groundHatchAngle, 40.0);
+	config->GetValueAsDouble("EB_ShipCargoAngle", m_shipCargoAngle, 48.0);
+	config->GetValueAsDouble("EB_ShipHatchAngle", m_shipHatchAngle, 40.0);
+	config->GetValueAsDouble("EB_RocketL1CargoAngle", m_rocketL1CargoAngle, 48.0);
+	config->GetValueAsDouble("EB_RocketL1HatchAngle", m_rocketL1HatchAngle, 40.0);
+	config->GetValueAsDouble("EB_RocketL2CargoAngle", m_rocketL2CargoAngle, 42.0);
+	config->GetValueAsDouble("EB_RocketL2HatchAngle", m_rocketL2HatchAngle, 114.0);
+	config->GetValueAsDouble("EB_RocketL3CargoAngle", m_rocketL3CargoAngle, 45.0);
+	config->GetValueAsDouble("EB_RocketL3HatchAngle", m_rocketL3HatchAngle, 114.0);
 
      if (m_talonValidEB10) {
 		// Set the motor direction for the elbow
