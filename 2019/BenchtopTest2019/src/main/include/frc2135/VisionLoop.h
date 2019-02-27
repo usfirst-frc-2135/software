@@ -9,7 +9,7 @@
 #define SRC_VISIONLOOP_H_
 
 #include <frc/SmartDashboard/SmartDashboard.h>
-#include "../RobotDefaults.h"
+#include "RobotDefaults.h"
 #include "frc2135/GripContoursPipeline.h"
 
 class VisionLoop {
@@ -49,16 +49,13 @@ private:
 	void ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches);
 	double CalcInchesToTarget(double targetWidthInches, cv::Rect rect);
 	double CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget);
+	void ChooseGoalHatch(std::vector<tData> *hatches, tData *goal);
+	void ApplyGoalToFrame(cv::Mat frame, tData goal);
 
 public:
 	VisionLoop();
 	virtual ~VisionLoop();
 	void Run();
-
-	static void VisionGearPipeOn();
-	static void VisionShooterPipeOn();
-	static void VisionAllPipesOff();
-
 };
 
 #endif /* SRC_VISIONLOOP_H_ */

@@ -173,7 +173,7 @@ void VisionLoop::ConfigureCamera(cs::UsbCamera cam, int resWidth, int resHeight,
 bool VisionLoop::DetermineSlant(cv::RotatedRect *rotRect){
 	cv::Point2f vert[4];
 	bool bSlantRight(false); 
-	if (rotRect != NULL){
+	if (rotRect != NULL) {
 		rotRect->points(vert);
 
 		// printf("2135: ");

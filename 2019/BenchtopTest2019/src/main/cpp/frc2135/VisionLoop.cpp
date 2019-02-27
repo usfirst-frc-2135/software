@@ -13,7 +13,6 @@ static	pipeConfig s_visionPipe = VISIONPIPE_OFF;
 
 VisionLoop::VisionLoop() {
 	std::printf("2135: VisionLoop Constructor\n");
-	VisionGearPipeOn();
 }
 
 VisionLoop::~VisionLoop() {
@@ -53,7 +52,6 @@ void VisionLoop::Run() {
 
 	// Our camera input source - start it up and configure settings
 	cs::UsbCamera cam = frc::CameraServer::GetInstance()->StartAutomaticCapture();
-	VisionGearPipeOn();
 	SetCamConfig(cam);
 
 	// Start our GRIP-generated vision processing pipeline
@@ -89,7 +87,7 @@ void VisionLoop::Run() {
 			ConvertBoundingRectsToValidTargets(&rawData, &validTargets);
 			ConvertValidTargetsToValidHatches(&validTargets, &validHatches);
 			SortValidHatches(&validHatches);
-			//ChooseGoalHatch(&validHatches, &goal);
+			ChooseGoalHatch(&validHatches, &goal);
 
 //			std::printf("C %d, B %d, T %d, P %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
 //				contours->size(), boundingRects.size(), validTargets.size(), validHatches.size(),
@@ -103,6 +101,7 @@ void VisionLoop::Run() {
 		ApplyGridToFrame(inFrame, m_res /*, goal.dist, goal.angle*/);
 		ApplyRectsToFrame(inFrame, &validTargets);
 		ApplyHatchesToFrame(inFrame, &validHatches);
+		ApplyGoalToFrame(inFrame, goal);
 		outStream.PutFrame(inFrame);
 	}
 }
@@ -110,7 +109,6 @@ void VisionLoop::Run() {
 void VisionLoop::InitializeSmartdashboard(void) {
 
 	// table = NetworkTable::GetTable("GRIP/myContoursReport");
-	frc::SmartDashboard::PutNumber(CAM_VISIONPIPEON, CAM_VISIONPIPEON_D);
 	frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
 	frc::SmartDashboard::PutNumber(CAM_TURNANGLE, 0.0);
 	frc::SmartDashboard::PutNumber(CAM_DISTANCE, 0.0);
@@ -174,7 +172,7 @@ void VisionLoop::ConfigureCamera(cs::UsbCamera cam, int resWidth, int resHeight,
 bool VisionLoop::DetermineSlant(cv::RotatedRect *rotRect){
 	cv::Point2f vert[4];
 	bool bSlantRight(false); 
-	if (rotRect != NULL){
+	if (rotRect != NULL) {
 		rotRect->points(vert);
 
 		// printf("2135: ");
@@ -395,6 +393,22 @@ for (uint32_t i = 0; i < hatches->size(); i++) {
 	}
 }
 
+void VisionLoop::ApplyGoalToFrame(cv::Mat frame, tData goal) {
+	cv::Point	pt1, pt2;
+
+	cv::rectangle(frame, goal.r, cv::Scalar(255,105,180), 2, cv::LineTypes::LINE_8);
+
+	pt1.x = goal.r.x + goal.r.width/2 - 5;
+	pt2.x = pt1.x + 10;
+	pt1.y = pt2.y = goal.r.y + goal.r.height/2;
+	cv::line(frame, pt1, pt2, cv::Scalar(255,105,180), 1, cv::LineTypes::LINE_4, 0);
+
+	pt1.y = goal.r.y + goal.r.height/2 - 5;
+	pt2.y = pt1.y + 10;
+	pt1.x = pt2.x = goal.r.x + goal.r.width/2;
+	cv::line(frame, pt1, pt2, cv::Scalar(255,105,180), 1, cv::LineTypes::LINE_4, 0);
+}
+
 double VisionLoop::CalcInchesToTarget(double targetWidthInches, cv::Rect rect) {
 	// Calculate the distance to the target given using the camera Field of View (FOV)
 	//	Distance to target for a Field of View of 50 degrees filling the screen with a 2.0" target
@@ -426,19 +440,18 @@ double VisionLoop::CalcCenteringAngle(double targetWidthInches, cv::Rect rect, d
 	return radiansToCenter * 180.0 / M_PI;
 }
 
-// Toggle mode for enabling/disabling the pipelines on the cameras for gear and shooter.
+void VisionLoop::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal) {
+	if (!hatches->empty()) {
+		goal = &(hatches->front());									// Get first hatch which should be the leftmost hatch
+		frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
+		frc::SmartDashboard::PutNumber(CAM_TURNANGLE, goal->angle);
+		frc::SmartDashboard::PutNumber(CAM_DISTANCE, goal->dist);
+	}
 
-void VisionLoop::VisionGearPipeOn() {
-	s_visionPipe = VISIONPIPE_GEAR;
-	frc::SmartDashboard::PutNumber(CAM_VISIONPIPEON, s_visionPipe);
-}
-
-void VisionLoop::VisionShooterPipeOn() {
-	s_visionPipe = VISIONPIPE_SHOOTER;
-	frc::SmartDashboard::PutNumber(CAM_VISIONPIPEON, s_visionPipe);
-}
-
-void VisionLoop::VisionAllPipesOff() {
-	s_visionPipe = VISIONPIPE_OFF;
-	frc::SmartDashboard::PutNumber(CAM_VISIONPIPEON, s_visionPipe);
+	else {
+		goal = nullptr;
+		frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
+		frc::SmartDashboard::PutNumber(CAM_TURNANGLE, 0.0);
+		frc::SmartDashboard::PutNumber(CAM_DISTANCE, 0.0);
+	}														
 }
