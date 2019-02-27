@@ -8,6 +8,7 @@
 #include "frc2135/VisionLoop.h"
 #include "frc2135/GripContoursPipeline.h"
 
+
 typedef enum { VISIONPIPE_UNINIT, VISIONPIPE_OFF, VISIONPIPE_GEAR, VISIONPIPE_SHOOTER } pipeConfig;
 static	pipeConfig s_visionPipe = VISIONPIPE_OFF;
 
@@ -87,7 +88,7 @@ void VisionLoop::Run() {
 			ConvertBoundingRectsToValidTargets(&rawData, &validTargets);
 			ConvertValidTargetsToValidHatches(&validTargets, &validHatches);
 			SortValidHatches(&validHatches);
-			//ChooseGoalHatch(&validHatches, &goal);
+			ChooseGoalHatch(&validHatches, &goal);
 
 //			std::printf("C %d, B %d, T %d, P %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
 //				contours->size(), boundingRects.size(), validTargets.size(), validHatches.size(),
@@ -101,6 +102,7 @@ void VisionLoop::Run() {
 		ApplyGridToFrame(inFrame, m_res /*, goal.dist, goal.angle*/);
 		ApplyRectsToFrame(inFrame, &validTargets);
 		ApplyHatchesToFrame(inFrame, &validHatches);
+		ApplyGoalToFrame(inFrame, goal);
 		outStream.PutFrame(inFrame);
 	}
 }
@@ -392,6 +394,22 @@ for (uint32_t i = 0; i < hatches->size(); i++) {
 	}
 }
 
+void VisionLoop::ApplyGoalToFrame(cv::Mat frame, tData goal) {
+	cv::Point	pt1, pt2;
+
+	cv::rectangle(frame, goal.r, cv::Scalar(255,105,180), 2, cv::LineTypes::LINE_8);
+
+	pt1.x = goal.r.x + goal.r.width/2 - 5;
+	pt2.x = pt1.x + 10;
+	pt1.y = pt2.y = goal.r.y + goal.r.height/2;
+	cv::line(frame, pt1, pt2, cv::Scalar(255,105,180), 1, cv::LineTypes::LINE_4, 0);
+
+	pt1.y = goal.r.y + goal.r.height/2 - 5;
+	pt2.y = pt1.y + 10;
+	pt1.x = pt2.x = goal.r.x + goal.r.width/2;
+	cv::line(frame, pt1, pt2, cv::Scalar(255,105,180), 1, cv::LineTypes::LINE_4, 0);
+}
+
 double VisionLoop::CalcInchesToTarget(double targetWidthInches, cv::Rect rect) {
 	// Calculate the distance to the target given using the camera Field of View (FOV)
 	//	Distance to target for a Field of View of 50 degrees filling the screen with a 2.0" target
@@ -421,5 +439,23 @@ double VisionLoop::CalcCenteringAngle(double targetWidthInches, cv::Rect rect, d
 
 	// Convert from radians to degrees to center the rect in the frame
 	return radiansToCenter * 180.0 / M_PI;
+}
+
+void VisionLoop::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal) {
+	if (!hatches->empty()) {
+		goal = &(hatches->front());									// Get first hatch which should be the leftmost hatch
+		frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
+		frc::SmartDashboard::PutNumber(CAM_TURNANGLE, goal->angle);
+		frc::SmartDashboard::PutNumber(CAM_DISTANCE, goal->dist);
+	}
+
+	else {
+		goal = nullptr;
+		frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
+		frc::SmartDashboard::PutNumber(CAM_TURNANGLE, 0.0);
+		frc::SmartDashboard::PutNumber(CAM_DISTANCE, 0.0);
+	}
+
+
 }
 
