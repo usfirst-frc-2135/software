@@ -58,7 +58,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 		// Set to brake mode (in comparison to coast)
 	    // Set the control mode and target to initially disable any movement
 	    // Configure the encoder
-		 motorWR12->SetInverted(false);
+		 motorWR12->SetInverted(true);
 	     motorWR12->SetNeutralMode(NeutralMode::Brake);
 		 motorWR12->Set(ControlMode::PercentOutput, 0.0);
 		 motorWR12->SetSafetyEnabled(false);
