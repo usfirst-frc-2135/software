@@ -144,20 +144,21 @@ void Elevator::InitDefaultCommand() {
 
 void Elevator::Periodic() {
     int		curCounts = 0;
-	double	outputEL7 = 0.0, currentEL7 = 0.0;
-	double	outputEL8 = 0.0, currentEL8 = 0.0;
-    double	errorInInches = 0.0;
 
 	if (m_talonValidEL7) {
 		curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
 	}
 
-		// Put code here to be run every loop
+	// Put code here to be run every loop
 	frc::SmartDashboard::PutBoolean("EL Calibrated", m_calibrated);
 	frc::SmartDashboard::PutNumber("EL Height", CountsToInches(curCounts));
 	frc::SmartDashboard::PutNumber("Del Height", 2 * CountsToInches(curCounts));
 
-	if (m_elevatorDebug) {
+	if (m_elevatorDebug > 0) {
+		double	outputEL7 = 0.0, currentEL7 = 0.0;
+		double	outputEL8 = 0.0, currentEL8 = 0.0;
+		double	errorInInches = 0.0;
+
 		errorInInches = CountsToInches(m_targetCounts - curCounts);
 
 		if (m_talonValidEL7) {
@@ -461,8 +462,6 @@ void Elevator::MoveToPositionInit(int level) {
 
 		std::printf("2135: EL MM Move inches %f -> %f counts %d -> %d\n",
 				m_curInches, m_targetInches, curCounts, m_targetCounts);
-
-		m_elevatorDebug = true;
 	}
 	else {
 		std::printf("2135: EL is not calibrated\n");
@@ -502,7 +501,6 @@ bool Elevator::MoveToPositionIsFinished() {
 
 		if (isFinished) {
 			m_safetyTimer.Stop();
-			m_elevatorDebug = false;
 		}
 	}
 

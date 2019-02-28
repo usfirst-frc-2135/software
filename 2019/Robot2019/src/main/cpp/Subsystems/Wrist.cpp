@@ -123,8 +123,6 @@ void Wrist::InitDefaultCommand() {
 void Wrist::Periodic() {
     // Put code here to be run every loop
     int		curCounts = 0;
-	double	outputWR12 = 0.0, currentWR12 = 0.0;
-	double 	errorInDegrees = 0.0;
 
 	if (m_talonValidWR12) {
 		curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
@@ -133,7 +131,10 @@ void Wrist::Periodic() {
 	frc::SmartDashboard::PutNumber("WR Counts", curCounts);
 	frc::SmartDashboard::PutNumber("WR Degrees", CountsToDegrees(curCounts));
 
-	if (m_wristDebug) {
+	if (m_wristDebug > 0) {
+		double	outputWR12 = 0.0, currentWR12 = 0.0;
+		double 	errorInDegrees = 0.0;
+
 		errorInDegrees = CountsToDegrees(m_targetCounts - curCounts);
 
 		if (m_talonValidWR12) {
@@ -273,8 +274,6 @@ void Wrist::MoveToPositionInit(int level) {
 
 		std::printf("2135: WR MM Move degrees %f -> %f counts %d -> %d\n",
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
-
-		m_wristDebug = true;
 	}
 	else {
 		std::printf("2135: Wrist is not calibrated\n");
@@ -312,7 +311,6 @@ bool Wrist::MoveToPositionIsFinished(void) {
 
 	if (isFinished) {
 		m_safetyTimer.Stop();
-		m_wristDebug = false;
 	}
 
 	return isFinished;

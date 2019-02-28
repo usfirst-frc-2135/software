@@ -83,16 +83,19 @@ void Lifter::InitDefaultCommand() {
 
 void Lifter::Periodic() {
     // Put code here to be run every loop
-    double outputLF16 = 0.0, currentLF16 = 0.0;
+    
+    if (m_lifterDebug > 0) {
+        double outputLF16 = 0.0, currentLF16 = 0.0;
 
-    if (m_talonValidLF16) {
-        outputLF16 = motorLF16->GetMotorOutputPercent();
-        currentLF16 = motorLF16->GetOutputCurrent();
-    }
+        if (m_talonValidLF16) {
+            outputLF16 = motorLF16->GetMotorOutputPercent();
+            currentLF16 = motorLF16->GetOutputCurrent();
+        }
 
-    if (m_lifterDebug) {
-        frc::SmartDashboard::PutNumber("LF_Output_LF16", outputLF16);
-        frc::SmartDashboard::PutNumber("LF_Current_LF16", currentLF16);
+        if (m_lifterDebug) {
+            frc::SmartDashboard::PutNumber("LF_Output_LF16", outputLF16);
+            frc::SmartDashboard::PutNumber("LF_Current_LF16", currentLF16);
+        }
     }
 }
 

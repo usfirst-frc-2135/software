@@ -41,12 +41,12 @@ void Power::InitDefaultCommand() {
 }
 
 void Power::Periodic() {
-
-	if (m_powerDebug) {
+	// Put code here to be run every loop
+	
+	if (m_powerDebug  > 0) {
 		char			chanStr[32];
 		int				i;
 
-		// Put code here to be run every loop
 		frc::SmartDashboard::PutNumber("PDP Temp", pdp->GetTemperature());
 		frc::SmartDashboard::PutNumber("PDP Total Amps", pdp->GetTotalCurrent());
 		frc::SmartDashboard::PutNumber("PDP Total Watts", pdp->GetTotalPower());

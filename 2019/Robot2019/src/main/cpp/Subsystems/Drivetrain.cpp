@@ -170,52 +170,59 @@ void Drivetrain::InitDefaultCommand() {
 
 void Drivetrain::Periodic() {
     // Put code here to be run every loop
-    double	encoderLeft = 0.0;
-	double	encoderRight = 0.0;
-    double	outputL1 = 0.0, currentL1 = 0.0;
-	double	outputL2 = 0.0, currentL2 = 0.0;
-	double	outputR3 = 0.0, currentR3 = 0.0;
-	double	outputR4 = 0.0, currentR4 = 0.0;
-	double  gyroYaw = 0.0;
+    int		encoderLeft = 0;
+	int		encoderRight = 0;
+ 	double  gyroYaw = 0.0;
 
     if (m_talonValidL1) {
 		encoderLeft = motorL1->GetSelectedSensorPosition(m_pidIndex);
-		outputL1 = motorL1->GetMotorOutputPercent();
-		currentL1 = motorL1->GetOutputCurrent();
-	}
-
-	if (m_talonValidL2) {
-		outputL2 = motorL2->GetMotorOutputPercent();
-		currentL2 = motorL2->GetOutputCurrent();
 	}
 
 	if (m_talonValidR3) {
 		encoderRight = motorR3->GetSelectedSensorPosition(m_pidIndex);
-		outputR3 = motorR3->GetMotorOutputPercent();
-		currentR3 = motorR3->GetOutputCurrent();
-	}
-
-	if (m_talonValidR4) {
-		outputR4 = motorR4->GetMotorOutputPercent();
-		currentR4 = motorR4->GetOutputCurrent();
 	}
 
 	gyroYaw = PigeonIMUGetAngle();
 
-    if (m_driveDebug) {
-		frc::SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
+	frc::SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
+	frc::SmartDashboard::PutNumber("DT_Encoder_R", encoderRight);
+	frc::SmartDashboard::PutNumber("DT_GyroAngle", gyroYaw);
+
+    if (m_driveDebug > 0) {
+		double	outputL1 = 0.0, currentL1 = 0.0;
+		double	outputL2 = 0.0, currentL2 = 0.0;
+		double	outputR3 = 0.0, currentR3 = 0.0;
+		double	outputR4 = 0.0, currentR4 = 0.0;
+
+		if (m_talonValidL1) {
+			outputL1 = motorL1->GetMotorOutputPercent();
+			currentL1 = motorL1->GetOutputCurrent();
+		}
+
+		if (m_talonValidL2) {
+			outputL2 = motorL2->GetMotorOutputPercent();
+			currentL2 = motorL2->GetOutputCurrent();
+		}
+
+		if (m_talonValidR3) {
+			outputR3 = motorR3->GetMotorOutputPercent();
+			currentR3 = motorR3->GetOutputCurrent();
+		}
+
+		if (m_talonValidR4) {
+			outputR4 = motorR4->GetMotorOutputPercent();
+			currentR4 = motorR4->GetOutputCurrent();
+		}
+
 		frc::SmartDashboard::PutNumber("DT_Output_L1", outputL1);
 		frc::SmartDashboard::PutNumber("DT_Current_L1", currentL1);
 		frc::SmartDashboard::PutNumber("DT_Output_L2", outputL2);
 		frc::SmartDashboard::PutNumber("DT_Current_L2", currentL2);
 
-		frc::SmartDashboard::PutNumber("DT_Encoder_R", encoderRight);
 		frc::SmartDashboard::PutNumber("DT_Output_R3", outputR3);
 		frc::SmartDashboard::PutNumber("DT_Current_R3", currentR3);
 		frc::SmartDashboard::PutNumber("DT_Output_R4", outputR4);
 		frc::SmartDashboard::PutNumber("DT_Current_R4", currentR4);
-
-		frc::SmartDashboard::PutNumber("DT_GyroAngle", gyroYaw);
 	}
 }
 

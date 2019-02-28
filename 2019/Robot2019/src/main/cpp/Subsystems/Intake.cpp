@@ -75,14 +75,16 @@ void Intake::InitDefaultCommand() {
 }
 
 void Intake::Periodic() {
-    double outputIN14 = 0.0, currentIN14 = 0.0;
+    // Put code here to be run every loop
     
-    if (m_talonValidIN14) {
-        outputIN14 = motorIN14->GetMotorOutputPercent();
-        currentIN14 = motorIN14->GetOutputCurrent();
-    }
+    if (m_intakeDebug > 0) {
+        double outputIN14 = 0.0, currentIN14 = 0.0;
+    
+        if (m_talonValidIN14) {
+            outputIN14 = motorIN14->GetMotorOutputPercent();
+            currentIN14 = motorIN14->GetOutputCurrent();
+        }
 
-    if (m_intakeDebug) {
         frc::SmartDashboard::PutNumber("IN_Output_IN14", outputIN14);
         frc::SmartDashboard::PutNumber("IN_Current_IN14", currentIN14);
     }

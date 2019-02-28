@@ -45,7 +45,7 @@ private:
 	std::shared_ptr<PigeonIMU> pigeonIMU;
 
 	//	Declare constants
-	const bool		m_driveDebug = false;				// Debug flag to disable extra logging calls
+	int				m_driveDebug = 0;					// Debug flag to disable extra logging calls
 	const int 		m_pidIndex = 0; 					// PID slot index for sensors
 	const int 		m_timeout = 30; 					// CAN timeout in msec to wait for response
 	const double	COUNTS_PER_ROTATION = (1024*4);		// CPR is 1024 and multiplied by 4

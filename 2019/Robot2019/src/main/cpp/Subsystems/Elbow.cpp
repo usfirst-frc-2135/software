@@ -121,8 +121,6 @@ void Elbow::InitDefaultCommand() {
 void Elbow::Periodic() {
     // Put code here to be run every loop
     int		curCounts = 0;
-	double	outputEB10 = 0.0, currentEB10 = 0.0;
-	double 	errorInDegrees = 0.0;
 
 	if (m_talonValidEB10) {
 		curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
@@ -131,7 +129,10 @@ void Elbow::Periodic() {
 	frc::SmartDashboard::PutNumber("EB Counts", curCounts);
 	frc::SmartDashboard::PutNumber("EB Degrees", CountsToDegrees(curCounts));
 
-	if (m_elbowDebug) {
+	if (m_elbowDebug > 0) {
+		double	outputEB10 = 0.0, currentEB10 = 0.0;
+		double 	errorInDegrees = 0.0;
+
 		errorInDegrees = CountsToDegrees(m_targetCounts - curCounts);
 
 		if (m_talonValidEB10) {
@@ -269,9 +270,7 @@ void Elbow::MoveToPositionInit(int level) {
 		motorEB10->Set(ControlMode::MotionMagic, m_targetCounts, DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
 
 		std::printf("2135: EB MM Move degrees %5.2f -> %5.2f counts %d -> %d\n",
-			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
-		
-		m_elbowDebug = true;
+			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);		
 	}
 	else {
 		std::printf("2135: Elbow is not calibrated\n");
@@ -309,7 +308,6 @@ bool Elbow::MoveToPositionIsFinished(void) {
 
 	if (isFinished) {
 		m_safetyTimer.Stop();
-		m_elbowDebug = false;
 	}
 
 	return isFinished;
