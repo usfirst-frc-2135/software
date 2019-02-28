@@ -143,19 +143,13 @@ void Elevator::InitDefaultCommand() {
 }
 
 void Elevator::Periodic() {
-    double	curCounts = 0.0;
+    int		curCounts = 0;
 	double	outputEL7 = 0.0, currentEL7 = 0.0;
 	double	outputEL8 = 0.0, currentEL8 = 0.0;
+    double	errorInInches = 0.0;
 
 	if (m_talonValidEL7) {
 		curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
-		outputEL7 = motorEL7->GetMotorOutputVoltage();
-		currentEL7 = motorEL7->GetOutputCurrent();
-	}
-
-	if (m_talonValidEL8) {
-		outputEL8 = motorEL8->GetMotorOutputVoltage();
-		currentEL8 = motorEL8->GetOutputCurrent();
 	}
 
 		// Put code here to be run every loop
@@ -164,6 +158,24 @@ void Elevator::Periodic() {
 	frc::SmartDashboard::PutNumber("Del Height", 2 * CountsToInches(curCounts));
 
 	if (m_elevatorDebug) {
+		errorInInches = CountsToInches(m_targetCounts - curCounts);
+
+		if (m_talonValidEL7) {
+			outputEL7 = motorEL7->GetMotorOutputPercent();
+			currentEL7 = motorEL7->GetOutputCurrent();
+		}
+
+		if (m_talonValidEL8) {
+			outputEL8 = motorEL8->GetMotorOutputPercent();
+			currentEL8 = motorEL8->GetOutputCurrent();
+		}
+
+		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
+
+		// cts = Encoder Counts, error = Error In Inches, Out = Motor Output
+		std::printf("2135: EL MM %5.3f cts %d, in %5.2f, error %5.2f, Out %4.2f %4.2f, Amps %6.3f %6.3f\n", 
+			secs, (int)curCounts, CountsToInches(curCounts), errorInInches, outputEL7, outputEL8, currentEL7, currentEL8);
+
 		frc::SmartDashboard::PutNumber("EL_Output_EL7", outputEL7);
 		frc::SmartDashboard::PutNumber("EL_Current_EL7", currentEL7);
 		frc::SmartDashboard::PutNumber("EL_Output_EL8", outputEL8);
@@ -449,6 +461,8 @@ void Elevator::MoveToPositionInit(int level) {
 
 		std::printf("2135: EL MM Move inches %f -> %f counts %d -> %d\n",
 				m_curInches, m_targetInches, curCounts, m_targetCounts);
+
+		m_elevatorDebug = true;
 	}
 	else {
 		std::printf("2135: EL is not calibrated\n");
@@ -461,12 +475,8 @@ void Elevator::MoveToPositionInit(int level) {
 }
 
 bool Elevator::MoveToPositionIsFinished() {
-    bool mmIsFinished = false;
+    bool isFinished = false;
     int curCounts = 0;
-    double motorOutputEL7 = 0.0;
-	double motorOutputEL8 = 0.0;
-    double motorAmpsEL7 = 0.0;
-	double motorAmpsEL8 = 0.0;
     double errorInInches = 0.0;
 
 	if (m_elevatorLevel != NOCHANGE_HEIGHT) {
@@ -474,38 +484,29 @@ bool Elevator::MoveToPositionIsFinished() {
 
 		if (m_talonValidEL7) {
 			curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
-			motorOutputEL7 = motorEL7->GetMotorOutputPercent();
-			motorAmpsEL7 = motorEL7->GetOutputCurrent();
 		}
-		if (m_talonValidEL8) {
-			motorOutputEL8 = motorEL8->GetMotorOutputPercent();
-			motorAmpsEL8 = motorEL8->GetOutputCurrent();
-		}
-
-		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
 		errorInInches = CountsToInches(m_targetCounts - curCounts);
 
-		// cts = Encoder Counts, error = Error In Inches, Out = Motor Output
-		std::printf("2135: EL MM %5.3f cts %d, in %5.2f, error %5.2f, Out %4.2f %4.2f, Amps %6.3f %6.3f\n", 
-			secs, curCounts, CountsToInches(curCounts), errorInInches, motorOutputEL7, motorOutputEL8, motorAmpsEL7, motorAmpsEL8);
-
 		// Check to see if the error is in an acceptable number of inches.
 		if (fabs(errorInInches) < m_toleranceInches) {
-			mmIsFinished = true;
-			m_safetyTimer.Stop();
+			isFinished = true;
 			std::printf("2135: EL MM Move Finished - Time %f\n", m_safetyTimer.Get());
 		}
 		
 		// Check to see if the Safety Timer has timed out.
 		if (m_safetyTimer.Get() >= m_safetyTimeout) {
-			mmIsFinished = true;
-			m_safetyTimer.Stop();
+			isFinished = true;
 			std::printf("2135: EL Move Safety timer has timed out\n");
+		}
+
+		if (isFinished) {
+			m_safetyTimer.Stop();
+			m_elevatorDebug = false;
 		}
 	}
 
-    return mmIsFinished;
+    return isFinished;
 }
 
 #endif
