@@ -122,16 +122,29 @@ void Elbow::Periodic() {
     // Put code here to be run every loop
     int		curCounts = 0;
 	double	outputEB10 = 0.0, currentEB10 = 0.0;
+	double 	errorInDegrees = 0.0;
 
 	if (m_talonValidEB10) {
 		curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
-		outputEB10 = motorEB10->GetMotorOutputPercent();
-		currentEB10 = motorEB10->GetOutputCurrent();
 	}
 
+	frc::SmartDashboard::PutNumber("EB Counts", curCounts);
+	frc::SmartDashboard::PutNumber("EB Degrees", CountsToDegrees(curCounts));
+
 	if (m_elbowDebug) {
-		frc::SmartDashboard::PutNumber("EB Counts", curCounts);
-		frc::SmartDashboard::PutNumber("EB Degrees", CountsToDegrees(curCounts));
+		errorInDegrees = CountsToDegrees(m_targetCounts - curCounts);
+
+		if (m_talonValidEB10) {
+			outputEB10 = motorEB10->GetMotorOutputPercent();
+			currentEB10 = motorEB10->GetOutputCurrent();
+		}
+	
+		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
+
+		// cts = Encoder Counts, error = Error In Degrees, Out = Motor Output
+		std::printf("2135: EB MM %5.3f cts %d, degrees %5.2f, error %5.2f, Out %4.2f, Amps %6.3f\n", 
+			secs, curCounts, CountsToDegrees(curCounts), errorInDegrees, outputEB10, currentEB10);
+
 		frc::SmartDashboard::PutNumber("EB_Output_EB10", outputEB10);
 		frc::SmartDashboard::PutNumber("EB_Current_EB10", currentEB10);
 	}
@@ -256,7 +269,9 @@ void Elbow::MoveToPositionInit(int level) {
 		motorEB10->Set(ControlMode::MotionMagic, m_targetCounts, DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
 
 		std::printf("2135: EB MM Move degrees %5.2f -> %5.2f counts %d -> %d\n",
-				m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
+			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
+		
+		m_elbowDebug = true;
 	}
 	else {
 		std::printf("2135: Elbow is not calibrated\n");
@@ -267,44 +282,37 @@ void Elbow::MoveToPositionInit(int level) {
 }
 
 bool Elbow::MoveToPositionIsFinished(void) {
-	bool mmIsFinished = false;
+	bool isFinished = false;
 	int curCounts = 0;
-	double motorOutput = 0.0;
-	double motorAmps = 0.0;
 	double errorInDegrees = 0.0;
 
 	// If a real move was requested, check for completion
 	if (m_elbowLevel != NOCHANGE_ANGLE) {
 		if (m_talonValidEB10) {
 			curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
-			motorOutput = motorEB10->GetMotorOutputPercent();
-			motorAmps = motorEB10->GetOutputCurrent();
 		}
-
-		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
 		errorInDegrees = CountsToDegrees(m_targetCounts - curCounts);
 
-		// cts = Encoder Counts, error = Error In Degrees, Out = Motor Output
-		std::printf("2135: EB MM %5.3f cts %d, degrees %5.2f, error %5.2f, Out %4.2f, Amps %6.3f\n", 
-			secs, curCounts, CountsToDegrees(curCounts), errorInDegrees, motorOutput, motorAmps);
-
 		// Check to see if the error is in an acceptable number of inches.
 		if (fabs(errorInDegrees) < m_toleranceDegrees) {
-			mmIsFinished = true;
-			m_safetyTimer.Stop();
+			isFinished = true;
 			std::printf("2135: EB MM Move Finished - Time %f\n", m_safetyTimer.Get());
 		}
 		
 		// Check to see if the Safety Timer has timed out.
 		if (m_safetyTimer.Get() >= m_safetyTimeout) {
-			mmIsFinished = true;
-			m_safetyTimer.Stop();
+			isFinished = true;
 			std::printf("2135: EB Move Safety timer has timed out\n");
 		}
 	}
 
-	return mmIsFinished;
+	if (isFinished) {
+		m_safetyTimer.Stop();
+		m_elbowDebug = false;
+	}
+
+	return isFinished;
 }
 
 void Elbow::BumpToPosition(bool direction) {

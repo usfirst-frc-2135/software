@@ -124,16 +124,29 @@ void Wrist::Periodic() {
     // Put code here to be run every loop
     int		curCounts = 0;
 	double	outputWR12 = 0.0, currentWR12 = 0.0;
+	double 	errorInDegrees = 0.0;
 
 	if (m_talonValidWR12) {
 		curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
-		outputWR12 = motorWR12->GetMotorOutputPercent();
-		currentWR12 = motorWR12->GetOutputCurrent();
 	}
 
+	frc::SmartDashboard::PutNumber("WR Counts", curCounts);
+	frc::SmartDashboard::PutNumber("WR Degrees", CountsToDegrees(curCounts));
+
 	if (m_wristDebug) {
-		frc::SmartDashboard::PutNumber("WR Counts", curCounts);
-		frc::SmartDashboard::PutNumber("WR Degrees", CountsToDegrees(curCounts));
+		errorInDegrees = CountsToDegrees(m_targetCounts - curCounts);
+
+		if (m_talonValidWR12) {
+			outputWR12 = motorWR12->GetMotorOutputPercent();
+			currentWR12 = motorWR12->GetOutputCurrent();
+		}
+
+		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
+
+		// cts = Encoder Counts, error = Error In Degrees, Out = Motor Output
+		std::printf("2135: WR MM %5.3f cts %d, degrees %5.2f, error %5.2f, Out %4.2f, Amps %6.3f\n", 
+			secs, curCounts, CountsToDegrees(curCounts), errorInDegrees, outputWR12, currentWR12);
+
 		frc::SmartDashboard::PutNumber("WR_Output_WR12", outputWR12);
 		frc::SmartDashboard::PutNumber("WR_Current_WR12", currentWR12);
 	}
@@ -259,7 +272,9 @@ void Wrist::MoveToPositionInit(int level) {
 		motorWR12->Set(ControlMode::MotionMagic, m_targetCounts, DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
 
 		std::printf("2135: WR MM Move degrees %f -> %f counts %d -> %d\n",
-				m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
+			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
+
+		m_wristDebug = true;
 	}
 	else {
 		std::printf("2135: Wrist is not calibrated\n");
@@ -270,44 +285,37 @@ void Wrist::MoveToPositionInit(int level) {
 }
 
 bool Wrist::MoveToPositionIsFinished(void) {
-	bool mmIsFinished = false;
+	bool isFinished = false;
 	int curCounts = 0;
-	double motorOutput = 0.0;
-	double motorAmps = 0.0;
 	double errorInDegrees = 0.0;
 
 	// If a real move was requested, check for completion
 	if (m_wristLevel != NOCHANGE_ANGLE) {
 		if (m_talonValidWR12) {
 			curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
-			motorOutput = motorWR12->GetMotorOutputPercent();
-			motorAmps = motorWR12->GetOutputCurrent();
 		}
-
-		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
 		errorInDegrees = CountsToDegrees(m_targetCounts - curCounts);
 
-		// cts = Encoder Counts, error = Error In Degrees, Out = Motor Output
-		std::printf("2135: WR MM %5.3f cts %d, degrees %5.2f, error %5.2f, Out %4.2f, Amps %6.3f\n", 
-			secs, curCounts, CountsToDegrees(curCounts), errorInDegrees, motorOutput, motorAmps);
-
 		// Check to see if the error is in an acceptable number of inches.
 		if (fabs(errorInDegrees) < m_toleranceDegrees) {
-			mmIsFinished = true;
-			m_safetyTimer.Stop();
+			isFinished = true;
 			std::printf("2135: WR MM Move Finished - Time %f\n", m_safetyTimer.Get());
 		}
 		
 		// Check to see if the Safety Timer has timed out.
 		if (m_safetyTimer.Get() >= m_safetyTimeout) {
-			mmIsFinished = true;
-			m_safetyTimer.Stop();
+			isFinished = true;
 			std::printf("2135: WR Move Safety timer has timed out\n");
 		}
 	}
 
-	return mmIsFinished;
+	if (isFinished) {
+		m_safetyTimer.Stop();
+		m_wristDebug = false;
+	}
+
+	return isFinished;
 }
 
 void Wrist::BumpToPosition(bool direction) {
