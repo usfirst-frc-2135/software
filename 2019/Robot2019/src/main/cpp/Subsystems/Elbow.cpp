@@ -76,7 +76,7 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 		 motorEB10->ConfigClosedLoopPeakOutput(m_pidMaxOut, m_timeout);
 
 		// Set maximum current draw allowed
-		 motorEB10->ConfigPeakCurrentLimit(10.0, m_timeout);
+		 motorEB10->ConfigPeakCurrentLimit(20.0, m_timeout);
 		 motorEB10->EnableCurrentLimit(true);
 
 		// Set soft limits

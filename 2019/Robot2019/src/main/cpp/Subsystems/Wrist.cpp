@@ -78,7 +78,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 		 motorWR12->ConfigClosedLoopPeakOutput(m_pidMaxOut, m_timeout);
 
 		// Set maximum current draw allowed
-		 motorWR12->ConfigPeakCurrentLimit(10.0, m_timeout);
+		 motorWR12->ConfigPeakCurrentLimit(20.0, m_timeout);
 		 motorWR12->EnableCurrentLimit(true);
 
 		// Set soft limits
