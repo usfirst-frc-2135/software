@@ -57,6 +57,8 @@ private:
 
 	// Configuration file parameters
 	double 			m_pidMaxOut;					// Wrist maximum speed during movement
+	double			m_velocity;						// Wrist motion velocity
+	double			m_acceleration;					// Wrist motion acceleration
 	double			m_pidKf;						// Wrist PID force constant
 	double			m_pidKp;						// Wrist PID proportional constant
 	double			m_pidKi;						// Wrist PID integral constant

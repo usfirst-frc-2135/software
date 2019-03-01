@@ -37,6 +37,8 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("EL_CalibSpeed", m_calibrationSpeed, 0.25);
 	config->GetValueAsDouble("EL_PidMaxOut", m_pidMaxOut, 1.0);
+    config->GetValueAsDouble("EL_Velocity", m_velocity, 0.000);
+    config->GetValueAsDouble("EL_Acceleration", m_acceleration, 0.000);
     config->GetValueAsDouble("EL_PidKp", m_pidKf, 0.000);
     config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.250);
     config->GetValueAsDouble("EL_PidKi", m_pidKi, 0.000);
@@ -102,8 +104,8 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
          motorEL7->Config_kP(0, m_pidKp, m_timeout);
          motorEL7->Config_kI(0, m_pidKi, m_timeout);
          motorEL7->Config_kD(0, m_pidKd, m_timeout);
-         motorEL7->ConfigMotionCruiseVelocity(820, m_timeout);   	// TODO: calculate
-         motorEL7->ConfigMotionAcceleration(1640, m_timeout);		
+         motorEL7->ConfigMotionCruiseVelocity(m_velocity, m_timeout);   	// TODO: calculate
+         motorEL7->ConfigMotionAcceleration(m_acceleration, m_timeout);		
 
 		 motorEL7->Set(ControlMode::PercentOutput, 0.0);
 	}
