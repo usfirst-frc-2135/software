@@ -129,6 +129,8 @@ public:
 	bool PigeonIMUInitialize();
 	void PigeonIMUFaultDump(void);
 	double PigeonIMUGetAngle();
+
+	void ResetSensors(); 
 };
 
 #endif

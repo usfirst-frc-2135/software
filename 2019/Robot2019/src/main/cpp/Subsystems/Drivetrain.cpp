@@ -649,3 +649,10 @@ double Drivetrain::PigeonIMUGetAngle() {
 
     return ypr[0];
 }
+
+void Drivetrain::ResetSensors(void) {
+	if(m_talonValidL1) 
+		motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	if(m_talonValidR3) 
+		motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout); 
+}
