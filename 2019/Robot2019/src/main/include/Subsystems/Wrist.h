@@ -57,7 +57,10 @@ private:
 
 	// Configuration file parameters
 	double 			m_pidMaxOut;					// Wrist maximum speed during movement
+	double			m_pidKf;						// Wrist PID force constant
 	double			m_pidKp;						// Wrist PID proportional constant
+	double			m_pidKi;						// Wrist PID integral constant
+	double			m_pidKd;						// Wrist PID derivative constant
 	double			m_arbFeedForward;				// Wrist Motion Magic Arbitrary Feed Forward		
 	double			m_toleranceDegrees;				// Wrist PID tolerance in degrees	
 	int				m_wristMaxCounts;				// Wrist maximum allowable counts

@@ -56,7 +56,10 @@ private:
 	
 	// Configuration file parameters
 	double 			m_pidMaxOut;					// Elbow maximum speed during movement
+	double			m_pidKf;						// Elbow PID force constant
 	double			m_pidKp;						// Elbow PID proportional constant
+	double			m_pidKi;						// Elbow PID integral constant
+	double			m_pidKd;						// Elbow PID derivative constant
 	double			m_arbFeedForward;				// Elbow Motion Magic Arbitrary Feed Forward		
 	double			m_toleranceDegrees;				// Elbow PID tolerance in degrees
 	int				m_elbowMaxCounts;				// Elbow maximum allowable counts

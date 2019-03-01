@@ -12,7 +12,10 @@
 # Elevator settings
   EL_CalibSpeed = 0.25
   EL_PidMaxOut = 1.0
+  EL_PidKf = 0.000
   EL_PidKp = 0.250
+  EL_PidKi = 0.000
+  EL_PidKd = 0.000
   EL_CLRampRate = 0.250
   EL_CLAllowedError = 0
   EL_ArbFeedForward = 0.1
@@ -34,6 +37,10 @@
 # Elbow settings
   EB_PidKp = 2.25
   EB_PidMaxOut = 0.4
+  EB_PidKf = 0.000
+  EB_PidKp = 0.000
+  EB_PidKi = 0.000
+  EB_PidKd = 0.000
   EB_ArbFeedForward = 0.1
   EB_ToleranceDegrees = 5.0
   EB_MaxCounts = 0
@@ -52,6 +59,10 @@
 # Wrist settings
   WR_PidKp = 2.25
   WR_PidMaxOut = 0.4
+  WR_PidKf = 0.000
+  WR_PidKp = 0.000
+  WR_PidKi = 0.000
+  WR_PidKd = 0.000
   WR_ArbFeedForward = 0.1
   WR_ToleranceDegrees = 5.0
   WR_MaxCounts = 0

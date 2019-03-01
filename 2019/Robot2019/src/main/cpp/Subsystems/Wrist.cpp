@@ -36,6 +36,10 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.375);
     config->GetValueAsDouble("WR_PidMaxOut", m_pidMaxOut, 1.0);
+    config->GetValueAsDouble("WR_PidKp", m_pidKf, 0.000);
+    config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.000);
+    config->GetValueAsDouble("WR_PidKi", m_pidKi, 0.000);
+    config->GetValueAsDouble("WR_PidKd", m_pidKd, 0.000);
 	config->GetValueAsDouble("WR_ArbFeedForward", m_arbFeedForward, 0.1);
 	config->GetValueAsDouble("WR_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
@@ -89,10 +93,10 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 
 	 	// Configure Magic Motion settings
 		 motorWR12->SelectProfileSlot(0, 0);
-         motorWR12->Config_kF(0, 0.0, m_timeout);      
-         motorWR12->Config_kP(0, 0.0, m_timeout);
-         motorWR12->Config_kI(0, 0.0, m_timeout);
-         motorWR12->Config_kD(0, 0.0, m_timeout);
+         motorWR12->Config_kF(0, m_pidKf, m_timeout);      
+         motorWR12->Config_kP(0, m_pidKp, m_timeout);
+         motorWR12->Config_kI(0, m_pidKi, m_timeout);
+         motorWR12->Config_kD(0, m_pidKd, m_timeout);
          motorWR12->ConfigMotionCruiseVelocity(352/2, m_timeout);   // 90 degree rotation in 0.4*2 seconds
          motorWR12->ConfigMotionAcceleration(352/2, m_timeout);		// 1 second to accelerate to max velocity
 

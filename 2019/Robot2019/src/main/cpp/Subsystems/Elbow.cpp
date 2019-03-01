@@ -35,6 +35,10 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("EB_PidKp", m_pidKp, 0.25);
     config->GetValueAsDouble("EB_PidMaxOut", m_pidMaxOut, 0.6);
+    config->GetValueAsDouble("EB_PidKp", m_pidKf, 0.000);
+    config->GetValueAsDouble("EB_PidKp", m_pidKp, 0.000);
+    config->GetValueAsDouble("EB_PidKi", m_pidKi, 0.000);
+    config->GetValueAsDouble("EB_PidKd", m_pidKd, 0.000);
 	config->GetValueAsDouble("EB_ArbFeedForward", m_arbFeedForward, 0.2);
 	config->GetValueAsDouble("EB_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("EB_MaxCounts", m_elbowMaxCounts, 1800);
@@ -87,10 +91,10 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 
 		// Configure Magic Motion settings
 		 motorEB10->SelectProfileSlot(0, 0);
-         motorEB10->Config_kF(0, 0.0, m_timeout);      
+         motorEB10->Config_kF(0, m_pidKf, m_timeout);      
          motorEB10->Config_kP(0, m_pidKp, m_timeout);
-         motorEB10->Config_kI(0, 0.0, m_timeout);
-         motorEB10->Config_kD(0, 0.0, m_timeout);
+         motorEB10->Config_kI(0, m_pidKi, m_timeout);
+         motorEB10->Config_kD(0, m_pidKd, m_timeout);
          motorEB10->ConfigMotionCruiseVelocity(282/2, m_timeout);   	// 90 degree rotation in 0.5*2 seconds
          motorEB10->ConfigMotionAcceleration(282/2, m_timeout);		// 1 second to accelerate to max velocity
 

@@ -37,10 +37,13 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("EL_CalibSpeed", m_calibrationSpeed, 0.25);
 	config->GetValueAsDouble("EL_PidMaxOut", m_pidMaxOut, 1.0);
+    config->GetValueAsDouble("EL_PidKp", m_pidKf, 0.000);
     config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.250);
+    config->GetValueAsDouble("EL_PidKi", m_pidKi, 0.000);
+    config->GetValueAsDouble("EL_PidKd", m_pidKd, 0.000);
+	config->GetValueAsDouble("EL_ArbFeedForward", m_arbFeedForward, 0.1);
     config->GetValueAsDouble("EL_CLRampRate", m_CLRampRate, 0.250);
     config->GetValueAsInt("EL_CLAllowedError", m_CLAllowedError, 0);
-	config->GetValueAsDouble("EL_ArbFeedForward", m_arbFeedForward, 0.1);
 	config->GetValueAsDouble("EL_ToleranceInches", m_toleranceInches, 2.0);
     config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 35.0);
     config->GetValueAsDouble("EL_MinHeight", m_elevatorMinHeight, 0.0);
@@ -84,7 +87,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 		 motorEL7->ConfigAllowableClosedloopError(m_slotIndex, m_CLAllowedError, m_timeout);
 
 		// Set maximum current draw allowed
-		 motorEL7->ConfigPeakCurrentLimit(10.0, m_timeout);
+		 motorEL7->ConfigPeakCurrentLimit(20.0, m_timeout);
 		 motorEL7->EnableCurrentLimit(false);
 		
 		// Set soft limits
@@ -95,10 +98,10 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 
 		// Configure Magic Motion settings
 		 motorEL7->SelectProfileSlot(0, 0);
-         motorEL7->Config_kF(0, 0.0, m_timeout);      
-         motorEL7->Config_kP(0, 0.0, m_timeout);
-         motorEL7->Config_kI(0, 0.0, m_timeout);
-         motorEL7->Config_kD(0, 0.0, m_timeout);
+         motorEL7->Config_kF(0, m_pidKf, m_timeout);      
+         motorEL7->Config_kP(0, m_pidKp, m_timeout);
+         motorEL7->Config_kI(0, m_pidKi, m_timeout);
+         motorEL7->Config_kD(0, m_pidKd, m_timeout);
          motorEL7->ConfigMotionCruiseVelocity(820, m_timeout);   	// TODO: calculate
          motorEL7->ConfigMotionAcceleration(1640, m_timeout);		
 
