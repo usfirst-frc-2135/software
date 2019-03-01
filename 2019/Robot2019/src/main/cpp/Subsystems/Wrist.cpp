@@ -36,8 +36,9 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.375);
     config->GetValueAsDouble("WR_PidMaxOut", m_pidMaxOut, 1.0);
-    config->GetValueAsDouble("WR_Velocity", m_velocity, 0.000);
-    config->GetValueAsDouble("WR_Acceleration", m_acceleration, 0.000);
+    config->GetValueAsInt("WR_Velocity", m_velocity, 0);
+    config->GetValueAsInt("WR_Acceleration", m_acceleration, 0);
+    config->GetValueAsInt("WR_SCurveStrength", m_sCurveStrength, 0);
     config->GetValueAsDouble("WR_PidKp", m_pidKf, 0.000);
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.000);
     config->GetValueAsDouble("WR_PidKi", m_pidKi, 0.000);
@@ -101,6 +102,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
          motorWR12->Config_kD(0, m_pidKd, m_timeout);
          motorWR12->ConfigMotionCruiseVelocity(m_velocity, m_timeout);   // 90 degree rotation in 0.4*2 seconds
          motorWR12->ConfigMotionAcceleration(m_acceleration, m_timeout);		// 1 second to accelerate to max velocity
+		 motorWR12->ConfigMotionSCurveStrength(m_sCurveStrength, m_timeout);
 
 		// Enable wrist Motion Magic with existing sensor reading (no movement)
 //		 motorWR12->Set(ControlMode::MotionMagic, (double)DegreesToCounts(m_curDegrees), DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);

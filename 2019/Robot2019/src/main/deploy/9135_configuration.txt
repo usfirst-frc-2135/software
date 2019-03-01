@@ -14,6 +14,7 @@
   EL_PidMaxOut = 1.0
   EL_Velocity = 820
   EL_Acceleration = 1640
+  EL_SCurveStrength = 0
   EL_PidKf = 0.000
   EL_PidKp = 0.250
   EL_PidKi = 0.000
@@ -41,6 +42,7 @@
   EB_PidMaxOut = 0.4
   EB_Velocity = 141
   EB_Acceleration = 141
+  EB_SCurveStrength = 0
   EB_PidKf = 0.000
   EB_PidKp = 0.000
   EB_PidKi = 0.000
@@ -65,6 +67,7 @@
   WR_PidMaxOut = 0.4
   WR_Velocity = 176
   WR_Acceleration = 176
+  WR_SCurveStrength = 0
   WR_PidKf = 0.000
   WR_PidKp = 0.000
   WR_PidKi = 0.000

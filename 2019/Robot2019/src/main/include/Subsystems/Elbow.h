@@ -56,8 +56,9 @@ private:
 	
 	// Configuration file parameters
 	double 			m_pidMaxOut;					// Elbow maximum speed during movement
-	double			m_velocity;						// Elbow motion velocity
-	double			m_acceleration;					// Elbow motion acceleration
+	int				m_velocity;						// Elbow motion velocity
+	int				m_acceleration;					// Elbow motion acceleration
+	int				m_sCurveStrength;				// Elbow motion S curve smoothing strength
 	double			m_pidKf;						// Elbow PID force constant
 	double			m_pidKp;						// Elbow PID proportional constant
 	double			m_pidKi;						// Elbow PID integral constant
