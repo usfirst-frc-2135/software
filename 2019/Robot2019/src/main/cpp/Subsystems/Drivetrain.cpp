@@ -182,7 +182,7 @@ void Drivetrain::Periodic() {
 		encoderRight = motorR3->GetSelectedSensorPosition(m_pidIndex);
 	}
 
-	gyroYaw = PigeonIMUGetAngle();
+	gyroYaw = GetIMUHeading();
 
 	frc::SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
 	frc::SmartDashboard::PutNumber("DT_Encoder_R", encoderRight);
@@ -368,11 +368,7 @@ void Drivetrain::MoveDriveDistanceMMInit(double inches) {
         (int) m_distTargetCounts, m_distTargetInches, CountsPerInch);
 
     // Initialize the encoders ot start movement at reference of zero counts
-    if (m_talonValidL1)
-        motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
-
-    if (m_talonValidR3)
-        motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	ResetSensors();
 
      diffDrive->SetSafetyEnabled(false);
      motorL1->Set(ControlMode::MotionMagic, m_distTargetCounts); 
@@ -452,12 +448,8 @@ void Drivetrain::MoveDriveTurnPIDInit(double angle) {
 	std::printf("2135: DTDT Init %f degrees\n", m_turnAngle);
 
 	// Initialize the encoders to start movement at reference of zero counts
-	if (m_talonValidL1)
-		motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
-	if (m_talonValidR3)
-		motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+	ResetSensors();
 
-	pigeonIMU->SetYaw(0.0, 0);
 	driveTurnPIDLoop->SetSetpoint(angle);
 	driveTurnPIDLoop->Enable();
 
@@ -495,7 +487,7 @@ bool Drivetrain::MoveDriveTurnPIDIsFinished(void) {
 		curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
 		motorOutput_R = motorR3->GetMotorOutputPercent();
 	}
-	curAngle = PigeonIMUGetAngle();
+	curAngle = GetIMUHeading();
 
 	errorInDegrees = m_turnAngle - curAngle;
 
@@ -532,7 +524,7 @@ void Drivetrain::MoveDriveTurnPIDEnd(void) {
 	m_safetyTimer.Stop();
 
 	driveTurnPIDLoop->Disable();
-	curAngle = PigeonIMUGetAngle();
+	curAngle = GetIMUHeading();
 
 	// Re-enable the motor safety helper
     if (m_talonValidL1 || m_talonValidR3)
@@ -601,6 +593,11 @@ bool Drivetrain::PigeonIMUInitialize() {
 			pigeonValid = false;
 		}
 
+		double	heading = pigeonIMU->GetFusedHeading();
+		bool angleIsGood = (pigeonIMU->GetState() == PigeonIMU::Ready) ? true : false;
+		std::printf("2135: %s %s ID %d fused heading %5.1f angle is %s\n",
+				subsystem, name, deviceID, heading, (angleIsGood) ? "TRUE" : "FALSE");
+
 		pigeonIMU->SetYaw(0.0, m_timeout);
 		if ((error = pigeonIMU->GetLastError()) != OKAY) {
 			std::printf("2135: ERROR: %s %s ID %d SetFusedHeading error - %d\n", 
@@ -640,19 +637,27 @@ void Drivetrain::PigeonIMUFaultDump(void) {
 	pigeonIMU->ClearStickyFaults(m_timeout);
 }
 
-double Drivetrain::PigeonIMUGetAngle() {
-	double	ypr[3] = { 0.0, 0.0, 0.0 };
+double Drivetrain::GetIMUHeading() {
+	// Fused Heading is better than Yaw from Pigeon
+	double	heading = 0.0;
 
-	if (m_pigeonValid)
-		//pigeonIMU->GetState()
-		pigeonIMU->GetYawPitchRoll(ypr);
+	if (m_pigeonValid) {
+		if (pigeonIMU->GetState() != PigeonIMU::Ready)
+			std::printf("2135: ERROR: %s %s ID %d is NOT READY\n",
+				"DT", "PigeonIMU", 2);
+		heading = pigeonIMU->GetFusedHeading();
+	}
 
-    return ypr[0];
+    return heading;
 }
 
 void Drivetrain::ResetSensors(void) {
-	if(m_talonValidL1) 
-		motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
-	if(m_talonValidR3) 
-		motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout); 
+	if (m_talonValidL1) 
+		motorL1->SetSelectedSensorPosition(0, m_pidIndex, 0);
+	if (m_talonValidR3) 
+		motorR3->SetSelectedSensorPosition(0, m_pidIndex, 0);
+	if (m_pigeonValid) {
+		pigeonIMU->SetYaw(0.0);
+		pigeonIMU->SetFusedHeading(0.0, 0);
+	}
 }

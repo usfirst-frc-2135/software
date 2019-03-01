@@ -29,7 +29,7 @@ void PIDOutputDriveVision::PIDWrite(double output) {
 	double 			m_offset;
 	const double 	kP_turn = (0.18 / 21.0);	// turn power difference (0.18) to turn 21 degrees
 
-	m_offset = -(Robot::drivetrain->PigeonIMUGetAngle() - m_turnAngle) * kP_turn;
+	m_offset = -(Robot::drivetrain->GetIMUHeading() - m_turnAngle) * kP_turn;
 	m_robotDrive->TankDrive(-(output + m_offset), output - m_offset);
 
 	std::printf("2135: Left %f Right %f\n", -(output + m_offset), output - m_offset);
