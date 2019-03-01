@@ -84,6 +84,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 		// Set maximum power and ramp rate
 		 motorEL7->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
 		 motorEL7->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
+		 motorEL7->ConfigClosedLoopPeakOutput(m_pidMaxOut, m_timeout);
 		 motorEL7->ConfigClosedloopRamp(m_CLRampRate, m_timeout);
 
    		// Set allowable closed loop error
