@@ -72,8 +72,8 @@
   WR_PidKd = 0.000
   WR_ArbFeedForward = 0.1
   WR_ToleranceDegrees = 5.0
-  WR_MaxCounts = 0
-  WR_MinCounts = -1800
+  WR_MaxCounts = 1800
+  WR_MinCounts = 0
   WR_BumpAngle = 10.0
   WR_GroundCargoAngle = 0.0
   WR_GroundHatchAngle = 0.0
