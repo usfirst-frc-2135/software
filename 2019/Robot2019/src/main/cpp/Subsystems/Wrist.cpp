@@ -130,7 +130,8 @@ void Wrist::InitDefaultCommand() {
 
 void Wrist::Periodic() {
     // Put code here to be run every loop
-    int		curCounts = 0;
+	static int	i = 0;
+    int			curCounts = 0;
 
 	if (m_talonValidWR12) {
 		curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
@@ -139,7 +140,8 @@ void Wrist::Periodic() {
 	frc::SmartDashboard::PutNumber("WR Counts", curCounts);
 	frc::SmartDashboard::PutNumber("WR Degrees", CountsToDegrees(curCounts));
 
-	if (m_wristDebug > 0) {
+	// If debug on, print once every 5 loops (100ms)
+	if (m_wristDebug > 0 && !(i++ % 5)) {
 		double	outputWR12 = 0.0, currentWR12 = 0.0;
 		double 	errorInDegrees = 0.0;
 
@@ -242,7 +244,7 @@ void Wrist::MoveToPositionInit(int level) {
 		break;
 	case BUMP_ANGLE:
 		double bumpAngle;
-		bumpAngle = (m_bumpDir) ? m_bumpAngle : -m_bumpAngle;
+		bumpAngle = (m_bumpDir) ? -m_bumpAngle : m_bumpAngle;
 		m_targetDegrees += bumpAngle;
 		break;
 	case STOW_ANGLE: 

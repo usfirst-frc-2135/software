@@ -128,7 +128,8 @@ void Elbow::InitDefaultCommand() {
 
 void Elbow::Periodic() {
     // Put code here to be run every loop
-    int		curCounts = 0;
+	static int	i = 0;
+    int			curCounts = 0;
 
 	if (m_talonValidEB10) {
 		curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
@@ -137,7 +138,8 @@ void Elbow::Periodic() {
 	frc::SmartDashboard::PutNumber("EB Counts", curCounts);
 	frc::SmartDashboard::PutNumber("EB Degrees", CountsToDegrees(curCounts));
 
-	if (m_elbowDebug > 0) {
+	// If debug on, print once every 5 loops (100ms)
+	if (m_elbowDebug > 0 && !(i++ % 5)) {
 		double	outputEB10 = 0.0, currentEB10 = 0.0;
 		double 	errorInDegrees = 0.0;
 
@@ -238,7 +240,7 @@ void Elbow::MoveToPositionInit(int level) {
 		break;
 	case BUMP_ANGLE:
 		double bumpAngle;
-		bumpAngle = (m_bumpDir) ? m_bumpAngle : -m_bumpAngle;
+		bumpAngle = (m_bumpDir) ? -m_bumpAngle : m_bumpAngle;
 		m_targetDegrees += bumpAngle;
 		break;
 	case STOW_ANGLE: 
