@@ -127,6 +127,7 @@ void Intake::SetIntakeMotorDirection(int direction) {
     default:
     case INTAKE_STOP:
         strName = "STOP";
+        output = 0.0;
         break;
     case INTAKE_FORWARD:
         strName = "FORWARD";
