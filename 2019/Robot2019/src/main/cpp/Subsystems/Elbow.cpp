@@ -238,7 +238,7 @@ void Elbow::MoveToPositionInit(int level) {
 		break;
 	case BUMP_ANGLE:
 		double bumpAngle;
-		bumpAngle = (m_bumpDir) ? m_bumpAngle : -m_bumpAngle;
+		bumpAngle = (m_bumpDir) ? -m_bumpAngle : m_bumpAngle;
 		m_targetDegrees += bumpAngle;
 		break;
 	case STOW_ANGLE: 
