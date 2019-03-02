@@ -26,7 +26,7 @@
   EL_MaxHeight = 32.0
   EL_MinHeight = 0.0
   EL_LowGearHeight = 15.00
-  EL_BumpHeight = 1.0		
+  EL_BumpHeight = 2.0		
   EL_GroundCargoHeight = 20.0
   EL_GroundHatchHeight = 20.0
   EL_ShipCargoHeight = 20.0
