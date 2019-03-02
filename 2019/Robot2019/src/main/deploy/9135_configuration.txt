@@ -61,6 +61,7 @@
   EB_RocketL2HatchAngle = 20.0
   EB_RocketL3CargoAngle = 20.0
   EB_RocketL3HatchAngle = 20.0
+  EB_StowAngle = 50.0;
 # Wrist settings
   WR_PidMaxOut = 0.4
   WR_Velocity = 176
@@ -85,6 +86,7 @@
   WR_RocketL2HatchAngle = 20.0
   WR_RocketL3CargoAngle = 20.0
   WR_RocketL3HatchAngle = 20.
+  WR_StowAngle = 40.0;
 # Intake settings
   IN_AcquireSpeed = 0.50
   IN_HoldSpeed = 0.25
