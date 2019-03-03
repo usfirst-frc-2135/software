@@ -55,10 +55,11 @@ private:
 	int				m_elevatorLevel;				// Current elevator level (FLOOR, SCALE, etc--not inches)
 	double			m_targetInches;					// Target inches of height that are requested of the elevator
 	int				m_targetCounts;					// Target encoder counts of height that are requested of the elevator
-	double			m_curInches;
+	double			m_curInches;					// Current elevator height in inches
 	bool			m_calibrated;					// Indicates whether the elevator has been calibrated
 	int				m_calibrationState;				// State variable for calibration sequence
 	bool			m_bumpDir;						// State variable for bumping up or down
+	bool			m_isMoving = false;				// State of whether the elevator is moving or stationary
 	bool 			m_isCargo; 						// True - Game Piece is cargo, False - Game Piece is hatch
 
 	frc::Timer		m_safetyTimer;					// Safety timer for use in elevator

@@ -151,8 +151,9 @@ void Elevator::InitDefaultCommand() {
 }
 
 void Elevator::Periodic() {
-	static int i = 0;
-    int		curCounts = 0;
+    // Put code here to be run every loop
+	static int	i = 0;
+    int			curCounts = 0;
 
 	if (m_talonValidEL7) {
 		curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
@@ -163,33 +164,37 @@ void Elevator::Periodic() {
 	frc::SmartDashboard::PutNumber("EL Height", CountsToInches(curCounts));
 	frc::SmartDashboard::PutNumber("Del Height", 2 * CountsToInches(curCounts));
 
-	if (m_elevatorDebug > 0 && !(i++ % 5)) {
-		double	outputEL7 = 0.0, currentEL7 = 0.0;
-		double	outputEL8 = 0.0, currentEL8 = 0.0;
-		double	errorInInches = 0.0;
+	if ((m_elevatorDebug > 1) || (m_elevatorDebug > 0 && m_isMoving)) {
 
-		errorInInches = CountsToInches(m_targetCounts - curCounts);
+		// SLow debug message rate to every 5 * 20ms periods
+		if (i++ % 5 == 0) {
+			double	outputEL7 = 0.0, currentEL7 = 0.0;
+			double	outputEL8 = 0.0, currentEL8 = 0.0;
+			double	errorInInches = 0.0;
 
-		if (m_talonValidEL7) {
-			outputEL7 = motorEL7->GetMotorOutputPercent();
-			currentEL7 = motorEL7->GetOutputCurrent();
+			errorInInches = CountsToInches(m_targetCounts - curCounts);
+
+			if (m_talonValidEL7) {
+				outputEL7 = motorEL7->GetMotorOutputPercent();
+				currentEL7 = motorEL7->GetOutputCurrent();
+			}
+
+			if (m_talonValidEL8) {
+				outputEL8 = motorEL8->GetMotorOutputPercent();
+				currentEL8 = motorEL8->GetOutputCurrent();
+			}
+
+			double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
+
+			// cts = Encoder Counts, error = Error In Inches, Out = Motor Output
+			std::printf("2135: EL %6.3f cts %5d in %5.2f err %5.2f out %4.2f %4.2f amps %6.3f %6.3f\n", 
+				secs, (int)curCounts, CountsToInches(curCounts), errorInInches, outputEL7, outputEL8, currentEL7, currentEL8);
+
+			frc::SmartDashboard::PutNumber("EL_Output_EL7", outputEL7);
+			frc::SmartDashboard::PutNumber("EL_Current_EL7", currentEL7);
+			frc::SmartDashboard::PutNumber("EL_Output_EL8", outputEL8);
+			frc::SmartDashboard::PutNumber("EL_Current_EL8", currentEL8);
 		}
-
-		if (m_talonValidEL8) {
-			outputEL8 = motorEL8->GetMotorOutputPercent();
-			currentEL8 = motorEL8->GetOutputCurrent();
-		}
-
-		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
-
-		// cts = Encoder Counts, error = Error In Inches, Out = Motor Output
-		std::printf("2135: EL %5.3f cts %d in %5.2f err %5.2f out %4.2f %4.2f amps %6.3f %6.3f\n", 
-			secs, (int)curCounts, CountsToInches(curCounts), errorInInches, outputEL7, outputEL8, currentEL7, currentEL8);
-
-		frc::SmartDashboard::PutNumber("EL_Output_EL7", outputEL7);
-		frc::SmartDashboard::PutNumber("EL_Current_EL7", currentEL7);
-		frc::SmartDashboard::PutNumber("EL_Output_EL8", outputEL8);
-		frc::SmartDashboard::PutNumber("EL_Current_EL8", currentEL8);
 	}
 }
 
@@ -199,7 +204,7 @@ void Elevator::Periodic() {
 // here. Call these from Commands.
 
 void Elevator:: Initialize(void) {
-    double curCounts = 0.0;
+    double 	curCounts = 0.0;
 
     std::printf("2135: EL Elevator Init\n");
 
@@ -213,28 +218,27 @@ void Elevator:: Initialize(void) {
 }
 
 void Elevator::FaultDump(void) {
-	
 	//	Dump all Talon faults
 	frc2135::TalonSRXUtils::TalonSRXFaultDump("EL  7", motorEL7);
 	frc2135::TalonSRXUtils::TalonSRXFaultDump("EL  8", motorEL8);
 }
 
 int Elevator::InchesToCounts(double inches) {
-	int counts;
+	int 	counts;
 
 	counts = (int) round((inches / m_circumInches) * COUNTS_PER_ROTATION);
 	return counts;
 }
 
 double Elevator::CountsToInches(int counts) {
-	double inches;
+	double 	inches;
 
 	inches = ((double) counts / COUNTS_PER_ROTATION) * m_circumInches;
-	return inches;
+	return 	inches;
 }
 
 double Elevator::GetCurrentInches () {
-	double curCounts = 0.0;
+	double 	curCounts = 0.0;
 
 	if (m_talonValidEL7)
 		curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
@@ -399,7 +403,7 @@ bool Elevator::MoveToPositionIsFinished() {
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
 
 void Elevator::MoveToPositionInit(int level) {
-	int curCounts = 0;
+	int 	curCounts = 0;
 
 	m_elevatorLevel = level;
 
@@ -427,7 +431,7 @@ void Elevator::MoveToPositionInit(int level) {
 		m_targetInches = frc::SmartDashboard::GetNumber("EL Setpoint", 0.0);
 		break;
 	case BUMP_HEIGHT:
-		double bumpHeight;
+		double 	bumpHeight;
 		bumpHeight = (m_bumpDir) ? m_bumpHeight : -m_bumpHeight;
 		m_targetInches += bumpHeight;
 		break;
@@ -437,8 +441,7 @@ void Elevator::MoveToPositionInit(int level) {
 	}
 
     m_targetCounts = InchesToCounts(m_targetInches);
-    std::printf("2135: EL Init %d cts %5.2f in\n", 
-        (int) m_targetCounts, m_targetInches);
+    std::printf("2135: EL Init %d cts %5.2f in\n", (int) m_targetCounts, m_targetInches);
 	
 	if (m_calibrated) {
 
@@ -464,10 +467,12 @@ void Elevator::MoveToPositionInit(int level) {
 		m_safetyTimer.Reset();
 		m_safetyTimer.Start();
 
-		motorEL7->Set(ControlMode::MotionMagic, m_targetCounts, DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
+		motorEL7->Set(ControlMode::MotionMagic, m_targetCounts, 
+			DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
 
 		std::printf("2135: EL Move inches %f -> %f counts %d -> %d\n",
-				m_curInches, m_targetInches, curCounts, m_targetCounts);
+			m_curInches, m_targetInches, curCounts, m_targetCounts);
+		m_isMoving = true;
 	}
 	else {
 		std::printf("2135: EL is not calibrated\n");
@@ -480,9 +485,9 @@ void Elevator::MoveToPositionInit(int level) {
 }
 
 bool Elevator::MoveToPositionIsFinished() {
-    bool isFinished = false;
-    int curCounts = 0;
-    double errorInInches = 0.0;
+    bool 	isFinished = false;
+    int 	curCounts = 0;
+    double 	errorInInches = 0.0;
 
 	if (m_elevatorLevel != NOCHANGE_HEIGHT) {
 		m_toleranceInches = 0.5;             // tolerance
@@ -507,6 +512,7 @@ bool Elevator::MoveToPositionIsFinished() {
 
 		if (isFinished) {
 			m_safetyTimer.Stop();
+			m_isMoving = false;
 		}
 	}
 

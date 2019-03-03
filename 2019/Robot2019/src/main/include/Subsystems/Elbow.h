@@ -46,7 +46,8 @@ private:
 	int				m_elbowLevel;					// Current elbow level (not degrees)
 	double			m_targetDegrees;				// Target angle of degrees that are requested of the elbow
 	int				m_targetCounts;					// Target encoder counts of angle that are requested of the elbow
-	double			m_curDegrees;
+	double			m_curDegrees;					// Current elbow angle in degrees from vertical
+	bool			m_isMoving = false;				// State of whether the elbow is moving or stationary
 	bool			m_bumpDir;						// State variable for bumping up or down
 
 	frc::Timer		m_safetyTimer;					// Safety timer for use in Elbow
