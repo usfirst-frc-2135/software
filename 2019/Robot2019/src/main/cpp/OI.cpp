@@ -143,12 +143,12 @@ OI::OI() {
     frc::SmartDashboard::PutData("EL Bump: DOWN", new ELBump(false));
     frc::SmartDashboard::PutData("EL Run: NOCHANGE_HEIGHT", new ELRun(-1));
     frc::SmartDashboard::PutData("EL Run: GROUND_HEIGHT", new ELRun(0));
-    frc::SmartDashboard::PutData("EL Run: SHIP_HEIGHT", new ELRun(0));
-    frc::SmartDashboard::PutData("EL Run: ROCKET_L1_HEIGHT", new ELRun(0));
-    frc::SmartDashboard::PutData("EL Run: ROCKET_L2_HEIGHT", new ELRun(0));
-    frc::SmartDashboard::PutData("EL Run: ROCKET_L3_HEIGHT", new ELRun(0));
-    frc::SmartDashboard::PutData("EL Run: SMARTDASH_HEIGHT", new ELRun(0));
-    frc::SmartDashboard::PutData("EL Run: BUMP_HEIGHT", new ELRun(0));
+    frc::SmartDashboard::PutData("EL Run: SHIP_HEIGHT", new ELRun(1));
+    frc::SmartDashboard::PutData("EL Run: ROCKET_L1_HEIGHT", new ELRun(2));
+    frc::SmartDashboard::PutData("EL Run: ROCKET_L2_HEIGHT", new ELRun(3));
+    frc::SmartDashboard::PutData("EL Run: ROCKET_L3_HEIGHT", new ELRun(4));
+    frc::SmartDashboard::PutData("EL Run: SMARTDASH_HEIGHT", new ELRun(5));
+    frc::SmartDashboard::PutData("EL Run: BUMP_HEIGHT", new ELRun(6));
     frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
     frc::SmartDashboard::PutData("Auto Pos 3 Level 2 Ship", new AutoPos3Level2Ship());
     frc::SmartDashboard::PutData("Auto Pos 1 Level 2 Ship", new AutoPos1Level2Ship());
