@@ -170,29 +170,28 @@ void Drivetrain::InitDefaultCommand() {
 
 void Drivetrain::Periodic() {
     // Put code here to be run every loop
+	static int 	i = 0;
     int		encoderLeft = 0;
 	int		encoderRight = 0;
- 	double  gyroYaw = 0.0;
+ 	double  	heading = 0.0;
 
     if (m_talonValidL1) {
 		encoderLeft = motorL1->GetSelectedSensorPosition(m_pidIndex);
 	}
 
 	if (m_talonValidR3) {
-		encoderRight = motorR3->GetSelectedSensorPosition(m_pidIndex);
+		encoderRight = -motorR3->GetSelectedSensorPosition(m_pidIndex);
 	}
 
-	gyroYaw = GetIMUHeading();
+	heading = GetIMUHeading();
 
 	frc::SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
 	frc::SmartDashboard::PutNumber("DT_Encoder_R", encoderRight);
-	frc::SmartDashboard::PutNumber("DT_GyroAngle", gyroYaw);
+	frc::SmartDashboard::PutNumber("DT_Heading", heading);
 
-    if (m_driveDebug > 0) {
-		double	outputL1 = 0.0, currentL1 = 0.0;
-		double	outputL2 = 0.0, currentL2 = 0.0;
-		double	outputR3 = 0.0, currentR3 = 0.0;
-		double	outputR4 = 0.0, currentR4 = 0.0;
+    if (m_driveDebug > 0 && !(i++ % 5)) {
+		double	outputL1 = 0.0, currentL1 = 0.0, currentL2 = 0.0;
+		double	outputR3 = 0.0, currentR3 = 0.0, currentR4 = 0.0;
 
 		if (m_talonValidL1) {
 			outputL1 = motorL1->GetMotorOutputPercent();
@@ -200,7 +199,6 @@ void Drivetrain::Periodic() {
 		}
 
 		if (m_talonValidL2) {
-			outputL2 = motorL2->GetMotorOutputPercent();
 			currentL2 = motorL2->GetOutputCurrent();
 		}
 
@@ -210,18 +208,20 @@ void Drivetrain::Periodic() {
 		}
 
 		if (m_talonValidR4) {
-			outputR4 = motorR4->GetMotorOutputPercent();
 			currentR4 = motorR4->GetOutputCurrent();
 		}
 
+	//	double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
+
+	//	std::printf("2135: DT %6.3f deg %4.1f LR cts %5d %5d out %4.2f %4.2f amps %6.3f %6.3f %6.3f %6.3f\n",
+	//	 	secs, heading, encoderLeft, encoderRight, outputL1, outputR3, currentL1, currentL2, currentR3, currentR4);
+
 		frc::SmartDashboard::PutNumber("DT_Output_L1", outputL1);
 		frc::SmartDashboard::PutNumber("DT_Current_L1", currentL1);
-		frc::SmartDashboard::PutNumber("DT_Output_L2", outputL2);
 		frc::SmartDashboard::PutNumber("DT_Current_L2", currentL2);
 
 		frc::SmartDashboard::PutNumber("DT_Output_R3", outputR3);
 		frc::SmartDashboard::PutNumber("DT_Current_R3", currentR3);
-		frc::SmartDashboard::PutNumber("DT_Output_R4", outputR4);
 		frc::SmartDashboard::PutNumber("DT_Current_R4", currentR4);
 	}
 }
@@ -364,7 +364,7 @@ double Drivetrain::GetEncoderPosition(int motorID) {
 void Drivetrain::MoveDriveDistanceMMInit(double inches) {
     m_distTargetInches = inches;
     m_distTargetCounts = round(m_distTargetInches * CountsPerInch);
-    std::printf("2135: DTDD Init %d counts, %5.2f inches, %5.2f CountsPerInch\n", 
+    std::printf("2135: DTDD Init %d cts %5.2f in %5.2f CountsPerInch\n", 
         (int) m_distTargetCounts, m_distTargetInches, CountsPerInch);
 
     // Initialize the encoders ot start movement at reference of zero counts
@@ -380,7 +380,7 @@ void Drivetrain::MoveDriveDistanceMMExecute() {
 }
 
 bool Drivetrain::MoveDriveDistanceMMIsFinished() {
-    bool mmIsFinished = false;
+    bool isFinished = false;
     int curCounts_L = 0;
     int curCounts_R = 0;
     double motorOutput_L = 0.0, motorOutput_R = 0.0;
@@ -412,24 +412,24 @@ bool Drivetrain::MoveDriveDistanceMMIsFinished() {
     errorInInches_R = CountsToInches(-m_distTargetCounts - curCounts_R);
 
     double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
-	std::printf("2135: DTDD %6.3f LR encCts %5d %5d Out %5.3f %5.3f Amps %6.3f %6.3f %6.3f %6.3f\n",
+	std::printf("2135: DTDD %6.3f LR cts %5d %5d out %5.3f %5.3f amps %6.3f %6.3f %6.3f %6.3f\n",
 		secs, curCounts_L, -curCounts_R, motorOutput_L, -motorOutput_R, motorAmps_L1, motorAmps_L2, motorAmps_R3, motorAmps_R4);
 
     m_distTolInches = 2.0;              // tolerance
 
     // Check to see if the error is in an acceptable number of inches.
     if (/*(fabs(errorInInches_L) < m_distTolInches) &&*/ (fabs(errorInInches_R) < m_distTolInches)) {
-        mmIsFinished = true;
+        isFinished = true;
     }
 
     // Check to see if the Safety Timer has timed out.
 	if (m_safetyTimer.Get() >= m_safetyTimeout) {
-		mmIsFinished = true;
+		isFinished = true;
 		m_safetyTimer.Stop();
 		std::printf("2135: EL Move Safety timer has timed out\n");
 	}
 
-    return mmIsFinished;
+    return isFinished;
 }
 
 void Drivetrain::MoveDriveDistanceMMEnd() {
@@ -492,7 +492,7 @@ bool Drivetrain::MoveDriveTurnPIDIsFinished(void) {
 	errorInDegrees = m_turnAngle - curAngle;
 
 	double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
-	std::printf("2135: DTDT %5.3f deg %4.2f -> %4.2f (err %4.2f) cts %5d %5d Out %4.2f %4.2f\n",
+	std::printf("2135: DTDT %5.3f deg %4.2f -> %4.2f (err %4.2f) cts %5d %5d out %4.2f %4.2f\n",
 			secs, curAngle, m_turnAngle, errorInDegrees,
 			curCounts_L, curCounts_R, motorOutput_L, motorOutput_R);
 
