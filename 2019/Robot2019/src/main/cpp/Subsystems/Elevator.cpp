@@ -151,6 +151,7 @@ void Elevator::InitDefaultCommand() {
 }
 
 void Elevator::Periodic() {
+	static int i = 0;
     int		curCounts = 0;
 
 	if (m_talonValidEL7) {
@@ -162,7 +163,7 @@ void Elevator::Periodic() {
 	frc::SmartDashboard::PutNumber("EL Height", CountsToInches(curCounts));
 	frc::SmartDashboard::PutNumber("Del Height", 2 * CountsToInches(curCounts));
 
-	if (m_elevatorDebug > 0) {
+	if (m_elevatorDebug > 0 && !(i++ % 5)) {
 		double	outputEL7 = 0.0, currentEL7 = 0.0;
 		double	outputEL8 = 0.0, currentEL8 = 0.0;
 		double	errorInInches = 0.0;
