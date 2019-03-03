@@ -12,8 +12,8 @@
 # Elevator settings
   EL_CalibSpeed = 0.25
   EL_PidMaxOut = 1.0
-  EL_Velocity = 1918.1
-  EL_Acceleration = 3836.1
+  EL_Velocity = 1918
+  EL_Acceleration = 3836
   EL_SCurveStrength = 0
   EL_PidKf = 0.000
   EL_PidKp = 0.250
@@ -39,8 +39,8 @@
   EL_RocketL3HatchHeight = 0.0	
 # Elbow settings
   EB_PidMaxOut = 0.6
-  EB_Velocity = 249.3
-  EB_Acceleration = 498.6
+  EB_Velocity = 249
+  EB_Acceleration = 499
   EB_SCurveStrength = 0
   EB_PidKf = 0.000
   EB_PidKp = 2.250
@@ -64,8 +64,8 @@
   EB_StowAngle = 15.0
 # Wrist settings
   WR_PidMaxOut = 0.6
-  WR_Velocity = 239.9
-  WR_Acceleration = 239.9
+  WR_Velocity = 240
+  WR_Acceleration = 240
   WR_SCurveStrength = 0
   WR_PidKf = 0.000
   WR_PidKp = 2.250
