@@ -153,7 +153,7 @@ void Elbow::Periodic() {
 		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
 		// cts = Encoder Counts, error = Error In Degrees, Out = Motor Output
-		std::printf("2135: EB MM %5.3f cts %d, degrees %5.2f, error %5.2f, Out %4.2f, Amps %6.3f\n", 
+		std::printf("2135: EB %5.3f cts %d deg %5.2f err %5.2f out %4.2f amp %6.3f\n", 
 			secs, curCounts, CountsToDegrees(curCounts), errorInDegrees, outputEB10, currentEB10);
 
 		frc::SmartDashboard::PutNumber("EB_Output_EB10", outputEB10);
@@ -252,17 +252,17 @@ void Elbow::MoveToPositionInit(int level) {
 	}
 
 	m_targetCounts = DegreesToCounts(m_targetDegrees);
-    std::printf("2135: EB MM Init %d counts, %5.2f degrees\n", (int) m_targetCounts, m_targetDegrees);
+    std::printf("2135: EB Init %d cts %5.2f deg\n", (int) m_targetCounts, m_targetDegrees);
 	
 	if (m_calibrated) {
 
 		// Constrain input request to a valid and safe range
 		if (m_targetCounts < m_elbowMinCounts) {
-			std::printf("2135: EB MM m_targetCounts limited by m_elbowMinCounts %d\n", m_elbowMinCounts);
+			std::printf("2135: EB m_targetCounts limited by m_elbowMinCounts %d\n", m_elbowMinCounts);
 			m_targetCounts = m_elbowMinCounts;
 		}
 		if (m_targetCounts > m_elbowMaxCounts) {
-			std::printf("2135: EB MM m_targetCounts limited by m_elbowMaxCounts %d\n", m_elbowMaxCounts);
+			std::printf("2135: EB m_targetCounts limited by m_elbowMaxCounts %d\n", m_elbowMaxCounts);
 			m_targetCounts = m_elbowMaxCounts;
 		}
 
@@ -279,7 +279,7 @@ void Elbow::MoveToPositionInit(int level) {
 		// motorEB10->Set(ControlMode::MotionMagic, m_targetCounts);
 		motorEB10->Set(ControlMode::MotionMagic, m_targetCounts, DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
 
-		std::printf("2135: EB MM Move degrees %5.2f -> %5.2f counts %d -> %d\n",
+		std::printf("2135: EB Move degrees %5.2f -> %5.2f counts %d -> %d\n",
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);		
 	}
 	else {
@@ -306,7 +306,7 @@ bool Elbow::MoveToPositionIsFinished(void) {
 		// Check to see if the error is in an acceptable number of inches.
 		if (fabs(errorInDegrees) < m_toleranceDegrees) {
 			isFinished = true;
-			std::printf("2135: EB MM Move Finished - Time %f\n", m_safetyTimer.Get());
+			std::printf("2135: EB Move Finished - Time %f\n", m_safetyTimer.Get());
 		}
 		
 		// Check to see if the Safety Timer has timed out.
@@ -341,5 +341,3 @@ void Elbow::Calibrate() {
 void Elbow::SetGamePiece(bool cargo) {
 	m_isCargo = cargo;
 }
-
-

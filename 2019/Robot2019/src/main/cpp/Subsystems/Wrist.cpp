@@ -155,7 +155,7 @@ void Wrist::Periodic() {
 		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
 		// cts = Encoder Counts, error = Error In Degrees, Out = Motor Output
-		std::printf("2135: WR MM %5.3f cts %d, degrees %5.2f, error %5.2f, Out %4.2f, Amps %6.3f\n", 
+		std::printf("2135: WR %5.3f cts %d deg %5.2f err %5.2f out %4.2f amps %6.3f\n", 
 			secs, curCounts, CountsToDegrees(curCounts), errorInDegrees, outputWR12, currentWR12);
 
 		frc::SmartDashboard::PutNumber("WR_Output_WR12", outputWR12);
@@ -256,17 +256,17 @@ void Wrist::MoveToPositionInit(int level) {
 	}
 
 	m_targetCounts = DegreesToCounts(m_targetDegrees);
-    std::printf("2135: WR MM Init %d counts, %5.2f degrees\n", (int) m_targetCounts, m_targetDegrees);
+    std::printf("2135: WR Init %d cts %5.2f deg\n", (int) m_targetCounts, m_targetDegrees);
 	
 	if (m_calibrated) {
 
 		// Constrain input request to a valid and safe range
 		if (m_targetCounts < m_wristMinCounts) {
-			std::printf("2135: WR MM m_targetCounts limited by m_wristMinCounts %d\n", m_wristMinCounts);
+			std::printf("2135: WR m_targetCounts limited by m_wristMinCounts %d\n", m_wristMinCounts);
 			m_targetCounts = m_wristMinCounts;
 		}
 		if (m_targetCounts > m_wristMaxCounts) {
-			std::printf("2135: WR MM m_targetCounts limited by m_wristMaxCounts %d\n", m_wristMaxCounts);
+			std::printf("2135: WR m_targetCounts limited by m_wristMaxCounts %d\n", m_wristMaxCounts);
 			m_targetCounts = m_wristMaxCounts;
 		}
 
@@ -282,7 +282,7 @@ void Wrist::MoveToPositionInit(int level) {
  
 		motorWR12->Set(ControlMode::MotionMagic, m_targetCounts, DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
 
-		std::printf("2135: WR MM Move degrees %f -> %f counts %d -> %d\n",
+		std::printf("2135: WR Move degrees %f -> %f counts %d -> %d\n",
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
 	}
 	else {
@@ -309,7 +309,7 @@ bool Wrist::MoveToPositionIsFinished(void) {
 		// Check to see if the error is in an acceptable number of inches.
 		if (fabs(errorInDegrees) < m_toleranceDegrees) {
 			isFinished = true;
-			std::printf("2135: WR MM Move Finished - Time %f\n", m_safetyTimer.Get());
+			std::printf("2135: WR Move Finished - Time %f\n", m_safetyTimer.Get());
 		}
 		
 		// Check to see if the Safety Timer has timed out.

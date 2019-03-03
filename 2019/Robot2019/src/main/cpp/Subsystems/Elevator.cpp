@@ -183,7 +183,7 @@ void Elevator::Periodic() {
 		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
 		// cts = Encoder Counts, error = Error In Inches, Out = Motor Output
-		std::printf("2135: EL MM %5.3f cts %d, in %5.2f, error %5.2f, Out %4.2f %4.2f, Amps %6.3f %6.3f\n", 
+		std::printf("2135: EL %5.3f cts %d in %5.2f err %5.2f out %4.2f %4.2f amps %6.3f %6.3f\n", 
 			secs, (int)curCounts, CountsToInches(curCounts), errorInInches, outputEL7, outputEL8, currentEL7, currentEL8);
 
 		frc::SmartDashboard::PutNumber("EL_Output_EL7", outputEL7);
@@ -241,6 +241,28 @@ double Elevator::GetCurrentInches () {
 
 	m_curInches = CountsToInches(curCounts);
 	return m_curInches;
+}
+
+// Elevator PID loop setup to do a bump movement
+
+void Elevator::BumpToPosition(bool direction) {
+	m_bumpDir = direction;
+
+	MoveToPositionInit(BUMP_HEIGHT);
+}
+
+// Elevator PID calibration setup and initialization
+
+void Elevator::CalibrationOverride() {
+	if (m_talonValidEL7) {
+		motorEL7->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+		motorEL7->Set(ControlMode::Position, 0.0);
+	}
+	m_calibrated = true;
+}
+
+void Elevator::SetGamePiece(bool cargo) {
+	m_isCargo = cargo;
 }
 
 #if 0
@@ -372,32 +394,7 @@ bool Elevator::MoveToPositionIsFinished() {
 	return pidFinished;
 }
 
-#endif
-
-// Elevator PID loop setup to do a bump movement
-
-void Elevator::BumpToPosition(bool direction) {
-	m_bumpDir = direction;
-
-	MoveToPositionInit(BUMP_HEIGHT);
-}
-
-// Elevator PID calibration setup and initialization
-
-void Elevator::CalibrationOverride() {
-	if (m_talonValidEL7) {
-		motorEL7->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
-		motorEL7->Set(ControlMode::Position, 0.0);
-	}
-	m_calibrated = true;
-}
-
-void Elevator::SetGamePiece(bool cargo) {
-	m_isCargo = cargo;
-}
-
-
-#if 1
+#else
 
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
 
@@ -440,18 +437,18 @@ void Elevator::MoveToPositionInit(int level) {
 	}
 
     m_targetCounts = InchesToCounts(m_targetInches);
-    std::printf("2135: EL MM Init %d counts, %5.2f inches\n", 
+    std::printf("2135: EL Init %d cts %5.2f in\n", 
         (int) m_targetCounts, m_targetInches);
 	
 	if (m_calibrated) {
 
 		// Constrain input request to a valid and safe range between full down and max height
 		if (m_targetInches < m_elevatorMinHeight) {
-			std::printf("2135: EL MM m_targetInches limited by m_elevatorMinHeight %f\n", m_elevatorMinHeight);
+			std::printf("2135: EL m_targetInches limited by m_elevatorMinHeight %f\n", m_elevatorMinHeight);
 			m_targetInches = m_elevatorMinHeight;
 		}
 		if (m_targetInches > m_elevatorMaxHeight) {
-			std::printf("2135: EL MM m_targetInches limited by m_elevatorMaxHeight %f\n", m_elevatorMaxHeight);
+			std::printf("2135: EL m_targetInches limited by m_elevatorMaxHeight %f\n", m_elevatorMaxHeight);
 			m_targetInches = m_elevatorMaxHeight;
 		}
 		
@@ -469,7 +466,7 @@ void Elevator::MoveToPositionInit(int level) {
 
 		motorEL7->Set(ControlMode::MotionMagic, m_targetCounts, DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
 
-		std::printf("2135: EL MM Move inches %f -> %f counts %d -> %d\n",
+		std::printf("2135: EL Move inches %f -> %f counts %d -> %d\n",
 				m_curInches, m_targetInches, curCounts, m_targetCounts);
 	}
 	else {
@@ -499,7 +496,7 @@ bool Elevator::MoveToPositionIsFinished() {
 		// Check to see if the error is in an acceptable number of inches.
 		if (fabs(errorInInches) < m_toleranceInches) {
 			isFinished = true;
-			std::printf("2135: EL MM Move Finished - Time %f\n", m_safetyTimer.Get());
+			std::printf("2135: EL Move Finished - Time %f\n", m_safetyTimer.Get());
 		}
 		
 		// Check to see if the Safety Timer has timed out.
