@@ -18,7 +18,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '1'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id001 ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
             '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
@@ -51,7 +51,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '2'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -82,7 +82,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '3'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -113,7 +113,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '4'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -144,7 +144,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '5'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -175,7 +175,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '6'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -206,7 +206,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '7'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -237,7 +237,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '8'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -268,7 +268,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '9'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -299,7 +299,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '10'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -330,7 +330,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '11'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -361,7 +361,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '12'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -392,7 +392,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '13'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -423,7 +423,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '14'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -454,7 +454,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '15'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -485,7 +485,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '16'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -516,7 +516,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '17'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -547,7 +547,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '18'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -578,7 +578,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '19'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -609,7 +609,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '20'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -640,7 +640,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '21'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -671,7 +671,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: Button,
-            type: int, value: '0'}
+            type: int, value: '22'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
           default: '1'
@@ -705,28 +705,6 @@ Children:
   Base: OI
   Name: Operator Interface
 - Children:
-  - Children: []
-    Properties:
-      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
-        name: Autonomous Selection, validators: null, value: false}
-      Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Parameters
-        validators: null
-        value: []
-      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
-        name: Run When Disabled, validators: null, value: false}
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: None}
-      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
-        name: Parameter presets
-        validators: null
-        value: []
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
-    Base: Command
-    Name: Autonomous Command
   - Children: []
     Properties:
       Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
