@@ -47,7 +47,8 @@ private:
 	int				m_wristLevel;					// Current wrist level (not degrees)
 	double			m_targetDegrees;				// Target angle of degrees that are requested of the wrist
 	int				m_targetCounts;					// Target encoder counts of angle that are requested of the wrist
-	double			m_curDegrees;
+	double			m_curDegrees;					// Current wrist angle in degrees from vertical
+	bool			m_isMoving = false;				// State of whether the wrist is moving or stationary
 	bool			m_bumpDir;						// State variable for bumping up or down
 
 	frc::Timer		m_safetyTimer;					// Safety timer for use in Wrist

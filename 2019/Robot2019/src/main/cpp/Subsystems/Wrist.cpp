@@ -140,26 +140,29 @@ void Wrist::Periodic() {
 	frc::SmartDashboard::PutNumber("WR Counts", curCounts);
 	frc::SmartDashboard::PutNumber("WR Degrees", CountsToDegrees(curCounts));
 
-	// If debug on, print once every 5 loops (100ms)
-	if (m_wristDebug > 0 && !(i++ % 5)) {
-		double	outputWR12 = 0.0, currentWR12 = 0.0;
-		double 	errorInDegrees = 0.0;
+	if ((m_wristDebug > 1) || (m_wristDebug > 0 && m_isMoving)) {
 
-		errorInDegrees = CountsToDegrees(m_targetCounts - curCounts);
+		// SLow debug message rate to every 5 * 20ms periods
+		if (i++ % 5 == 0) {
+			double	outputWR12 = 0.0, currentWR12 = 0.0;
+			double 	errorInDegrees = 0.0;
 
-		if (m_talonValidWR12) {
-			outputWR12 = motorWR12->GetMotorOutputPercent();
-			currentWR12 = motorWR12->GetOutputCurrent();
+			errorInDegrees = CountsToDegrees(m_targetCounts - curCounts);
+
+			if (m_talonValidWR12) {
+				outputWR12 = motorWR12->GetMotorOutputPercent();
+				currentWR12 = motorWR12->GetOutputCurrent();
+			}
+
+			double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
+
+			// cts = Encoder Counts, error = Error In Degrees, Out = Motor Output
+			std::printf("2135: WR %6.3f cts %5d deg %4.1f err %4.1f out %4.2f amps %6.3f\n", 
+				secs, curCounts, CountsToDegrees(curCounts), errorInDegrees, outputWR12, currentWR12);
+
+			frc::SmartDashboard::PutNumber("WR_Output_WR12", outputWR12);
+			frc::SmartDashboard::PutNumber("WR_Current_WR12", currentWR12);
 		}
-
-		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
-
-		// cts = Encoder Counts, error = Error In Degrees, Out = Motor Output
-		std::printf("2135: WR MM %5.3f cts %d, degrees %5.2f, error %5.2f, Out %4.2f, Amps %6.3f\n", 
-			secs, curCounts, CountsToDegrees(curCounts), errorInDegrees, outputWR12, currentWR12);
-
-		frc::SmartDashboard::PutNumber("WR_Output_WR12", outputWR12);
-		frc::SmartDashboard::PutNumber("WR_Current_WR12", currentWR12);
 	}
 }
 
@@ -256,17 +259,17 @@ void Wrist::MoveToPositionInit(int level) {
 	}
 
 	m_targetCounts = DegreesToCounts(m_targetDegrees);
-    std::printf("2135: WR MM Init %d counts, %5.2f degrees\n", (int) m_targetCounts, m_targetDegrees);
+    std::printf("2135: WR Init %d cts %5.2f deg\n", (int) m_targetCounts, m_targetDegrees);
 	
 	if (m_calibrated) {
 
 		// Constrain input request to a valid and safe range
 		if (m_targetCounts < m_wristMinCounts) {
-			std::printf("2135: WR MM m_targetCounts limited by m_wristMinCounts %d\n", m_wristMinCounts);
+			std::printf("2135: WR m_targetCounts limited by m_wristMinCounts %d\n", m_wristMinCounts);
 			m_targetCounts = m_wristMinCounts;
 		}
 		if (m_targetCounts > m_wristMaxCounts) {
-			std::printf("2135: WR MM m_targetCounts limited by m_wristMaxCounts %d\n", m_wristMaxCounts);
+			std::printf("2135: WR m_targetCounts limited by m_wristMaxCounts %d\n", m_wristMaxCounts);
 			m_targetCounts = m_wristMaxCounts;
 		}
 
@@ -280,10 +283,12 @@ void Wrist::MoveToPositionInit(int level) {
 		m_safetyTimer.Reset();
 		m_safetyTimer.Start();
  
-		motorWR12->Set(ControlMode::MotionMagic, m_targetCounts, DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
+		motorWR12->Set(ControlMode::MotionMagic, m_targetCounts, 
+			DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
 
-		std::printf("2135: WR MM Move degrees %f -> %f counts %d -> %d\n",
+		std::printf("2135: WR Move degrees %f -> %f counts %d -> %d\n",
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
+		m_isMoving = true;
 	}
 	else {
 		std::printf("2135: Wrist is not calibrated\n");
@@ -309,7 +314,7 @@ bool Wrist::MoveToPositionIsFinished(void) {
 		// Check to see if the error is in an acceptable number of inches.
 		if (fabs(errorInDegrees) < m_toleranceDegrees) {
 			isFinished = true;
-			std::printf("2135: WR MM Move Finished - Time %f\n", m_safetyTimer.Get());
+			std::printf("2135: WR Move Finished - Time %f\n", m_safetyTimer.Get());
 		}
 		
 		// Check to see if the Safety Timer has timed out.
@@ -321,6 +326,7 @@ bool Wrist::MoveToPositionIsFinished(void) {
 
 	if (isFinished) {
 		m_safetyTimer.Stop();
+		m_isMoving = false;
 	}
 
 	return isFinished;

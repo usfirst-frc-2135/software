@@ -70,12 +70,13 @@ private:
 
 	frc::Timer 	m_safetyTimer;		// Safety timer for use during autonomous modes
 	double  m_safetyTimeout; 		// Time in seconds for safety timer
+	bool	m_isMovingAuto;			// Indicates an auton movement is active
 
 	double 	m_distTargetInches;		// Drive to Position target inches value
 	double	m_distTargetCounts;		// Drive to Position target counts value
 	double 	m_distTolInches;		// Tolerated error for MM PID loop
 
-	double 	m_turnAngle;			// Desired turn angle from present course
+	double 	m_turnAngle = 0.0;		// Desired turn angle from present course
 	double	m_turnTolDeg;			// DriveTurn tolerance in degrees
 	double 	m_turnKp;				// Proportional value for PID for DriveTurn function
 	double	m_visionTurnKp;			// Proportional value for PID for Drive Turn with Vision-Assist
