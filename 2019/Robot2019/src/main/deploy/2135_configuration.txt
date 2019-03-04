@@ -46,7 +46,7 @@
   EB_PidKp = 2.250
   EB_PidKi = 0.000
   EB_PidKd = 0.000
-  EB_ArbFeedForward = 0.06
+  EB_ArbFeedForward = 0.1
   EB_ToleranceDegrees = 5.0
   EB_MaxCounts = 0
   EB_MinCounts = -1800
