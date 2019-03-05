@@ -41,10 +41,9 @@ private:
 	
 	std::shared_ptr<frc::Joystick> controlBoard;
 	std::shared_ptr<frc::JoystickButton> stow;
-	std::shared_ptr<frc::JoystickButton> moveCargoShip;
-	std::shared_ptr<frc::JoystickButton> moveRocket3;
-	std::shared_ptr<frc::JoystickButton> moveRocket2;
-	std::shared_ptr<frc::JoystickButton> moveRocket1;
+	std::shared_ptr<frc::JoystickButton> cargoShip;
+	std::shared_ptr<frc::JoystickButton> rocket2;
+	std::shared_ptr<frc::JoystickButton> rocket1;
 	std::shared_ptr<frc::JoystickButton> floor;
 	std::shared_ptr<frc::JoystickButton> loadingStation;
 	std::shared_ptr<frc::JoystickButton> wristBumpDown;
@@ -54,6 +53,7 @@ private:
 	std::shared_ptr<frc::JoystickButton> elevatorBumpDown;
 	std::shared_ptr<frc::JoystickButton> elevatorBumpUp;
 	std::shared_ptr<frc::JoystickButton> gPShifter;
+	std::shared_ptr<frc::JoystickButton> intakePanelStop;
 	std::shared_ptr<frc::JoystickButton> intakePanelDeliver;
 	std::shared_ptr<frc::JoystickButton> intakeStop;
 	std::shared_ptr<frc::JoystickButton> intakeExpel;
