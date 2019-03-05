@@ -187,6 +187,13 @@ void Elbow::FaultDump(void) {
 	frc2135::TalonSRXUtils::TalonSRXFaultDump("EB 10", motorEB10);
 }
 
+double Elbow::DegreesToRadians(double degrees) {
+	double radians;
+
+	radians = degrees * (M_PI / 180);
+	return radians;
+}
+
 int Elbow::DegreesToCounts(double degrees) {
 	int counts;
 
