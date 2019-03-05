@@ -69,6 +69,7 @@ private:
 	double			m_toleranceDegrees;				// Wrist PID tolerance in degrees	
 	int				m_wristMaxCounts;				// Wrist maximum allowable counts
 	int				m_wristMinCounts;				// Wrist minimum allowable counts
+	double			m_calibAngle;					// Angle at which the robot is being calibrated (hard stop up)
 	double			m_bumpAngle;					// Incremental angle when bumping the wrist up/down
 
 	double			m_groundCargoAngle;				// Setpoint for floor level (tilted for cargo pickup)

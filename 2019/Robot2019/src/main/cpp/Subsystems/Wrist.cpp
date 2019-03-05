@@ -47,6 +47,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	config->GetValueAsDouble("WR_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -1800);
+	config->GetValueAsDouble("WR_CalibAngle", m_calibAngle, 42.8);
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 10.0);
 	config->GetValueAsDouble("WR_GroundCargoAngle", m_groundCargoAngle, 92.0);
 	config->GetValueAsDouble("WR_GroundHatchAngle", m_groundHatchAngle, 115.0);

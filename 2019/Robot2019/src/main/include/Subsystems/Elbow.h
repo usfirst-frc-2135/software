@@ -68,6 +68,7 @@ private:
 	double			m_toleranceDegrees;				// Elbow PID tolerance in degrees
 	int				m_elbowMaxCounts;				// Elbow maximum allowable counts
 	int				m_elbowMinCounts;				// Elbow minimum allowable counts
+	double			m_calibAngle;					// Angle at which the robot is being calibrated (hard stop down)
 	double			m_bumpAngle;					// Incremental angle when bumping the elbow up/down
 
 	double			m_groundCargoAngle;				// Setpoint for floor level (tilted for cargo pickup)

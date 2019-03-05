@@ -46,6 +46,7 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 	config->GetValueAsDouble("EB_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("EB_MaxCounts", m_elbowMaxCounts, 1800);
     config->GetValueAsInt("EB_MinCounts", m_elbowMinCounts, 0);
+	config->GetValueAsDouble("EB_CalibAngle", m_calibAngle, 108.3);
 	config->GetValueAsDouble("EB_BumpAngle", m_bumpAngle, 10.0);
 	config->GetValueAsDouble("EB_GroundCargoAngle", m_groundCargoAngle, 0.0);
 	config->GetValueAsDouble("EB_GroundHatchAngle", m_groundHatchAngle, 0.0);

@@ -50,6 +50,7 @@
   EB_ToleranceDegrees = 5.0
   EB_MaxCounts = 0
   EB_MinCounts = -1800
+  EB_CalibAngle = 108.3
   EB_BumpAngle = 5.0
   EB_GroundCargoAngle = 100.0
   EB_GroundHatchAngle = 100.0
@@ -75,6 +76,7 @@
   WR_ToleranceDegrees = 5.0
   WR_MaxCounts = 1800
   WR_MinCounts = 0
+  WR_CalibAngle = 42.8
   WR_BumpAngle = 5.0
   WR_GroundCargoAngle = -68.0
   WR_GroundHatchAngle = -68.0
