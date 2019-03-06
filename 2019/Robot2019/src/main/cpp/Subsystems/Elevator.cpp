@@ -209,8 +209,10 @@ void Elevator:: Initialize(void) {
     std::printf("2135: EL Elevator Init\n");
 
     // PID Target is set to current encoder counts
-    if (m_talonValidEL7)
+    if (m_talonValidEL7) {
+		motorEL7->Set(ControlMode::PercentOutput, 0.0);
         curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
+	}
 
     m_targetInches = CountsToInches(curCounts);
 	m_isCargo = false;

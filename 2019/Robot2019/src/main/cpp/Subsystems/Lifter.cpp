@@ -112,8 +112,10 @@ void Lifter::Initialize(void) {
     std::printf("2135: LF Init\n");
 
     // Motor off
-    if (m_talonValidLF16)
+    if (m_talonValidLF16) {
+        motorLF16->Set(ControlMode::PercentOutput, 0.0);
         SetLifterMotorSpeed(LIFTER_STOP);
+    }
 
     // Keep lifters retracted
     m_frontExtended = false;

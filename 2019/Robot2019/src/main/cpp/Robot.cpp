@@ -114,6 +114,11 @@ void Robot::RobotInit() {
 void Robot::DisabledInit(){
 	std::printf("2135: ***** Disabled Init *****\n");
 	drivetrain->Initialize();
+	elevator->Initialize();
+	elbow->Initialize();
+	wrist->Initialize();
+	intake->Initialize();
+	lifter->Initialize();
 }
 
 void Robot::DisabledPeriodic() {

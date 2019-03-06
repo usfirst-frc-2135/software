@@ -178,11 +178,12 @@ void Wrist::Initialize(void) {
 	std::printf("2135: WR Wrist Init\n");
 	// Set PID target to current encoder reading
 
-	if (m_talonValidWR12)
+	if (m_talonValidWR12) {
+		motorWR12->Set(ControlMode::PercentOutput, 0.0);
 		curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
+	}
 
 	m_targetDegrees = CountsToDegrees(curCounts);
-
 	m_isCargo = false;
 }
 

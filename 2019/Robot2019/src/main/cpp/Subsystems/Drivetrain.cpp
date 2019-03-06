@@ -254,6 +254,7 @@ void Drivetrain::Initialize(void) {
 
 	MoveShiftGears(m_lowGear);
     MoveSetBrakeMode(m_brakeMode);
+	MoveStop();
 }
 
 void Drivetrain::FaultDump(void) {
@@ -430,7 +431,7 @@ void Drivetrain::MoveDriveDistanceMMEnd() {
     motorR3->Set(ControlMode::PercentOutput, 0.0);
 
 	// Stop the safety timer
-    std::printf("2135: DTDD End %d cts -%5.2f in TimeToTarget: %3.2f\n", 
+    std::printf("2135: DTDD End %d cts %5.2f in TimeToTarget: %3.2f\n", 
         (int) m_distTargetCounts, m_distTargetInches, m_safetyTimer.Get());
 
 	m_safetyTimer.Stop();

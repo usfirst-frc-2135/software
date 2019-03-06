@@ -103,8 +103,10 @@ void Intake::Initialize(void) {
     std::printf("2135: IN Init\n");
 
     // Motor off
-     if (m_talonValidIN14) 
+     if (m_talonValidIN14) {
+        motorIN14->Set(ControlMode::PercentOutput, 0.0);
         SetIntakeMotorDirection(INTAKE_STOP);
+    }
 
     // Solenoid retracted
      m_deliveryExtended = false;

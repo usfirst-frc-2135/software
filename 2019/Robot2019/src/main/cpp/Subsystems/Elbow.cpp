@@ -176,8 +176,10 @@ void Elbow::Initialize(void) {
 	std::printf("2135: EB Elbow Init\n");
 	// Set PID target to current encoder reading
 
-	if (m_talonValidEB10)
+	if (m_talonValidEB10) {
+		motorEB10->Set(ControlMode::PercentOutput, 0.0);
 		curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
+	}
 
 	m_targetDegrees = CountsToDegrees(curCounts);
 	m_isCargo = false;
