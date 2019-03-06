@@ -107,6 +107,7 @@ public:
 	void Initialize(void);
 	void FaultDump(void);
 
+	double DegreesToRadians(double degrees);
 	int DegreesToCounts(double degrees);
 	double CountsToDegrees(int counts);
 	double GetCurrentDegrees();

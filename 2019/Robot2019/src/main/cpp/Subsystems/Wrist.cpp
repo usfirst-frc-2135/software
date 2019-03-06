@@ -192,6 +192,13 @@ void Wrist::FaultDump(void) {
 	frc2135::TalonSRXUtils::TalonSRXFaultDump("WR 12", motorWR12);
 }
 
+double Wrist::DegreesToRadians(double degrees) {
+	double radians;
+
+	radians = degrees * (M_PI / 180);
+	return radians;
+}
+
 int Wrist::DegreesToCounts(double degrees) {
 	int counts;
 
