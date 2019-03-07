@@ -290,8 +290,12 @@ void Elbow::MoveToPositionInit(int level) {
 		m_safetyTimer.Start();
  
 		// motorEB10->Set(ControlMode::MotionMagic, m_targetCounts);
+
+		double tunedArbFF = sin(DegreesToRadians(m_targetDegrees)) * m_arbFeedForward;
 		motorEB10->Set(ControlMode::MotionMagic, m_targetCounts, 
-			DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
+			DemandType::DemandType_ArbitraryFeedForward, tunedArbFF);
+
+		std::printf("2135 ARB FEED FORWARD: %f\n", tunedArbFF);
 
 		std::printf("2135: EB Move degrees %5.2f -> %5.2f counts %d -> %d\n",
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
@@ -348,7 +352,7 @@ void Elbow::BumpToPosition(bool direction) {
 void Elbow::Calibrate() {
 
 	if (m_talonValidEB10)
-		motorEB10->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+		motorEB10->SetSelectedSensorPosition(DegreesToCounts(m_calibAngle), m_pidIndex, m_timeout);
 
 	frc::SmartDashboard::PutBoolean("EB Calibrated", true);
 	m_calibrated = true;

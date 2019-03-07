@@ -92,8 +92,8 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 		// Set soft limits
 		 motorWR12->ConfigForwardSoftLimitThreshold(m_wristMaxCounts, m_timeout);
 		 motorWR12->ConfigReverseSoftLimitThreshold(m_wristMinCounts, m_timeout);
-		 motorWR12->ConfigForwardSoftLimitEnable(true, m_timeout);
-		 motorWR12->ConfigReverseSoftLimitEnable(true, m_timeout);
+		 motorWR12->ConfigForwardSoftLimitEnable(false, m_timeout);
+		 motorWR12->ConfigReverseSoftLimitEnable(false, m_timeout);
 
 	 	// Configure Magic Motion settings
 		 motorWR12->SelectProfileSlot(0, 0);
@@ -291,9 +291,13 @@ void Wrist::MoveToPositionInit(int level) {
 		m_safetyTimeout = 1.5;
 		m_safetyTimer.Reset();
 		m_safetyTimer.Start();
+
+		double tunedArbFF = sin(DegreesToRadians(m_targetDegrees)) * m_arbFeedForward;
  
 		motorWR12->Set(ControlMode::MotionMagic, m_targetCounts, 
-			DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
+			DemandType::DemandType_ArbitraryFeedForward, tunedArbFF);
+
+		std::printf("2135 ARB FEED FORWARD: %f\n", tunedArbFF);
 
 		std::printf("2135: WR Move degrees %f -> %f counts %d -> %d\n",
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
@@ -350,7 +354,8 @@ void Wrist::BumpToPosition(bool direction) {
 void Wrist::Calibrate() {
 
 	if (m_talonValidWR12)
-		motorWR12->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+
+		motorWR12->SetSelectedSensorPosition(DegreesToCounts(m_calibAngle), m_pidIndex, m_timeout);
 
 	frc::SmartDashboard::PutBoolean("WR Calibrated", true);
 	m_calibrated = true;
