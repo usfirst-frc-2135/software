@@ -23,10 +23,13 @@ GPShift::GPShift(): frc::Command() {
 
 // Called just before this Command runs the first time
 void GPShift::Initialize() {
-    Robot::elevator->SetGamePiece(!m_lastSetting);
-    Robot::elbow->SetGamePiece(!m_lastSetting);
-    Robot::wrist->SetGamePiece(!m_lastSetting);
-    printf("2135: Game Piece - %s\n", (m_lastSetting) ? "HATCH PANEL" : "CARGO");
+
+    m_lastSetting = !m_lastSetting;
+
+    Robot::elevator->SetGamePiece(m_lastSetting);
+    Robot::elbow->SetGamePiece(m_lastSetting);
+    Robot::wrist->SetGamePiece(m_lastSetting);
+    printf("2135: Game Piece - %s\n", (m_lastSetting) ? "CARGO" : "HATCH PANEL");
 
     // If the last setting was true (cargo), then it will flip to false (hatch panel)
 }
@@ -43,11 +46,9 @@ bool GPShift::IsFinished() {
 
 // Called once after isFinished returns true
 void GPShift::End() {
-    m_lastSetting = !m_lastSetting;
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void GPShift::Interrupted() {
-    m_lastSetting = !m_lastSetting;
 }
