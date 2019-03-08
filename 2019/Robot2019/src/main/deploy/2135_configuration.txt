@@ -29,13 +29,13 @@
   EL_BumpHeight = 2.0		
   EL_GroundCargoHeight = 0.0
   EL_GroundHatchHeight = 0.0
-  EL_ShipCargoHeight = 0.0
+  EL_ShipCargoHeight = 6.0
   EL_ShipHatchHeight = 0.0
-  EL_RocketL1CargoHeight = 5.0
+  EL_RocketL1CargoHeight = 0.0
   EL_RocketL1HatchHeight = 0.0
-  EL_RocketL2CargoHeight = 5.0
+  EL_RocketL2CargoHeight = 0.0
   EL_RocketL2HatchHeight = 0.0
-  EL_RocketL3CargoHeight = 5.0
+  EL_RocketL3CargoHeight = 0.0
   EL_RocketL3HatchHeight = 0.0	
 # Elbow settings
   EB_PidMaxOut = 0.8
@@ -52,8 +52,8 @@
   EB_MinCounts = -1800
   EB_CalibAngle = 108.3
   EB_BumpAngle = 5.0
-  EB_GroundCargoAngle = 100.0
-  EB_GroundHatchAngle = 100.0
+  EB_GroundCargoAngle = 108.3
+  EB_GroundHatchAngle = 108.3
   EB_ShipCargoAngle = 48.0
   EB_ShipHatchAngle = 48.0
   EB_RocketL1CargoAngle = 108.3
@@ -62,7 +62,7 @@
   EB_RocketL2HatchAngle = 9.91
   EB_RocketL3CargoAngle = 9.91
   EB_RocketL3HatchAngle = 9.91
-  EB_StowAngle = 15.0
+  EB_StowAngle = 20.0
 # Wrist settings
   WR_PidMaxOut = 0.8
   WR_Velocity = 240
@@ -76,17 +76,17 @@
   WR_ToleranceDegrees = 5.0
   WR_CalibAngle = 28.87
   WR_BumpAngle = 5.0
-  WR_GroundCargoAngle = -68.0
-  WR_GroundHatchAngle = -68.0
-  WR_ShipCargoAngle = -48.0
-  WR_ShipHatchAngle = -48.0
-  WR_RocketL1CargoAngle = 71.7
-  WR_RocketL1HatchAngle = 71.7
+  WR_GroundCargoAngle = 81.0
+  WR_GroundHatchAngle = 134.0
+  WR_ShipCargoAngle = 42.8
+  WR_ShipHatchAngle = 42.8
+  WR_RocketL1CargoAngle = 42.8
+  WR_RocketL1HatchAngle = 42.8
   WR_RocketL2CargoAngle = 170.09
   WR_RocketL2HatchAngle = 170.09
   WR_RocketL3CargoAngle = 170.09
   WR_RocketL3HatchAngle = 170.09
-  WR_StowAngle = -15.0
+  WR_StowAngle = 170.09
 # Intake settings
   IN_AcquireSpeed = 0.30
   IN_HoldSpeed = 0.25
