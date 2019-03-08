@@ -65,6 +65,7 @@ public:
 	void SetLifterMotorSpeed(int direction);
 	void SetFrontSolenoid(bool extended);
 	void SetBackSolenoid(bool extended);
+	void DriveWithJoystick(std::shared_ptr<frc::Joystick> jstick);
 };
 
 #endif

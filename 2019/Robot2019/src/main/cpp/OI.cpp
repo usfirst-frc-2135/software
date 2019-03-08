@@ -102,18 +102,10 @@ OI::OI() {
     spinRight->WhileHeld(new DriveSpin(true));
     spinLeft.reset(new frc::JoystickButton(dStick.get(), 2));
     spinLeft->WhileHeld(new DriveSpin(false));
-    lifterDriveStop.reset(new frc::JoystickButton(dStick.get(), 5));
-    lifterDriveStop->WhenReleased(new LFMotorRun(0));
-    lifterDriveForward.reset(new frc::JoystickButton(dStick.get(), 5));
-    lifterDriveForward->WhenPressed(new LFMotorRun(1));
-    lifterBackRetract.reset(new frc::JoystickButton(dStick.get(), 6));
-    lifterBackRetract->WhenReleased(new LFBackDeploy(false));
-    lifterBackExtend.reset(new frc::JoystickButton(dStick.get(), 6));
-    lifterBackExtend->WhenPressed(new LFBackDeploy(true));
-    lifterFrontRetract.reset(new frc::JoystickButton(dStick.get(), 7));
-    lifterFrontRetract->WhenReleased(new LFFrontDeploy(false));
-    lifterFrontExtend.reset(new frc::JoystickButton(dStick.get(), 7));
-    lifterFrontExtend->WhenPressed(new LFFrontDeploy(true));
+    lifterBackMove.reset(new frc::JoystickButton(dStick.get(), 7));
+    lifterBackMove->WhenPressed(new LFBackDeploy());
+    lifterFrontMove.reset(new frc::JoystickButton(dStick.get(), 6));
+    lifterFrontMove->WhenPressed(new LFFrontDeploy());
     shiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
     shiftSpeed->WhileHeld(new DriveShift(false));
 
