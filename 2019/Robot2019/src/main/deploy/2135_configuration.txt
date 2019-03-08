@@ -54,8 +54,8 @@
   EB_BumpAngle = 5.0
   EB_GroundCargoAngle = 108.3
   EB_GroundHatchAngle = 108.3
-  EB_ShipCargoAngle = 48.0
-  EB_ShipHatchAngle = 48.0
+  EB_ShipCargoAngle = 108.3
+  EB_ShipHatchAngle = 108.3
   EB_RocketL1CargoAngle = 108.3
   EB_RocketL1HatchAngle = 108.3
   EB_RocketL2CargoAngle = 9.91
@@ -86,7 +86,7 @@
   WR_RocketL2HatchAngle = 170.09
   WR_RocketL3CargoAngle = 170.09
   WR_RocketL3HatchAngle = 170.09
-  WR_StowAngle = 170.09
+  WR_StowAngle = 133.0
 # Intake settings
   IN_AcquireSpeed = 0.30
   IN_HoldSpeed = 0.25
