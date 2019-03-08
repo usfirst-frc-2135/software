@@ -102,10 +102,10 @@ void Intake::Periodic() {
 void Intake::Initialize(void) {
     std::printf("2135: IN Init\n");
 
-    // Motor off
+    // Motor holds in the preloaded cargo.
      if (m_talonValidIN14) {
         motorIN14->Set(ControlMode::PercentOutput, 0.0);
-        SetIntakeMotorDirection(INTAKE_STOP);
+        SetIntakeMotorDirection(INTAKE_HOLD);
     }
 
     // Solenoid retracted
