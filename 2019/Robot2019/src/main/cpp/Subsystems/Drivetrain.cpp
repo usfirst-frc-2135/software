@@ -607,6 +607,8 @@ double Drivetrain::GetIMUHeading() {
 	// Fused Heading is better than Yaw from Pigeon
 	double	heading = 0.0;
 
+	return heading;
+	
 	if (m_pigeonValid) {
 		if (pigeonIMU->GetState() != PigeonIMU::Ready)
 			std::printf("2135: ERROR: %s %s ID %d is NOT READY\n",
