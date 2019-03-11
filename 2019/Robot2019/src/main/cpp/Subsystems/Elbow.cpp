@@ -90,8 +90,8 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 		// Set soft limits
 		 motorEB10->ConfigForwardSoftLimitThreshold(m_elbowMaxCounts, m_timeout);
 		 motorEB10->ConfigReverseSoftLimitThreshold(m_elbowMinCounts, m_timeout);
-		 motorEB10->ConfigForwardSoftLimitEnable(true, m_timeout);
-		 motorEB10->ConfigReverseSoftLimitEnable(true, m_timeout);
+		 motorEB10->ConfigForwardSoftLimitEnable(false, m_timeout);
+		 motorEB10->ConfigReverseSoftLimitEnable(false, m_timeout);
 
 		// Configure Magic Motion settings
 		 motorEB10->SelectProfileSlot(0, 0);
@@ -270,14 +270,14 @@ void Elbow::MoveToPositionInit(int level) {
 	if (m_calibrated) {
 
 		// Constrain input request to a valid and safe range
-		if (m_targetCounts < m_elbowMinCounts) {
-			std::printf("2135: EB m_targetCounts limited by m_elbowMinCounts %d\n", m_elbowMinCounts);
-			m_targetCounts = m_elbowMinCounts;
-		}
-		if (m_targetCounts > m_elbowMaxCounts) {
-			std::printf("2135: EB m_targetCounts limited by m_elbowMaxCounts %d\n", m_elbowMaxCounts);
-			m_targetCounts = m_elbowMaxCounts;
-		}
+		// if (m_targetCounts < m_elbowMinCounts) {
+		// 	std::printf("2135: EB m_targetCounts limited by m_elbowMinCounts %d\n", m_elbowMinCounts);
+		// 	m_targetCounts = m_elbowMinCounts;
+		// }
+		// if (m_targetCounts > m_elbowMaxCounts) {
+		// 	std::printf("2135: EB m_targetCounts limited by m_elbowMaxCounts %d\n", m_elbowMaxCounts);
+		// 	m_targetCounts = m_elbowMaxCounts;
+		// }
 
 		// Get current position in inches and set position mode and target counts
 		if (m_talonValidEB10)
