@@ -131,14 +131,9 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     m_lowGear = true;
     MoveShiftGears(m_lowGear);
 
-    // If both master drive talons not valid, disable safety timer
-    if (m_talonValidL1 || m_talonValidR3) {
-        diffDrive->SetSafetyEnabled(true);
-    }
-    else {
-        diffDrive->SetSafetyEnabled(false);
-    }
-
+    // If either master drive talons are valid, enable safety timer
+    diffDrive->SetSafetyEnabled(m_talonValidL1 || m_talonValidR3);
+ 
 	// Initialize and calibrate Pigeon IMU
 	m_pigeonValid = PigeonIMUInitialize();
 
@@ -370,6 +365,7 @@ double Drivetrain::GetEncoderPosition(int motorID) {
 				ret = motorR3->GetSelectedSensorPosition(m_pidIndex);
 			break;
 		default:
+			break;
 	}
 
 	return ret;
@@ -387,8 +383,10 @@ void Drivetrain::MoveDriveDistanceMMInit(double inches) {
 	ResetSensors();
 
     diffDrive->SetSafetyEnabled(false);
-    motorL1->Set(ControlMode::MotionMagic, m_distTargetCounts); 
-    motorR3->Set(ControlMode::MotionMagic, -m_distTargetCounts);
+	if (m_talonValidL1)
+    	motorL1->Set(ControlMode::MotionMagic, m_distTargetCounts);
+	if (m_talonValidR3)
+    	motorR3->Set(ControlMode::MotionMagic, -m_distTargetCounts);
 
 	// Start safety timer with 2.0 sec padding (feet * 6.73 fps)
 	m_safetyTimeout = (inches / 12) * 5.0 + 2.0;
@@ -409,13 +407,11 @@ bool Drivetrain::MoveDriveDistanceMMIsFinished() {
     double errorInInches_L = 0.0;
     double errorInInches_R = 0.0;
 
-    if (m_talonValidL1) {
+    if (m_talonValidL1)
         curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
-    }
 
-    if (m_talonValidR3) {
+    if (m_talonValidR3)
         curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
-    }
 
     errorInInches_L = CountsToInches(m_distTargetCounts - curCounts_L);
     errorInInches_R = CountsToInches(-m_distTargetCounts - curCounts_R);
@@ -438,8 +434,10 @@ bool Drivetrain::MoveDriveDistanceMMIsFinished() {
 }
 
 void Drivetrain::MoveDriveDistanceMMEnd() {
-    motorL1->Set(ControlMode::PercentOutput, 0.0);
-    motorR3->Set(ControlMode::PercentOutput, 0.0);
+	if (m_talonValidL1)
+    	motorL1->Set(ControlMode::PercentOutput, 0.0);
+	if (m_talonValidR3)
+		motorR3->Set(ControlMode::PercentOutput, 0.0);
 
 	// Stop the safety timer
     std::printf("2135: DTDD End %d cts %5.2f in TimeToTarget: %3.2f\n", 
@@ -448,8 +446,8 @@ void Drivetrain::MoveDriveDistanceMMEnd() {
 	m_safetyTimer.Stop();
 	m_isMovingAuto = false;
 
-	// Re-enable the motor safety helper
-    diffDrive->SetSafetyEnabled(true);
+    // If either master drive talons are valid, re-enable safety timer
+    diffDrive->SetSafetyEnabled(m_talonValidL1 || m_talonValidR3);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -515,9 +513,8 @@ void Drivetrain::MoveDriveTurnPIDEnd(void) {
 	m_isMovingAuto = false;
 	m_turnAngle = 0.0;
 
-	// Re-enable the motor safety helper
-    if (m_talonValidL1 || m_talonValidR3)
-    	diffDrive->SetSafetyEnabled(true);
+    // If either master drive talons are valid, enable safety timer
+    diffDrive->SetSafetyEnabled(m_talonValidL1 || m_talonValidR3);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
