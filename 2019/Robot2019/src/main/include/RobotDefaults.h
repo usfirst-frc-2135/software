@@ -16,9 +16,6 @@
 
 //  SmartDashboard string definitions
 
-#define AUTO_DT_DD          "DT_DDist"
-#define AUTO_DT_DT          "DT_DTurn"
-
 //	SmartDashboard Vision settings
 
 #define	CAM_BRIGHTNESS			"Cam_Brightness_%"
