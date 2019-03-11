@@ -64,6 +64,7 @@ void RobotConfig::GetConfigFileName(std::string& fileName)
 	char nameBuf[NAMEBUFSIZE+1];
 
 	gethostname(nameBuf, NAMEBUFSIZE);
+	memset(nameBuf, 0, sizeof(nameBuf));
 	nameBuf[NAMEBUFSIZE] = '\0';
 
 	// Extract the robot number from the hostname (assumed to be of the form roboRIO-<4-digit-number>-FRC)
