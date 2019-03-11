@@ -358,10 +358,21 @@ double Drivetrain::CountsToInches(int counts) {
 }
 
 double Drivetrain::GetEncoderPosition(int motorID) {
-    if (motorID == 1)
-        return motorL1->GetSelectedSensorPosition(m_pidIndex);
-    if (motorID == 3)
-        return motorR3->GetSelectedSensorPosition(m_pidIndex);
+	int		ret = 0;
+
+	switch (motorID) {
+		case 1:			// Left Master
+			if (m_talonValidL1)
+				ret = motorL1->GetSelectedSensorPosition(m_pidIndex);
+			break;
+		case 3:			// Right Master
+			if (m_talonValidR3)
+				ret = motorR3->GetSelectedSensorPosition(m_pidIndex);
+			break;
+		default:
+	}
+
+	return ret;
 }
 
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
