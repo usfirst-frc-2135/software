@@ -50,6 +50,8 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 5.0);
 	config->GetValueAsDouble("WR_GroundCargoAngle", m_groundCargoAngle, 81.0);
 	config->GetValueAsDouble("WR_GroundHatchAngle", m_groundHatchAngle, 134.0);
+	config->GetValueAsDouble("WR_LoadingCargoAngle", m_loadingCargoAngle, 42.8);
+	config->GetValueAsDouble("WR_LoadingHatchAngle", m_loadingHatchAngle, 42.8);
 	config->GetValueAsDouble("WR_ShipCargoAngle", m_shipCargoAngle, 42.8);
 	config->GetValueAsDouble("WR_ShipHatchAngle", m_shipHatchAngle, 42.8);
 	config->GetValueAsDouble("WR_RocketL1CargoAngle", m_rocketL1CargoAngle, 42.8);

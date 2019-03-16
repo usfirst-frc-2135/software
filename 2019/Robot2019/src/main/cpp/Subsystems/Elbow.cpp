@@ -49,6 +49,8 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 	config->GetValueAsDouble("EB_BumpAngle", m_bumpAngle, 5.0);
 	config->GetValueAsDouble("EB_GroundCargoAngle", m_groundCargoAngle, 108.3);
 	config->GetValueAsDouble("EB_GroundHatchAngle", m_groundHatchAngle, 108.3);
+	config->GetValueAsDouble("EB_LoadingCargoAngle", m_loadingCargoAngle, 108.3);
+	config->GetValueAsDouble("EB_LoadingHatchAngle", m_loadingHatchAngle, 108.3);
 	config->GetValueAsDouble("EB_ShipCargoAngle", m_shipCargoAngle, 108.3);
 	config->GetValueAsDouble("EB_ShipHatchAngle", m_shipHatchAngle, 108.3);
 	config->GetValueAsDouble("EB_RocketL1CargoAngle", m_rocketL1CargoAngle, 108.3);

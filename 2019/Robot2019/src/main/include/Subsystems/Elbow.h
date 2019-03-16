@@ -73,6 +73,8 @@ private:
 
 	double			m_groundCargoAngle;				// Setpoint for floor level (tilted for cargo pickup)
 	double			m_groundHatchAngle;				// Setpoint for floor level (full down for hatch pickup)
+	double			m_loadingCargoAngle;			// Setpoint to acquire cargo from the loading station
+	double			m_loadingHatchAngle;			// Setpoint to acquire hatch panels from the loading station
 	double			m_shipCargoAngle;				// Setpoint to deliver cargo in cargo ship
 	double			m_shipHatchAngle;				// Setpoint to deliver hatches to rocket at first level
 	double			m_rocketL1CargoAngle;			// Setpoint for delivery of cargo to rocket at first level

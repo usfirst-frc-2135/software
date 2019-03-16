@@ -86,6 +86,8 @@ private:
 	double			m_bumpHeight;					// Incremental height when bumping the elevator up/down
 	double			m_groundCargoHeight;			// Setpoint for floor level for cargo (full down)
 	double 			m_groundHatchHeight; 			// Set point for floor level for hatch
+	double			m_loadingCargoHeight;			// Setpoint to acquire cargo from the loading station
+	double			m_loadingHatchHeight;			// Setpoint to acquire hatch panels from the loading station
 	double			m_shipCargoHeight;				// Setpoint to deliver cargo in cargo ship
 	double			m_shipHatchHeight;				// Setpoint to deliver hatches to rocket at first level
 	double			m_rocketL1CargoHeight;			// Setpoint for delivery of cargo to rocket at first level

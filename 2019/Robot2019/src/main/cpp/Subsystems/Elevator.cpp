@@ -54,6 +54,8 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	config->GetValueAsDouble("EL_BumpHeight", m_bumpHeight, 1.0);
 	config->GetValueAsDouble("EL_GroundCargoHeight", m_groundCargoHeight, 0.0);
 	config->GetValueAsDouble("EL_GroundHatchHeight", m_groundHatchHeight, 0.0);
+	config->GetValueAsDouble("EL_LoadingCargoAngle", m_loadingCargoHeight, 3.0);
+	config->GetValueAsDouble("EL_LoadingHatchAngle", m_loadingHatchHeight, 3.0);
 	config->GetValueAsDouble("EL_ShipCargoHeight", m_shipCargoHeight, 3.0);
 	config->GetValueAsDouble("EL_ShipHatchHeight", m_shipHatchHeight, 3.0);
 	config->GetValueAsDouble("EL_RocketL1CargoHeight", m_rocketL1CargoHeight, 6.5);
