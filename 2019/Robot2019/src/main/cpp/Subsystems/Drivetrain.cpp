@@ -110,8 +110,8 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     if (m_talonValidR3) {
         motorR3->SetInverted(true);
         motorR3->SetNeutralMode(NeutralMode::Coast);
-        motorL1->ConfigVoltageCompSaturation(12.0, m_timeout);
-        motorL1->EnableVoltageCompensation(true);
+        motorR3->ConfigVoltageCompSaturation(12.0, m_timeout);
+        motorR3->EnableVoltageCompensation(true);
 
         motorR3->Set(ControlMode::PercentOutput, 0.0);
         motorR3->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
