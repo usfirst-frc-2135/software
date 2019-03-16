@@ -271,137 +271,6 @@ void Elevator::SetGamePiece(bool cargo) {
 	m_isCargo = cargo;
 }
 
-#if 0
-
-//	Elevator PID loop state management
-
-void Elevator::MoveToPositionInit(int level) {
-	int curCounts = 0;
-
-	m_elevatorLevel = level;
-
-	// Validate and set the requested position to move
-	switch (level) {
-	case NOCHANGE_HEIGHT:	// Do not change from current level!
-		// m_targetInches = m_targetInches;
-		break;
-	case FLOOR_HEIGHT:
-		m_targetInches = m_floorHeight;
-		break;
-	case SHIP_HATCH_HEIGHT:
-		m_targetInches = m_shipHatchHeight;
-		break;
-	case SHIP_CARGO_HEIGHT:
-		m_targetInches = m_shipCargoHeight;
-		break;
-	case ROCKET_L2_HATCH_HEIGHT:
-		m_targetInches = m_rocketL2HatchHeight;
-		break;
-	case ROCKET_L3_HATCH_HEIGHT:
-		m_targetInches = m_rocketL3HatchHeight;
-		break;
-	case ROCKET_CARGO_BUMP_HEIGHT:
-		m_targetInches = m_rocketCargoBumpHeight;
-		break;
-	case SMARTDASH_HEIGHT:
-		m_targetInches = frc::SmartDashboard::GetNumber("EL Setpoint", 0.0);
-		break;
-	case BUMP_HEIGHT:
-		double bumpHeight;
-		bumpHeight = (m_bumpDir) ? m_bumpHeight : -m_bumpHeight;
-		m_targetInches += bumpHeight;
-		break;
-	default:
-		std::printf("2135: EL invalid height requested - %d\n", level);
-		return;
-	}
-
-	std::printf("2135: EL m_targetInches: %f, InchesToCounts: %d\n",
-			m_targetInches, InchesToCounts(m_targetInches));
-
-	// Save the requested target height inches
-	if (m_calibrated == true) {
-
-		// Constrain input request to a valid and safe range between full down and max height
-		if (m_targetInches < m_elevatorMinHeight) {
-			std::printf("2135: EL m_targetInches limited by m_elevatorMinHeight %f\n", m_elevatorMinHeight);
-			m_targetInches = m_elevatorMinHeight;
-		}
-		if (m_targetInches > m_elevatorMaxHeight) {
-			std::printf("2135: EL m_targetInches limited by m_elevatorMaxHeight %f\n", m_elevatorMaxHeight);
-			m_targetInches = m_elevatorMaxHeight;
-		}
-
-		m_targetCounts = InchesToCounts(m_targetInches);
-
-		// Get current position in inches and set position mode and target counts
-		if (m_talonValidEL7)
-			curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
-		m_curInches = CountsToInches(curCounts);
-
-		//Start the safety timer.
-		m_safetyTimeout = 4.0;
-		m_safetyTimer.Reset();
-		m_safetyTimer.Start();
-
-		motorEL7->Set(ControlMode::Position, (double)m_targetCounts);
- 
-		std::printf("2135: EL Move inches %f -> %f counts %d -> %d\n",
-				m_curInches, m_targetInches, curCounts, m_targetCounts);
-	}
-	else {
-		std::printf("2135: EL is not calibrated\n");
-
-		if (m_talonValidEL7)
-			motorEL7->Set(ControlMode::PercentOutput, 0.0);
-	}
-}
-
-// Elevator PID loop completion monitoring
-
-bool Elevator::MoveToPositionIsFinished() {
-	bool pidFinished = false;
-	int curCounts = 0;
-	int closedLoopError = 0;
-	double motorOutput = 0.0;
-	double errorInInches = 0;
-
-	// If a real move was requested, check for completion
-	if (m_elevatorLevel != NOCHANGE_HEIGHT) {
-		if (m_talonValidEL7) {
-			curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
-			motorOutput = motorEL7->GetMotorOutputPercent();
-		}
-
-		double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
-
-		closedLoopError = m_targetCounts - curCounts;
-		errorInInches = CountsToInches(m_targetCounts - curCounts);
-
-		// cts = Encoder Counts, CLE = Closed Loop Error, Out = Motor Output
-		std::printf("2135: EL %5.3f cts %d, in %5.2f, CLE %d, Out %4.2f\n", secs,
-				curCounts, CountsToInches(curCounts), closedLoopError, motorOutput);
-
-		// Check to see if the error is in an acceptable number of inches.
-		if (fabs(errorInInches) < m_toleranceInches) {
-			pidFinished = true;
-			m_safetyTimer.Stop();
-			std::printf("2135: EL Move Finished - Time %f\n", m_safetyTimer.Get());
-		}
-
-		// Check to see if the Safety Timer has timed out.
-		if (m_safetyTimer.Get() >= m_safetyTimeout) {
-			pidFinished = true;
-			m_safetyTimer.Stop();
-			std::printf("2135: EL Move Safety timer has timed out\n");
-		}
-	}
-
-	return pidFinished;
-}
-
-#else
-
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
 
 void Elevator::MoveToPositionInit(int level) {
@@ -465,7 +334,7 @@ void Elevator::MoveToPositionInit(int level) {
 		m_curInches = CountsToInches(curCounts);
 
 		//Start the safety timer.
-		m_safetyTimeout = 5.0;
+		m_safetyTimeout = 3.0;
 		m_safetyTimer.Reset();
 		m_safetyTimer.Start();
 
@@ -520,5 +389,3 @@ bool Elevator::MoveToPositionIsFinished() {
 
     return isFinished;
 }
-
-#endif
