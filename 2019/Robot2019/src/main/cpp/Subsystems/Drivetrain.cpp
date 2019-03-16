@@ -61,7 +61,16 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
  	 config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 1.0);
 	 config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
 	 config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.030);
-	 m_visionTurnKp = 0.0;	// TODO: Set config value and initialize
+	 config->GetValueAsDouble("DT_VisionTurnKp", m_visionTurnKp, 0.0);
+	 config->GetValueAsDouble("DT_PeakOut", m_peakOut, 1.0);
+	 config->GetValueAsInt("DT_Velocity", m_velocity, 1732);
+	 config->GetValueAsInt("DT_Acceleration", m_acceleration, 6927);
+	 config->GetValueAsInt("DT_SCurveStrength", m_sCurveStrength, 0);
+	 config->GetValueAsDouble("DT_PidKf", m_pidKf, 0.5832);
+	 config->GetValueAsDouble("DT_PidKp", m_pidKp, 0.0);
+	 config->GetValueAsDouble("DT_PidKi", m_pidKi, 0.0);
+	 config->GetValueAsDouble("DT_PidKd", m_pidKd, 0.0);
+	 config->GetValueAsDouble("DT_ArbFeedForward", m_arbFeedForward, 1.0);
 
     // Invert the direction of the motors
     // Set to brake mode (in comparison to coast)
@@ -80,13 +89,14 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
 		// Configure Magic Motion settings
 		motorL1->SelectProfileSlot(0, 0);
-        // motorL1->Config_kF(0, 0.0, m_timeout);			// TODO - kF should be zero
-        motorL1->Config_kF(0, 0.5832, m_timeout);         	// 0.5832 for 6.73 fps
-        motorL1->Config_kP(0, 0.0, m_timeout);
-        motorL1->Config_kI(0, 0.0, m_timeout);
-        motorL1->Config_kD(0, 0.0, m_timeout);
+		motorL1->ConfigClosedLoopPeakOutput(0, m_peakOut, m_timeout);
         motorL1->ConfigMotionCruiseVelocity(877, m_timeout);   // 877 for 6.73 fps
         motorL1->ConfigMotionAcceleration(1000, m_timeout);
+		motorL1->ConfigMotionSCurveStrength(0, m_sCurveStrength);
+        motorL1->Config_kF(0, m_pidKf, m_timeout);         	// 0.5832 for 6.73 fps
+        motorL1->Config_kP(0, m_pidKp, m_timeout);
+        motorL1->Config_kI(0, m_pidKi, m_timeout);
+        motorL1->Config_kD(0, m_pidKd, m_timeout);
     }
 
     if (m_talonValidL2) {
@@ -110,13 +120,14 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
 		// Configure Magic Motion settings
         motorR3->SelectProfileSlot(0, 0);
-        //motorR3->Config_kF(0, 0.0, m_timeout);
-        motorR3->Config_kF(0, 0.5832, m_timeout);
-        motorR3->Config_kP(0, 0.0, m_timeout);
-        motorR3->Config_kI(0, 0.0, m_timeout);
-        motorR3->Config_kD(0, 0.0, m_timeout);
-        motorR3->ConfigMotionCruiseVelocity(877, m_timeout);
-        motorR3->ConfigMotionAcceleration(1000, m_timeout); 
+		motorR3->ConfigClosedLoopPeakOutput(0, m_peakOut, m_timeout);
+        motorR3->ConfigMotionCruiseVelocity(877, m_timeout);   // 877 for 6.73 fps
+        motorR3->ConfigMotionAcceleration(1000, m_timeout);
+		motorR3->ConfigMotionSCurveStrength(0, m_sCurveStrength);
+        motorR3->Config_kF(0, m_pidKf, m_timeout);         	// 0.5832 for 6.73 fps
+        motorR3->Config_kP(0, m_pidKp, m_timeout);
+        motorR3->Config_kI(0, m_pidKi, m_timeout);
+        motorR3->Config_kD(0, m_pidKd, m_timeout);
     }
 
     if (m_talonValidR4) {

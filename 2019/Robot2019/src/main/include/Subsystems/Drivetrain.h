@@ -82,6 +82,16 @@ private:
 	double	m_visionTurnKp;			// Proportional value for PID for Drive Turn with Vision-Assist
 	double 	m_turnMaxOut;			// Max motor output value for PID for DriveTurn function
 
+	double 	m_peakOut;				// Drivetrain maximum speed during movement
+	int		m_velocity;				// Drivetrain motion velocity
+	int		m_acceleration;			// Drivetrain motion acceleration
+	int		m_sCurveStrength;		// Drivetrain motion S curve smoothing strength
+	double	m_pidKf;				// Drivetrain PID force constant
+	double	m_pidKp;				// Drivetrain PID proportional constant
+	double	m_pidKi;				// Drivetrain PID integral constant
+	double	m_pidKd;				// Drivetrain PID derivative constant
+	double	m_arbFeedForward;		// Drivetrain Motion Magic Arbitrary Feed Forward		
+
 	PIDOutputDriveTurn	*driveTurnPIDOutput;		// Drive turn to angle with gyro
 	PIDSourceDriveTurn	*driveTurnPIDSource;		// Drive turn PID source loop
 	frc::PIDController	*driveTurnPIDLoop;			// Drive turn PID control
