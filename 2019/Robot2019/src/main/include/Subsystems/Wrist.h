@@ -57,7 +57,7 @@ private:
 	bool 			m_isCargo; 						// True - Game Piece is cargo, False - Game Piece is hatch
 
 	// Configuration file parameters
-	double 			m_pidMaxOut;					// Wrist maximum speed during movement
+	double 			m_peakOut;						// Wrist maximum speed during movement
 	int				m_velocity;						// Wrist motion velocity
 	int				m_acceleration;					// Wrist motion acceleration
 	int				m_sCurveStrength;				// Wrist motion S curve smoothing strength

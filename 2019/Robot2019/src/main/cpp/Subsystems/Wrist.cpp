@@ -34,13 +34,12 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 
     // Retrieve wrist modified parameters from RobotConfig
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.375);
-    config->GetValueAsDouble("WR_PidMaxOut", m_pidMaxOut, 1.0);
     config->GetValueAsInt("WR_Velocity", m_velocity, 0);
     config->GetValueAsInt("WR_Acceleration", m_acceleration, 0);
+    config->GetValueAsDouble("WR_PeakOut", m_peakOut, 0.8);
     config->GetValueAsInt("WR_SCurveStrength", m_sCurveStrength, 0);
     config->GetValueAsDouble("WR_PidKp", m_pidKf, 0.000);
-    config->GetValueAsDouble("WR_PidKp", m_pidKp, 0.000);
+    config->GetValueAsDouble("WR_PidKp", m_pidKp, 2.250);
     config->GetValueAsDouble("WR_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("WR_PidKd", m_pidKd, 0.000);
 	config->GetValueAsDouble("WR_ArbFeedForward", m_arbFeedForward, 0.1);
@@ -81,9 +80,8 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 		m_curDegrees = CountsToDegrees(motorWR12->GetSelectedSensorPosition(m_pidIndex)); 
 
 		// Set maximum power
-		 motorWR12->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
-		 motorWR12->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
-		 motorWR12->ConfigClosedLoopPeakOutput(m_pidMaxOut, m_timeout);
+		 motorWR12->ConfigPeakOutputForward(m_peakOut, m_timeout);
+		 motorWR12->ConfigPeakOutputReverse(-m_peakOut, m_timeout);
 
 		// Set maximum current draw allowed
 		 motorWR12->ConfigPeakCurrentLimit(20.0, m_timeout);
@@ -97,6 +95,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 
 	 	// Configure Magic Motion settings
 		 motorWR12->SelectProfileSlot(0, 0);
+		 motorWR12->ConfigClosedLoopPeakOutput(0, m_peakOut, m_timeout);
          motorWR12->Config_kF(0, m_pidKf, m_timeout);      
          motorWR12->Config_kP(0, m_pidKp, m_timeout);
          motorWR12->Config_kI(0, m_pidKi, m_timeout);

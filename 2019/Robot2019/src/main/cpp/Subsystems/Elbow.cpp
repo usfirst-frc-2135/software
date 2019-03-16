@@ -33,13 +33,12 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 
     // Retrieve elbow modified parameters from RobotConfig
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("EB_PidKp", m_pidKp, 0.25);
-    config->GetValueAsDouble("EB_PidMaxOut", m_pidMaxOut, 0.6);
     config->GetValueAsInt("EB_Velocity", m_velocity, 0);
     config->GetValueAsInt("EB_Acceleration", m_acceleration, 0);
+    config->GetValueAsDouble("EB_PeakOut", m_peakOut, 0.8);
     config->GetValueAsInt("EB_SCurveStrength", m_sCurveStrength, 0);
     config->GetValueAsDouble("EB_PidKp", m_pidKf, 0.000);
-    config->GetValueAsDouble("EB_PidKp", m_pidKp, 0.000);
+    config->GetValueAsDouble("EB_PidKp", m_pidKp, 2.250);
     config->GetValueAsDouble("EB_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("EB_PidKd", m_pidKd, 0.000);
 	config->GetValueAsDouble("EB_ArbFeedForward", m_arbFeedForward, 0.2);
@@ -79,9 +78,8 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 		 m_curDegrees = CountsToDegrees(motorEB10->GetSelectedSensorPosition(m_pidIndex)); // TODO: WRITE COUNTS TO DEGREES 
 
 		// Set maximum power
-		 motorEB10->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
-		 motorEB10->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
-		 motorEB10->ConfigClosedLoopPeakOutput(m_pidMaxOut, m_timeout);
+		 motorEB10->ConfigPeakOutputForward(m_peakOut, m_timeout);
+		 motorEB10->ConfigPeakOutputReverse(-m_peakOut, m_timeout);
 
 		// Set maximum current draw allowed
 		 motorEB10->ConfigPeakCurrentLimit(20.0, m_timeout);
@@ -95,6 +93,7 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 
 		// Configure Magic Motion settings
 		 motorEB10->SelectProfileSlot(0, 0);
+		 motorEB10->ConfigClosedLoopPeakOutput(0, m_peakOut, m_timeout);
          motorEB10->Config_kF(0, m_pidKf, m_timeout);      
          motorEB10->Config_kP(0, m_pidKp, m_timeout);
          motorEB10->Config_kI(0, m_pidKi, m_timeout);

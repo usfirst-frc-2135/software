@@ -56,7 +56,7 @@ private:
 	bool 			m_isCargo; 						// True - Game Piece is cargo, False - Game Piece is hatch
 	
 	// Configuration file parameters
-	double 			m_pidMaxOut;					// Elbow maximum speed during movement
+	double 			m_peakOut;						// Elbow maximum speed during movement
 	int				m_velocity;						// Elbow motion velocity
 	int				m_acceleration;					// Elbow motion acceleration
 	int				m_sCurveStrength;				// Elbow motion S curve smoothing strength

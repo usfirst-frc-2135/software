@@ -36,9 +36,9 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     // Get any config file settings
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("EL_CalibSpeed", m_calibrationSpeed, 0.25);
-	config->GetValueAsDouble("EL_PidMaxOut", m_pidMaxOut, 1.0);
     config->GetValueAsInt("EL_Velocity", m_velocity, 0);
     config->GetValueAsInt("EL_Acceleration", m_acceleration, 0);
+	config->GetValueAsDouble("EL_PeakOut", m_peakOut, 1.0);
     config->GetValueAsInt("EL_SCurveStrength", m_sCurveStrength, 0);
     config->GetValueAsDouble("EL_PidKp", m_pidKf, 0.000);
     config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.250);
@@ -82,9 +82,8 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	    motorEL7->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 
 		// Set maximum power and ramp rate
-		 motorEL7->ConfigPeakOutputForward(m_pidMaxOut, m_timeout);
-		 motorEL7->ConfigPeakOutputReverse(-m_pidMaxOut, m_timeout);
-		 motorEL7->ConfigClosedLoopPeakOutput(m_pidMaxOut, m_timeout);
+		 motorEL7->ConfigPeakOutputForward(m_peakOut, m_timeout);
+		 motorEL7->ConfigPeakOutputReverse(-m_peakOut, m_timeout);
 		 motorEL7->ConfigClosedloopRamp(m_CLRampRate, m_timeout);
 
    		// Set allowable closed loop error
@@ -102,6 +101,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 
 		// Configure Magic Motion settings
 		 motorEL7->SelectProfileSlot(0, 0);
+		 motorEL7->ConfigClosedLoopPeakOutput(0, m_peakOut, m_timeout);
          motorEL7->Config_kF(0, m_pidKf, m_timeout);      
          motorEL7->Config_kP(0, m_pidKp, m_timeout);
          motorEL7->Config_kI(0, m_pidKi, m_timeout);

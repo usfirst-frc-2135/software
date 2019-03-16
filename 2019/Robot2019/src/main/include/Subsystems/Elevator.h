@@ -67,7 +67,7 @@ private:
 
 	// Configuration file parameters
 	double			m_calibrationSpeed;				// Motor output speed used during calibration
-	double 			m_pidMaxOut;					// Elevator maximum speed during movement
+	double 			m_peakOut;						// Elevator maximum speed during movement
 	int				m_velocity;						// Elevator motion velocity
 	int				m_acceleration;					// Elevator motion acceleration
 	int				m_sCurveStrength;				// Elevator motion S curve smoothing strength
