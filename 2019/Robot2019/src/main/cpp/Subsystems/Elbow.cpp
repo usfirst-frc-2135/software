@@ -33,30 +33,30 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 
     // Retrieve elbow modified parameters from RobotConfig
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsInt("EB_Velocity", m_velocity, 0);
-    config->GetValueAsInt("EB_Acceleration", m_acceleration, 0);
     config->GetValueAsDouble("EB_PeakOut", m_peakOut, 0.8);
+    config->GetValueAsInt("EB_Velocity", m_velocity, 249);
+    config->GetValueAsInt("EB_Acceleration", m_acceleration, 499);
     config->GetValueAsInt("EB_SCurveStrength", m_sCurveStrength, 0);
     config->GetValueAsDouble("EB_PidKp", m_pidKf, 0.000);
     config->GetValueAsDouble("EB_PidKp", m_pidKp, 2.250);
     config->GetValueAsDouble("EB_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("EB_PidKd", m_pidKd, 0.000);
-	config->GetValueAsDouble("EB_ArbFeedForward", m_arbFeedForward, 0.2);
+	config->GetValueAsDouble("EB_ArbFeedForward", m_arbFeedForward, 0.25);
 	config->GetValueAsDouble("EB_ToleranceDegrees", m_toleranceDegrees, 5.0);
-    config->GetValueAsInt("EB_MaxCounts", m_elbowMaxCounts, 1800);
-    config->GetValueAsInt("EB_MinCounts", m_elbowMinCounts, 0);
+    config->GetValueAsInt("EB_MaxCounts", m_elbowMaxCounts, 0);
+    config->GetValueAsInt("EB_MinCounts", m_elbowMinCounts, -1800);
 	config->GetValueAsDouble("EB_CalibAngle", m_calibAngle, 108.3);
-	config->GetValueAsDouble("EB_BumpAngle", m_bumpAngle, 10.0);
-	config->GetValueAsDouble("EB_GroundCargoAngle", m_groundCargoAngle, 0.0);
-	config->GetValueAsDouble("EB_GroundHatchAngle", m_groundHatchAngle, 0.0);
-	config->GetValueAsDouble("EB_ShipCargoAngle", m_shipCargoAngle, 20.0);
-	config->GetValueAsDouble("EB_ShipHatchAngle", m_shipHatchAngle, 20.0);
-	config->GetValueAsDouble("EB_RocketL1CargoAngle", m_rocketL1CargoAngle, 20.0);
-	config->GetValueAsDouble("EB_RocketL1HatchAngle", m_rocketL1HatchAngle, 20.0);
-	config->GetValueAsDouble("EB_RocketL2CargoAngle", m_rocketL2CargoAngle, 20.0);
-	config->GetValueAsDouble("EB_RocketL2HatchAngle", m_rocketL2HatchAngle, 20.0);
-	config->GetValueAsDouble("EB_RocketL3CargoAngle", m_rocketL3CargoAngle, 20.0);
-	config->GetValueAsDouble("EB_RocketL3HatchAngle", m_rocketL3HatchAngle, 20.0);
+	config->GetValueAsDouble("EB_BumpAngle", m_bumpAngle, 5.0);
+	config->GetValueAsDouble("EB_GroundCargoAngle", m_groundCargoAngle, 108.3);
+	config->GetValueAsDouble("EB_GroundHatchAngle", m_groundHatchAngle, 108.3);
+	config->GetValueAsDouble("EB_ShipCargoAngle", m_shipCargoAngle, 108.3);
+	config->GetValueAsDouble("EB_ShipHatchAngle", m_shipHatchAngle, 108.3);
+	config->GetValueAsDouble("EB_RocketL1CargoAngle", m_rocketL1CargoAngle, 108.3);
+	config->GetValueAsDouble("EB_RocketL1HatchAngle", m_rocketL1HatchAngle, 108.3);
+	config->GetValueAsDouble("EB_RocketL2CargoAngle", m_rocketL2CargoAngle, 9.91);
+	config->GetValueAsDouble("EB_RocketL2HatchAngle", m_rocketL2HatchAngle, 9.91);
+	config->GetValueAsDouble("EB_RocketL3CargoAngle", m_rocketL3CargoAngle, 9.91);
+	config->GetValueAsDouble("EB_RocketL3HatchAngle", m_rocketL3HatchAngle, 9.91);
 	config->GetValueAsDouble("EB_StowAngle", m_stowedAngle, 20.0); 
 
      if (m_talonValidEB10) {

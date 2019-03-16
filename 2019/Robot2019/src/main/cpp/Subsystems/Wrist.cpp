@@ -34,31 +34,31 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 
     // Retrieve wrist modified parameters from RobotConfig
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsInt("WR_Velocity", m_velocity, 0);
-    config->GetValueAsInt("WR_Acceleration", m_acceleration, 0);
     config->GetValueAsDouble("WR_PeakOut", m_peakOut, 0.8);
+    config->GetValueAsInt("WR_Velocity", m_velocity, 240);
+    config->GetValueAsInt("WR_Acceleration", m_acceleration, 240);
     config->GetValueAsInt("WR_SCurveStrength", m_sCurveStrength, 0);
     config->GetValueAsDouble("WR_PidKp", m_pidKf, 0.000);
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 2.250);
     config->GetValueAsDouble("WR_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("WR_PidKd", m_pidKd, 0.000);
-	config->GetValueAsDouble("WR_ArbFeedForward", m_arbFeedForward, 0.1);
+	config->GetValueAsDouble("WR_ArbFeedForward", m_arbFeedForward, 0.09);
 	config->GetValueAsDouble("WR_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -3000);
-	config->GetValueAsDouble("WR_CalibAngle", m_calibAngle, 42.8);
-	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 10.0);
-	config->GetValueAsDouble("WR_GroundCargoAngle", m_groundCargoAngle, 92.0);
-	config->GetValueAsDouble("WR_GroundHatchAngle", m_groundHatchAngle, 115.0);
-	config->GetValueAsDouble("WR_ShipCargoAngle", m_shipCargoAngle, 92.0);
-	config->GetValueAsDouble("WR_ShipHatchAngle", m_shipHatchAngle, 115.0);
-	config->GetValueAsDouble("WR_RocketL1CargoAngle", m_rocketL1CargoAngle, 92.0);
-	config->GetValueAsDouble("WR_RocketL1HatchAngle", m_rocketL1HatchAngle, 115.0);
-	config->GetValueAsDouble("WR_RocketL2CargoAngle", m_rocketL2CargoAngle, 82.0);
-	config->GetValueAsDouble("WR_RocketL2HatchAngle", m_rocketL2HatchAngle, 55.5);
-	config->GetValueAsDouble("WR_RocketL3CargoAngle", m_rocketL3CargoAngle, 103.0);
-	config->GetValueAsDouble("WR_RocketL3HatchAngle", m_rocketL3HatchAngle, 55.5);
-	config->GetValueAsDouble("WR_StowAngle", m_stowedAngle, 40.0);
+	config->GetValueAsDouble("WR_CalibAngle", m_calibAngle, 28.9);
+	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 5.0);
+	config->GetValueAsDouble("WR_GroundCargoAngle", m_groundCargoAngle, 81.0);
+	config->GetValueAsDouble("WR_GroundHatchAngle", m_groundHatchAngle, 134.0);
+	config->GetValueAsDouble("WR_ShipCargoAngle", m_shipCargoAngle, 42.8);
+	config->GetValueAsDouble("WR_ShipHatchAngle", m_shipHatchAngle, 42.8);
+	config->GetValueAsDouble("WR_RocketL1CargoAngle", m_rocketL1CargoAngle, 42.8);
+	config->GetValueAsDouble("WR_RocketL1HatchAngle", m_rocketL1HatchAngle, 42.8);
+	config->GetValueAsDouble("WR_RocketL2CargoAngle", m_rocketL2CargoAngle, 170.1);
+	config->GetValueAsDouble("WR_RocketL2HatchAngle", m_rocketL2HatchAngle, 170.1);
+	config->GetValueAsDouble("WR_RocketL3CargoAngle", m_rocketL3CargoAngle, 171);
+	config->GetValueAsDouble("WR_RocketL3HatchAngle", m_rocketL3HatchAngle, 171);
+	config->GetValueAsDouble("WR_StowAngle", m_stowedAngle, 133.0);
 
      if (m_talonValidWR12) {
 		// Set the motor direction for the wrist

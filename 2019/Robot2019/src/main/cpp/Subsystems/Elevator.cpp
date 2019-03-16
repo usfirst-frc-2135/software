@@ -36,32 +36,32 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     // Get any config file settings
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("EL_CalibSpeed", m_calibrationSpeed, 0.25);
-    config->GetValueAsInt("EL_Velocity", m_velocity, 0);
-    config->GetValueAsInt("EL_Acceleration", m_acceleration, 0);
 	config->GetValueAsDouble("EL_PeakOut", m_peakOut, 1.0);
+    config->GetValueAsInt("EL_Velocity", m_velocity, 1918);
+    config->GetValueAsInt("EL_Acceleration", m_acceleration, 3836);
     config->GetValueAsInt("EL_SCurveStrength", m_sCurveStrength, 0);
     config->GetValueAsDouble("EL_PidKp", m_pidKf, 0.000);
     config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.250);
     config->GetValueAsDouble("EL_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("EL_PidKd", m_pidKd, 0.000);
-	config->GetValueAsDouble("EL_ArbFeedForward", m_arbFeedForward, 0.1);
+	config->GetValueAsDouble("EL_ArbFeedForward", m_arbFeedForward, 0.06);
     config->GetValueAsDouble("EL_CLRampRate", m_CLRampRate, 0.250);
     config->GetValueAsInt("EL_CLAllowedError", m_CLAllowedError, 0);
 	config->GetValueAsDouble("EL_ToleranceInches", m_toleranceInches, 2.0);
-    config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 35.0);
+    config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 32.0);
     config->GetValueAsDouble("EL_MinHeight", m_elevatorMinHeight, 0.0);
 	config->GetValueAsDouble("EL_LowGearHeight", m_lowGearHeight, 15.00);
 	config->GetValueAsDouble("EL_BumpHeight", m_bumpHeight, 1.0);
-	config->GetValueAsDouble("EL_GroundCargoHeight", m_groundCargoHeight, 2.0);
-	config->GetValueAsDouble("EL_GroundHatchHeight", m_groundHatchHeight, 2.0);
-	config->GetValueAsDouble("EL_ShipCargoHeight", m_shipCargoHeight, 2.0);
-	config->GetValueAsDouble("EL_ShipHatchHeight", m_shipHatchHeight, 2.0);
-	config->GetValueAsDouble("EL_RocketL1CargoHeight", m_rocketL1CargoHeight, 2.0);
-	config->GetValueAsDouble("EL_RocketL1HatchHeight", m_rocketL1HatchHeight, 2.0);
-	config->GetValueAsDouble("EL_RocketL2CargoHeight", m_rocketL2CargoHeight, 4.0);
-	config->GetValueAsDouble("EL_RocketL2HatchHeight", m_rocketL2HatchHeight, 4.0);
-	config->GetValueAsDouble("EL_RocketL3CargoHeight", m_rocketL3CargoHeight, 6.0);
-	config->GetValueAsDouble("EL_RocketL3HatchHeight", m_rocketL3HatchHeight, 6.0);
+	config->GetValueAsDouble("EL_GroundCargoHeight", m_groundCargoHeight, 0.0);
+	config->GetValueAsDouble("EL_GroundHatchHeight", m_groundHatchHeight, 0.0);
+	config->GetValueAsDouble("EL_ShipCargoHeight", m_shipCargoHeight, 3.0);
+	config->GetValueAsDouble("EL_ShipHatchHeight", m_shipHatchHeight, 3.0);
+	config->GetValueAsDouble("EL_RocketL1CargoHeight", m_rocketL1CargoHeight, 6.5);
+	config->GetValueAsDouble("EL_RocketL1HatchHeight", m_rocketL1HatchHeight, 3.0);
+	config->GetValueAsDouble("EL_RocketL2CargoHeight", m_rocketL2CargoHeight, 0.0);
+	config->GetValueAsDouble("EL_RocketL2HatchHeight", m_rocketL2HatchHeight, 11.0);
+	config->GetValueAsDouble("EL_RocketL3CargoHeight", m_rocketL3CargoHeight, 10.5);
+	config->GetValueAsDouble("EL_RocketL3HatchHeight", m_rocketL3HatchHeight, 10.5);
 
 	// Initialize Talon SRX motor controller direction and encoder sensor slot
     // Set the control mode and target to disable any movement
