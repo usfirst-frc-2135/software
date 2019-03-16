@@ -2,13 +2,22 @@
   RB_Name = 2135-Nebula
 # DriveTrain settings
   DT_DriveXScaling = 0.6
-  DT_DriveSpin = 0.45
-  DT_PidTurnKp = 0.030
-  DT_SeparateJoysticks = false
 # Competition mode
 # DT_DriveYScaling = 1.00
 # Training mode
   DT_DriveYScaling =  0.85
+  DT_DriveSpin = 0.45
+  DT_PidTurnKp = 0.030
+  DT_VisionTurnKp = 0.0
+  DT_SeparateJoysticks = false
+  DT_PeakOut = 1.0
+  DT_Velocity = 1918
+  DT_Acceleration = 3836
+  DT_SCurveStrength = 0
+  DT_PidKf = 0.000
+  DT_PidKp = 0.250
+  DT_PidKi = 0.000
+  DT_PidKd = 0.000
 # Elevator settings
   EL_CalibSpeed = 0.25
   EL_PeakOut = 1.0
@@ -19,14 +28,14 @@
   EL_PidKp = 0.250
   EL_PidKi = 0.000
   EL_PidKd = 0.000
+  EL_ArbFeedForward = 0.06
   EL_CLRampRate = 0.250
   EL_CLAllowedError = 0
-  EL_ArbFeedForward = 0.06
   EL_ToleranceInches = 2.0
   EL_MaxHeight = 32.0
   EL_MinHeight = 0.0
   EL_LowGearHeight = 15.00
-  EL_BumpHeight = 2.0		
+  EL_BumpHeight = 1.0		
   EL_GroundCargoHeight = 0.0
   EL_GroundHatchHeight = 0.0
   EL_ShipCargoHeight = 3.0
@@ -74,6 +83,8 @@
   WR_PidKd = 0.000
   WR_ArbFeedForward = 0.09
   WR_ToleranceDegrees = 5.0
+  WR_MaxCounts = 0
+  WR_MinCounts = -3000
   WR_CalibAngle = 28.87
   WR_BumpAngle = 5.0
   WR_GroundCargoAngle = 81.0
@@ -88,8 +99,8 @@
   WR_RocketL3HatchAngle = 171.0
   WR_StowAngle = 133.0
 # Intake settings
-  IN_AcquireSpeed = 0.30
+  IN_AcquireSpeed = 0.35
   IN_HoldSpeed = 0.25
   IN_ExpelSpeed = -0.75
 # Lifter settings
-  LF_DriveSpeed = 0.5
+  LF_DriveSpeed = 0.75
