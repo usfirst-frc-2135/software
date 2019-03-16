@@ -45,7 +45,7 @@ Intake::Intake() : frc::Subsystem("Intake") {
     // Initialize Variables 
     // TODO: determine speeds (defaults are random)
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("IN_AcquireSpeed", m_acquireSpeed, 0.50); 
+    config->GetValueAsDouble("IN_AcquireSpeed", m_acquireSpeed, 0.35); 
     config->GetValueAsDouble("IN_HoldSpeed", m_holdSpeed, 0.25);
     config->GetValueAsDouble("IN_ExpelSpeed", m_expelSpeed, -0.75);
 

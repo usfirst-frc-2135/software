@@ -55,7 +55,7 @@ Lifter::Lifter() : frc::Subsystem("Lifter") {
 
     // Retrieve lifter modified parameters from RobotConfig
      frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
-     config->GetValueAsDouble("LF_DriveSpeed", m_driveSpeed, 0.5);
+     config->GetValueAsDouble("LF_DriveSpeed", m_driveSpeed, 0.75);
 
     // Set motor direction
     // Turn on Brake mode
