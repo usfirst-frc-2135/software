@@ -260,6 +260,8 @@ void Elbow::MoveToPositionInit(int level) {
 	case STOW_ANGLE: 
 		m_targetDegrees = m_stowedAngle; 
 		break;
+	case LOADING_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_loadingCargoAngle : m_loadingHatchAngle;
 	default:
 		std::printf("2135: EB invalid angle requested - %d\n", level);
 		return;

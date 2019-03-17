@@ -263,6 +263,9 @@ void Wrist::MoveToPositionInit(int level) {
 	case STOW_ANGLE: 
 		m_targetDegrees = m_stowedAngle;
 		break;
+	case LOADING_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_loadingCargoAngle : m_loadingHatchAngle;
+		break;
 	default:
 		std::printf("2135: WR invalid angle requested - %d\n", level);
 		return;

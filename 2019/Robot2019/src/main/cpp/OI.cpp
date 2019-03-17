@@ -130,6 +130,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("WR Run: SMARTDASH_ANGLE", new WRRun(5));
     frc::SmartDashboard::PutData("WR Run: BUMP_ANGLE", new WRRun(6));
     frc::SmartDashboard::PutData("WR Run: STOW_ANGLE", new WRRun(7));
+    frc::SmartDashboard::PutData("WR Run: LOADING_ANGLE", new WRRun(8));
     frc::SmartDashboard::PutData("EB Calibrate", new EBCalibrate());
     frc::SmartDashboard::PutData("EB Bump: UP", new EBBump(true));
     frc::SmartDashboard::PutData("EB Bump: DOWN", new EBBump(false));
@@ -142,6 +143,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("EB Run: SMARTDASH_ANGLE", new EBRun(5));
     frc::SmartDashboard::PutData("EB Run: BUMP_ANGLE", new EBRun(6));
     frc::SmartDashboard::PutData("EB Run: STOW_ANGLE", new EBRun(7));
+    frc::SmartDashboard::PutData("EB Run: LOADING_ANGLE", new EBRun(8));
     frc::SmartDashboard::PutData("EL Calibrate", new ELCalibrate());
     frc::SmartDashboard::PutData("EL Bump: UP", new ELBump(true));
     frc::SmartDashboard::PutData("EL Bump: DOWN", new ELBump(false));
@@ -153,6 +155,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("EL Run: ROCKET_L3_HEIGHT", new ELRun(4));
     frc::SmartDashboard::PutData("EL Run: SMARTDASH_HEIGHT", new ELRun(5));
     frc::SmartDashboard::PutData("EL Run: BUMP_HEIGHT", new ELRun(6));
+    frc::SmartDashboard::PutData("EL Run: LOADING_HEIGHT", new ELRun(8));
     frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
     frc::SmartDashboard::PutData("Auto Pos 3 Level 2 Ship", new AutoPos3Level2Ship());
     frc::SmartDashboard::PutData("Auto Pos 1 Level 2 Ship", new AutoPos1Level2Ship());

@@ -115,7 +115,9 @@ enum {								// Elevator subsystem movement states
 		ROCKET_L2_HEIGHT = 3, 		//	Move to rocket level 2 height
 		ROCKET_L3_HEIGHT = 4,		//	Move to rocket level 3 height
 		SMARTDASH_HEIGHT = 5,		//	Move to a height prescribed on dashboard (debug only)
-		BUMP_HEIGHT = 6				//	Move by bumping height up or down
+		BUMP_HEIGHT = 6,				//	Move by bumping height up or down
+
+		LOADING_HEIGHT = 8			// Move to loading station height
 	};
 
 	void Initialize(void);

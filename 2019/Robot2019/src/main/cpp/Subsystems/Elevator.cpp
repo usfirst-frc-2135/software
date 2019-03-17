@@ -308,6 +308,9 @@ void Elevator::MoveToPositionInit(int level) {
 		bumpHeight = (m_bumpDir) ? m_bumpHeight : -m_bumpHeight;
 		m_targetInches += bumpHeight;
 		break;
+	case LOADING_HEIGHT:
+		m_targetInches = (m_isCargo) ? m_loadingCargoHeight : m_loadingHatchHeight;
+		break;
 	default:
 		std::printf("2135: EL invalid height requested - %d\n", level);
 		return;
