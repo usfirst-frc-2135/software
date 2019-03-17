@@ -38,7 +38,7 @@
 #include "Commands/LFBackDeploy.h"
 #include "Commands/LFFrontDeploy.h"
 #include "Commands/LFMotorRun.h"
-#include "Commands/MoveCargoShipCargo.h"
+#include "Commands/MoveCargoShip.h"
 #include "Commands/MoveGround.h"
 #include "Commands/MoveLoadingStation.h"
 #include "Commands/MoveRocketLevel1.h"
@@ -61,7 +61,7 @@ OI::OI() {
     stow.reset(new frc::JoystickButton(controlBoard.get(), 16));
     stow->WhenPressed(new MoveStow());
     cargoShip.reset(new frc::JoystickButton(controlBoard.get(), 15));
-    cargoShip->WhenPressed(new MoveCargoShipCargo());
+    cargoShip->WhenPressed(new MoveCargoShip());
     rocket2.reset(new frc::JoystickButton(controlBoard.get(), 13));
     rocket2->WhenPressed(new MoveRocketLevel2());
     rocket1.reset(new frc::JoystickButton(controlBoard.get(), 14));
@@ -110,13 +110,13 @@ OI::OI() {
     shiftSpeed->WhileHeld(new DriveShift(false));
 
     // SmartDashboard Buttons
-    frc::SmartDashboard::PutData("Move Cargo Ship Cargo", new MoveCargoShipCargo());
     frc::SmartDashboard::PutData("Move Ground", new MoveGround());
     frc::SmartDashboard::PutData("Move Stow", new MoveStow());
     frc::SmartDashboard::PutData("Move SmartDash", new MoveSmartDash());
     frc::SmartDashboard::PutData("Move Rocket Level 3", new MoveRocketLevel3());
     frc::SmartDashboard::PutData("Move Rocket Level 2", new MoveRocketLevel2());
     frc::SmartDashboard::PutData("Move Rocket Level 1", new MoveRocketLevel1());
+    frc::SmartDashboard::PutData("Move Cargo Ship", new MoveCargoShip());
     frc::SmartDashboard::PutData("Move Loading Station", new MoveLoadingStation());
     frc::SmartDashboard::PutData("WR Calibrate", new WRCalibrate());
     frc::SmartDashboard::PutData("WR Bump: UP", new WRBump(true));
