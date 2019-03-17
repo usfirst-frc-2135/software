@@ -38,9 +38,9 @@
   EL_BumpHeight = 1.0		
   EL_GroundCargoHeight = 0.0
   EL_GroundHatchHeight = 0.0
-  EL_LoadingCargoHeight = 3.0
-  EL_LoadingHatchHeight = 3.0
-  EL_ShipCargoHeight = 3.0
+  EL_LoadingCargoHeight = 7.5
+  EL_LoadingHatchHeight = 5.0
+  EL_ShipCargoHeight = 10.5
   EL_ShipHatchHeight = 3.0
   EL_RocketL1CargoHeight = 6.5
   EL_RocketL1HatchHeight = 3.0
@@ -65,9 +65,9 @@
   EB_BumpAngle = 5.0
   EB_GroundCargoAngle = 108.3
   EB_GroundHatchAngle = 108.3
-  EB_LoadingCargoAngle = 108.3
+  EB_LoadingCargoAngle = 30.5
   EB_LoadingHatchAngle = 108.3
-  EB_ShipCargoAngle = 108.3
+  EB_ShipCargoAngle = 9.91
   EB_ShipHatchAngle = 108.3
   EB_RocketL1CargoAngle = 108.3
   EB_RocketL1HatchAngle = 108.3
@@ -93,12 +93,12 @@
   WR_BumpAngle = 5.0
   WR_GroundCargoAngle = 81.0
   WR_GroundHatchAngle = 134.0
-  WR_LoadingCargoAngle = 42.8
-  WR_LoadingHatchAngle = 42.8
-  WR_ShipCargoAngle = 42.8
+  WR_LoadingCargoAngle = 97.5
+  WR_LoadingHatchAngle = 66.0
+  WR_ShipCargoAngle = 171.0
   WR_ShipHatchAngle = 42.8
-  WR_RocketL1CargoAngle = 42.8
-  WR_RocketL1HatchAngle = 42.8
+  WR_RocketL1CargoAngle = 51.76
+  WR_RocketL1HatchAngle = 56.0
   WR_RocketL2CargoAngle = 170.09
   WR_RocketL2HatchAngle = 170.09
   WR_RocketL3CargoAngle = 171.0
@@ -113,5 +113,3 @@
 # Autonomous settings
   AutoDriveDist = 97.25
   AutoDriveTurn = 90.0
-
-  
