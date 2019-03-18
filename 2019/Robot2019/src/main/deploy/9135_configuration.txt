@@ -39,8 +39,8 @@
   EL_GroundCargoHeight = 0.0
   EL_GroundHatchHeight = 0.0
   EL_LoadingCargoHeight = 7.5
-  EL_ShipCargoHeight = 10.5
   EL_LoadingHatchHeight = 5.5
+  EL_ShipCargoHeight = 12.32
   EL_ShipHatchHeight = 3.0
   EL_RocketL1CargoHeight = 6.5
   EL_RocketL1HatchHeight = 3.0
@@ -67,7 +67,7 @@
   EB_GroundHatchAngle = 108.3
   EB_LoadingCargoAngle = 30.5
   EB_LoadingHatchAngle = 108.3
-  EB_ShipCargoAngle = 9.91
+  EB_ShipCargoAngle = 20.0
   EB_ShipHatchAngle = 108.3
   EB_RocketL1CargoAngle = 108.3
   EB_RocketL1HatchAngle = 108.3
@@ -95,7 +95,7 @@
   WR_GroundHatchAngle = 134.0
   WR_LoadingCargoAngle = 97.5
   WR_LoadingHatchAngle = 66.0
-  WR_ShipCargoAngle = 171.0
+  WR_ShipCargoAngle = 164.0
   WR_ShipHatchAngle = 42.8
   WR_RocketL1CargoAngle = 51.76
   WR_RocketL1HatchAngle = 56.0
