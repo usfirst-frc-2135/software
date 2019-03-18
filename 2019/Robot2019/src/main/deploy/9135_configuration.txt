@@ -75,7 +75,7 @@
   EB_RocketL2HatchAngle = 9.91
   EB_RocketL3CargoAngle = 9.91
   EB_RocketL3HatchAngle = 9.91
-  EB_StowAngle = 20.0
+  EB_StowAngle = 30.0
 # Wrist settings
   WR_PeakOut = 0.8
   WR_Velocity = 120
