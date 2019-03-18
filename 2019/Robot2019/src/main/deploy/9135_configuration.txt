@@ -2,6 +2,10 @@
   RB_Name = 9135-Bebula
 # DriveTrain settings
   DT_DriveXScaling = 0.6
+# Competition mode
+# DT_DriveYScaling = 1.00
+# Training mode
+  DT_DriveYScaling =  0.85
   DT_DriveSpin = 0.45
   DT_PidTurnKp = 0.030
   DT_VisionTurnKp = 0.0
@@ -14,10 +18,6 @@
   DT_PidKp = 0.250
   DT_PidKi = 0.000
   DT_PidKd = 0.000
-# Competition mode
-# DT_DriveYScaling = 1.00
-# Training mode
-  DT_DriveYScaling =  0.85
 # Elevator settings
   EL_CalibSpeed = 0.25
   EL_PeakOut = 1.0
@@ -113,3 +113,4 @@
 # Autonomous settings
   AutoDriveDist = 97.25
   AutoDriveTurn = 90.0
+  
