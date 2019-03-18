@@ -39,8 +39,8 @@
   EL_GroundCargoHeight = 0.0
   EL_GroundHatchHeight = 0.0
   EL_LoadingCargoHeight = 7.5
-  EL_LoadingHatchHeight = 5.0
   EL_ShipCargoHeight = 10.5
+  EL_LoadingHatchHeight = 5.5
   EL_ShipHatchHeight = 3.0
   EL_RocketL1CargoHeight = 6.5
   EL_RocketL1HatchHeight = 3.0
