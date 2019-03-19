@@ -18,6 +18,7 @@
   DT_PidKp = 0.250
   DT_PidKi = 0.000
   DT_PidKd = 0.000
+  DT_ArbFeedForward = 0.000
 # Elevator settings
   EL_CalibSpeed = 0.25
   EL_PeakOut = 1.0
@@ -50,14 +51,14 @@
   EL_RocketL3HatchHeight = 10.5	
 # Elbow settings
   EB_PeakOut = 0.8
-  EB_Velocity = 125
+  EB_Velocity = 78
   EB_Acceleration = 499
   EB_SCurveStrength = 0
-  EB_PidKf = 0.000
-  EB_PidKp = 2.250
+  EB_PidKf = 3.28
+  EB_PidKp = 0.900
   EB_PidKi = 0.000
   EB_PidKd = 0.000
-  EB_ArbFeedForward = 0.25
+  EB_ArbFeedForward = 0.21
   EB_ToleranceDegrees = 5.0
   EB_MaxCounts = 0
   EB_MinCounts = -1800
