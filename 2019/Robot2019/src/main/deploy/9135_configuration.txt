@@ -43,12 +43,12 @@
   EL_LoadingHatchHeight = 5.5
   EL_ShipCargoHeight = 12.32
   EL_ShipHatchHeight = 3.0
-  EL_RocketL1CargoHeight = 6.5
-  EL_RocketL1HatchHeight = 3.0
-  EL_RocketL2CargoHeight = 0.0
-  EL_RocketL2HatchHeight = 11.00
-  EL_RocketL3CargoHeight = 10.5
-  EL_RocketL3HatchHeight = 10.5	
+  EL_RocketL1CargoHeight = 8.5
+  EL_RocketL1HatchHeight = 5.0
+  EL_RocketL2CargoHeight = 18.06
+  EL_RocketL2HatchHeight = 12.88
+  EL_RocketL3CargoHeight = 32.0
+  EL_RocketL3HatchHeight = 27.8	
 # Elbow settings
   EB_PeakOut = 0.8
   EB_Velocity = 78
@@ -100,10 +100,10 @@
   WR_ShipHatchAngle = 42.8
   WR_RocketL1CargoAngle = 51.76
   WR_RocketL1HatchAngle = 56.0
-  WR_RocketL2CargoAngle = 170.09
-  WR_RocketL2HatchAngle = 170.09
-  WR_RocketL3CargoAngle = 171.0
-  WR_RocketL3HatchAngle = 171.0
+  WR_RocketL2CargoAngle = 150.0
+  WR_RocketL2HatchAngle = 150.0
+  WR_RocketL3CargoAngle = 150.0
+  WR_RocketL3HatchAngle = 150.0
   WR_StowAngle = 133.0
 # Intake settings
   IN_AcquireSpeed = 0.35
