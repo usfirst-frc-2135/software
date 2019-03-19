@@ -37,7 +37,7 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
     config->GetValueAsInt("EB_Velocity", m_velocity, 249);
     config->GetValueAsInt("EB_Acceleration", m_acceleration, 499);
     config->GetValueAsInt("EB_SCurveStrength", m_sCurveStrength, 0);
-    config->GetValueAsDouble("EB_PidKp", m_pidKf, 0.000);
+    config->GetValueAsDouble("EB_PidKf", m_pidKf, 0.000);
     config->GetValueAsDouble("EB_PidKp", m_pidKp, 2.250);
     config->GetValueAsDouble("EB_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("EB_PidKd", m_pidKd, 0.000);

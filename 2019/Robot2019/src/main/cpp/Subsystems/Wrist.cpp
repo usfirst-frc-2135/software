@@ -38,7 +38,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsInt("WR_Velocity", m_velocity, 240);
     config->GetValueAsInt("WR_Acceleration", m_acceleration, 240);
     config->GetValueAsInt("WR_SCurveStrength", m_sCurveStrength, 0);
-    config->GetValueAsDouble("WR_PidKp", m_pidKf, 0.000);
+    config->GetValueAsDouble("WR_PidKf", m_pidKf, 0.000);
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 2.250);
     config->GetValueAsDouble("WR_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("WR_PidKd", m_pidKd, 0.000);
