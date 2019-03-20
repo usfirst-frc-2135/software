@@ -47,7 +47,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	config->GetValueAsDouble("EL_ArbFeedForward", m_arbFeedForward, 0.06);
     config->GetValueAsDouble("EL_CLRampRate", m_CLRampRate, 0.250);
     config->GetValueAsInt("EL_CLAllowedError", m_CLAllowedError, 0);
-	config->GetValueAsDouble("EL_ToleranceInches", m_toleranceInches, 2.0);
+	config->GetValueAsDouble("EL_ToleranceInches", m_toleranceInches, 0.5);
     config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 32.0);
     config->GetValueAsDouble("EL_MinHeight", m_elevatorMinHeight, 0.0);
 	config->GetValueAsDouble("EL_LowGearHeight", m_lowGearHeight, 15.00);
@@ -367,9 +367,8 @@ bool Elevator::MoveToPositionIsFinished() {
     int 	curCounts = 0;
     double 	errorInInches = 0.0;
 
+	// If a real move was requested, check for completion
 	if (m_elevatorLevel != NOCHANGE_HEIGHT) {
-		m_toleranceInches = 0.5;             // tolerance
-
 		if (m_talonValidEL7) {
 			curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
 		}
