@@ -305,7 +305,9 @@ void Wrist::MoveToPositionInit(int angle) {
 
 		std::printf("2135: WR Move degrees %f -> %f counts %d -> %d\n",
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
-		m_isMoving = true;
+		
+		if (angle != NOCHANGE_ANGLE)
+			m_isMoving = true;
 	}
 	else {
 		std::printf("2135: Wrist is not calibrated\n");

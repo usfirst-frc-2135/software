@@ -348,7 +348,9 @@ void Elevator::MoveToPositionInit(int level) {
 
 		std::printf("2135: EL Move inches %f -> %f counts %d -> %d\n",
 			m_curInches, m_targetInches, curCounts, m_targetCounts);
-		m_isMoving = true;
+			
+		if (level != NOCHANGE_HEIGHT)
+			m_isMoving = true;
 	}
 	else {
 		std::printf("2135: EL is not calibrated\n");

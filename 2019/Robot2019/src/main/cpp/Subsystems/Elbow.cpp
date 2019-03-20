@@ -302,7 +302,9 @@ void Elbow::MoveToPositionInit(int angle) {
 
 		std::printf("2135: EB Move degrees %5.2f -> %5.2f counts %d -> %d\n",
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
-		m_isMoving = true;	
+
+		if (angle != NOCHANGE_ANGLE)
+			m_isMoving = true;	
 	}
 	else {
 		std::printf("2135: Elbow is not calibrated\n");
