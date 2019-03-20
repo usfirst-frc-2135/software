@@ -74,6 +74,8 @@ private:
 
 	double			m_groundCargoAngle;				// Setpoint for floor level (tilted for cargo pickup)
 	double			m_groundHatchAngle;				// Setpoint for floor level (full down for hatch pickup)
+	double			m_loadingCargoAngle;			// Setpoint to acquire cargo from the loading station
+	double			m_loadingHatchAngle;			// Setpoint to acquire hatch panels from the loading station
 	double			m_shipCargoAngle;				// Setpoint to deliver cargo in cargo ship
 	double			m_shipHatchAngle;				// Setpoint to deliver hatches to rocket at first level
 	double			m_rocketL1CargoAngle;			// Setpoint for delivery of cargo to rocket at first level
@@ -101,7 +103,8 @@ public:
 		ROCKET_L3_ANGLE = 4,				// Move to rocket level 3 angle
 		SMARTDASH_ANGLE = 5,				// Move to an angle read from dashboard
 		BUMP_ANGLE = 6,						// Move by bumping angle up or down
-		STOW_ANGLE = 7
+		STOW_ANGLE = 7,						// Move to a stowed position
+		LOADING_ANGLE = 8					// Move to loading station angle
 	};
 
 	void Initialize(void);

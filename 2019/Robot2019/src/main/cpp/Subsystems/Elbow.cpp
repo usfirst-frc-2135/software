@@ -37,7 +37,7 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
     config->GetValueAsInt("EB_Velocity", m_velocity, 249);
     config->GetValueAsInt("EB_Acceleration", m_acceleration, 499);
     config->GetValueAsInt("EB_SCurveStrength", m_sCurveStrength, 0);
-    config->GetValueAsDouble("EB_PidKp", m_pidKf, 0.000);
+    config->GetValueAsDouble("EB_PidKf", m_pidKf, 0.000);
     config->GetValueAsDouble("EB_PidKp", m_pidKp, 2.250);
     config->GetValueAsDouble("EB_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("EB_PidKd", m_pidKd, 0.000);
@@ -49,6 +49,8 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 	config->GetValueAsDouble("EB_BumpAngle", m_bumpAngle, 5.0);
 	config->GetValueAsDouble("EB_GroundCargoAngle", m_groundCargoAngle, 108.3);
 	config->GetValueAsDouble("EB_GroundHatchAngle", m_groundHatchAngle, 108.3);
+	config->GetValueAsDouble("EB_LoadingCargoAngle", m_loadingCargoAngle, 108.3);
+	config->GetValueAsDouble("EB_LoadingHatchAngle", m_loadingHatchAngle, 108.3);
 	config->GetValueAsDouble("EB_ShipCargoAngle", m_shipCargoAngle, 108.3);
 	config->GetValueAsDouble("EB_ShipHatchAngle", m_shipHatchAngle, 108.3);
 	config->GetValueAsDouble("EB_RocketL1CargoAngle", m_rocketL1CargoAngle, 108.3);
@@ -258,6 +260,8 @@ void Elbow::MoveToPositionInit(int level) {
 	case STOW_ANGLE: 
 		m_targetDegrees = m_stowedAngle; 
 		break;
+	case LOADING_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_loadingCargoAngle : m_loadingHatchAngle;
 	default:
 		std::printf("2135: EB invalid angle requested - %d\n", level);
 		return;

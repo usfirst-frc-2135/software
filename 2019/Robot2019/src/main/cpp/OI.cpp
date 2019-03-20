@@ -38,7 +38,7 @@
 #include "Commands/LFBackDeploy.h"
 #include "Commands/LFFrontDeploy.h"
 #include "Commands/LFMotorRun.h"
-#include "Commands/MoveCargoShipCargo.h"
+#include "Commands/MoveCargoShip.h"
 #include "Commands/MoveGround.h"
 #include "Commands/MoveLoadingStation.h"
 #include "Commands/MoveRocketLevel1.h"
@@ -61,7 +61,7 @@ OI::OI() {
     stow.reset(new frc::JoystickButton(controlBoard.get(), 16));
     stow->WhenPressed(new MoveStow());
     cargoShip.reset(new frc::JoystickButton(controlBoard.get(), 15));
-    cargoShip->WhenPressed(new MoveCargoShipCargo());
+    cargoShip->WhenPressed(new MoveCargoShip());
     rocket2.reset(new frc::JoystickButton(controlBoard.get(), 13));
     rocket2->WhenPressed(new MoveRocketLevel2());
     rocket1.reset(new frc::JoystickButton(controlBoard.get(), 14));
@@ -110,13 +110,13 @@ OI::OI() {
     shiftSpeed->WhileHeld(new DriveShift(false));
 
     // SmartDashboard Buttons
-    frc::SmartDashboard::PutData("Move Cargo Ship Cargo", new MoveCargoShipCargo());
     frc::SmartDashboard::PutData("Move Ground", new MoveGround());
     frc::SmartDashboard::PutData("Move Stow", new MoveStow());
     frc::SmartDashboard::PutData("Move SmartDash", new MoveSmartDash());
     frc::SmartDashboard::PutData("Move Rocket Level 3", new MoveRocketLevel3());
     frc::SmartDashboard::PutData("Move Rocket Level 2", new MoveRocketLevel2());
     frc::SmartDashboard::PutData("Move Rocket Level 1", new MoveRocketLevel1());
+    frc::SmartDashboard::PutData("Move Cargo Ship", new MoveCargoShip());
     frc::SmartDashboard::PutData("Move Loading Station", new MoveLoadingStation());
     frc::SmartDashboard::PutData("WR Calibrate", new WRCalibrate());
     frc::SmartDashboard::PutData("WR Bump: UP", new WRBump(true));
@@ -130,6 +130,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("WR Run: SMARTDASH_ANGLE", new WRRun(5));
     frc::SmartDashboard::PutData("WR Run: BUMP_ANGLE", new WRRun(6));
     frc::SmartDashboard::PutData("WR Run: STOW_ANGLE", new WRRun(7));
+    frc::SmartDashboard::PutData("WR Run: LOADING_ANGLE", new WRRun(8));
     frc::SmartDashboard::PutData("EB Calibrate", new EBCalibrate());
     frc::SmartDashboard::PutData("EB Bump: UP", new EBBump(true));
     frc::SmartDashboard::PutData("EB Bump: DOWN", new EBBump(false));
@@ -142,6 +143,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("EB Run: SMARTDASH_ANGLE", new EBRun(5));
     frc::SmartDashboard::PutData("EB Run: BUMP_ANGLE", new EBRun(6));
     frc::SmartDashboard::PutData("EB Run: STOW_ANGLE", new EBRun(7));
+    frc::SmartDashboard::PutData("EB Run: LOADING_ANGLE", new EBRun(8));
     frc::SmartDashboard::PutData("EL Calibrate", new ELCalibrate());
     frc::SmartDashboard::PutData("EL Bump: UP", new ELBump(true));
     frc::SmartDashboard::PutData("EL Bump: DOWN", new ELBump(false));
@@ -153,6 +155,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("EL Run: ROCKET_L3_HEIGHT", new ELRun(4));
     frc::SmartDashboard::PutData("EL Run: SMARTDASH_HEIGHT", new ELRun(5));
     frc::SmartDashboard::PutData("EL Run: BUMP_HEIGHT", new ELRun(6));
+    frc::SmartDashboard::PutData("EL Run: LOADING_HEIGHT", new ELRun(8));
     frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
     frc::SmartDashboard::PutData("Auto Pos 3 Level 2 Ship", new AutoPos3Level2Ship());
     frc::SmartDashboard::PutData("Auto Pos 1 Level 2 Ship", new AutoPos1Level2Ship());

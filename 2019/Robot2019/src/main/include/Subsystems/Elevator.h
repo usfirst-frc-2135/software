@@ -86,6 +86,8 @@ private:
 	double			m_bumpHeight;					// Incremental height when bumping the elevator up/down
 	double			m_groundCargoHeight;			// Setpoint for floor level for cargo (full down)
 	double 			m_groundHatchHeight; 			// Set point for floor level for hatch
+	double			m_loadingCargoHeight;			// Setpoint to acquire cargo from the loading station
+	double			m_loadingHatchHeight;			// Setpoint to acquire hatch panels from the loading station
 	double			m_shipCargoHeight;				// Setpoint to deliver cargo in cargo ship
 	double			m_shipHatchHeight;				// Setpoint to deliver hatches to rocket at first level
 	double			m_rocketL1CargoHeight;			// Setpoint for delivery of cargo to rocket at first level
@@ -113,7 +115,9 @@ enum {								// Elevator subsystem movement states
 		ROCKET_L2_HEIGHT = 3, 		//	Move to rocket level 2 height
 		ROCKET_L3_HEIGHT = 4,		//	Move to rocket level 3 height
 		SMARTDASH_HEIGHT = 5,		//	Move to a height prescribed on dashboard (debug only)
-		BUMP_HEIGHT = 6				//	Move by bumping height up or down
+		BUMP_HEIGHT = 6,				//	Move by bumping height up or down
+
+		LOADING_HEIGHT = 8			// Move to loading station height
 	};
 
 	void Initialize(void);

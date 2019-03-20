@@ -40,7 +40,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     config->GetValueAsInt("EL_Velocity", m_velocity, 1918);
     config->GetValueAsInt("EL_Acceleration", m_acceleration, 3836);
     config->GetValueAsInt("EL_SCurveStrength", m_sCurveStrength, 0);
-    config->GetValueAsDouble("EL_PidKp", m_pidKf, 0.000);
+    config->GetValueAsDouble("EL_PidKf", m_pidKf, 0.000);
     config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.250);
     config->GetValueAsDouble("EL_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("EL_PidKd", m_pidKd, 0.000);
@@ -54,6 +54,8 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	config->GetValueAsDouble("EL_BumpHeight", m_bumpHeight, 1.0);
 	config->GetValueAsDouble("EL_GroundCargoHeight", m_groundCargoHeight, 0.0);
 	config->GetValueAsDouble("EL_GroundHatchHeight", m_groundHatchHeight, 0.0);
+	config->GetValueAsDouble("EL_LoadingCargoHeight", m_loadingCargoHeight, 3.0);
+	config->GetValueAsDouble("EL_LoadingHatchHeight", m_loadingHatchHeight, 3.0);
 	config->GetValueAsDouble("EL_ShipCargoHeight", m_shipCargoHeight, 3.0);
 	config->GetValueAsDouble("EL_ShipHatchHeight", m_shipHatchHeight, 3.0);
 	config->GetValueAsDouble("EL_RocketL1CargoHeight", m_rocketL1CargoHeight, 6.5);
@@ -305,6 +307,9 @@ void Elevator::MoveToPositionInit(int level) {
 		double 	bumpHeight;
 		bumpHeight = (m_bumpDir) ? m_bumpHeight : -m_bumpHeight;
 		m_targetInches += bumpHeight;
+		break;
+	case LOADING_HEIGHT:
+		m_targetInches = (m_isCargo) ? m_loadingCargoHeight : m_loadingHatchHeight;
 		break;
 	default:
 		std::printf("2135: EL invalid height requested - %d\n", level);

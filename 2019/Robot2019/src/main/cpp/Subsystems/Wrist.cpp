@@ -38,7 +38,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsInt("WR_Velocity", m_velocity, 240);
     config->GetValueAsInt("WR_Acceleration", m_acceleration, 240);
     config->GetValueAsInt("WR_SCurveStrength", m_sCurveStrength, 0);
-    config->GetValueAsDouble("WR_PidKp", m_pidKf, 0.000);
+    config->GetValueAsDouble("WR_PidKf", m_pidKf, 0.000);
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 2.250);
     config->GetValueAsDouble("WR_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("WR_PidKd", m_pidKd, 0.000);
@@ -50,6 +50,8 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 5.0);
 	config->GetValueAsDouble("WR_GroundCargoAngle", m_groundCargoAngle, 81.0);
 	config->GetValueAsDouble("WR_GroundHatchAngle", m_groundHatchAngle, 134.0);
+	config->GetValueAsDouble("WR_LoadingCargoAngle", m_loadingCargoAngle, 42.8);
+	config->GetValueAsDouble("WR_LoadingHatchAngle", m_loadingHatchAngle, 42.8);
 	config->GetValueAsDouble("WR_ShipCargoAngle", m_shipCargoAngle, 42.8);
 	config->GetValueAsDouble("WR_ShipHatchAngle", m_shipHatchAngle, 42.8);
 	config->GetValueAsDouble("WR_RocketL1CargoAngle", m_rocketL1CargoAngle, 42.8);
@@ -260,6 +262,9 @@ void Wrist::MoveToPositionInit(int level) {
 		break;
 	case STOW_ANGLE: 
 		m_targetDegrees = m_stowedAngle;
+		break;
+	case LOADING_ANGLE:
+		m_targetDegrees = (m_isCargo) ? m_loadingCargoAngle : m_loadingHatchAngle;
 		break;
 	default:
 		std::printf("2135: WR invalid angle requested - %d\n", level);
