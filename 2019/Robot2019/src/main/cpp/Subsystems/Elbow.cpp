@@ -224,14 +224,14 @@ double Elbow::GetCurrentDegrees() {
 	return m_curDegrees;
 }
 
-void Elbow::MoveToPositionInit(int level) {
+void Elbow::MoveToPositionInit(int angle) {
 	int curCounts = 0;
 
-	m_elbowLevel = level;
+	m_elbowLevel = angle;
 
-	// Validate and set the requested level to move
-	switch (level) {
-	case NOCHANGE_ANGLE:	// Do not change from current level!
+	// Validate and set the requested angle to move
+	switch (angle) {
+	case NOCHANGE_ANGLE:	// Do not change from current angle!
 		// m_targetDegrees = m_targetDegrees;
 		break;
 	case GROUND_ANGLE:
@@ -263,7 +263,7 @@ void Elbow::MoveToPositionInit(int level) {
 	case LOADING_ANGLE:
 		m_targetDegrees = (m_isCargo) ? m_loadingCargoAngle : m_loadingHatchAngle;
 	default:
-		std::printf("2135: EB invalid angle requested - %d\n", level);
+		std::printf("2135: EB invalid angle requested - %d\n", angle);
 		return;
 	}
 

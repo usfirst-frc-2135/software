@@ -227,14 +227,14 @@ double Wrist::GetCurrentDegrees() {
 	return m_curDegrees;
 }
 
-void Wrist::MoveToPositionInit(int level) {
+void Wrist::MoveToPositionInit(int angle) {
 	int curCounts = 0;
 
-	m_wristLevel = level;
+	m_wristLevel = angle;
 
-	// Validate and set the requested level to move
-	switch (level) {
-	case NOCHANGE_ANGLE:	// Do not change from current level!
+	// Validate and set the requested angle to move
+	switch (angle) {
+	case NOCHANGE_ANGLE:	// Do not change from current angle!
 		// m_targetDegrees = m_targetDegrees;
 		break;
 	case GROUND_ANGLE:
@@ -267,7 +267,7 @@ void Wrist::MoveToPositionInit(int level) {
 		m_targetDegrees = (m_isCargo) ? m_loadingCargoAngle : m_loadingHatchAngle;
 		break;
 	default:
-		std::printf("2135: WR invalid angle requested - %d\n", level);
+		std::printf("2135: WR invalid angle requested - %d\n", angle);
 		return;
 	}
 
