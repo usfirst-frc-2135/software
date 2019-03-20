@@ -126,7 +126,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 		motorEL8->EnableVoltageCompensation(true);
 
 		// Set maximum current draw allowed
-		motorEL8->ConfigPeakCurrentLimit(10.0, m_timeout);
+		motorEL8->ConfigPeakCurrentLimit(20.0, m_timeout);
 		motorEL8->EnableCurrentLimit(false);
 	}
 
