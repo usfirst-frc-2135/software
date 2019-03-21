@@ -159,11 +159,3 @@ void Intake::SetDeliverySolenoid(bool extended) {
 
     panelDelivery->Set((m_deliveryExtended) ? panelDelivery->kForward : panelDelivery->kReverse);
 }
-
-
-
-
-
-
-
-
