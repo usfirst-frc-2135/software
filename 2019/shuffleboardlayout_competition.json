@@ -442,7 +442,7 @@
               "_title": "Drivetrain/Shifter/Value"
             }
           },
-          "6,1": {
+          "7,1": {
             "size": [
               1,
               1
@@ -526,7 +526,7 @@
               "Visuals/Orientation": "HORIZONTAL"
             }
           },
-          "8,2": {
+          "8,3": {
             "size": [
               2,
               1
@@ -536,6 +536,37 @@
               "_source0": "network_table:///LiveWindow/IN/M14",
               "_title": "IN/M14",
               "Visuals/Orientation": "HORIZONTAL"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/DT/L1/Value",
+              "_title": "DT/L1/Value"
+            }
+          },
+          "4,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/WR",
+              "_title": "WR",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/WR/W12",
+                  "_title": "W12",
+                  "Visuals/Orientation": "HORIZONTAL"
+                }
+              ]
             }
           },
           "0,2": {
@@ -690,7 +721,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "8,3": {
+          "8,1": {
             "size": [
               2,
               1
@@ -702,7 +733,7 @@
               "Visuals/Orientation": "HORIZONTAL"
             }
           },
-          "4,3": {
+          "8,2": {
             "size": [
               2,
               1
@@ -714,7 +745,7 @@
               "Visuals/Orientation": "HORIZONTAL"
             }
           },
-          "8,0": {
+          "9,0": {
             "size": [
               1,
               1
@@ -723,30 +754,6 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///LiveWindow/Pneumatics/Pcm/Enabled",
               "_title": "Pneumatics/Pcm/Enabled",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "7,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///LiveWindow/Lifter/Back/Value",
-              "_title": "LiveWindow/Lifter/Back/Value"
-            }
-          },
-          "8,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///LiveWindow/Pneumatics/Pcm/Pressure switch",
-              "_title": "LiveWindow/Pneumatics/Pcm/Pressure switch",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
@@ -1568,8 +1575,8 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/WR_Output_WR12",
-              "_title": "_Output_WR12"
+              "_source0": "network_table:///SmartDashboard/EB_Output_EB10",
+              "_title": "/SmartDashboard/EB_Output_EB10"
             }
           },
           "4,2": {
@@ -1579,8 +1586,8 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/WR_Current_WR12",
-              "_title": "_Current_WR12"
+              "_source0": "network_table:///SmartDashboard/EB_Current_EB10",
+              "_title": "/SmartDashboard/EB_Current_EB10"
             }
           }
         }
@@ -1834,19 +1841,6 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
-          },
-          "6,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/CMP_GPShift",
-              "_title": "SmartDashboard/CMP_GPShift",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
           }
         }
       }
@@ -1861,10 +1855,10 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "3,0": {
+          "0,0": {
             "size": [
-              28,
-              13
+              23,
+              15
             ],
             "content": {
               "_type": "Camera Stream",
@@ -1879,6 +1873,19 @@
               "imageWidth": -1,
               "imageHeight": -1
             }
+          },
+          "23,0": {
+            "size": [
+              7,
+              8
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/CMP_GPShift",
+              "_title": "SmartDashboard/CMP_GPShift",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
           }
         }
       }
@@ -1888,6 +1895,6 @@
     "x": -7.0,
     "y": 0.0,
     "width": 1381.0,
-    "height": 663.0
+    "height": 730.0
   }
 }
