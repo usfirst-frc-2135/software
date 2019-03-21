@@ -33,6 +33,7 @@ void GPShift::Initialize() {
     Robot::elbow->SetGamePiece(m_cargoActive);
     Robot::wrist->SetGamePiece(m_cargoActive);
     printf("2135: Game Piece - %s\n", (m_cargoActive) ? "CARGO" : "HATCH PANEL");
+    // Show RED for cargo active and GREEN for hatch active
     frc::SmartDashboard::PutBoolean("CMP_GPShift", !m_cargoActive);
 
     // If the last setting was true (cargo), then it will flip to false (hatch panel)
