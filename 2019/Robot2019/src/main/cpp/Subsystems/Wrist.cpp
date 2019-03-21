@@ -186,6 +186,7 @@ void Wrist::Initialize(void) {
 
 	m_targetDegrees = CountsToDegrees(curCounts);
 	m_isCargo = false;
+	m_isMoving = false;
 }
 
 void Wrist::FaultDump(void) {

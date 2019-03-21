@@ -184,6 +184,7 @@ void Elbow::Initialize(void) {
 
 	m_targetDegrees = CountsToDegrees(curCounts);
 	m_isCargo = false;
+	m_isMoving = false;
 }
 
 void Elbow::FaultDump(void) {

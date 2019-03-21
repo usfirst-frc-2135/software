@@ -218,6 +218,7 @@ void Elevator:: Initialize(void) {
 
     m_targetInches = CountsToInches(curCounts);
 	m_isCargo = false;
+	m_isMoving = false;
 	std::printf("2135: EL Init Target Inches: %5.2f\n", m_targetInches);
 }
 
