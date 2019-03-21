@@ -37,22 +37,22 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
     config->GetValueAsInt("EB_Velocity", m_velocity, 249);
     config->GetValueAsInt("EB_Acceleration", m_acceleration, 499);
     config->GetValueAsInt("EB_SCurveStrength", m_sCurveStrength, 0);
-    config->GetValueAsDouble("EB_PidKf", m_pidKf, 0.000);
-    config->GetValueAsDouble("EB_PidKp", m_pidKp, 2.250);
+    config->GetValueAsDouble("EB_PidKf", m_pidKf, 3.283);
+    config->GetValueAsDouble("EB_PidKp", m_pidKp, 2.616);
     config->GetValueAsDouble("EB_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("EB_PidKd", m_pidKd, 0.000);
-	config->GetValueAsDouble("EB_ArbFeedForward", m_arbFeedForward, 0.25);
+	config->GetValueAsDouble("EB_ArbFeedForward", m_arbFeedForward, 0.21);
 	config->GetValueAsDouble("EB_NeutralDeadband", m_neutralDeadband, 0.004);
 	config->GetValueAsDouble("EB_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("EB_MaxCounts", m_elbowMaxCounts, 0);
-    config->GetValueAsInt("EB_MinCounts", m_elbowMinCounts, -1800);
+    config->GetValueAsInt("EB_MinCounts", m_elbowMinCounts, -2200);
 	config->GetValueAsDouble("EB_CalibAngle", m_calibAngle, 108.3);
 	config->GetValueAsDouble("EB_BumpAngle", m_bumpAngle, 5.0);
 	config->GetValueAsDouble("EB_GroundCargoAngle", m_groundCargoAngle, 108.3);
 	config->GetValueAsDouble("EB_GroundHatchAngle", m_groundHatchAngle, 108.3);
-	config->GetValueAsDouble("EB_LoadingCargoAngle", m_loadingCargoAngle, 108.3);
+	config->GetValueAsDouble("EB_LoadingCargoAngle", m_loadingCargoAngle, 30.5);
 	config->GetValueAsDouble("EB_LoadingHatchAngle", m_loadingHatchAngle, 108.3);
-	config->GetValueAsDouble("EB_ShipCargoAngle", m_shipCargoAngle, 108.3);
+	config->GetValueAsDouble("EB_ShipCargoAngle", m_shipCargoAngle, 20.0);
 	config->GetValueAsDouble("EB_ShipHatchAngle", m_shipHatchAngle, 108.3);
 	config->GetValueAsDouble("EB_RocketL1CargoAngle", m_rocketL1CargoAngle, 108.3);
 	config->GetValueAsDouble("EB_RocketL1HatchAngle", m_rocketL1HatchAngle, 108.3);
@@ -60,51 +60,51 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 	config->GetValueAsDouble("EB_RocketL2HatchAngle", m_rocketL2HatchAngle, 9.91);
 	config->GetValueAsDouble("EB_RocketL3CargoAngle", m_rocketL3CargoAngle, 9.91);
 	config->GetValueAsDouble("EB_RocketL3HatchAngle", m_rocketL3HatchAngle, 9.91);
-	config->GetValueAsDouble("EB_StowAngle", m_stowedAngle, 20.0); 
+	config->GetValueAsDouble("EB_StowAngle", m_stowedAngle, 30.0); 
 
      if (m_talonValidEB10) {
 		// Set the motor direction for the elbow
 	    // Set the control mode and target to initially disable any movement
 	    // Set to brake mode (in comparison to coast)
 	    // Configure the encoder
-		 motorEB10->SetInverted(false);
-	     motorEB10->SetNeutralMode(NeutralMode::Brake);
-		 motorEB10->Set(ControlMode::PercentOutput, 0.0);
-		 motorEB10->SetSafetyEnabled(false);
+		motorEB10->SetInverted(false);
+	    motorEB10->SetNeutralMode(NeutralMode::Brake);
+		motorEB10->Set(ControlMode::PercentOutput, 0.0);
+		motorEB10->SetSafetyEnabled(false);
 		
 		// Enable voltage compensation
-		 motorEB10->ConfigVoltageCompSaturation(12.0, 0);
-         motorEB10->EnableVoltageCompensation(true);
+		motorEB10->ConfigVoltageCompSaturation(12.0, 0);
+        motorEB10->EnableVoltageCompensation(true);
 		motorEB10->ConfigNeutralDeadband(m_neutralDeadband, m_timeout);
 
-		 motorEB10->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
-		 motorEB10->SetSensorPhase(false);
-		 m_curDegrees = CountsToDegrees(motorEB10->GetSelectedSensorPosition(m_pidIndex)); // TODO: WRITE COUNTS TO DEGREES 
+		motorEB10->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
+		motorEB10->SetSensorPhase(false);
+		m_curDegrees = CountsToDegrees(motorEB10->GetSelectedSensorPosition(m_pidIndex)); // TODO: WRITE COUNTS TO DEGREES 
 
 		// Set maximum power
-		 motorEB10->ConfigPeakOutputForward(m_peakOut, m_timeout);
-		 motorEB10->ConfigPeakOutputReverse(-m_peakOut, m_timeout);
+		motorEB10->ConfigPeakOutputForward(m_peakOut, m_timeout);
+		motorEB10->ConfigPeakOutputReverse(-m_peakOut, m_timeout);
 
 		// Set maximum current draw allowed
-		 motorEB10->ConfigPeakCurrentLimit(20.0, m_timeout);
-		 motorEB10->EnableCurrentLimit(true);
+		motorEB10->ConfigPeakCurrentLimit(20.0, m_timeout);
+		motorEB10->EnableCurrentLimit(true);
 
 		// Set soft limits
-		 motorEB10->ConfigForwardSoftLimitThreshold(m_elbowMaxCounts, m_timeout);
-		 motorEB10->ConfigReverseSoftLimitThreshold(m_elbowMinCounts, m_timeout);
-		 motorEB10->ConfigForwardSoftLimitEnable(false, m_timeout);
-		 motorEB10->ConfigReverseSoftLimitEnable(false, m_timeout);
+		motorEB10->ConfigForwardSoftLimitThreshold(m_elbowMaxCounts, m_timeout);
+		motorEB10->ConfigReverseSoftLimitThreshold(m_elbowMinCounts, m_timeout);
+		motorEB10->ConfigForwardSoftLimitEnable(false, m_timeout);
+		motorEB10->ConfigReverseSoftLimitEnable(false, m_timeout);
 
 		// Configure Magic Motion settings
-		 motorEB10->SelectProfileSlot(0, 0);
-		 motorEB10->ConfigClosedLoopPeakOutput(0, m_peakOut, m_timeout);
-         motorEB10->Config_kF(0, m_pidKf, m_timeout);      
-         motorEB10->Config_kP(0, m_pidKp, m_timeout);
-         motorEB10->Config_kI(0, m_pidKi, m_timeout);
-         motorEB10->Config_kD(0, m_pidKd, m_timeout);
-         motorEB10->ConfigMotionCruiseVelocity(m_velocity, m_timeout);   	// 90 degree rotation in 0.5*2 seconds
-         motorEB10->ConfigMotionAcceleration(m_acceleration, m_timeout);		// 1 second to accelerate to max velocity
-		 motorEB10->ConfigMotionSCurveStrength(m_sCurveStrength, m_timeout);
+		motorEB10->SelectProfileSlot(0, 0);
+		motorEB10->ConfigClosedLoopPeakOutput(0, m_peakOut, m_timeout);
+        motorEB10->Config_kF(0, m_pidKf, m_timeout);      
+        motorEB10->Config_kP(0, m_pidKp, m_timeout);
+        motorEB10->Config_kI(0, m_pidKi, m_timeout);
+        motorEB10->Config_kD(0, m_pidKd, m_timeout);
+        motorEB10->ConfigMotionCruiseVelocity(m_velocity, m_timeout);   	// 90 degree rotation in 0.5*2 seconds
+        motorEB10->ConfigMotionAcceleration(m_acceleration, m_timeout);		// 1 second to accelerate to max velocity
+		motorEB10->ConfigMotionSCurveStrength(m_sCurveStrength, m_timeout);
 
 		// Enable elbow Motion Magic with existing sensor reading (no movement)
 //		 motorEB10->Set(ControlMode::MotionMagic, (double)DegreesToCounts(m_curDegrees), DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
@@ -319,9 +319,9 @@ void Elbow::MoveToPositionInit(int angle) {
 
 bool Elbow::MoveToPositionIsFinished(void) {
 	static int	withinTolerance = 0;
-	bool isFinished = false;
-	int curCounts = 0;
-	double errorInDegrees = 0.0;
+	bool 		isFinished = false;
+	int 		curCounts = 0;
+	double 		errorInDegrees = 0.0;
 
 	// If a real move was requested, check for completion
 	if (m_elbowLevel != NOCHANGE_ANGLE) {
@@ -334,9 +334,9 @@ bool Elbow::MoveToPositionIsFinished(void) {
 		// Check to see if the error is in an acceptable number of inches.
 		if (fabs(errorInDegrees) < m_toleranceDegrees) {
 			if (++withinTolerance >= 5) {
-			isFinished = true;
-			std::printf("2135: EB Move Finished - Time %f\n", m_safetyTimer.Get());
-		}
+				isFinished = true;
+				std::printf("2135: EB Move Finished - Time %f\n", m_safetyTimer.Get());
+			}
 		}
 		else {
 			withinTolerance = 0;

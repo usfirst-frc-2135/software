@@ -40,30 +40,30 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     config->GetValueAsInt("EL_Velocity", m_velocity, 1918);
     config->GetValueAsInt("EL_Acceleration", m_acceleration, 3836);
     config->GetValueAsInt("EL_SCurveStrength", m_sCurveStrength, 0);
-    config->GetValueAsDouble("EL_PidKf", m_pidKf, 0.000);
+    config->GetValueAsDouble("EL_PidKf", m_pidKf, 0.427);
     config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.250);
     config->GetValueAsDouble("EL_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("EL_PidKd", m_pidKd, 0.000);
-	config->GetValueAsDouble("EL_ArbFeedForward", m_arbFeedForward, 0.06);
-    config->GetValueAsDouble("EL_CLRampRate", m_CLRampRate, 0.250);
+	config->GetValueAsDouble("EL_ArbFeedForward", m_arbFeedForward, 0.16);
 	config->GetValueAsDouble("EL_NeutralDeadband", m_neutralDeadband, 0.004);
+    config->GetValueAsDouble("EL_CLRampRate", m_CLRampRate, 0.000);
     config->GetValueAsInt("EL_CLAllowedError", m_CLAllowedError, 0);
-	config->GetValueAsDouble("EL_ToleranceInches", m_toleranceInches, 0.5);
-    config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 32.0);
+	config->GetValueAsDouble("EL_ToleranceInches", m_toleranceInches, 0.75);
+    config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 32.5);
     config->GetValueAsDouble("EL_MinHeight", m_elevatorMinHeight, 0.0);
 	config->GetValueAsDouble("EL_BumpHeight", m_bumpHeight, 1.0);
 	config->GetValueAsDouble("EL_GroundCargoHeight", m_groundCargoHeight, 0.0);
 	config->GetValueAsDouble("EL_GroundHatchHeight", m_groundHatchHeight, 0.0);
-	config->GetValueAsDouble("EL_LoadingCargoHeight", m_loadingCargoHeight, 3.0);
-	config->GetValueAsDouble("EL_LoadingHatchHeight", m_loadingHatchHeight, 3.0);
-	config->GetValueAsDouble("EL_ShipCargoHeight", m_shipCargoHeight, 3.0);
+	config->GetValueAsDouble("EL_LoadingCargoHeight", m_loadingCargoHeight, 7.5);
+	config->GetValueAsDouble("EL_LoadingHatchHeight", m_loadingHatchHeight, 7.5);
+	config->GetValueAsDouble("EL_ShipCargoHeight", m_shipCargoHeight, 12.3);
 	config->GetValueAsDouble("EL_ShipHatchHeight", m_shipHatchHeight, 3.0);
-	config->GetValueAsDouble("EL_RocketL1CargoHeight", m_rocketL1CargoHeight, 6.5);
-	config->GetValueAsDouble("EL_RocketL1HatchHeight", m_rocketL1HatchHeight, 3.0);
-	config->GetValueAsDouble("EL_RocketL2CargoHeight", m_rocketL2CargoHeight, 0.0);
-	config->GetValueAsDouble("EL_RocketL2HatchHeight", m_rocketL2HatchHeight, 11.0);
-	config->GetValueAsDouble("EL_RocketL3CargoHeight", m_rocketL3CargoHeight, 10.5);
-	config->GetValueAsDouble("EL_RocketL3HatchHeight", m_rocketL3HatchHeight, 10.5);
+	config->GetValueAsDouble("EL_RocketL1CargoHeight", m_rocketL1CargoHeight, 8.5);
+	config->GetValueAsDouble("EL_RocketL1HatchHeight", m_rocketL1HatchHeight, 5.0);
+	config->GetValueAsDouble("EL_RocketL2CargoHeight", m_rocketL2CargoHeight, 18.1);
+	config->GetValueAsDouble("EL_RocketL2HatchHeight", m_rocketL2HatchHeight, 12.1);
+	config->GetValueAsDouble("EL_RocketL3CargoHeight", m_rocketL3CargoHeight, 32.0);
+	config->GetValueAsDouble("EL_RocketL3HatchHeight", m_rocketL3HatchHeight, 27.8);
 
 	// Initialize Talon SRX motor controller direction and encoder sensor slot
     // Set the control mode and target to disable any movement
@@ -75,8 +75,8 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 		motorEL7->SetSafetyEnabled(false);
 
 		// Enable voltage compensation
-		 motorEL7->ConfigVoltageCompSaturation(12.0, m_timeout);
-		 motorEL7->EnableVoltageCompensation(true);
+		motorEL7->ConfigVoltageCompSaturation(12.0, m_timeout);
+		motorEL7->EnableVoltageCompensation(true);
 		motorEL7->ConfigNeutralDeadband(m_neutralDeadband, m_timeout);
 
 		// Configure sensor settings
@@ -85,35 +85,35 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	    motorEL7->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 
 		// Set maximum power and ramp rate
-		 motorEL7->ConfigPeakOutputForward(m_peakOut, m_timeout);
-		 motorEL7->ConfigPeakOutputReverse(-m_peakOut, m_timeout);
-		 motorEL7->ConfigClosedloopRamp(m_CLRampRate, m_timeout);
+		motorEL7->ConfigPeakOutputForward(m_peakOut, m_timeout);
+		motorEL7->ConfigPeakOutputReverse(-m_peakOut, m_timeout);
+		motorEL7->ConfigClosedloopRamp(m_CLRampRate, m_timeout);
 
    		// Set allowable closed loop error
-		 motorEL7->ConfigAllowableClosedloopError(m_slotIndex, m_CLAllowedError, m_timeout);
+		motorEL7->ConfigAllowableClosedloopError(m_slotIndex, m_CLAllowedError, m_timeout);
 
 		// Set maximum current draw allowed
-		 motorEL7->ConfigPeakCurrentLimit(20.0, m_timeout);
-		 motorEL7->EnableCurrentLimit(false);
+		motorEL7->ConfigPeakCurrentLimit(20.0, m_timeout);
+		motorEL7->EnableCurrentLimit(false);
 		
 		// Set soft limits
-		 motorEL7->ConfigForwardSoftLimitThreshold(InchesToCounts(m_elevatorMaxHeight), m_timeout);
-	     motorEL7->ConfigReverseSoftLimitThreshold(InchesToCounts(m_elevatorMinHeight), m_timeout);
-	     motorEL7->ConfigForwardSoftLimitEnable(true, m_timeout);
-	     motorEL7->ConfigReverseSoftLimitEnable(true, m_timeout);
+		motorEL7->ConfigForwardSoftLimitThreshold(InchesToCounts(m_elevatorMaxHeight), m_timeout);
+	    motorEL7->ConfigReverseSoftLimitThreshold(InchesToCounts(m_elevatorMinHeight), m_timeout);
+	    motorEL7->ConfigForwardSoftLimitEnable(true, m_timeout);
+	    motorEL7->ConfigReverseSoftLimitEnable(true, m_timeout);
 
 		// Configure Magic Motion settings
-		 motorEL7->SelectProfileSlot(0, 0);
-		 motorEL7->ConfigClosedLoopPeakOutput(0, m_peakOut, m_timeout);
-         motorEL7->Config_kF(0, m_pidKf, m_timeout);      
-         motorEL7->Config_kP(0, m_pidKp, m_timeout);
-         motorEL7->Config_kI(0, m_pidKi, m_timeout);
-         motorEL7->Config_kD(0, m_pidKd, m_timeout);
-         motorEL7->ConfigMotionCruiseVelocity(m_velocity, m_timeout);   	// TODO: calculate
-         motorEL7->ConfigMotionAcceleration(m_acceleration, m_timeout);
-		 motorEL7->ConfigMotionSCurveStrength(m_sCurveStrength, m_timeout);
+		motorEL7->SelectProfileSlot(0, 0);
+		motorEL7->ConfigClosedLoopPeakOutput(0, m_peakOut, m_timeout);
+        motorEL7->Config_kF(0, m_pidKf, m_timeout);      
+        motorEL7->Config_kP(0, m_pidKp, m_timeout);
+        motorEL7->Config_kI(0, m_pidKi, m_timeout);
+        motorEL7->Config_kD(0, m_pidKd, m_timeout);
+        motorEL7->ConfigMotionCruiseVelocity(m_velocity, m_timeout);   	// TODO: calculate
+        motorEL7->ConfigMotionAcceleration(m_acceleration, m_timeout);
+		motorEL7->ConfigMotionSCurveStrength(m_sCurveStrength, m_timeout);
 
-		 motorEL7->Set(ControlMode::PercentOutput, 0.0);
+		motorEL7->Set(ControlMode::PercentOutput, 0.0);
 	}
 	
 	if (m_talonValidEL8) {
@@ -351,7 +351,7 @@ void Elevator::MoveToPositionInit(int level) {
 
 		std::printf("2135: EL Move inches %f -> %f counts %d -> %d\n",
 			m_curInches, m_targetInches, curCounts, m_targetCounts);
-			
+
 		if (level != NOCHANGE_HEIGHT)
 			m_isMoving = true;
 	}
@@ -367,9 +367,9 @@ void Elevator::MoveToPositionInit(int level) {
 
 bool Elevator::MoveToPositionIsFinished() {
 	static int	withinTolerance = 0;
-    bool 	isFinished = false;
-    int 	curCounts = 0;
-    double 	errorInInches = 0.0;
+    bool 		isFinished = false;
+    int 		curCounts = 0;
+    double 		errorInInches = 0.0;
 
 	// If a real move was requested, check for completion
 	if (m_elevatorLevel != NOCHANGE_HEIGHT) {
@@ -382,9 +382,9 @@ bool Elevator::MoveToPositionIsFinished() {
 		// Check to see if the error is in an acceptable number of inches.
 		if (fabs(errorInInches) < m_toleranceInches) {
 			if (++withinTolerance >= 5) {
-			isFinished = true;
-			std::printf("2135: EL Move Finished - Time %f\n", m_safetyTimer.Get());
-		}
+				isFinished = true;
+				std::printf("2135: EL Move Finished - Time %f\n", m_safetyTimer.Get());
+			}
 		}
 		else {
 			withinTolerance = 0;
@@ -399,11 +399,11 @@ bool Elevator::MoveToPositionIsFinished() {
 	}
 
 	// If completed, clean up
-		if (isFinished) {
+	if (isFinished) {
 		withinTolerance = 0;
-			m_safetyTimer.Stop();
-			m_isMoving = false;
-		}
+		m_safetyTimer.Stop();
+		m_isMoving = false;
+	}
 
     return isFinished;
 }

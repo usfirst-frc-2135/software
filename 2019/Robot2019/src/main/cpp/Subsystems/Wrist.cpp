@@ -38,8 +38,8 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsInt("WR_Velocity", m_velocity, 240);
     config->GetValueAsInt("WR_Acceleration", m_acceleration, 240);
     config->GetValueAsInt("WR_SCurveStrength", m_sCurveStrength, 0);
-    config->GetValueAsDouble("WR_PidKf", m_pidKf, 0.000);
-    config->GetValueAsDouble("WR_PidKp", m_pidKp, 2.250);
+    config->GetValueAsDouble("WR_PidKf", m_pidKf, 3.411);
+    config->GetValueAsDouble("WR_PidKp", m_pidKp, 3.596);
     config->GetValueAsDouble("WR_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("WR_PidKd", m_pidKd, 0.000);
 	config->GetValueAsDouble("WR_ArbFeedForward", m_arbFeedForward, 0.09);
@@ -51,16 +51,16 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 	config->GetValueAsDouble("WR_BumpAngle", m_bumpAngle, 5.0);
 	config->GetValueAsDouble("WR_GroundCargoAngle", m_groundCargoAngle, 81.0);
 	config->GetValueAsDouble("WR_GroundHatchAngle", m_groundHatchAngle, 134.0);
-	config->GetValueAsDouble("WR_LoadingCargoAngle", m_loadingCargoAngle, 42.8);
-	config->GetValueAsDouble("WR_LoadingHatchAngle", m_loadingHatchAngle, 42.8);
-	config->GetValueAsDouble("WR_ShipCargoAngle", m_shipCargoAngle, 42.8);
+	config->GetValueAsDouble("WR_LoadingCargoAngle", m_loadingCargoAngle, 97.5);
+	config->GetValueAsDouble("WR_LoadingHatchAngle", m_loadingHatchAngle, 66.0);
+	config->GetValueAsDouble("WR_ShipCargoAngle", m_shipCargoAngle, 164.0);
 	config->GetValueAsDouble("WR_ShipHatchAngle", m_shipHatchAngle, 42.8);
-	config->GetValueAsDouble("WR_RocketL1CargoAngle", m_rocketL1CargoAngle, 42.8);
-	config->GetValueAsDouble("WR_RocketL1HatchAngle", m_rocketL1HatchAngle, 42.8);
-	config->GetValueAsDouble("WR_RocketL2CargoAngle", m_rocketL2CargoAngle, 170.1);
-	config->GetValueAsDouble("WR_RocketL2HatchAngle", m_rocketL2HatchAngle, 170.1);
-	config->GetValueAsDouble("WR_RocketL3CargoAngle", m_rocketL3CargoAngle, 171);
-	config->GetValueAsDouble("WR_RocketL3HatchAngle", m_rocketL3HatchAngle, 171);
+	config->GetValueAsDouble("WR_RocketL1CargoAngle", m_rocketL1CargoAngle, 51.8);
+	config->GetValueAsDouble("WR_RocketL1HatchAngle", m_rocketL1HatchAngle, 56.0);
+	config->GetValueAsDouble("WR_RocketL2CargoAngle", m_rocketL2CargoAngle, 150.0);
+	config->GetValueAsDouble("WR_RocketL2HatchAngle", m_rocketL2HatchAngle, 150.0);
+	config->GetValueAsDouble("WR_RocketL3CargoAngle", m_rocketL3CargoAngle, 150.0);
+	config->GetValueAsDouble("WR_RocketL3HatchAngle", m_rocketL3HatchAngle, 150.0);
 	config->GetValueAsDouble("WR_StowAngle", m_stowedAngle, 133.0);
 
      if (m_talonValidWR12) {
@@ -68,10 +68,10 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 		// Set to brake mode (in comparison to coast)
 	    // Set the control mode and target to initially disable any movement
 	    // Configure the encoder
-		 motorWR12->SetInverted(true);
-	     motorWR12->SetNeutralMode(NeutralMode::Brake);
-		 motorWR12->Set(ControlMode::PercentOutput, 0.0);
-		 motorWR12->SetSafetyEnabled(false);
+		motorWR12->SetInverted(true);
+	    motorWR12->SetNeutralMode(NeutralMode::Brake);
+		motorWR12->Set(ControlMode::PercentOutput, 0.0);
+		motorWR12->SetSafetyEnabled(false);
 
 		// Enable voltage compensation
 		motorWR12->ConfigVoltageCompSaturation(12.0, 0);
@@ -84,29 +84,29 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 		m_curDegrees = CountsToDegrees(motorWR12->GetSelectedSensorPosition(m_pidIndex)); 
 
 		// Set maximum power
-		 motorWR12->ConfigPeakOutputForward(m_peakOut, m_timeout);
-		 motorWR12->ConfigPeakOutputReverse(-m_peakOut, m_timeout);
+		motorWR12->ConfigPeakOutputForward(m_peakOut, m_timeout);
+		motorWR12->ConfigPeakOutputReverse(-m_peakOut, m_timeout);
 
 		// Set maximum current draw allowed
-		 motorWR12->ConfigPeakCurrentLimit(20.0, m_timeout);
-		 motorWR12->EnableCurrentLimit(true);
+		motorWR12->ConfigPeakCurrentLimit(20.0, m_timeout);
+		motorWR12->EnableCurrentLimit(true);
 
 		// Set soft limits
-		 motorWR12->ConfigForwardSoftLimitThreshold(m_wristMaxCounts, m_timeout);
-		 motorWR12->ConfigReverseSoftLimitThreshold(m_wristMinCounts, m_timeout);
-		 motorWR12->ConfigForwardSoftLimitEnable(false, m_timeout);
-		 motorWR12->ConfigReverseSoftLimitEnable(false, m_timeout);
+		motorWR12->ConfigForwardSoftLimitThreshold(m_wristMaxCounts, m_timeout);
+		motorWR12->ConfigReverseSoftLimitThreshold(m_wristMinCounts, m_timeout);
+		motorWR12->ConfigForwardSoftLimitEnable(false, m_timeout);
+		motorWR12->ConfigReverseSoftLimitEnable(false, m_timeout);
 
 	 	// Configure Magic Motion settings
-		 motorWR12->SelectProfileSlot(0, 0);
-		 motorWR12->ConfigClosedLoopPeakOutput(0, m_peakOut, m_timeout);
-         motorWR12->Config_kF(0, m_pidKf, m_timeout);      
-         motorWR12->Config_kP(0, m_pidKp, m_timeout);
-         motorWR12->Config_kI(0, m_pidKi, m_timeout);
-         motorWR12->Config_kD(0, m_pidKd, m_timeout);
-         motorWR12->ConfigMotionCruiseVelocity(m_velocity, m_timeout);   // 90 degree rotation in 0.4*2 seconds
-         motorWR12->ConfigMotionAcceleration(m_acceleration, m_timeout);		// 1 second to accelerate to max velocity
-		 motorWR12->ConfigMotionSCurveStrength(m_sCurveStrength, m_timeout);
+		motorWR12->SelectProfileSlot(0, 0);
+		motorWR12->ConfigClosedLoopPeakOutput(0, m_peakOut, m_timeout);
+        motorWR12->Config_kF(0, m_pidKf, m_timeout);      
+        motorWR12->Config_kP(0, m_pidKp, m_timeout);
+        motorWR12->Config_kI(0, m_pidKi, m_timeout);
+        motorWR12->Config_kD(0, m_pidKd, m_timeout);
+        motorWR12->ConfigMotionCruiseVelocity(m_velocity, m_timeout);   // 90 degree rotation in 0.4*2 seconds
+        motorWR12->ConfigMotionAcceleration(m_acceleration, m_timeout);		// 1 second to accelerate to max velocity
+		motorWR12->ConfigMotionSCurveStrength(m_sCurveStrength, m_timeout);
 
 		// Enable wrist Motion Magic with existing sensor reading (no movement)
 //		 motorWR12->Set(ControlMode::MotionMagic, (double)DegreesToCounts(m_curDegrees), DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
@@ -322,9 +322,9 @@ void Wrist::MoveToPositionInit(int angle) {
 
 bool Wrist::MoveToPositionIsFinished(void) {
 	static int	withinTolerance = 0;
-	bool isFinished = false;
-	int curCounts = 0;
-	double errorInDegrees = 0.0;
+	bool 		isFinished = false;
+	int 		curCounts = 0;
+	double 		errorInDegrees = 0.0;
 
 	// If a real move was requested, check for completion
 	if (m_wristLevel != NOCHANGE_ANGLE) {
@@ -337,9 +337,9 @@ bool Wrist::MoveToPositionIsFinished(void) {
 		// Check to see if the error is in an acceptable number of inches.
 		if (fabs(errorInDegrees) < m_toleranceDegrees) {
 			if (++withinTolerance >= 5) {
-			isFinished = true;
-			std::printf("2135: WR Move Finished - Time %f\n", m_safetyTimer.Get());
-		}
+				isFinished = true;
+				std::printf("2135: WR Move Finished - Time %f\n", m_safetyTimer.Get());
+			}
 		}
 		else {
 			withinTolerance = 0;
