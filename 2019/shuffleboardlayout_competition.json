@@ -899,6 +899,17 @@
               "_source0": "network_table:///SmartDashboard/Drive Reset",
               "_title": "rive Reset"
             }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Del Height",
+              "_title": "el Height"
+            }
           }
         }
       }
@@ -1822,6 +1833,51 @@
               "_title": "SmartDashboard/WR Calibrated",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/CMP_GPShift",
+              "_title": "SmartDashboard/CMP_GPShift",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Camera",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 24.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "3,0": {
+            "size": [
+              28,
+              13
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://rPi Camera 0",
+              "_title": "rPi Camera 0",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
             }
           }
         }
