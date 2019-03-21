@@ -363,6 +363,7 @@ void Elevator::MoveToPositionInit(int level) {
 }
 
 bool Elevator::MoveToPositionIsFinished() {
+	static int	withinTolerance = 0;
     bool 	isFinished = false;
     int 	curCounts = 0;
     double 	errorInInches = 0.0;
@@ -377,8 +378,13 @@ bool Elevator::MoveToPositionIsFinished() {
 
 		// Check to see if the error is in an acceptable number of inches.
 		if (fabs(errorInInches) < m_toleranceInches) {
+			if (++withinTolerance >= 5) {
 			isFinished = true;
 			std::printf("2135: EL Move Finished - Time %f\n", m_safetyTimer.Get());
+		}
+		}
+		else {
+			withinTolerance = 0;
 		}
 		
 		// Check to see if the Safety Timer has timed out.
@@ -387,11 +393,14 @@ bool Elevator::MoveToPositionIsFinished() {
 			std::printf("2135: EL Move Safety timer has timed out\n");
 		}
 
+	}
+
+	// If completed, clean up
 		if (isFinished) {
+		withinTolerance = 0;
 			m_safetyTimer.Stop();
 			m_isMoving = false;
 		}
-	}
 
     return isFinished;
 }

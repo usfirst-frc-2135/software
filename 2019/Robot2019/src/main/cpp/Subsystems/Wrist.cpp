@@ -318,6 +318,7 @@ void Wrist::MoveToPositionInit(int angle) {
 }
 
 bool Wrist::MoveToPositionIsFinished(void) {
+	static int	withinTolerance = 0;
 	bool isFinished = false;
 	int curCounts = 0;
 	double errorInDegrees = 0.0;
@@ -332,8 +333,13 @@ bool Wrist::MoveToPositionIsFinished(void) {
 
 		// Check to see if the error is in an acceptable number of inches.
 		if (fabs(errorInDegrees) < m_toleranceDegrees) {
+			if (++withinTolerance >= 5) {
 			isFinished = true;
 			std::printf("2135: WR Move Finished - Time %f\n", m_safetyTimer.Get());
+		}
+		}
+		else {
+			withinTolerance = 0;
 		}
 		
 		// Check to see if the Safety Timer has timed out.
@@ -343,7 +349,9 @@ bool Wrist::MoveToPositionIsFinished(void) {
 		}
 	}
 
+	// If completed, clean up
 	if (isFinished) {
+		withinTolerance = 0;
 		m_safetyTimer.Stop();
 		m_isMoving = false;
 	}
