@@ -29,7 +29,7 @@
   EL_PidKp = 0.250
   EL_PidKi = 0.000
   EL_PidKd = 0.000
-  EL_ArbFeedForward = 0.16
+  EL_ArbFeedForward = 0.12
   EL_NeutralDeadband = 0.004
   EL_CLRampRate = 0.000
   EL_CLAllowedError = 0
@@ -100,7 +100,7 @@
   WR_LoadingHatchAngle = 66.0
   WR_ShipCargoAngle = 164.0
   WR_ShipHatchAngle = 42.8
-  WR_RocketL1CargoAngle = 51.76
+  WR_RocketL1CargoAngle = 51.8
   WR_RocketL1HatchAngle = 56.0
   WR_RocketL2CargoAngle = 150.0
   WR_RocketL2HatchAngle = 150.0
