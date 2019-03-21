@@ -108,9 +108,8 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
         motorWR12->ConfigMotionAcceleration(m_acceleration, m_timeout);		// 1 second to accelerate to max velocity
 		motorWR12->ConfigMotionSCurveStrength(m_sCurveStrength, m_timeout);
 
-		// Enable wrist Motion Magic with existing sensor reading (no movement)
-//		 motorWR12->Set(ControlMode::MotionMagic, (double)DegreesToCounts(m_curDegrees), DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
-     }
+		// Do not enable wrist Motion Magic - wait for calibration
+    }
 
     // Initialize Variables
     m_targetDegrees = m_curDegrees;
@@ -118,8 +117,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 
     // Field for manually progamming wrist angle
 	frc::SmartDashboard::PutNumber("WR Setpoint", m_curDegrees);
-	frc::SmartDashboard::PutBoolean("WR Calibrated", false);
-
+	frc::SmartDashboard::PutBoolean("WR Calibrated", m_calibrated);
 }
 
 void Wrist::InitDefaultCommand() {
@@ -140,9 +138,15 @@ void Wrist::Periodic() {
 	if (m_talonValidWR12) {
 		curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
 	}
+	m_curDegrees =  CountsToDegrees(curCounts);
 
 	frc::SmartDashboard::PutNumber("WR Counts", curCounts);
-	frc::SmartDashboard::PutNumber("WR Degrees", CountsToDegrees(curCounts));
+	frc::SmartDashboard::PutNumber("WR Degrees", m_curDegrees);
+
+	// Update arbitrary feed forward if calibrated
+	if (m_calibrated)
+		motorWR12->Set(ControlMode::MotionMagic, m_targetCounts, 
+			DemandType::DemandType_ArbitraryFeedForward, GetCurrentArbFeedForward());
 
 	if ((m_wristDebug > 1) || (m_wristDebug > 0 && m_isMoving)) {
 
@@ -186,7 +190,9 @@ void Wrist::Initialize(void) {
 		curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
 	}
 
-	m_targetDegrees = CountsToDegrees(curCounts);
+	m_curDegrees = CountsToDegrees(curCounts);
+	m_targetCounts = curCounts;
+	m_targetDegrees = m_curDegrees;
 	m_isCargo = false;
 	m_isMoving = false;
 }
@@ -220,7 +226,7 @@ double Wrist::CountsToDegrees(int counts) {
 	return degrees;
 }
 
-double Wrist::GetCurrentDegrees() {
+double Wrist::GetCurrentDegrees(void) {
 	int curCounts = 0;
 
 	if (m_talonValidWR12)
@@ -228,6 +234,16 @@ double Wrist::GetCurrentDegrees() {
 
 	m_curDegrees = CountsToDegrees(curCounts);
 	return m_curDegrees;
+}
+
+double Wrist::GetCurrentArbFeedForward(void) {
+	double curArbFeedForward;
+
+	// This should be a calculation of sin(m_curDegrees - elbowangle)
+	// Exact math needs to be calculated
+	curArbFeedForward = m_arbFeedForward;
+
+	return curArbFeedForward;
 }
 
 void Wrist::MoveToPositionInit(int angle) {
@@ -299,12 +315,9 @@ void Wrist::MoveToPositionInit(int angle) {
 		m_safetyTimer.Reset();
 		m_safetyTimer.Start();
 
-		double tunedArbFF = sin(DegreesToRadians(m_targetDegrees)) * m_arbFeedForward;
- 
+		// Set Motion Magic control mode
 		motorWR12->Set(ControlMode::MotionMagic, m_targetCounts, 
-			DemandType::DemandType_ArbitraryFeedForward, tunedArbFF);
-
-		std::printf("2135 ARB FEED FORWARD: %f\n", tunedArbFF);
+			DemandType::DemandType_ArbitraryFeedForward, GetCurrentArbFeedForward());
 
 		std::printf("2135: WR Move degrees %f -> %f counts %d -> %d\n",
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);

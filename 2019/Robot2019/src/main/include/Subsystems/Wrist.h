@@ -43,7 +43,7 @@ private:
    
     bool			m_talonValidWR12;				// Health indicator for wrist Talon 12
 
-	bool			m_calibrated;					// Indicates whether the elevator has been calibrated
+	bool			m_calibrated = false;			// Indicates whether the elevator has been calibrated
 	int				m_wristLevel;					// Current wrist level (not degrees)
 	double			m_targetDegrees;				// Target angle of degrees that are requested of the wrist
 	int				m_targetCounts;					// Target encoder counts of angle that are requested of the wrist
@@ -114,7 +114,8 @@ public:
 	double DegreesToRadians(double degrees);
 	int DegreesToCounts(double degrees);
 	double CountsToDegrees(int counts);
-	double GetCurrentDegrees();
+	double GetCurrentDegrees(void);
+	double GetCurrentArbFeedForward(void);
 
 	void MoveToPositionInit(int level);
 	bool MoveToPositionIsFinished(void);

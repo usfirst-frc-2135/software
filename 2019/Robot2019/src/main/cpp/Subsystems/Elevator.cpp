@@ -342,7 +342,7 @@ void Elevator::MoveToPositionInit(int level) {
 		m_curInches = CountsToInches(curCounts);
 
 		//Start the safety timer.
-		m_safetyTimeout = 3.0;
+		m_safetyTimeout = 2.4;
 		m_safetyTimer.Reset();
 		m_safetyTimer.Start();
 

@@ -106,8 +106,7 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
         motorEB10->ConfigMotionAcceleration(m_acceleration, m_timeout);		// 1 second to accelerate to max velocity
 		motorEB10->ConfigMotionSCurveStrength(m_sCurveStrength, m_timeout);
 
-		// Enable elbow Motion Magic with existing sensor reading (no movement)
-//		 motorEB10->Set(ControlMode::MotionMagic, (double)DegreesToCounts(m_curDegrees), DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
+		// Do not enable elbow Motion Magic - wait for calibration
      }
 
     // Initialize Variables
@@ -116,8 +115,7 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 
     // Field for manually progamming elbow angle
 	frc::SmartDashboard::PutNumber("EB Setpoint", m_curDegrees);
-	frc::SmartDashboard::PutBoolean("EB Calibrated", false);
-
+	frc::SmartDashboard::PutBoolean("EB Calibrated", m_calibrated);
 }
 
 void Elbow::InitDefaultCommand() {
@@ -138,9 +136,15 @@ void Elbow::Periodic() {
 	if (m_talonValidEB10) {
 		curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
 	}
+	m_curDegrees = CountsToDegrees(curCounts);
 
 	frc::SmartDashboard::PutNumber("EB Counts", curCounts);
-	frc::SmartDashboard::PutNumber("EB Degrees", CountsToDegrees(curCounts));
+	frc::SmartDashboard::PutNumber("EB Degrees", m_curDegrees);
+
+	// Update arbitrary feed forward if calibrated
+	if (m_calibrated)
+		motorEB10->Set(ControlMode::MotionMagic, m_targetCounts, 
+			DemandType::DemandType_ArbitraryFeedForward, GetCurrentArbFeedForward());
 
 	if ((m_elbowDebug > 1) || (m_elbowDebug > 0 && m_isMoving)) {
 
@@ -184,7 +188,9 @@ void Elbow::Initialize(void) {
 		curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
 	}
 
-	m_targetDegrees = CountsToDegrees(curCounts);
+	m_curDegrees = CountsToDegrees(curCounts);
+	m_targetCounts = curCounts;
+	m_targetDegrees = m_curDegrees;
 	m_isCargo = false;
 	m_isMoving = false;
 }
@@ -217,7 +223,7 @@ double Elbow::CountsToDegrees(int counts) {
 	return degrees;
 }
 
-double Elbow::GetCurrentDegrees() {
+double Elbow::GetCurrentDegrees(void) {
 	int curCounts = 0;
 
 	if (m_talonValidEB10)
@@ -225,6 +231,15 @@ double Elbow::GetCurrentDegrees() {
 
 	m_curDegrees = CountsToDegrees(curCounts);
 	return m_curDegrees;
+}
+
+double Elbow::GetCurrentArbFeedForward(void) {
+	double curArbFeedForward;
+
+	// This could be adjusted slightly for Wrist angle to be more accurate
+	curArbFeedForward = sin(DegreesToRadians(m_curDegrees)) * m_arbFeedForward;
+
+	return curArbFeedForward;
 }
 
 void Elbow::MoveToPositionInit(int angle) {
@@ -295,13 +310,9 @@ void Elbow::MoveToPositionInit(int angle) {
 		m_safetyTimer.Reset();
 		m_safetyTimer.Start();
  
-		// motorEB10->Set(ControlMode::MotionMagic, m_targetCounts);
-
-		double tunedArbFF = sin(DegreesToRadians(m_targetDegrees)) * m_arbFeedForward;
+		// Set Motion Magic control mode
 		motorEB10->Set(ControlMode::MotionMagic, m_targetCounts, 
-			DemandType::DemandType_ArbitraryFeedForward, tunedArbFF);
-
-		std::printf("2135 ARB FEED FORWARD: %f\n", tunedArbFF);
+			DemandType::DemandType_ArbitraryFeedForward, GetCurrentArbFeedForward());
 
 		std::printf("2135: EB Move degrees %5.2f -> %5.2f counts %d -> %d\n",
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
