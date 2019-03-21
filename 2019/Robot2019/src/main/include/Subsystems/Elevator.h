@@ -76,13 +76,13 @@ private:
 	double			m_pidKi;						// Elevator PID integral constant
 	double			m_pidKd;						// Elevator PID derivative constant
 	double			m_arbFeedForward;				// Elevator Motion Magic Arbitrary Feed Forward		
+	double			m_neutralDeadband;				// Elevator PID neutral deadband in percent
 	double			m_CLRampRate;					// Elevator PID ramp rate
-	int				m_CLAllowedError;				// Elevator PID allowable closed loop error
+	int				m_CLAllowedError;				// Elevator PID allowable closed loop error in counts
 	double			m_toleranceInches;				// Elevator PID tolerance in inches
 
 	double			m_elevatorMaxHeight;			// Elevator maximum allowable height
 	double			m_elevatorMinHeight;			// Elevator minimum allowable height
-	double			m_lowGearHeight;				// Height for forcing drivetrain to low gear
 	double			m_bumpHeight;					// Incremental height when bumping the elevator up/down
 	double			m_groundCargoHeight;			// Setpoint for floor level for cargo (full down)
 	double 			m_groundHatchHeight; 			// Set point for floor level for hatch

@@ -65,6 +65,7 @@ private:
 	double			m_pidKi;						// Elbow PID integral constant
 	double			m_pidKd;						// Elbow PID derivative constant
 	double			m_arbFeedForward;				// Elbow Motion Magic Arbitrary Feed Forward		
+	double			m_neutralDeadband;				// Elbow PID neutral deadband in percent
 	double			m_toleranceDegrees;				// Elbow PID tolerance in degrees
 	int				m_elbowMaxCounts;				// Elbow maximum allowable counts
 	int				m_elbowMinCounts;				// Elbow minimum allowable counts

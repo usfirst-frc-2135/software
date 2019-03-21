@@ -66,6 +66,7 @@ private:
 	double			m_pidKi;						// Wrist PID integral constant
 	double			m_pidKd;						// Wrist PID derivative constant
 	double			m_arbFeedForward;				// Wrist Motion Magic Arbitrary Feed Forward		
+	double			m_neutralDeadband;				// Wrist PID neutral deadband in percent
 	double			m_toleranceDegrees;				// Wrist PID tolerance in degrees	
 	int				m_wristMaxCounts;				// Wrist maximum allowable counts
 	int				m_wristMinCounts;				// Wrist minimum allowable counts

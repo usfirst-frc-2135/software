@@ -46,11 +46,11 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     config->GetValueAsDouble("EL_PidKd", m_pidKd, 0.000);
 	config->GetValueAsDouble("EL_ArbFeedForward", m_arbFeedForward, 0.06);
     config->GetValueAsDouble("EL_CLRampRate", m_CLRampRate, 0.250);
+	config->GetValueAsDouble("EL_NeutralDeadband", m_neutralDeadband, 0.004);
     config->GetValueAsInt("EL_CLAllowedError", m_CLAllowedError, 0);
 	config->GetValueAsDouble("EL_ToleranceInches", m_toleranceInches, 0.5);
     config->GetValueAsDouble("EL_MaxHeight", m_elevatorMaxHeight, 32.0);
     config->GetValueAsDouble("EL_MinHeight", m_elevatorMinHeight, 0.0);
-	config->GetValueAsDouble("EL_LowGearHeight", m_lowGearHeight, 15.00);
 	config->GetValueAsDouble("EL_BumpHeight", m_bumpHeight, 1.0);
 	config->GetValueAsDouble("EL_GroundCargoHeight", m_groundCargoHeight, 0.0);
 	config->GetValueAsDouble("EL_GroundHatchHeight", m_groundHatchHeight, 0.0);
@@ -77,6 +77,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 		// Enable voltage compensation
 		 motorEL7->ConfigVoltageCompSaturation(12.0, m_timeout);
 		 motorEL7->EnableVoltageCompensation(true);
+		motorEL7->ConfigNeutralDeadband(m_neutralDeadband, m_timeout);
 
 		// Configure sensor settings
 	    motorEL7->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
@@ -124,6 +125,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 		// Enable voltage compensation
 		motorEL8->ConfigVoltageCompSaturation(12.0, m_timeout);
 		motorEL8->EnableVoltageCompensation(true);
+		motorEL8->ConfigNeutralDeadband(m_neutralDeadband, m_timeout);
 
 		// Set maximum current draw allowed
 		motorEL8->ConfigPeakCurrentLimit(20.0, m_timeout);

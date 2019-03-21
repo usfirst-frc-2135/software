@@ -42,6 +42,7 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
     config->GetValueAsDouble("EB_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("EB_PidKd", m_pidKd, 0.000);
 	config->GetValueAsDouble("EB_ArbFeedForward", m_arbFeedForward, 0.25);
+	config->GetValueAsDouble("EB_NeutralDeadband", m_neutralDeadband, 0.004);
 	config->GetValueAsDouble("EB_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("EB_MaxCounts", m_elbowMaxCounts, 0);
     config->GetValueAsInt("EB_MinCounts", m_elbowMinCounts, -1800);
@@ -74,6 +75,7 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 		// Enable voltage compensation
 		 motorEB10->ConfigVoltageCompSaturation(12.0, 0);
          motorEB10->EnableVoltageCompensation(true);
+		motorEB10->ConfigNeutralDeadband(m_neutralDeadband, m_timeout);
 
 		 motorEB10->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
 		 motorEB10->SetSensorPhase(false);

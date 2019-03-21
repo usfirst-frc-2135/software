@@ -43,6 +43,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsDouble("WR_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("WR_PidKd", m_pidKd, 0.000);
 	config->GetValueAsDouble("WR_ArbFeedForward", m_arbFeedForward, 0.09);
+	config->GetValueAsDouble("WR_NeutralDeadband", m_neutralDeadband, 0.004);
 	config->GetValueAsDouble("WR_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
     config->GetValueAsInt("WR_MinCounts", m_wristMinCounts, -3000);
@@ -75,6 +76,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 		// Enable voltage compensation
 		motorWR12->ConfigVoltageCompSaturation(12.0, 0);
         motorWR12->EnableVoltageCompensation(true);
+		motorWR12->ConfigNeutralDeadband(m_neutralDeadband, m_timeout);
 
 		// Configure sensor settings
 		motorWR12->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, m_pidIndex, m_timeout);
