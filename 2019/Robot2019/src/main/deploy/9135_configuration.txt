@@ -30,12 +30,11 @@
   EL_PidKi = 0.000
   EL_PidKd = 0.000
   EL_ArbFeedForward = 0.16
-  EL_CLRampRate = 0.0
+  EL_CLRampRate = 0.000
   EL_CLAllowedError = 0
   EL_ToleranceInches = 0.5
   EL_MaxHeight = 32.5
   EL_MinHeight = 0.0
-  EL_LowGearHeight = 15.00
   EL_BumpHeight = 1.0		
   EL_GroundCargoHeight = 0.0
   EL_GroundHatchHeight = 0.0
