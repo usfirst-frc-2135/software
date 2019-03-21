@@ -33,7 +33,7 @@
   EL_NeutralDeadband = 0.004
   EL_CLRampRate = 0.000
   EL_CLAllowedError = 0
-  EL_ToleranceInches = 0.5
+  EL_ToleranceInches = 0.75
   EL_MaxHeight = 32.5
   EL_MinHeight = 0.0
   EL_BumpHeight = 1.0		
@@ -41,12 +41,12 @@
   EL_GroundHatchHeight = 0.0
   EL_LoadingCargoHeight = 7.5
   EL_LoadingHatchHeight = 5.5
-  EL_ShipCargoHeight = 12.32
+  EL_ShipCargoHeight = 12.3
   EL_ShipHatchHeight = 3.0
   EL_RocketL1CargoHeight = 8.5
   EL_RocketL1HatchHeight = 5.0
-  EL_RocketL2CargoHeight = 18.06
-  EL_RocketL2HatchHeight = 12.88
+  EL_RocketL2CargoHeight = 18.1
+  EL_RocketL2HatchHeight = 12.1
   EL_RocketL3CargoHeight = 32.0
   EL_RocketL3HatchHeight = 27.8	
 # Elbow settings
@@ -62,7 +62,7 @@
   EB_NeutralDeadband = 0.004
   EB_ToleranceDegrees = 5.0
   EB_MaxCounts = 0
-  EB_MinCounts = -1800
+  EB_MinCounts = -2200
   EB_CalibAngle = 108.3
   EB_BumpAngle = 5.0
   EB_GroundCargoAngle = 108.3
