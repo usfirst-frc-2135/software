@@ -264,8 +264,11 @@ double Elevator::GetCurrentInches () {
 double Elevator::GetCurrentArbFeedForward(void) {
 	double curArbFeedForward;
 
-	// TODO: May need adjustment at bottom of range for rigging slack
 	curArbFeedForward = m_arbFeedForward;
+
+	// Proportionally adjust arbFeedForward when elevator slack is present (< 1.0 in)
+	if (m_curInches < 1.0)
+		curArbFeedForward *= m_curInches;
 
 	return curArbFeedForward;
 }
