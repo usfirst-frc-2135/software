@@ -66,10 +66,10 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	config->GetValueAsDouble("EL_RocketL3HatchHeight", m_rocketL3HatchHeight, 27.8);
 
 	// Initialize Talon SRX motor controller direction and encoder sensor slot
-    // Set the control mode and target to disable any movement
-    // Set to brake mode (in comparison to coast)
     // Set encoder as a CTRE magnetic in relative mode with sensor in phase with output
     if (m_talonValidEL7) {
+	    // Set to brake mode (in comparison to coast)
+	    // Set the control mode and target to disable any movement
 	    motorEL7->SetInverted(false);						// Sets the Talon inversion to false
 	    motorEL7->SetNeutralMode(NeutralMode::Brake);		// Set to brake mode (as opposed to coast)
 		motorEL7->SetSafetyEnabled(false);
@@ -163,10 +163,11 @@ void Elevator::Periodic() {
 		curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
 	}
 
-	// Put code here to be run every loop
-	frc::SmartDashboard::PutBoolean("EL Calibrated", m_calibrated);
-	frc::SmartDashboard::PutNumber("EL Height", CountsToInches(curCounts));
-	frc::SmartDashboard::PutNumber("Del Height", 2 * CountsToInches(curCounts));
+	m_curInches = CountsToInches(curCounts);
+
+	frc::SmartDashboard::PutNumber("EL Height", m_curInches);
+	frc::SmartDashboard::PutNumber("EL Del Hgt", 2 * m_curInches);
+
 
 	if ((m_elevatorDebug > 1) || (m_elevatorDebug > 0 && m_isMoving)) {
 
@@ -218,7 +219,9 @@ void Elevator:: Initialize(void) {
         curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
 	}
 
-    m_targetInches = CountsToInches(curCounts);
+	m_curInches = CountsToInches(curCounts);
+	m_targetCounts = curCounts;
+    m_targetInches = m_curInches;
 	m_isCargo = false;
 	m_isMoving = false;
 	std::printf("2135: EL Init Target Inches: %5.2f\n", m_targetInches);
@@ -245,7 +248,7 @@ double Elevator::CountsToInches(int counts) {
 }
 
 double Elevator::GetCurrentInches () {
-	double 	curCounts = 0.0;
+	int 	curCounts = 0;
 
 	if (m_talonValidEL7)
 		curCounts = motorEL7->GetSelectedSensorPosition(m_pidIndex);
@@ -270,6 +273,7 @@ void Elevator::CalibrationOverride() {
 		motorEL7->Set(ControlMode::Position, 0.0);
 	}
 	m_calibrated = true;
+	frc::SmartDashboard::PutBoolean("EL Calibrated", m_calibrated);
 }
 
 void Elevator::SetGamePiece(bool cargo) {
@@ -349,7 +353,7 @@ void Elevator::MoveToPositionInit(int level) {
 		motorEL7->Set(ControlMode::MotionMagic, m_targetCounts, 
 			DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
 
-		std::printf("2135: EL Move inches %f -> %f counts %d -> %d\n",
+		std::printf("2135: EL Move inches %5.2f -> %5.2f counts %d -> %d\n",
 			m_curInches, m_targetInches, curCounts, m_targetCounts);
 
 		if (level != NOCHANGE_HEIGHT)

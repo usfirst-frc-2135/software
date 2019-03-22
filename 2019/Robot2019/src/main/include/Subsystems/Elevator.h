@@ -60,10 +60,11 @@ private:
 	int				m_calibrationState;				// State variable for calibration sequence
 	bool			m_bumpDir;						// State variable for bumping up or down
 	bool			m_isMoving = false;				// State of whether the elevator is moving or stationary
-	bool 			m_isCargo; 						// True - Game Piece is cargo, False - Game Piece is hatch
 
 	frc::Timer		m_safetyTimer;					// Safety timer for use in elevator
 	double			m_safetyTimeout;				// Seconds that the timer ran before stopping
+
+	bool 			m_isCargo; 						// True - Game Piece is cargo, False - Game Piece is hatch
 
 	// Configuration file parameters
 	double			m_calibrationSpeed;				// Motor output speed used during calibration
@@ -125,7 +126,7 @@ enum {								// Elevator subsystem movement states
 
 	int InchesToCounts(double inches);
 	double CountsToInches(int counts);
-	double GetCurrentInches();
+	double GetCurrentInches(void);
 
 	void MoveToPositionInit(int height);
 	bool MoveToPositionIsFinished(void);
