@@ -43,7 +43,7 @@ private:
     bool			m_talonValidEB10;				// Health indicator for elbow Talon 12
 
 	bool			m_calibrated = false;			// Indicates whether the elevator has been calibrated
-	int				m_elbowLevel;					// Current elbow level (not degrees)
+	int				m_elbowAngle;					// Current elbow level (not degrees)
 	double			m_targetDegrees;				// Target angle of degrees that are requested of the elbow
 	int				m_targetCounts;					// Target encoder counts of angle that are requested of the elbow
 	double			m_curDegrees;					// Current elbow angle in degrees from vertical
@@ -116,7 +116,7 @@ public:
 	double GetCurrentDegrees(void);
 	double GetCurrentArbFeedForward(void);
 
-	void MoveToPositionInit(int level);
+	void MoveToPositionInit(int angle);
 	bool MoveToPositionIsFinished(void);
 	void BumpToPosition(bool direction);
 

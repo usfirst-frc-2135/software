@@ -245,7 +245,7 @@ double Elbow::GetCurrentArbFeedForward(void) {
 void Elbow::MoveToPositionInit(int angle) {
 	int curCounts = 0;
 
-	m_elbowLevel = angle;
+	m_elbowAngle = angle;
 
 	// Validate and set the requested angle to move
 	switch (angle) {
@@ -335,7 +335,7 @@ bool Elbow::MoveToPositionIsFinished(void) {
 	double 		errorInDegrees = 0.0;
 
 	// If a real move was requested, check for completion
-	if (m_elbowLevel != NOCHANGE_ANGLE) {
+	if (m_elbowAngle != NOCHANGE_ANGLE) {
 		if (m_talonValidEB10) {
 			curCounts = motorEB10->GetSelectedSensorPosition(m_pidIndex);
 		}

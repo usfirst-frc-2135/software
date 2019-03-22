@@ -249,7 +249,7 @@ double Wrist::GetCurrentArbFeedForward(void) {
 void Wrist::MoveToPositionInit(int angle) {
 	int curCounts = 0;
 
-	m_wristLevel = angle;
+	m_wristAngle = angle;
 
 	// Validate and set the requested angle to move
 	switch (angle) {
@@ -340,7 +340,7 @@ bool Wrist::MoveToPositionIsFinished(void) {
 	double 		errorInDegrees = 0.0;
 
 	// If a real move was requested, check for completion
-	if (m_wristLevel != NOCHANGE_ANGLE) {
+	if (m_wristAngle != NOCHANGE_ANGLE) {
 		if (m_talonValidWR12) {
 			curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
 		}
