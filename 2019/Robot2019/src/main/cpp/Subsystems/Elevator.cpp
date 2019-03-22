@@ -93,7 +93,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 		motorEL7->ConfigAllowableClosedloopError(m_slotIndex, m_CLAllowedError, m_timeout);
 
 		// Set maximum current draw allowed
-		motorEL7->ConfigPeakCurrentLimit(20.0, m_timeout);
+		motorEL7->ConfigPeakCurrentLimit(30.0, m_timeout);
 		motorEL7->EnableCurrentLimit(false);
 		
 		// Set soft limits
@@ -128,7 +128,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 		motorEL8->ConfigNeutralDeadband(m_neutralDeadband, m_timeout);
 
 		// Set maximum current draw allowed
-		motorEL8->ConfigPeakCurrentLimit(20.0, m_timeout);
+		motorEL8->ConfigPeakCurrentLimit(30.0, m_timeout);
 		motorEL8->EnableCurrentLimit(false);
 	}
 

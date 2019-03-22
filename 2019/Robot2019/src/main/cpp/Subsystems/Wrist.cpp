@@ -74,7 +74,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 		motorWR12->SetSafetyEnabled(false);
 
 		// Enable voltage compensation
-		motorWR12->ConfigVoltageCompSaturation(12.0, 0);
+		motorWR12->ConfigVoltageCompSaturation(12.0, m_timeout);
         motorWR12->EnableVoltageCompensation(true);
 		motorWR12->ConfigNeutralDeadband(m_neutralDeadband, m_timeout);
 
@@ -88,7 +88,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 		motorWR12->ConfigPeakOutputReverse(-m_peakOut, m_timeout);
 
 		// Set maximum current draw allowed
-		motorWR12->ConfigPeakCurrentLimit(20.0, m_timeout);
+		motorWR12->ConfigPeakCurrentLimit(30.0, m_timeout);
 		motorWR12->EnableCurrentLimit(true);
 
 		// Set soft limits
@@ -183,8 +183,8 @@ void Wrist::Initialize(void) {
 	double	curCounts = 0.0;
 
 	std::printf("2135: WR Wrist Init\n");
-	// Set PID target to current encoder reading
 
+	// Set PID target to current encoder reading
 	if (m_talonValidWR12) {
 		motorWR12->Set(ControlMode::PercentOutput, 0.0);
 		curCounts = motorWR12->GetSelectedSensorPosition(m_pidIndex);
