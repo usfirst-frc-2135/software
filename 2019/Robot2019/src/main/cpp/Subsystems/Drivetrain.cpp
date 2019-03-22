@@ -144,6 +144,9 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
     // If either master drive talons are valid, enable safety timer
     diffDrive->SetSafetyEnabled(m_talonValidL1 || m_talonValidR3);
+
+	// Initialize drivetrain
+	Initialize();
  
 	// Initialize and calibrate Pigeon IMU
 	m_pigeonValid = PigeonIMUInitialize();
@@ -304,7 +307,7 @@ void Drivetrain::MoveWithJoystick(std::shared_ptr<frc::Joystick> throttleJstick,
 		}
 
 		if (throttleStickZeroed)
-		diffDrive->ArcadeDrive(-yValue, xValue, true);
+			diffDrive->ArcadeDrive(-yValue, xValue, true);
 		else
 			diffDrive->ArcadeDrive(0.0, 0.0, true);
 
