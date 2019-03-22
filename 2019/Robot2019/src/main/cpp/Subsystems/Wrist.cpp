@@ -114,6 +114,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     // Initialize Variables
     m_targetDegrees = m_curDegrees;
     m_targetCounts = DegreesToCounts(m_curDegrees);
+    m_calibrated = false;
 
     // Field for manually progamming wrist angle
 	frc::SmartDashboard::PutNumber("WR Setpoint", m_curDegrees);
@@ -340,9 +341,9 @@ void Wrist::MoveToPositionInit(int angle) {
 		motorWR12->Set(ControlMode::MotionMagic, m_targetCounts, 
 			DemandType::DemandType_ArbitraryFeedForward, GetCurrentArbFeedForward());
 
-		std::printf("2135: WR Move degrees %f -> %f counts %d -> %d\n",
+		std::printf("2135: WR Move degrees %5.2f -> %5.2f counts %d -> %d\n",
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
-		
+
 		if (angle != NOCHANGE_ANGLE)
 			m_isMoving = true;
 	}

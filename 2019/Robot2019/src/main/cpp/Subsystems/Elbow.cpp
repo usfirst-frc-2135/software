@@ -112,6 +112,7 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
     // Initialize Variables
     m_targetDegrees = m_curDegrees;
     m_targetCounts = DegreesToCounts(m_curDegrees);
+    m_calibrated = false;
 
     // Field for manually progamming elbow angle
 	frc::SmartDashboard::PutNumber("EB Setpoint", m_curDegrees);
@@ -340,7 +341,7 @@ void Elbow::MoveToPositionInit(int angle) {
 			m_curDegrees, m_targetDegrees, curCounts, m_targetCounts);
 
 		if (angle != NOCHANGE_ANGLE)
-			m_isMoving = true;	
+			m_isMoving = true;
 	}
 	else {
 		std::printf("2135: Elbow is not calibrated\n");
