@@ -242,6 +242,27 @@ double Elbow::GetCurrentArbFeedForward(void) {
 	return curArbFeedForward;
 }
 
+void Elbow::BumpToPosition(bool direction) {
+	m_bumpDir = direction;
+
+	MoveToPositionInit(BUMP_ANGLE);
+}
+
+void Elbow::Calibrate() {
+
+	if (m_talonValidEB10)
+		motorEB10->SetSelectedSensorPosition(DegreesToCounts(m_calibAngle), m_pidIndex, m_timeout);
+
+	m_calibrated = true;
+	frc::SmartDashboard::PutBoolean("EB Calibrated", m_calibrated);
+}
+
+void Elbow::SetGamePiece(bool cargo) {
+	m_isCargo = cargo;
+}
+
+///////////////////////// MOTION MAGIC ///////////////////////////////////
+
 void Elbow::MoveToPositionInit(int angle) {
 	int curCounts = 0;
 
@@ -368,23 +389,4 @@ bool Elbow::MoveToPositionIsFinished(void) {
 	}
 
 	return isFinished;
-}
-
-void Elbow::BumpToPosition(bool direction) {
-	m_bumpDir = direction;
-
-	MoveToPositionInit(BUMP_ANGLE);
-}
-
-void Elbow::Calibrate() {
-
-	if (m_talonValidEB10)
-		motorEB10->SetSelectedSensorPosition(DegreesToCounts(m_calibAngle), m_pidIndex, m_timeout);
-
-	frc::SmartDashboard::PutBoolean("EB Calibrated", true);
-	m_calibrated = true;
-}
-
-void Elbow::SetGamePiece(bool cargo) {
-	m_isCargo = cargo;
 }

@@ -246,6 +246,27 @@ double Wrist::GetCurrentArbFeedForward(void) {
 	return curArbFeedForward;
 }
 
+void Wrist::BumpToPosition(bool direction) {
+	m_bumpDir = direction;
+
+	MoveToPositionInit(BUMP_ANGLE);
+}
+
+void Wrist::Calibrate() {
+
+	if (m_talonValidWR12)
+		motorWR12->SetSelectedSensorPosition(DegreesToCounts(m_calibAngle), m_pidIndex, m_timeout);
+
+	m_calibrated = true;
+	frc::SmartDashboard::PutBoolean("WR Calibrated", m_calibrated);
+}
+
+void Wrist::SetGamePiece(bool cargo) {
+	m_isCargo = cargo;
+}
+
+///////////////////////// MOTION MAGIC ///////////////////////////////////
+
 void Wrist::MoveToPositionInit(int angle) {
 	int curCounts = 0;
 
@@ -373,24 +394,4 @@ bool Wrist::MoveToPositionIsFinished(void) {
 	}
 
 	return isFinished;
-}
-
-void Wrist::BumpToPosition(bool direction) {
-	m_bumpDir = direction;
-
-	MoveToPositionInit(BUMP_ANGLE);
-}
-
-void Wrist::Calibrate() {
-
-	if (m_talonValidWR12)
-
-		motorWR12->SetSelectedSensorPosition(DegreesToCounts(m_calibAngle), m_pidIndex, m_timeout);
-
-	frc::SmartDashboard::PutBoolean("WR Calibrated", true);
-	m_calibrated = true;
-}
-
-void Wrist::SetGamePiece(bool cargo) {
-	m_isCargo = cargo;
 }
