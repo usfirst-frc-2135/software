@@ -168,6 +168,10 @@ void Elevator::Periodic() {
 	frc::SmartDashboard::PutNumber("EL Height", m_curInches);
 	frc::SmartDashboard::PutNumber("EL Del Hgt", 2 * m_curInches);
 
+	// Update arbitrary feed forward if calibrated
+	if (m_calibrated)
+		motorEL7->Set(ControlMode::MotionMagic, m_targetCounts, 
+			DemandType::DemandType_ArbitraryFeedForward, GetCurrentArbFeedForward());
 
 	if ((m_elevatorDebug > 1) || (m_elevatorDebug > 0 && m_isMoving)) {
 
@@ -255,6 +259,15 @@ double Elevator::GetCurrentInches () {
 
 	m_curInches = CountsToInches(curCounts);
 	return m_curInches;
+}
+
+double Elevator::GetCurrentArbFeedForward(void) {
+	double curArbFeedForward;
+
+	// TODO: May need adjustment at bottom of range for rigging slack
+	curArbFeedForward = m_arbFeedForward;
+
+	return curArbFeedForward;
 }
 
 // Elevator PID loop setup to do a bump movement
@@ -351,7 +364,7 @@ void Elevator::MoveToPositionInit(int level) {
 		m_safetyTimer.Start();
 
 		motorEL7->Set(ControlMode::MotionMagic, m_targetCounts, 
-			DemandType::DemandType_ArbitraryFeedForward, m_arbFeedForward);
+			DemandType::DemandType_ArbitraryFeedForward, GetCurrentArbFeedForward());
 
 		std::printf("2135: EL Move inches %5.2f -> %5.2f counts %d -> %d\n",
 			m_curInches, m_targetInches, curCounts, m_targetCounts);

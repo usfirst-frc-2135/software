@@ -127,6 +127,7 @@ enum {								// Elevator subsystem movement states
 	int InchesToCounts(double inches);
 	double CountsToInches(int counts);
 	double GetCurrentInches(void);
+	double GetCurrentArbFeedForward(void);
 
 	void MoveToPositionInit(int height);
 	bool MoveToPositionIsFinished(void);
