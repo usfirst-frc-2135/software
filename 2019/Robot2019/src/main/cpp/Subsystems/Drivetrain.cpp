@@ -251,6 +251,7 @@ void Drivetrain::Initialize(void) {
 	// When disabled, low gear and coast mode to allow easier pushing
 	m_lowGear = true;
 	m_brakeMode = false;
+	throttleStickZeroed = false;
 	// If ENABLED and AUTON mode, set brake mode
 	if (!frc::RobotState::IsDisabled()) {
 		if (!frc::RobotState::IsOperatorControl()) {
@@ -297,8 +298,17 @@ void Drivetrain::MoveWithJoystick(std::shared_ptr<frc::Joystick> throttleJstick,
 		yValue *= m_driveYScaling;
 	}
 
-	if (m_talonValidL1 || m_talonValidR3)
+	if (m_talonValidL1 || m_talonValidR3) {
+		if (!throttleStickZeroed) {
+			if (yValue==0.0) throttleStickZeroed = true;
+		}
+
+		if (throttleStickZeroed)
 		diffDrive->ArcadeDrive(-yValue, xValue, true);
+		else
+			diffDrive->ArcadeDrive(0.0, 0.0, true);
+
+	}
 }
 
 //	Automatic Drive Spin movement

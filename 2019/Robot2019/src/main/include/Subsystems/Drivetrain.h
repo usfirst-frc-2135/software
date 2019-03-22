@@ -92,6 +92,8 @@ private:
 	double	m_pidKd;				// Drivetrain PID derivative constant
 	double	m_arbFeedForward;		// Drivetrain Motion Magic Arbitrary Feed Forward		
 
+	bool 	throttleStickZeroed;	// ThrottleStick zeroed check for safety
+
 	PIDOutputDriveTurn	*driveTurnPIDOutput;		// Drive turn to angle with gyro
 	PIDSourceDriveTurn	*driveTurnPIDSource;		// Drive turn PID source loop
 	frc::PIDController	*driveTurnPIDLoop;			// Drive turn PID control
