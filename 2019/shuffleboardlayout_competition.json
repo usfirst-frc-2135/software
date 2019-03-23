@@ -442,7 +442,7 @@
               "_title": "Drivetrain/Shifter/Value"
             }
           },
-          "7,1": {
+          "6,1": {
             "size": [
               1,
               1
@@ -526,7 +526,7 @@
               "Visuals/Orientation": "HORIZONTAL"
             }
           },
-          "8,3": {
+          "8,2": {
             "size": [
               2,
               1
@@ -536,37 +536,6 @@
               "_source0": "network_table:///LiveWindow/IN/M14",
               "_title": "IN/M14",
               "Visuals/Orientation": "HORIZONTAL"
-            }
-          },
-          "8,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///LiveWindow/DT/L1/Value",
-              "_title": "DT/L1/Value"
-            }
-          },
-          "4,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Subsystem Layout",
-              "_source0": "network_table:///LiveWindow/WR",
-              "_title": "WR",
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Speed Controller",
-                  "_source0": "network_table:///LiveWindow/WR/W12",
-                  "_title": "W12",
-                  "Visuals/Orientation": "HORIZONTAL"
-                }
-              ]
             }
           },
           "0,2": {
@@ -721,7 +690,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "8,1": {
+          "8,3": {
             "size": [
               2,
               1
@@ -733,7 +702,7 @@
               "Visuals/Orientation": "HORIZONTAL"
             }
           },
-          "8,2": {
+          "4,3": {
             "size": [
               2,
               1
@@ -745,7 +714,7 @@
               "Visuals/Orientation": "HORIZONTAL"
             }
           },
-          "9,0": {
+          "8,0": {
             "size": [
               1,
               1
@@ -754,6 +723,30 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///LiveWindow/Pneumatics/Pcm/Enabled",
               "_title": "Pneumatics/Pcm/Enabled",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Lifter/Back/Value",
+              "_title": "/LiveWindow/Lifter/Back/Value"
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Pneumatics/Pcm/Pressure switch",
+              "_title": "/LiveWindow/Pneumatics/Pcm/Pressure switch",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
@@ -905,17 +898,6 @@
               "_type": "Command",
               "_source0": "network_table:///SmartDashboard/Drive Reset",
               "_title": "rive Reset"
-            }
-          },
-          "3,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Del Height",
-              "_title": "el Height"
             }
           }
         }
@@ -1141,6 +1123,17 @@
               "_source0": "network_table:///SmartDashboard/EL Run: ROCKET_L2_HEIGHT",
               "_title": " Run: ROCKET_L2_HEIGHT"
             }
+          },
+          "0,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/EL Del Hgt",
+              "_title": " Del Hgt"
+            }
           }
         }
       }
@@ -1190,7 +1183,7 @@
               "_title": " Calibrate"
             }
           },
-          "0,2": {
+          "1,2": {
             "size": [
               1,
               1
@@ -1201,7 +1194,7 @@
               "_title": " Bump: UP"
             }
           },
-          "1,2": {
+          "2,2": {
             "size": [
               1,
               1
@@ -1234,7 +1227,7 @@
               "_title": " Degrees"
             }
           },
-          "2,2": {
+          "4,2": {
             "size": [
               1,
               1
@@ -1245,7 +1238,7 @@
               "_title": "_Output_EB10"
             }
           },
-          "4,2": {
+          "5,2": {
             "size": [
               1,
               1
@@ -1365,6 +1358,17 @@
               "_source0": "network_table:///SmartDashboard/EB Run: ROCKET_L1_ANGLE",
               "_title": " Run: ROCKET_L1_ANGLE"
             }
+          },
+          "0,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/EB ArbFF",
+              "_title": " ArbFF"
+            }
           }
         }
       }
@@ -1414,7 +1418,7 @@
               "_title": " Calibrate"
             }
           },
-          "0,2": {
+          "1,2": {
             "size": [
               1,
               1
@@ -1425,7 +1429,7 @@
               "_title": " Bump: UP"
             }
           },
-          "1,2": {
+          "2,2": {
             "size": [
               1,
               1
@@ -1568,7 +1572,7 @@
               "_title": " Degrees"
             }
           },
-          "2,2": {
+          "4,2": {
             "size": [
               1,
               1
@@ -1579,7 +1583,7 @@
               "_title": "/SmartDashboard/EB_Output_EB10"
             }
           },
-          "4,2": {
+          "5,2": {
             "size": [
               1,
               1
@@ -1588,6 +1592,17 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/EB_Current_EB10",
               "_title": "/SmartDashboard/EB_Current_EB10"
+            }
+          },
+          "0,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/WR ArbFF",
+              "_title": " ArbFF"
             }
           }
         }
@@ -1844,57 +1859,12 @@
           }
         }
       }
-    },
-    {
-      "title": "Camera",
-      "autoPopulate": false,
-      "autoPopulatePrefix": "",
-      "widgetPane": {
-        "gridSize": 24.0,
-        "showGrid": true,
-        "hgap": 16.0,
-        "vgap": 16.0,
-        "tiles": {
-          "0,0": {
-            "size": [
-              23,
-              15
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://rPi Camera 0",
-              "_title": "rPi Camera 0",
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
-            }
-          },
-          "23,0": {
-            "size": [
-              7,
-              8
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/CMP_GPShift",
-              "_title": "SmartDashboard/CMP_GPShift",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          }
-        }
-      }
     }
   ],
   "windowGeometry": {
     "x": -7.0,
     "y": 0.0,
     "width": 1381.0,
-    "height": 730.0
+    "height": 562.0
   }
 }

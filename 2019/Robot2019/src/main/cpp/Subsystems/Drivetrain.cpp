@@ -254,7 +254,7 @@ void Drivetrain::Initialize(void) {
 	// When disabled, low gear and coast mode to allow easier pushing
 	m_lowGear = true;
 	m_brakeMode = false;
-	throttleStickZeroed = false;
+	m_throttleZeroed = false;
 	// If ENABLED and AUTON mode, set brake mode
 	if (!frc::RobotState::IsDisabled()) {
 		if (!frc::RobotState::IsOperatorControl()) {
@@ -302,14 +302,17 @@ void Drivetrain::MoveWithJoystick(std::shared_ptr<frc::Joystick> throttleJstick,
 	}
 
 	if (m_talonValidL1 || m_talonValidR3) {
-		if (!throttleStickZeroed) {
-			if (yValue==0.0) throttleStickZeroed = true;
-		}
+	// If joystick reports a very small throttle value
+		if (fabs(yValue) < 0.05) 
+			m_throttleZeroed = true;
 
-		if (throttleStickZeroed)
-			diffDrive->ArcadeDrive(-yValue, xValue, true);
-		else
-			diffDrive->ArcadeDrive(0.0, 0.0, true);
+	// If throttle not zeroed, prevent joystick inputs from entering drive
+		if (!m_throttleZeroed) {
+			xValue = 0.0;
+			yValue = 0.0;
+		}
+			
+	diffDrive->ArcadeDrive(-yValue, xValue, true);
 
 	}
 }
