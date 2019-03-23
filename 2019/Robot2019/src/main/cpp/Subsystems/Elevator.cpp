@@ -340,7 +340,6 @@ void Elevator::MoveToPositionInit(int level) {
 	}
 
     m_targetCounts = InchesToCounts(m_targetInches);
-    std::printf("2135: EL Init %d cts %5.2f in\n", (int) m_targetCounts, m_targetInches);
 	
 	if (m_calibrated) {
 
@@ -376,6 +375,7 @@ void Elevator::MoveToPositionInit(int level) {
 			m_isMoving = true;
 	}
 	else {
+	    std::printf("2135: EL Init %d cts %5.2f in\n", (int) m_targetCounts, m_targetInches);
 		std::printf("2135: EL is not calibrated\n");
 
 		if (m_talonValidEL7)
