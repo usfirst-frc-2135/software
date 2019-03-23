@@ -41,7 +41,8 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
     config->GetValueAsDouble("EB_PidKp", m_pidKp, 2.616);
     config->GetValueAsDouble("EB_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("EB_PidKd", m_pidKd, 0.000);
-	config->GetValueAsDouble("EB_ArbFeedForward", m_arbFeedForward, 0.21);
+	config->GetValueAsDouble("EB_ArbFeedForward", m_arbFeedForward, 0.18);
+	config->GetValueAsDouble("EB_WristArbFF", m_wristArbFF, 0.07);
 	config->GetValueAsDouble("EB_NeutralDeadband", m_neutralDeadband, 0.004);
 	config->GetValueAsDouble("EB_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("EB_MaxCounts", m_elbowMaxCounts, 0);
@@ -143,9 +144,15 @@ void Elbow::Periodic() {
 	frc::SmartDashboard::PutNumber("EB Degrees", m_curDegrees);
 
 	// Update arbitrary feed forward if calibrated
-	if (m_calibrated)
+	if (m_calibrated) {
+		double	arbFF;
+
+		arbFF = GetCurrentArbFeedForward();
 		motorEB10->Set(ControlMode::MotionMagic, m_targetCounts, 
-			DemandType::DemandType_ArbitraryFeedForward, GetCurrentArbFeedForward());
+			DemandType::DemandType_ArbitraryFeedForward, arbFF);
+	
+		frc::SmartDashboard::PutNumber("EB ArbFF", arbFF);
+	}
 
 	if ((m_elbowDebug > 1) || (m_elbowDebug > 0 && m_isMoving)) {
 
@@ -235,10 +242,14 @@ double Elbow::GetCurrentDegrees(void) {
 }
 
 double Elbow::GetCurrentArbFeedForward(void) {
-	double curArbFeedForward;
+	double	wristEffectiveAngle;
+	double	wristArbFF;
+	double	curArbFeedForward;
 
-	// This could be adjusted slightly for Wrist angle to be more accurate
-	curArbFeedForward = sin(DegreesToRadians(m_curDegrees)) * m_arbFeedForward;
+	// Wrist adjustment for effect on Elbow
+	wristEffectiveAngle = Robot::wrist->GetCurrentDegrees() + m_curDegrees - 180.0;
+	wristArbFF = sin(DegreesToRadians(wristEffectiveAngle)) * m_wristArbFF;
+	curArbFeedForward = sin(DegreesToRadians(m_curDegrees)) * (m_arbFeedForward + wristArbFF);
 
 	return curArbFeedForward;
 }
@@ -309,7 +320,6 @@ void Elbow::MoveToPositionInit(int angle) {
 	}
 
 	m_targetCounts = DegreesToCounts(m_targetDegrees);
-    std::printf("2135: EB Init %d cts %5.2f deg\n", (int) m_targetCounts, m_targetDegrees);
 	
 	if (m_calibrated) {
 
@@ -345,6 +355,7 @@ void Elbow::MoveToPositionInit(int angle) {
 	}
 	else {
 		std::printf("2135: Elbow is not calibrated\n");
+    	std::printf("2135: EB Init %d cts %5.2f deg\n", (int) m_targetCounts, m_targetDegrees);
 
 		if (m_talonValidEB10)
 			motorEB10->Set(ControlMode::PercentOutput, 0.0);
