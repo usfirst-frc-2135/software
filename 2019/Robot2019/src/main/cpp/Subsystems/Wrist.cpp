@@ -42,7 +42,7 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
     config->GetValueAsDouble("WR_PidKp", m_pidKp, 3.596);
     config->GetValueAsDouble("WR_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("WR_PidKd", m_pidKd, 0.000);
-	config->GetValueAsDouble("WR_ArbFeedForward", m_arbFeedForward, 0.09);
+	config->GetValueAsDouble("WR_ArbFeedForward", m_arbFeedForward, 0.11);
 	config->GetValueAsDouble("WR_NeutralDeadband", m_neutralDeadband, 0.004);
 	config->GetValueAsDouble("WR_ToleranceDegrees", m_toleranceDegrees, 5.0);
     config->GetValueAsInt("WR_MaxCounts", m_wristMaxCounts, 0);
@@ -145,9 +145,15 @@ void Wrist::Periodic() {
 	frc::SmartDashboard::PutNumber("WR Degrees", m_curDegrees);
 
 	// Update arbitrary feed forward if calibrated
-	if (m_calibrated)
+	if (m_calibrated) {
+		double	arbFF;
+
+		arbFF =  GetCurrentArbFeedForward();
 		motorWR12->Set(ControlMode::MotionMagic, m_targetCounts, 
-			DemandType::DemandType_ArbitraryFeedForward, GetCurrentArbFeedForward());
+			DemandType::DemandType_ArbitraryFeedForward, arbFF);
+
+		frc::SmartDashboard::PutNumber("WR ArbFF", arbFF);
+	}
 
 	if ((m_wristDebug > 1) || (m_wristDebug > 0 && m_isMoving)) {
 
@@ -238,11 +244,12 @@ double Wrist::GetCurrentDegrees(void) {
 }
 
 double Wrist::GetCurrentArbFeedForward(void) {
-	double curArbFeedForward;
+	double	wristEffectiveAngle;
+	double	curArbFeedForward;
 
-	// This should be a calculation of sin(m_curDegrees - elbowangle)
-	// Exact math needs to be calculated
-	curArbFeedForward = m_arbFeedForward;
+	// Elbow adjustment for effect on Wrist
+	wristEffectiveAngle = Robot::elbow->GetCurrentDegrees() + m_curDegrees - 180.0;
+	curArbFeedForward = sin(DegreesToRadians(wristEffectiveAngle)) * m_arbFeedForward;
 
 	return curArbFeedForward;
 }
@@ -313,8 +320,7 @@ void Wrist::MoveToPositionInit(int angle) {
 	}
 
 	m_targetCounts = DegreesToCounts(m_targetDegrees);
-    std::printf("2135: WR Init %d cts %5.2f deg\n", (int) m_targetCounts, m_targetDegrees);
-	
+ 	
 	if (m_calibrated) {
 
 		// Constrain input request to a valid and safe range
@@ -349,6 +355,7 @@ void Wrist::MoveToPositionInit(int angle) {
 	}
 	else {
 		std::printf("2135: Wrist is not calibrated\n");
+   		std::printf("2135: WR Init %d cts %5.2f deg\n", (int) m_targetCounts, m_targetDegrees);
 
 		if (m_talonValidWR12)
 			motorWR12->Set(ControlMode::PercentOutput, 0.0);

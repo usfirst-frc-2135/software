@@ -124,7 +124,6 @@ public:
 	void Calibrate();
 
 	void SetGamePiece(bool setting);
-
 };
 
 #endif
