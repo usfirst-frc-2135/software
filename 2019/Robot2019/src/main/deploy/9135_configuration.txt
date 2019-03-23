@@ -68,7 +68,7 @@
   EB_BumpAngle = 5.0
   EB_GroundCargoAngle = 108.3
   EB_GroundHatchAngle = 108.3
-  EB_LoadingCargoAngle = 30.5
+  EB_LoadingCargoAngle = 108.3
   EB_LoadingHatchAngle = 108.3
   EB_ShipCargoAngle = 20.0
   EB_ShipHatchAngle = 108.3
@@ -97,7 +97,7 @@
   WR_BumpAngle = 5.0
   WR_GroundCargoAngle = 81.0
   WR_GroundHatchAngle = 134.0
-  WR_LoadingCargoAngle = 97.5
+  WR_LoadingCargoAngle = 66.0
   WR_LoadingHatchAngle = 66.0
   WR_ShipCargoAngle = 164.0
   WR_ShipHatchAngle = 42.8
