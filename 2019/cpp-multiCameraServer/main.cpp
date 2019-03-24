@@ -20,6 +20,8 @@
 
 #include "cameraserver/CameraServer.h"
 
+#include "VisionPipeline.h"
+
 /*
    JSON format:
    {
