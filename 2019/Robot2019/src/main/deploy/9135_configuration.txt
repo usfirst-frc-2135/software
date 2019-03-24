@@ -51,8 +51,8 @@
   EL_RocketL3HatchHeight = 27.8	
 # Elbow settings
   EB_PeakOut = 0.8
-  EB_Velocity = 78
-  EB_Acceleration = 499
+  EB_Velocity = 156
+  EB_Acceleration = 312
   EB_SCurveStrength = 0
   EB_PidKf = 3.283
   EB_PidKp = 2.616
@@ -81,8 +81,8 @@
   EB_StowAngle = 30.0
 # Wrist settings
   WR_PeakOut = 0.8
-  WR_Velocity = 120
-  WR_Acceleration = 240
+  WR_Velocity = 150
+  WR_Acceleration = 300
   WR_SCurveStrength = 0
   WR_PidKf = 3.411
   WR_PidKp = 3.596
