@@ -10,7 +10,11 @@
     "bin/": true,
     ".classpath": true,
     ".project": true,
-    "**/*~": true
+    "**/*~": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
   },
   "C_Cpp.default.configurationProvider": "vscode-wpilib"
 }
