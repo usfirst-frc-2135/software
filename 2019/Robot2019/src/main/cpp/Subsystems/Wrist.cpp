@@ -200,7 +200,6 @@ void Wrist::Initialize(void) {
 	m_curDegrees = CountsToDegrees(curCounts);
 	m_targetCounts = curCounts;
 	m_targetDegrees = m_curDegrees;
-	m_isCargo = false;
 	m_isMoving = false;
 }
 
@@ -269,16 +268,14 @@ void Wrist::Calibrate() {
 	frc::SmartDashboard::PutBoolean("WR Calibrated", m_calibrated);
 }
 
-void Wrist::SetGamePiece(bool cargo) {
-	m_isCargo = cargo;
-}
-
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
 
 void Wrist::MoveToPositionInit(int angle) {
 	int curCounts = 0;
+	bool isCargo;
 
 	m_wristAngle = angle;
+	isCargo = Robot::oi->IsCargo();
 
 	// Validate and set the requested angle to move
 	switch (angle) {
@@ -286,19 +283,19 @@ void Wrist::MoveToPositionInit(int angle) {
 		// m_targetDegrees = m_targetDegrees;
 		break;
 	case GROUND_ANGLE:
-		m_targetDegrees = (m_isCargo) ? m_groundCargoAngle : m_groundHatchAngle;
+		m_targetDegrees = (isCargo) ? m_groundCargoAngle : m_groundHatchAngle;
 		break;
 	case SHIP_ANGLE:
-		m_targetDegrees = (m_isCargo) ? m_shipCargoAngle : m_shipHatchAngle;
+		m_targetDegrees = (isCargo) ? m_shipCargoAngle : m_shipHatchAngle;
 		break;
 	case ROCKET_L1_ANGLE:
-		m_targetDegrees = (m_isCargo) ? m_rocketL1CargoAngle : m_rocketL1HatchAngle;
+		m_targetDegrees = (isCargo) ? m_rocketL1CargoAngle : m_rocketL1HatchAngle;
 		break;
 	case ROCKET_L2_ANGLE:
-		m_targetDegrees = (m_isCargo) ? m_rocketL2CargoAngle : m_rocketL2HatchAngle;
+		m_targetDegrees = (isCargo) ? m_rocketL2CargoAngle : m_rocketL2HatchAngle;
 		break;
 	case ROCKET_L3_ANGLE:
-		m_targetDegrees = (m_isCargo) ? m_rocketL3CargoAngle : m_rocketL3HatchAngle;
+		m_targetDegrees = (isCargo) ? m_rocketL3CargoAngle : m_rocketL3HatchAngle;
 		break;
 	case SMARTDASH_ANGLE:
 		m_targetDegrees = frc::SmartDashboard::GetNumber("WR Setpoint", 0.0);
@@ -312,7 +309,7 @@ void Wrist::MoveToPositionInit(int angle) {
 		m_targetDegrees = m_stowedAngle;
 		break;
 	case LOADING_ANGLE:
-		m_targetDegrees = (m_isCargo) ? m_loadingCargoAngle : m_loadingHatchAngle;
+		m_targetDegrees = (isCargo) ? m_loadingCargoAngle : m_loadingHatchAngle;
 		break;
 	default:
 		std::printf("2135: WR invalid angle requested - %d\n", angle);

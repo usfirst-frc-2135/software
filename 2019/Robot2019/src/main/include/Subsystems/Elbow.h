@@ -52,8 +52,6 @@ private:
 
 	frc::Timer		m_safetyTimer;					// Safety timer for use in Elbow
 	double			m_safetyTimeout;				// Seconds that the timer ran before stopping
-
-	bool 			m_isCargo; 						// True - Game Piece is cargo, False - Game Piece is hatch
 	
 	// Configuration file parameters
 	double 			m_peakOut;						// Elbow maximum speed during movement
@@ -122,8 +120,6 @@ public:
 	void BumpToPosition(bool direction);
 
 	void Calibrate();
-
-	void SetGamePiece(bool setting);
 };
 
 #endif

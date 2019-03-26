@@ -226,7 +226,6 @@ void Elevator:: Initialize(void) {
 	m_curInches = CountsToInches(curCounts);
 	m_targetCounts = curCounts;
     m_targetInches = m_curInches;
-	m_isCargo = false;
 	m_isMoving = false;
 	std::printf("2135: EL Init Target Inches: %5.2f\n", m_targetInches);
 }
@@ -292,16 +291,14 @@ void Elevator::CalibrationOverride() {
 	frc::SmartDashboard::PutBoolean("EL Calibrated", m_calibrated);
 }
 
-void Elevator::SetGamePiece(bool cargo) {
-	m_isCargo = cargo;
-}
-
 ///////////////////////// MOTION MAGIC ///////////////////////////////////
 
 void Elevator::MoveToPositionInit(int level) {
 	int 	curCounts = 0;
+	bool	isCargo;
 
 	m_elevatorLevel = level;
+	isCargo = Robot::oi->IsCargo();
 
 	// Validate and set the requested position to move
 	switch (level) {
@@ -309,19 +306,19 @@ void Elevator::MoveToPositionInit(int level) {
 		// m_targetInches = m_targetInches;
 		break;
 	case GROUND_HEIGHT:
-		m_targetInches = (m_isCargo) ? m_groundCargoHeight : m_groundHatchHeight;
+		m_targetInches = (isCargo) ? m_groundCargoHeight : m_groundHatchHeight;
 		break;
 	case SHIP_HEIGHT:
-		m_targetInches = (m_isCargo) ? m_shipCargoHeight : m_shipHatchHeight;
+		m_targetInches = (isCargo) ? m_shipCargoHeight : m_shipHatchHeight;
 		break;
 	case ROCKET_L1_HEIGHT:
-		m_targetInches = (m_isCargo) ? m_rocketL1CargoHeight : m_rocketL1HatchHeight;
+		m_targetInches = (isCargo) ? m_rocketL1CargoHeight : m_rocketL1HatchHeight;
 		break;
 	case ROCKET_L2_HEIGHT:
-		m_targetInches = (m_isCargo) ? m_rocketL2CargoHeight : m_rocketL2HatchHeight;
+		m_targetInches = (isCargo) ? m_rocketL2CargoHeight : m_rocketL2HatchHeight;
 		break;
 	case ROCKET_L3_HEIGHT:
-		m_targetInches = (m_isCargo) ? m_rocketL3CargoHeight : m_rocketL3HatchHeight;
+		m_targetInches = (isCargo) ? m_rocketL3CargoHeight : m_rocketL3HatchHeight;
 		break;
 	case SMARTDASH_HEIGHT:
 		m_targetInches = frc::SmartDashboard::GetNumber("EL Setpoint", 0.0);
@@ -332,7 +329,7 @@ void Elevator::MoveToPositionInit(int level) {
 		m_targetInches += bumpHeight;
 		break;
 	case LOADING_HEIGHT:
-		m_targetInches = (m_isCargo) ? m_loadingCargoHeight : m_loadingHatchHeight;
+		m_targetInches = (isCargo) ? m_loadingCargoHeight : m_loadingHatchHeight;
 		break;
 	default:
 		std::printf("2135: EL invalid height requested - %d\n", level);

@@ -29,9 +29,7 @@ void GPShift::Initialize() {
 
     m_cargoActive = !m_cargoActive;
 
-    Robot::elevator->SetGamePiece(m_cargoActive);
-    Robot::elbow->SetGamePiece(m_cargoActive);
-    Robot::wrist->SetGamePiece(m_cargoActive);
+    Robot::oi->SetCargo(m_cargoActive);
     printf("2135: Game Piece - %s\n", (m_cargoActive) ? "CARGO" : "HATCH PANEL");
     // Show RED for cargo active and GREEN for hatch active
     frc::SmartDashboard::PutBoolean("CMP_GPShift", !m_cargoActive);
