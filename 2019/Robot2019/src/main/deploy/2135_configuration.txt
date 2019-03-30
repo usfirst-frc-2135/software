@@ -40,15 +40,15 @@
   EL_GroundCargoHeight = 0.0
   EL_GroundHatchHeight = 0.0
   EL_LoadingCargoHeight = 7.5
-  EL_LoadingHatchHeight = 5.5
+  EL_LoadingHatchHeight = 3.0
   EL_ShipCargoHeight = 12.3
-  EL_ShipHatchHeight = 5.0
+  EL_ShipHatchHeight = 3.0
   EL_RocketL1CargoHeight = 3.82
-  EL_RocketL1HatchHeight = 0.0
+  EL_RocketL1HatchHeight = 3.0
   EL_RocketL2CargoHeight = 17.82
-  EL_RocketL2HatchHeight = 15.97
+  EL_RocketL2HatchHeight = 16.97
   EL_RocketL3CargoHeight = 31.82
-  EL_RocketL3HatchHeight = 29.97
+  EL_RocketL3HatchHeight = 30.97
 # Elbow settings
   EB_PeakOut = 0.8
   EB_Velocity = 156
