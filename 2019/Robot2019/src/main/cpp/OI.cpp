@@ -202,3 +202,11 @@ std::shared_ptr<frc::Joystick> OI::getControlBoard2() {
 std::shared_ptr<frc::Joystick> OI::getDStick2() {
    return ( (m_separateJoysticks) ? dStick2 : nullptr);
 }
+
+void OI::SetCargo(bool cargo) {
+    m_isCargo = cargo;
+}
+
+bool OI::IsCargo() {
+    return m_isCargo;
+}

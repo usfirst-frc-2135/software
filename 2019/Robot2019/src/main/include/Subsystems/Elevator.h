@@ -64,8 +64,6 @@ private:
 	frc::Timer		m_safetyTimer;					// Safety timer for use in elevator
 	double			m_safetyTimeout;				// Seconds that the timer ran before stopping
 
-	bool 			m_isCargo; 						// True - Game Piece is cargo, False - Game Piece is hatch
-
 	// Configuration file parameters
 	double			m_calibrationSpeed;				// Motor output speed used during calibration
 	double 			m_peakOut;						// Elevator maximum speed during movement
@@ -134,9 +132,6 @@ enum {								// Elevator subsystem movement states
 	void BumpToPosition(bool direction);
 
 	void CalibrationOverride(void);
-
-	void SetGamePiece(bool setting);
-
 };
 
 #endif
