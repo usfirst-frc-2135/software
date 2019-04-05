@@ -28,7 +28,7 @@ void AutoDriveDist::Initialize() {
     // If distance is less than 0.1 (default is 0.0), then read from SmartDashboard
 	//	auton programs will pass in larger value
     if (fabs(m_distance) < 0.1) {
-       m_distance = frc::SmartDashboard::GetNumber("AutoDriveDist", 48.0);
+       m_distance = frc::SmartDashboard::GetNumber("AutoDriveDist", 97.25);
     }
 
     std::printf("2135: AutoDriveDist - Init %5.2f inches\n", m_distance);
