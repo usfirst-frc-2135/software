@@ -33,6 +33,23 @@ private:
 		double		angle;			// Calculated angle to target
 	} tData;
 
+	// CameraServer structures for processing vision frames
+	cs::CvSink inStream;
+	cs::CvSource outStream;
+	std::unique_ptr<grip::GripContoursPipeline> gripPipe;
+
+	// OpenCV structures for processing vision frames
+	cv::Mat inFrame;
+	cv::Mat gripFrame;
+
+	// Image processing structures for identifying targets and hatches
+	std::vector<std::vector<cv::Point>> *contours;
+	std::vector<cv::Rect> boundingRects;
+	std::vector<tData> rawData;
+	std::vector<tData> validTargets;
+	std::vector<tData> validHatches;
+	tData goal;
+
 	std::shared_ptr<NetworkTable> m_netTable;
 
 	void InitializeSmartdashboard(void);

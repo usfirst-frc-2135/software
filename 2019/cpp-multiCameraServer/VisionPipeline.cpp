@@ -32,23 +32,6 @@ void VisionPipeline::Init() {
 	m_hatchSize.width = 14.69;					// 2019 Hatch (two targets) dimensions
 	m_hatchSize.height = 5.8256;
 
-	// CameraServer structures for processing vision frames
-	cs::CvSink inStream;
-	cs::CvSource outStream;
-	std::unique_ptr<grip::GripContoursPipeline> gripPipe;
-
-	// OpenCV structures for processing vision frames
-	cv::Mat inFrame;
-	cv::Mat gripFrame;
-
-	// Image processing structures for identifying targets and hatches
-	std::vector<std::vector<cv::Point>> *contours;
-	std::vector<cv::Rect> boundingRects;
-	std::vector<tData> rawData;
-	std::vector<tData> validTargets;
-	std::vector<tData> validHatches;
-	tData goal;
-
 	// Get initial settings from SmartDashboard
 	InitializeSmartdashboard();
 
@@ -76,14 +59,6 @@ void VisionPipeline::Process(cv::Mat inFrame) {
 		// inFrame = cv::imread(imgFileName.c_str(), CV_LOAD_IMAGE_COLOR);
 		// int validFrame = 1;
 
-		if ((validFrame == 0) || (inFrame.empty())) {
-		    std::string error = inStream.GetError();
-		    frc::DriverStation::ReportError(error);
-		    std::printf("2135: Missed frame\n");
-			std::this_thread::sleep_for(std::chrono::milliseconds(200));
-		    continue;
-		}
-		else {
 			// Run vision processing gripPipe generated from GRIP
 			gripPipe->Process(inFrame);
 			gripFrame = *(gripPipe->gethslThresholdOutput());

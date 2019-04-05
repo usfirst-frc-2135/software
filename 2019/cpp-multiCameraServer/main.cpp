@@ -301,7 +301,7 @@ int main(int argc, char* argv[]) {
   // start image processing on camera 0 if present
   if (cameras.size() >= 1) {
     std::thread([&] {
-      frc::VisionRunner<MyPipeline> runner(cameras[0], new MyPipeline(),
+      frc::VisionRunner<VisionPipeline> runner(cameras[0], new VisionPipeline(),
                                            [&](MyPipeline &pipeline) {
         // do something with pipeline results
       });
