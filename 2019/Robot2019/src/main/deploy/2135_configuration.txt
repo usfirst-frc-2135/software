@@ -116,4 +116,4 @@
   LF_DriveSpeed = 0.75
 # Autonomous settings
   AutoDriveDist = 97.25
-  AutoDriveTurn = 90.0  
+  AutoDriveTurn = 90.0

@@ -66,11 +66,11 @@
   EB_MinCounts = -2200
   EB_CalibAngle = 114.51
   EB_BumpAngle = 5.0
+  EB_ShipCargoAngle = 20.0
   EB_GroundCargoAngle = 114.51
   EB_GroundHatchAngle = 114.51
   EB_LoadingCargoAngle = 114.51
   EB_LoadingHatchAngle = 114.51
-  EB_ShipCargoAngle = 20.0
   EB_ShipHatchAngle = 114.51
   EB_RocketL1CargoAngle = 18.65
   EB_RocketL1HatchAngle = 129.12
@@ -95,11 +95,11 @@
   WR_MinCounts = -3000
   WR_CalibAngle = 40.0
   WR_BumpAngle = 5.0
+  WR_ShipCargoAngle = 164.0
   WR_GroundCargoAngle = 76.5
   WR_GroundHatchAngle = 155.49
   WR_LoadingCargoAngle = 65.49
   WR_LoadingHatchAngle = 65.49
-  WR_ShipCargoAngle = 164.0
   WR_ShipHatchAngle = 65.49
   WR_RocketL1CargoAngle = 141.61
   WR_RocketL1HatchAngle = 52.20
