@@ -90,6 +90,7 @@ public:
 
 	void SetCargo(bool cargo);
 	bool IsCargo();
+	void UpdateDashboard();
 };
 
 #endif
