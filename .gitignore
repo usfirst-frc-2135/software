@@ -14,3 +14,6 @@
 **/.settings/language.settings.xml
 DS Log Parser/Debug/
 DS Log Parser/.vs/
+*.o
+2019/cpp-multiCameraServer-2/multiCameraServerExample
+2019/cpp-multiCameraServer/multiCameraServerExample
