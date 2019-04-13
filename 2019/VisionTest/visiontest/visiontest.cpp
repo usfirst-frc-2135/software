@@ -64,8 +64,8 @@ int main(int argc, char** argv)
 		// Call GripPipeline
 		// Run vision processing gripPipe generated from GRIP
 		gripPipe->Process(image);
-		gripFrame = *(gripPipe->gethslThresholdOutput());
-		contours = gripPipe->getfilterContoursOutput();
+		gripFrame = *(gripPipe->GetHslThresholdOutput());
+		contours = gripPipe->GetFilterContoursOutput();
 
 		cout << "Found countours -> " << contours->size() << std::endl;
 

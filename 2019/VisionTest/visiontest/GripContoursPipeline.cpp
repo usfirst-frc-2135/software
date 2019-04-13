@@ -1,9 +1,5 @@
-
 #include "pch.h"
-
 #include "GripContoursPipeline.h"
-//#include <frc/WPILib.h>
-#include "RobotDefaults.h"
 
 /**
 * Initializes a GripContoursPipeline.
@@ -57,31 +53,24 @@ void GripContoursPipeline::Process(cv::Mat& source0){
 }
 
 /**
- * This method is a generated setter for source0.
- * @param source the Mat to set
- */
-void GripContoursPipeline::setsource0(cv::Mat &source0){
-	source0.copyTo(this->source0);
-}
-/**
  * This method is a generated getter for the output of a HSL_Threshold.
  * @return Mat output from HSL_Threshold.
  */
-cv::Mat* GripContoursPipeline::gethslThresholdOutput(){
+cv::Mat* GripContoursPipeline::GetHslThresholdOutput(){
 	return &(this->hslThresholdOutput);
 }
 /**
  * This method is a generated getter for the output of a Find_Contours.
  * @return ContoursReport output from Find_Contours.
  */
-std::vector<std::vector<cv::Point> >* GripContoursPipeline::getfindContoursOutput(){
+std::vector<std::vector<cv::Point> >* GripContoursPipeline::GetFindContoursOutput(){
 	return &(this->findContoursOutput);
 }
 /**
  * This method is a generated getter for the output of a Filter_Contours.
  * @return ContoursReport output from Filter_Contours.
  */
-std::vector<std::vector<cv::Point> >* GripContoursPipeline::getfilterContoursOutput(){
+std::vector<std::vector<cv::Point> >* GripContoursPipeline::GetFilterContoursOutput(){
 	return &(this->filterContoursOutput);
 }
 	/**
@@ -154,7 +143,4 @@ std::vector<std::vector<cv::Point> >* GripContoursPipeline::getfilterContoursOut
 		}
 	}
 
-
-
 } // end grip namespace
-
