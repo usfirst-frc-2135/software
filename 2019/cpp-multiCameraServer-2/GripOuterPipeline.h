@@ -25,38 +25,43 @@
 
 #include "GripContoursPipeline.h"
 
-namespace grip {
+namespace grip
+{
 
-class GripOuterPipeline : public frc::VisionPipeline {
-private:
-	struct pixelRect {				// Vision rectangle of pixels
-		int 	width;
-		int 	height;
+class GripOuterPipeline : public frc::VisionPipeline
+{
+  private:
+	struct pixelRect
+	{ // Vision rectangle of pixels
+		int width;
+		int height;
 	};
-	struct pixelRect m_res;			// Initial camera resolution
-	
-	struct dimRect {				// Actual vision target dimensions - inches
+	struct pixelRect m_res; // Initial camera resolution
+
+	struct dimRect
+	{ // Actual vision target dimensions - inches
 		double width;
 		double height;
 	};
-	struct dimRect m_targSize;		// Vision Target dimensions
-	struct dimRect m_hatchSize;		// Vision Hatch target dimensions
+	struct dimRect m_targSize;  // Vision Target dimensions
+	struct dimRect m_hatchSize; // Vision Hatch target dimensions
 
-	typedef struct targetData {		// Validated Target data (or Hatch data)
-		cv::Rect	r;				// Target rect in pixel coordinates
-		bool 		bSlantRight; 
-		double		score;			// Target score as compared to theoretical
-		double		dist;			// Calculated distance to target
-		double		angle;			// Calculated angle to target
+	typedef struct targetData
+	{				// Validated Target data (or Hatch data)
+		cv::Rect r; // Target rect in pixel coordinates
+		bool bSlantRight;
+		double score; // Target score as compared to theoretical
+		double dist;  // Calculated distance to target
+		double angle; // Calculated angle to target
 	} tData;
 
-	GripContoursPipeline* m_gripPipe;
+	GripContoursPipeline *m_gripPipe;
 	cv::Mat m_gripFrame;
 
 	// CameraServer structures for processing vision frames
 	cs::CvSink inStream;
 	cs::CvSource outStream;
-	
+
 	// Image processing structures for identifying targets and hatches
 	std::vector<std::vector<cv::Point>> *contours;
 	std::vector<cv::Rect> boundingRects;
@@ -79,11 +84,10 @@ private:
 	void ChooseGoalHatch(std::vector<tData> *hatches, tData *goal);
 	void ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goal);
 
-public:
+  public:
 	GripOuterPipeline();
 	virtual ~GripOuterPipeline();
-	virtual void Process(cv::Mat& source0);
-
+	virtual void Process(cv::Mat &source0);
 };
 
-} // pipeline.getfilterContoursOutput();
+} // namespace grip
