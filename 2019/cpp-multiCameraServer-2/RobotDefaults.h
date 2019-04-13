@@ -6,9 +6,9 @@
  *      Purpose: storage of constants 
  */
 
-#ifndef ROBOTDEFAULTS_H_
-    #define ROBOTDEFAULTS_H_
+#pragma once
 
+#include <frc/WPILib.h>
 
 #ifndef M_PI
     #define M_PI 3.14159265358979323846
@@ -51,5 +51,3 @@
 #define CAM_DISTANCE_D			0.0
 
 #define	CAM_FOUNDTARGET			"Cam_FoundTarget"
-
-#endif

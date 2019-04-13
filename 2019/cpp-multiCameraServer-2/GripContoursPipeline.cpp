@@ -1,4 +1,3 @@
-#include "RobotDefaults.h"
 #include "GripContoursPipeline.h"
 
 /**

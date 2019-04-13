@@ -1,11 +1,13 @@
 /*
- * VisionThread.h
+ * GripOuterPipeline.h
  *
  *  Created on: Aug 6, 2017
  *      Author: PHS_User
  */
 
 #pragma once
+
+#include "RobotDefaults.h"
 
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -20,10 +22,8 @@
 #include <vector>
 #include <string>
 #include <math.h>
-#include <frc/WPILib.h>
 
 #include "GripContoursPipeline.h"
-#include "RobotDefaults.h"
 
 namespace grip {
 
@@ -34,12 +34,14 @@ private:
 		int 	height;
 	};
 	struct pixelRect m_res;			// Initial camera resolution
+	
 	struct dimRect {				// Actual vision target dimensions - inches
 		double width;
 		double height;
 	};
 	struct dimRect m_targSize;		// Vision Target dimensions
 	struct dimRect m_hatchSize;		// Vision Hatch target dimensions
+
 	typedef struct targetData {		// Validated Target data (or Hatch data)
 		cv::Rect	r;				// Target rect in pixel coordinates
 		bool 		bSlantRight; 
@@ -49,7 +51,7 @@ private:
 	} tData;
 
 	GripContoursPipeline* m_gripPipe;
-	cv::Mat gripFrame;
+	cv::Mat m_gripFrame;
 
 	// CameraServer structures for processing vision frames
 	cs::CvSink inStream;
@@ -63,21 +65,19 @@ private:
 	std::vector<tData> validHatches;
 	tData goal;
 
-	std::shared_ptr<NetworkTable> m_netTable;
-
 	bool DetermineSlant(cv::RotatedRect *rotRect);
 	void ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rawData);
 	void ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData, std::vector<tData> *targets);
 	void ConvertValidTargetsToValidHatches(std::vector<tData> *targets, std::vector<tData> *hatches);
 	void SortValidHatches(std::vector<tData> *targets);
 	void PrintTargetData(char name, int idx, tData t);
-	void ApplyGridToFrame(cv::Mat frame, pixelRect res /*,double dist, double angle*/);
+	void ApplyGridToFrame(cv::Mat frame, pixelRect res);
 	void ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *targets);
 	void ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches);
 	double CalcInchesToTarget(double targetWidthInches, cv::Rect rect);
 	double CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget);
 	void ChooseGoalHatch(std::vector<tData> *hatches, tData *goal);
-	void ApplyGoalToFrame(cv::Mat frame, tData goal);
+	void ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goal);
 
 public:
 	GripOuterPipeline();

@@ -23,7 +23,7 @@ GripOuterPipeline::GripOuterPipeline() {
 	m_gripPipe = new GripContoursPipeline();
 
 	// Set our input/output stream - available to the dashboard (same resolution as input)
-	outStream = frc::CameraServer::GetInstance()->PutVideo("Contours Video", m_res.width, m_res.height);
+	outStream = frc::CameraServer::GetInstance()->PutVideo("Target Video", m_res.width, m_res.height);
 }
 
 GripOuterPipeline::~GripOuterPipeline() {
@@ -36,7 +36,7 @@ void GripOuterPipeline::Process(cv::Mat& source0) {
 
 	// Run vision processing m_gripPipe generated from GRIP
 	m_gripPipe->Process(source0);
-	gripFrame = *(m_gripPipe->GetHslThresholdOutput());
+	m_gripFrame = *(m_gripPipe->GetHslThresholdOutput());
 	contours = m_gripPipe->GetFilterContoursOutput();
 
 	ConvertContoursToBoundingRects(contours, &rawData);
@@ -45,16 +45,16 @@ void GripOuterPipeline::Process(cv::Mat& source0) {
 	SortValidHatches(&validHatches);
 	ChooseGoalHatch(&validHatches, &goal);
 
-//	std::printf("C %d, B %d, T %d, P %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
-//		contours->size(), boundingRects.size(), validTargets.size(), validHatches.size(),
-//		goal.r.x, goal.r.y, goal.r.width, goal.r.height, goal.dist, goal.angle);
+	std::printf("C %d, B %d, T %d, H %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
+		contours->size(), boundingRects.size(), validTargets.size(), validHatches.size(),
+		goal.r.x, goal.r.y, goal.r.width, goal.r.height, goal.dist, goal.angle);
 
 	// Draw the boundingRects on the frame bring processed -- white
-	ApplyGridToFrame(gripFrame, m_res /*, goal.dist, goal.angle*/);
-	ApplyRectsToFrame(gripFrame, &validTargets);
-	ApplyHatchesToFrame(gripFrame, &validHatches);
-	ApplyGoalToFrame(gripFrame, goal);
-	outStream.PutFrame(gripFrame);
+	ApplyGridToFrame(source0, m_res);
+	ApplyRectsToFrame(source0, &validTargets);
+	ApplyHatchesToFrame(source0, &validHatches);
+	ApplyGoalToFrame(source0, m_res, goal);
+	outStream.PutFrame(source0);
 }
 
 bool GripOuterPipeline::DetermineSlant(cv::RotatedRect *rotRect){
@@ -197,7 +197,7 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 
 void GripOuterPipeline::SortValidHatches(std::vector<tData> *hatches) {
 	
-	int size = hatches->size();
+	int size = (int) hatches->size();
 
 	if (size < 2) return;
 
@@ -226,9 +226,8 @@ void GripOuterPipeline::PrintTargetData(char name, int idx, tData t) {
 	// 	t.r.x, t.r.y, t.r.width, t.r.height, t.score, t.dist, t.angle);
 }
 
-void GripOuterPipeline::ApplyGridToFrame(cv::Mat frame, pixelRect res/*, double dist, double angle*/) {
+void GripOuterPipeline::ApplyGridToFrame(cv::Mat frame, pixelRect res) {
 	cv::Point	pt1, pt2;
-	char	str[32];
 
 	pt1.x = 0;
 	pt2.x = res.width;
@@ -239,18 +238,6 @@ void GripOuterPipeline::ApplyGridToFrame(cv::Mat frame, pixelRect res/*, double 
 	pt2.y = res.height;
 	pt1.x = pt2.x = res.width / 2;
 	cv::line(frame, pt1, pt2, cv::Scalar(255, 255, 255), 1, cv::LineTypes::LINE_4, 0);
-
-	// std::sprintf(str, "%5.1f in", dist);
-	// pt1.x = 5;
-	// pt1.y = res.height - 5;
-	// cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
-	// 	1, cv::LineTypes::LINE_8, false);
-
-	// std::sprintf(str, "%5.1f deg", angle);
-	// pt1.x = res.width/2 - 10;
-	// pt1.y = res.height - 5;
-	// cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
-	// 	1, cv::LineTypes::LINE_8, false);
 }
 
 void GripOuterPipeline::ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *targets) {
@@ -262,7 +249,7 @@ void GripOuterPipeline::ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *tar
 
 void GripOuterPipeline::ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches) {
 
-for (uint32_t i = 0; i < hatches->size(); i++) {
+	for (uint32_t i = 0; i < hatches->size(); i++) {
 		tData& tHatch = hatches->at(i);
 
 		cv::Point	pt1, pt2;
@@ -281,8 +268,9 @@ for (uint32_t i = 0; i < hatches->size(); i++) {
 	}
 }
 
-void GripOuterPipeline::ApplyGoalToFrame(cv::Mat frame, tData goal) {
+void GripOuterPipeline::ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goal) {
 	cv::Point	pt1, pt2;
+	char		str[32];
 
 	cv::rectangle(frame, goal.r, cv::Scalar(255,105,180), 2, cv::LineTypes::LINE_8);
 
@@ -295,6 +283,18 @@ void GripOuterPipeline::ApplyGoalToFrame(cv::Mat frame, tData goal) {
 	pt2.y = pt1.y + 10;
 	pt1.x = pt2.x = goal.r.x + goal.r.width/2;
 	cv::line(frame, pt1, pt2, cv::Scalar(255,105,180), 1, cv::LineTypes::LINE_4, 0);
+
+	std::sprintf(str, "%5.1f in", goal.dist);
+	pt1.x = 5;
+	pt1.y = res.height - 5;
+	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
+		1, cv::LineTypes::LINE_8, false);
+
+	std::sprintf(str, "%5.1f deg", goal.angle);
+	pt1.x = res.width/2 - 10;
+	pt1.y = res.height - 5;
+	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
+		1, cv::LineTypes::LINE_8, false);
 }
 
 double GripOuterPipeline::CalcInchesToTarget(double targetWidthInches, cv::Rect rect) {

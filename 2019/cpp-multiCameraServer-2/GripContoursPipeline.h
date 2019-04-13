@@ -1,5 +1,6 @@
 #pragma once
-#include "vision/VisionPipeline.h"
+
+#include "RobotDefaults.h"
 
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -14,7 +15,6 @@
 #include <vector>
 #include <string>
 #include <math.h>
-#include <frc/WPILib.h>
 
 namespace grip {
 
