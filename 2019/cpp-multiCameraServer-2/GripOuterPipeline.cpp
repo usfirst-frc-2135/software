@@ -16,6 +16,7 @@ GripOuterPipeline::GripOuterPipeline()
 
 	m_res.width = 320;
 	m_res.height = 240;
+
 	m_targSize.width = 3.3771; // 2019 Vision target dimensions
 	m_targSize.height = 5.8256;
 	m_hatchSize.width = 14.69; // 2019 Hatch (two targets) dimensions
@@ -25,7 +26,7 @@ GripOuterPipeline::GripOuterPipeline()
 	m_gripPipe = new GripContoursPipeline();
 
 	// Set our input/output stream - available to the dashboard (same resolution as input)
-	outStream = frc::CameraServer::GetInstance()->PutVideo("Goal Video", m_res.width, m_res.height);
+	m_outStream = frc::CameraServer::GetInstance()->PutVideo("Goal Video", m_res.width, m_res.height);
 }
 
 GripOuterPipeline::~GripOuterPipeline()
@@ -41,30 +42,31 @@ void GripOuterPipeline::Process(cv::Mat &source0)
 	// Run vision processing m_gripPipe generated from GRIP
 	m_gripPipe->Process(source0);
 	m_gripFrame = *(m_gripPipe->GetHslThresholdOutput());
-	contours = m_gripPipe->GetFilterContoursOutput();
+	m_contours = m_gripPipe->GetFilterContoursOutput();
 
-	ConvertContoursToBoundingRects(contours, &rawData);
-	ConvertBoundingRectsToValidTargets(&rawData, &validTargets);
-	ConvertValidTargetsToValidHatches(&validTargets, &validHatches);
-	SortValidHatches(&validHatches);
-	ChooseGoalHatch(&validHatches, &goal);
+	ConvertContoursToBoundingRects(m_contours, &m_boundingRects);
+	ConvertBoundingRectsToValidTargets(&m_boundingRects, &m_validTargets);
+	ConvertValidTargetsToValidHatches(&m_validTargets, &m_validHatches);
+	SortValidHatches(&m_validHatches);
+	ChooseGoalHatch(&m_validHatches, &m_goal);
 
-	std::printf("C %d, B %d, T %d, H %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
-				contours->size(), boundingRects.size(), validTargets.size(), validHatches.size(),
-				goal.r.x, goal.r.y, goal.r.width, goal.r.height, goal.dist, goal.angle);
+	std::printf("C %d, B %d, T %d, H %d, G %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
+		m_contours->size(), m_boundingRects.size(), m_validTargets.size(), m_validHatches.size(),
+		(m_validHatches.size() > 0) ? 1 : 0, m_goal.r.x, m_goal.r.y, m_goal.r.width, m_goal.r.height, m_goal.dist, m_goal.angle);
 
 	// Draw the boundingRects on the frame bring processed -- white
 	ApplyGridToFrame(source0, m_res);
-	ApplyRectsToFrame(source0, &validTargets);
-	ApplyHatchesToFrame(source0, &validHatches);
-	ApplyGoalToFrame(source0, m_res, goal);
-	outStream.PutFrame(source0);
+	ApplyRectsToFrame(source0, &m_validTargets);
+	ApplyHatchesToFrame(source0, &m_validHatches);
+	ApplyGoalToFrame(source0, m_res, m_goal);
+	m_outStream.PutFrame(source0);
 }
 
 bool GripOuterPipeline::DetermineSlant(cv::RotatedRect *rotRect)
 {
 	cv::Point2f vert[4];
-	bool bSlantRight(false);
+	bool bSlantRight = false;
+
 	if (rotRect != NULL)
 	{
 		rotRect->points(vert);
@@ -98,29 +100,29 @@ bool GripOuterPipeline::DetermineSlant(cv::RotatedRect *rotRect)
 		if (lowestY.x < greatestY.x)
 			bSlantRight = true;
 	}
+	
 	return bSlantRight;
 }
 
-void GripOuterPipeline::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rawData)
+void GripOuterPipeline::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rects)
 {
-
-	rawData->clear();
+	rects->clear();
 
 	// If contours are available, loop through up to 8 of them and create a vector of bounding rects
-	if (!contours->empty())
+	if (!m_contours->empty())
 	{
-		for (uint32_t i = 0; i < contours->size() && i < 8; i++)
+		for (uint32_t i = 0; i < m_contours->size() && i < 8; i++)
 		{
 			tData rawt;
-			rawt.r = cv::boundingRect(contours->at(i));
-			cv::RotatedRect rotRect = cv::minAreaRect(contours->at(i));
+			rawt.r = cv::boundingRect(m_contours->at(i));
+			cv::RotatedRect rotRect = cv::minAreaRect(m_contours->at(i));
 			rawt.bSlantRight = DetermineSlant(&rotRect);
-			rawData->push_back(rawt);
+			rects->push_back(rawt);
 		}
 	}
 }
 
-void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData, std::vector<tData> *targets)
+void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *rects, std::vector<tData> *targets)
 {
 	double score;
 	tData t;
@@ -128,11 +130,11 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
 	targets->clear();
 
 	// If boundingRects are available, loop through them and create a vector of valid targets
-	if (!rawData->empty())
+	if (!rects->empty())
 	{
-		for (uint32_t i = 0; i < rawData->size(); i++)
+		for (uint32_t i = 0; i < rects->size(); i++)
 		{
-			cv::Rect r = rawData->at(i).r;
+			cv::Rect r = rects->at(i).r;
 
 			// Translate width and height to floating point and calculate normalized score 0..100
 			score = 100 * ((double)r.width / (double)r.height) * (m_targSize.height / m_targSize.width);
@@ -144,7 +146,7 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
 				t.score = score;
 				t.dist = CalcInchesToTarget(m_targSize.width, r);
 				t.angle = CalcCenteringAngle(m_targSize.width, r, t.dist);
-				t.bSlantRight = rawData->at(i).bSlantRight;
+				t.bSlantRight = rects->at(i).bSlantRight;
 				targets->push_back(t);
 				//std::printf("2135: Found valid target. bSlantRight = %d\n", t.bSlantRight);
 			}
@@ -247,10 +249,19 @@ void GripOuterPipeline::SortValidHatches(std::vector<tData> *hatches)
 	}
 }
 
+void GripOuterPipeline::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal)
+{
+	memcpy(goal, &(hatches->front()), sizeof(tData));
+
+	frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, (!hatches->empty()) ? true : false);
+	frc::SmartDashboard::PutNumber(CAM_TURNANGLE, goal->angle);
+	frc::SmartDashboard::PutNumber(CAM_DISTANCE, goal->dist);
+}
+
 void GripOuterPipeline::PrintTargetData(char name, int idx, tData t)
 {
-	// std::printf("-%c %d: x %d, y %d, w %d, h %d, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
-	// 	t.r.x, t.r.y, t.r.width, t.r.height, t.score, t.dist, t.angle);
+	// std::printf("-%c %d: x %d, y %d, w %d, h %d, t %c, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
+	//  	t.r.x, t.r.y, t.r.width, t.r.height, (t.bSlantRight) ? 'R' : 'L', t.score, t.dist, t.angle);
 }
 
 void GripOuterPipeline::ApplyGridToFrame(cv::Mat frame, pixelRect res)
@@ -361,25 +372,6 @@ double GripOuterPipeline::CalcCenteringAngle(double targetWidthInches, cv::Rect 
 
 	// Convert from radians to degrees to center the rect in the frame
 	return radiansToCenter * 180.0 / M_PI;
-}
-
-void GripOuterPipeline::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal)
-{
-	if (!hatches->empty())
-	{
-		goal = &(hatches->front()); // Get first hatch which should be the leftmost hatch
-		frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, true);
-		frc::SmartDashboard::PutNumber(CAM_TURNANGLE, goal->angle);
-		frc::SmartDashboard::PutNumber(CAM_DISTANCE, goal->dist);
-	}
-
-	else
-	{
-		goal = nullptr;
-		frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
-		frc::SmartDashboard::PutNumber(CAM_TURNANGLE, 0.0);
-		frc::SmartDashboard::PutNumber(CAM_DISTANCE, 0.0);
-	}
 }
 
 } // namespace grip

@@ -55,20 +55,19 @@ class GripOuterPipeline : public frc::VisionPipeline
 		double angle; // Calculated angle to target
 	} tData;
 
-	GripContoursPipeline *m_gripPipe;
-	cv::Mat m_gripFrame;
+	// Inner Grip pipeline variables
+	GripContoursPipeline 	*m_gripPipe;
+	cv::Mat 				m_gripFrame;
 
 	// CameraServer structures for processing vision frames
-	cs::CvSink inStream;
-	cs::CvSource outStream;
+	cs::CvSource 			m_outStream;
 
 	// Image processing structures for identifying targets and hatches
-	std::vector<std::vector<cv::Point>> *contours;
-	std::vector<cv::Rect> boundingRects;
-	std::vector<tData> rawData;
-	std::vector<tData> validTargets;
-	std::vector<tData> validHatches;
-	tData goal;
+	std::vector<std::vector<cv::Point>> *m_contours;
+	std::vector<tData> 		m_boundingRects;
+	std::vector<tData> 		m_validTargets;
+	std::vector<tData> 		m_validHatches;
+	tData 					m_goal;
 
 	bool DetermineSlant(cv::RotatedRect *rotRect);
 	void ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rawData);
