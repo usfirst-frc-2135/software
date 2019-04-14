@@ -265,14 +265,14 @@ cs::MjpegServer StartSwitchedCamera(const SwitchedCameraConfig& config) {
 }
 
 // example pipeline
-class MyPipeline : public frc::VisionPipeline {
- public:
-  int val = 0;
+// class MyPipeline : public frc::VisionPipeline {
+//  public:
+//   int val = 0;
 
-  void Process(cv::Mat& mat) override {
-    ++val;
-  }
-};
+//   void Process(cv::Mat& mat) override {
+//     ++val;
+//   }
+// };
 }  // namespace
 
 int main(int argc, char* argv[]) {
@@ -293,10 +293,14 @@ int main(int argc, char* argv[]) {
     ntinst.StartClientTeam(team);
   }
 
+  // Set up Network Tables
   ntinst.SetUpdateRate(0.01);
-  std::shared_ptr<nt::NetworkTable>  table = ntinst.GetTable("testdata");
-  nt::NetworkTableEntry xEntry = table->GetEntry("X");
-  double i;
+  std::shared_ptr<nt::NetworkTable>  table = ntinst.GetTable("Vision");
+  nt::NetworkTableEntry tickEntry = table->GetEntry("Ticks");
+  nt::NetworkTableEntry goalDistEntry = table->GetEntry("GoalDist");
+  nt::NetworkTableEntry goalAngleEntry = table->GetEntry("GoalAngle");
+  nt::NetworkTableEntry goalPoseEntry = table->GetEntry("GoalPose");
+  double ticks = 0.0;
 
   // start cameras
   for (const auto& config : cameraConfigs)
@@ -308,6 +312,11 @@ int main(int argc, char* argv[]) {
 
   // start image processing on camera 0 if present
   if (cameras.size() >= 1) {
+    grip::GripOuterPipeline *gripPipe = new grip::GripOuterPipeline();
+    double  goalDist;
+    double  goalAngle;
+    double  goalPose;
+
     std::thread([&] {
       /* not grip
       frc::VisionRunner<MyPipeline> runner(cameras[0], new MyPipeline(),
@@ -317,12 +326,16 @@ int main(int argc, char* argv[]) {
       */
       // something like this for GRIP:
       frc::VisionRunner<grip::GripOuterPipeline> 
-        runner(cameras[0], new grip::GripOuterPipeline(), [&](grip::GripOuterPipeline& pipeline) {
-        // pipeline.getfilterContoursOutput();
-        // Take contours and put data into NT values
-        //  ntinst.
-        xEntry.SetDouble(i);
-        i += 0.0333;
+        runner(cameras[0], gripPipe, [&](grip::GripOuterPipeline& pipeline) {
+
+        // Take goal data and put  into NT values
+        gripPipe->GetGoalHatch(&goalDist, &goalAngle, &goalPose);
+        goalDistEntry.SetDouble(goalDist);
+        goalAngleEntry.SetDouble(goalAngle);
+        goalPoseEntry.SetDouble(goalPose);
+        tickEntry.SetDouble(ticks);
+        ticks += 0.0333;  // 30 fps
+
         // Add goals to video frame
       });
       runner.RunForever();

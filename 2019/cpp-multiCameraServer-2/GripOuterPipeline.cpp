@@ -36,7 +36,6 @@ GripOuterPipeline::~GripOuterPipeline()
 
 void GripOuterPipeline::Process(cv::Mat &source0)
 {
-
 	//std::printf("2135: GripOuterPipeline Run\n");
 
 	// Run vision processing m_gripPipe generated from GRIP
@@ -51,7 +50,7 @@ void GripOuterPipeline::Process(cv::Mat &source0)
 	ChooseGoalHatch(&m_validHatches, &m_goal);
 
 	std::printf("C %d, B %d, T %d, H %d, G %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
-		m_contours->size(), m_boundingRects.size(), m_validTargets.size(), m_validHatches.size(),
+		(int) m_contours->size(), (int) m_boundingRects.size(), (int) m_validTargets.size(), (int) m_validHatches.size(),
 		(m_validHatches.size() > 0) ? 1 : 0, m_goal.r.x, m_goal.r.y, m_goal.r.width, m_goal.r.height, m_goal.dist, m_goal.angle);
 
 	// Draw the boundingRects on the frame bring processed -- white
@@ -220,7 +219,6 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 
 void GripOuterPipeline::SortValidHatches(std::vector<tData> *hatches)
 {
-
 	int size = (int)hatches->size();
 
 	if (size < 2)
@@ -251,11 +249,16 @@ void GripOuterPipeline::SortValidHatches(std::vector<tData> *hatches)
 
 void GripOuterPipeline::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal)
 {
+//	goal = &(hatches->front());
 	memcpy(goal, &(hatches->front()), sizeof(tData));
+}
 
-	frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, (!hatches->empty()) ? true : false);
-	frc::SmartDashboard::PutNumber(CAM_TURNANGLE, goal->angle);
-	frc::SmartDashboard::PutNumber(CAM_DISTANCE, goal->dist);
+bool GripOuterPipeline::GetGoalHatch(double *goalDist, double *goalAngle, double *goalPose)
+{
+	*goalDist = m_goal.dist;
+	*goalAngle = m_goal.angle;
+	*goalPose = 0.0;
+	return !m_validHatches.empty();
 }
 
 void GripOuterPipeline::PrintTargetData(char name, int idx, tData t)
@@ -290,7 +293,6 @@ void GripOuterPipeline::ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *tar
 
 void GripOuterPipeline::ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches)
 {
-
 	for (uint32_t i = 0; i < hatches->size(); i++)
 	{
 		tData &tHatch = hatches->at(i);

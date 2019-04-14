@@ -74,19 +74,21 @@ class GripOuterPipeline : public frc::VisionPipeline
 	void ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData, std::vector<tData> *targets);
 	void ConvertValidTargetsToValidHatches(std::vector<tData> *targets, std::vector<tData> *hatches);
 	void SortValidHatches(std::vector<tData> *targets);
+	void ChooseGoalHatch(std::vector<tData> *hatches, tData *goal);
 	void PrintTargetData(char name, int idx, tData t);
+
 	void ApplyGridToFrame(cv::Mat frame, pixelRect res);
 	void ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *targets);
 	void ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches);
+	void ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goal);
 	double CalcInchesToTarget(double targetWidthInches, cv::Rect rect);
 	double CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget);
-	void ChooseGoalHatch(std::vector<tData> *hatches, tData *goal);
-	void ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goal);
 
   public:
 	GripOuterPipeline();
 	virtual ~GripOuterPipeline();
 	virtual void Process(cv::Mat &source0);
+	bool GetGoalHatch(double *goalDist, double *goalAngle, double *goalPose);
 };
 
 } // namespace grip
