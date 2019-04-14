@@ -36,7 +36,7 @@ GripOuterPipeline::~GripOuterPipeline()
 
 void GripOuterPipeline::Process(cv::Mat &source0)
 {
-	//std::printf("2135: GripOuterPipeline Run\n");
+	//std::printf("2135: GripOuterPipeline Process\n");
 
 	// Run vision processing m_gripPipe generated from GRIP
 	m_gripPipe->Process(source0);
@@ -49,9 +49,11 @@ void GripOuterPipeline::Process(cv::Mat &source0)
 	SortValidHatches(&m_validHatches);
 	ChooseGoalHatch(&m_validHatches, &m_goal);
 
-	std::printf("C %d, B %d, T %d, H %d, G %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
+#if 1
+	std::printf("2135: C %d, B %d, T %d, H %d, G %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
 		(int) m_contours->size(), (int) m_boundingRects.size(), (int) m_validTargets.size(), (int) m_validHatches.size(),
 		(m_validHatches.size() > 0) ? 1 : 0, m_goal.r.x, m_goal.r.y, m_goal.r.width, m_goal.r.height, m_goal.dist, m_goal.angle);
+#endif
 
 	// Draw the boundingRects on the frame bring processed -- white
 	ApplyGridToFrame(source0, m_res);
@@ -70,11 +72,11 @@ bool GripOuterPipeline::DetermineSlant(cv::RotatedRect *rotRect)
 	{
 		rotRect->points(vert);
 
-		// printf("2135: ");
+		// std::printf("2135: ");
 		// for (int i = 0; i < 4; i++) {
-		// 	printf("vert[%d]=(%3f,%3f) ", i, (float)vert[i].x, (float)vert[i].y);
+		// 	std::printf("vert[%d]=(%3f,%3f) ", i, (float)vert[i].x, (float)vert[i].y);
 		// }
-		// printf(" \n");
+		// std::printf(" \n");
 
 		float currLowestY = 500.0;
 		float currGreatestY = 0.0;
@@ -147,7 +149,6 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
 				t.angle = CalcCenteringAngle(m_targSize.width, r, t.dist);
 				t.bSlantRight = rects->at(i).bSlantRight;
 				targets->push_back(t);
-				//std::printf("2135: Found valid target. bSlantRight = %d\n", t.bSlantRight);
 			}
 			PrintTargetData('T', i, t);
 		}
@@ -208,8 +209,6 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 					h.dist = CalcInchesToTarget(m_hatchSize.width, hatchRect);
 					h.angle = CalcCenteringAngle(m_hatchSize.width, hatchRect, h.dist);
 					hatches->push_back(h);
-					//std::printf("2135: Found a valid hatch. Score: %f\n", score); //For testing-
-					//std::printf("Valid Hatch Pt 2: Distance: %f | Angle: %f\n", h.dist, h.angle); //For testing-
 				}
 			}
 			PrintTargetData('H', i, h);
@@ -219,31 +218,33 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 
 void GripOuterPipeline::SortValidHatches(std::vector<tData> *hatches)
 {
+	tData h;
 	int size = (int)hatches->size();
 
-	if (size < 2)
-		return;
-
-	int i;
-	int j;
-	tData key;
-
-	for (i = 1; i < size; i++)
+	if (size > 0)
 	{
-		key = hatches->at(i);
-		j = i - 1;
+		int i;
+		int j;
+		tData key;
 
-		while ((j >= 0) && (hatches->at(j).r.tl().x > key.r.tl().x))
+		for (i = 1; i < size; i++)
 		{
-			hatches->at(j + 1) = hatches->at(j);
-			j = j - 1;
+			key = hatches->at(i);
+			j = i - 1;
+
+			while ((j >= 0) && (hatches->at(j).r.tl().x > key.r.tl().x))
+			{
+				hatches->at(j + 1) = hatches->at(j);
+				j = j - 1;
+			}
+			hatches->at(j + 1) = key;
 		}
-		hatches->at(j + 1) = key;
 	}
 
 	for (int i = 0; i < hatches->size(); i++)
 	{
-		std::printf("2135: Hatch %d: Top Left X: %d\n", i, hatches->at(i).r.tl().x);
+		h = hatches->at(i);
+		PrintTargetData('S', i, h);
 	}
 }
 
@@ -263,8 +264,10 @@ bool GripOuterPipeline::GetGoalHatch(double *goalDist, double *goalAngle, double
 
 void GripOuterPipeline::PrintTargetData(char name, int idx, tData t)
 {
-	// std::printf("-%c %d: x %d, y %d, w %d, h %d, t %c, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
-	//  	t.r.x, t.r.y, t.r.width, t.r.height, (t.bSlantRight) ? 'R' : 'L', t.score, t.dist, t.angle);
+#if 1
+	std::printf("-%c %d: x %3d, y %3d, w %3d, h %3d, t %c, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
+	 	t.r.x, t.r.y, t.r.width, t.r.height, (t.bSlantRight) ? 'R' : 'L', t.score, t.dist, t.angle);
+#endif
 }
 
 void GripOuterPipeline::ApplyGridToFrame(cv::Mat frame, pixelRect res)
