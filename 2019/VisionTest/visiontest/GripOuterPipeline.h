@@ -12,7 +12,6 @@
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-//#include <opencv2/contrib/contrib.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d.hpp>
 #include <iostream>
@@ -60,7 +59,9 @@ private:
 	cv::Mat m_gripFrame;
 
 	// CameraServer structures for processing vision frames
-//	cs::CvSource 			m_outStream;
+#ifndef _MSC_VER	// Compiled for Windows
+	cs::CvSource 			m_outStream;
+#endif
 	
 	// Image processing structures for identifying targets and hatches
 	std::vector<std::vector<cv::Point>> *m_contours;
@@ -74,19 +75,21 @@ private:
 	void ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData, std::vector<tData> *targets);
 	void ConvertValidTargetsToValidHatches(std::vector<tData> *targets, std::vector<tData> *hatches);
 	void SortValidHatches(std::vector<tData> *targets);
+	void ChooseGoalHatch(std::vector<tData> *hatches, tData *goal);
 	void PrintTargetData(char name, int idx, tData t);
+
 	void ApplyGridToFrame(cv::Mat frame, pixelRect res);
 	void ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *targets);
 	void ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches);
+	void ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goal);
 	double CalcInchesToTarget(double targetWidthInches, cv::Rect rect);
 	double CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget);
-	void ChooseGoalHatch(std::vector<tData> *hatches, tData *goal);
-	void ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goal);
 
 public:
 	GripOuterPipeline();
 	virtual ~GripOuterPipeline();
 	virtual void Process(cv::Mat& source0);
+	bool GetGoalHatch(double *goalDist, double *goalAngle, double *goalPose);
 };
 
 } // namespace grip

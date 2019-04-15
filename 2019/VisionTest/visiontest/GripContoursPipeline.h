@@ -5,7 +5,6 @@
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-//#include <opencv2/contrib/contrib.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d.hpp>
 #include <iostream>
@@ -27,9 +26,11 @@ class GripContoursPipeline : public frc::VisionPipeline {
 	private:
 		cv::Mat hslThresholdOutput;
 		std::vector<std::vector<cv::Point> > findContoursOutput;
+		std::vector<std::vector<cv::Point> > convexHullsOutput;
 		std::vector<std::vector<cv::Point> > filterContoursOutput;
 		void hslThreshold(cv::Mat &, double [], double [], double [], cv::Mat &);
 		void findContours(cv::Mat &, bool , std::vector<std::vector<cv::Point> > &);
+		void convexHulls(std::vector<std::vector<cv::Point> > &, std::vector<std::vector<cv::Point> > &);
 		void filterContours(std::vector<std::vector<cv::Point> > &, double , double , double , double , double , double , double [], double , double , double , double , std::vector<std::vector<cv::Point> > &);
 
 		cv::Mat source0;
@@ -37,11 +38,14 @@ class GripContoursPipeline : public frc::VisionPipeline {
 
 	public:
 		GripContoursPipeline();
-		virtual void Process(cv::Mat& mat);
+		void Process(cv::Mat& source0) override;
 		cv::Mat* GetHslThresholdOutput();
 		std::vector<std::vector<cv::Point> >* GetFindContoursOutput();
+		std::vector<std::vector<cv::Point> >* GetConvexHullsOutput();
 		std::vector<std::vector<cv::Point> >* GetFilterContoursOutput();
 };
 
 
 } // end namespace grip
+
+
