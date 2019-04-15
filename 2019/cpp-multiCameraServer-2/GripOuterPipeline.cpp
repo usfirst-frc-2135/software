@@ -279,7 +279,10 @@ void GripOuterPipeline::SortValidHatches(std::vector<tData> *hatches)
 void GripOuterPipeline::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal)
 {
 //	goal = &(hatches->front());
+    if (hatches->size() > 0)
 	memcpy(goal, &(hatches->front()), sizeof(tData));
+    else
+        memset(goal, 0, sizeof(tData));
 }
 
 bool GripOuterPipeline::GetGoalHatch(double *goalDist, double *goalAngle, double *goalPose)
