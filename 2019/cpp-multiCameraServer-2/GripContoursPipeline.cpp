@@ -32,22 +32,26 @@ void GripContoursPipeline::Process(cv::Mat& source0){
 	//Step Find_Contours0:
 	//input
 	cv::Mat findContoursInput = hslThresholdOutput;
-	bool findContoursExternalOnly = false;  // default Boolean
+	bool findContoursExternalOnly = true;  // default Boolean
 	findContours(findContoursInput, findContoursExternalOnly, this->findContoursOutput);
+	//Step Convex_Hulls0:
+	//input
+	std::vector<std::vector<cv::Point> > convexHullsContours = findContoursOutput;
+	convexHulls(convexHullsContours, this->convexHullsOutput);
 	//Step Filter_Contours0:
 	//input
-	std::vector<std::vector<cv::Point> > filterContoursContours = findContoursOutput;
-	double filterContoursMinArea = 59.0;  // default Double
+	std::vector<std::vector<cv::Point> > filterContoursContours = convexHullsOutput;
+	double filterContoursMinArea = 58.0;  // default Double
 	double filterContoursMinPerimeter = 0.0;  // default Double
 	double filterContoursMinWidth = 5.0;  // default Double
 	double filterContoursMaxWidth = 100.0;  // default Double
 	double filterContoursMinHeight = 8.0;  // default Double
 	double filterContoursMaxHeight = 240.0;  // default Double
-	double filterContoursSolidity[] = {0, 100};
+	double filterContoursSolidity[] = {0.0, 100.0};
 	double filterContoursMaxVertices = 1000000.0;  // default Double
 	double filterContoursMinVertices = 0.0;  // default Double
-	double filterContoursMinRatio = 0.40;  // default Double
-	double filterContoursMaxRatio = 0.80;  // default Double
+	double filterContoursMinRatio = 0.35;  // default Double
+	double filterContoursMaxRatio = 0.9;  // default Double
 	filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, this->filterContoursOutput);
 }
 
@@ -64,6 +68,13 @@ cv::Mat* GripContoursPipeline::GetHslThresholdOutput(){
  */
 std::vector<std::vector<cv::Point> >* GripContoursPipeline::GetFindContoursOutput(){
 	return &(this->findContoursOutput);
+}
+/**
+ * This method is a generated getter for the output of a Convex_Hulls.
+ * @return ContoursReport output from Convex_Hulls.
+ */
+std::vector<std::vector<cv::Point> >* GripContoursPipeline::GetConvexHullsOutput(){
+	return &(this->convexHullsOutput);
 }
 /**
  * This method is a generated getter for the output of a Filter_Contours.
@@ -100,6 +111,21 @@ std::vector<std::vector<cv::Point> >* GripContoursPipeline::GetFilterContoursOut
 		int mode = externalOnly ? cv::RETR_EXTERNAL : cv::RETR_LIST;
 		int method = cv::CHAIN_APPROX_SIMPLE;
 		cv::findContours(input, contours, hierarchy, mode, method);
+	}
+
+	/**
+	 * Compute the convex hulls of contours.
+	 *
+	 * @param inputContours The contours on which to perform the operation.
+	 * @param outputContours The contours where the output will be stored.
+	 */
+	void GripContoursPipeline::convexHulls(std::vector<std::vector<cv::Point> > &inputContours, std::vector<std::vector<cv::Point> > &outputContours) {
+		std::vector<std::vector<cv::Point> > hull (inputContours.size());
+		outputContours.clear();
+		for (size_t i = 0; i < inputContours.size(); i++ ) {
+			cv::convexHull(cv::Mat((inputContours)[i]), hull[i], false);
+		}
+		outputContours = hull;
 	}
 
 
@@ -142,4 +168,7 @@ std::vector<std::vector<cv::Point> >* GripContoursPipeline::GetFilterContoursOut
 		}
 	}
 
+
+
 } // end grip namespace
+
