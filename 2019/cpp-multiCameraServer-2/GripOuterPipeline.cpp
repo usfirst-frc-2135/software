@@ -176,8 +176,8 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
 				t.angle = CalcCenteringAngle(m_targSize.width, r, t.dist);
 				t.bSlantRight = rects->at(i).bSlantRight;
 				targets->push_back(t);
+				PrintTargetData('T', i, t);
 			}
-			PrintTargetData('T', i, t);
 		}
 	}
 }
@@ -236,9 +236,10 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 					h.dist = CalcInchesToTarget(m_hatchSize.width, hatchRect);
 					h.angle = CalcCenteringAngle(m_hatchSize.width, hatchRect, h.dist);
 					hatches->push_back(h);
+
+                    PrintTargetData('H', i * 10 + j, h);
 				}
 			}
-			PrintTargetData('H', i, h);
 		}
 	}
 }
