@@ -328,19 +328,7 @@ void GripOuterPipeline::ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *h
 	{
 		tData &tHatch = hatches->at(i);
 
-		cv::Point pt1, pt2;
-
-		cv::rectangle(frame, tHatch.r, cv::Scalar(68, 255, 68), 2, cv::LineTypes::LINE_8);
-
-		pt1.x = tHatch.r.x + tHatch.r.width / 2 - 5;
-		pt2.x = pt1.x + 10;
-		pt1.y = pt2.y = tHatch.r.y + tHatch.r.height / 2;
-		cv::line(frame, pt1, pt2, cv::Scalar(68, 255, 68), 1, cv::LineTypes::LINE_4, 0);
-
-		pt1.y = tHatch.r.y + tHatch.r.height / 2 - 5;
-		pt2.y = pt1.y + 10;
-		pt1.x = pt2.x = tHatch.r.x + tHatch.r.width / 2;
-		cv::line(frame, pt1, pt2, cv::Scalar(68, 255, 68), 1, cv::LineTypes::LINE_4, 0);
+		cv::rectangle(frame, tHatch.r, cv::Scalar(0, 255, 255), 2, cv::LineTypes::LINE_8);
 	}
 }
 
@@ -349,17 +337,17 @@ void GripOuterPipeline::ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goa
 	cv::Point pt1, pt2;
 	char str[32];
 
-	cv::rectangle(frame, goal.r, cv::Scalar(255, 105, 180), 2, cv::LineTypes::LINE_8);
+	cv::rectangle(frame, goal.r, cv::Scalar(0, 255, 0), 2, cv::LineTypes::LINE_8);
 
 	pt1.x = goal.r.x + goal.r.width / 2 - 5;
 	pt2.x = pt1.x + 10;
 	pt1.y = pt2.y = goal.r.y + goal.r.height / 2;
-	cv::line(frame, pt1, pt2, cv::Scalar(255, 105, 180), 1, cv::LineTypes::LINE_4, 0);
+	cv::line(frame, pt1, pt2, cv::Scalar(0, 255, 0), 1, cv::LineTypes::LINE_4, 0);
 
 	pt1.y = goal.r.y + goal.r.height / 2 - 5;
 	pt2.y = pt1.y + 10;
 	pt1.x = pt2.x = goal.r.x + goal.r.width / 2;
-	cv::line(frame, pt1, pt2, cv::Scalar(255, 105, 180), 1, cv::LineTypes::LINE_4, 0);
+	cv::line(frame, pt1, pt2, cv::Scalar(0, 255, 0), 1, cv::LineTypes::LINE_4, 0);
 
 	std::sprintf(str, "%5.1f in", goal.dist);
 	pt1.x = 5;
