@@ -101,8 +101,8 @@ void GripOuterPipeline::ConvertContoursToBoundingRects(std::vector<std::vector<c
             double  slantAngle;
 
             rawt.r = cv::boundingRect(m_contours->at(i));
-            cv::RotatedRect rotRect = cv::minAreaRect(m_contours->at(i));
-            slantAngle = (rotRect.size.width < rotRect.size.height) ? rotRect.angle : rotRect.angle + 90.0;
+            rawt.rRot = cv::minAreaRect(m_contours->at(i));
+            slantAngle = (rawt.rRot.size.width < rawt.rRot.size.height) ? rawt.rRot.angle : rawt.rRot.angle + 90.0;
             rawt.bSlantRight = (slantAngle > 0);
             rects->push_back(rawt);
         }
@@ -124,6 +124,7 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
 		for (uint32_t i = 0; i < rects->size(); i++)
 		{
 			cv::Rect r = rects->at(i).r;
+            cv::RotatedRect rotRect = rects->at(i).rRot;
 
 			// Translate width and height to floating point and calculate normalized score 0..100
 			score = 100 * ((double)r.width / (double)r.height) * (m_targSize.height / m_targSize.width);
@@ -132,6 +133,7 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
 			if ((score > scoreMin) && (score < scoreMax))
 			{
 				t.r = r;
+                t.rRot = rotRect;
 				t.score = score;
 				t.dist = CalcInchesToTarget(m_targSize.width, r);
 				t.angle = CalcCenteringAngle(m_targSize.width, r, t.dist);
@@ -281,18 +283,20 @@ void GripOuterPipeline::ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *tar
 {
 	for (uint32_t i = 0; i < targets->size(); i++)
 	{
-		cv::Rect& tRect = targets->at(i).r;
-		cv::rectangle(frame, tRect, cv::Scalar(68, 68, 255), 2, cv::LineTypes::LINE_8);
-	}
+        cv::RotatedRect rotRect = targets->at(i).rRot;
+        cv::Point2f pts[4];
+        rotRect.points(pts);
+        for (int j = 0; j < 4; j++)
+            cv::line(frame, pts[j], pts[(j + 1) % 4], cv::Scalar(68, 68, 255), 2);
+    }
 }
 
 void GripOuterPipeline::ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches)
 {
 	for (uint32_t i = 0; i < hatches->size(); i++)
 	{
-		tData& tHatch = hatches->at(i);
-
-		cv::rectangle(frame, tHatch.r, cv::Scalar(0, 255, 255), 2, cv::LineTypes::LINE_8);
+		cv::Rect& tRect = hatches->at(i).r;
+		cv::rectangle(frame, tRect, cv::Scalar(0, 255, 255), 2, cv::LineTypes::LINE_8);
 	}
 }
 
@@ -301,8 +305,10 @@ void GripOuterPipeline::ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goa
 	cv::Point	pt1, pt2;
 	char		str[32];
 
+    // Place goal rectangle
 	cv::rectangle(frame, goal.r, cv::Scalar(0, 255, 0), 2, cv::LineTypes::LINE_8);
 
+    // Place crosshair
 	pt1.x = goal.r.x + goal.r.width/2 - 5;
 	pt2.x = pt1.x + 10;
 	pt1.y = pt2.y = goal.r.y + goal.r.height/2;
@@ -313,6 +319,7 @@ void GripOuterPipeline::ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goa
 	pt1.x = pt2.x = goal.r.x + goal.r.width/2;
 	cv::line(frame, pt1, pt2, cv::Scalar(0, 255, 0), 1, cv::LineTypes::LINE_4, 0);
 
+    // Place text for distancen and direction
 	std::sprintf(str, "%5.1f in", goal.dist);
 	pt1.x = 5;
 	pt1.y = res.height - 5;

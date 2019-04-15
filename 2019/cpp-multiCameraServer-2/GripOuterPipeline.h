@@ -1,4 +1,4 @@
-/*
+ /*
  * GripOuterPipeline.h
  *
  *  Created on: Aug 6, 2017
@@ -48,6 +48,7 @@ class GripOuterPipeline : public frc::VisionPipeline
 	typedef struct targetData
 	{				// Validated Target data (or Hatch data)
 		cv::Rect r; // Target rect in pixel coordinates
+        cv::RotatedRect rRot;       // Rotated target rect using minAreaRect
 		bool bSlantRight;
 		double score; // Target score as compared to theoretical
 		double dist;  // Calculated distance to target
