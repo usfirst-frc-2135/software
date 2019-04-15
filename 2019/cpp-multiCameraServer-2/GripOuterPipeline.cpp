@@ -23,10 +23,10 @@ GripOuterPipeline::GripOuterPipeline()
 	m_res.width = 320;
 	m_res.height = 240;
 
-	m_targSize.width = 3.3771; // 2019 Vision target dimensions
-	m_targSize.height = 5.8256;
-	m_hatchSize.width = 14.69; // 2019 Hatch (two targets) dimensions
-	m_hatchSize.height = 5.8256;
+	m_targSize.width = 3.313;					// 2019 Vision target dimensions
+	m_targSize.height = 5.826;
+	m_hatchSize.width = 14.626;					// 2019 Hatch (two targets) dimensions
+	m_hatchSize.height = 5.826;
 
 	// Start our GRIP-generated vision processing pipeline
 	m_gripPipe = new GripContoursPipeline();
@@ -150,6 +150,8 @@ void GripOuterPipeline::ConvertContoursToBoundingRects(std::vector<std::vector<c
 
 void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *rects, std::vector<tData> *targets)
 {
+    const double    scoreMin = 50.0;
+    const double    scoreMax = 150.0;
 	double score;
 	tData t;
 
@@ -166,7 +168,7 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
 			score = 100 * ((double)r.width / (double)r.height) * (m_targSize.height / m_targSize.width);
 
 			// If the bounding rect score is close to 100, save it in the hold list
-			if ((score > 50) && (score < 200))
+			if ((score > scoreMin) && (score < scoreMax))
 			{
 				t.r = r;
 				t.score = score;
@@ -182,6 +184,8 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
 
 void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *targets, std::vector<tData> *hatches)
 {
+    const double    scoreMin = 50.0;
+    const double    scoreMax = 150.0;
 	double score;
 	tData h;
 
@@ -208,11 +212,9 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 					rightMost = targets->at(i);
 				}
 
-				// Check if left target is slanted right and right target is slanted left
+				// Invalid if left target is slanted left OR right target is slanted right
 				if (!leftMost.bSlantRight || rightMost.bSlantRight)
-				{
 					continue;
-				}
 
 				// Build a virtual contour around RectA and RectB (use top left/bottom right)
 				std::vector<cv::Point> hatchPoints;
@@ -226,7 +228,7 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 				score = 100 * (((double)hatchRect.width / (double)hatchRect.height) * (m_hatchSize.height / m_hatchSize.width));
 
 				// If the bounding rect score is close to 100, save it in the hold list
-				if ((score > 50) && (score < 175))
+				if ((score > scoreMin) && (score < scoreMax))
 				{
 					// Finding the distance from the camera to the hatch - group rect (in)
 					h.r = hatchRect;
