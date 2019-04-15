@@ -12,7 +12,6 @@
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-//#include <opencv2/contrib/contrib.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d.hpp>
 #include <iostream>
@@ -60,7 +59,9 @@ class GripOuterPipeline : public frc::VisionPipeline
 	cv::Mat 				m_gripFrame;
 
 	// CameraServer structures for processing vision frames
+#ifndef _MSC_VER	// Compiled for Windows
 	cs::CvSource 			m_outStream;
+#endif
 
 	// Image processing structures for identifying targets and hatches
 	std::vector<std::vector<cv::Point>> *m_contours;

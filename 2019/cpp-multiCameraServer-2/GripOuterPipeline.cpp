@@ -7,6 +7,12 @@
 
 #include "GripOuterPipeline.h"
 
+#ifdef _MSC_VER
+#define DEBUG_TRACE 2       // Set to 1 for detailed tracing, 0 for quiet mode
+#else
+#define DEBUG_TRACE 0       // Default debuggging messsages off when embedded
+#endif
+
 namespace grip
 {
 
@@ -26,7 +32,9 @@ GripOuterPipeline::GripOuterPipeline()
 	m_gripPipe = new GripContoursPipeline();
 
 	// Set our input/output stream - available to the dashboard (same resolution as input)
+#ifndef _MSC_VER	// Compiled for Windows
 	m_outStream = frc::CameraServer::GetInstance()->PutVideo("Goal Video", m_res.width, m_res.height);
+#endif
 }
 
 GripOuterPipeline::~GripOuterPipeline()
@@ -49,7 +57,7 @@ void GripOuterPipeline::Process(cv::Mat &source0)
 	SortValidHatches(&m_validHatches);
 	ChooseGoalHatch(&m_validHatches, &m_goal);
 
-#if 1
+#if DEBUG_TRACE > 0
 	std::printf("2135: C %d, B %d, T %d, H %d, G %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
 		(int) m_contours->size(), (int) m_boundingRects.size(), (int) m_validTargets.size(), (int) m_validHatches.size(),
 		(m_validHatches.size() > 0) ? 1 : 0, m_goal.r.x, m_goal.r.y, m_goal.r.width, m_goal.r.height, m_goal.dist, m_goal.angle);
@@ -60,7 +68,24 @@ void GripOuterPipeline::Process(cv::Mat &source0)
 	ApplyRectsToFrame(source0, &m_validTargets);
 	ApplyHatchesToFrame(source0, &m_validHatches);
 	ApplyGoalToFrame(source0, m_res, m_goal);
-	m_outStream.PutFrame(source0);
+
+#ifdef _MSC_VER	// Compiled for Windows
+	// Draw the boundingRects on the frame bring processed -- white
+	ApplyGridToFrame(m_gripFrame, m_res);
+	ApplyRectsToFrame(m_gripFrame, &m_validTargets);
+	ApplyHatchesToFrame(m_gripFrame, &m_validHatches);
+	ApplyGoalToFrame(m_gripFrame, m_res, m_goal);
+    cv::namedWindow("Grip Frame");
+    cv::moveWindow("Grip Frame", 20, 300);
+    imshow("Grip Frame", m_gripFrame);
+
+    cv::namedWindow("Source Frame");
+    cv::moveWindow("Source Frame", 360, 300);
+    imshow("Source Frame", source0);
+#else	// Compiled for embedded platform
+    m_outStream.PutFrame(source0);
+#endif
+
 }
 
 bool GripOuterPipeline::DetermineSlant(cv::RotatedRect *rotRect)
@@ -264,8 +289,8 @@ bool GripOuterPipeline::GetGoalHatch(double *goalDist, double *goalAngle, double
 
 void GripOuterPipeline::PrintTargetData(char name, int idx, tData t)
 {
-#if 1
-	std::printf("-%c %d: x %3d, y %3d, w %3d, h %3d, t %c, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
+#if DEBUG_TRACE > 1
+	std::printf("-%c %02d: x %3d, y %3d, w %3d, h %3d, t %c, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
 	 	t.r.x, t.r.y, t.r.width, t.r.height, (t.bSlantRight) ? 'R' : 'L', t.score, t.dist, t.angle);
 #endif
 }
