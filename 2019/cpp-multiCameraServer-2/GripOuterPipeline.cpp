@@ -88,48 +88,6 @@ void GripOuterPipeline::Process(cv::Mat &source0)
 
 }
 
-bool GripOuterPipeline::DetermineSlant(cv::RotatedRect *rotRect)
-{
-	cv::Point2f vert[4];
-	bool bSlantRight = false;
-
-	if (rotRect != NULL)
-	{
-		rotRect->points(vert);
-
-		// std::printf("2135: ");
-		// for (int i = 0; i < 4; i++) {
-		// 	std::printf("vert[%d]=(%3f,%3f) ", i, (float)vert[i].x, (float)vert[i].y);
-		// }
-		// std::printf(" \n");
-
-		float currLowestY = 500.0;
-		float currGreatestY = 0.0;
-
-		cv::Point2f lowestY;
-		cv::Point2f greatestY;
-
-		for (int i = 0; i < 4; i++)
-		{
-			if (vert[i].y < currLowestY)
-			{
-				currLowestY = vert[i].y;
-				lowestY = vert[i];
-			}
-			if (vert[i].y > currGreatestY)
-			{
-				currGreatestY = vert[i].y;
-				greatestY = vert[i];
-			}
-		}
-
-		if (lowestY.x < greatestY.x)
-			bSlantRight = true;
-	}
-	
-	return bSlantRight;
-}
-
 void GripOuterPipeline::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rects)
 {
 	rects->clear();
@@ -140,9 +98,12 @@ void GripOuterPipeline::ConvertContoursToBoundingRects(std::vector<std::vector<c
 		for (uint32_t i = 0; i < m_contours->size() && i < 8; i++)
 		{
 			tData rawt;
+            double  slantAngle;
+
 			rawt.r = cv::boundingRect(m_contours->at(i));
 			cv::RotatedRect rotRect = cv::minAreaRect(m_contours->at(i));
-			rawt.bSlantRight = DetermineSlant(&rotRect);
+            slantAngle = (rotRect.size.width < rotRect.size.height) ? rotRect.angle : rotRect.angle + 90.0;
+            rawt.bSlantRight = (slantAngle > 0);
 			rects->push_back(rawt);
 		}
 	}

@@ -70,7 +70,6 @@ class GripOuterPipeline : public frc::VisionPipeline
 	std::vector<tData> 		m_validHatches;
 	tData 					m_goal;
 
-	bool DetermineSlant(cv::RotatedRect *rotRect);
 	void ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rawData);
 	void ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData, std::vector<tData> *targets);
 	void ConvertValidTargetsToValidHatches(std::vector<tData> *targets, std::vector<tData> *hatches);
