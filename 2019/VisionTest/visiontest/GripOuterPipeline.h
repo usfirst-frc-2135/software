@@ -55,8 +55,8 @@ private:
 	} tData;
 
 	// Inner Grip pipeline variables
-	GripContoursPipeline* m_gripPipe;
-	cv::Mat m_gripFrame;
+	GripContoursPipeline*   m_gripPipe;
+	cv::Mat                 m_gripFrame;
 
 	// CameraServer structures for processing vision frames
 #ifndef _MSC_VER	// Compiled for Windows
@@ -70,7 +70,6 @@ private:
 	std::vector<tData> 		m_validHatches;
 	tData 					m_goal;
 
-	bool DetermineSlant(cv::RotatedRect *rotRect);
 	void ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rawData);
 	void ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData, std::vector<tData> *targets);
 	void ConvertValidTargetsToValidHatches(std::vector<tData> *targets, std::vector<tData> *hatches);
