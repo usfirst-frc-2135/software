@@ -90,30 +90,30 @@ void GripOuterPipeline::Process(cv::Mat &source0)
 
 void GripOuterPipeline::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rects)
 {
-	rects->clear();
+    rects->clear();
 
-	// If contours are available, loop through up to 8 of them and create a vector of bounding rects
-	if (!m_contours->empty())
-	{
-		for (uint32_t i = 0; i < m_contours->size() && i < 8; i++)
-		{
-			tData rawt;
+    // If contours are available, loop through up to 8 of them and create a vector of bounding rects
+    if (!m_contours->empty())
+    {
+        for (uint32_t i = 0; i < m_contours->size() && i < 8; i++)
+        {
+            tData rawt;
             double  slantAngle;
 
-			rawt.r = cv::boundingRect(m_contours->at(i));
+            rawt.r = cv::boundingRect(m_contours->at(i));
             rawt.rRot = cv::minAreaRect(m_contours->at(i));
             slantAngle = (rawt.rRot.size.width < rawt.rRot.size.height) ? rawt.rRot.angle : rawt.rRot.angle + 90.0;
             rawt.bSlantRight = (slantAngle > 0);
-			rects->push_back(rawt);
-		}
-	}
+            rects->push_back(rawt);
+        }
+    }
 }
 
 void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *rects, std::vector<tData> *targets)
 {
     const double    scoreMin = 50.0;
     const double    scoreMax = 150.0;
-	double score;
+	double	score;
 	tData t;
 
 	targets->clear();
@@ -139,8 +139,8 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
 				t.angle = CalcCenteringAngle(m_targSize.width, r, t.dist);
 				t.bSlantRight = rects->at(i).bSlantRight;
 				targets->push_back(t);
-				PrintTargetData('T', i, t);
-			}
+                PrintTargetData('T', i, t);
+            }
 		}
 	}
 }
@@ -149,8 +149,8 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 {
     const double    scoreMin = 50.0;
     const double    scoreMax = 150.0;
-	double score;
-	tData h;
+    double 	score;
+	tData	h;
 
 	hatches->clear();
 
@@ -166,8 +166,8 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 				cv::Rect targB = targets->at(j).r;
 
 				// Determine whether A or B is the leftmost target.
-				tData leftMost = targets->at(i);
-				tData rightMost = targets->at(j);
+				tData leftMost = targets->at(i); 
+				tData rightMost = targets->at(j); 
 
 				if (targA.tl().x > targB.tl().x)
 				{
@@ -201,8 +201,8 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 					hatches->push_back(h);
 
                     PrintTargetData('H', i * 10 + j, h);
-				}
-			}
+                }
+            }
 		}
 	}
 }
@@ -210,26 +210,26 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 void GripOuterPipeline::SortValidHatches(std::vector<tData> *hatches)
 {
 	tData h;
-	int size = (int)hatches->size();
+	int size = (int) hatches->size();
 
 	if (size > 0)
 	{
-		int i;
-		int j;
-		tData key;
+	    int i;
+	    int j;
+	    tData key;
 
-		for (i = 1; i < size; i++)
-		{
-			key = hatches->at(i);
-			j = i - 1;
+	    for (i = 1; i < size; i++)
+	    {
+		    key = hatches->at(i);
+		    j = i-1;
 
-			while ((j >= 0) && (hatches->at(j).r.tl().x > key.r.tl().x))
-			{
-				hatches->at(j + 1) = hatches->at(j);
-				j = j - 1;
-			}
-			hatches->at(j + 1) = key;
-		}
+		    while ((j >= 0) && (hatches->at(j).r.tl().x > key.r.tl().x))
+		    {
+			    hatches->at(j+1) = hatches->at(j);
+			    j = j-1;
+		    }
+		    hatches->at(j+1) = key;
+	    }
 	}
 
 	for (int i = 0; i < hatches->size(); i++)
@@ -243,7 +243,7 @@ void GripOuterPipeline::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal
 {
 //	goal = &(hatches->front());
     if (hatches->size() > 0)
-	memcpy(goal, &(hatches->front()), sizeof(tData));
+        memcpy(goal, &(hatches->front()), sizeof(tData));
     else
         memset(goal, 0, sizeof(tData));
 }
@@ -266,7 +266,7 @@ void GripOuterPipeline::PrintTargetData(char name, int idx, tData t)
 
 void GripOuterPipeline::ApplyGridToFrame(cv::Mat frame, pixelRect res)
 {
-	cv::Point pt1, pt2;
+	cv::Point	pt1, pt2;
 
 	pt1.x = 0;
 	pt2.x = res.width;
@@ -288,7 +288,7 @@ void GripOuterPipeline::ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *tar
         rotRect.points(pts);
         for (int j = 0; j < 4; j++)
             cv::line(frame, pts[j], pts[(j + 1) % 4], cv::Scalar(68, 68, 255), 2);
-	}
+    }
 }
 
 void GripOuterPipeline::ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches)
@@ -302,21 +302,21 @@ void GripOuterPipeline::ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *h
 
 void GripOuterPipeline::ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goal)
 {
-	cv::Point pt1, pt2;
-	char str[32];
+	cv::Point	pt1, pt2;
+	char		str[32];
 
     // Place goal rectangle
 	cv::rectangle(frame, goal.r, cv::Scalar(0, 255, 0), 2, cv::LineTypes::LINE_8);
 
     // Place crosshair
-	pt1.x = goal.r.x + goal.r.width / 2 - 5;
+	pt1.x = goal.r.x + goal.r.width/2 - 5;
 	pt2.x = pt1.x + 10;
-	pt1.y = pt2.y = goal.r.y + goal.r.height / 2;
+	pt1.y = pt2.y = goal.r.y + goal.r.height/2;
 	cv::line(frame, pt1, pt2, cv::Scalar(0, 255, 0), 1, cv::LineTypes::LINE_4, 0);
 
-	pt1.y = goal.r.y + goal.r.height / 2 - 5;
+	pt1.y = goal.r.y + goal.r.height/2 - 5;
 	pt2.y = pt1.y + 10;
-	pt1.x = pt2.x = goal.r.x + goal.r.width / 2;
+	pt1.x = pt2.x = goal.r.x + goal.r.width/2;
 	cv::line(frame, pt1, pt2, cv::Scalar(0, 255, 0), 1, cv::LineTypes::LINE_4, 0);
 
     // Place text for distancen and direction
@@ -324,13 +324,13 @@ void GripOuterPipeline::ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goa
 	pt1.x = 5;
 	pt1.y = res.height - 5;
 	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
-				1, cv::LineTypes::LINE_8, false);
+		1, cv::LineTypes::LINE_8, false);
 
 	std::sprintf(str, "%5.1f deg", goal.angle);
-	pt1.x = res.width / 2 - 10;
+	pt1.x = res.width/2 - 10;
 	pt1.y = res.height - 5;
 	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
-				1, cv::LineTypes::LINE_8, false);
+		1, cv::LineTypes::LINE_8, false);
 }
 
 double GripOuterPipeline::CalcInchesToTarget(double targetWidthInches, cv::Rect rect)
@@ -351,10 +351,10 @@ double GripOuterPipeline::CalcCenteringAngle(double targetWidthInches, cv::Rect 
 {
 	// Frame coordinate system goes from X (0 -> 320) and Y (0 -> 240)
 	// Find frame X coordinate of rect center (rect is the vision target)
-	double rectCenterX = (double)rect.x + (double)(rect.width) / 2.0;
+	double rectCenterX = (double)rect.x + (double)(rect.width)/2.0;
 
 	// Calculate the number of pixels needed to center the rect in the frame
-	double pixelsToCenter = rectCenterX - m_res.width / 2.0;
+	double pixelsToCenter = rectCenterX - m_res.width/2.0;
 
 	// Convert from pixels into inches to center the rect in the frame
 	double inchesToCenter = targetWidthInches * pixelsToCenter / (double)(rect.width);

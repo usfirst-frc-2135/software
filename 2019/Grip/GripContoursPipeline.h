@@ -1,6 +1,5 @@
 #pragma once
-
-#include "RobotDefaults.h"
+#include "vision/VisionPipeline.h"
 
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -32,9 +31,6 @@ class GripContoursPipeline : public frc::VisionPipeline {
 		void findContours(cv::Mat &, bool , std::vector<std::vector<cv::Point> > &);
 		void convexHulls(std::vector<std::vector<cv::Point> > &, std::vector<std::vector<cv::Point> > &);
 		void filterContours(std::vector<std::vector<cv::Point> > &, double , double , double , double , double , double , double [], double , double , double , double , std::vector<std::vector<cv::Point> > &);
-
-		cv::Mat source0;
-		void setsource0(cv::Mat &);
 
 	public:
 		GripContoursPipeline();

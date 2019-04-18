@@ -1,4 +1,4 @@
- /*
+/*
  * GripOuterPipeline.h
  *
  *  Created on: Aug 6, 2017
@@ -29,41 +29,41 @@ namespace grip
 
 class GripOuterPipeline : public frc::VisionPipeline
 {
-  private:
+private:
 	struct pixelRect
 	{ // Vision rectangle of pixels
-		int width;
-		int height;
+		int 	width;
+		int 	height;
 	};
-	struct pixelRect m_res; // Initial camera resolution
-
+	struct pixelRect m_res;			// Initial camera resolution
+	
 	struct dimRect
 	{ // Actual vision target dimensions - inches
 		double width;
 		double height;
 	};
-	struct dimRect m_targSize;  // Vision Target dimensions
-	struct dimRect m_hatchSize; // Vision Hatch target dimensions
+	struct dimRect m_targSize;		// Vision Target dimensions
+	struct dimRect m_hatchSize;		// Vision Hatch target dimensions
 
 	typedef struct targetData
-	{				// Validated Target data (or Hatch data)
-		cv::Rect r; // Target rect in pixel coordinates
+	{ // Validated Target data (or Hatch data)
+		cv::Rect	r;				// Target rect in pixel coordinates
         cv::RotatedRect rRot;       // Rotated target rect using minAreaRect
-		bool bSlantRight;
-		double score; // Target score as compared to theoretical
-		double dist;  // Calculated distance to target
-		double angle; // Calculated angle to target
+		bool 		bSlantRight; 
+		double		score;			// Target score as compared to theoretical
+		double		dist;			// Calculated distance to target
+		double		angle;			// Calculated angle to target
 	} tData;
 
 	// Inner Grip pipeline variables
-	GripContoursPipeline 	*m_gripPipe;
-	cv::Mat 				m_gripFrame;
+	GripContoursPipeline*   m_gripPipe;
+	cv::Mat                 m_gripFrame;
 
 	// CameraServer structures for processing vision frames
 #ifndef _MSC_VER	// Compiled for Windows
 	cs::CvSource 			m_outStream;
 #endif
-
+	
 	// Image processing structures for identifying targets and hatches
 	std::vector<std::vector<cv::Point>> *m_contours;
 	std::vector<tData> 		m_boundingRects;
@@ -85,10 +85,10 @@ class GripOuterPipeline : public frc::VisionPipeline
 	double CalcInchesToTarget(double targetWidthInches, cv::Rect rect);
 	double CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget);
 
-  public:
+public:
 	GripOuterPipeline();
 	virtual ~GripOuterPipeline();
-	virtual void Process(cv::Mat &source0);
+	virtual void Process(cv::Mat& source0);
 	bool GetGoalHatch(double *goalDist, double *goalAngle, double *goalPose);
 };
 

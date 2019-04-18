@@ -1,7 +1,6 @@
 // visiontest.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include "pch.h"
 #include <iostream>
 
 #include <opencv2/core.hpp>
@@ -11,6 +10,7 @@
 #include <fstream>
 
 #include "GripContoursPipeline.h"
+#include "GripOuterPipeline.h"
 
 using namespace cv;
 using namespace std;
@@ -18,15 +18,16 @@ using namespace std;
 int main(int argc, char** argv)
 {
 	ifstream filelist;		// File containing list of images to process
-	string str;
-	char cstr[256];
+	char curpathname[256];
+    char curfilename[256];
 	Mat image;
 	cv::Mat gripFrame;
-	std::unique_ptr<grip::GripContoursPipeline> gripPipe;
-	gripPipe.reset(new grip::GripContoursPipeline());
+    double goalDist;
+    double goalAngle;
+    double goalPose;
 
-	// Image processing structures for identifying targets and pegs
-	std::vector<std::vector<cv::Point>> *contours;
+	std::unique_ptr<grip::GripOuterPipeline> gripPipe;
+	gripPipe.reset(new grip::GripOuterPipeline());
 
 	std::cout << "FRC Team 2135 - Vision Test Harness\n";
 
@@ -37,20 +38,27 @@ int main(int argc, char** argv)
 		cout << "Could not open or find the image" << std::endl;
 		return -1;
 	}
-	namedWindow("OpenCV Logo", IMREAD_COLOR);
+	namedWindow("OpenCV Logo", WINDOW_NORMAL);
+    resizeWindow("OpenCV Logo", 300, 370);
 	imshow("OpenCV Logo", image);
 	waitKey(0);			// Wait for a keystroke in the window
+    destroyWindow("OpenCV Logo");
 
 	// Open the file containing the list of FRC images
 	filelist.open("./frcimagelist.txt", std::ifstream::in);
 	do {
+        int i;
+
 		// Retrieve each file name -- one per line
-		filelist.getline(cstr, sizeof(cstr));
-		getline(filelist, str);
-		cout << str << std::endl;
+		filelist.getline(curpathname, sizeof(curpathname));
+        for (i = 0; i < sizeof(curpathname); i++)
+            if (curpathname[i] == '/' || curpathname[i] == '\0')
+                break;
+        strcpy(curfilename, curpathname+i+1);
+        cout << curpathname << " -> " << curfilename << std::endl;
 
 		// Open the image file specified
-		image = imread(cstr, IMREAD_COLOR); // Read the file
+		image = imread(curpathname, IMREAD_COLOR); // Read the file
 		if (image.empty()) // Check for invalid input
 		{
 			cout << "Could not open or find the image" << std::endl;
@@ -58,23 +66,23 @@ int main(int argc, char** argv)
 		}
 
 		// Open a new window with using the file name as the title
-		namedWindow("Display window", WINDOW_AUTOSIZE); // Create a window for display.
-		imshow("Display window", image); // Show our image inside it.
+		namedWindow(curfilename, WINDOW_AUTOSIZE); // Create a window for display.
+        moveWindow(curfilename, 20, 20);
+		imshow(curfilename, image); // Show our image inside it.
 
 		// Call GripPipeline
 		// Run vision processing gripPipe generated from GRIP
 		gripPipe->Process(image);
-		gripFrame = *(gripPipe->gethslThresholdOutput());
-		contours = gripPipe->getfilterContoursOutput();
+        gripPipe->GetGoalHatch(&goalDist, &goalAngle, &goalPose);
 
-		cout << "Found countours -> " << contours->size() << std::endl;
+		cout << "Goal Hatch -> d " << goalDist << " a " << goalAngle << " p " << goalPose << std::endl;
 
 		// Call GoalPipeline
 
 		waitKey(0); // Wait for a keystroke in the window
 
 		// Clean up and close the window
-		destroyWindow("Display window");
+		destroyWindow(curfilename);
 
 	} while (!filelist.eof());
 

@@ -1,33 +1,19 @@
 #include "GripContoursPipeline.h"
 
-/**
-* Initializes a GripContoursPipeline.
-*/
-
 namespace grip {
 
 GripContoursPipeline::GripContoursPipeline() {
 }
 /**
-* Runs an iteration of the Pipeline and updates outputs.
-*
-* Sources need to be set before calling this method. 
-*
+* Runs an iteration of the pipeline and updates outputs.
 */
 void GripContoursPipeline::Process(cv::Mat& source0){
 	//Step HSL_Threshold0:
 	//input
-	double hueStart = CAM_HUESTART_D;
-	double hueEnd = CAM_HUEEND_D;
-	double saturationStart = CAM_SATSTART_D;
-	double saturationEnd = CAM_SATEND_D;
-	double luminanceStart = CAM_LUMSTART_D;
-	double luminanceEnd = CAM_LUMEND_D;
-
 	cv::Mat hslThresholdInput = source0;
-	double hslThresholdHue[] = {hueStart, hueEnd};
-	double hslThresholdSaturation[] = {saturationStart, saturationEnd};
-	double hslThresholdLuminance[] = {luminanceStart, luminanceEnd};
+	double hslThresholdHue[] = {50.17985611510791, 101.69303961112834};
+	double hslThresholdSaturation[] = {110.07194244604315, 255.0};
+	double hslThresholdLuminance[] = {43.57014388489208, 255.0};
 	hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, this->hslThresholdOutput);
 	//Step Find_Contours0:
 	//input
@@ -159,11 +145,8 @@ std::vector<std::vector<cv::Point> >* GripContoursPipeline::GetFilterContoursOut
 			double solid = 100 * area / cv::contourArea(hull);
 			if (solid < solidity[0] || solid > solidity[1]) continue;
 			if (contour.size() < minVertexCount || contour.size() > maxVertexCount)	continue;
-			double ratio = (double)bb.width / (double)bb.height;
+			double ratio = (double) bb.width / (double) bb.height;
 			if (ratio < minRatio || ratio > maxRatio) continue;
-//			static int i = 0;
-//			if (i++ % 8 == 0)
-//				printf("w: %d h %d s %3.1f r %3.2f\n", bb.width, bb.height, solid, ratio);
 			output.push_back(contour);
 		}
 	}

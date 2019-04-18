@@ -108,13 +108,13 @@ bool ReadCameraConfig(const wpi::json& config) {
   try {
     c.path = config.at("path").get<std::string>();
   } catch (const wpi::json::exception& e) {
-    ParseError() << "camera '" << c.name
-                 << "': could not read path: " << e.what() << '\n';
+    ParseError() << "camera '" << c.name << "': could not read path: " << e.what() << '\n';
     return false;
   }
 
   // stream properties
-  if (config.count("stream") != 0) c.streamConfig = config.at("stream");
+  if (config.count("stream") != 0) 
+    c.streamConfig = config.at("stream");
 
   c.config = config;
 
@@ -137,8 +137,7 @@ bool ReadSwitchedCameraConfig(const wpi::json& config) {
   try {
     c.key = config.at("key").get<std::string>();
   } catch (const wpi::json::exception& e) {
-    ParseError() << "switched camera '" << c.name
-                 << "': could not read key: " << e.what() << '\n';
+    ParseError() << "switched camera '" << c.name << "': could not read key: " << e.what() << '\n';
     return false;
   }
 
@@ -151,8 +150,7 @@ bool ReadConfig() {
   std::error_code ec;
   wpi::raw_fd_istream is(configFile, ec);
   if (ec) {
-    wpi::errs() << "could not open '" << configFile << "': " << ec.message()
-                << '\n';
+    wpi::errs() << "could not open '" << configFile << "': " << ec.message() << '\n';
     return false;
   }
 
@@ -199,7 +197,8 @@ bool ReadConfig() {
   // cameras
   try {
     for (auto&& camera : j.at("cameras")) {
-      if (!ReadCameraConfig(camera)) return false;
+      if (!ReadCameraConfig(camera)) 
+        return false;
     }
   } catch (const wpi::json::exception& e) {
     ParseError() << "could not read cameras: " << e.what() << '\n';
@@ -210,7 +209,8 @@ bool ReadConfig() {
   if (j.count("switched cameras") != 0) {
     try {
       for (auto&& camera : j.at("switched cameras")) {
-        if (!ReadSwitchedCameraConfig(camera)) return false;
+        if (!ReadSwitchedCameraConfig(camera)) 
+          return false;
       }
     } catch (const wpi::json::exception& e) {
       ParseError() << "could not read switched cameras: " << e.what() << '\n';
@@ -222,8 +222,7 @@ bool ReadConfig() {
 }
 
 cs::UsbCamera StartCamera(const CameraConfig& config) {
-  wpi::outs() << "Starting camera '" << config.name << "' on " << config.path
-              << '\n';
+  wpi::outs() << "Starting camera '" << config.name << "' on " << config.path << '\n';
   auto inst = frc::CameraServer::GetInstance();
   cs::UsbCamera camera{config.name, config.path};
   auto server = inst->StartAutomaticCapture(camera);
@@ -238,8 +237,7 @@ cs::UsbCamera StartCamera(const CameraConfig& config) {
 }
 
 cs::MjpegServer StartSwitchedCamera(const SwitchedCameraConfig& config) {
-  wpi::outs() << "Starting switched camera '" << config.name << "' on "
-              << config.key << '\n';
+  wpi::outs() << "Starting switched camera '" << config.name << "' on " << config.key << '\n';
   auto server =
       frc::CameraServer::GetInstance()->AddSwitchedCamera(config.name);
 
@@ -249,7 +247,8 @@ cs::MjpegServer StartSwitchedCamera(const SwitchedCameraConfig& config) {
           [server](const auto& event) mutable {
             if (event.value->IsDouble()) {
               int i = event.value->GetDouble();
-              if (i >= 0 && i < cameras.size()) server.SetSource(cameras[i]);
+              if (i >= 0 && i < cameras.size()) 
+                server.SetSource(cameras[i]);
             } else if (event.value->IsString()) {
               auto str = event.value->GetString();
               for (int i = 0; i < cameraConfigs.size(); ++i) {
@@ -266,21 +265,23 @@ cs::MjpegServer StartSwitchedCamera(const SwitchedCameraConfig& config) {
 }
 
 // example pipeline
-class MyPipeline : public frc::VisionPipeline {
- public:
-  int val = 0;
+// class MyPipeline : public frc::VisionPipeline {
+//  public:
+//   int val = 0;
 
-  void Process(cv::Mat& mat) override {
-    ++val;
-  }
-};
+//   void Process(cv::Mat& mat) override {
+//     ++val;
+//   }
+// };
 }  // namespace
 
 int main(int argc, char* argv[]) {
-  if (argc >= 2) configFile = argv[1];
+  if (argc >= 2) 
+    configFile = argv[1];
 
   // read configuration
-  if (!ReadConfig()) return EXIT_FAILURE;
+  if (!ReadConfig()) 
+    return EXIT_FAILURE;
 
   // start NetworkTables
   auto ntinst = nt::NetworkTableInstance::GetDefault();
@@ -292,20 +293,30 @@ int main(int argc, char* argv[]) {
     ntinst.StartClientTeam(team);
   }
 
+  // Set up Network Tables
   ntinst.SetUpdateRate(0.01);
-  std::shared_ptr<nt::NetworkTable>  table = ntinst.GetTable("testdata");
-  nt::NetworkTableEntry xEntry = table->GetEntry("X");
-  double i;
+  std::shared_ptr<nt::NetworkTable>  table = ntinst.GetTable("Vision");
+  nt::NetworkTableEntry tickEntry = table->GetEntry("Ticks");
+  nt::NetworkTableEntry goalDistEntry = table->GetEntry("GoalDist");
+  nt::NetworkTableEntry goalAngleEntry = table->GetEntry("GoalAngle");
+  nt::NetworkTableEntry goalPoseEntry = table->GetEntry("GoalPose");
+  double ticks = 0.0;
 
   // start cameras
   for (const auto& config : cameraConfigs)
     cameras.emplace_back(StartCamera(config));
 
   // start switched cameras
-  for (const auto& config : switchedCameraConfigs) StartSwitchedCamera(config);
+  for (const auto& config : switchedCameraConfigs) 
+    StartSwitchedCamera(config);
 
   // start image processing on camera 0 if present
   if (cameras.size() >= 1) {
+    grip::GripOuterPipeline *gripPipe = new grip::GripOuterPipeline();
+    double  goalDist;
+    double  goalAngle;
+    double  goalPose;
+
     std::thread([&] {
       /* not grip
       frc::VisionRunner<MyPipeline> runner(cameras[0], new MyPipeline(),
@@ -314,13 +325,17 @@ int main(int argc, char* argv[]) {
       });
       */
       // something like this for GRIP:
-      frc::VisionRunner<grip::GripOuterPipeline> runner(cameras[0], new grip::GripOuterPipeline(),
-                                           [&](grip::GripOuterPipeline& pipeline) {
-        // pipeline.getfilterContoursOutput();
-        // Take contours and put data into NT values
-        //  ntinst.
-        xEntry.SetDouble(i);
-        i += 0.0333;
+      frc::VisionRunner<grip::GripOuterPipeline> 
+        runner(cameras[0], gripPipe, [&](grip::GripOuterPipeline& pipeline) {
+
+        // Take goal data and put  into NT values
+        gripPipe->GetGoalHatch(&goalDist, &goalAngle, &goalPose);
+        goalDistEntry.SetDouble(goalDist);
+        goalAngleEntry.SetDouble(goalAngle);
+        goalPoseEntry.SetDouble(goalPose);
+        tickEntry.SetDouble(ticks);
+        ticks += 0.0333;  // 30 fps
+
         // Add goals to video frame
       });
       runner.RunForever();
@@ -328,5 +343,6 @@ int main(int argc, char* argv[]) {
   }
 
   // loop forever
-  for (;;) std::this_thread::sleep_for(std::chrono::seconds(10));
+  for (;;) 
+    std::this_thread::sleep_for(std::chrono::seconds(10));
 }

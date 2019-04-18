@@ -9,10 +9,11 @@ DESTDIR?=/home/pi/
 build: ${EXE}
 
 install: build
-	cp ${EXE} runCamera ${DESTDIR}
+#	cp ${EXE} runCamera ${DESTDIR}
 
 clean:
-	rm ${EXE} *.o
+#	rm ${EXE} *.o
+	del ${EXE} *.o
 
 OBJS=main.o GripContoursPipeline.o GripOuterPipeline.o
 
