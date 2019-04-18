@@ -65,8 +65,6 @@ public:
 	void FaultDump(void);
 	void SetIntakeMotorDirection(int direction);
 
-	void SetDeliverySolenoid(bool extended);
-
 };
 
 #endif

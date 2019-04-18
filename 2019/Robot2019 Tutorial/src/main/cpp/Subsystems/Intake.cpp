@@ -107,11 +107,6 @@ void Intake::Initialize(void) {
         motorIN14->Set(ControlMode::PercentOutput, 0.0);
         SetIntakeMotorDirection(INTAKE_HOLD);
     }
-
-    // Solenoid retracted
-     m_deliveryExtended = false;
-     frc::SmartDashboard::PutBoolean("IN Delivery Extended", m_deliveryExtended);
-     SetDeliverySolenoid(m_deliveryExtended);
  }
 
 void Intake::FaultDump(void) {
@@ -151,11 +146,3 @@ void Intake::SetIntakeMotorDirection(int direction) {
         motorIN14->Set(ControlMode::PercentOutput, output);
 }
 
-void Intake::SetDeliverySolenoid(bool extended) {
-    m_deliveryExtended = extended;
-
-    std::printf("2135: IN Hatch Panel Delivery - %s\n", (m_deliveryExtended) ? "EXTEND" : "RETRACT");
-    frc::SmartDashboard::PutBoolean("IN Delivery Extended", m_deliveryExtended);
-
-    panelDelivery->Set((m_deliveryExtended) ? panelDelivery->kForward : panelDelivery->kReverse);
-}
