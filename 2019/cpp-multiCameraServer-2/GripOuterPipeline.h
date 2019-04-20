@@ -46,13 +46,14 @@ class GripOuterPipeline : public frc::VisionPipeline
 	struct dimRect m_hatchSize; // Vision Hatch target dimensions
 
 	typedef struct targetData
-	{				// Validated Target data (or Hatch data)
-		cv::Rect r; // Target rect in pixel coordinates
+	{				        // Validated Target data (or Hatch data)
+		cv::Rect r;         // Target rect in pixel coordinates
         cv::RotatedRect rRot;       // Rotated target rect using minAreaRect
 		bool bSlantRight;
-		double score; // Target score as compared to theoretical
-		double dist;  // Calculated distance to target
-		double angle; // Calculated angle to target
+		double score;       // Target score as compared to theoretical
+		double dist;        // Calculated distance to target
+		double yawAngle;    // Calculated angle to target
+        double faceAngle;   // Calculated target face angle from normal
 	} tData;
 
 	// Inner Grip pipeline variables
@@ -89,7 +90,7 @@ class GripOuterPipeline : public frc::VisionPipeline
 	GripOuterPipeline();
 	virtual ~GripOuterPipeline();
 	virtual void Process(cv::Mat &source0);
-	bool GetGoalHatch(double *goalDist, double *goalAngle, double *goalPose);
+	bool GetGoalHatch(double *goalDist, double *goalYawAngle, double *goalFaceAngle);
 };
 
 } // namespace grip

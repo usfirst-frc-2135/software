@@ -17,10 +17,23 @@
 //	SmartDashboard Vision settings
 
 #define CAM_HUESTART_D      50.0
-#define CAM_HUEEND_D			102.0
+#define CAM_HUEEND_D        102.0
 
 #define CAM_SATSTART_D      110.0
-#define CAM_SATEND_D			255.0
+#define CAM_SATEND_D        255.0
 
 #define CAM_LUMSTART_D      44.0
-#define CAM_LUMEND_D			255.0
+#define CAM_LUMEND_D        255.0
+
+//	SmartDashboard Vision readout
+
+#define	CAM_FOUNDTARGET     "Cam_FoundTarget"
+
+#define CAM_DISTANCE        "Cam_Distance"
+#define CAM_DISTANCE_D      0.0
+
+#define	CAM_TURNANGLE       "Cam_TurnAngle"
+#define	CAM_TURNANGLE_D     0.0
+
+#define	CAM_FACEANGLE       "Cam_FaceAngle"
+#define	CAM_FACEANGLE_D     0.0

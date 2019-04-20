@@ -60,7 +60,7 @@ void GripOuterPipeline::Process(cv::Mat &source0)
 #if DEBUG_TRACE > 0
 	std::printf("2135: C %d, B %d, T %d, H %d, G %d, x %d, y %d, w %d, h %d, d %5.1f, a %5.1f\n",
 		(int) m_contours->size(), (int) m_boundingRects.size(), (int) m_validTargets.size(), (int) m_validHatches.size(),
-		(m_validHatches.size() > 0) ? 1 : 0, m_goal.r.x, m_goal.r.y, m_goal.r.width, m_goal.r.height, m_goal.dist, m_goal.angle);
+		(m_validHatches.size() > 0) ? 1 : 0, m_goal.r.x, m_goal.r.y, m_goal.r.width, m_goal.r.height, m_goal.dist, m_goal.yawAngle);
 #endif
 
 	// Draw the boundingRects on the frame bring processed -- white
@@ -136,7 +136,7 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
                 t.rRot = rotRect;
 				t.score = score;
 				t.dist = CalcInchesToTarget(m_targSize.width, r);
-				t.angle = CalcCenteringAngle(m_targSize.width, r, t.dist);
+				t.yawAngle = CalcCenteringAngle(m_targSize.width, r, t.dist);
 				t.bSlantRight = rects->at(i).bSlantRight;
 				targets->push_back(t);
                 PrintTargetData('T', i, t);
@@ -197,7 +197,7 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 					h.r = hatchRect;
 					h.score = score;
 					h.dist = CalcInchesToTarget(m_hatchSize.width, hatchRect);
-					h.angle = CalcCenteringAngle(m_hatchSize.width, hatchRect, h.dist);
+					h.yawAngle = CalcCenteringAngle(m_hatchSize.width, hatchRect, h.dist);
 					hatches->push_back(h);
 
                     PrintTargetData('H', i * 10 + j, h);
@@ -248,11 +248,11 @@ void GripOuterPipeline::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal
         memset(goal, 0, sizeof(tData));
 }
 
-bool GripOuterPipeline::GetGoalHatch(double *goalDist, double *goalAngle, double *goalPose)
+bool GripOuterPipeline::GetGoalHatch(double *goalDist, double *goalYawAngle, double *goalFaceAngle)
 {
 	*goalDist = m_goal.dist;
-	*goalAngle = m_goal.angle;
-	*goalPose = 0.0;
+	*goalYawAngle = m_goal.yawAngle;
+	*goalFaceAngle = m_goal.faceAngle;
 	return !m_validHatches.empty();
 }
 
@@ -260,7 +260,7 @@ void GripOuterPipeline::PrintTargetData(char name, int idx, tData t)
 {
 #if DEBUG_TRACE > 1
 	std::printf("-%c %02d: x %3d, y %3d, w %3d, h %3d, t %c, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
-	 	t.r.x, t.r.y, t.r.width, t.r.height, (t.bSlantRight) ? 'R' : 'L', t.score, t.dist, t.angle);
+	 	t.r.x, t.r.y, t.r.width, t.r.height, (t.bSlantRight) ? 'R' : 'L', t.score, t.dist, t.yawAngle);
 #endif
 }
 
@@ -326,7 +326,7 @@ void GripOuterPipeline::ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goa
 	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
 		1, cv::LineTypes::LINE_8, false);
 
-	std::sprintf(str, "%5.1f deg", goal.angle);
+	std::sprintf(str, "%5.1f deg", goal.yawAngle);
 	pt1.x = res.width/2 - 10;
 	pt1.y = res.height - 5;
 	cv::putText(frame, str, pt1, cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 255, 255),
