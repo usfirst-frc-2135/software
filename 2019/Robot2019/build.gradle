@@ -58,6 +58,7 @@ model {
                 }
                 exportedHeaders {
                     srcDir 'src/main/include'
+                    srcDir 'src/main/include/frc2135'
                     if (includeSrcInIncludeRoot) {
                         srcDir 'src/main/cpp'
                     }
