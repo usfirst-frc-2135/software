@@ -327,9 +327,10 @@ int main(int argc, char* argv[]) {
       // something like this for GRIP:
       frc::VisionRunner<grip::GripOuterPipeline> 
         runner(cameras[0], gripPipe, [&](grip::GripOuterPipeline& pipeline) {
+        bool  goalFound = false;
 
         // Take goal data and put  into NT values
-        gripPipe->GetGoalHatch(&goalDist, &goalAngle, &goalPose);
+        goalFound = gripPipe->GetGoalHatch(&goalDist, &goalAngle, &goalPose);
         goalDistEntry.SetDouble(goalDist);
         goalAngleEntry.SetDouble(goalAngle);
         goalPoseEntry.SetDouble(goalPose);

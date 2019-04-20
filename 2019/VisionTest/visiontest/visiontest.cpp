@@ -73,9 +73,9 @@ int main(int argc, char** argv)
 		// Call GripPipeline
 		// Run vision processing gripPipe generated from GRIP
 		gripPipe->Process(image);
-        gripPipe->GetGoalHatch(&goalDist, &goalAngle, &goalPose);
+        bool goalFound = gripPipe->GetGoalHatch(&goalDist, &goalAngle, &goalPose);
 
-		cout << "Goal Hatch -> d " << goalDist << " a " << goalAngle << " p " << goalPose << std::endl;
+		cout << "Goal Hatch found -> " << goalFound << " d " << goalDist << " a " << goalAngle << " p " << goalPose << std::endl;
 
 		// Call GoalPipeline
 
