@@ -84,7 +84,7 @@ class GripOuterPipeline : public frc::VisionPipeline
 	void ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches);
 	void ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goal);
 	double CalcInchesToTarget(double targetWidthInches, cv::Rect rect);
-	double CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget);
+	double CalcYawAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget);
 
   public:
 	GripOuterPipeline();

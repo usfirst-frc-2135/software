@@ -136,7 +136,7 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
                 t.rRot = rotRect;
 				t.score = score;
 				t.dist = CalcInchesToTarget(m_targSize.width, r);
-				t.yawAngle = CalcCenteringAngle(m_targSize.width, r, t.dist);
+				t.yawAngle = CalcYawAngle(m_targSize.width, r, t.dist);
 				t.bSlantRight = rects->at(i).bSlantRight;
 				targets->push_back(t);
 				PrintTargetData('T', i, t);
@@ -197,7 +197,7 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 					h.r = hatchRect;
 					h.score = score;
 					h.dist = CalcInchesToTarget(m_hatchSize.width, hatchRect);
-					h.yawAngle = CalcCenteringAngle(m_hatchSize.width, hatchRect, h.dist);
+					h.yawAngle = CalcYawAngle(m_hatchSize.width, hatchRect, h.dist);
 					hatches->push_back(h);
 
                     PrintTargetData('H', i * 10 + j, h);
@@ -347,7 +347,7 @@ double GripOuterPipeline::CalcInchesToTarget(double targetWidthInches, cv::Rect 
 	return (343.2 * targetWidthInches) / rect.width;
 }
 
-double GripOuterPipeline::CalcCenteringAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget)
+double GripOuterPipeline::CalcYawAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget)
 {
 	// Frame coordinate system goes from X (0 -> 320) and Y (0 -> 240)
 	// Find frame X coordinate of rect center (rect is the vision target)
