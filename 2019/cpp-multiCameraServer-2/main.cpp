@@ -334,6 +334,10 @@ int main(int argc, char* argv[]) {
         goalDistEntry.SetDouble(goalDist);
         goalAngleEntry.SetDouble(goalAngle);
         goalPoseEntry.SetDouble(goalPose);
+
+            m_sourceMat = gripPipe->GetSourceMat();
+            m_outStream.PutFrame(*m_sourceMat);
+
         tickEntry.SetDouble(ticks);
         ticks += 0.0333;  // 30 fps
 
