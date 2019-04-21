@@ -66,21 +66,24 @@
    }
  */
 
-static const char* configFile = "/boot/frc.json";
+static const char *configFile = "/boot/frc.json";
 
-namespace {
+namespace
+{
 
 unsigned int team;
 bool server = false;
 
-struct CameraConfig {
+struct CameraConfig
+{
   std::string name;
   std::string path;
   wpi::json config;
   wpi::json streamConfig;
 };
 
-struct SwitchedCameraConfig {
+struct SwitchedCameraConfig
+{
   std::string name;
   std::string key;
 };
@@ -88,32 +91,41 @@ struct SwitchedCameraConfig {
 std::vector<CameraConfig> cameraConfigs;
 std::vector<SwitchedCameraConfig> switchedCameraConfigs;
 std::vector<cs::VideoSource> cameras;
+cv::Mat *m_sourceMat;
 
-wpi::raw_ostream& ParseError() {
+wpi::raw_ostream &ParseError()
+{
   return wpi::errs() << "config error in '" << configFile << "': ";
 }
 
-bool ReadCameraConfig(const wpi::json& config) {
+bool ReadCameraConfig(const wpi::json &config)
+{
   CameraConfig c;
 
   // name
-  try {
+  try
+  {
     c.name = config.at("name").get<std::string>();
-  } catch (const wpi::json::exception& e) {
+  }
+  catch (const wpi::json::exception &e)
+  {
     ParseError() << "could not read camera name: " << e.what() << '\n';
     return false;
   }
 
   // path
-  try {
+  try
+  {
     c.path = config.at("path").get<std::string>();
-  } catch (const wpi::json::exception& e) {
+  }
+  catch (const wpi::json::exception &e)
+  {
     ParseError() << "camera '" << c.name << "': could not read path: " << e.what() << '\n';
     return false;
   }
 
   // stream properties
-  if (config.count("stream") != 0) 
+  if (config.count("stream") != 0)
     c.streamConfig = config.at("stream");
 
   c.config = config;
@@ -122,21 +134,28 @@ bool ReadCameraConfig(const wpi::json& config) {
   return true;
 }
 
-bool ReadSwitchedCameraConfig(const wpi::json& config) {
+bool ReadSwitchedCameraConfig(const wpi::json &config)
+{
   SwitchedCameraConfig c;
 
   // name
-  try {
+  try
+  {
     c.name = config.at("name").get<std::string>();
-  } catch (const wpi::json::exception& e) {
+  }
+  catch (const wpi::json::exception &e)
+  {
     ParseError() << "could not read switched camera name: " << e.what() << '\n';
     return false;
   }
 
   // key
-  try {
+  try
+  {
     c.key = config.at("key").get<std::string>();
-  } catch (const wpi::json::exception& e) {
+  }
+  catch (const wpi::json::exception &e)
+  {
     ParseError() << "switched camera '" << c.name << "': could not read key: " << e.what() << '\n';
     return false;
   }
@@ -145,74 +164,101 @@ bool ReadSwitchedCameraConfig(const wpi::json& config) {
   return true;
 }
 
-bool ReadConfig() {
+bool ReadConfig()
+{
   // open config file
   std::error_code ec;
   wpi::raw_fd_istream is(configFile, ec);
-  if (ec) {
+  if (ec)
+  {
     wpi::errs() << "could not open '" << configFile << "': " << ec.message() << '\n';
     return false;
   }
 
   // parse file
   wpi::json j;
-  try {
+  try
+  {
     j = wpi::json::parse(is);
-  } catch (const wpi::json::parse_error& e) {
+  }
+  catch (const wpi::json::parse_error &e)
+  {
     ParseError() << "byte " << e.byte << ": " << e.what() << '\n';
     return false;
   }
 
   // top level must be an object
-  if (!j.is_object()) {
+  if (!j.is_object())
+  {
     ParseError() << "must be JSON object\n";
     return false;
   }
 
   // team number
-  try {
+  try
+  {
     team = j.at("team").get<unsigned int>();
-  } catch (const wpi::json::exception& e) {
+  }
+  catch (const wpi::json::exception &e)
+  {
     ParseError() << "could not read team number: " << e.what() << '\n';
     return false;
   }
 
   // ntmode (optional)
-  if (j.count("ntmode") != 0) {
-    try {
+  if (j.count("ntmode") != 0)
+  {
+    try
+    {
       auto str = j.at("ntmode").get<std::string>();
       wpi::StringRef s(str);
-      if (s.equals_lower("client")) {
+      if (s.equals_lower("client"))
+      {
         server = false;
-      } else if (s.equals_lower("server")) {
+      }
+      else if (s.equals_lower("server"))
+      {
         server = true;
-      } else {
+      }
+      else
+      {
         ParseError() << "could not understand ntmode value '" << str << "'\n";
       }
-    } catch (const wpi::json::exception& e) {
+    }
+    catch (const wpi::json::exception &e)
+    {
       ParseError() << "could not read ntmode: " << e.what() << '\n';
     }
   }
 
   // cameras
-  try {
-    for (auto&& camera : j.at("cameras")) {
-      if (!ReadCameraConfig(camera)) 
+  try
+  {
+    for (auto &&camera : j.at("cameras"))
+    {
+      if (!ReadCameraConfig(camera))
         return false;
     }
-  } catch (const wpi::json::exception& e) {
+  }
+  catch (const wpi::json::exception &e)
+  {
     ParseError() << "could not read cameras: " << e.what() << '\n';
     return false;
   }
 
   // switched cameras (optional)
-  if (j.count("switched cameras") != 0) {
-    try {
-      for (auto&& camera : j.at("switched cameras")) {
-        if (!ReadSwitchedCameraConfig(camera)) 
+  if (j.count("switched cameras") != 0)
+  {
+    try
+    {
+      for (auto &&camera : j.at("switched cameras"))
+      {
+        if (!ReadSwitchedCameraConfig(camera))
           return false;
       }
-    } catch (const wpi::json::exception& e) {
+    }
+    catch (const wpi::json::exception &e)
+    {
       ParseError() << "could not read switched cameras: " << e.what() << '\n';
       return false;
     }
@@ -221,7 +267,8 @@ bool ReadConfig() {
   return true;
 }
 
-cs::UsbCamera StartCamera(const CameraConfig& config) {
+cs::UsbCamera StartCamera(const CameraConfig &config)
+{
   wpi::outs() << "Starting camera '" << config.name << "' on " << config.path << '\n';
   auto inst = frc::CameraServer::GetInstance();
   cs::UsbCamera camera{config.name, config.path};
@@ -236,7 +283,8 @@ cs::UsbCamera StartCamera(const CameraConfig& config) {
   return camera;
 }
 
-cs::MjpegServer StartSwitchedCamera(const SwitchedCameraConfig& config) {
+cs::MjpegServer StartSwitchedCamera(const SwitchedCameraConfig &config)
+{
   wpi::outs() << "Starting switched camera '" << config.name << "' on " << config.key << '\n';
   auto server =
       frc::CameraServer::GetInstance()->AddSwitchedCamera(config.name);
@@ -244,15 +292,20 @@ cs::MjpegServer StartSwitchedCamera(const SwitchedCameraConfig& config) {
   nt::NetworkTableInstance::GetDefault()
       .GetEntry(config.key)
       .AddListener(
-          [server](const auto& event) mutable {
-            if (event.value->IsDouble()) {
+          [server](const auto &event) mutable {
+            if (event.value->IsDouble())
+            {
               int i = event.value->GetDouble();
-              if (i >= 0 && i < cameras.size()) 
+              if (i >= 0 && i < cameras.size())
                 server.SetSource(cameras[i]);
-            } else if (event.value->IsString()) {
+            }
+            else if (event.value->IsString())
+            {
               auto str = event.value->GetString();
-              for (int i = 0; i < cameraConfigs.size(); ++i) {
-                if (str == cameraConfigs[i].name) {
+              for (int i = 0; i < cameraConfigs.size(); ++i)
+              {
+                if (str == cameraConfigs[i].name)
+                {
                   server.SetSource(cameras[i]);
                   break;
                 }
@@ -273,29 +326,33 @@ cs::MjpegServer StartSwitchedCamera(const SwitchedCameraConfig& config) {
 //     ++val;
 //   }
 // };
-}  // namespace
+} // namespace
 
-int main(int argc, char* argv[]) {
-  if (argc >= 2) 
+int main(int argc, char *argv[])
+{
+  if (argc >= 2)
     configFile = argv[1];
 
   // read configuration
-  if (!ReadConfig()) 
+  if (!ReadConfig())
     return EXIT_FAILURE;
 
   // start NetworkTables
   auto ntinst = nt::NetworkTableInstance::GetDefault();
-  if (server) {
+  if (server)
+  {
     wpi::outs() << "Setting up NetworkTables server\n";
     ntinst.StartServer();
-  } else {
+  }
+  else
+  {
     wpi::outs() << "Setting up NetworkTables client for team " << team << '\n';
     ntinst.StartClientTeam(team);
   }
 
   // Set up Network Tables
   ntinst.SetUpdateRate(0.01);
-  std::shared_ptr<nt::NetworkTable>  table = ntinst.GetTable("Vision");
+  std::shared_ptr<nt::NetworkTable> table = ntinst.GetTable("Vision");
   nt::NetworkTableEntry tickEntry = table->GetEntry("Ticks");
   nt::NetworkTableEntry goalDistEntry = table->GetEntry("GoalDist");
   nt::NetworkTableEntry goalAngleEntry = table->GetEntry("GoalAngle");
@@ -303,19 +360,23 @@ int main(int argc, char* argv[]) {
   double ticks = 0.0;
 
   // start cameras
-  for (const auto& config : cameraConfigs)
+  for (const auto &config : cameraConfigs)
     cameras.emplace_back(StartCamera(config));
 
   // start switched cameras
-  for (const auto& config : switchedCameraConfigs) 
+  for (const auto &config : switchedCameraConfigs)
     StartSwitchedCamera(config);
 
+  cs::CvSource m_outStream;
+  m_outStream = frc::CameraServer::GetInstance()->PutVideo("Goal Video 2", 320, 240);
+
   // start image processing on camera 0 if present
-  if (cameras.size() >= 1) {
+  if (cameras.size() >= 1)
+  {
     grip::GripOuterPipeline *gripPipe = new grip::GripOuterPipeline();
-    double  goalDist;
-    double  goalAngle;
-    double  goalPose;
+    double goalDist;
+    double goalAngle;
+    double goalPose;
 
     std::thread([&] {
       /* not grip
@@ -325,29 +386,30 @@ int main(int argc, char* argv[]) {
       });
       */
       // something like this for GRIP:
-      frc::VisionRunner<grip::GripOuterPipeline> 
-        runner(cameras[0], gripPipe, [&](grip::GripOuterPipeline& pipeline) {
-        bool  goalFound = false;
+      frc::VisionRunner<grip::GripOuterPipeline>
+          runner(cameras[0], gripPipe, [&](grip::GripOuterPipeline &pipeline) {
+            bool goalFound = false;
 
-        // Take goal data and put  into NT values
-        goalFound = gripPipe->GetGoalHatch(&goalDist, &goalAngle, &goalPose);
-        goalDistEntry.SetDouble(goalDist);
-        goalAngleEntry.SetDouble(goalAngle);
-        goalPoseEntry.SetDouble(goalPose);
+            // Take goal data and put  into NT values
+            goalFound = gripPipe->GetGoalHatch(&goalDist, &goalAngle, &goalPose);
+            goalDistEntry.SetDouble(goalDist);
+            goalAngleEntry.SetDouble(goalAngle);
+            goalPoseEntry.SetDouble(goalPose);
 
             m_sourceMat = gripPipe->GetSourceMat();
             m_outStream.PutFrame(*m_sourceMat);
 
-        tickEntry.SetDouble(ticks);
-        ticks += 0.0333;  // 30 fps
+            tickEntry.SetDouble(ticks);
+            ticks += 0.0333; // 30 fps
 
-        // Add goals to video frame
-      });
+            // Add goals to video frame
+          });
       runner.RunForever();
-    }).detach();
+    })
+        .detach();
   }
 
   // loop forever
-  for (;;) 
+  for (;;)
     std::this_thread::sleep_for(std::chrono::seconds(10));
 }
