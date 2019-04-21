@@ -60,10 +60,18 @@ void GripOuterPipeline::Process(cv::Mat &sourceMat)
 #endif
 
     // Draw the boundingRects on the frame bring processed -- white
-    ApplyGridToFrame(sourceMat, m_res);
-    ApplyRectsToFrame(sourceMat, &m_validTargets);
-    ApplyHatchesToFrame(sourceMat, &m_validHatches);
-    ApplyGoalToFrame(sourceMat, m_res, m_goal);
+    ApplyGridToFrame(*m_sourceMat, m_res);
+    ApplyRectsToFrame(*m_sourceMat, &m_validTargets);
+    ApplyHatchesToFrame(*m_sourceMat, &m_validHatches);
+    ApplyGoalToFrame(*m_sourceMat, m_res, m_goal);
+
+#ifdef _MSC_VER	// Compiled for Windows
+	// Draw the boundingRects on the contours frame
+    ApplyGridToFrame(*m_contourMat, m_res);
+    ApplyRectsToFrame(*m_contourMat, &m_validTargets);
+    ApplyHatchesToFrame(*m_contourMat, &m_validHatches);
+    ApplyGoalToFrame(*m_contourMat, m_res, m_goal);
+#endif
 
     // Finished - let VisionRunner listener handle display
 }
@@ -121,6 +129,7 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
                 t.bSlantRight = rects->at(i).bSlantRight;
                 t.dist = CalcInchesToTarget(m_targSize.width, r);
                 t.yawAngle = CalcYawAngle(m_targSize.width, r, t.dist);
+                t.faceAngle = 0.0;
                 targets->push_back(t);
                 PrintTargetData('T', i, t);
             }
@@ -181,6 +190,7 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
                     h.r = hatchRect;
                     h.dist = CalcInchesToTarget(m_hatchSize.width, hatchRect);
                     h.yawAngle = CalcYawAngle(m_hatchSize.width, hatchRect, h.dist);
+                    h.faceAngle = 0.0;
                     hatches->push_back(h);
 
                     PrintTargetData('H', i * 10 + j, h);

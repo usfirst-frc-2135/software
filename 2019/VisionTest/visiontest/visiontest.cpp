@@ -23,8 +23,8 @@ int main(int argc, char** argv)
 	Mat image;
 	cv::Mat gripFrame;
     double goalDist;
-    double goalAngle;
-    double goalPose;
+    double goalYawAngle;
+    double goalFaceAngle;
 
 	std::unique_ptr<grip::GripOuterPipeline> gripPipe;
 	gripPipe.reset(new grip::GripOuterPipeline());
@@ -73,9 +73,21 @@ int main(int argc, char** argv)
 		// Call GripPipeline
 		// Run vision processing gripPipe generated from GRIP
 		gripPipe->Process(image);
-        bool goalFound = gripPipe->GetGoalHatch(&goalDist, &goalAngle, &goalPose);
+        goalDist = goalYawAngle = goalFaceAngle = 0.0;
+        bool goalFound = gripPipe->GetGoalHatch(&goalDist, &goalYawAngle, &goalFaceAngle);
 
-		cout << "Goal Hatch found -> " << goalFound << " d " << goalDist << " a " << goalAngle << " p " << goalPose << std::endl;
+        cout.setf(ios::fixed, ios::floatfield);         // set fixed floating format
+        cout.precision(1);                              // for fixed format, two decimal places
+		cout << "Goal Hatch found -> " << goalFound << " d " << goalDist << " a " << goalYawAngle << " p " << goalFaceAngle << std::endl;
+
+        cv::namedWindow("Source Frame");
+        cv::moveWindow("Source Frame", 360, 300);
+        imshow("Source Frame", *(gripPipe->GetSourceMat()));
+
+        // Draw the boundingRects on the frame bring processed -- white
+        cv::namedWindow("Grip Frame");
+        cv::moveWindow("Grip Frame", 20, 300);
+        imshow("Grip Frame", *(gripPipe->GetContourMat()));
 
 		// Call GoalPipeline
 
