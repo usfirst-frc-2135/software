@@ -100,9 +100,13 @@ void GripOuterPipeline::ConvertContoursToBoundingRects(std::vector<std::vector<c
 			tData rawt;
             double  slantAngle;
 
+            // Calculate bounding rect (parallel to the frame)
 			rawt.r = cv::boundingRect(m_contours->at(i));
+            // Calculate the minAreaRect (minimum rectangle enclosing the contour)
             rawt.rRot = cv::minAreaRect(m_contours->at(i));
+            // minAreaRect calculates the slant angle but always a negative regardless of aspect ratio - fix it
             slantAngle = (rawt.rRot.size.width < rawt.rRot.size.height) ? rawt.rRot.angle : rawt.rRot.angle + 90.0;
+            // Set boolean based on positive (right) or negative (left) angle
             rawt.bSlantRight = (slantAngle > 0);
 			rects->push_back(rawt);
 		}
@@ -124,7 +128,6 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
 		for (uint32_t i = 0; i < rects->size(); i++)
 		{
 			cv::Rect r = rects->at(i).r;
-            cv::RotatedRect rotRect = rects->at(i).rRot;
 
 			// Translate width and height to floating point and calculate normalized score 0..100
 			score = 100 * ((double)r.width / (double)r.height) * (m_targSize.height / m_targSize.width);
@@ -132,12 +135,12 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
 			// If the bounding rect score is close to 100, save it in the hold list
 			if ((score > scoreMin) && (score < scoreMax))
 			{
-				t.r = r;
-                t.rRot = rotRect;
 				t.score = score;
+                t.r = r;
+                t.rRot = rects->at(i).rRot;
+                t.bSlantRight = rects->at(i).bSlantRight;
 				t.dist = CalcInchesToTarget(m_targSize.width, r);
 				t.yawAngle = CalcYawAngle(m_targSize.width, r, t.dist);
-				t.bSlantRight = rects->at(i).bSlantRight;
 				targets->push_back(t);
 				PrintTargetData('T', i, t);
 			}
@@ -194,8 +197,8 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
 				if ((score > scoreMin) && (score < scoreMax))
 				{
 					// Finding the distance from the camera to the hatch - group rect (in)
-					h.r = hatchRect;
 					h.score = score;
+                    h.r = hatchRect;
 					h.dist = CalcInchesToTarget(m_hatchSize.width, hatchRect);
 					h.yawAngle = CalcYawAngle(m_hatchSize.width, hatchRect, h.dist);
 					hatches->push_back(h);
@@ -212,23 +215,23 @@ void GripOuterPipeline::SortValidHatches(std::vector<tData> *hatches)
 	tData h;
 	int size = (int)hatches->size();
 
+    // If no existing elements, it is already sorted
 	if (size > 0)
 	{
-		int i;
-		int j;
-		tData key;
+        int i, j;
 
-		for (i = 1; i < size; i++)
+        // If more than 1 element (size > 1), then bubble sort the elements
+        for (i = 0; i < size - 1; i++)
 		{
-			key = hatches->at(i);
-			j = i - 1;
-
-			while ((j >= 0) && (hatches->at(j).r.tl().x > key.r.tl().x))
+            for (j = 0; j < size - 1; j++)
+            {
+                if (hatches->at(j).r.tl().x > hatches->at(j + 1).r.tl().x)
 			{
+                    tData temp = hatches->at(j + 1);
 				hatches->at(j + 1) = hatches->at(j);
-				j = j - 1;
+                    hatches->at(j) = temp;
+                }
 			}
-			hatches->at(j + 1) = key;
 		}
 	}
 
@@ -241,9 +244,8 @@ void GripOuterPipeline::SortValidHatches(std::vector<tData> *hatches)
 
 void GripOuterPipeline::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal)
 {
-//	goal = &(hatches->front());
-    if (hatches->size() > 0)
-	memcpy(goal, &(hatches->front()), sizeof(tData));
+    if (!hatches->empty())
+        *goal = hatches->front();
     else
         memset(goal, 0, sizeof(tData));
 }
