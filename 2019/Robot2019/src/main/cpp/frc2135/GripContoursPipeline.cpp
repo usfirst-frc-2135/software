@@ -7,6 +7,7 @@
 namespace grip {
 
 GripContoursPipeline::GripContoursPipeline() {
+    std::printf("2135: GripContoursPipeline Constructor\n");
 }
 /**
 * Runs an iteration of the Pipeline and updates outputs.
