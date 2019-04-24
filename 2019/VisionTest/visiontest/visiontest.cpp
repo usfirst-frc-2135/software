@@ -85,9 +85,9 @@ int main(int argc, char** argv)
         imshow("Source Frame", *(gripPipe->GetSourceMat()));
 
         // Draw the boundingRects on the frame bring processed -- white
-        cv::namedWindow("Grip Frame");
-        cv::moveWindow("Grip Frame", 20, 300);
-        imshow("Grip Frame", *(gripPipe->GetContourMat()));
+        cv::namedWindow("Contour Frame");
+        cv::moveWindow("Contour Frame", 20, 300);
+        imshow("Contour Frame", *(gripPipe->GetContourMat()));
 
 		// Call GoalPipeline
 

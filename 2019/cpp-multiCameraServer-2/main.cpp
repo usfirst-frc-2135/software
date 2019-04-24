@@ -368,7 +368,7 @@ int main(int argc, char *argv[])
     StartSwitchedCamera(config);
 
   cs::CvSource m_outStream;
-  m_outStream = frc::CameraServer::GetInstance()->PutVideo("Goal Video 2", 320, 240);
+  m_outStream = frc::CameraServer::GetInstance()->PutVideo("Goal Video", 320, 240);
 
   // start image processing on camera 0 if present
   if (cameras.size() >= 1)
