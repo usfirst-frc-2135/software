@@ -15,7 +15,7 @@ clean:
 #	rm ${EXE} *.o
 	del ${EXE} *.o
 
-OBJS=main.o GripContoursPipeline.o GripOuterPipeline.o
+OBJS=main.o VisionGripPipeline.o VisionOuterPipeline.o
 
 ${EXE}: ${OBJS}
 	${CXX} -pthread -g -o $@ $^ ${DEPS_LIBS} -Wl,--unresolved-symbols=ignore-in-shared-libs

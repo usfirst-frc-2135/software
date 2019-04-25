@@ -1,12 +1,13 @@
-#include "GripContoursPipeline.h"
+#include "VisionGripPipeline.h"
 
 /**
-* Initializes a GripContoursPipeline.
+* Initializes a VisionGripPipeline.
 */
 
 namespace grip {
 
-GripContoursPipeline::GripContoursPipeline() {
+VisionGripPipeline::VisionGripPipeline() {
+    std::printf("2135: VisionGripPipeline Constructor\n");
 }
 /**
 * Runs an iteration of the Pipeline and updates outputs.
@@ -14,7 +15,7 @@ GripContoursPipeline::GripContoursPipeline() {
 * Sources need to be set before calling this method. 
 *
 */
-void GripContoursPipeline::Process(cv::Mat& source0){
+void VisionGripPipeline::Process(cv::Mat& source0){
     //Step HSL_Threshold0:
     //input
     double hueStart = CAM_HUESTART_D;
@@ -59,28 +60,28 @@ void GripContoursPipeline::Process(cv::Mat& source0){
  * This method is a generated getter for the output of a HSL_Threshold.
  * @return Mat output from HSL_Threshold.
  */
-cv::Mat* GripContoursPipeline::GetHslThresholdOutput(){
+cv::Mat* VisionGripPipeline::GetHslThresholdOutput(){
     return &(this->hslThresholdOutput);
 }
 /**
  * This method is a generated getter for the output of a Find_Contours.
  * @return ContoursReport output from Find_Contours.
  */
-std::vector<std::vector<cv::Point> >* GripContoursPipeline::GetFindContoursOutput(){
+std::vector<std::vector<cv::Point> >* VisionGripPipeline::GetFindContoursOutput(){
     return &(this->findContoursOutput);
 }
 /**
  * This method is a generated getter for the output of a Convex_Hulls.
  * @return ContoursReport output from Convex_Hulls.
  */
-std::vector<std::vector<cv::Point> >* GripContoursPipeline::GetConvexHullsOutput(){
+std::vector<std::vector<cv::Point> >* VisionGripPipeline::GetConvexHullsOutput(){
     return &(this->convexHullsOutput);
 }
 /**
  * This method is a generated getter for the output of a Filter_Contours.
  * @return ContoursReport output from Filter_Contours.
  */
-std::vector<std::vector<cv::Point> >* GripContoursPipeline::GetFilterContoursOutput(){
+std::vector<std::vector<cv::Point> >* VisionGripPipeline::GetFilterContoursOutput(){
     return &(this->filterContoursOutput);
 }
 /**
@@ -93,7 +94,7 @@ std::vector<std::vector<cv::Point> >* GripContoursPipeline::GetFilterContoursOut
  * @param output The image in which to store the output.
  */
 //void hslThreshold(Mat *input, double hue[], double sat[], double lum[], Mat *out) {
-void GripContoursPipeline::hslThreshold(cv::Mat &input, double hue[], double sat[], double lum[], cv::Mat &out) {
+void VisionGripPipeline::hslThreshold(cv::Mat &input, double hue[], double sat[], double lum[], cv::Mat &out) {
     cv::cvtColor(input, out, cv::COLOR_BGR2HLS);
     cv::inRange(out, cv::Scalar(hue[0], lum[0], sat[0]), cv::Scalar(hue[1], lum[1], sat[1]), out);
 }
@@ -105,7 +106,7 @@ void GripContoursPipeline::hslThreshold(cv::Mat &input, double hue[], double sat
  * @param externalOnly if only external contours are to be found.
  * @param contours vector of contours to put contours in.
  */
-void GripContoursPipeline::findContours(cv::Mat &input, bool externalOnly, std::vector<std::vector<cv::Point> > &contours) {
+void VisionGripPipeline::findContours(cv::Mat &input, bool externalOnly, std::vector<std::vector<cv::Point> > &contours) {
     std::vector<cv::Vec4i> hierarchy;
     contours.clear();
     int mode = externalOnly ? cv::RETR_EXTERNAL : cv::RETR_LIST;
@@ -119,7 +120,7 @@ void GripContoursPipeline::findContours(cv::Mat &input, bool externalOnly, std::
  * @param inputContours The contours on which to perform the operation.
  * @param outputContours The contours where the output will be stored.
  */
-void GripContoursPipeline::convexHulls(std::vector<std::vector<cv::Point> > &inputContours, std::vector<std::vector<cv::Point> > &outputContours) {
+void VisionGripPipeline::convexHulls(std::vector<std::vector<cv::Point> > &inputContours, std::vector<std::vector<cv::Point> > &outputContours) {
     std::vector<std::vector<cv::Point> > hull (inputContours.size());
     outputContours.clear();
     for (size_t i = 0; i < inputContours.size(); i++ ) {
@@ -145,7 +146,7 @@ void GripContoursPipeline::convexHulls(std::vector<std::vector<cv::Point> > &inp
  * @param maxRatio maximum ratio of width to height.
  * @param output vector of filtered contours.
  */
-void GripContoursPipeline::filterContours(std::vector<std::vector<cv::Point> > &inputContours, double minArea, double minPerimeter, double minWidth, double maxWidth, double minHeight, double maxHeight, double solidity[], double maxVertexCount, double minVertexCount, double minRatio, double maxRatio, std::vector<std::vector<cv::Point> > &output) {
+void VisionGripPipeline::filterContours(std::vector<std::vector<cv::Point> > &inputContours, double minArea, double minPerimeter, double minWidth, double maxWidth, double minHeight, double maxHeight, double solidity[], double maxVertexCount, double minVertexCount, double minRatio, double maxRatio, std::vector<std::vector<cv::Point> > &output) {
     std::vector<cv::Point> hull;
     output.clear();
     for (std::vector<cv::Point> contour: inputContours) {

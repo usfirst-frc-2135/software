@@ -20,8 +20,8 @@
 
 #include "cameraserver/CameraServer.h"
 
-#include "GripContoursPipeline.h"
-#include "GripOuterPipeline.h"
+#include "VisionGripPipeline.h"
+#include "VisionOuterPipeline.h"
 
 /*
    JSON format:
@@ -373,7 +373,7 @@ int main(int argc, char *argv[])
   // start image processing on camera 0 if present
   if (cameras.size() >= 1)
   {
-    grip::GripOuterPipeline *gripPipe = new grip::GripOuterPipeline();
+    grip::VisionOuterPipeline *gripPipe = new grip::VisionOuterPipeline();
     double goalDist;
     double goalAngle;
     double goalPose;
@@ -386,8 +386,8 @@ int main(int argc, char *argv[])
       });
       */
       // something like this for GRIP:
-      frc::VisionRunner<grip::GripOuterPipeline>
-          runner(cameras[0], gripPipe, [&](grip::GripOuterPipeline &pipeline) {
+      frc::VisionRunner<grip::VisionOuterPipeline>
+          runner(cameras[0], gripPipe, [&](grip::VisionOuterPipeline &pipeline) {
             bool goalFound = false;
 
             // Take goal data and put  into NT values

@@ -9,8 +9,8 @@
 #include <iostream>
 #include <fstream>
 
-#include "GripContoursPipeline.h"
-#include "GripOuterPipeline.h"
+#include "VisionGripPipeline.h"
+#include "VisionOuterPipeline.h"
 
 using namespace cv;
 using namespace std;
@@ -26,8 +26,8 @@ int main(int argc, char** argv)
     double goalYawAngle;
     double goalFaceAngle;
 
-	std::unique_ptr<grip::GripOuterPipeline> gripPipe;
-	gripPipe.reset(new grip::GripOuterPipeline());
+	std::unique_ptr<grip::VisionOuterPipeline> gripPipe;
+	gripPipe.reset(new grip::VisionOuterPipeline());
 
 	std::cout << "FRC Team 2135 - Vision Test Harness\n";
 

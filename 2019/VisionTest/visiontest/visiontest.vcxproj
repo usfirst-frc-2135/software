@@ -165,13 +165,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GripContoursPipeline.h" />
-    <ClInclude Include="GripOuterPipeline.h" />
+    <ClInclude Include="VisionGripPipeline.h" />
+    <ClInclude Include="VisionOuterPipeline.h" />
     <ClInclude Include="RobotDefaults.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GripContoursPipeline.cpp" />
-    <ClCompile Include="GripOuterPipeline.cpp" />
+    <ClCompile Include="VisionGripPipeline.cpp" />
+    <ClCompile Include="VisionOuterPipeline.cpp" />
     <ClCompile Include="VisionTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
