@@ -98,7 +98,7 @@ VisionThread::VisionThread() {
         cs::CvSource m_cvSource = frc::CameraServer::GetInstance()->PutVideo("Goal Video", res.width, res.height);
         cv::Mat m_sourceMat;
 
-        grip::GripOuterPipeline *gripPipe = new grip::GripOuterPipeline();
+        grip::VisionOuterPipeline *gripPipe = new grip::VisionOuterPipeline();
 
         //////////////////////////
         //  The Vision thread

@@ -10,7 +10,7 @@
 #include "frc/WPILib.h"
 #include "RobotDefaults.h"
 #include "cscore.h"
-#include "frc2135/GripOuterPipeline.h"
+#include "frc2135/VisionOuterPipeline.h"
 
 class VisionThread {
 private:

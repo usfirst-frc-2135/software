@@ -1,11 +1,11 @@
 /*
- * GripOuterPipeline.cpp
+ * VisionOuterPipeline.cpp
  *
  *  Created on: Aug 6, 2017
  *      Author: PHS_User
  */
 
-#include "GripOuterPipeline.h"
+#include "VisionOuterPipeline.h"
 
 #ifdef _MSC_VER
 #define DEBUG_TRACE 2 // Set to 1 for detailed tracing, 0 for quiet mode
@@ -16,9 +16,9 @@
 namespace grip
 {
 
-GripOuterPipeline::GripOuterPipeline()
+VisionOuterPipeline::VisionOuterPipeline()
 {
-    std::printf("2135: GripOuterPipeline Constructor\n");
+    std::printf("2135: VisionOuterPipeline Constructor\n");
 
     m_res.width = 320;
     m_res.height = 240;
@@ -29,17 +29,17 @@ GripOuterPipeline::GripOuterPipeline()
     m_hatchSize.height = 5.826;
 
     // Start our GRIP-generated vision processing pipeline
-    m_gripConPipe = new GripContoursPipeline();
+    m_gripConPipe = new VisionGripPipeline();
 }
 
-GripOuterPipeline::~GripOuterPipeline()
+VisionOuterPipeline::~VisionOuterPipeline()
 {
     // Auto-generated destructor stub
 }
 
-void GripOuterPipeline::Process(cv::Mat &sourceMat)
+void VisionOuterPipeline::Process(cv::Mat &sourceMat)
 {
-    //std::printf("2135: GripOuterPipeline Process\n");
+    //std::printf("2135: VisionOuterPipeline Process\n");
     m_sourceMat = &sourceMat;
 
     // Run vision processing m_gripConPipe generated from GRIP
@@ -76,7 +76,7 @@ void GripOuterPipeline::Process(cv::Mat &sourceMat)
     // Finished - let VisionRunner listener handle display
 }
 
-void GripOuterPipeline::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rects)
+void VisionOuterPipeline::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Point>> *contours, std::vector<tData> *rects)
 {
     rects->clear();
 
@@ -101,7 +101,7 @@ void GripOuterPipeline::ConvertContoursToBoundingRects(std::vector<std::vector<c
     }
 }
 
-void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *rects, std::vector<tData> *targets)
+void VisionOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *rects, std::vector<tData> *targets)
 {
     const double scoreMin = 50.0;
     const double scoreMax = 150.0;
@@ -137,7 +137,7 @@ void GripOuterPipeline::ConvertBoundingRectsToValidTargets(std::vector<tData> *r
     }
 }
 
-void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *targets, std::vector<tData> *hatches)
+void VisionOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *targets, std::vector<tData> *hatches)
 {
     const double scoreMin = 50.0;
     const double scoreMax = 150.0;
@@ -200,7 +200,7 @@ void GripOuterPipeline::ConvertValidTargetsToValidHatches(std::vector<tData> *ta
     }
 }
 
-void GripOuterPipeline::SortValidHatches(std::vector<tData> *hatches)
+void VisionOuterPipeline::SortValidHatches(std::vector<tData> *hatches)
 {
     tData h;
     int size = (int)hatches->size();
@@ -232,7 +232,7 @@ void GripOuterPipeline::SortValidHatches(std::vector<tData> *hatches)
     }
 }
 
-void GripOuterPipeline::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal)
+void VisionOuterPipeline::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal)
 {
     if (!hatches->empty())
         *goal = hatches->front();
@@ -240,7 +240,7 @@ void GripOuterPipeline::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal
         memset(goal, 0, sizeof(tData));
 }
 
-bool GripOuterPipeline::GetGoalHatch(double *goalDist, double *goalYawAngle, double *goalFaceAngle)
+bool VisionOuterPipeline::GetGoalHatch(double *goalDist, double *goalYawAngle, double *goalFaceAngle)
 {
     *goalDist = m_goal.dist;
     *goalYawAngle = m_goal.yawAngle;
@@ -248,17 +248,17 @@ bool GripOuterPipeline::GetGoalHatch(double *goalDist, double *goalYawAngle, dou
     return !m_validHatches.empty();
 }
 
-cv::Mat *GripOuterPipeline::GetSourceMat(void)
+cv::Mat *VisionOuterPipeline::GetSourceMat(void)
 {
     return m_sourceMat;
 }
 
-cv::Mat *GripOuterPipeline::GetContourMat(void)
+cv::Mat *VisionOuterPipeline::GetContourMat(void)
 {
     return m_contourMat;
 }
 
-void GripOuterPipeline::PrintTargetData(char name, int idx, tData t)
+void VisionOuterPipeline::PrintTargetData(char name, int idx, tData t)
 {
 #if DEBUG_TRACE > 1
     std::printf("-%c %02d: x %3d, y %3d, w %3d, h %3d, t %c, s %5.1f, d %5.1f, a %5.1f\n", name, idx,
@@ -266,7 +266,7 @@ void GripOuterPipeline::PrintTargetData(char name, int idx, tData t)
 #endif
 }
 
-void GripOuterPipeline::ApplyGridToFrame(cv::Mat frame, pixelRect res)
+void VisionOuterPipeline::ApplyGridToFrame(cv::Mat frame, pixelRect res)
 {
     cv::Point pt1, pt2;
 
@@ -281,7 +281,7 @@ void GripOuterPipeline::ApplyGridToFrame(cv::Mat frame, pixelRect res)
     cv::line(frame, pt1, pt2, cv::Scalar(255, 255, 255), 1, cv::LineTypes::LINE_4, 0);
 }
 
-void GripOuterPipeline::ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *targets)
+void VisionOuterPipeline::ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *targets)
 {
     for (uint32_t i = 0; i < targets->size(); i++)
     {
@@ -293,7 +293,7 @@ void GripOuterPipeline::ApplyRectsToFrame(cv::Mat frame, std::vector<tData> *tar
     }
 }
 
-void GripOuterPipeline::ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches)
+void VisionOuterPipeline::ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *hatches)
 {
     for (uint32_t i = 0; i < hatches->size(); i++)
     {
@@ -302,7 +302,7 @@ void GripOuterPipeline::ApplyHatchesToFrame(cv::Mat frame, std::vector<tData> *h
     }
 }
 
-void GripOuterPipeline::ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goal)
+void VisionOuterPipeline::ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goal)
 {
     cv::Point pt1, pt2;
     char str[32];
@@ -335,7 +335,7 @@ void GripOuterPipeline::ApplyGoalToFrame(cv::Mat frame, pixelRect res, tData goa
                 1, cv::LineTypes::LINE_8, false);
 }
 
-double GripOuterPipeline::CalcInchesToTarget(double targetWidthInches, cv::Rect rect)
+double VisionOuterPipeline::CalcInchesToTarget(double targetWidthInches, cv::Rect rect)
 {
     // Calculate the distance to the target given using the camera Field of View (FOV)
     //	Distance to target for a Field of View of 50 degrees filling the screen with a 2.0" target
@@ -349,7 +349,7 @@ double GripOuterPipeline::CalcInchesToTarget(double targetWidthInches, cv::Rect 
     return (343.2 * targetWidthInches) / rect.width;
 }
 
-double GripOuterPipeline::CalcYawAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget)
+double VisionOuterPipeline::CalcYawAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget)
 {
     // Frame coordinate system goes from X (0 -> 320) and Y (0 -> 240)
     // Find frame X coordinate of rect center (rect is the vision target)

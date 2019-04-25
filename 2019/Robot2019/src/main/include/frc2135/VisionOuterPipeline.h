@@ -1,5 +1,5 @@
 /*
- * GripOuterPipeline.h
+ * VisionOuterPipeline.h
  *
  *  Created on: Aug 6, 2017
  *      Author: PHS_User
@@ -22,12 +22,12 @@
 #include <string>
 #include <math.h>
 
-#include "GripContoursPipeline.h"
+#include "VisionGripPipeline.h"
 
 namespace grip
 {
 
-class GripOuterPipeline : public frc::VisionPipeline
+class VisionOuterPipeline : public frc::VisionPipeline
 {
   private:
     struct pixelRect
@@ -58,7 +58,7 @@ class GripOuterPipeline : public frc::VisionPipeline
 
     // Inner Grip pipeline variables
     cv::Mat                 *m_sourceMat;
-    GripContoursPipeline    *m_gripConPipe;
+    VisionGripPipeline    *m_gripConPipe;
     cv::Mat                 *m_contourMat;
 
     // Image processing structures for identifying targets and hatches
@@ -83,8 +83,8 @@ class GripOuterPipeline : public frc::VisionPipeline
     double CalcYawAngle(double targetWidthInches, cv::Rect rect, double inchesToTarget);
 
   public:
-    GripOuterPipeline();
-    virtual ~GripOuterPipeline();
+    VisionOuterPipeline();
+    virtual ~VisionOuterPipeline();
     virtual void Process(cv::Mat &source0);
     bool GetGoalHatch(double *goalDist, double *goalYawAngle, double *goalFaceAngle);
     cv::Mat *GetSourceMat(void);
