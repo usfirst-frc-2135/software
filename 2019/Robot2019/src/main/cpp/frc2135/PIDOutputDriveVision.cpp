@@ -16,7 +16,7 @@ PIDOutputDriveVision::PIDOutputDriveVision(std::shared_ptr<frc::DifferentialDriv
 
 	m_turnAngle = 0.0;
 
-	m_visionAngle = frc::SmartDashboard::GetNumber(CAM_TURNANGLE, CAM_TURNANGLE_D);
+	m_visionAngle = frc::SmartDashboard::GetNumber(CAM_YAWANGLE, CAM_YAWANGLE_D);
 	std::printf("2135: CameraVisionAngle: %f degrees\n", m_visionAngle);
 	m_visionDistance = frc::SmartDashboard::GetNumber(CAM_DISTANCE, CAM_DISTANCE_D);
 	std::printf("2135: CameraVisionAngle: %f inches\n", m_visionDistance);

@@ -9,9 +9,12 @@
 
 #include "frc/WPILib.h"
 #include "RobotDefaults.h"
-#include "GripOuterPipeline.h"
+#include "cscore.h"
+#include "frc2135/GripOuterPipeline.h"
 
-class GripVisionLoop {
- public:
-  GripVisionLoop();
+class VisionThread {
+private:
+public:
+  VisionThread();
+  ~VisionThread();
 };
