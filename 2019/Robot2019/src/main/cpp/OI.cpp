@@ -26,6 +26,7 @@
 #include "Commands/DriveShift.h"
 #include "Commands/DriveSpin.h"
 #include "Commands/DriveTeleop.h"
+#include "Commands/DriveToggle.h"
 #include "Commands/EBBump.h"
 #include "Commands/EBCalibrate.h"
 #include "Commands/EBRun.h"
@@ -110,6 +111,8 @@ OI::OI() {
     lifterBackMove->WhenPressed(new LFBackDeploy());
     lifterFrontMove.reset(new frc::JoystickButton(dStick.get(), 6));
     lifterFrontMove->WhenPressed(new LFFrontDeploy());
+    toggleDrive.reset(new frc::JoystickButton(dStick.get(), 5));
+    toggleDrive->WhenPressed(new DriveToggle());
     shiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
     shiftSpeed->WhileHeld(new DriveShift(false));
 
@@ -122,6 +125,7 @@ OI::OI() {
     frc::SmartDashboard::PutData("Move Rocket Level 1", new MoveRocketLevel1());
     frc::SmartDashboard::PutData("Move Cargo Ship", new MoveCargoShip());
     frc::SmartDashboard::PutData("Move Loading Station", new MoveLoadingStation());
+    frc::SmartDashboard::PutData("Drive Toggle", new DriveToggle());
     frc::SmartDashboard::PutData("WR Calibrate", new WRCalibrate());
     frc::SmartDashboard::PutData("WR Bump: UP", new WRBump(true));
     frc::SmartDashboard::PutData("WR Bump: DOWN", new WRBump(false));

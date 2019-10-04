@@ -94,6 +94,14 @@ private:
 
 	bool 	m_throttleZeroed;		// Throttle joystick zeroed check for safety
 
+	int		m_curDrive;				// Current driving state, regular by default
+
+	enum {								// Driving Algorithms
+		REG_DRIVE = 0,		
+		CURVE_DRIVE = 1,
+		CUBIC_DRIVE = 2			
+	};
+
 	PIDOutputDriveTurn	*driveTurnPIDOutput;		// Drive turn to angle with gyro
 	PIDSourceDriveTurn	*driveTurnPIDSource;		// Drive turn PID source loop
 	frc::PIDController	*driveTurnPIDLoop;			// Drive turn PID control
@@ -113,7 +121,13 @@ public:
 
 	void Initialize(void);
 	void FaultDump(void);
-	void MoveWithJoystick(std::shared_ptr<frc::Joystick>, std::shared_ptr<frc::Joystick>);
+
+	void MoveJstickReg(std::shared_ptr<frc::Joystick>, std::shared_ptr<frc::Joystick>);
+	void MoveJStickCubic(std::shared_ptr<frc::Joystick>, std::shared_ptr<frc::Joystick>);
+	void MoveJStickCurve(std::shared_ptr<frc::Joystick>, std::shared_ptr<frc::Joystick>);
+	void ChooseDrive(std::shared_ptr<frc::Joystick>, std::shared_ptr<frc::Joystick>);
+	void ToggleDrive();
+	
 	void MoveSpin(bool spinRight);
 	void MoveStop();
 

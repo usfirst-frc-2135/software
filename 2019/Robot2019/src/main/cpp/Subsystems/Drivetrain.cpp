@@ -142,6 +142,8 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
     m_lowGear = true;
     MoveShiftGears(m_lowGear);
 
+	m_curDrive = 0;
+
     // If either master drive talons are valid, enable safety timer
     diffDrive->SetSafetyEnabled(m_talonValidL1 || m_talonValidR3);
  
@@ -279,7 +281,7 @@ void Drivetrain::FaultDump(void) {
 
 //	Joystick movement during Teleop
 
-void Drivetrain::MoveWithJoystick(std::shared_ptr<frc::Joystick> throttleJstick, std::shared_ptr<frc::Joystick> turnJstick) {
+void Drivetrain::MoveJstickReg(std::shared_ptr<frc::Joystick> throttleJstick, std::shared_ptr<frc::Joystick> turnJstick) {
 	double xValue = 0.0;
 	double yValue = 0.0;
 
@@ -312,6 +314,55 @@ void Drivetrain::MoveWithJoystick(std::shared_ptr<frc::Joystick> throttleJstick,
 	diffDrive->ArcadeDrive(-yValue, xValue, true);
 
 	}
+}
+
+// Joystick Curvature Drive
+
+void Drivetrain::MoveJStickCurve(std::shared_ptr<frc::Joystick> throttleJstick, std::shared_ptr<frc::Joystick> turnJstick) {
+	double xValue = 0.0;
+	double yValue = 0.0;
+
+	// If no separate turn stick, then assume Thrustmaster HOTAS 4
+    if (turnJstick == nullptr) {
+        xValue = throttleJstick->GetX();
+	    yValue = throttleJstick->GetZ();
+    }
+    else {	// Separate throttle and turn stick
+        xValue = turnJstick->GetX();
+	    yValue = throttleJstick->GetY();
+    }
+
+    // xValue *= m_driveXScaling;
+	if (!m_lowGear) {
+		// yValue *= m_driveYScaling;
+	}
+
+	if (m_talonValidL1 || m_talonValidR3) {
+	// If joystick reports a very small throttle value
+		if (fabs(yValue) < 0.05) 
+			m_throttleZeroed = true;
+
+	// If throttle not zeroed, prevent joystick inputs from entering drive
+		if (!m_throttleZeroed) {
+			xValue = 0.0;
+			yValue = 0.0;
+		}
+			
+	diffDrive->CurvatureDrive(-yValue, xValue, false);
+	// Boolean is for quick turn or not
+
+	}
+}
+
+void Drivetrain::ChooseDrive(std::shared_ptr<frc::Joystick> throttlestick, std::shared_ptr<frc::Joystick> turnstick) {
+	if (m_curDrive == REG_DRIVE) MoveJstickReg(throttlestick, turnstick);
+	if (m_curDrive == CURVE_DRIVE) MoveJStickCurve(throttlestick, turnstick);
+}
+
+void Drivetrain::ToggleDrive() {
+	if (m_curDrive < 1) m_curDrive++;
+	else m_curDrive = 0;
+	std::printf("2135 Current Drive: %d\n", m_curDrive);
 }
 
 //	Automatic Drive Spin movement
