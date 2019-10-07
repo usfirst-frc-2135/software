@@ -6,6 +6,8 @@
 # DT_DriveYScaling = 1.00
 # Training mode
   DT_DriveYScaling =  0.85
+# Demo mode
+# DT_DriveYScaling =  0.60
   DT_DriveSpin = 0.45
   DT_PidTurnKp = 0.030
   DT_VisionTurnKp = 0.0
