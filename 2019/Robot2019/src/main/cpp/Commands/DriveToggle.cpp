@@ -23,7 +23,7 @@ DriveToggle::DriveToggle(): frc::Command() {
 // Called just before this Command runs the first time
 void DriveToggle::Initialize() {
     std::printf("2135: Drive Toggle\n");
-    Robot::drivetrain->ToggleDrive();
+    Robot::drivetrain->ToggleDriveMode();
 }
 
 // Called repeatedly when this Command is scheduled to run
