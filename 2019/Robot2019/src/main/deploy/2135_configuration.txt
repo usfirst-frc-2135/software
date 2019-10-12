@@ -38,7 +38,7 @@
   EL_ToleranceInches = 0.75
   EL_MaxHeight = 32.5
   EL_MinHeight = 0.0
-  EL_BumpHeight = 1.0		
+  EL_BumpHeight = 1.5		
   EL_GroundCargoHeight = 0.0
   EL_GroundHatchHeight = 0.0
   EL_LoadingCargoHeight = 7.5
