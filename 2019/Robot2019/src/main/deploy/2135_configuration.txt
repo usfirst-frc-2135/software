@@ -1,7 +1,7 @@
 # Comment lines start with '#'
   RB_Name = 2135-Nebula
 # DriveTrain settings
-  DT_DriveXScaling = 0.6
+  DT_DriveXScaling = 0.7
 # Competition mode
 # DT_DriveYScaling = 1.00
 # Training mode
@@ -41,20 +41,20 @@
   EL_BumpHeight = 1.5		
   EL_GroundCargoHeight = 0.0
   EL_GroundHatchHeight = 0.0
-  EL_LoadingCargoHeight = 7.5
+  EL_LoadingCargoHeight = 0.0
   EL_LoadingHatchHeight = 3.0
-  EL_ShipCargoHeight = 12.3
+  EL_ShipCargoHeight = 16.3
   EL_ShipHatchHeight = 3.0
-  EL_RocketL1CargoHeight = 3.82
-  EL_RocketL1HatchHeight = 2.0
-  EL_RocketL2CargoHeight = 17.82
+  EL_RocketL1CargoHeight = 7.15
+  EL_RocketL1HatchHeight = 3.0
+  EL_RocketL2CargoHeight = 20.55
   EL_RocketL2HatchHeight = 16.00
-  EL_RocketL3CargoHeight = 31.82
-  EL_RocketL3HatchHeight = 29.97
+  EL_RocketL3CargoHeight = 32.5
+  EL_RocketL3HatchHeight = 29.4
 # Elbow settings
   EB_PeakOut = 0.8
-  EB_Velocity = 156
-  EB_Acceleration = 624
+  EB_Velocity = 117
+  EB_Acceleration = 458
   EB_SCurveStrength = 0
   EB_PidKf = 3.283
   EB_PidKp = 2.616
@@ -68,23 +68,25 @@
   EB_MinCounts = -2200
   EB_CalibAngle = 114.51
   EB_BumpAngle = 5.0
-  EB_ShipCargoAngle = 20.0
+  # Max elbow extension is calib angle = 114.51
+  EB_ShipCargoAngle = 65.0
   EB_GroundCargoAngle = 114.51
   EB_GroundHatchAngle = 114.51
   EB_LoadingCargoAngle = 114.51
   EB_LoadingHatchAngle = 114.51
   EB_ShipHatchAngle = 114.51
-  EB_RocketL1CargoAngle = 40.00
-  EB_RocketL1HatchAngle = 129.12
-  EB_RocketL2CargoAngle = 40.00
+  EB_RocketL1CargoAngle = 74.4
+  EB_RocketL1HatchAngle = 114.51
+  EB_RocketL2CargoAngle = 76.7
   EB_RocketL2HatchAngle = 112.60
-  EB_RocketL3CargoAngle = 40.00
-  EB_RocketL3HatchAngle = 112.70
-  EB_StowAngle = 35.0
+  EB_RocketL3CargoAngle = 53.9
+  EB_RocketL3HatchAngle = 112.60
+  EB_StowAngle = 45.0
+  EB_SafeAngle = 90.0;
 # Wrist settings
   WR_PeakOut = 0.8
-  WR_Velocity = 150
-  WR_Acceleration = 600
+  WR_Velocity = 112.5
+  WR_Acceleration = 450
   WR_SCurveStrength = 0
   WR_PidKf = 3.411
   WR_PidKp = 3.596
@@ -96,20 +98,21 @@
   WR_MaxCounts = 0
   WR_MinCounts = -3000
   WR_CalibAngle = 40.0
-  WR_BumpAngle = 5.0
+  WR_BumpAngle = 7.5
   WR_ShipCargoAngle = 141.61
-  WR_GroundCargoAngle = 76.5
+  WR_GroundCargoAngle = 86.5
   WR_GroundHatchAngle = 155.49
-  WR_LoadingCargoAngle = 65.49
+  WR_LoadingCargoAngle = 81.5
   WR_LoadingHatchAngle = 65.49
   WR_ShipHatchAngle = 65.49
-  WR_RocketL1CargoAngle = 141.61
-  WR_RocketL1HatchAngle = 52.20
-  WR_RocketL2CargoAngle = 141.61
-  WR_RocketL2HatchAngle = 52.20
-  WR_RocketL3CargoAngle = 141.61
-  WR_RocketL3HatchAngle = 52.20
+  WR_RocketL1CargoAngle = 97.8
+  WR_RocketL1HatchAngle = 70.49
+  WR_RocketL2CargoAngle = 97.8
+  WR_RocketL2HatchAngle = 61.1
+  WR_RocketL3CargoAngle = 108.3
+  WR_RocketL3HatchAngle = 61.1
   WR_StowAngle = 140.0
+  WR_SafeAngle = 90.0
 # Intake settings
   IN_AcquireSpeed = 0.35
   IN_HoldSpeed = 0.25
