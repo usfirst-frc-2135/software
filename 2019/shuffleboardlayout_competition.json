@@ -899,6 +899,28 @@
               "_source0": "network_table:///SmartDashboard/Drive Reset",
               "_title": "rive Reset"
             }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Drive Toggle",
+              "_title": "rive Toggle"
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/DriveMode",
+              "_title": "riveMode"
+            }
           }
         }
       }
@@ -1369,6 +1391,17 @@
               "_source0": "network_table:///SmartDashboard/EB ArbFF",
               "_title": " ArbFF"
             }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/EB Run: SAFE_ANGLE",
+              "_title": " Run: SAFE_ANGLE"
+            }
           }
         }
       }
@@ -1604,6 +1637,17 @@
               "_source0": "network_table:///SmartDashboard/WR ArbFF",
               "_title": " ArbFF"
             }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/WR Run: SAFE_ANGLE",
+              "_title": " Run: SAFE_ANGLE"
+            }
           }
         }
       }
@@ -1741,7 +1785,7 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "4,1": {
+          "3,1": {
             "size": [
               1,
               1
@@ -1752,7 +1796,7 @@
               "_title": "SmartDashboard/Auto Drive Dist: DEFAULT"
             }
           },
-          "4,2": {
+          "3,2": {
             "size": [
               1,
               1
@@ -1774,7 +1818,7 @@
               "_title": "SmartDashboard/Auto Modes"
             }
           },
-          "4,0": {
+          "3,0": {
             "size": [
               1,
               1
@@ -1856,15 +1900,79 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
+          },
+          "4,0": {
+            "size": [
+              4,
+              3
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://rPi Camera 0",
+              "_title": "rPi Camera 0",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": 0,
+              "imageHeight": 0
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/CMP_GPShift",
+              "_title": "SmartDashboard/CMP_GPShift",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Video",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              8,
+              4
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://rPi Camera 0",
+              "_title": "rPi Camera 0",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": -7.0,
-    "y": 0.0,
-    "width": 1381.0,
-    "height": 562.0
+    "x": -7.333333492279053,
+    "y": -7.333333492279053,
+    "width": 1294.6666259765625,
+    "height": 694.6666870117188
   }
 }
