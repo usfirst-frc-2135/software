@@ -92,11 +92,11 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
    		// Set allowable closed loop error
 		motorEL7->ConfigAllowableClosedloopError(m_slotIndex, m_CLAllowedError, m_timeout);
 
-		// Set maximum current draw allowed
-		motorEL7->ConfigPeakCurrentLimit(30.0, m_timeout);
-		motorEL7->ConfigPeakCurrentDuration(2000.0, m_timeout);
-		motorEL7->ConfigContinuousCurrentLimit(20.0, m_timeout);
-		motorEL7->EnableCurrentLimit(false);
+		// Set maximum current draw allowed - JVN predicts 6.8A
+		motorEL7->ConfigPeakCurrentLimit(25, m_timeout);
+		motorEL7->ConfigPeakCurrentDuration(2000, m_timeout);
+		motorEL7->ConfigContinuousCurrentLimit(15, m_timeout);
+		motorEL7->EnableCurrentLimit(true);
 		
 		// Set soft limits
 		motorEL7->ConfigForwardSoftLimitThreshold(InchesToCounts(m_elevatorMaxHeight), m_timeout);
@@ -130,10 +130,10 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 		motorEL8->ConfigNeutralDeadband(m_neutralDeadband, m_timeout);
 
 		// Set maximum current draw allowed
-		motorEL8->ConfigPeakCurrentLimit(30.0, m_timeout);
-		motorEL8->ConfigPeakCurrentDuration(2000.0, m_timeout);
-		motorEL8->ConfigContinuousCurrentLimit(20.0, m_timeout);
-		motorEL8->EnableCurrentLimit(false);
+		motorEL8->ConfigPeakCurrentLimit(25, m_timeout);
+		motorEL8->ConfigPeakCurrentDuration(2000, m_timeout);
+		motorEL8->ConfigContinuousCurrentLimit(15, m_timeout);
+		motorEL8->EnableCurrentLimit(true);
 	}
 
     // Initialize variables

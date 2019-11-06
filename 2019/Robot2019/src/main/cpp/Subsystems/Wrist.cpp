@@ -87,8 +87,10 @@ Wrist::Wrist() : frc::Subsystem("Wrist") {
 		motorWR12->ConfigPeakOutputForward(m_peakOut, m_timeout);
 		motorWR12->ConfigPeakOutputReverse(-m_peakOut, m_timeout);
 
-		// Set maximum current draw allowed
-		motorWR12->ConfigPeakCurrentLimit(30.0, m_timeout);
+		// Set maximum current draw allowed - JVN predicts 4.55A
+		motorWR12->ConfigPeakCurrentLimit(20, m_timeout);
+		motorWR12->ConfigPeakCurrentDuration(2000, m_timeout);
+		motorWR12->ConfigContinuousCurrentLimit(15, m_timeout);
 		motorWR12->EnableCurrentLimit(true);
 
 		// Set soft limits

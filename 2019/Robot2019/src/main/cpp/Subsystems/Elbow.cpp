@@ -86,8 +86,10 @@ Elbow::Elbow() : frc::Subsystem("Elbow") {
 		motorEB10->ConfigPeakOutputForward(m_peakOut, m_timeout);
 		motorEB10->ConfigPeakOutputReverse(-m_peakOut, m_timeout);
 
-		// Set maximum current draw allowed
-		motorEB10->ConfigPeakCurrentLimit(30.0, m_timeout);
+		// Set maximum current draw allowed - JVN predicts 10.8A
+		motorEB10->ConfigPeakCurrentLimit(30, m_timeout);
+		motorEB10->ConfigPeakCurrentDuration(2000, m_timeout);
+		motorEB10->ConfigContinuousCurrentLimit(20, m_timeout);
 		motorEB10->EnableCurrentLimit(true);
 
 		// Set soft limits
