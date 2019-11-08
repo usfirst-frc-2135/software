@@ -111,7 +111,7 @@ OI::OI() {
     lifterBackMove->WhenPressed(new LFBackDeploy());
     lifterFrontMove.reset(new frc::JoystickButton(dStick.get(), 6));
     lifterFrontMove->WhenPressed(new LFFrontDeploy());
-    toggleDrive.reset(new frc::JoystickButton(dStick.get(), 5));
+    toggleDrive.reset(new frc::JoystickButton(dStick.get(), 8));
     toggleDrive->WhenPressed(new DriveToggle());
     shiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
     shiftSpeed->WhileHeld(new DriveShift(false));
