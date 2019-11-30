@@ -114,8 +114,8 @@
   WR_StowAngle = 140.0
   WR_SafeAngle = 90.0
 # Intake settings
-  IN_AcquireSpeed = 0.35
-  IN_HoldSpeed = 0.25
+  IN_AcquireSpeed = 0.45
+  IN_HoldSpeed = 0.35
   IN_ExpelSpeed = -0.75
 # Lifter settings
   LF_DriveSpeed = 0.75
