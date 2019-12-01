@@ -323,14 +323,14 @@ void Elbow::MoveToPositionInit(int angle) {
 	if (m_calibrated) {
 
 		// Constrain input request to a valid and safe range
-		// if (m_targetCounts < m_elbowMinCounts) {
-		// 	std::printf("2135: EB m_targetCounts limited by m_elbowMinCounts %d\n", m_elbowMinCounts);
-		// 	m_targetCounts = m_elbowMinCounts;
-		// }
-		// if (m_targetCounts > m_elbowMaxCounts) {
-		// 	std::printf("2135: EB m_targetCounts limited by m_elbowMaxCounts %d\n", m_elbowMaxCounts);
-		// 	m_targetCounts = m_elbowMaxCounts;
-		// }
+		if (m_targetCounts < m_elbowMinCounts) {
+			std::printf("2135: EB m_targetCounts limited by m_elbowMinCounts %d\n", m_elbowMinCounts);
+			m_targetCounts = m_elbowMinCounts;
+		}
+		if (m_targetCounts > m_elbowMaxCounts) {
+			std::printf("2135: EB m_targetCounts limited by m_elbowMaxCounts %d\n", m_elbowMaxCounts);
+			m_targetCounts = m_elbowMaxCounts;
+		}
 
 		// Get current position in inches and set position mode and target counts
 		if (m_talonValidEB10)

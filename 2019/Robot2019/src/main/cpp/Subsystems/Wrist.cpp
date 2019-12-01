@@ -222,7 +222,7 @@ int Wrist::DegreesToCounts(double degrees) {
 	int counts;
 
 	// counts = -degrees * (counts / degree) * reduction
-	counts = (int) round(-degrees * (COUNTS_PER_ROTATION / 360.0) * OUTPUT_SHAFT_REDUCTION);
+	counts = (int) round(degrees * (COUNTS_PER_ROTATION / 360.0) * OUTPUT_SHAFT_REDUCTION);
 	return counts;
 }
 
@@ -230,7 +230,7 @@ double Wrist::CountsToDegrees(int counts) {
 	double degrees;
 
 	// degrees = -counts * (degrees / count) / reduction
-	degrees = -(double)counts * (360.0 / COUNTS_PER_ROTATION) / OUTPUT_SHAFT_REDUCTION;
+	degrees = (double)counts * (360.0 / COUNTS_PER_ROTATION) / OUTPUT_SHAFT_REDUCTION;
 	return degrees;
 }
 

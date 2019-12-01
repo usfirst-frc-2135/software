@@ -64,8 +64,8 @@
   EB_WristArbFF = 0.07
   EB_NeutralDeadband = 0.004
   EB_ToleranceDegrees = 5.0
-  EB_MaxCounts = 0
-  EB_MinCounts = -2200
+  EB_MaxCounts = 628
+  EB_MinCounts = -1450
   EB_CalibAngle = 114.51
   EB_BumpAngle = 5.0
   # Max elbow extension is calib angle = 114.51
@@ -95,9 +95,9 @@
   WR_ArbFeedForward = 0.11
   WR_NeutralDeadband = 0.004
   WR_ToleranceDegrees = 5.0
-  WR_MaxCounts = 0
-  WR_MinCounts = -3000
-  WR_CalibAngle = 40.0
+  WR_MaxCounts = 4700
+  WR_MinCounts = 1321
+  WR_CalibAngle = 64.49
   WR_BumpAngle = 7.5
   WR_ShipCargoAngle = 141.61
   WR_GroundCargoAngle = 86.5
