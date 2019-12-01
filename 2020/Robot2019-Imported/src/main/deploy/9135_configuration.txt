@@ -1,0 +1,124 @@
+# Comment lines start with '#'
+  RB_Name = 9135-Bebula
+# DriveTrain settings
+  DT_DriveXScaling = 0.7
+# Competition mode
+# DT_DriveYScaling = 1.00
+# Training mode
+  DT_DriveYScaling =  0.85
+# Demo mode
+# DT_DriveYScaling =  0.60
+  DT_DriveSpin = 0.45
+  DT_PidTurnKp = 0.030
+  DT_VisionTurnKp = 0.0
+  DT_SeparateJoysticks = false
+  DT_PeakOut = 1.0
+  DT_Velocity = 1918
+  DT_Acceleration = 3836
+  DT_SCurveStrength = 0
+  DT_PidKf = 0.000
+  DT_PidKp = 0.250
+  DT_PidKi = 0.000
+  DT_PidKd = 0.000
+  DT_ArbFeedForward = 0.000
+# Elevator settings
+  EL_CalibSpeed = 0.25
+  EL_PeakOut = 1.0
+  EL_Velocity = 1918
+  EL_Acceleration = 3836
+  EL_SCurveStrength = 0
+  EL_PidKf = 0.427
+  EL_PidKp = 0.250
+  EL_PidKi = 0.000
+  EL_PidKd = 0.000
+  EL_ArbFeedForward = 0.12
+  EL_NeutralDeadband = 0.004
+  EL_CLRampRate = 0.000
+  EL_CLAllowedError = 0
+  EL_ToleranceInches = 0.75
+  EL_MaxHeight = 32.5
+  EL_MinHeight = 0.0
+  EL_BumpHeight = 1.5		
+  EL_GroundCargoHeight = 0.0
+  EL_GroundHatchHeight = 0.0
+  EL_LoadingCargoHeight = 0.0
+  EL_LoadingHatchHeight = 3.0
+  EL_ShipCargoHeight = 16.3
+  EL_ShipHatchHeight = 3.0
+  EL_RocketL1CargoHeight = 7.15
+  EL_RocketL1HatchHeight = 3.0
+  EL_RocketL2CargoHeight = 20.55
+  EL_RocketL2HatchHeight = 16.00
+  EL_RocketL3CargoHeight = 32.5
+  EL_RocketL3HatchHeight = 29.4
+# Elbow settings
+  EB_PeakOut = 0.8
+  EB_Velocity = 117
+  EB_Acceleration = 458
+  EB_SCurveStrength = 0
+  EB_PidKf = 3.283
+  EB_PidKp = 2.616
+  EB_PidKi = 0.000
+  EB_PidKd = 0.000
+  EB_ArbFeedForward = 0.18
+  EB_WristArbFF = 0.07
+  EB_NeutralDeadband = 0.004
+  EB_ToleranceDegrees = 5.0
+  EB_MaxCounts = 628
+  EB_MinCounts = -1450
+  EB_CalibAngle = 114.51
+  EB_BumpAngle = 5.0
+  # Max elbow extension is calib angle = 114.51
+  EB_ShipCargoAngle = 65.0
+  EB_GroundCargoAngle = 114.51
+  EB_GroundHatchAngle = 114.51
+  EB_LoadingCargoAngle = 114.51
+  EB_LoadingHatchAngle = 114.51
+  EB_ShipHatchAngle = 114.51
+  EB_RocketL1CargoAngle = 74.4
+  EB_RocketL1HatchAngle = 114.51
+  EB_RocketL2CargoAngle = 76.7
+  EB_RocketL2HatchAngle = 112.60
+  EB_RocketL3CargoAngle = 53.9
+  EB_RocketL3HatchAngle = 112.60
+  EB_StowAngle = 45.0
+  EB_SafeAngle = 90.0;
+# Wrist settings
+  WR_PeakOut = 0.8
+  WR_Velocity = 112.5
+  WR_Acceleration = 450
+  WR_SCurveStrength = 0
+  WR_PidKf = 3.411
+  WR_PidKp = 3.596
+  WR_PidKi = 0.000
+  WR_PidKd = 0.000
+  WR_ArbFeedForward = 0.11
+  WR_NeutralDeadband = 0.004
+  WR_ToleranceDegrees = 5.0
+  WR_MaxCounts = 4700
+  WR_MinCounts = 1321
+  WR_CalibAngle = 64.49
+  WR_BumpAngle = 7.5
+  WR_ShipCargoAngle = 141.61
+  WR_GroundCargoAngle = 86.5
+  WR_GroundHatchAngle = 155.49
+  WR_LoadingCargoAngle = 81.5
+  WR_LoadingHatchAngle = 65.49
+  WR_ShipHatchAngle = 65.49
+  WR_RocketL1CargoAngle = 97.8
+  WR_RocketL1HatchAngle = 70.49
+  WR_RocketL2CargoAngle = 97.8
+  WR_RocketL2HatchAngle = 61.1
+  WR_RocketL3CargoAngle = 108.3
+  WR_RocketL3HatchAngle = 61.1
+  WR_StowAngle = 140.0
+  WR_SafeAngle = 90.0
+# Intake settings
+  IN_AcquireSpeed = 0.45
+  IN_HoldSpeed = 0.35
+  IN_ExpelSpeed = -0.75
+# Lifter settings
+  LF_DriveSpeed = 0.75
+# Autonomous settings
+  AutoDriveDist = 97.25
+  AutoDriveTurn = 90.0
