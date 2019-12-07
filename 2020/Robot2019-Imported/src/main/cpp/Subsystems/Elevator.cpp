@@ -47,7 +47,7 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
     config->GetValueAsDouble("EL_PidKp", m_pidKp, 0.250);
     config->GetValueAsDouble("EL_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("EL_PidKd", m_pidKd, 0.000);
-	config->GetValueAsDouble("EL_ArbFeedForward", m_arbFeedForward, 0.16);
+	config->GetValueAsDouble("EL_ArbFeedForward", m_arbFeedForward, 0.12);
 	config->GetValueAsDouble("EL_NeutralDeadband", m_neutralDeadband, 0.004);
     config->GetValueAsDouble("EL_CLRampRate", m_CLRampRate, 0.000);
     config->GetValueAsInt("EL_CLAllowedError", m_CLAllowedError, 0);
@@ -57,16 +57,16 @@ Elevator::Elevator() : frc::Subsystem("Elevator") {
 	config->GetValueAsDouble("EL_BumpHeight", m_bumpHeight, 1.0);
 	config->GetValueAsDouble("EL_GroundCargoHeight", m_groundCargoHeight, 0.0);
 	config->GetValueAsDouble("EL_GroundHatchHeight", m_groundHatchHeight, 0.0);
-	config->GetValueAsDouble("EL_LoadingCargoHeight", m_loadingCargoHeight, 7.5);
-	config->GetValueAsDouble("EL_LoadingHatchHeight", m_loadingHatchHeight, 7.5);
-	config->GetValueAsDouble("EL_ShipCargoHeight", m_shipCargoHeight, 12.3);
+	config->GetValueAsDouble("EL_LoadingCargoHeight", m_loadingCargoHeight, 0.0);
+	config->GetValueAsDouble("EL_LoadingHatchHeight", m_loadingHatchHeight, 3.0);
+	config->GetValueAsDouble("EL_ShipCargoHeight", m_shipCargoHeight, 16.3);
 	config->GetValueAsDouble("EL_ShipHatchHeight", m_shipHatchHeight, 3.0);
-	config->GetValueAsDouble("EL_RocketL1CargoHeight", m_rocketL1CargoHeight, 8.5);
-	config->GetValueAsDouble("EL_RocketL1HatchHeight", m_rocketL1HatchHeight, 5.0);
-	config->GetValueAsDouble("EL_RocketL2CargoHeight", m_rocketL2CargoHeight, 18.1);
-	config->GetValueAsDouble("EL_RocketL2HatchHeight", m_rocketL2HatchHeight, 12.1);
-	config->GetValueAsDouble("EL_RocketL3CargoHeight", m_rocketL3CargoHeight, 32.0);
-	config->GetValueAsDouble("EL_RocketL3HatchHeight", m_rocketL3HatchHeight, 27.8);
+	config->GetValueAsDouble("EL_RocketL1CargoHeight", m_rocketL1CargoHeight, 7.15);
+	config->GetValueAsDouble("EL_RocketL1HatchHeight", m_rocketL1HatchHeight, 3.0);
+	config->GetValueAsDouble("EL_RocketL2CargoHeight", m_rocketL2CargoHeight, 20.55);
+	config->GetValueAsDouble("EL_RocketL2HatchHeight", m_rocketL2HatchHeight, 16.0);
+	config->GetValueAsDouble("EL_RocketL3CargoHeight", m_rocketL3CargoHeight, 32.5);
+	config->GetValueAsDouble("EL_RocketL3HatchHeight", m_rocketL3HatchHeight, 29.4);
 
 	// Initialize Talon SRX motor controller direction and encoder sensor slot
     // Set encoder as a CTRE magnetic in relative mode with sensor in phase with output

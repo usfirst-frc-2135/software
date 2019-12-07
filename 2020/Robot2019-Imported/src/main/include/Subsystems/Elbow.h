@@ -67,8 +67,10 @@ private:
 	double			m_wristArbFF;					// Elbow  Motion Magic Arbitrary Feed Forward - wrist adjustment		
 	double			m_neutralDeadband;				// Elbow PID neutral deadband in percent
 	double			m_toleranceDegrees;				// Elbow PID tolerance in degrees
-	int				m_elbowMaxCounts;				// Elbow maximum allowable counts
 	int				m_elbowMinCounts;				// Elbow minimum allowable counts
+	int				m_elbowMaxCounts;				// Elbow maximum allowable counts
+	double			m_elbowMinAngle;				// Elbow minimum angle at upper hard stop
+	double			m_elbowMaxAngle;				// Elbow maximum angle at lower hard stop
 	double			m_calibAngle;					// Angle at which the robot is being calibrated (hard stop down)
 	double			m_bumpAngle;					// Incremental angle when bumping the elbow up/down
 

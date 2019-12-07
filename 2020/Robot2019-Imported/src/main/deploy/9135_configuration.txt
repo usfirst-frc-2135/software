@@ -64,11 +64,13 @@
   EB_WristArbFF = 0.07
   EB_NeutralDeadband = 0.004
   EB_ToleranceDegrees = 5.0
-  EB_MaxCounts = 628
-  EB_MinCounts = -1450
+  # Min elbow extension is -30.0 degrees
+  EB_MinAngle = -30.0
+  # Max elbow extension is 114.51 degrees
+  EB_MaxAngle = 114.51
   EB_CalibAngle = 114.51
   EB_BumpAngle = 5.0
-  # Max elbow extension is calib angle = 114.51
+  # Max elbow extension is same as calib angle
   EB_ShipCargoAngle = 65.0
   EB_GroundCargoAngle = 114.51
   EB_GroundHatchAngle = 114.51
@@ -85,7 +87,7 @@
   EB_SafeAngle = 90.0;
 # Wrist settings
   WR_PeakOut = 0.8
-  WR_Velocity = 112.5
+  WR_Velocity = 112
   WR_Acceleration = 450
   WR_SCurveStrength = 0
   WR_PidKf = 3.411
@@ -95,8 +97,10 @@
   WR_ArbFeedForward = 0.11
   WR_NeutralDeadband = 0.004
   WR_ToleranceDegrees = 5.0
-  WR_MaxCounts = 4700
-  WR_MinCounts = 1321
+  # Min elbow extension is 64.49 degrees
+  WR_MinAngle = 64.49
+  # Max elbow extension is 209.0 degrees
+  WR_MaxAngle = 209.0
   WR_CalibAngle = 64.49
   WR_BumpAngle = 7.5
   WR_ShipCargoAngle = 141.61
