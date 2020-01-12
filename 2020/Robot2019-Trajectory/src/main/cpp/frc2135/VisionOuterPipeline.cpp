@@ -5,7 +5,7 @@
  *      Author: PHS_User
  */
 
-#include "VisionOuterPipeline.h"
+#include "frc2135/VisionOuterPipeline.h"
 
 #ifdef _MSC_VER
 #define DEBUG_TRACE 2 // Set to 1 for detailed tracing, 0 for quiet mode
