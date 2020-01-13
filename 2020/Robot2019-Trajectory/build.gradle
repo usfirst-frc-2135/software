@@ -63,7 +63,7 @@ model {
                     include '**/*.cpp', '**/*.cc'
                 }
                 exportedHeaders {
-                    srcDir 'src/main/include'
+                    srcDirs 'src/main/include', 'src/main/include/frc2135'
                     if (includeSrcInIncludeRoot) {
                         srcDir 'src/main/cpp'
                     }

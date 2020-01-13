@@ -21,6 +21,10 @@
 #include "frc2135/PIDOutputDriveTurn.h"
 #include "frc2135/PIDSourceDriveVision.h"
 #include "frc2135/PIDOutputDriveVision.h"
+#include "frc/kinematics/DifferentialDriveOdometry.h"
+#include "frc/kinematics/DifferentialDriveKinematics.h"
+#include <frc2/command/CommandBase.h>
+
 
 /**
  *
@@ -53,10 +57,24 @@ private:
 	const double m_circumInches = (WHEEL_DIA_INCHES * M_PI);
 	const int m_reqPigeonVer = ((4 * 256) + 13); // Pigeon IMU version is 4.13
 	//constants from robot characterization tool 
-	constexpr auto ks = 1.02_V; 
-	constexpr auto kv = 0.264 * 1_V * 1_s / 1_m; 
-	constexpr auto ka = 0.00527 * 1_V * 1_s / 1_m; 
-	constexpr double kPDriveVel = 0.818; 
+	static constexpr auto ks = 1.02_V; 
+	static constexpr auto kv = 0.264 * 1_V * 1_s / 1_m; 
+	static constexpr auto ka = 0.00527 * 1_V * 1_s / 1_m; 
+	static constexpr double kPDriveVel = 0.818; 
+	static constexpr auto kTrackWidth = 0;
+	static const frc::DifferentialDriveKinematics kDriveKinematics;
+	static constexpr auto kMaxSpeed = 3_mps;
+	static constexpr auto kMaxAcceleration = 3_mps_sq;
+
+	//starting points 
+	static constexpr double kRamseteB = 2; 
+	static constexpr double kRamseteZeta = 0.7; 
+
+	// The gyro sensor
+	frc::ADXRS450_Gyro m_gyro;
+
+	//Odometry class for tracking robot pose
+	frc::DifferentialDriveOdometry m_odometry;
 
 	//Declare module variables
 	bool m_talonValidL1; // Health indicator for drive Talon Left 1
@@ -161,7 +179,12 @@ public:
 	void PigeonIMUFaultDump(void);
 	double GetIMUHeading();
 
+	double GetHeading();
+
 	void ResetSensors();
+	frc::Pose2d GetPose(); 
+	void TankDriveVolts(units::volt_t left, units::volt_t right);
+	frc2::Command* RobotContainer::GetTrajectoryCommand();
 };
 
 #endif
