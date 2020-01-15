@@ -35,6 +35,13 @@ AddChild("Control Panel Deployer", controlPanelDeployer);
     m_colorMatcher.AddColorMatch(kRedTarget);
     m_colorMatcher.AddColorMatch(kYellowTarget);
 
+    if (m_talonValidSP11) { 
+        motorSP11->SetInverted(false);
+        motorSP11->SetNeutralMode(NeutralMode::Brake);
+        motorSP11->ConfigVoltageCompSaturation(12.0, 0);
+        motorSP11->EnableVoltageCompensation(true);
+    }
+
 }
 
 void Spinner::InitDefaultCommand() {
@@ -96,3 +103,46 @@ void Spinner::Periodic() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void Spinner::ControlPositionInit(std::string givenColor) {
+
+  m_targColor = givenColor;
+  std::printf("Position Control: Target Color %s", m_targColor.c_str());
+
+  motorSP11->Set(ControlMode::PercentOutput, 0.25); // Run motor to turn control panel
+}
+
+void Spinner::ControlPositionExecute() {
+    m_curColor = ReadColorValue();
+}
+
+bool Spinner::ControlPositionIsFinished() {
+  if (m_curColor == m_targColor) return true;
+  return false;
+}
+
+void Spinner::ControlPositionEnd() {
+  motorSP11->Set(ControlMode::PercentOutput, 0.0); // Stop motor
+}
+
+std::string Spinner::ReadColorValue() {
+  frc::Color detectedColor = m_colorSensor.GetColor();
+
+    // COLOR MATCH
+    std::string colorString;
+    double confidence = 0.0;
+    frc::Color matchedColor = m_colorMatcher.MatchClosestColor(detectedColor, confidence);
+
+    if (matchedColor == kBlueTarget) {
+      colorString = "Blue";
+    } else if (matchedColor == kRedTarget) {
+      colorString = "Red";
+    } else if (matchedColor == kGreenTarget) {
+      colorString = "Green";
+    } else if (matchedColor == kYellowTarget) {
+      colorString = "Yellow";
+    } else {
+      colorString = "Unknown";
+    }
+
+  return colorString;
+}
