@@ -35,11 +35,11 @@ AddChild("Control Panel Deployer", controlPanelDeployer);
     m_colorMatcher.AddColorMatch(kRedTarget);
     m_colorMatcher.AddColorMatch(kYellowTarget);
 
-    if (m_talonValidSP11) { 
-        motorSP11->SetInverted(false);
-        motorSP11->SetNeutralMode(NeutralMode::Brake);
-        motorSP11->ConfigVoltageCompSaturation(12.0, 0);
-        motorSP11->EnableVoltageCompensation(true);
+    if (m_talonValidSP12) { 
+        motorSP12->SetInverted(false);
+        motorSP12->SetNeutralMode(NeutralMode::Brake);
+        motorSP12->ConfigVoltageCompSaturation(12.0, 0);
+        motorSP12->EnableVoltageCompensation(true);
     }
 
 }
@@ -108,7 +108,7 @@ void Spinner::ControlPositionInit(std::string givenColor) {
   m_targColor = givenColor;
   std::printf("Position Control: Target Color %s", m_targColor.c_str());
 
-  motorSP11->Set(ControlMode::PercentOutput, 0.25); // Run motor to turn control panel
+  motorSP12->Set(ControlMode::PercentOutput, 0.25); // Run motor to turn control panel
 }
 
 void Spinner::ControlPositionExecute() {
@@ -121,7 +121,7 @@ bool Spinner::ControlPositionIsFinished() {
 }
 
 void Spinner::ControlPositionEnd() {
-  motorSP11->Set(ControlMode::PercentOutput, 0.0); // Stop motor
+  motorSP12->Set(ControlMode::PercentOutput, 0.0); // Stop motor
 }
 
 std::string Spinner::ReadColorValue() {
