@@ -1,0 +1,35 @@
+# Comment lines start with '#'
+  RB_Name = 2135-Unknown
+# DriveTrain settings
+  DT_DriveXScaling = 0.7
+# Competition mode
+# DT_DriveYScaling = 1.00
+# Training mode
+  DT_DriveYScaling =  0.85
+# Demo mode
+# DT_DriveYScaling =  0.60
+  DT_DriveSpin = 0.45
+  DT_PidTurnKp = 0.030
+  DT_VisionTurnKp = 0.0
+  DT_SeparateJoysticks = false
+  DT_PeakOut = 1.0
+  DT_Velocity = 1918
+  DT_Acceleration = 3836
+  DT_SCurveStrength = 0
+  DT_PidKf = 0.000
+  DT_PidKp = 0.250
+  DT_PidKi = 0.000
+  DT_PidKd = 0.000
+  DT_ArbFeedForward = 0.000
+# Intake settings
+  IN_AcquireSpeed = 0.35
+  IN_ExpelSpeed = 0.45
+# Conveyor settings
+# Shooter settings
+  SH_FireSpeed = 0.9
+# Spinner settings
+  SP_TurnSpeed = 0.6
+# Climber settings
+# Autonomous settings
+  AutoDriveDist = 97.25
+  AutoDriveTurn = 90.0
