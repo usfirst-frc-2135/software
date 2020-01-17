@@ -156,19 +156,19 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 	m_pigeonValid = PigeonIMUInitialize();
 
 	// Autonomous turn PID controller
-	driveTurnPIDSource = new PIDSourceDriveTurn();
-	driveTurnPIDOutput = new PIDOutputDriveTurn(diffDrive);
-    driveTurnPIDLoop = new frc::PIDController(m_turnKp, 0.0, 0.0, driveTurnPIDSource, driveTurnPIDOutput, 0.010);
+	// driveTurnPIDSource = new PIDSourceDriveTurn();
+	// driveTurnPIDOutput = new PIDOutputDriveTurn(diffDrive);
+    // driveTurnPIDLoop = new frc::PIDController(m_turnKp, 0.0, 0.0, driveTurnPIDSource, driveTurnPIDOutput, 0.010);
 	
 	// Adjust Kp for encoder being used
-    driveVisionPIDSource = new PIDSourceDriveVision();
-    driveVisionPIDOutput = new PIDOutputDriveVision(diffDrive);
-    driveVisionPIDLoop = new frc::PIDController(m_visionTurnKp, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
+    // driveVisionPIDSource = new PIDSourceDriveVision();
+    // driveVisionPIDOutput = new PIDOutputDriveVision(diffDrive);
+    // driveVisionPIDLoop = new frc::PIDController(m_visionTurnKp, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
 
    	// Settings for Turn PID
-   	driveTurnPIDLoop->SetPID(m_turnKp, 0.0, 0.0);
-   	driveTurnPIDLoop->SetOutputRange(-m_turnMaxOut, m_turnMaxOut);
-   	driveTurnPIDLoop->SetAbsoluteTolerance(m_turnTolDeg);
+   	// driveTurnPIDLoop->SetPID(m_turnKp, 0.0, 0.0);
+   	// driveTurnPIDLoop->SetOutputRange(-m_turnMaxOut, m_turnMaxOut);
+   	// driveTurnPIDLoop->SetAbsoluteTolerance(m_turnTolDeg);
 }
 
 void Drivetrain::InitDefaultCommand() {
@@ -509,8 +509,8 @@ void Drivetrain::MoveDriveTurnPIDInit(double angle) {
 	// Initialize the encoders to start movement at reference of zero counts
 	ResetSensors();
 
-	driveTurnPIDLoop->SetSetpoint(angle);
-	driveTurnPIDLoop->Enable();
+	// driveTurnPIDLoop->SetSetpoint(angle);
+	// driveTurnPIDLoop->Enable();
 
 	// Disable motor safety helper during PID
    	diffDrive->SetSafetyEnabled(false);
@@ -534,10 +534,10 @@ void Drivetrain::MoveDriveTurnPIDExecute(void) {
 bool Drivetrain::MoveDriveTurnPIDIsFinished(void) {
 	bool 	isFinished = false;
 
-	if (driveTurnPIDLoop->OnTarget()) {
- 		std::printf("2135: DTDT Move Finished - Time %f\n", m_safetyTimer.Get());
-		isFinished = true;
-	}
+	// if (driveTurnPIDLoop->OnTarget()) {
+ 	// 	std::printf("2135: DTDT Move Finished - Time %f\n", m_safetyTimer.Get());
+	// 	isFinished = true;
+	// }
 	
 	// Check to see if the Safety Timer has timed out.
 	if (m_safetyTimer.Get() >= m_safetyTimeout) {
@@ -553,7 +553,7 @@ bool Drivetrain::MoveDriveTurnPIDIsFinished(void) {
 
 void Drivetrain::MoveDriveTurnPIDEnd(void) {
 
-	driveTurnPIDLoop->Disable();
+	// driveTurnPIDLoop->Disable();
 
 	// Stop the safety timer
 	std::printf("2135: DTDT End %f degrees TimeToTarget:  %3.2f\n", m_turnAngle, m_safetyTimer.Get());

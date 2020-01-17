@@ -109,13 +109,13 @@ private:
 
 	int m_curDriveMode; 		// Current driving mode, arcade by default
 
-	PIDOutputDriveTurn *driveTurnPIDOutput; // Drive turn to angle with gyro
-	PIDSourceDriveTurn *driveTurnPIDSource; // Drive turn PID source loop
-	frc::PIDController *driveTurnPIDLoop;   // Drive turn PID control
+	// PIDOutputDriveTurn *driveTurnPIDOutput; // Drive turn to angle with gyro
+	// PIDSourceDriveTurn *driveTurnPIDSource; // Drive turn PID source loop
+	// frc::PIDController *driveTurnPIDLoop;   // Drive turn PID control
 
-	PIDOutputDriveVision *driveVisionPIDOutput; // Drive with Vision to angle using gyro - initialize output
-	PIDSourceDriveVision *driveVisionPIDSource; // Drive with Vision PID source loop
-	frc::PIDController *driveVisionPIDLoop;		// Drive with Vision PID controller loop
+	// PIDOutputDriveVision *driveVisionPIDOutput; // Drive with Vision to angle using gyro - initialize output
+	// PIDSourceDriveVision *driveVisionPIDSource; // Drive with Vision PID source loop
+	// frc::PIDController *driveVisionPIDLoop;		// Drive with Vision PID controller loop
 
 public:
 	Drivetrain();
