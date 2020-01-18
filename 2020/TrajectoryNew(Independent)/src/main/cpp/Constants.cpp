@@ -12,3 +12,21 @@ using namespace DriveConstants;
 
 const frc::DifferentialDriveKinematics DriveConstants::kDriveKinematics(
     kTrackwidth);
+
+constexpr auto ks = 1.02_V; 
+constexpr auto kv = .264 * 1_V * 1_s / 1_m;
+constexpr auto ka = .00527 * 1_V * 1_s * 1_s / 1_m; 
+
+constexpr double kPDriveVel =.818;
+
+
+constexpr auto kTrackwidth = .5_m;
+extern const frc::DifferentialDriveKinematics kDriveKinematics;
+
+constexpr auto kMaxSpeed = 3_mps;
+constexpr auto kMaxAcceleration = 3_mps_sq;
+
+constexpr double kRamseteB = 2;
+constexpr double kRamseteZeta = 0.7;
+
+
