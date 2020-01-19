@@ -1,4 +1,4 @@
-#include "DriveSubsytem.h"
+#include "DriveSubsystem.h"
 
 #include <frc/geometry/Rotation2d.h>
 #include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
@@ -12,10 +12,16 @@ DriveSubsystem::DriveSubsystem()
       m_right2{kRightMotor2Port},
       m_leftEncoder{kLeftEncoderPorts[1], kLeftEncoderPorts[2]},
       m_rightEncoder{kRightEncoderPorts[3], kRightEncoderPorts[4]},
-      m_odometry{frc::Rotation2d(units::degree_t(GetHeading()))} {
+      m_odometry{frc::Rotation2d(units::degree_t(GetHeading()))},
+      m_talon_left1{kLeftMotor1Port},
+      m_talon_left2{kLeftMotor2Port},
+      m_talon_right1{kRightMotor1Port},
+      m_talon_right2{kRightMotor2Port}
+      {
   // Set the distance per pulse for the encoders
   m_leftEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
   m_rightEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
+  //printf("%d\n", m_drive.GetExpiration());
 
   ResetEncoders();
 }
