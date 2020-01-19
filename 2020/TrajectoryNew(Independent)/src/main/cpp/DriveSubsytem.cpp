@@ -16,6 +16,8 @@ DriveSubsystem::DriveSubsystem()
   // Set the distance per pulse for the encoders
   m_leftEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
   m_rightEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
+  //printf("%d\n", m_drive.GetExpiration());
+  m_drive.SetExpiration(.5);
 
   ResetEncoders();
 }
