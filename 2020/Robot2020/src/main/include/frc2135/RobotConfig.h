@@ -5,8 +5,8 @@
  *      Author: Administrator
  */
 
-#ifndef ROBOTCONFIG_H_
-#define ROBOTCONFIG_H_
+#pragma once
+
 #include <stdlib.h>
 #include <string>
 #include <map>
@@ -41,5 +41,3 @@ private:
 };
 
 } /* namespace frc2135 */
-
-#endif /* ROBOTCONFIG_H_ */
