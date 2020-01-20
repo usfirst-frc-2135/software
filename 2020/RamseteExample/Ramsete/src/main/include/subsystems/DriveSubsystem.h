@@ -17,6 +17,8 @@
 #include <frc2/command/SubsystemBase.h>
 #include <units/units.h>
 
+#include "ctre/Phoenix.h"
+
 #include "Constants.h"
 
 class DriveSubsystem : public frc2::SubsystemBase {
@@ -125,20 +127,26 @@ class DriveSubsystem : public frc2::SubsystemBase {
   frc::PWMVictorSPX m_right1;
   frc::PWMVictorSPX m_right2;
 
+  
+  WPI_TalonSRX m_talon_left1; 
+  WPI_TalonSRX m_talon_left2;
+  WPI_TalonSRX m_talon_right1;
+  WPI_TalonSRX m_talon_right2;
+
   // The motors on the left side of the drive
-  frc::SpeedControllerGroup m_leftMotors{m_left1, m_left2};
+  frc::SpeedControllerGroup m_leftMotors{m_talon_left1, m_talon_left2};
 
   // The motors on the right side of the drive
-  frc::SpeedControllerGroup m_rightMotors{m_right1, m_right2};
+  frc::SpeedControllerGroup m_rightMotors{m_talon_right1, m_talon_right2};
 
   // The robot's drive
   frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};
 
   // The left-side drive encoder
-  frc::Encoder m_leftEncoder;
+  // frc::Encoder m_leftEncoder;
 
   // The right-side drive encoder
-  frc::Encoder m_rightEncoder;
+  // frc::Encoder m_rightEncoder;
 
   // The gyro sensor
   frc::ADXRS450_Gyro m_gyro;
