@@ -43,9 +43,11 @@ private:
 	bool			m_talonValidSP12;
 
 	double			m_spinSpeed;
+	int				m_spinCount;
 
 	std::string		m_targColor;
 	std::string		m_curColor;
+	std::string		m_startColor;
 
     static constexpr auto i2cPort = frc::I2C::Port::kOnboard;
     rev::ColorSensorV3 m_colorSensor{i2cPort};
@@ -70,6 +72,11 @@ Spinner();
 	void ControlPositionExecute();
 	bool ControlPositionIsFinished();
 	void ControlPositionEnd();
+
+	void ControlRotationInit();
+	void ControlRotationExecute();
+	bool ControlRotationIsFinished();
+	void ControlRotationEnd();
 
 	std::string ReadColorValue();
 
