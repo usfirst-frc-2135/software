@@ -1,24 +1,24 @@
 /*
- * TalonFXUtils.cpp
+ * TalonUtils.cpp
  *
  *  Created on: Jan 14, 2020
  *      Author: PHS_User
  */
 
-#include <frc2135/TalonFXUtils.h>
+#include <frc2135/TalonUtils.h>
 #include <chrono>
 
 namespace frc2135 {
 
-TalonFXUtils::TalonFXUtils() {
+TalonUtils::TalonUtils() {
 	// Auto-generated constructor stub
 }
 
-TalonFXUtils::~TalonFXUtils() {
+TalonUtils::~TalonUtils() {
 	// Auto-generated destructor stub
 }
 
-bool TalonFXUtils::TalonFXCheck(std::shared_ptr<WPI_TalonFX> talonFX, const char *subsystem, const char *name) {
+bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, const char *subsystem, const char *name) {
 	int			i;
 	int			deviceID = 0;
 	int			fwVersion = 0;
@@ -26,20 +26,20 @@ bool TalonFXUtils::TalonFXCheck(std::shared_ptr<WPI_TalonFX> talonFX, const char
 	ErrorCode	error = OKAY;
 
 	// Configure subsystem and component name
-    talonFX->SetName(subsystem, name);
-   	std::printf("2135: TalonFX Subsystem %s Name %s\n", talonFX->GetSubsystem().c_str(), talonFX->GetName().c_str());
+    talon->SetName(subsystem, name);
+   	std::printf("2135: Talon Subsystem %s Name %s\n", talon->GetSubsystem().c_str(), talon->GetName().c_str());
 
-    // Display Talon FX firmware versions
-	deviceID = talonFX->GetDeviceID();
-	if ((error = talonFX->GetLastError()) != OKAY) {
+    // Display Talon firmware versions
+	deviceID = talon->GetDeviceID();
+	if ((error = talon->GetLastError()) != OKAY) {
 		std::printf("2135: ERROR: %s Motor %s GetDeviceID error - %d\n", 
 			subsystem, name, error);
 		return error;
 	}
 
 	for (i = 0; i < m_retries; i++) {
-		fwVersion = talonFX->GetFirmwareVersion();
-		if ((error = talonFX->GetLastError()) != OKAY) {
+		fwVersion = talon->GetFirmwareVersion();
+		if ((error = talon->GetLastError()) != OKAY) {
 			std::printf("2135: ERROR: %s Motor %s ID %d GetFirmwareVersion error - %d\n", 
 				subsystem, name, deviceID, error);
 			return error;
@@ -56,8 +56,8 @@ bool TalonFXUtils::TalonFXCheck(std::shared_ptr<WPI_TalonFX> talonFX, const char
 	}
 
 	if (talonValid) {
-			// Initialize Talon FX to all factory defaults
-		if ((error = talonFX->ConfigFactoryDefault(m_timeout)) != OKAY) {
+			// Initialize Talon to all factory defaults
+		if ((error = talon->ConfigFactoryDefault(m_timeout)) != OKAY) {
 			std::printf("2135: ERROR: %s Motor %s ID %d ConfigFactoryDefault error - %d\n", 
 				subsystem, name, deviceID, error);
 		}
@@ -73,39 +73,39 @@ bool TalonFXUtils::TalonFXCheck(std::shared_ptr<WPI_TalonFX> talonFX, const char
 	return talonValid;
 }
 
-void TalonFXUtils::TalonFXFaultDump(const char *talonName, std::shared_ptr<WPI_TalonFX> talonFX) {
+void TalonUtils::TalonFaultDump(const char *talonName, std::shared_ptr<WPI_BaseMotorController> talon) {
 	int				fwVersion = 0;
 	ErrorCode		error = OKAY;
 	Faults			faults;
 	StickyFaults	stickyFaults;
 
-	// Print out Talon FX faults and clear sticky ones
-	std::printf("2135: %s -------------- %s\n", "Talon FX", talonName);
+	// Print out Talon faults and clear sticky ones
+	std::printf("2135: %s -------------- %s\n", "Talon ", talonName);
 
-    // Check Talon FX by getting device ID and validating firmware versions
-	talonFX->GetDeviceID();
-	if ((error = talonFX->GetLastError()) != OKAY) {
+    // Check Talon by getting device ID and validating firmware versions
+	talon->GetDeviceID();
+	if ((error = talon->GetLastError()) != OKAY) {
 		std::printf("2135: ERROR: %s Motor %s GetDeviceID error - %d\n",
-			talonFX->GetSubsystem().c_str(), talonFX->GetName().c_str(), error);
+			talon->GetSubsystem().c_str(), talon->GetName().c_str(), error);
 		return;
 	}
 
-	fwVersion = talonFX->GetFirmwareVersion();
-	if ((error = talonFX->GetLastError()) != OKAY) {
+	fwVersion = talon->GetFirmwareVersion();
+	if ((error = talon->GetLastError()) != OKAY) {
 		std::printf("2135: ERROR: %s Motor %s GetFirmwareVersion error - %d\n",
-			talonFX->GetSubsystem().c_str(), talonFX->GetName().c_str(), error);
+			talon->GetSubsystem().c_str(), talon->GetName().c_str(), error);
 		return;
 	}
 	if (fwVersion != m_reqVersion) {
 		std::printf("2135: WARNING: %s Motor %s Incorrect FW version %d.%d expected %d.%d\n",
-			talonFX->GetSubsystem().c_str(), talonFX->GetName().c_str(), fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
+			talon->GetSubsystem().c_str(), talon->GetName().c_str(), fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
 		return;
 	}
 
 	// Now the Talon has been validated
-	talonFX->GetFaults(faults);
-	talonFX->GetStickyFaults(stickyFaults);
-	talonFX->ClearStickyFaults(100);
+	talon->GetFaults(faults);
+	talon->GetStickyFaults(stickyFaults);
+	talon->ClearStickyFaults(100);
 
 	if (faults.HasAnyFault()) {
 		std::printf("At Least one fault below\n");
