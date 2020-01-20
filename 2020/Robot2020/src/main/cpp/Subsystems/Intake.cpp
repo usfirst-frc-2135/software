@@ -107,12 +107,11 @@ void Intake::Initialize(void) {
     }
 }
 
-// TODO: Uncomment once the fault dump file is working.
-// void Intake::FaultDump(void) {
+void Intake::FaultDump(void) {
 	
 // Dump all Talon faults
-// 	frc2135::TalonSRXUtils::TalonSRXFaultDump("IN 6", motorIN6);
-// }
+	frc2135::TalonUtils::TalonFaultDump("IN 6", motorIN6);
+}
 
 // Set mode of intake
 void Intake::SetIntakeMotorDirection(int direction) {
