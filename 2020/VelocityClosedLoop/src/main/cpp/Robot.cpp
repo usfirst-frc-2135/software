@@ -49,40 +49,113 @@ using namespace frc;
 
 class Robot: public TimedRobot {
 public:
-	TalonSRX * _talon = new TalonSRX(3);
+	TalonSRX * L1_talon = new TalonSRX(1);
+	TalonSRX * L2_talon = new TalonSRX(2);
+	TalonSRX * R3_talon = new TalonSRX(3);
+	TalonSRX * R4_talon = new TalonSRX(4);
 	Joystick * _joy = new Joystick(0);
 	std::string _sb;
 	int _loops = 0;
 
 	void RobotInit() {
-		_talon->ConfigFactoryDefault();
+		//L1
+
+		L1_talon->ConfigFactoryDefault();
         /* first choose the sensor */
-		_talon->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, kTimeoutMs);
-		_talon->SetSensorPhase(true);
+		L1_talon->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+		L1_talon->SetSensorPhase(true);
 
 		/* set the peak and nominal outputs */
-		_talon->ConfigNominalOutputForward(0, kTimeoutMs);
-		_talon->ConfigNominalOutputReverse(0, kTimeoutMs);
-		_talon->ConfigPeakOutputForward(1, kTimeoutMs);
-		_talon->ConfigPeakOutputReverse(-1, kTimeoutMs);
+		L1_talon->ConfigNominalOutputForward(0, kTimeoutMs);
+		L1_talon->ConfigNominalOutputReverse(0, kTimeoutMs);
+		L1_talon->ConfigPeakOutputForward(1, kTimeoutMs);
+		L1_talon->ConfigPeakOutputReverse(-1, kTimeoutMs);
 		/* set closed loop gains in slot0 */
-		_talon->Config_kF(kPIDLoopIdx, 0.1097, kTimeoutMs);
-		_talon->Config_kP(kPIDLoopIdx, 0.22, kTimeoutMs);
-		_talon->Config_kI(kPIDLoopIdx, 0.0, kTimeoutMs);
-		_talon->Config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
+		L1_talon->Config_kF(kPIDLoopIdx, 0.1097, kTimeoutMs);
+		L1_talon->Config_kP(kPIDLoopIdx, 0.22, kTimeoutMs);
+		L1_talon->Config_kI(kPIDLoopIdx, 0.0, kTimeoutMs);
+		L1_talon->Config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
+	
+		L2_talon->Set(ControlMode::Follower, new TalonSRX(1));
+
+		//L2
+		//L2_talon->ConfigFactoryDefault();
+        /* first choose the sensor */
+		//L2_talon->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+		//L2_talon->SetSensorPhase(true);
+
+		/* set the peak and nominal outputs */
+		//L2_talon->ConfigNominalOutputForward(0, kTimeoutMs);
+		//L2_talon->ConfigNominalOutputReverse(0, kTimeoutMs);
+		//L2_talon->ConfigPeakOutputForward(1, kTimeoutMs);
+		//L2_talon->ConfigPeakOutputReverse(-1, kTimeoutMs);
+		/* set closed loop gains in slot0 */
+		//L2_talon->Config_kF(kPIDLoopIdx, 0.1097, kTimeoutMs);
+		//L2_talon->Config_kP(kPIDLoopIdx, 0.22, kTimeoutMs);
+		//L2_talon->Config_kI(kPIDLoopIdx, 0.0, kTimeoutMs);
+		//L2_talon->Config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
+		
+		//R3
+		R3_talon->ConfigFactoryDefault();
+        /* first choose the sensor */
+		R3_talon->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+		R3_talon->SetSensorPhase(true);
+
+		/* set the peak and nominal outputs */
+		R3_talon->ConfigNominalOutputForward(0, kTimeoutMs);
+		R3_talon->ConfigNominalOutputReverse(0, kTimeoutMs);
+		R3_talon->ConfigPeakOutputForward(1, kTimeoutMs);
+		R3_talon->ConfigPeakOutputReverse(-1, kTimeoutMs);
+		/* set closed loop gains in slot0 */
+		R3_talon->Config_kF(kPIDLoopIdx, 0.1097, kTimeoutMs);
+		R3_talon->Config_kP(kPIDLoopIdx, 0.22, kTimeoutMs);
+		R3_talon->Config_kI(kPIDLoopIdx, 0.0, kTimeoutMs);
+		R3_talon->Config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
+
+		R4_talon->Set(ControlMode::Follower, new TalonSRX (3));
+		//R4
+		//R4_talon->ConfigFactoryDefault();
+        /* first choose the sensor */
+		//R4_talon->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+		//R4_talon->SetSensorPhase(true);
+
+		/* set the peak and nominal outputs */
+		//R4_talon->ConfigNominalOutputForward(0, kTimeoutMs);
+		//R4_talon->ConfigNominalOutputReverse(0, kTimeoutMs);
+		//R4_talon->ConfigPeakOutputForward(1, kTimeoutMs);
+		//R4_talon->ConfigPeakOutputReverse(-1, kTimeoutMs);
+		/* set closed loop gains in slot0 */
+		//R4_talon->Config_kF(kPIDLoopIdx, 0.1097, kTimeoutMs);
+		//R4_talon->Config_kP(kPIDLoopIdx, 0.22, kTimeoutMs);
+		//R4_talon->Config_kI(kPIDLoopIdx, 0.0, kTimeoutMs);
+		//R4_talon->Config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
+	
 	}
+
+
 	/**
 	 * This function is called periodically during operator control
 	 */
 	void TeleopPeriodic() {
 		/* get gamepad axis */
 		double leftYstick = _joy->GetY();
-		double motorOutput = _talon->GetMotorOutputPercent();
+		double L1_motorOutput = L1_talon->GetMotorOutputPercent();
+		//double L2_motorOutput = L2_talon->GetMotorOutputPercent();
+		double R3_motorOutput = R3_talon->GetMotorOutputPercent();
+		//double R4_motorOutput = R4_talon->GetMotorOutputPercent();
 		/* prepare line to print */
 		_sb.append("\tout:");
-		_sb.append(std::to_string(motorOutput));
+		_sb.append(std::to_string(L1_motorOutput));
+		//_sb.append(std::to_string(L2_motorOutput));
+		_sb.append(std::to_string(R3_motorOutput));
+		//_sb.append(std::to_string(R4_motorOutput));
+
 		_sb.append("\tspd:");
-		_sb.append(std::to_string(_talon->GetSelectedSensorVelocity(kPIDLoopIdx)));
+		_sb.append(std::to_string(L1_talon->GetSelectedSensorVelocity(kPIDLoopIdx)));
+		//_sb.append(std::to_string(L2_talon->GetSelectedSensorVelocity(kPIDLoopIdx)));
+		_sb.append(std::to_string(R3_talon->GetSelectedSensorVelocity(kPIDLoopIdx)));
+		//_sb.append(std::to_string(R4_talon->GetSelectedSensorVelocity(kPIDLoopIdx)));
+
 		/* while button1 is held down, closed-loop on target velocity */
 		if (_joy->GetRawButton(1)) {
         	/* Speed mode */
@@ -92,16 +165,25 @@ public:
 			 */
 			double targetVelocity_UnitsPer100ms = leftYstick * 500.0 * 4096 / 600;
 			/* 500 RPM in either direction */
-        	_talon->Set(ControlMode::Velocity, targetVelocity_UnitsPer100ms); 
+        	L1_talon->Set(ControlMode::Velocity, targetVelocity_UnitsPer100ms); 
+			//L2_talon->Set(ControlMode::Velocity, targetVelocity_UnitsPer100ms);
+			R3_talon->Set(ControlMode::Velocity, targetVelocity_UnitsPer100ms);
+			//R4_talon->Set(ControlMode::Velocity, targetVelocity_UnitsPer100ms);
 
 			/* append more signals to print when in speed mode. */
 			_sb.append("\terrNative:");
-			_sb.append(std::to_string(_talon->GetClosedLoopError(kPIDLoopIdx)));
+			_sb.append(std::to_string(L1_talon->GetClosedLoopError(kPIDLoopIdx)));
+			//_sb.append(std::to_string(L2_talon->GetClosedLoopError(kPIDLoopIdx)));
+			_sb.append(std::to_string(R3_talon->GetClosedLoopError(kPIDLoopIdx)));
+			//_sb.append(std::to_string(R4_talon->GetClosedLoopError(kPIDLoopIdx)));
 			_sb.append("\ttrg:");
 			_sb.append(std::to_string(targetVelocity_UnitsPer100ms));
         } else {
 			/* Percent voltage mode */
-			_talon->Set(ControlMode::PercentOutput, leftYstick);
+			L1_talon->Set(ControlMode::PercentOutput, leftYstick);
+			//L2_talon->Set(ControlMode::PercentOutput, leftYstick);
+			R3_talon->Set(ControlMode::PercentOutput, leftYstick);
+			//R4_talon->Set(ControlMode::PercentOutput, leftYstick);
 		}
 		/* print every ten loops, printing too much too fast is generally bad for performance */
 		if (++_loops >= 10) {
