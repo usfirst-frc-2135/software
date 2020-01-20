@@ -76,24 +76,24 @@ public:
 		L1_talon->Config_kI(kPIDLoopIdx, 0.0, kTimeoutMs);
 		L1_talon->Config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
 	
-		L2_talon->Set(ControlMode::Follower, new TalonSRX(1));
+		//L2_talon->Set(ControlMode::Follower, new TalonSRX(1));
 
 		//L2
-		//L2_talon->ConfigFactoryDefault();
+		L2_talon->ConfigFactoryDefault();
         /* first choose the sensor */
-		//L2_talon->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, kTimeoutMs);
-		//L2_talon->SetSensorPhase(true);
+		L2_talon->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+		L2_talon->SetSensorPhase(true);
 
 		/* set the peak and nominal outputs */
-		//L2_talon->ConfigNominalOutputForward(0, kTimeoutMs);
-		//L2_talon->ConfigNominalOutputReverse(0, kTimeoutMs);
-		//L2_talon->ConfigPeakOutputForward(1, kTimeoutMs);
-		//L2_talon->ConfigPeakOutputReverse(-1, kTimeoutMs);
+		L2_talon->ConfigNominalOutputForward(0, kTimeoutMs);
+		L2_talon->ConfigNominalOutputReverse(0, kTimeoutMs);
+		L2_talon->ConfigPeakOutputForward(1, kTimeoutMs);
+		L2_talon->ConfigPeakOutputReverse(-1, kTimeoutMs);
 		/* set closed loop gains in slot0 */
-		//L2_talon->Config_kF(kPIDLoopIdx, 0.1097, kTimeoutMs);
-		//L2_talon->Config_kP(kPIDLoopIdx, 0.22, kTimeoutMs);
-		//L2_talon->Config_kI(kPIDLoopIdx, 0.0, kTimeoutMs);
-		//L2_talon->Config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
+		L2_talon->Config_kF(kPIDLoopIdx, 0.1097, kTimeoutMs);
+		L2_talon->Config_kP(kPIDLoopIdx, 0.22, kTimeoutMs);
+		L2_talon->Config_kI(kPIDLoopIdx, 0.0, kTimeoutMs);
+		L2_talon->Config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
 		
 		//R3
 		R3_talon->ConfigFactoryDefault();
@@ -107,28 +107,28 @@ public:
 		R3_talon->ConfigPeakOutputForward(1, kTimeoutMs);
 		R3_talon->ConfigPeakOutputReverse(-1, kTimeoutMs);
 		/* set closed loop gains in slot0 */
-		R3_talon->Config_kF(kPIDLoopIdx, 0.1097, kTimeoutMs);
-		R3_talon->Config_kP(kPIDLoopIdx, 0.22, kTimeoutMs);
+		R3_talon->Config_kF(kPIDLoopIdx, -0.1097, kTimeoutMs);
+		R3_talon->Config_kP(kPIDLoopIdx, -0.22, kTimeoutMs);
 		R3_talon->Config_kI(kPIDLoopIdx, 0.0, kTimeoutMs);
 		R3_talon->Config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
 
-		R4_talon->Set(ControlMode::Follower, new TalonSRX (3));
+		//R4_talon->Set(ControlMode::Follower, new TalonSRX (3));
 		//R4
-		//R4_talon->ConfigFactoryDefault();
+		R4_talon->ConfigFactoryDefault();
         /* first choose the sensor */
-		//R4_talon->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, kTimeoutMs);
-		//R4_talon->SetSensorPhase(true);
+		R4_talon->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+		R4_talon->SetSensorPhase(true);
 
 		/* set the peak and nominal outputs */
-		//R4_talon->ConfigNominalOutputForward(0, kTimeoutMs);
-		//R4_talon->ConfigNominalOutputReverse(0, kTimeoutMs);
-		//R4_talon->ConfigPeakOutputForward(1, kTimeoutMs);
-		//R4_talon->ConfigPeakOutputReverse(-1, kTimeoutMs);
+		R4_talon->ConfigNominalOutputForward(0, kTimeoutMs);
+		R4_talon->ConfigNominalOutputReverse(0, kTimeoutMs);
+		R4_talon->ConfigPeakOutputForward(1, kTimeoutMs);
+		R4_talon->ConfigPeakOutputReverse(-1, kTimeoutMs);
 		/* set closed loop gains in slot0 */
-		//R4_talon->Config_kF(kPIDLoopIdx, 0.1097, kTimeoutMs);
-		//R4_talon->Config_kP(kPIDLoopIdx, 0.22, kTimeoutMs);
-		//R4_talon->Config_kI(kPIDLoopIdx, 0.0, kTimeoutMs);
-		//R4_talon->Config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
+		R4_talon->Config_kF(kPIDLoopIdx, -0.1097, kTimeoutMs);
+		R4_talon->Config_kP(kPIDLoopIdx, -0.22, kTimeoutMs);
+		R4_talon->Config_kI(kPIDLoopIdx, 0.0, kTimeoutMs);
+		R4_talon->Config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
 	
 	}
 
