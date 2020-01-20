@@ -22,8 +22,8 @@
   DT_PidKd = 0.000
   DT_ArbFeedForward = 0.000
 # Intake settings
-  IN_AcquireSpeed = 0.35
-  IN_ExpelSpeed = 0.45
+  IN_AcquireSpeed = 0.75
+  IN_ExpelSpeed = -0.75
 # Conveyor settings
 # Shooter settings
   SH_FireSpeed = 0.9
