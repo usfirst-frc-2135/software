@@ -1,0 +1,48 @@
+See file:///C:/Users/jeffl/Documents/git/software/2020/VelocityClosedLoop/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
+compiling Robot.cpp failed.
+In file included from C:\Users\jeffl\Documents\git\software\2020\VelocityClosedLoop\src\main\cpp\Robot.cpp:44:0:
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\f78589b1f173909e18ca9d5419a0a5fa\wpilibc-cpp-2020.2.2-headers/frc/WPILib.h:14:2: warning: #warning is a GCC extension
+ #warning "Including this header drastically increases compilation times and is bad style. Include only what you use instead."
+  ^~~~~~~
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\f78589b1f173909e18ca9d5419a0a5fa\wpilibc-cpp-2020.2.2-headers/frc/WPILib.h:14:2: warning: #warning "Including this header drastically increases compilation times and is bad style. Include only what you use instead." [-Wcpp]
+C:\Users\jeffl\Documents\git\software\2020\VelocityClosedLoop\src\main\cpp\Robot.cpp: In member function 'virtual void Robot::RobotInit()':
+C:\Users\jeffl\Documents\git\software\2020\VelocityClosedLoop\src\main\cpp\Robot.cpp:79:55: error: no matching function for call to 'ctre::phoenix::motorcontrol::can::TalonSRX::Set(ctre::phoenix::motorcontrol::ControlMode, ctre::phoenix::motorcontrol::can::TalonSRX*)'
+   L2_talon->Set(ControlMode::Follower, new TalonSRX(1));
+                                                       ^
+In file included from C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseTalon.h:7:0,
+                 from C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/TalonFX.h:7,
+                 from C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/Phoenix.h:20,
+                 from C:\Users\jeffl\Documents\git\software\2020\VelocityClosedLoop\src\main\cpp\Robot.cpp:45:
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseMotorController.h:682:19: note: candidate: virtual void ctre::phoenix::motorcontrol::can::BaseMotorController::Set(ctre::phoenix::motorcontrol::ControlMode, double)
+      virtual void Set(ControlMode mode, double value);
+                   ^~~
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseMotorController.h:682:19: note:   no known conversion for argument 2 from 'ctre::phoenix::motorcontrol::can::TalonSRX*' to 'double'
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseMotorController.h:699:19: note: candidate: virtual void ctre::phoenix::motorcontrol::can::BaseMotorController::Set(ctre::phoenix::motorcontrol::ControlMode, double, double)
+      virtual void Set(ControlMode mode, double demand0, double demand1);
+                   ^~~
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseMotorController.h:699:19: note:   candidate expects 3 arguments, 2 provided
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseMotorController.h:738:19: note: candidate: virtual void ctre::phoenix::motorcontrol::can::BaseMotorController::Set(ctre::phoenix::motorcontrol::ControlMode, double, ctre::phoenix::motorcontrol::DemandType, double)
+      virtual void Set(ControlMode mode, double demand0, DemandType demand1Type, double demand1);
+                   ^~~
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseMotorController.h:738:19: note:   candidate expects 4 arguments, 2 provided
+C:\Users\jeffl\Documents\git\software\2020\VelocityClosedLoop\src\main\cpp\Robot.cpp:115:56: error: no matching function for call to 'ctre::phoenix::motorcontrol::can::TalonSRX::Set(ctre::phoenix::motorcontrol::ControlMode, ctre::phoenix::motorcontrol::can::TalonSRX*)'
+   R4_talon->Set(ControlMode::Follower, new TalonSRX (3));
+                                                        ^
+In file included from C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseTalon.h:7:0,
+                 from C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/TalonFX.h:7,
+                 from C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/Phoenix.h:20,
+                 from C:\Users\jeffl\Documents\git\software\2020\VelocityClosedLoop\src\main\cpp\Robot.cpp:45:
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseMotorController.h:682:19: note: candidate: virtual void ctre::phoenix::motorcontrol::can::BaseMotorController::Set(ctre::phoenix::motorcontrol::ControlMode, double)
+      virtual void Set(ControlMode mode, double value);
+                   ^~~
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseMotorController.h:682:19: note:   no known conversion for argument 2 from 'ctre::phoenix::motorcontrol::can::TalonSRX*' to 'double'
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseMotorController.h:699:19: note: candidate: virtual void ctre::phoenix::motorcontrol::can::BaseMotorController::Set(ctre::phoenix::motorcontrol::ControlMode, double, double)
+      virtual void Set(ControlMode mode, double demand0, double demand1);
+                   ^~~
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseMotorController.h:699:19: note:   candidate expects 3 arguments, 2 provided
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseMotorController.h:738:19: note: candidate: virtual void ctre::phoenix::motorcontrol::can::BaseMotorController::Set(ctre::phoenix::motorcontrol::ControlMode, double, ctre::phoenix::motorcontrol::DemandType, double)
+      virtual void Set(ControlMode mode, double demand0, DemandType demand1Type, double demand1);
+                   ^~~
+C:\Users\jeffl\.gradle\caches\transforms-2\files-2.1\0aaf3cf917244c0ac32ba6be7873ad12\api-cpp-5.17.3-headers/ctre/phoenix/motorcontrol/can/BaseMotorController.h:738:19: note:   candidate expects 4 arguments, 2 provided
+
+Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/Users/jeffl/Documents/git/software/2020/VelocityClosedLoop/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.
