@@ -31,7 +31,7 @@ DriveSubsystem::DriveSubsystem()
 
   ResetEncoders();
 
-  m_talon_left1.SetSensorPhase(true);
+  //m_talon_left1.SetSensorPhase(true);
   m_talon_left1.SetInverted(true);
   m_talon_left1.SetNeutralMode(NeutralMode::Coast);
   m_talon_left2.Set(ControlMode::Follower, 1);
