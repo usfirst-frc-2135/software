@@ -47,6 +47,7 @@ private:
 
 	//	Declare constants
 	int m_driveDebug = 0;						   // Debug flag to disable extra logging calls
+	int m_alignTurnDebug = 0;					   // Debug flag to disable extra logging calls
 	const int m_pidIndex = 0;					   // PID slot index for sensors
 	const int m_timeout = 30;					   // CAN timeout in msec to wait for response
 	const double COUNTS_PER_ROTATION = (1024 * 4); // CPR is 1024 and multiplied by 4
@@ -94,6 +95,9 @@ private:
 	double m_arbFeedForward; // Drivetrain Motion Magic Arbitrary Feed Forward
 
 	bool m_throttleZeroed; // Throttle joystick zeroed check for safety
+
+	double m_alignTurnKp = 0.05; // TODO: change to be set in config file
+	double m_alignTurnError;
 
 	enum
 	{ // Driving Algorithms
@@ -151,5 +155,9 @@ Drivetrain();
 
 	void ResetSensors();
 
+	// Aligning with Target Using Vision Processing
+	void MoveAlignTurnInit();
+	void MoveAlignTurnExecute(std::shared_ptr<frc::Joystick>, std::shared_ptr<frc::Joystick>);
+	bool MoveAlignTurnIsFinished();
 };
 

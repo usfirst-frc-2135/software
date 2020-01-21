@@ -15,6 +15,7 @@
 #include "frc/smartdashboard/SmartDashboard.h"
 #include "Commands/AutoDriveDist.h"
 #include "Commands/AutoStop.h"
+#include "Commands/DriveAlignTurn.h"
 #include "Commands/DriveReset.h"
 #include "Commands/DriveShift.h"
 #include "Commands/DriveTeleop.h"
@@ -41,6 +42,7 @@ shiftSpeed->WhileHeld(new DriveShift(false));
     // SmartDashboard Buttons
     frc::SmartDashboard::PutData("Spin Rotation", new SpinRotation());
     frc::SmartDashboard::PutData("Spin Color", new SpinColor());
+    frc::SmartDashboard::PutData("Drive Align Turn", new DriveAlignTurn());
     frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
     frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT", new AutoDriveDist(0));
 
