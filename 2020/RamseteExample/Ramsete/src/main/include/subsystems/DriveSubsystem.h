@@ -117,6 +117,10 @@ class DriveSubsystem : public frc2::SubsystemBase {
    */
   void ResetOdometry(frc::Pose2d pose);
 
+  double GetDistance(WPI_TalonSRX *talon);
+
+  void SetTalonEncoders(WPI_TalonSRX *talon, double value);
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
@@ -130,23 +134,23 @@ class DriveSubsystem : public frc2::SubsystemBase {
   
   WPI_TalonSRX m_talon_left1; 
   WPI_TalonSRX m_talon_left2;
-  WPI_TalonSRX m_talon_right1;
-  WPI_TalonSRX m_talon_right2;
+  WPI_TalonSRX m_talon_right3;
+  WPI_TalonSRX m_talon_right4;
 
   // The motors on the left side of the drive
   frc::SpeedControllerGroup m_leftMotors{m_talon_left1, m_talon_left2};
 
   // The motors on the right side of the drive
-  frc::SpeedControllerGroup m_rightMotors{m_talon_right1, m_talon_right2};
+  frc::SpeedControllerGroup m_rightMotors{m_talon_right3, m_talon_right4};
 
   // The robot's drive
   frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};
 
   // The left-side drive encoder
-  // frc::Encoder m_leftEncoder;
+  frc::Encoder m_leftEncoder;
 
   // The right-side drive encoder
-  // frc::Encoder m_rightEncoder;
+  frc::Encoder m_rightEncoder;
 
   // The gyro sensor
   frc::ADXRS450_Gyro m_gyro;

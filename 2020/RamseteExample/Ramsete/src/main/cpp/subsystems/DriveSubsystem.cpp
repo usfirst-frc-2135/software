@@ -22,21 +22,35 @@ DriveSubsystem::DriveSubsystem()
       m_odometry{frc::Rotation2d(units::degree_t(GetHeading()))},
       m_talon_left1{kLeftMotor1Port},
       m_talon_left2{kLeftMotor2Port},
-      m_talon_right1{kRightMotor1Port},
-      m_talon_right2{kRightMotor2Port}
+      m_talon_right3{kRightMotor1Port},
+      m_talon_right4{kRightMotor2Port}
        {
   // Set the distance per pulse for the encoders
   m_leftEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
   m_rightEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
 
   ResetEncoders();
+
+  m_talon_left1.SetSensorPhase(true);
+  m_talon_left1.SetInverted(true);
+  m_talon_left1.SetNeutralMode(NeutralMode::Coast);
+  m_talon_left2.Set(ControlMode::Follower, 1);
+  m_talon_left2.SetInverted(InvertType::FollowMaster);
+  m_talon_left2.SetNeutralMode(NeutralMode::Coast);
+  m_talon_right3.SetSensorPhase(true);
+  m_talon_right3.SetInverted(true);
+  m_talon_right3.SetNeutralMode(NeutralMode::Coast);
+  m_talon_right4.Set(ControlMode::Follower, 3);
+  m_talon_right4.SetInverted(InvertType::FollowMaster);
+  m_talon_right4.SetNeutralMode(NeutralMode::Coast);
 }
 
 void DriveSubsystem::Periodic() {
   // Implementation of subsystem periodic method goes here.
   m_odometry.Update(frc::Rotation2d(units::degree_t(GetHeading())),
-                    units::meter_t(m_leftEncoder.GetDistance()),
-                    units::meter_t(m_rightEncoder.GetDistance()));
+                    units::meter_t(GetDistance(&m_talon_left1)),
+                    units::meter_t(GetDistance(&m_talon_right3)));
+
 }
 
 void DriveSubsystem::ArcadeDrive(double fwd, double rot) {
@@ -49,12 +63,12 @@ void DriveSubsystem::TankDriveVolts(units::volt_t left, units::volt_t right) {
 }
 
 void DriveSubsystem::ResetEncoders() {
-  m_leftEncoder.Reset();
-  m_rightEncoder.Reset();
+  SetTalonEncoders(&m_talon_left1, 0),
+  SetTalonEncoders(&m_talon_right3, 0);
 }
 
 double DriveSubsystem::GetAverageEncoderDistance() {
-  return (m_leftEncoder.GetDistance() + m_rightEncoder.GetDistance()) / 2.0;
+  return (GetDistance(&m_talon_left1) + GetDistance(&m_talon_right3)) / 2.0;
 }
 
 frc::Encoder& DriveSubsystem::GetLeftEncoder() { return m_leftEncoder; }
@@ -84,4 +98,15 @@ void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
   ResetEncoders();
   m_odometry.ResetPosition(pose,
                            frc::Rotation2d(units::degree_t(GetHeading())));
+}
+
+double DriveSubsystem::GetDistance(WPI_TalonSRX *talon) {
+  double distance = kEncoderDistancePerPulse * talon->GetSelectedSensorPosition();
+  int id = talon->GetDeviceID();
+  printf("ID: %d has value %f\n", id, distance);
+  return distance;
+}
+
+void DriveSubsystem::SetTalonEncoders(WPI_TalonSRX *talon, double value) {
+  talon->SetSelectedSensorPosition(value);
 }
