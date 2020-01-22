@@ -1,4 +1,0 @@
-See file:///C:/Users/Administrator/Documents/git/software/2020/VelocityClosedLoop/build/tmp/linkFrcUserProgramDebugExecutable/output.txt for all output for linkFrcUserProgramDebugExecutable.
-linking frcUserProgram successful.
-
-Finished linkFrcUserProgramDebugExecutable, see full log file:///C:/Users/Administrator/Documents/git/software/2020/VelocityClosedLoop/build/tmp/linkFrcUserProgramDebugExecutable/output.txt.

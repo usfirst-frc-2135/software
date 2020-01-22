@@ -1,9 +1,0 @@
-See file:///C:/Users/Administrator/Documents/git/software/2020/VelocityClosedLoop/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
-compiling Robot.cpp successful.
-In file included from C:\Users\Administrator\Documents\git\software\2020\VelocityClosedLoop\src\main\cpp\Robot.cpp:44:0:
-C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\f78589b1f173909e18ca9d5419a0a5fa\wpilibc-cpp-2020.2.2-headers/frc/WPILib.h:14:2: warning: #warning is a GCC extension
- #warning "Including this header drastically increases compilation times and is bad style. Include only what you use instead."
-  ^~~~~~~
-C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\f78589b1f173909e18ca9d5419a0a5fa\wpilibc-cpp-2020.2.2-headers/frc/WPILib.h:14:2: warning: #warning "Including this header drastically increases compilation times and is bad style. Include only what you use instead." [-Wcpp]
-
-Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/Users/Administrator/Documents/git/software/2020/VelocityClosedLoop/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.
