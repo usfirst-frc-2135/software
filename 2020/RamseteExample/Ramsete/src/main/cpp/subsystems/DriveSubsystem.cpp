@@ -47,9 +47,18 @@ DriveSubsystem::DriveSubsystem()
 
 void DriveSubsystem::Periodic() {
   // Implementation of subsystem periodic method goes here.
+  double left_dist = GetDistance(&m_talon_left1);
+  double right_dist = GetDistance(&m_talon_right3);
+  static int count = 0;
+  //printf("%f, %f\n", left_dist, right_dist);
+  //printf();
+  count++;
+  if ((count % 5) == 0) {
+    printf("%f, %f\n", left_dist, right_dist);
+  }
   m_odometry.Update(frc::Rotation2d(units::degree_t(GetHeading())),
-                    units::meter_t(GetDistance(&m_talon_left1)),
-                    units::meter_t(GetDistance(&m_talon_right3)));
+                    units::meter_t(left_dist),
+                    units::meter_t(right_dist));
 
 }
 
@@ -101,9 +110,9 @@ void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
 }
 
 double DriveSubsystem::GetDistance(WPI_TalonSRX *talon) {
-  double distance = kEncoderDistancePerPulse * talon->GetSelectedSensorPosition();
-  int id = talon->GetDeviceID();
-  printf("ID: %d has value %f\n", id, distance);
+  double distance = (kEncoderDistancePerPulse * talon->GetSelectedSensorPosition()) / 39.3701;
+  //int id = talon->GetDeviceID();
+  //printf("ID: %d has value %f\n", id, distance);
   return distance;
 }
 
