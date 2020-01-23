@@ -9,6 +9,7 @@
 
 #include <frc/geometry/Rotation2d.h>
 #include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 using namespace DriveConstants;
 
@@ -31,18 +32,25 @@ DriveSubsystem::DriveSubsystem()
 
   ResetEncoders();
 
+  m_talon_left1.ConfigFactoryDefault(30);
+  m_talon_left2.ConfigFactoryDefault(30);
+  m_talon_right3.ConfigFactoryDefault(30);
+  m_talon_right4.ConfigFactoryDefault(30);
+
   //m_talon_left1.SetSensorPhase(true);
   m_talon_left1.SetInverted(true);
-  m_talon_left1.SetNeutralMode(NeutralMode::Coast);
-  m_talon_left2.Set(ControlMode::Follower, 1);
-  m_talon_left2.SetInverted(InvertType::FollowMaster);
-  m_talon_left2.SetNeutralMode(NeutralMode::Coast);
+  m_talon_left1.SetNeutralMode(NeutralMode::Brake);
+  //m_talon_left2.Set(ControlMode::Follower, 1);
+  //m_talon_left2.SetInverted(InvertType::FollowMaster);
+  m_talon_left2.SetInverted(true);
+  m_talon_left2.SetNeutralMode(NeutralMode::Brake);
   m_talon_right3.SetSensorPhase(true);
   m_talon_right3.SetInverted(true);
-  m_talon_right3.SetNeutralMode(NeutralMode::Coast);
-  m_talon_right4.Set(ControlMode::Follower, 3);
-  m_talon_right4.SetInverted(InvertType::FollowMaster);
-  m_talon_right4.SetNeutralMode(NeutralMode::Coast);
+  m_talon_right3.SetNeutralMode(NeutralMode::Brake);
+  //m_talon_right4.Set(ControlMode::Follower, 3);
+  //m_talon_right4.SetInverted(InvertType::FollowMaster);
+  m_talon_right4.SetInverted(true);
+  m_talon_right4.SetNeutralMode(NeutralMode::Brake);
 }
 
 void DriveSubsystem::Periodic() {
@@ -59,6 +67,11 @@ void DriveSubsystem::Periodic() {
   m_odometry.Update(frc::Rotation2d(units::degree_t(GetHeading())),
                     units::meter_t(left_dist),
                     units::meter_t(right_dist));
+
+  double gyroAngle = GetHeading(); 
+	frc::SmartDashboard::PutNumber("Gyro angle", gyroAngle);
+	frc::SmartDashboard::PutNumber("Left distance", left_dist);
+  frc::SmartDashboard::PutNumber("Right distance", right_dist);
 
 }
 

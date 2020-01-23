@@ -32,7 +32,7 @@ constexpr int kRightEncoderPorts[]{3, 4};
 constexpr bool kLeftEncoderReversed = true;
 constexpr bool kRightEncoderReversed = true;
 
-constexpr auto kTrackwidth = 0.5_m;
+constexpr auto kTrackwidth = 0.62865_m;
 extern const frc::DifferentialDriveKinematics kDriveKinematics;
 
 constexpr int kEncoderCPR = 4096;
