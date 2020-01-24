@@ -32,7 +32,7 @@ constexpr int kRightEncoderPorts[]{3, 4};
 constexpr bool kLeftEncoderReversed = true;
 constexpr bool kRightEncoderReversed = true;
 
-constexpr auto kTrackwidth = 0.62865_m;
+constexpr auto kTrackwidth = 0.6096_m;
 extern const frc::DifferentialDriveKinematics kDriveKinematics;
 
 constexpr int kEncoderCPR = 4096;
@@ -53,12 +53,12 @@ constexpr auto kv = .264 * 1_V * 1_s / 1_m;
 constexpr auto ka = .00527 * 1_V * 1_s * 1_s / 1_m;
 
 // Example value only - as above, this must be tuned for your drive!
-constexpr double kPDriveVel = 8.5;
+constexpr double kPDriveVel = .818;
 }  // namespace DriveConstants
 
 namespace AutoConstants {
-constexpr auto kMaxSpeed = 3_mps;
-constexpr auto kMaxAcceleration = 3_mps_sq;
+constexpr auto kMaxSpeed = 2.1336_mps;
+constexpr auto kMaxAcceleration = 10.668_mps_sq;
 
 // Reasonable baseline values for a RAMSETE follower in units of meters and
 // seconds
