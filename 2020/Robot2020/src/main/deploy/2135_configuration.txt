@@ -25,6 +25,9 @@
   IN_AcquireSpeed = 0.75
   IN_ExpelSpeed = -0.75
 # Conveyor settings
+  CV_AcquireSpeed = 0.75
+  CV_HoldSpeed = 0.1
+  CV_ExpelSpeed = -0.75
 # Shooter settings
   SH_FireSpeed = 0.9
 # Spinner settings
