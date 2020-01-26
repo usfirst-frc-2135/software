@@ -48,12 +48,12 @@ constexpr bool kGyroReversed = true;
 // theoretically for *your* robot's drive. The Robot Characterization
 // Toolsuite provides a convenient tool for obtaining these values for your
 // robot.
-constexpr auto ks = 1.02_V;
-constexpr auto kv = .264 * 1_V * 1_s / 1_m;
-constexpr auto ka = .00527 * 1_V * 1_s * 1_s / 1_m;
+constexpr auto ks = .775_V;
+constexpr auto kv = 1.44 * 1_V * 1_s / 1_m;
+constexpr auto ka = .216 * 1_V * 1_s * 1_s / 1_m;
 
 // Example value only - as above, this must be tuned for your drive!
-constexpr double kPDriveVel = .818;
+constexpr double kPDriveVel = 8.3333;
 }  // namespace DriveConstants
 
 namespace AutoConstants {
@@ -62,7 +62,7 @@ constexpr auto kMaxAcceleration = 10.668_mps_sq;
 
 // Reasonable baseline values for a RAMSETE follower in units of meters and
 // seconds
-constexpr double kRamseteB = 2;
+constexpr double kRamseteB = 2.29;
 constexpr double kRamseteZeta = 0.7;
 }  // namespace AutoConstants
 
