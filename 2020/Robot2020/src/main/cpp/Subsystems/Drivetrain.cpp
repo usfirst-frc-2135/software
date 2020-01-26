@@ -140,10 +140,10 @@ AddChild("Shifter", shifter);
 	// driveTurnPIDOutput = new PIDOutputDriveTurn(diffDrive);
     // driveTurnPIDLoop = new frc::PIDController(m_turnKp, 0.0, 0.0, driveTurnPIDSource, driveTurnPIDOutput, 0.010);
 
-	// // Adjust Kp for encoder being used
-    // driveVisionPIDSource = new PIDSourceDriveVision();
-    // driveVisionPIDOutput = new PIDOutputDriveVision(diffDrive);
-    // driveVisionPIDLoop = new frc::PIDController(m_visionTurnKp, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
+	// Vision-based PID Controller
+    driveVisionPIDSource = new PIDSourceDriveVision();
+    driveVisionPIDOutput = new PIDOutputDriveVision(diffDrive);
+    driveVisionPIDLoop = new frc::PIDController(m_visionTurnKp, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
 
     // // Settings for Turn PID
    	// driveTurnPIDLoop->SetPID(m_turnKp, 0.0, 0.0);
@@ -540,8 +540,8 @@ void Drivetrain::MoveAlignTurnExecute(std::shared_ptr<frc::Joystick> throttleJst
 	m_alignTurnError = (Robot::vision->GetHorzOffset());
 	alignTurnAdjustment = m_alignTurnError * m_alignTurnKp;
 	
-	double leftThrottle = throttle-alignTurnAdjustment;
-	double rightThrottle = throttle+alignTurnAdjustment;
+	double leftThrottle = throttle - alignTurnAdjustment;
+	double rightThrottle = throttle + alignTurnAdjustment;
 
 	if (m_alignTurnDebug) {
 	std::printf("2135: DTAT - Error %5.2f degrees Adjustment %5.2f Left Throttle %5.2f Right Throttle %5.2f/n", 
