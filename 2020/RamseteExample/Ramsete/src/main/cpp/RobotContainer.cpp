@@ -17,6 +17,7 @@
 #include <frc2/command/RamseteCommand.h>
 #include <frc2/command/SequentialCommandGroup.h>
 #include <frc2/command/button/JoystickButton.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include "Constants.h"
 
@@ -71,6 +72,13 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       // Pass the config
       config);
 
+  frc2::PIDController leftController(DriveConstants::kPDriveVel, 0,0);
+  frc2::PIDController rightController(DriveConstants::kPDriveVel, 0,0);
+    double dashValue;
+   dashValue = frc::SmartDashboard::GetNumber("L_Ctr", 0.99);
+   leftController.SetTolerance(dashValue);
+   rightController.SetTolerance(dashValue);
+
   frc2::RamseteCommand ramseteCommand(
       exampleTrajectory, [this]() { return m_drive.GetPose(); },
       frc::RamseteController(AutoConstants::kRamseteB,
@@ -79,8 +87,8 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
           DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
       DriveConstants::kDriveKinematics,
       [this] { return m_drive.GetWheelSpeeds(); },
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      leftController,
+      rightController,
       [this](auto left, auto right) { m_drive.TankDriveVolts(left, right); },
       {&m_drive});
 
