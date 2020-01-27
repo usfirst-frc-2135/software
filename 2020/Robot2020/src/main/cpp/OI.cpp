@@ -15,6 +15,7 @@
 #include "frc/smartdashboard/SmartDashboard.h"
 #include "Commands/AutoDriveDist.h"
 #include "Commands/AutoStop.h"
+#include "Commands/DriveAlignPIDTurn.h"
 #include "Commands/DriveAlignTurn.h"
 #include "Commands/DriveReset.h"
 #include "Commands/DriveShift.h"
@@ -40,6 +41,7 @@ shiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
 shiftSpeed->WhileHeld(new DriveShift(false));
 
     // SmartDashboard Buttons
+    frc::SmartDashboard::PutData("Drive Align PID Turn: default", new DriveAlignPIDTurn(0.0));
     frc::SmartDashboard::PutData("Spin Rotation", new SpinRotation());
     frc::SmartDashboard::PutData("Spin Color", new SpinColor());
     frc::SmartDashboard::PutData("Drive Align Turn", new DriveAlignTurn());

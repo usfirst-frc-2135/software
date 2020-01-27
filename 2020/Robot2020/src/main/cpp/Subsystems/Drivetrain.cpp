@@ -570,3 +570,66 @@ bool Drivetrain::MoveAlignTurnIsFinished() {
 	return isFinished;
 }
 
+///////// Aligning with Target Using Vision Processing with (deprecated) PID Controller ///////////
+	
+void Drivetrain::MoveAlignTurnPIDInit(double targetHorz) {
+	// Set current angle
+	double currAngle = Robot::vision->GetHorzOffset();
+	driveVisionPIDOutput->SetTurnAngle(currAngle);
+	driveVisionPIDSource->SetTurnAngle(currAngle);
+
+	// Set target turn angle
+	driveVisionPIDLoop->SetSetpoint(targetHorz);
+	
+	driveVisionPIDLoop->SetOutputRange(-0.75, 0.75);
+
+	// Enable the PID loop (tolerance is in encoder count units)
+	driveVisionPIDLoop->SetAbsoluteTolerance(0.5);	// This is +/-, so 0.5 => 1.0 degree
+	driveVisionPIDLoop->Enable();
+
+	//Start safety timer
+	m_safetyTimer.Reset();
+	m_safetyTimer.Start();
+	m_safetyTimeout = 2.5;
+
+	// Disable safety feature during movement, since motors will be fed by loop
+	diffDrive->SetSafetyEnabled(false);
+}
+
+bool Drivetrain::MoveAlignTurnPIDISFinished() {
+	double isFinished = false;
+
+	// Test the PID to see if it is on the programmed target
+	if (driveVisionPIDLoop->OnTarget()) {
+		isFinished = true;
+
+		std::printf("2135: DT Turned to Horizontal Target. Horz: %3.2f\n",
+			Robot::vision->GetHorzOffset());
+	}
+
+	// Check if safety timer has expired, set value to about 2x the cycle
+	if (m_safetyTimer.HasPeriodPassed(m_safetyTimeout)) {
+		std::printf("2135: Safety Timer timed out %3.2f\n", m_safetyTimeout);
+		isFinished = true;
+	}
+
+	return isFinished;
+}
+
+void Drivetrain::MoveAlignTurnPIDStop() {
+	double closedLoopError;
+
+	// Disable PID loop
+	driveVisionPIDLoop->Disable();
+
+	// Stop safety timer
+	std::printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
+	m_safetyTimer.Stop();
+
+	// Gets closed loop error and prints it
+	closedLoopError = driveVisionPIDLoop->GetError();
+	std::printf("2135: ClosedLoopError: %f\n", closedLoopError);
+
+	// Re-enable the motor safety helper (temporarily disabled)
+	diffDrive->SetSafetyEnabled(false);
+}

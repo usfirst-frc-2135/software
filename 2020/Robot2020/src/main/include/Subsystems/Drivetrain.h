@@ -164,5 +164,10 @@ Drivetrain();
 	void MoveAlignTurnInit();
 	void MoveAlignTurnExecute(std::shared_ptr<frc::Joystick>, std::shared_ptr<frc::Joystick>);
 	bool MoveAlignTurnIsFinished();
+
+	// Aligning with Target Using Vision Processing with (deprecated) PID Controller
+	void MoveAlignTurnPIDInit(double targetHorz);
+	bool MoveAlignTurnPIDISFinished();
+	void MoveAlignTurnPIDStop();
 };
 
