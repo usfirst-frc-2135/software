@@ -97,3 +97,7 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       std::move(ramseteCommand),
       frc2::InstantCommand([this] { m_drive.TankDriveVolts(0_V, 0_V); }, {}));
 }
+
+void RobotContainer::CoastAndStop() {
+    m_drive.CoastAndStop();
+}

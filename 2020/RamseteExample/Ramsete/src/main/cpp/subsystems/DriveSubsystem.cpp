@@ -123,7 +123,7 @@ void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
 }
 
 double DriveSubsystem::GetDistance(WPI_TalonSRX *talon) {
-  double distance = (kEncoderDistancePerPulse * talon->GetSelectedSensorPosition()) / 39.3701;
+  double distance = (kEncoderDistancePerPulse * talon->GetSelectedSensorPosition());
   //int id = talon->GetDeviceID();
   //printf("ID: %d has value %f\n", id, distance);
   return distance;
@@ -131,4 +131,16 @@ double DriveSubsystem::GetDistance(WPI_TalonSRX *talon) {
 
 void DriveSubsystem::SetTalonEncoders(WPI_TalonSRX *talon, double value) {
   talon->SetSelectedSensorPosition(value);
+}
+
+void DriveSubsystem::CoastAndStop() {
+  m_talon_left1.SetVoltage(0_V);
+  m_talon_left2.SetVoltage(0_V);
+  m_talon_right3.SetVoltage(0_V);
+  m_talon_right4.SetVoltage(0_V);
+
+  m_talon_left1.SetNeutralMode(NeutralMode::Coast);
+  m_talon_left2.SetNeutralMode(NeutralMode::Coast);
+  m_talon_right3.SetNeutralMode(NeutralMode::Coast);
+  m_talon_right4.SetNeutralMode(NeutralMode::Coast);
 }
