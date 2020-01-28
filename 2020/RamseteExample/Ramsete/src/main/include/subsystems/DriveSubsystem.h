@@ -121,18 +121,21 @@ class DriveSubsystem : public frc2::SubsystemBase {
 
   void SetTalonEncoders(WPI_TalonSRX *talon, double value);
 
+  void CoastAndStop();
+
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 
   // The motor controllers
-  frc::PWMVictorSPX m_left1;
-  frc::PWMVictorSPX m_left2;
-  frc::PWMVictorSPX m_right1;
-  frc::PWMVictorSPX m_right2;
+  // frc::PWMVictorSPX m_left1;
+  // frc::PWMVictorSPX m_left2;
+  // frc::PWMVictorSPX m_right1;
+  // frc::PWMVictorSPX m_right2;
 
-  
-  WPI_TalonSRX m_talon_left1; 
+
+  WPI_TalonSRX m_talon_left1;
   WPI_TalonSRX m_talon_left2;
   WPI_TalonSRX m_talon_right3;
   WPI_TalonSRX m_talon_right4;
