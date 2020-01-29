@@ -13,66 +13,76 @@
 
 using namespace DriveConstants;
 
-DriveSubsystem::DriveSubsystem()
-    : m_left1{kLeftMotor1Port},
-      m_left2{kLeftMotor2Port},
-      m_right1{kRightMotor1Port},
-      m_right2{kRightMotor2Port},
-      m_leftEncoder{kLeftEncoderPorts[0], kLeftEncoderPorts[1]},
-      m_rightEncoder{kRightEncoderPorts[0], kRightEncoderPorts[1]},
-      m_odometry{frc::Rotation2d(units::degree_t(GetHeading()))},
-      m_talon_left1{kLeftMotor1Port},
-      m_talon_left2{kLeftMotor2Port},
-      m_talon_right3{kRightMotor1Port},
-      m_talon_right4{kRightMotor2Port}
-       {
-  // Set the distance per pulse for the encoders
-  m_leftEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
-  m_rightEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
+DriveSubsystem::DriveSubsystem() :
+  //   m_left1{kLeftMotor1Port},
+  //   m_left2{kLeftMotor2Port},
+  //   m_right1{kRightMotor1Port},
+  //   m_right2{kRightMotor2Port},
+  m_talon_left1{kLeftMotor1Port},
+  m_talon_left2{kLeftMotor2Port},
+  m_talon_right3{kRightMotor1Port},
+  m_talon_right4{kRightMotor2Port},
+ // m_leftEncoder{kLeftEncoderPorts[0], kLeftEncoderPorts[1]},
+ // m_rightEncoder{kRightEncoderPorts[0], kRightEncoderPorts[1]},
+  m_odometry{frc::Rotation2d(units::degree_t(GetHeading()))}
+  {
+    // Reset all peristent values in talons for motor control
+    m_talon_left1.ConfigFactoryDefault(30);
+    m_talon_left2.ConfigFactoryDefault(30);
+    m_talon_right3.ConfigFactoryDefault(30);
+    m_talon_right4.ConfigFactoryDefault(30);
 
-  ResetEncoders();
+    // Set up all left side motors that work together
+    // Set both motors to spin opposite for forward
+    m_talon_left1.SetInverted(true);
+    m_talon_left2.SetInverted(true);
+    //m_talon_left1.SetSensorPhase(true);               // Only if encoders reading backwards
+    m_talon_left1.SetNeutralMode(NeutralMode::Brake);   // Don't coast after movements
+    m_talon_left2.SetNeutralMode(NeutralMode::Brake);
+    // This example deals with all motors individually--does not master/slave in talons
+    //m_talon_left2.Set(ControlMode::Follower, 1);
+    //m_talon_left2.SetInverted(InvertType::FollowMaster);
 
-  m_talon_left1.ConfigFactoryDefault(30);
-  m_talon_left2.ConfigFactoryDefault(30);
-  m_talon_right3.ConfigFactoryDefault(30);
-  m_talon_right4.ConfigFactoryDefault(30);
+    // Set up all right side motors that work together
+    // Set both motors to spin opposite for forward
+    m_talon_right3.SetInverted(true);
+    m_talon_right4.SetInverted(true);
+    m_talon_right3.SetSensorPhase(true);               // Only if encoders reading backwards
+    m_talon_right3.SetNeutralMode(NeutralMode::Brake);   // Don't coast after movements
+    m_talon_right4.SetNeutralMode(NeutralMode::Brake);
+    // This example deals with all motors individually--does not master/slave in talons
+    //m_talon_right4.Set(ControlMode::Follower, 3);
+    //m_talon_right4.SetInverted(InvertType::FollowMaster);
 
-  //m_talon_left1.SetSensorPhase(true);
-  m_talon_left1.SetInverted(true);
-  m_talon_left1.SetNeutralMode(NeutralMode::Brake);
-  //m_talon_left2.Set(ControlMode::Follower, 1);
-  //m_talon_left2.SetInverted(InvertType::FollowMaster);
-  m_talon_left2.SetInverted(true);
-  m_talon_left2.SetNeutralMode(NeutralMode::Brake);
-  m_talon_right3.SetSensorPhase(true);
-  m_talon_right3.SetInverted(true);
-  m_talon_right3.SetNeutralMode(NeutralMode::Brake);
-  //m_talon_right4.Set(ControlMode::Follower, 3);
-  //m_talon_right4.SetInverted(InvertType::FollowMaster);
-  m_talon_right4.SetInverted(true);
-  m_talon_right4.SetNeutralMode(NeutralMode::Brake);
-}
+    // Set the distance per pulse for the encoders
+    //m_leftEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
+    //m_rightEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
+
+    ResetEncoders();
+  }
 
 void DriveSubsystem::Periodic() {
   // Implementation of subsystem periodic method goes here.
   double left_dist = GetDistance(&m_talon_left1);
   double right_dist = GetDistance(&m_talon_right3);
   static int count = 0;
-  //printf("%f, %f\n", left_dist, right_dist);
-  //printf();
-  count++;
-  if ((count % 5) == 0) {
-    printf("%f, %f\n", left_dist, right_dist);
-  }
+  double gyroAngle = GetHeading();
+
+  // This Periodic function is called every 20 ms
   m_odometry.Update(frc::Rotation2d(units::degree_t(GetHeading())),
                     units::meter_t(left_dist),
-                    units::meter_t(right_dist));
+                    units::meter_t(right_dist)
+    );
 
-  double gyroAngle = GetHeading(); 
-	frc::SmartDashboard::PutNumber("Gyro angle", gyroAngle);
-	frc::SmartDashboard::PutNumber("Left distance", left_dist);
+  m_drive.Feed();
+
+  frc::SmartDashboard::PutNumber("Gyro angle", gyroAngle);
+  frc::SmartDashboard::PutNumber("Left distance", left_dist);
   frc::SmartDashboard::PutNumber("Right distance", right_dist);
 
+  if ((count++ % 5) == 0) {
+    printf("%f, %f\n", left_dist, right_dist);
+  }
 }
 
 void DriveSubsystem::ArcadeDrive(double fwd, double rot) {
@@ -93,9 +103,13 @@ double DriveSubsystem::GetAverageEncoderDistance() {
   return (GetDistance(&m_talon_left1) + GetDistance(&m_talon_right3)) / 2.0;
 }
 
-frc::Encoder& DriveSubsystem::GetLeftEncoder() { return m_leftEncoder; }
+frc::Encoder& DriveSubsystem::GetLeftEncoder() {
+  // return m_leftEncoder;
+}
 
-frc::Encoder& DriveSubsystem::GetRightEncoder() { return m_rightEncoder; }
+frc::Encoder& DriveSubsystem::GetRightEncoder() {
+  // return m_rightEncoder;
+}
 
 void DriveSubsystem::SetMaxOutput(double maxOutput) {
   m_drive.SetMaxOutput(maxOutput);
@@ -109,23 +123,23 @@ double DriveSubsystem::GetTurnRate() {
   return m_gyro.GetRate() * (kGyroReversed ? -1.0 : 1.0);
 }
 
-frc::Pose2d DriveSubsystem::GetPose() { return m_odometry.GetPose(); }
+frc::Pose2d DriveSubsystem::GetPose() {
+  return m_odometry.GetPose();
+}
 
 frc::DifferentialDriveWheelSpeeds DriveSubsystem::GetWheelSpeeds() {
-  return {units::meters_per_second_t(m_leftEncoder.GetRate()),
-          units::meters_per_second_t(m_rightEncoder.GetRate())};
-}
+  // return {units::meters_per_second_t(m_leftEncoder.GetRate()),
+          // units::meters_per_second_t(m_rightEncoder.GetRate())
+          }
+
 
 void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
   ResetEncoders();
-  m_odometry.ResetPosition(pose,
-                           frc::Rotation2d(units::degree_t(GetHeading())));
+  m_odometry.ResetPosition(pose, frc::Rotation2d(units::degree_t(GetHeading())));
 }
 
 double DriveSubsystem::GetDistance(WPI_TalonSRX *talon) {
   double distance = (kEncoderDistancePerPulse * talon->GetSelectedSensorPosition());
-  //int id = talon->GetDeviceID();
-  //printf("ID: %d has value %f\n", id, distance);
   return distance;
 }
 
@@ -143,4 +157,11 @@ void DriveSubsystem::CoastAndStop() {
   m_talon_left2.SetNeutralMode(NeutralMode::Coast);
   m_talon_right3.SetNeutralMode(NeutralMode::Coast);
   m_talon_right4.SetNeutralMode(NeutralMode::Coast);
+}
+double DriveSubsystem::CountsToMeters(int counts) {
+
+  double meters; 
+
+  meters = ((double) counts / COUNTS_PER_ROTATION) * m_circumMeters; 
+  return meters;   
 }

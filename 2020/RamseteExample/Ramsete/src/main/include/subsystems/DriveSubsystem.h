@@ -121,18 +121,21 @@ class DriveSubsystem : public frc2::SubsystemBase {
 
   void SetTalonEncoders(WPI_TalonSRX *talon, double value);
 
+  void CoastAndStop();
+
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 
   // The motor controllers
-  frc::PWMVictorSPX m_left1;
-  frc::PWMVictorSPX m_left2;
-  frc::PWMVictorSPX m_right1;
-  frc::PWMVictorSPX m_right2;
+  // frc::PWMVictorSPX m_left1;
+  // frc::PWMVictorSPX m_left2;
+  // frc::PWMVictorSPX m_right1;
+  // frc::PWMVictorSPX m_right2;
 
-  
-  WPI_TalonSRX m_talon_left1; 
+
+  WPI_TalonSRX m_talon_left1;
   WPI_TalonSRX m_talon_left2;
   WPI_TalonSRX m_talon_right3;
   WPI_TalonSRX m_talon_right4;
@@ -147,14 +150,21 @@ class DriveSubsystem : public frc2::SubsystemBase {
   frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};
 
   // The left-side drive encoder
-  frc::Encoder m_leftEncoder;
+  // frc::Encoder m_leftEncoder;
 
   // The right-side drive encoder
-  frc::Encoder m_rightEncoder;
+  // frc::Encoder m_rightEncoder;
 
   // The gyro sensor
   frc::ADXRS450_Gyro m_gyro;
 
   // Odometry class for tracking robot pose
   frc::DifferentialDriveOdometry m_odometry;
+
+  double MetersToCounts(double meters); 
+  double CountsToMeters(int counts); 
+
+const double WHEEL_DIA_METERS = 0.1524;
+ const double m_circumMeters = (WHEEL_DIA_METERS * M_PI);
+ const double COUNTS_PER_ROTATION = (1024 * 4); //CPR is 4096
 };

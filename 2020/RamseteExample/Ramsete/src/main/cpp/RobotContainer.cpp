@@ -29,12 +29,14 @@ RobotContainer::RobotContainer() {
 
   // Set up default drive command
   m_drive.SetDefaultCommand(frc2::RunCommand(
-      [this] {
-        m_drive.ArcadeDrive(
-            m_driverController.GetY(frc::GenericHID::kLeftHand),
-            m_driverController.GetX(frc::GenericHID::kRightHand));
-      },
-      {&m_drive}));
+    [this] {
+      m_drive.ArcadeDrive(
+        m_driverController.GetY(frc::GenericHID::kLeftHand),
+        m_driverController.GetX(frc::GenericHID::kRightHand)
+        );
+    },
+    {&m_drive}
+  ));
 }
 
 void RobotContainer::ConfigureButtonBindings() {
@@ -50,12 +52,16 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   // Create a voltage constraint to ensure we don't accelerate too fast
   frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
       frc::SimpleMotorFeedforward<units::meters>(
-          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
-      DriveConstants::kDriveKinematics, 10_V);
+          DriveConstants::ks,
+          DriveConstants::kv,
+          DriveConstants::ka
+        ),
+        DriveConstants::kDriveKinematics,
+        10_V
+      );
 
   // Set up config for trajectory
-  frc::TrajectoryConfig config(AutoConstants::kMaxSpeed,
-                               AutoConstants::kMaxAcceleration);
+  frc::TrajectoryConfig config(AutoConstants::kMaxSpeed, AutoConstants::kMaxAcceleration);
   // Add kinematics to ensure max speed is actually obeyed
   config.SetKinematics(DriveConstants::kDriveKinematics);
   // Apply the voltage constraint
@@ -70,34 +76,35 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       // End 3 meters straight ahead of where we started, facing forward
       frc::Pose2d(3_m, 0_m, frc::Rotation2d(0_deg)),
       // Pass the config
-      config);
+      config
+    );
 
   frc2::PIDController leftController(DriveConstants::kPDriveVel, 0,0);
   frc2::PIDController rightController(DriveConstants::kPDriveVel, 0,0);
-    double dashValue;
-   dashValue = frc::SmartDashboard::GetNumber("L_Ctr", 0.99);
-   leftController.SetTolerance(dashValue);
-   rightController.SetTolerance(dashValue);
+
+  double dashValue;
+  dashValue = frc::SmartDashboard::GetNumber("L_Ctr", 0.99);
+
+  leftController.SetTolerance(dashValue);
+  rightController.SetTolerance(dashValue);
 
   frc2::RamseteCommand ramseteCommand(
-      exampleTrajectory, [this]() { return m_drive.GetPose(); },
-      frc::RamseteController(AutoConstants::kRamseteB,
-                             AutoConstants::kRamseteZeta),
-      frc::SimpleMotorFeedforward<units::meters>(
-          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      exampleTrajectory,
+      [this]() { return m_drive.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB, AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
       DriveConstants::kDriveKinematics,
       [this] { return m_drive.GetWheelSpeeds(); },
       leftController,
       rightController,
       [this](auto left, auto right) { m_drive.TankDriveVolts(left, right); },
-      {&m_drive});
+      {&m_drive}
+    );
 
   // no auto
   return new frc2::SequentialCommandGroup(
       std::move(ramseteCommand),
-      frc2::InstantCommand([this] { m_drive.TankDriveVolts(0_V, 0_V); }, {}));
-}
-
-void RobotContainer::CoastAndStop() {
-    m_drive.CoastAndStop();
+      frc2::InstantCommand([this] { m_drive.TankDriveVolts(0_V, 0_V); },
+      {})
+    );
 }
