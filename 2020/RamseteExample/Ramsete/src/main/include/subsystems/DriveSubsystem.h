@@ -150,14 +150,21 @@ class DriveSubsystem : public frc2::SubsystemBase {
   frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};
 
   // The left-side drive encoder
-  frc::Encoder m_leftEncoder;
+  // frc::Encoder m_leftEncoder;
 
   // The right-side drive encoder
-  frc::Encoder m_rightEncoder;
+  // frc::Encoder m_rightEncoder;
 
   // The gyro sensor
   frc::ADXRS450_Gyro m_gyro;
 
   // Odometry class for tracking robot pose
   frc::DifferentialDriveOdometry m_odometry;
+
+  double MetersToCounts(double meters); 
+  double CountsToMeters(int counts); 
+
+const double WHEEL_DIA_METERS = 0.1524;
+ const double m_circumMeters = (WHEEL_DIA_METERS * M_PI);
+ const double COUNTS_PER_ROTATION = (1024 * 4); //CPR is 4096
 };

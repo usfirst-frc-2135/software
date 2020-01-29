@@ -22,8 +22,8 @@ DriveSubsystem::DriveSubsystem() :
   m_talon_left2{kLeftMotor2Port},
   m_talon_right3{kRightMotor1Port},
   m_talon_right4{kRightMotor2Port},
-  m_leftEncoder{kLeftEncoderPorts[0], kLeftEncoderPorts[1]},
-  m_rightEncoder{kRightEncoderPorts[0], kRightEncoderPorts[1]},
+ // m_leftEncoder{kLeftEncoderPorts[0], kLeftEncoderPorts[1]},
+ // m_rightEncoder{kRightEncoderPorts[0], kRightEncoderPorts[1]},
   m_odometry{frc::Rotation2d(units::degree_t(GetHeading()))}
   {
     // Reset all peristent values in talons for motor control
@@ -55,8 +55,8 @@ DriveSubsystem::DriveSubsystem() :
     //m_talon_right4.SetInverted(InvertType::FollowMaster);
 
     // Set the distance per pulse for the encoders
-    m_leftEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
-    m_rightEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
+    //m_leftEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
+    //m_rightEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
 
     ResetEncoders();
   }
@@ -104,11 +104,11 @@ double DriveSubsystem::GetAverageEncoderDistance() {
 }
 
 frc::Encoder& DriveSubsystem::GetLeftEncoder() {
-  return m_leftEncoder;
+  // return m_leftEncoder;
 }
 
 frc::Encoder& DriveSubsystem::GetRightEncoder() {
-  return m_rightEncoder;
+  // return m_rightEncoder;
 }
 
 void DriveSubsystem::SetMaxOutput(double maxOutput) {
@@ -128,10 +128,10 @@ frc::Pose2d DriveSubsystem::GetPose() {
 }
 
 frc::DifferentialDriveWheelSpeeds DriveSubsystem::GetWheelSpeeds() {
-  return {units::meters_per_second_t(m_leftEncoder.GetRate()),
-          units::meters_per_second_t(m_rightEncoder.GetRate())
-          };
-}
+  // return {units::meters_per_second_t(m_leftEncoder.GetRate()),
+          // units::meters_per_second_t(m_rightEncoder.GetRate())
+          }
+
 
 void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
   ResetEncoders();
@@ -157,4 +157,11 @@ void DriveSubsystem::CoastAndStop() {
   m_talon_left2.SetNeutralMode(NeutralMode::Coast);
   m_talon_right3.SetNeutralMode(NeutralMode::Coast);
   m_talon_right4.SetNeutralMode(NeutralMode::Coast);
+}
+double DriveSubsystem::CountsToMeters(int counts) {
+
+  double meters; 
+
+  meters = ((double) counts / COUNTS_PER_ROTATION) * m_circumMeters; 
+  return meters;   
 }
