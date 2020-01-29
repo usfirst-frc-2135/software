@@ -119,9 +119,7 @@ class DriveSubsystem : public frc2::SubsystemBase {
 
   double GetDistance(WPI_TalonSRX *talon);
 
-  void SetTalonEncoders(WPI_TalonSRX *talon, double value);
-
-  void CoastAndStop();
+  // void CoastAndStop();
 
 
  private:
@@ -161,10 +159,9 @@ class DriveSubsystem : public frc2::SubsystemBase {
   // Odometry class for tracking robot pose
   frc::DifferentialDriveOdometry m_odometry;
 
-  double MetersToCounts(double meters); 
-  double CountsToMeters(int counts); 
+  // double CountsToMeters(int counts);
 
-const double WHEEL_DIA_METERS = 0.1524;
- const double m_circumMeters = (WHEEL_DIA_METERS * M_PI);
- const double COUNTS_PER_ROTATION = (1024 * 4); //CPR is 4096
+  const double WHEEL_DIA_METERS = 0.1524;
+  const double m_circumMeters = (WHEEL_DIA_METERS * M_PI);
+  const double COUNTS_PER_ROTATION = (1024 * 4); //CPR is 4096
 };
