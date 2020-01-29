@@ -65,14 +65,14 @@ class DriveSubsystem : public frc2::SubsystemBase {
    *
    * @return the left drive encoder
    */
-  frc::Encoder& GetLeftEncoder();
+  // frc::Encoder& GetLeftEncoder();
 
   /**
    * Gets the right drive encoder.
    *
    * @return the right drive encoder
    */
-  frc::Encoder& GetRightEncoder();
+  // frc::Encoder& GetRightEncoder();
 
   /**
    * Sets the max output of the drive.  Useful for scaling the drive to drive

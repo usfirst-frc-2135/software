@@ -103,13 +103,13 @@ double DriveSubsystem::GetAverageEncoderDistance() {
   return (GetDistance(&m_talon_left1) + GetDistance(&m_talon_right3)) / 2.0;
 }
 
-frc::Encoder& DriveSubsystem::GetLeftEncoder() {
-  // return m_leftEncoder;
-}
+// frc::Encoder& DriveSubsystem::GetLeftEncoder() {
+//    return m_talon_left1.GetSelectedSensorPosition(0); 
+// }
 
-frc::Encoder& DriveSubsystem::GetRightEncoder() {
-  // return m_rightEncoder;
-}
+// frc::Encoder& DriveSubsystem::GetRightEncoder() {
+//    return m_talon_right3.GetSelectedSensorPosition(0);
+// }
 
 void DriveSubsystem::SetMaxOutput(double maxOutput) {
   m_drive.SetMaxOutput(maxOutput);
@@ -130,7 +130,14 @@ frc::Pose2d DriveSubsystem::GetPose() {
 frc::DifferentialDriveWheelSpeeds DriveSubsystem::GetWheelSpeeds() {
   // return {units::meters_per_second_t(m_leftEncoder.GetRate()),
           // units::meters_per_second_t(m_rightEncoder.GetRate())
-          }
+  double leftVel = m_talon_left1.GetSelectedSensorVelocity * 10; 
+  leftVel = kEncoderDistancePerPulse * leftVel;
+
+  double rightVel = m_talon_right3.GetSelectedSensorVelocity * 10; 
+  rightVel = kEncoderDistancePerPulse * rightVel;
+
+  return{units::meters_per_second_t(m_talon_left1.GetSelectedSensorVelocity())}
+}
 
 
 void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
@@ -158,10 +165,9 @@ void DriveSubsystem::CoastAndStop() {
   m_talon_right3.SetNeutralMode(NeutralMode::Coast);
   m_talon_right4.SetNeutralMode(NeutralMode::Coast);
 }
+
 double DriveSubsystem::CountsToMeters(int counts) {
-
   double meters; 
-
   meters = ((double) counts / COUNTS_PER_ROTATION) * m_circumMeters; 
   return meters;   
 }
