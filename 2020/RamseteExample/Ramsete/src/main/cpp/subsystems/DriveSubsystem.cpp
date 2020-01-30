@@ -77,9 +77,13 @@ void DriveSubsystem::Periodic() {
 
   m_drive.Feed();
 
+  frc::DifferentialDriveWheelSpeeds WheelSpeeds = GetWheelSpeeds(); 
+
   frc::SmartDashboard::PutNumber("Gyro angle", gyroAngle);
   frc::SmartDashboard::PutNumber("Left distance", left_dist);
   frc::SmartDashboard::PutNumber("Right distance", right_dist);
+  frc::SmartDashboard::PutNumber("Left speed", (double)WheelSpeeds.left);
+  frc::SmartDashboard::PutNumber("Right Speed", (double)WheelSpeeds.right);
 
   if ((count++ % 5) == 0) {
     printf("%f, %f\n", left_dist, right_dist);
