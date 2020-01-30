@@ -59,8 +59,7 @@ DriveSubsystem::DriveSubsystem() :
     //m_leftEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
     //m_rightEncoder.SetDistancePerPulse(kEncoderDistancePerPulse);
 
-    m_talon_left1.SetSelectedSensorPosition(0);
-    m_talon_right3.SetSelectedSensorPosition(0);
+    ResetEncoders();
   }
 
 void DriveSubsystem::Periodic() {
