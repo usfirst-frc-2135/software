@@ -28,12 +28,12 @@
 /**
  * Represents a differential drive style drivetrain.
  */
-class Drivetrain {
+class Drivetrain: public frc::Subsystem {
  public:
   Drivetrain();
-  void DrivetrainInit();
+  	void DrivetrainInit();
 	void Periodic();
-  void SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds);
+  	void SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds);
 	void Drive(units::meters_per_second_t xSpeed,
 				units::radians_per_second_t rot);
 	void UpdateOdometry();
@@ -82,6 +82,7 @@ class Drivetrain {
 	// Declare Variables 
 	double kTimeoutMs = 10; 
 	double kPIDLoopIdx = 0; 
+
 
 	//Declare Module Variables 
   

@@ -150,8 +150,8 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
   const auto rightOutput = m_rightPIDController.Calculate(
       m_rightEncoder.GetRate(), speeds.right.to<double>());
 
-  m_leftGroup.Set(leftOutput);
-  m_rightGroup.Set(rightOutput);
+  //m_leftGroup.Set(leftOutput);
+  //m_rightGroup.Set(rightOutput);
 }
 
 void Drivetrain::Drive(units::meters_per_second_t xSpeed,
