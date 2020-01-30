@@ -145,14 +145,6 @@ void Conveyor::SetConveyorMotorSpeed(int direction) {
 
 class LED {
 
-    void SetLED() {
-        //Default to a length of 60, start empty output
-        //Length is expensive to set, so only set it once, then just update data
-        m_led.SetLength(kLength);
-        m_led.SetData(m_ledBuffer);
-        m_led.Start();
-    }
-
     static constexpr int kLength = 60;
 
     // PWM port 9
@@ -162,6 +154,14 @@ class LED {
         m_ledBuffer;  // Reuse the buffer
     // Store what the last hue of the first pixel is
     int firstPixelHue = 0;
+
+    void LEDInit() {
+        //Default to a length of 60, start empty output
+        //Length is expensive to set, so only set it once, then just update data
+        m_led.SetLength(kLength);
+        m_led.SetData(m_ledBuffer);
+        m_led.Start();
+    }
 
     void detectPowerCell(bool powerCellOn) {
         if (powerCellOn) {
@@ -173,8 +173,14 @@ class LED {
             m_led.Stop();
         }
     }
+
+    void LEDSet (){
+        for (int i = 0; i < kLength; i++) {
+            m_ledBuffer[i].SetRGB(255, 0, 0);
+            m_ledBuffer[i].SetRGB(0, 255, 0);
+            m_ledBuffer[i].SetRGB(0, 0, 255);
+        }
+
+    m_led.SetData(m_ledBuffer);
+    }
 };
-
-
-
-
