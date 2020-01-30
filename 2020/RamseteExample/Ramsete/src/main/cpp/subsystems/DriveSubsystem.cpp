@@ -10,6 +10,7 @@
 #include <frc/geometry/Rotation2d.h>
 #include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <frc/DriverStation.h>
 
 using namespace DriveConstants;
 
@@ -85,9 +86,10 @@ void DriveSubsystem::Periodic() {
   frc::SmartDashboard::PutNumber("Left speed", (double)WheelSpeeds.left);
   frc::SmartDashboard::PutNumber("Right Speed", (double)WheelSpeeds.right);
 
-  if ((count++ % 5) == 0) {
-    printf("%f, %f\n", left_dist, right_dist);
-  }
+  if (frc::DriverStation::GetInstance().IsAutonomous() )
+    if ((count++ % 5) == 0) {
+      printf("%f, %f\n", left_dist, right_dist);
+    }
 }
 
 void DriveSubsystem::ArcadeDrive(double fwd, double rot) {
