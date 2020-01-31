@@ -67,45 +67,49 @@ void LED::PowerCellDetect(bool powerCellOn) {
     }
 }
 
-// Changing Colors of LED
-// Can be used later when each photosensor detects a powercell 
-// Change to switch statement
-void LED::LEDSetRed() {
+// Take RGB value to change color of LED
+void LED::LEDSetRGB(int rgbRed, int rgbGreen, int rgbBlue) {
     for (int i = 0; i < kLength; i++) {
-        m_ledBuffer[i].SetRGB(255, 0, 0); //red
+        m_ledBuffer[i].SetRGB(rgbRed, rgbGreen, rgbBlue);
     }
 
     m_led.SetData(m_ledBuffer);
 }
 
-void LED::LEDSetOrange() {
-    for (int i = 0; i < kLength; i++) {
-        m_ledBuffer[i].SetRGB(255, 165, 0); //orange
+// Set color of LED
+void LED::SetColor (int color) {
+    const char *strName;
+
+    switch(color)
+    {
+    default:
+    case LED_SetWhite:
+        strName = "WHITE";
+        LEDSetRGB(255, 255, 255); //white
+        break;   
+    case LED_SetRed:
+        strName = "RED";
+        LEDSetRGB(255, 0, 0); //red
+        break;
+    case LED_SetOrange:
+        strName = "ORANGE";
+        LEDSetRGB(255, 165, 0); //orange
+        break;
+    case LED_SetYellow:
+        strName = "YELLOW";
+        LEDSetRGB(255, 255, 0); //yellow
+        break;
+    case LED_SetGreen:
+        strName = "GREEN";
+        LEDSetRGB(0, 255, 0); //green
+        break;
+    case LED_SetBlue:
+        strName = "BLUE";
+        LEDSetRGB(0, 0, 255); //blue
+        break;
+    case LED_SetPurple: // For Rithu
+        strName = "PURPLE";
+        LEDSetRGB(102, 0, 102); //purple
+        break;
     }
-
-    m_led.SetData(m_ledBuffer);
-}
-
-void LED::LEDSetYellow() {
-    for (int i = 0; i < kLength; i++) {
-        m_ledBuffer[i].SetRGB(255, 255, 0); //yellow
-    }
-
-    m_led.SetData(m_ledBuffer);
-}
-
-void LED::LEDSetGreen() {
-    for (int i = 0; i < kLength; i++) {
-        m_ledBuffer[i].SetRGB(0, 255, 0); //green
-    }
-
-    m_led.SetData(m_ledBuffer);
-}
-
-void LED::LEDSetBlue() {
-    for (int i = 0; i < kLength; i++) {
-        m_ledBuffer[i].SetRGB(0, 0, 255); //blue
-    }
-
-    m_led.SetData(m_ledBuffer);
 }
