@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Drivetrain.h"
+#include "frc/DriverStation.h"
 
 Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 
@@ -40,7 +41,7 @@ void Drivetrain::DrivetrainInit() {
 
 		AddChild("Diff Drive", _diffDrive);
  		_diffDrive->SetSafetyEnabled(true);
-    	_diffDrive->SetExpiration(0.25);
+    	_diffDrive->SetExpiration(5.0);
     	_diffDrive->SetMaxOutput(1.0);
 		//L1
 
@@ -92,6 +93,13 @@ void Drivetrain::DrivetrainInit() {
 	}
 
 void Drivetrain::Periodic() {
+
+  static int count = 0;
+
+ if (frc::DriverStation::GetInstance(). IsEnabled())
+  // frc2::DriverStation::GetInstance().Run();
+    if ((count++ % 5) == 0) 
+      printf("%f, %f\n", 0.0, 0.0);
     // Put code here to be run every loop
 	// static int 	i = 0;
   // int			encoderLeft = 0;
