@@ -87,7 +87,7 @@ void DriveSubsystem::Periodic() {
 
   if (frc::DriverStation::GetInstance().IsAutonomous() )
     if ((count++ % 5) == 0) {
-      printf("%f, %f\n", left_dist, right_dist);
+      printf("%f, %f, %f\n", left_dist, right_dist, gyroAngle);
     }
 }
 
