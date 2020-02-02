@@ -1,5 +1,6 @@
+#include <frc/smartdashboard/SmartDashboard.h>
+
 #include "frc2135/GripContoursPipeline.h"
-#include <frc/WPILib.h>
 #include "RobotDefaults.h"
 
 /**
@@ -13,7 +14,7 @@ GripContoursPipeline::GripContoursPipeline() {
 /**
 * Runs an iteration of the Pipeline and updates outputs.
 *
-* Sources need to be set before calling this method. 
+* Sources need to be set before calling this method.
 *
 */
 void GripContoursPipeline::Process(cv::Mat& source0){

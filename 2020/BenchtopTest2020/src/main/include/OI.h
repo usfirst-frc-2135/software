@@ -12,7 +12,9 @@
 #ifndef OI_H
 #define OI_H
 
-#include "frc/WPILib.h"
+#include <frc/buttons/JoystickButton.h>
+#include <frc/DigitalInput.h>
+#include <frc/Joystick.h>
 
 class OI {
 private:

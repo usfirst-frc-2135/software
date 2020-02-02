@@ -4,10 +4,9 @@
  *  Created on: Feb 2, 2019
  */
 
-#include"frc/WPILib.h"
-#include "frc/smartdashboard/Smartdashboard.h"
-#include "networktables/NetworkTable.h"
-#include "networktables/NetworkTableInstance.h"
+#include <frc/smartdashboard/Smartdashboard.h>
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableInstance.h>
 
 #ifndef LIMELIGHT_H
 #define LIMELIGHT_H

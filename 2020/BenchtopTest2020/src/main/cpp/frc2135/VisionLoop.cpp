@@ -5,6 +5,10 @@
  *      Author: PHS_User
  */
 
+#include <cameraserver/CameraServer.h>
+#include <frc/DriverStation.h>
+#include <opencv/cv.h>
+
 #include "frc2135/VisionLoop.h"
 #include "frc2135/GripContoursPipeline.h"
 

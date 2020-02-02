@@ -8,7 +8,9 @@
 #ifndef SRC_VISIONLOOP_H_
 #define SRC_VISIONLOOP_H_
 
+#include <cscore.h>
 #include <frc/SmartDashboard/SmartDashboard.h>
+
 #include "RobotDefaults.h"
 #include "frc2135/GripContoursPipeline.h"
 
@@ -27,7 +29,7 @@ private:
 	struct dimRect m_hatchSize;		// Vision Hatch target dimensions
 	typedef struct targetData {		// Validated Target data (or Hatch data)
 		cv::Rect	r;				// Target rect in pixel coordinates
-		bool 		bSlantRight; 
+		bool 		bSlantRight;
 		double		score;			// Target score as compared to theoretical
 		double		dist;			// Calculated distance to target
 		double		angle;			// Calculated angle to target
