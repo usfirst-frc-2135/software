@@ -69,7 +69,11 @@ class Drivetrain: public frc::Subsystem {
 	frc::Encoder m_leftEncoder{0, 1};
 	frc::Encoder m_rightEncoder{2, 3};
 
-  
+  //frc::SpeedControllerGroup {m_L1talon, m_L2talon};
+  //frc::SpeedControllerGroup {m_R3talon, m_R4talon};
+
+	//frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};
+
 
 	frc2::PIDController m_leftPIDController{1.0, 0.0, 0.0};
 	frc2::PIDController m_rightPIDController{1.0, 0.0, 0.0};
