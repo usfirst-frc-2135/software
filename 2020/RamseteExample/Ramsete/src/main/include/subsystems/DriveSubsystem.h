@@ -61,20 +61,6 @@ class DriveSubsystem : public frc2::SubsystemBase {
   double GetAverageEncoderDistance();
 
   /**
-   * Gets the left drive encoder.
-   *
-   * @return the left drive encoder
-   */
-  // frc::Encoder& GetLeftEncoder();
-
-  /**
-   * Gets the right drive encoder.
-   *
-   * @return the right drive encoder
-   */
-  // frc::Encoder& GetRightEncoder();
-
-  /**
    * Sets the max output of the drive.  Useful for scaling the drive to drive
    * more slowly.
    *
@@ -119,20 +105,10 @@ class DriveSubsystem : public frc2::SubsystemBase {
 
   double GetDistance(WPI_TalonSRX *talon);
 
-  // void CoastAndStop();
-
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-
-  // The motor controllers
-  // frc::PWMVictorSPX m_left1;
-  // frc::PWMVictorSPX m_left2;
-  // frc::PWMVictorSPX m_right1;
-  // frc::PWMVictorSPX m_right2;
-
-
   WPI_TalonSRX m_talon_left1;
   WPI_TalonSRX m_talon_left2;
   WPI_TalonSRX m_talon_right3;
@@ -146,12 +122,6 @@ class DriveSubsystem : public frc2::SubsystemBase {
 
   // The robot's drive
   frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};
-
-  // The left-side drive encoder
-  // frc::Encoder m_leftEncoder;
-
-  // The right-side drive encoder
-  // frc::Encoder m_rightEncoder;
 
   // The gyro sensor
   frc::ADXRS450_Gyro m_gyro;
