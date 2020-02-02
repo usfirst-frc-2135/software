@@ -95,21 +95,21 @@ void Prototype::Periodic() {
 
 void Prototype::MoveWithJoystick(std::shared_ptr<frc::Joystick> jstick) {
     m_speed1 = -jstick->GetY();
-    m_speed2 = -jstick->GetX();
+    m_speed2 = jstick->GetY();
     talonSRX1->Set(ControlMode::PercentOutput, m_speed1);
-    talonSRX2->Set(ControlMode::PercentOutput, m_speed2);  
+    talonSRX2->Set(ControlMode::PercentOutput, m_speed2);
 }
 
 void Prototype::InvertMotor1() {
     m_talonInvert1 = !m_talonInvert1;
     talonSRX1->SetInverted(m_talonInvert1);
-    std::printf ("2135: Motor 1 %d\n", m_talonInvert1);
+    std::printf("2135: Motor 1 %d\n", m_talonInvert1);
 }
 
 void Prototype::InvertMotor2() {
     m_talonInvert2 = !m_talonInvert2;
     talonSRX2->SetInverted(m_talonInvert2);
-    std::printf ("2135: Motor 2 %d\n", m_talonInvert2);
+    std::printf("2135: Motor 2 %d\n", m_talonInvert2);
 }
 
 void Prototype::ReadSensorVelocity() {
