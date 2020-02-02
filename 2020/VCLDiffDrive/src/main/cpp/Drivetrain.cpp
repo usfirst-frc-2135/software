@@ -38,7 +38,7 @@ Drivetrain::Drivetrain() : frc::Subsystem("Drivetrain") {
 }
 
 void Drivetrain::DrivetrainInit() {
-
+//Changed the talons from pointers to objects
 		AddChild("Diff Drive", _diffDrive);
  		_diffDrive->SetSafetyEnabled(true);
     	_diffDrive->SetExpiration(5.0);
@@ -94,12 +94,15 @@ void Drivetrain::DrivetrainInit() {
 
 void Drivetrain::Periodic() {
 
+  _diffDrive->Feed();
+
   static int count = 0;
 
- if (frc::DriverStation::GetInstance(). IsEnabled())
-  // frc2::DriverStation::GetInstance().Run();
     if ((count++ % 5) == 0) 
       printf("%f, %f\n", 0.0, 0.0);
+
+	
+
     // Put code here to be run every loop
 	// static int 	i = 0;
   // int			encoderLeft = 0;
@@ -158,8 +161,8 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
   const auto rightOutput = m_rightPIDController.Calculate(
       m_rightEncoder.GetRate(), speeds.right.to<double>());
 
-  //m_leftGroup.Set(leftOutput);
-  //m_rightGroup.Set(rightOutput);
+  m_L1talon->Set(leftOutput);
+  m_R3talon->Set(rightOutput);
 }
 
 void Drivetrain::Drive(units::meters_per_second_t xSpeed,

@@ -59,8 +59,6 @@ constexpr double kPDriveVel = .00291;
 namespace AutoConstants {
 constexpr auto kMaxSpeed = 1.1336_mps;
 constexpr auto kMaxAcceleration = 10.668_mps_sq;
-//max speed = 2.239??
-//acceleration = 10.668
 
 // Reasonable baseline values for a RAMSETE follower in units of meters and
 // seconds
