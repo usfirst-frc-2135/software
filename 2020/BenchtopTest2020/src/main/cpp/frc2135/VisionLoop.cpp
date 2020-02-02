@@ -70,7 +70,7 @@ void VisionLoop::Run() {
 		SetCamConfig(cam);
 		int validFrame = inStream.GrabFrame(inFrame, 1000);
 
-		// std::string imgFileName = "/home/lvuser/deploy/CargoTest24.jpg";		
+		// std::string imgFileName = "/home/lvuser/deploy/CargoTest24.jpg";
 		// inFrame = cv::imread(imgFileName.c_str(), CV_LOAD_IMAGE_COLOR);
 		// int validFrame = 1;
 
@@ -175,7 +175,7 @@ void VisionLoop::ConfigureCamera(cs::UsbCamera cam, int resWidth, int resHeight,
 
 bool VisionLoop::DetermineSlant(cv::RotatedRect *rotRect){
 	cv::Point2f vert[4];
-	bool bSlantRight(false); 
+	bool bSlantRight(false);
 	if (rotRect != NULL) {
 		rotRect->points(vert);
 
@@ -215,7 +215,7 @@ void VisionLoop::ConvertContoursToBoundingRects(std::vector<std::vector<cv::Poin
 	if (!contours->empty()) {
 		for (uint32_t i = 0; i < contours->size() && i < 8; i++) {
 			tData rawt;
-			rawt.r = cv::boundingRect(contours->at(i)); 
+			rawt.r = cv::boundingRect(contours->at(i));
 			cv::RotatedRect rotRect = cv::minAreaRect(contours->at(i));
 			rawt.bSlantRight = DetermineSlant(&rotRect);
 			rawData->push_back(rawt);
@@ -244,7 +244,7 @@ void VisionLoop::ConvertBoundingRectsToValidTargets(std::vector<tData> *rawData,
 				t.score = score;
 				t.dist = CalcInchesToTarget(m_targSize.width , r);
 				t.angle = CalcCenteringAngle(m_targSize.width, r, t.dist);
-				t.bSlantRight = rawData->at(i).bSlantRight; 
+				t.bSlantRight = rawData->at(i).bSlantRight;
 				targets->push_back(t);
 				//std::printf("2135: Found valid target. bSlantRight = %d\n", t.bSlantRight);
 			}
@@ -268,8 +268,8 @@ void VisionLoop::ConvertValidTargetsToValidHatches(std::vector<tData> *targets, 
 				cv::Rect targB = targets->at(j).r;
 
 				// Determine whether A or B is the leftmost target.
-				tData leftMost = targets->at(i); 
-				tData rightMost = targets->at(j); 
+				tData leftMost = targets->at(i);
+				tData rightMost = targets->at(j);
 
 				if (targA.tl().x > targB.tl().x) {
 					leftMost = targets->at(j);
@@ -312,7 +312,7 @@ void VisionLoop::ConvertValidTargetsToValidHatches(std::vector<tData> *targets, 
 }
 
 void VisionLoop::SortValidHatches(std::vector<tData> *hatches) {
-	
+
 	int size = hatches->size();
 
 	if (size < 2) return;
@@ -332,7 +332,7 @@ void VisionLoop::SortValidHatches(std::vector<tData> *hatches) {
 		hatches->at(j+1) = key;
 	}
 
-	for (int i=0; i<hatches->size(); i++) {
+	for (uint i=0; i<hatches->size(); i++) {
 		std::printf("2135: Hatch %d: Top Left X: %d\n", i, hatches->at(i).r.tl().x);
 	}
 }
@@ -344,7 +344,7 @@ void VisionLoop::PrintTargetData(char name, int idx, tData t) {
 
 void VisionLoop::ApplyGridToFrame(cv::Mat frame, pixelRect res/*, double dist, double angle*/) {
 	cv::Point	pt1, pt2;
-	char	str[32];
+	// char	str[32];
 
 	pt1.x = 0;
 	pt2.x = res.width;
@@ -457,5 +457,5 @@ void VisionLoop::ChooseGoalHatch(std::vector<tData> *hatches, tData *goal) {
 		frc::SmartDashboard::PutBoolean(CAM_FOUNDTARGET, false);
 		frc::SmartDashboard::PutNumber(CAM_TURNANGLE, 0.0);
 		frc::SmartDashboard::PutNumber(CAM_DISTANCE, 0.0);
-	}														
+	}
 }
