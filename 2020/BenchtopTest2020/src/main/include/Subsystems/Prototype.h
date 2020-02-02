@@ -40,6 +40,9 @@ std::shared_ptr<frc::DigitalInput> limitSwitch2;
 
 	std::shared_ptr<PigeonIMU> pigeonIMU1;
 
+	double m_speed1;
+	double m_speed2;
+
 	bool m_talonInvert1 = false;
 	bool m_talonInvert2 = false;
 

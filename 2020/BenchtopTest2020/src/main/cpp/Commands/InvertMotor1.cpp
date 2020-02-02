@@ -25,11 +25,11 @@ InvertMotor1::InvertMotor1(): frc::Command() {
 // Called just before this Command runs the first time
 void InvertMotor1::Initialize() {
     std::printf("2135: Invert Talon SRX 1 - Init\n");
+    Robot::prototype->InvertMotor1();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void InvertMotor1::Execute() {
-    Robot::prototype->InvertMotor1();
 }
 
 // Make this return true when this Command no longer needs to run execute()
