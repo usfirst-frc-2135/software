@@ -55,6 +55,8 @@ void LED::LEDInit() {
     //Length is expensive to set, so only set it once, then just update data
     m_led.SetLength(kLength);
     m_led.SetData(m_ledBuffer);
+    m_led.Start();
+
 
     // Add options for colors in SmartDashboard
 	chooser.AddOption("LED_White", LED_SetWhite);
@@ -95,7 +97,7 @@ void LED::SetColor (int color) {
         break;
     case LED_SetOrange:
         strName = "ORANGE";
-        LEDSetRGB(255, 165, 0); //orange
+        LEDSetRGB(255, 80, 0); //orange
         break;
     case LED_SetYellow:
         strName = "YELLOW";
@@ -111,7 +113,7 @@ void LED::SetColor (int color) {
         break;
     case LED_SetPurple: // For Rithu
         strName = "PURPLE";
-        LEDSetRGB(102, 0, 102); //purple
+        LEDSetRGB(255, 0, 255); //purple
         break;
     }
 }
