@@ -58,6 +58,7 @@ LED();
 	void DetectPowerCell(bool powerCellOn);
 
 	enum LED_Color{
+		LED_SetBlack = -1,
 		LED_SetWhite = 0,
 		LED_SetRed = 1,
 		LED_SetOrange = 2,
