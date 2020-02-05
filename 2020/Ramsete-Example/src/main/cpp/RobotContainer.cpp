@@ -72,9 +72,9 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       // Start at the origin facing the +X direction
       frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
       // Pass through these two interior waypoints, making an 's' curve path
-      {frc::Translation2d(75_cm, 75_cm), frc::Translation2d(200_cm, -100_cm)},
+      {frc::Translation2d(.7_m, .35_m), frc::Translation2d(1.05_m, -.35_m)},
       // End 3 meters straight ahead of where we started, facing forward
-      frc::Pose2d(300_cm, 0_m, frc::Rotation2d(0_deg)),
+      frc::Pose2d(1.75_m, 0_m, frc::Rotation2d(0_deg)),
       // Pass the config
       config
     );
