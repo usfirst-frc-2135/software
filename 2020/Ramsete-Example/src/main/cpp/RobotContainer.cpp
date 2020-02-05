@@ -67,6 +67,8 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   // Apply the voltage constraint
   config.AddConstraint(autoVoltageConstraint);
 
+  m_drive.ResetOdometry(frc::Pose2d());
+
   // An example trajectory to follow.  All units in meters.
   auto exampleTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
       // Start at the origin facing the +X direction
@@ -107,5 +109,4 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       frc2::InstantCommand([this] { m_drive.TankDriveVolts(0_V, 0_V); },
       {})
     );
-    m_drive.ResetOdometry(frc::Pose2d());
 }

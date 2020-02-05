@@ -38,7 +38,7 @@ void LED::InitDefaultCommand() {
 void LED::Periodic() {
     // Put code here to be run every loop
 
-	SetColor(chooser.GetSelected());
+	// SetColor(chooser.GetSelected());
 
 }
 
@@ -87,6 +87,10 @@ void LED::SetColor (int color) {
     switch(color)
     {
     default:
+    case LED_SetBlack:
+        strName = "BLACK";
+        LEDSetRGB(0, 0, 0); //black
+        break;   
     case LED_SetWhite:
         strName = "WHITE";
         LEDSetRGB(255, 255, 255); //white
@@ -120,12 +124,7 @@ void LED::SetColor (int color) {
 
 // Turn on LED when certain conditions are met
 void LED::DetectPowerCell(bool powerCellOn) {
-    if (powerCellOn) {
-        //if green, turn LED on
-        m_led.Start();
-    }
-    else {
-        // switch LED off
-        m_led.Stop();
+    if (powerCellOn){
+        SetColor(chooser.GetSelected());
     }
 }

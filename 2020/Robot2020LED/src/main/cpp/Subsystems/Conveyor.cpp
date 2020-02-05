@@ -82,12 +82,13 @@ void Conveyor::Periodic() {
     }
 
     // Turn on LED when photosensor detects power cell
-    /*if (cVPhotosensor->Get()) { 
-        Robot::lED->LEDSetRGB (255,255,255);
+    if (cVPhotosensor->Get()) { 
+        Robot::lED->DetectPowerCell(true);
     }
     else {
+        Robot::lED->DetectPowerCell(false);
         Robot::lED->LEDSetRGB (0,0,0);
-    }*/
+    }
 
 }
 

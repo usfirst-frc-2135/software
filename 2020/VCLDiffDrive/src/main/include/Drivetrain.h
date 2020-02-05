@@ -31,8 +31,8 @@
 class Drivetrain: public frc::Subsystem {
  public:
   Drivetrain();
-  	void DrivetrainInit();
-	void Periodic();
+  	//void DrivetrainInit();
+	//void Periodic();
   	void SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds);
 	void Drive(units::meters_per_second_t xSpeed,
 				units::radians_per_second_t rot);
