@@ -28,14 +28,15 @@ class Drivetrain {
     // Set the distance per pulse for the drive encoders. We can simply use the
     // distance traveled for one rotation of the wheel divided by the encoder
     // resolution.
-    m_leftEncoder.SetDistancePerPulse(2 * wpi::math::pi * kWheelRadius /
-                                      kEncoderResolution);
-    m_rightEncoder.SetDistancePerPulse(2 * wpi::math::pi * kWheelRadius /
-                                       kEncoderResolution);
+    //m_leftEncoder.SetDistancePerPulse(2 * wpi::math::pi * kWheelRadius /
+                                      //kEncoderResolution);
+    //m_rightEncoder.SetDistancePerPulse(2 * wpi::math::pi * kWheelRadius /
+                                       //kEncoderResolution);
 
-    m_leftEncoder.Reset();
-    m_rightEncoder.Reset();
+    //m_leftEncoder.Reset();
+    //m_rightEncoder.Reset();
   }
+    
 
   /**
    * Get the robot angle as a Rotation2d.
@@ -54,16 +55,21 @@ class Drivetrain {
   void Drive(units::meters_per_second_t xSpeed,
              units::radians_per_second_t rot);
   void UpdateOdometry();
+  double GetDistance(WPI_TalonSRX *talon);
+  double GetSpeed(WPI_TalonSRX *talon);
 
  private:
-  static constexpr units::meter_t kTrackWidth = 0.381_m * 2;
-  static constexpr double kWheelRadius = 0.0508;  // meters
+  static constexpr units::meter_t kTrackWidth = 0.6096_m;
+  static constexpr double kWheelDiameter = 0.1524;  // meters
   static constexpr int kEncoderResolution = 4096;
+  static constexpr double kEncoderDistancePerPulse =
+    // Assumes the encoders are directly mounted on the wheel shafts
+    (kWheelDiameter * wpi::math::pi) / static_cast<double>(kEncoderResolution);
 
-  frc::WPI_TalonSRX m_leftMaster{1};
-  frc::WPI_TalonSRX m_leftFollower{2};
-  frc::WPI_TalonSRX m_rightMaster{3};
-  frc::WPI_TalonSRX m_rightFollower{4};
+  WPI_TalonSRX m_leftMaster{1};
+  WPI_TalonSRX m_leftFollower{2};
+  WPI_TalonSRX m_rightMaster{3};
+  WPI_TalonSRX m_rightFollower{4};
 
   frc::SpeedControllerGroup m_leftGroup{m_leftMaster, m_leftFollower};
   frc::SpeedControllerGroup m_rightGroup{m_rightMaster, m_rightFollower};

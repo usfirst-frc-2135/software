@@ -9,9 +9,9 @@
 
 void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
   const auto leftOutput = m_leftPIDController.Calculate(
-      m_leftEncoder.GetRate(), speeds.left.to<double>());
+      GetSpeed(&m_leftMaster), speeds.left.to<double>());
   const auto rightOutput = m_rightPIDController.Calculate(
-      m_rightEncoder.GetRate(), speeds.right.to<double>());
+      GetSpeed(&m_rightMaster), speeds.right.to<double>());
 
   m_leftGroup.Set(leftOutput);
   m_rightGroup.Set(rightOutput);
@@ -23,6 +23,15 @@ void Drivetrain::Drive(units::meters_per_second_t xSpeed,
 }
 
 void Drivetrain::UpdateOdometry() {
-  m_odometry.Update(GetAngle(), units::meter_t(m_leftEncoder.GetDistance()),
-                    units::meter_t(m_rightEncoder.GetDistance()));
+  m_odometry.Update(GetAngle(), units::meter_t(GetDistance(&m_leftMaster)),
+                    units::meter_t(GetDistance(&m_rightMaster)));
+}
+
+double Drivetrain::GetDistance(WPI_TalonSRX *talon) {
+  return kEncoderDistancePerPulse * talon->GetSelectedSensorPosition();
+}
+
+double Drivetrain::GetSpeed(WPI_TalonSRX *talon) {
+  return kEncoderDistancePerPulse * (talon->GetSelectedSensorVelocity() * 10);
+
 }
