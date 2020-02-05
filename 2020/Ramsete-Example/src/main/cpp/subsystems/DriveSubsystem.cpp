@@ -67,7 +67,7 @@ void DriveSubsystem::Periodic() {
   frc::SmartDashboard::PutNumber("Left speed", (double)WheelSpeeds.left);
   frc::SmartDashboard::PutNumber("Right Speed", (double)WheelSpeeds.right);
 
-  if (frc::DriverStation::GetInstance().IsAutonomous() )
+  if (frc::DriverStation::GetInstance().IsAutonomous() && frc::DriverStation::GetInstance().IsEnabled())
     if ((count++ % 5) == 0) {
       printf("%f, %f, %f\n", left_dist, right_dist, gyroAngle);
     }
