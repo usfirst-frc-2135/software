@@ -25,6 +25,32 @@ class Drivetrain {
  public:
   Drivetrain() {
     m_gyro.Reset();
+     // Reset all peristent values in talons for motor control
+    m_leftMaster.ConfigFactoryDefault(30);
+    m_leftFollower.ConfigFactoryDefault(30);
+    m_rightMaster.ConfigFactoryDefault(30);
+    m_rightFollower.ConfigFactoryDefault(30);
+
+    // Set up all left side motors that work together
+    // Set both motors to spin opposite for forward
+    m_leftMaster.SetInverted(true);
+    m_leftFollower.SetInverted(true);
+
+    // Set up all right side motors that work together
+    // Set both motors to spin opposite for forward
+    m_rightMaster.SetInverted(true);
+    m_rightFollower.SetInverted(true);
+    m_rightMaster.SetSensorPhase(true);               // Only if encoders reading backwards
+    
+    m_leftFollower.Set(ControlMode::Follower, 1);
+    m_leftFollower.SetInverted(InvertType::FollowMaster);
+
+    m_rightFollower.Set(ControlMode::Follower, 3);
+    m_rightFollower.SetInverted(InvertType::FollowMaster);
+
+    m_leftMaster.SetSelectedSensorPosition(0);
+    m_rightMaster.SetSelectedSensorPosition(0);
+  
     // Set the distance per pulse for the drive encoders. We can simply use the
     // distance traveled for one rotation of the wheel divided by the encoder
     // resolution.
