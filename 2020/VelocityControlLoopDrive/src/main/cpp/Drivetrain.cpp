@@ -15,9 +15,9 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
 
   m_leftGroup.Set(leftOutput);
   m_rightGroup.Set(rightOutput);
-  std::printf("leftOutput", m_leftMaster.GetMotorOutputPercent());
-  std::printf("rightOutput", m_rightMaster.GetMotorOutputPercent());
-  std::printf("");
+  std::printf("leftOutput: %f\n", m_leftMaster.GetMotorOutputPercent());
+  std::printf("rightOutput: %f\n", m_rightMaster.GetMotorOutputPercent());
+  std::printf("\n");
 }
 
 void Drivetrain::Drive(units::meters_per_second_t xSpeed,

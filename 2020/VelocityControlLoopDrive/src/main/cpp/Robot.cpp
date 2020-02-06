@@ -30,7 +30,7 @@ class Robot : public frc::TimedRobot {
     const auto rot = -m_controller.GetX(frc::GenericHID::kRightHand) *
                      Drivetrain::kMaxAngularSpeed;
 
-    std::printf("controller: ", m_controller.GetY(frc::GenericHID::kLeftHand));
+    std::printf("controller: %f\n", m_controller.GetY(frc::GenericHID::kLeftHand));
     m_drive.Drive(xSpeed, rot);
     
   }
