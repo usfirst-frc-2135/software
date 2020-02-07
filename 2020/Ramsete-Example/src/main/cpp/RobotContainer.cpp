@@ -19,6 +19,12 @@
 #include <frc2/command/button/JoystickButton.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
+#include <frc/Filesystem.h>
+#include <frc/trajectory/TrajectoryUtil.h>
+#include <wpi/Path.h>
+#include <wpi/SmallString.h>
+
+
 #include "Constants.h"
 
 RobotContainer::RobotContainer() {
@@ -81,6 +87,22 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       config
     );
 
+   wpi::SmallString<64> deployDirectory;
+   frc::filesystem::GetDeployDirectory(deployDirectory);
+   wpi::sys::path::append(deployDirectory, "paths");
+   wpi::sys::path::append(deployDirectory, "Blue Alliance Team 1.wpilib.json");
+   wpi::sys::path::append(deployDirectory, "Blue Alliance Team 2.wpilib.json");
+   wpi::sys::path::append(deployDirectory, "Blue Alliance Team 3.wpilib.json");
+   wpi::sys::path::append(deployDirectory, "Red Alliance Team 1.wpilib.json");
+   wpi::sys::path::append(deployDirectory, "Red Alliance Team 2.wpilib.json");
+   wpi::sys::path::append(deployDirectory, "Red Alliance Team 3.wpilib.json");
+   wpi::sys::path::append(deployDirectory, "Test 'Square'.wpilib.json");
+   wpi::sys::path::append(deployDirectory, "Test Path 1.wpilib.json");
+   wpi::sys::path::append(deployDirectory, "Test Path 3.wpilib.json");
+   wpi::sys::path::append(deployDirectory, "Test Path 4.wpilib.json");
+
+   frc::Trajectory trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDirectory);
+
   frc2::PIDController leftController(DriveConstants::kPDriveVel, 0,0);
   frc2::PIDController rightController(DriveConstants::kPDriveVel, 0,0);
 
@@ -91,7 +113,7 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   rightController.SetTolerance(dashValue);
 
   frc2::RamseteCommand ramseteCommand(
-      exampleTrajectory,
+      trajectory,
       [this]() { return m_drive.GetPose(); },
       frc::RamseteController(AutoConstants::kRamseteB, AutoConstants::kRamseteZeta),
       frc::SimpleMotorFeedforward<units::meters>(DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
@@ -109,4 +131,6 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       frc2::InstantCommand([this] { m_drive.TankDriveVolts(0_V, 0_V); },
       {})
     );
+
+ 
 }
