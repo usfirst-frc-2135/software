@@ -8,16 +8,31 @@
 #include "Drivetrain.h"
 
 void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
+  double leftSpeed = GetSpeed(&m_leftMaster);
+  double rightSpeed = GetSpeed(&m_rightMaster);
   const auto leftOutput = m_leftPIDController.Calculate(
-      GetSpeed(&m_leftMaster), speeds.left.to<double>());
+      leftSpeed, speeds.left.to<double>());
   const auto rightOutput = m_rightPIDController.Calculate(
-      GetSpeed(&m_rightMaster), speeds.right.to<double>());
+      rightSpeed, speeds.right.to<double>());
 
   m_leftGroup.Set(leftOutput);
   m_rightGroup.Set(rightOutput);
-  std::printf("leftOutput: %f\n", m_leftMaster.GetMotorOutputPercent());
-  std::printf("rightOutput: %f\n", m_rightMaster.GetMotorOutputPercent());
-  std::printf("\n");
+  int count = 0;
+  if (count % 5 == 0) {
+    /*std::printf("count: %i\n", count);
+    std::printf("leftOutput: %f\n", leftOutput);
+    std::printf("rightOutput: %f\n", rightOutput);
+    std::printf("left Motor Output: %f\n", m_leftMaster.GetMotorOutputPercent());
+    std::printf("right Motor Output: %f\n", m_rightMaster.GetMotorOutputPercent());
+    std::printf("left Speed: %f\n", leftSpeed);
+    std::printf("right Speed: %f\n", rightSpeed);
+    std::printf("\n"); */
+    std::printf("leftOutput: %f\n", leftOutput);
+    std::printf("left Speed: %f\n", leftSpeed);
+    std::printf("\n");
+  }
+  count++;
+  
 }
 
 void Drivetrain::Drive(units::meters_per_second_t xSpeed,

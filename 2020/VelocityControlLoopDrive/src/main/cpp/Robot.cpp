@@ -17,19 +17,32 @@ class Robot : public frc::TimedRobot {
     m_drive.UpdateOdometry();
   }
 
+  // void TeleopInit() override {
+  //   create timer
+  //   std::printf("Timer created");
+  //   frc::Timer *timer = new frc::Timer();
+  //   timer->Start();
+  // }
   void TeleopPeriodic() override {
     // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
+    double controllerY = m_controller.GetY(frc::GenericHID::kLeftHand);
+    //dead zone for controller
+    if (controllerY < 0.06 && controllerY > -0.06) {
+      controllerY = 0;
+    }
     const auto xSpeed =
-        -m_controller.GetY(frc::GenericHID::kLeftHand) * Drivetrain::kMaxSpeed;
+        controllerY * Drivetrain::kMaxSpeed;
 
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
     // mathematics). Xbox controllers return positive values when you pull to
     // the right by default.
-    const auto rot = -m_controller.GetX(frc::GenericHID::kRightHand) *
-                     Drivetrain::kMaxAngularSpeed;
+    //const auto rot = -m_controller.GetX(frc::GenericHID::kRightHand) *
+                     //Drivetrain::kMaxAngularSpeed;
+    const auto rot = units::radians_per_second_t(0);
 
+    //std::printf("time %i\n", timer->Get());
     std::printf("controller: %f\n", m_controller.GetY(frc::GenericHID::kLeftHand));
     m_drive.Drive(xSpeed, rot);
     
@@ -38,6 +51,7 @@ class Robot : public frc::TimedRobot {
  private:
   frc::XboxController m_controller{0};
   Drivetrain m_drive;
+
 };
 
 #ifndef RUNNING_FRC_TESTS

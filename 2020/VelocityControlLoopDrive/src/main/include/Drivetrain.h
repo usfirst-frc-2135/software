@@ -81,6 +81,7 @@ class Drivetrain {
   void Drive(units::meters_per_second_t xSpeed,
              units::radians_per_second_t rot);
   void UpdateOdometry();
+  //void TeleopInit();
   double GetDistance(WPI_TalonSRX *talon);
   double GetSpeed(WPI_TalonSRX *talon);
 
