@@ -87,6 +87,7 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       config
     );
 
+   // TODO: Fix path does not exist error
    wpi::SmallString<64> deployDirectory;
    frc::filesystem::GetDeployDirectory(deployDirectory);
    wpi::sys::path::append(deployDirectory, "paths");
