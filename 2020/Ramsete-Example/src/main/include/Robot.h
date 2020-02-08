@@ -13,6 +13,7 @@
 #include "RobotContainer.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "frc/smartdashboard/SendableChooser.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -25,6 +26,8 @@ class Robot : public frc::TimedRobot {
   void TeleopInit() override;
   void TeleopPeriodic() override;
   void TestPeriodic() override;
+
+  frc::SendableChooser<std::string> chooser;
 
  private:
   // Have it null by default so that if testing teleop it

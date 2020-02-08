@@ -87,20 +87,27 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       config
     );
 
+
+  wpi::SmallString<64> deployDirectory;
+  frc::filesystem::GetDeployDirectory(deployDirectory);
+  wpi::sys::path::append(deployDirectory, std::string pathName);
+  switch(pathName)
+
+
    // TODO: Fix path does not exist error
    wpi::SmallString<64> deployDirectory;
    frc::filesystem::GetDeployDirectory(deployDirectory);
    wpi::sys::path::append(deployDirectory, "paths");
-   wpi::sys::path::append(deployDirectory, "Blue Alliance Team 1.wpilib.json");
-   wpi::sys::path::append(deployDirectory, "Blue Alliance Team 2.wpilib.json");
-   wpi::sys::path::append(deployDirectory, "Blue Alliance Team 3.wpilib.json");
-   wpi::sys::path::append(deployDirectory, "Red Alliance Team 1.wpilib.json");
-   wpi::sys::path::append(deployDirectory, "Red Alliance Team 2.wpilib.json");
-   wpi::sys::path::append(deployDirectory, "Red Alliance Team 3.wpilib.json");
-   wpi::sys::path::append(deployDirectory, "Test 'Square'.wpilib.json");
-   wpi::sys::path::append(deployDirectory, "Test Path 1.wpilib.json");
-   wpi::sys::path::append(deployDirectory, "Test Path 3.wpilib.json");
-   wpi::sys::path::append(deployDirectory, "Test Path 4.wpilib.json");
+  //  wpi::sys::path::append(deployDirectory, "Blue Alliance Team 1.wpilib.json");
+  //  wpi::sys::path::append(deployDirectory, "Blue Alliance Team 2.wpilib.json");
+    wpi::sys::path::append(deployDirectory, "Blue Alliance Team 3.wpilib.json");
+  //  wpi::sys::path::append(deployDirectory, "Red Alliance Team 1.wpilib.json");
+  //  wpi::sys::path::append(deployDirectory, "Red Alliance Team 2.wpilib.json");
+  //  wpi::sys::path::append(deployDirectory, "Red Alliance Team 3.wpilib.json");
+  //  wpi::sys::path::append(deployDirectory, "Test 'Square'.wpilib.json");
+  //  wpi::sys::path::append(deployDirectory, "Test Path 1.wpilib.json");
+  //  wpi::sys::path::append(deployDirectory, "Test Path 3.wpilib.json");
+   //wpi::sys::path::append(deployDirectory, "Test Path 4.wpilib.json");
 
    frc::Trajectory trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDirectory);
 

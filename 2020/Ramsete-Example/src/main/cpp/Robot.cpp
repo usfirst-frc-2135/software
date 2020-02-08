@@ -10,8 +10,21 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
+
 void Robot::RobotInit() {
   frc::SmartDashboard::PutNumber("L_Ctr", 0.5);
+  
+  chooser.AddOption("Blue Alliance Team 1", "B1");
+  chooser.AddOption("Blue Alliance Team 2", "B2"); 
+  chooser.AddOption("Blue Alliance Team 3", "B3");
+  chooser.AddOption("Red Alliance Team 1", "R1"); 
+  chooser.AddOption("Red Alliance Team 2", "R2"); 
+  chooser.AddOption("Red Alliance Team 3", "R3"); 
+  chooser.AddOption("Test 'Square'", "TS"); 
+  chooser.AddOption("Test Path 1", "T1"); 
+  chooser.AddOption("Test Path 3", "T3"); 
+  chooser.AddOption("Test Path 4", "T4"); 
+
 }
 
 /**
