@@ -35,12 +35,13 @@ class Drivetrain {
     // Set both motors to spin opposite for forward
     m_leftMaster.SetInverted(true);
     m_leftFollower.SetInverted(true);
+    m_leftMaster.SetSensorPhase(true);  
 
     // Set up all right side motors that work together
     // Set both motors to spin opposite for forward
     m_rightMaster.SetInverted(true);
     m_rightFollower.SetInverted(true);
-    m_rightMaster.SetSensorPhase(true);               // Only if encoders reading backwards
+    m_rightMaster.SetSensorPhase(false);               // Only if encoders reading backwards
     
     m_leftFollower.Set(ControlMode::Follower, 1);
     m_leftFollower.SetInverted(InvertType::FollowMaster);

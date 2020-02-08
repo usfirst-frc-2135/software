@@ -15,7 +15,7 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
   const auto rightOutput = m_rightPIDController.Calculate(
       rightSpeed, speeds.right.to<double>());
 
-  m_leftGroup.Set(leftOutput);
+  m_leftGroup.Set(-leftOutput);
   m_rightGroup.Set(rightOutput);
   int count = 0;
   if (count % 5 == 0) {
@@ -29,6 +29,10 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
     std::printf("\n"); */
     std::printf("leftOutput: %f\n", leftOutput);
     std::printf("left Speed: %f\n", leftSpeed);
+    std::printf("speeds.left: %f\n", speeds.left.to<double>());
+    std::printf("speeds.right: %f\n", speeds.right.to<double>());
+    std::printf("rightOutput: %f\n", rightOutput);
+    std::printf("right Speed: %f\n", rightSpeed);
     std::printf("\n");
   }
   count++;
@@ -37,7 +41,9 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
 
 void Drivetrain::Drive(units::meters_per_second_t xSpeed,
                        units::radians_per_second_t rot) {
+  //kinematicsSpeed = m_kinematics.ToWheelSpeeds({xSpeed, 0_mps, rot});
   SetSpeeds(m_kinematics.ToWheelSpeeds({xSpeed, 0_mps, rot}));
+  
 }
 
 void Drivetrain::UpdateOdometry() {

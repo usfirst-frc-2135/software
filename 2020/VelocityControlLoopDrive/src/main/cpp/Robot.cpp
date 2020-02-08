@@ -43,7 +43,8 @@ class Robot : public frc::TimedRobot {
     const auto rot = units::radians_per_second_t(0);
 
     //std::printf("time %i\n", timer->Get());
-    std::printf("controller: %f\n", m_controller.GetY(frc::GenericHID::kLeftHand));
+    std::printf("controller: %f\n", controllerY);
+    std::printf("xSpeed: %f\n", xSpeed);
     m_drive.Drive(xSpeed, rot);
     
   }
