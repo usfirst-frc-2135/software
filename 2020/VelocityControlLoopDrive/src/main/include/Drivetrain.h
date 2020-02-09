@@ -34,14 +34,12 @@ class Drivetrain {
     // Set up all left side motors that work together
     // Set both motors to spin opposite for forward
     m_leftMaster.SetInverted(true);
-    m_leftFollower.SetInverted(true);
-    m_leftMaster.SetSensorPhase(true); //true makes the left run in the right direction 
+    m_leftMaster.SetSensorPhase(true); //true makes the left run in the correct direction 
 
     // Set up all right side motors that work together
     // Set both motors to spin opposite for forward
     m_rightMaster.SetInverted(true);
-    m_rightFollower.SetInverted(true);
-    m_rightMaster.SetSensorPhase(false); //false makes the right run in the right direction
+    m_rightMaster.SetSensorPhase(false); //false makes the right run in the correct direction
     
     m_leftFollower.Set(ControlMode::Follower, 1);
     m_leftFollower.SetInverted(InvertType::FollowMaster);
@@ -99,14 +97,11 @@ class Drivetrain {
   WPI_TalonSRX m_rightMaster{3};
   WPI_TalonSRX m_rightFollower{4};
 
-  frc::SpeedControllerGroup m_leftGroup{m_leftMaster, m_leftFollower};
-  frc::SpeedControllerGroup m_rightGroup{m_rightMaster, m_rightFollower};
-
   frc::Encoder m_leftEncoder{0, 1};
   frc::Encoder m_rightEncoder{2, 3};
 
-  frc2::PIDController m_leftPIDController{1.0, 0.0, 0.0};
-  frc2::PIDController m_rightPIDController{1.0, 0.0, 0.0};
+  frc2::PIDController m_leftPIDController{0.35, 0.0, 0.0};
+  frc2::PIDController m_rightPIDController{0.35, 0.0, 0.0};
 
   frc::AnalogGyro m_gyro{0};
 

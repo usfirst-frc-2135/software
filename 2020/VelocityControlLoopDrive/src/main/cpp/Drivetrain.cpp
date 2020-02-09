@@ -15,8 +15,8 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
   const auto rightOutput = m_rightPIDController.Calculate(
       rightSpeed, speeds.right.to<double>());
 
-  m_leftGroup.Set(-leftOutput);
-  m_rightGroup.Set(rightOutput);
+  m_leftMaster.Set(-leftOutput);
+  m_rightMaster.Set(rightOutput);
   int count = 0;
   if (count % 5 == 0) {
     /*std::printf("count: %i\n", count);

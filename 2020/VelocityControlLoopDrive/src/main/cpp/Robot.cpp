@@ -13,7 +13,6 @@
 class Robot : public frc::TimedRobot {
  public:
   std::shared_ptr<frc::Joystick> dStick{new frc::Joystick (0)};
-  std::shared_ptr<frc::Joystick> dStick2{new frc::Joystick (1)};
   void AutonomousPeriodic() override {
     std::printf("first print");
     TeleopPeriodic();
@@ -27,19 +26,11 @@ class Robot : public frc::TimedRobot {
   //   timer->Start();
   // }
 
-  double MoveWithJoysticks (std::shared_ptr<frc::Joystick> throttleJstick, std::shared_ptr<frc::Joystick> turnJstick) {
+  double MoveWithJoysticks (std::shared_ptr<frc::Joystick> throttleJstick) {
     double xValue = 0.0;
     double yValue = 0.0;
-    std::printf("third print");
-    if (turnJstick == nullptr) {
-      xValue = throttleJstick->GetX();
-      yValue = throttleJstick->GetZ();
-    }
-    else {
-      xValue = turnJstick->GetX();
-      yValue = throttleJstick->GetY();
-    }
-    std::printf("fourth print");
+    xValue = throttleJstick->GetX();
+    yValue = throttleJstick->GetZ();
     //dead zone for controller
      if (yValue < 0.06 && yValue > -0.06) {
        yValue = 0;
@@ -51,9 +42,8 @@ class Robot : public frc::TimedRobot {
     // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
     // double controllerY = m_controller.GetY(frc::GenericHID::kLeftHand);
-    std::printf("second print");
     const auto xSpeed =
-        MoveWithJoysticks(dStick, dStick2) * Drivetrain::kMaxSpeed;
+        MoveWithJoysticks(dStick) * Drivetrain::kMaxSpeed;
 
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
