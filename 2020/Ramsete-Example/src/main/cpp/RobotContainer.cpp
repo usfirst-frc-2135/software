@@ -159,6 +159,7 @@ void RobotContainer::SmartDashboardStartChooser() {
    chooser->AddOption("T1", "Test_Path_1.wpilib.json"); 
    chooser->AddOption("T3", "Test_Path_3.wpilib.json"); 
    chooser->AddOption("T4", "Test_Path_4.wpilib.json"); 
+   chooser->AddOption("T5", "Test_Path_5.wpilib.json"); 
 
   frc::SmartDashboard::PutData("Paths", chooser);
 }
