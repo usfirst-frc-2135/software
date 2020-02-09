@@ -25,6 +25,8 @@ void Robot::RobotInit() {
    chooser.AddOption("T3", "Test_Path_3.wpilib.json"); 
    chooser.AddOption("T4", "Test_Path_4.wpilib.json"); 
 
+  frc::SmartDashboard::PutData(&chooser);
+
 }
 
 /**
