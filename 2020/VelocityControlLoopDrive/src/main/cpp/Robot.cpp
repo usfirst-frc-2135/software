@@ -12,8 +12,8 @@
 
 class Robot : public frc::TimedRobot {
  public:
-  std::shared_ptr<frc::Joystick> dStick{0};
-  std::shared_ptr<frc::Joystick> dStick2{0};
+  std::shared_ptr<frc::Joystick> dStick{new frc::Joystick (0)};
+  std::shared_ptr<frc::Joystick> dStick2{new frc::Joystick (1)};
   void AutonomousPeriodic() override {
     std::printf("first print");
     TeleopPeriodic();
