@@ -84,9 +84,9 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
       // Start at the origin facing the +X direction
       frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
       // Pass through these two interior waypoints, making an 's' curve path
-      {frc::Translation2d(.7_m, .35_m), frc::Translation2d(1.05_m, -.35_m)},
+      {frc::Translation2d(.8_m, .8_m), frc::Translation2d(1.6_m, -.8_m)},
       // End 3 meters straight ahead of where we started, facing forward
-      frc::Pose2d(1.75_m, 0_m, frc::Rotation2d(0_deg)),
+      frc::Pose2d(2.4_m, 0_m, frc::Rotation2d(0_deg)),
       // Pass the config
       config
     );
@@ -160,6 +160,7 @@ void RobotContainer::SmartDashboardStartChooser() {
    chooser->AddOption("T3", "Test_Path_3.wpilib.json"); 
    chooser->AddOption("T4", "Test_Path_4.wpilib.json"); 
    chooser->AddOption("T5", "Test_Path_5.wpilib.json"); 
+   chooser->AddOption("TP", "Test_Path.wpilib.json"); 
 
   frc::SmartDashboard::PutData("Paths", chooser);
 }
