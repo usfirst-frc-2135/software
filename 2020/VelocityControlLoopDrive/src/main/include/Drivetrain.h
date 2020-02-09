@@ -61,7 +61,7 @@ class Drivetrain {
   }
 
   static constexpr units::meters_per_second_t kMaxSpeed =
-      2.0_mps;  //Changed from 3 meters per second
+      1.5_mps;  //Changed from 3 meters per second
   static constexpr units::radians_per_second_t kMaxAngularSpeed{
       wpi::math::pi};  // 1/2 rotation per second
 
@@ -89,8 +89,8 @@ class Drivetrain {
   frc::Encoder m_leftEncoder{0, 1};
   frc::Encoder m_rightEncoder{2, 3};
 
-  frc2::PIDController m_leftPIDController{0.25, 0.0, 0.0};
-  frc2::PIDController m_rightPIDController{0.25, 0.0, 0.0};
+  frc2::PIDController m_leftPIDController{1.5, 0.0, 0.0};
+  frc2::PIDController m_rightPIDController{1.5, 0.0, 0.0};
 
   frc::AnalogGyro m_gyro{0};
 
