@@ -47,7 +47,9 @@ class RobotContainer {
                                         {}};
 
   // The chooser for the autonomous routines
-  frc::SendableChooser<frc2::Command*> m_chooser;
+  static frc::SendableChooser<std::string> *chooser;
 
   void ConfigureButtonBindings();
+
+  static void SmartDashboardStartChooser(void);
 };
