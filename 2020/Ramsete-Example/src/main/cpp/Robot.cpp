@@ -14,16 +14,16 @@
 void Robot::RobotInit() {
   frc::SmartDashboard::PutNumber("L_Ctr", 0.5);
   
-  chooser.AddOption("Blue Alliance Team 1", "B1");
-  chooser.AddOption("Blue Alliance Team 2", "B2"); 
-  chooser.AddOption("Blue Alliance Team 3", "B3");
-  chooser.AddOption("Red Alliance Team 1", "R1"); 
-  chooser.AddOption("Red Alliance Team 2", "R2"); 
-  chooser.AddOption("Red Alliance Team 3", "R3"); 
-  chooser.AddOption("Test 'Square'", "TS"); 
-  chooser.AddOption("Test Path 1", "T1"); 
-  chooser.AddOption("Test Path 3", "T3"); 
-  chooser.AddOption("Test Path 4", "T4"); 
+   chooser.AddOption("B1", "Blue_Alliance_Team_1.wpilib.json");
+   chooser.AddOption("B2", "Blue_Alliance_Team_2.wpilib.json"); 
+   chooser.AddOption("B3", "Blue_Alliance_Team_3.wpilib.json");
+   chooser.AddOption("R1", "Red_Alliance_Team_1.wpilib.json"); 
+   chooser.AddOption("R2", "Red_Alliance_Team_2.wpilib.json"); 
+   chooser.AddOption("R3", "Red_Alliance_Team_3.wpilib.json"); 
+   chooser.AddOption("TS", "Test_Square.wpilib.json"); 
+   chooser.AddOption("T1", "Test_Path_1.wpilib.json"); 
+   chooser.AddOption("T3", "Test_Path_3.wpilib.json"); 
+   chooser.AddOption("T4", "Test_Path_4.wpilib.json"); 
 
 }
 
