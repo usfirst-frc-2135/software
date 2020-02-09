@@ -49,17 +49,6 @@ class Drivetrain {
 
     m_leftMaster.SetSelectedSensorPosition(0);
     m_rightMaster.SetSelectedSensorPosition(0);
-  
-    // Set the distance per pulse for the drive encoders. We can simply use the
-    // distance traveled for one rotation of the wheel divided by the encoder
-    // resolution.
-    //m_leftEncoder.SetDistancePerPulse(2 * wpi::math::pi * kWheelRadius /
-                                      //kEncoderResolution);
-    //m_rightEncoder.SetDistancePerPulse(2 * wpi::math::pi * kWheelRadius /
-                                       //kEncoderResolution);
-
-    //m_leftEncoder.Reset();
-    //m_rightEncoder.Reset();
   }
     
 
@@ -100,8 +89,8 @@ class Drivetrain {
   frc::Encoder m_leftEncoder{0, 1};
   frc::Encoder m_rightEncoder{2, 3};
 
-  frc2::PIDController m_leftPIDController{0.35, 0.0, 0.0};
-  frc2::PIDController m_rightPIDController{0.35, 0.0, 0.0};
+  frc2::PIDController m_leftPIDController{0.25, 0.0, 0.0};
+  frc2::PIDController m_rightPIDController{0.25, 0.0, 0.0};
 
   frc::AnalogGyro m_gyro{0};
 

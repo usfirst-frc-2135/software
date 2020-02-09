@@ -16,27 +16,7 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
       rightSpeed, speeds.right.to<double>());
 
   m_leftMaster.Set(-leftOutput);
-  m_rightMaster.Set(rightOutput);
-  int count = 0;
-  if (count % 5 == 0) {
-    /*std::printf("count: %i\n", count);
-    std::printf("leftOutput: %f\n", leftOutput);
-    std::printf("rightOutput: %f\n", rightOutput);
-    std::printf("left Motor Output: %f\n", m_leftMaster.GetMotorOutputPercent());
-    std::printf("right Motor Output: %f\n", m_rightMaster.GetMotorOutputPercent());
-    std::printf("left Speed: %f\n", leftSpeed);
-    std::printf("right Speed: %f\n", rightSpeed);
-    std::printf("\n"); */
-    std::printf("leftOutput: %f\n", leftOutput);
-    std::printf("left Speed: %f\n", leftSpeed);
-    std::printf("speeds.left: %f\n", speeds.left.to<double>());
-    std::printf("speeds.right: %f\n", speeds.right.to<double>());
-    std::printf("rightOutput: %f\n", rightOutput);
-    std::printf("right Speed: %f\n", rightSpeed);
-    std::printf("\n");
-  }
-  count++;
-  
+  m_rightMaster.Set(rightOutput);  
 }
 
 void Drivetrain::Drive(units::meters_per_second_t xSpeed,
