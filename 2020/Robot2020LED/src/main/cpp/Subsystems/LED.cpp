@@ -59,7 +59,8 @@ void LED::LEDInit() {
 
 
     // Add options for colors in SmartDashboard
-	chooser.AddOption("LED_White", LED_SetWhite);
+	chooser.AddOption("LED_Black", LED_SetBlack);
+    chooser.AddOption("LED_White", LED_SetWhite);
     chooser.AddOption("LED_Red", LED_SetRed);
     chooser.AddOption("LED_Orange", LED_SetOrange);
     chooser.AddOption("LED_Yellow", LED_SetYellow);
