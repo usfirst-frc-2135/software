@@ -37,6 +37,10 @@ sPColor.reset(new frc::JoystickButton(controlBoard.get(), 1));
 sPColor->WhenPressed(new SpinColor());
 dStick.reset(new frc::Joystick(0));
 
+alignTurn.reset(new frc::JoystickButton(dStick.get(), 4));
+alignTurn->WhenPressed(new DriveAlignTurn());
+pIDAlignTurn.reset(new frc::JoystickButton(dStick.get(), 2));
+pIDAlignTurn->WhenPressed(new DriveAlignPIDTurn(0));
 shiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
 shiftSpeed->WhileHeld(new DriveShift(false));
 
