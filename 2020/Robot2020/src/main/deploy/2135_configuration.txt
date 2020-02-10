@@ -30,6 +30,13 @@
   CV_ExpelSpeed = -0.75
 # Shooter settings
   SH_FireSpeed = 0.9
+  SH_SlowSpeed = 0.25
+  SH_FastSpeed = 0.75
+  SH_PidKf = 0.427
+  SH_PidKp = 0.250
+  SH_PidKi = 0.000
+  SH_PidKd = 0.000
+  SH_NeutralDeadband = 0.004
 # Spinner settings
   SP_TurnSpeed = 0.6
 # Climber settings
