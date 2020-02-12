@@ -10,6 +10,7 @@
 #include <frc/AnalogGyro.h>
 #include <frc/Encoder.h>
 #include <frc/SpeedControllerGroup.h>
+#include <frc/controller/SimpleMotorFeedforward.h>
 #include <ctre/Phoenix.h>
 
 #include <frc/controller/PIDController.h>
@@ -89,11 +90,13 @@ class Drivetrain {
   frc::Encoder m_leftEncoder{0, 1};
   frc::Encoder m_rightEncoder{2, 3};
 
-  frc2::PIDController m_leftPIDController{1.5, 0.0, 0.0};
-  frc2::PIDController m_rightPIDController{1.5, 0.0, 0.0};
+  frc2::PIDController m_leftPIDController{0.9, 0.0, 0.0};
+  frc2::PIDController m_rightPIDController{0.9, 0.0, 0.0};
 
   frc::AnalogGyro m_gyro{0};
 
   frc::DifferentialDriveKinematics m_kinematics{kTrackWidth};
   frc::DifferentialDriveOdometry m_odometry{GetAngle()};
+
+  frc::SimpleMotorFeedforward<units::meters> m_feedforward{1_V, 3_V / 1_mps};
 };

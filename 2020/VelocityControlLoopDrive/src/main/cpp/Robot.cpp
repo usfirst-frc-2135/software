@@ -7,6 +7,7 @@
 
 #include <frc/TimedRobot.h>
 #include <frc/Joystick.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include "Drivetrain.h"
 
@@ -50,10 +51,13 @@ class Robot : public frc::TimedRobot {
     // mathematics). Xbox controllers return positive values when you pull to
     // the right by default.
     const auto rot = -dStick->GetX() * Drivetrain::kMaxAngularSpeed;
+    // const auto rot = units::radians_per_second_t(0);
 
     //std::printf("time %i\n", timer->Get());
     //std::printf("yValue: %f\n", yValue);
-    std::printf("xSpeed: %f\n", xSpeed);
+    //std::printf("xSpeed: %f\n", xSpeed);
+    frc::SmartDashboard::PutNumber("xSpeed (in m/s)", double(xSpeed));
+    frc::SmartDashboard::PutNumber("rot (in radians/s)", double(rot));
     m_drive.Drive(xSpeed, rot);
     
   }
