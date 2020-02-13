@@ -15,17 +15,9 @@ class Robot : public frc::TimedRobot {
  public:
   std::shared_ptr<frc::Joystick> dStick{new frc::Joystick (0)};
   void AutonomousPeriodic() override {
-    std::printf("first print");
     TeleopPeriodic();
     m_drive.UpdateOdometry();
   }
-
-  // void TeleopInit() override {
-  //   create timer
-  //   std::printf("Timer created");
-  //   frc::Timer *timer = new frc::Timer();
-  //   timer->Start();
-  // }
 
   double MoveWithJoysticks (std::shared_ptr<frc::Joystick> throttleJstick) {
     double xValue = 0.0;
@@ -42,7 +34,6 @@ class Robot : public frc::TimedRobot {
   void TeleopPeriodic() override {
     // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
-    // double controllerY = m_controller.GetY(frc::GenericHID::kLeftHand);
     const auto xSpeed =
         MoveWithJoysticks(dStick) * Drivetrain::kMaxSpeed;
 
