@@ -98,5 +98,5 @@ class Drivetrain {
   frc::DifferentialDriveKinematics m_kinematics{kTrackWidth};
   frc::DifferentialDriveOdometry m_odometry{GetAngle()};
 
-  frc::SimpleMotorFeedforward<units::meters> m_feedforward{0.6_V, 1.3_V / 1_mps}; //original: 1.0_V, 3_V / 1_mps
+  frc::SimpleMotorFeedforward<units::meters> m_feedforward{0.85_V, 2.0_V / 1_mps}; //original: 1.0_V, 3_V / 1_mps
 };

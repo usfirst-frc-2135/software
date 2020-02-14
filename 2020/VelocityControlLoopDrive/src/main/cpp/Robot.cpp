@@ -36,6 +36,7 @@ class Robot : public frc::TimedRobot {
     // negative values when we push forward.
     const auto xSpeed =
         MoveWithJoysticks(dStick) * Drivetrain::kMaxSpeed;
+    frc::SmartDashboard::PutNumber("Joystick", MoveWithJoysticks(dStick));
 
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in

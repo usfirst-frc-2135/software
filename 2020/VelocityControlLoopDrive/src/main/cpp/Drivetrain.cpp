@@ -20,19 +20,22 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
   const auto rightOutput = m_rightPIDController.Calculate(
       rightSpeed, rightSpeedPassed);
 
-  m_leftMaster.Set(-leftOutput - double(leftFeedforward)); //Set sets a speed between -1.0 to 1.0
-  m_rightMaster.Set(rightOutput + double(rightFeedforward)); 
+  //m_leftMaster.Set(-leftOutput - double(leftFeedforward)); //Set sets a speed between -1.0 to 1.0
+  //m_rightMaster.Set(rightOutput + double(rightFeedforward)); 
   std::printf("leftOutput %f\n", -leftOutput);
   std::printf("rightOutput %f\n", rightOutput);
   std::printf("leftFF %f\n", leftFeedforward);
   std::printf("rightFF %f\n", rightFeedforward);
 
-  // m_leftMaster.SetVoltage(units::volt_t{leftOutput} + leftFeedforward);
-  // m_rightMaster.SetVoltage(units::volt_t{rightOutput} + rightFeedforward);
+  m_leftMaster.SetVoltage(units::volt_t{-leftOutput} - leftFeedforward);
+  m_rightMaster.SetVoltage(units::volt_t{rightOutput} + rightFeedforward);
   frc::SmartDashboard::PutNumber("leftOutput", -leftOutput);
   frc::SmartDashboard::PutNumber("rightOutput", rightOutput);
   frc::SmartDashboard::PutNumber("leftFF", double(leftFeedforward));
   frc::SmartDashboard::PutNumber("rightFF", double(rightFeedforward));
+  frc::SmartDashboard::PutNumber("leftSpeed", leftSpeed);
+  frc::SmartDashboard::PutNumber("rightSpeed", rightSpeed);
+
   // frc::SmartDashboard::PutNumber("left Voltage", double(units::volt_t{leftOutput} + leftFeedforward));
   // frc::SmartDashboard::PutNumber("right Voltage", double(units::volt_t{rightOutput} + rightFeedforward));
   // std::printf("leftOutput %f\n", leftOutput);
