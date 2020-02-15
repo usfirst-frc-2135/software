@@ -28,7 +28,7 @@ OI::OI() {
 joystick.reset(new frc::Joystick(0));
 
 set100.reset(new frc::JoystickButton(joystick.get(), 5));
-set100->WhileHeld(new FixedPower(0.100));
+set100->WhileHeld(new FixedPower(1));
 set90.reset(new frc::JoystickButton(joystick.get(), 4));
 set90->WhileHeld(new FixedPower(0.90));
 set80.reset(new frc::JoystickButton(joystick.get(), 3));
