@@ -28,7 +28,7 @@ OI::OI() {
 joystick.reset(new frc::Joystick(0));
 
 set100.reset(new frc::JoystickButton(joystick.get(), 5));
-set100->WhileHeld(new FixedPower(1));
+set100->WhileHeld(new FixedPower(1.0));
 set90.reset(new frc::JoystickButton(joystick.get(), 4));
 set90->WhileHeld(new FixedPower(0.90));
 set80.reset(new frc::JoystickButton(joystick.get(), 3));
@@ -41,7 +41,7 @@ invertTalon1->WhenPressed(new InvertMotor1());
     // SmartDashboard Buttons
     frc::SmartDashboard::PutData("FixedPower: Percent80", new FixedPower(0.80));
     frc::SmartDashboard::PutData("FixedPower: Percent90", new FixedPower(0.90));
-    frc::SmartDashboard::PutData("FixedPower: Percent100", new FixedPower(0.100));
+    frc::SmartDashboard::PutData("FixedPower: Percent100", new FixedPower(1.0));
     frc::SmartDashboard::PutData("InvertMotor2", new InvertMotor2());
     frc::SmartDashboard::PutData("InvertMotor1", new InvertMotor1());
     frc::SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());

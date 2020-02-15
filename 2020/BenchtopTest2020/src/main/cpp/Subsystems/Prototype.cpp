@@ -92,8 +92,10 @@ void Prototype::MoveWithJoystick(std::shared_ptr<frc::Joystick> jstick) {
 }
 
 void Prototype::SetFixedPower(double power) {
-    talonSRX1->Set(ControlMode::PercentOutput, power);
-    talonSRX2->Set(ControlMode::PercentOutput, -power);
+    m_speed1 = power;
+    m_speed2 = -power;
+    talonSRX1->Set(ControlMode::PercentOutput, m_speed1);
+    talonSRX2->Set(ControlMode::PercentOutput, m_speed2);
 }
 
 void Prototype::InvertMotor1() {

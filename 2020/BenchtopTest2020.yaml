@@ -214,7 +214,7 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: PowerSetting,
-            type: double, value: '1'}
+            type: double, value: '1.0'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id005
           default: '1'
@@ -367,7 +367,7 @@ Children:
         - !!robotbuilder.data.properties.ParameterSet
           name: Percent100
           parameters:
-          - {name: PowerSetting, type: double, value: '0.100'}
+          - {name: PowerSetting, type: double, value: '1.0'}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
