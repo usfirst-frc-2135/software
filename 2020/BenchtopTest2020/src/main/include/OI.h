@@ -23,7 +23,11 @@ private:
 
 
 
+
 std::shared_ptr<frc::Joystick> joystick;
+std::shared_ptr<frc::JoystickButton> set100;
+std::shared_ptr<frc::JoystickButton> set90;
+std::shared_ptr<frc::JoystickButton> set80;
 std::shared_ptr<frc::JoystickButton> invertTalon2;
 std::shared_ptr<frc::JoystickButton> invertTalon1;
 

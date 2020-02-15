@@ -86,7 +86,10 @@ void Robot::TeleopPeriodic() {
 }
 
 void Robot::TestPeriodic() {
-	Robot::prototype->ReadSensorVelocity();
+}
+
+void Robot::RobotPeriodic() {
+	Robot::prototype->UpdateDashboard();
 }
 
 // Vision Thread to call into our Vision processing loop

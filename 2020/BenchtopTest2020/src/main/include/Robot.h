@@ -51,6 +51,7 @@ static std::shared_ptr<Prototype> prototype;
 	void TeleopPeriodic() override;
 
 	void TestPeriodic() override;
+	void RobotPeriodic() override;
 
 };
 
