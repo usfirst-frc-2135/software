@@ -20,36 +20,24 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
   const auto rightOutput = m_rightPIDController.Calculate(
       rightSpeed, rightSpeedPassed);
 
-//add prints for feedforward and PID
-
   //m_leftMaster.Set(-leftOutput - double(leftFeedforward)); //Set sets a speed between -1.0 to 1.0
   //m_rightMaster.Set(rightOutput + double(rightFeedforward)); 
-  std::printf("leftOutput %f\n", -leftOutput);
-  std::printf("rightOutput %f\n", rightOutput);
-  std::printf("leftFF %f\n", leftFeedforward);
-  std::printf("rightFF %f\n", rightFeedforward);
 
   //m_leftMaster.SetVoltage(units::volt_t{-leftOutput} - leftFeedforward);
   //m_rightMaster.SetVoltage(units::volt_t{rightOutput} + rightFeedforward);
-  m_leftMaster.Set(-leftOutput - leftFeedforward / units::volt_t{12.0});
-  m_rightMaster.Set(rightOutput + rightFeedforward / units::volt_t{12.0});
+  double leftTotalOutput = -leftOutput - double(leftFeedforward) / 12.0;
+  double rightTotalOutput = rightOutput + double(rightFeedforward) / 12.0;
+  m_leftMaster.Set(leftTotalOutput);
+  m_rightMaster.Set(rightTotalOutput);
 
   frc::SmartDashboard::PutNumber("leftOutput", -leftOutput);
   frc::SmartDashboard::PutNumber("rightOutput", rightOutput);
   frc::SmartDashboard::PutNumber("leftFF", double(leftFeedforward) / 12.0);
   frc::SmartDashboard::PutNumber("rightFF", double(rightFeedforward) / 12.0);
+  frc::SmartDashboard::PutNumber("leftTotalOutput", leftTotalOutput);
+  frc::SmartDashboard::PutNumber("rightTotalOutput", rightTotalOutput);
   frc::SmartDashboard::PutNumber("leftSpeed", leftSpeed);
   frc::SmartDashboard::PutNumber("rightSpeed", rightSpeed);
-
-  // frc::SmartDashboard::PutNumber("left Voltage", double(units::volt_t{leftOutput} + leftFeedforward));
-  // frc::SmartDashboard::PutNumber("right Voltage", double(units::volt_t{rightOutput} + rightFeedforward));
-  // std::printf("leftOutput %f\n", leftOutput);
-  // std::printf("rightOutput %f\n", rightOutput);
-  // std::printf("leftSpeed %f\n", leftSpeed); 
-  // std::printf("speeds.left %f\n", leftSpeedPassed);
-  // std::printf("rightSpeed %f\n", rightSpeed);
-  // std::printf("speeds.right %f\n", rightSpeedPassed);
-
 }
 
 void Drivetrain::Drive(units::meters_per_second_t xSpeed,
