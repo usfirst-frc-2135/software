@@ -67,7 +67,7 @@ class Drivetrain {
       wpi::math::pi};  // 1/2 rotation per second
 
   void SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds);
-  void Drive(units::meters_per_second_t xSpeed,
+  void Drive(units::meters_per_second_t ySpeed,
              units::radians_per_second_t rot);
   void UpdateOdometry();
   //void TeleopInit();
@@ -90,13 +90,13 @@ class Drivetrain {
   frc::Encoder m_leftEncoder{0, 1};
   frc::Encoder m_rightEncoder{2, 3};
 
-  frc2::PIDController m_leftPIDController{0.5, 0.0, 0.0};
-  frc2::PIDController m_rightPIDController{0.5, 0.0, 0.0};
+  frc2::PIDController m_leftPIDController{0.1, 0.0, 0.0};
+  frc2::PIDController m_rightPIDController{0.1, 0.0, 0.0};
 
   frc::AnalogGyro m_gyro{0};
 
   frc::DifferentialDriveKinematics m_kinematics{kTrackWidth};
   frc::DifferentialDriveOdometry m_odometry{GetAngle()};
 
-  frc::SimpleMotorFeedforward<units::meters> m_feedforward{1.0_V, 3.0_V / 1_mps}; //original: 1.0_V, 3_V / 1_mps
+  frc::SimpleMotorFeedforward<units::meters> m_feedforward{2.0_V, 3.7_V / 1_mps}; //original: 1.0_V, 3_V / 1_mps
 };

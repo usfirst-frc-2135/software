@@ -19,38 +19,29 @@ class Robot : public frc::TimedRobot {
     m_drive.UpdateOdometry();
   }
 
-  double MoveWithJoysticks (std::shared_ptr<frc::Joystick> throttleJstick) {
-    double xValue = 0.0;
+  void TeleopPeriodic() override {
+    // Get the y speed. 
     double yValue = 0.0;
-    xValue = throttleJstick->GetX();
-    yValue = throttleJstick->GetZ();
+    yValue = dStick->GetZ();
     //dead zone for controller
      if (yValue < 0.06 && yValue > -0.06) {
        yValue = 0;
      }
-     return yValue;
-  }
+    const auto ySpeed =
+        yValue * Drivetrain::kMaxSpeed;
+    frc::SmartDashboard::PutNumber("Joystick", yValue);
 
-  void TeleopPeriodic() override {
-    // Get the x speed. We are inverting this because Xbox controllers return
-    // negative values when we push forward.
-    const auto xSpeed =
-        MoveWithJoysticks(dStick) * Drivetrain::kMaxSpeed;
-    frc::SmartDashboard::PutNumber("Joystick", MoveWithJoysticks(dStick));
-
-    // Get the rate of angular rotation. We are inverting this because we want a
-    // positive value when we pull to the left (remember, CCW is positive in
-    // mathematics). Xbox controllers return positive values when you pull to
-    // the right by default.
-    const auto rot = -dStick->GetX() * Drivetrain::kMaxAngularSpeed;
+    // Get the rate of angular rotation. 
+       double xValue = dStick->GetX();
+       if (xValue < 0.06 && xValue > -0.06) {
+       xValue = 0;
+      }
+    const auto rot = xValue * Drivetrain::kMaxAngularSpeed;
     // const auto rot = units::radians_per_second_t(0);
 
-    //std::printf("time %i\n", timer->Get());
-    //std::printf("yValue: %f\n", yValue);
-    //std::printf("xSpeed: %f\n", xSpeed);
-    frc::SmartDashboard::PutNumber("xSpeed (in m/s)", double(xSpeed));
+    frc::SmartDashboard::PutNumber("ySpeed (in m/s)", double(ySpeed));
     frc::SmartDashboard::PutNumber("rot (in radians/s)", double(rot));
-    m_drive.Drive(xSpeed, rot);
+    m_drive.Drive(ySpeed, rot);
     
   }
 
