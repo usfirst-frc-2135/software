@@ -36,7 +36,7 @@ motorR3.reset(new WPI_TalonFX(3));
 diffDrive.reset(new frc::DifferentialDrive(*motorL1, *motorR3));
 AddChild("Diff Drive", diffDrive);
 diffDrive->SetSafetyEnabled(true);
-diffDrive->SetExpiration(0.1);
+diffDrive->SetExpiration(0.25);
 diffDrive->SetMaxOutput(1.0);
 
 motorL2.reset(new WPI_TalonFX(2));
