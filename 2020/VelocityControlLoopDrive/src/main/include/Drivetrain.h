@@ -32,6 +32,10 @@ class Drivetrain {
     m_rightMaster.ConfigFactoryDefault(30);
     m_rightFollower.ConfigFactoryDefault(30);
 
+    m_leftMaster.SetNeutralMode(NeutralMode::Coast);   // Don't coast after movements
+    m_rightMaster.SetNeutralMode(NeutralMode::Coast);
+    m_leftFollower.SetNeutralMode(NeutralMode::Coast);  
+    m_rightFollower.SetNeutralMode(NeutralMode::Coast);
     // Set up all left side motors that work together
     // Set both motors to spin opposite for forward
     m_leftMaster.SetInverted(true);
@@ -62,7 +66,7 @@ class Drivetrain {
   }
 
   static constexpr units::meters_per_second_t kMaxSpeed =
-      1.5_mps;  //Changed from 3 meters per second
+      2.3_mps;  //Changed from 3 meters per second
   static constexpr units::radians_per_second_t kMaxAngularSpeed{
       wpi::math::pi};  // 1/2 rotation per second
 
