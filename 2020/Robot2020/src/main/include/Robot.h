@@ -58,4 +58,5 @@ static std::shared_ptr<Vision> vision;
 	void AutonomousPeriodic() override;
 	void TeleopInit() override;
 	void TeleopPeriodic() override;
+	void RobotPeriodic() override;
 };

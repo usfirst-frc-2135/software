@@ -100,6 +100,9 @@ void Robot::TeleopPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
 }
 
+void Robot::RobotPeriodic() {
+}
+
 #ifndef RUNNING_FRC_TESTS
 int main(int argc, char** argv) {
     return frc::StartRobot<Robot>();
