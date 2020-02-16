@@ -8,7 +8,8 @@
 #include "Drivetrain.h"
 #include <frc/SmartDashboard/SmartDashboard.h>
 
-void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
+void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds)
+{
   // calculates FF output
   const auto leftFeedforward = m_feedforward.Calculate(speeds.left);
   const auto rightFeedforward = m_feedforward.Calculate(speeds.right);
@@ -40,22 +41,22 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
   frc::SmartDashboard::PutNumber("Output difference", abs(rightOutput - leftOutput));
 }
 
-void Drivetrain::Drive(units::meters_per_second_t ySpeed,
-                       units::radians_per_second_t rot) {
-  SetSpeeds(m_kinematics.ToWheelSpeeds({ySpeed, 0_mps, rot}));
-  
+void Drivetrain::Drive(units::meters_per_second_t ySpeed, units::radians_per_second_t rot)
+{
+  SetSpeeds(m_kinematics.ToWheelSpeeds( { ySpeed, 0_mps, rot } ));
 }
 
-void Drivetrain::UpdateOdometry() {
-  m_odometry.Update(GetAngle(), units::meter_t(GetDistance(&m_leftMaster)),
-                    units::meter_t(GetDistance(&m_rightMaster)));
+void Drivetrain::UpdateOdometry()
+{
+  m_odometry.Update(GetAngle(), units::meter_t(GetDistance(&m_leftMaster)), units::meter_t(GetDistance(&m_rightMaster)));
 }
 
-double Drivetrain::GetDistance(WPI_TalonSRX *talon) {
+double Drivetrain::GetDistance(WPI_TalonSRX *talon)
+{
   return kEncoderDistancePerPulse * talon->GetSelectedSensorPosition();
 }
 
-double Drivetrain::GetSpeed(WPI_TalonSRX *talon) {
+double Drivetrain::GetSpeed(WPI_TalonSRX *talon)
+{
   return kEncoderDistancePerPulse * (talon->GetSelectedSensorVelocity() * 10);
-
 }
