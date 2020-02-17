@@ -27,7 +27,20 @@ private:
 
 
 
+
+
+
+
+
 std::shared_ptr<frc::Joystick> controlBoard;
+std::shared_ptr<frc::JoystickButton> intakeExpel;
+std::shared_ptr<frc::JoystickButton> intakeAquire;
+std::shared_ptr<frc::JoystickButton> indexerToggle;
+std::shared_ptr<frc::JoystickButton> conveyorOn;
+std::shared_ptr<frc::JoystickButton> shooterToggle;
+std::shared_ptr<frc::JoystickButton> lEDToggle;
+std::shared_ptr<frc::JoystickButton> climberRetract;
+std::shared_ptr<frc::JoystickButton> climberExtend;
 std::shared_ptr<frc::JoystickButton> sPRotation;
 std::shared_ptr<frc::JoystickButton> sPColor;
 std::shared_ptr<frc::Joystick> dStick;
