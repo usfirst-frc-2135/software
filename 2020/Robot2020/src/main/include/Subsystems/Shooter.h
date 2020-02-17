@@ -56,6 +56,8 @@ private:
 	// Configuration file parameters
 	double		m_onSpeed;
 	double		m_reverseSpeed;
+	double		m_fwdOutput;
+	double		m_revOutput;
 
 	double		m_pidKf;					// Shooter PID force constant
 	double		m_pidKp;					// Shooter PID proportional constant

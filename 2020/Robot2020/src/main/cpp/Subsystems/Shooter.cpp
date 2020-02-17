@@ -55,6 +55,8 @@ AddChild("Shooter Indexer", shooterIndexer);
      frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
      config->GetValueAsDouble("SH_OnSpeed", m_onSpeed, 60.0);
      config->GetValueAsDouble("SH_ReverseSpeed", m_reverseSpeed, -20.0);
+     config->GetValueAsDouble("SH_FwdOutput", m_fwdOutput, 0.75);
+     config->GetValueAsDouble("SH_RevOutput", m_revOutput, -0.25);
      config->GetValueAsDouble("SH_PidKf", m_pidKf, 0.427);
      config->GetValueAsDouble("SH_PidKp", m_pidKp, 0.250);
      config->GetValueAsDouble("SH_PidKi", m_pidKi, 0.000);
@@ -210,6 +212,7 @@ void Shooter::SetShooterMotorOutput(int direction) {
 
 void Shooter::SetShooterSpeedInit(int level) {
     double 	curVelocityNative = 0.0;
+    double  shooterOutput = 0.0;
 
 	m_shooterLevel = level;
 
@@ -217,12 +220,15 @@ void Shooter::SetShooterSpeedInit(int level) {
 	switch (level) {
 	case STOP_SPEED:	
 		m_targetVelocityRPM = 0.0;
+        shooterOutput = 0.0;
 		break;
 	case ON_SPEED:
 		m_targetVelocityRPM = m_onSpeed;
+        shooterOutput = m_fwdOutput;
 		break;
 	case REVERSE_SPEED:
 		m_targetVelocityRPM = m_reverseSpeed;
+        shooterOutput = m_revOutput;
 		break;
 	default:
 		std::printf("2135: SH invalid velocity requested - %d\n", level);
@@ -241,9 +247,12 @@ void Shooter::SetShooterSpeedInit(int level) {
 	 m_safetyTimer.Reset();
 	 m_safetyTimer.Start();
 
-	motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
-
+    motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
 	std::printf("2135: SH Velocity RPM %5.2f -> %5.2f Native Unit %5.2f-> %5.2f\n",
 		m_curVelocityRPM, m_targetVelocityRPM, curVelocityNative, m_targetVelocityNative);
+
+    // motorSH10->Set(ControlMode::PercentOutput, shooterOutput);
+    // double curOutput = motorSH10->GetMotorOutputPercent();
+    // std::printf("2135: SH Output %5.2f -> %5.2f\n", curOutput, shooterOutput);
 }
 

@@ -31,6 +31,8 @@
 # Shooter settings
   SH_OnSpeed = 60.0
   SH_ReverseSpeed = -20.0
+  SH_FwdOutput = 0.75;
+  SH_RevOutput = -0.25;
   SH_PidKf = 0.450
   SH_PidKp = 0.30
   SH_PidKi = 0.000
