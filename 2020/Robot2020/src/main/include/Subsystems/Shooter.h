@@ -62,8 +62,6 @@ private:
 	double		m_pidKi;					// Shooter PID integral constant
 	double		m_pidKd;					// Shooter PID derivative constant
 	double		m_neutralDeadband;			// Shooter PID neutral deadband in percent
-	double		m_toleranceRPM;				// Shooter PID tolerance in RPM
-
 
 public:
 Shooter();
@@ -80,8 +78,7 @@ Shooter();
 	enum {
 		STOP_SPEED = 0,				// Stop shooter
 		ON_SPEED = 1,				// Shooter velocity
-		REVERSE_SPEED = -1			// Shooter reverse
-		
+		REVERSE_SPEED = -1			// Shooter reverse		
 	};
 
 	void Initialize(void);
@@ -94,7 +91,5 @@ Shooter();
 	void SetShooterMotorOutput(int direction);
 
 	void SetShooterSpeedInit(int level);
-	bool SetShooterSpeedIsFinished();
-
 };
 

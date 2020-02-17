@@ -149,18 +149,17 @@ void RobotContainer::SmartDashboardStartChooser() {
 
     delete chooser; 
     chooser = new frc::SendableChooser<std::string>;
-   chooser->AddOption("B1", "Blue_Alliance_Team_1.wpilib.json");
-   chooser->AddOption("B2", "Blue_Alliance_Team_2.wpilib.json"); 
-   chooser->AddOption("B3", "Blue_Alliance_Team_3.wpilib.json");
-   chooser->AddOption("R1", "Red_Alliance_Team_1.wpilib.json"); 
-   chooser->AddOption("R2", "Red_Alliance_Team_2.wpilib.json"); 
-   chooser->AddOption("R3", "Red_Alliance_Team_3.wpilib.json"); 
-   chooser->AddOption("TS", "Test_Square.wpilib.json"); 
-   chooser->AddOption("T1", "Test_Path_1.wpilib.json"); 
-   chooser->AddOption("T3", "Test_Path_3.wpilib.json"); 
-   chooser->AddOption("T4", "Test_Path_4.wpilib.json"); 
-   chooser->AddOption("T5", "Test_Path_5.wpilib.json"); 
-   chooser->AddOption("TP", "Test_Path.wpilib.json"); 
+   chooser->AddOption("test_1", "alisha.wpilib.json");
+   chooser->AddOption("test_2", "christine.wpilib.json"); 
+   chooser->AddOption("test_3", "gurmehr.wpilib.json");
+   chooser->AddOption("test_4", "joyce.wpilib.json"); 
+   chooser->AddOption("test_5", "nitya.wpilib.json"); 
+   chooser->AddOption("test_6", "rithu.wpilib.json"); 
+   chooser->AddOption("test_7", "sheryl.wpilib.json");
+   chooser->AddOption("test_8", "meghna.wpilib.json");
+   chooser->AddOption("test_9", "savannah.wpilib.json"); 
+   chooser->AddOption("test_10", "anika.wpilib.json"); 
 
-  frc::SmartDashboard::PutData("Paths", chooser);
+
+  frc::SmartDashboard::PutData("paths", chooser);
 }

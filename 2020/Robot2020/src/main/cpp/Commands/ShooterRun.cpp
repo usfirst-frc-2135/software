@@ -36,7 +36,7 @@ void ShooterRun::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterRun::IsFinished() {
-    return Robot::shooter->SetShooterSpeedIsFinished();
+    return false;
 }
 
 // Called once after isFinished returns true

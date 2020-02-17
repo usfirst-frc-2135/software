@@ -53,8 +53,8 @@ AddChild("Shooter Indexer", shooterIndexer);
 
     // Initialize Variables
      frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
-     config->GetValueAsDouble("SH_OnSpeed", m_onSpeed, 0.75);
-     config->GetValueAsDouble("SH_ReverseSpeed", m_reverseSpeed, -0.25);
+     config->GetValueAsDouble("SH_OnSpeed", m_onSpeed, 60.0);
+     config->GetValueAsDouble("SH_ReverseSpeed", m_reverseSpeed, -20.0);
      config->GetValueAsDouble("SH_PidKf", m_pidKf, 0.427);
      config->GetValueAsDouble("SH_PidKp", m_pidKp, 0.250);
      config->GetValueAsDouble("SH_PidKi", m_pidKi, 0.000);
@@ -77,7 +77,7 @@ AddChild("Shooter Indexer", shooterIndexer);
 
         // Configure sensor settings
         motorSH10->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
-        motorSH10->SetSensorPhase(true);
+        motorSH10->SetSensorPhase(false);
         motorSH10->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 
 		// Configure Velocity PIDF settings
@@ -136,9 +136,10 @@ void Shooter::Periodic() {
         frc::SmartDashboard::PutNumber("SH_Output_SH11", outputSH11);
         frc::SmartDashboard::PutNumber("SH_Current_SH11", currentSH11);
 
-        frc::SmartDashboard::PutNumber("SH_Indexer", shooterIndexer->Get());
+        double curVelocityRPM = NativeToRpm(motorSH10->GetSelectedSensorVelocity(m_pidIndex));
+        frc::SmartDashboard::PutNumber("SH_Velocity_RPM", curVelocityRPM);
 
-		printf("2135: SH 10 Output: %f\n SH 11 Output: %f\n", outputSH10, outputSH11);
+        frc::SmartDashboard::PutNumber("SH_Indexer", shooterIndexer->Get());
     }
 }
 
@@ -240,49 +241,9 @@ void Shooter::SetShooterSpeedInit(int level) {
 	 m_safetyTimer.Reset();
 	 m_safetyTimer.Start();
 
-	motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative, 
-		DemandType::DemandType_ArbitraryFeedForward, m_pidKf);
+	motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
 
 	std::printf("2135: SH Velocity RPM %5.2f -> %5.2f Native Unit %5.2f-> %5.2f\n",
 		m_curVelocityRPM, m_targetVelocityRPM, curVelocityNative, m_targetVelocityNative);
-}
-
-bool Shooter::SetShooterSpeedIsFinished() {
-    static int	withinTolerance = 0;
-    bool 		isFinished = false;
-    double 		curVelocityNative = 0.0;
-    double 		errorInRPM = 0.0;
-
-	// If a real move was requested, check for completion
-		if (m_talonValidSH10) {
-			curVelocityNative = RpmToNative(m_curVelocityRPM);
-		}
-
-		errorInRPM = NativeToRpm(m_targetVelocityNative - curVelocityNative);
-
-		// Check to see if the error is in an acceptable number of inches.
-		if (fabs(errorInRPM) < m_toleranceRPM) {
-			if (++withinTolerance >= 3) {
-				isFinished = true;
-				std::printf("2135: SH Set Speed Finished - Time %f\n", m_safetyTimer.Get());
-			}
-		}
-		else {
-			withinTolerance = 0;
-		}
-		
-		// Check to see if the Safety Timer has timed out.
-		if (m_safetyTimer.Get() >= m_safetyTimeout) {
-			isFinished = true;
-			std::printf("2135: SH Set Speed Safety timer has timed out\n");
-		}
-
-	// If completed, clean up
-	if (isFinished) {
-		withinTolerance = 0;
-		m_safetyTimer.Stop();
-	}
-
-    return isFinished;
 }
 

@@ -29,11 +29,10 @@
   CV_HoldSpeed = 0.1
   CV_ExpelSpeed = -0.75
 # Shooter settings
-  SH_FireSpeed = 0.9
-  SH_ReverseSpeed = -0.25
-  SH_OnSpeed = 0.75
-  SH_PidKf = 0.427
-  SH_PidKp = 0.250
+  SH_OnSpeed = 60.0
+  SH_ReverseSpeed = -20.0
+  SH_PidKf = 0.450
+  SH_PidKp = 0.30
   SH_PidKi = 0.000
   SH_PidKd = 0.000
   SH_NeutralDeadband = 0.004
