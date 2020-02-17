@@ -37,8 +37,11 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds)
   frc::SmartDashboard::PutNumber("rightTotalOutput", rightTotalOutput);
   frc::SmartDashboard::PutNumber("leftSpeed", leftSpeed);
   frc::SmartDashboard::PutNumber("rightSpeed", rightSpeed);
-  frc::SmartDashboard::PutNumber("speed difference", abs(rightSpeed - leftSpeed));
-  frc::SmartDashboard::PutNumber("Output difference", abs(rightOutput - leftOutput));
+  frc::SmartDashboard::PutNumber("speed difference", rightSpeed - leftSpeed);
+  frc::SmartDashboard::PutNumber("Output difference", rightOutput - leftOutput);
+  frc::SmartDashboard::PutNumber("left encoder", m_leftMaster.GetSelectedSensorPosition());
+  frc::SmartDashboard::PutNumber("right encoder", m_rightMaster.GetSelectedSensorPosition());
+
 }
 
 void Drivetrain::Drive(units::meters_per_second_t ySpeed, units::radians_per_second_t rot)
