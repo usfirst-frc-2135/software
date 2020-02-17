@@ -272,7 +272,7 @@ Children:
         validators: null
         value:
         - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: speed, type: int,
-          value: '-1'}
+          value: '0'}
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: Shooter Run}
       Constants: !!robotbuilder.data.properties.ConstantsProperty
@@ -1059,7 +1059,7 @@ Children:
         validators: null
         value:
         - !!robotbuilder.data.properties.ParameterSet
-          name: NOCHANGE_SPEED
+          name: REVERSE_SPEED
           parameters:
           - {name: speed, type: int, value: '-1'}
         - !!robotbuilder.data.properties.ParameterSet
@@ -1067,17 +1067,9 @@ Children:
           parameters:
           - {name: speed, type: int, value: '0'}
         - !!robotbuilder.data.properties.ParameterSet
-          name: SLOW_SPEED
+          name: ON_SPEED
           parameters:
           - {name: speed, type: int, value: '1'}
-        - !!robotbuilder.data.properties.ParameterSet
-          name: FAST_SPEED
-          parameters:
-          - {name: speed, type: int, value: '2'}
-        - !!robotbuilder.data.properties.ParameterSet
-          name: SMARTDASH_SPEED
-          parameters:
-          - {name: speed, type: int, value: '3'}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -1140,10 +1132,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Climber}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id020 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id020
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -1162,10 +1154,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: None}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id021 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id021
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -1185,7 +1177,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Conveyor}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id022
+        default: []
+        name: Parameter presets
+        validators: null
+        value:
         - !!robotbuilder.data.properties.ParameterSet
           name: CONVEYOR_STOP
           parameters:
@@ -1202,9 +1197,6 @@ Children:
           name: CONVEYOR_HOLD
           parameters:
           - {name: direction, type: int, value: '3'}
-        name: Parameter presets
-        validators: null
-        value: *id022
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -1224,7 +1216,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Conveyor}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id023
+        default: []
+        name: Parameter presets
+        validators: null
+        value:
         - !!robotbuilder.data.properties.ParameterSet
           name: INDEXER_ON
           parameters:
@@ -1233,9 +1228,6 @@ Children:
           name: INDEXER_OFF
           parameters:
           - {name: state, type: boolean, value: 'false'}
-        name: Parameter presets
-        validators: null
-        value: *id023
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -1255,7 +1247,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Intake}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id024
+        default: []
+        name: Parameter presets
+        validators: null
+        value:
         - !!robotbuilder.data.properties.ParameterSet
           name: INTAKE_STOP
           parameters:
@@ -1268,9 +1263,6 @@ Children:
           name: INTAKE_REVERSE
           parameters:
           - {name: direction, type: int, value: '-1'}
-        name: Parameter presets
-        validators: null
-        value: *id024
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -1296,9 +1288,9 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Administrator\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\',
     extension: null, folder: true, name: Wiring file location, validators: null, value: ./}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Administrator\FRCProjects',
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\FRCProjects',
     extension: null, folder: true, name: Export Directory, validators: null, value: ./}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
