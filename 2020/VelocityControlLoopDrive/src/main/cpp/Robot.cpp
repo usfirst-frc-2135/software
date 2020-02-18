@@ -26,6 +26,11 @@ public:
 
   }
 
+  void RobotPeriodic() override
+  {
+    m_drive.Periodic();
+  }
+
   void TeleopPeriodic() override
   {
     // Get the y speed.

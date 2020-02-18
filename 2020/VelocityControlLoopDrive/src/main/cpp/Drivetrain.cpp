@@ -37,6 +37,8 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds)
   frc::SmartDashboard::PutNumber("rightTotalOutput", rightTotalOutput);
   frc::SmartDashboard::PutNumber("leftSpeed", leftSpeed);
   frc::SmartDashboard::PutNumber("rightSpeed", rightSpeed);
+  frc::SmartDashboard::PutNumber("leftSpeedPassed", leftSpeedPassed);
+  frc::SmartDashboard::PutNumber("rightSpeedPassed", rightSpeedPassed);
   frc::SmartDashboard::PutNumber("speed difference", rightSpeed - leftSpeed);
   frc::SmartDashboard::PutNumber("Output difference", rightOutput - leftOutput);
   frc::SmartDashboard::PutNumber("left encoder", m_leftMaster.GetSelectedSensorPosition());
@@ -62,4 +64,9 @@ double Drivetrain::GetDistance(WPI_TalonSRX *talon)
 double Drivetrain::GetSpeed(WPI_TalonSRX *talon)
 {
   return kEncoderDistancePerPulse * (talon->GetSelectedSensorVelocity() * 10);
+}
+
+void Drivetrain::Periodic(){
+  frc::SmartDashboard::PutNumber("left encoder counts", m_leftMaster.GetSelectedSensorPosition());
+  frc::SmartDashboard::PutNumber("right encoder counts", m_rightMaster.GetSelectedSensorPosition());
 }

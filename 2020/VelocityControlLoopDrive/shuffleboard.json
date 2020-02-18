@@ -1,0 +1,360 @@
+{
+  "tabPane": [
+    {
+      "title": "SmartDashboard",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "SmartDashboard/",
+      "widgetPane": {
+        "gridSize": 24.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "5,0": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/left encoder counts",
+              "_title": "left encoder counts"
+            }
+          },
+          "10,0": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/right encoder counts",
+              "_title": "right encoder counts"
+            }
+          },
+          "0,3": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Joystick Y",
+              "_title": "Joystick Y"
+            }
+          },
+          "0,5": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ySpeed (m/s)",
+              "_title": "ySpeed (m/s)"
+            }
+          },
+          "0,7": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rot (rad/s)",
+              "_title": "rot (rad/s)"
+            }
+          },
+          "5,2": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/leftFF",
+              "_title": "leftFF"
+            }
+          },
+          "10,2": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rightFF",
+              "_title": "rightFF"
+            }
+          },
+          "5,4": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/leftTotalOutput",
+              "_title": "leftTotalOutput"
+            }
+          },
+          "10,4": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rightTotalOutput",
+              "_title": "rightTotalOutput"
+            }
+          },
+          "5,6": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/leftSpeed",
+              "_title": "leftSpeed"
+            }
+          },
+          "10,6": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rightSpeed",
+              "_title": "rightSpeed"
+            }
+          },
+          "5,8": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/leftSpeedPassed",
+              "_title": "leftSpeedPassed"
+            }
+          },
+          "10,8": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rightSpeedPassed",
+              "_title": "rightSpeedPassed"
+            }
+          },
+          "17,0": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/speed difference",
+              "_title": "speed difference"
+            }
+          },
+          "17,2": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Output difference",
+              "_title": "Output difference"
+            }
+          },
+          "30,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/left encoder",
+              "_title": "left encoder"
+            }
+          },
+          "32,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/right encoder",
+              "_title": "right encoder"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "LiveWindow",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "LiveWindow/",
+      "widgetPane": {
+        "gridSize": 24.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              7,
+              4
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [1]",
+              "_title": "Ungrouped/Talon SRX [1]",
+              "Visuals/Orientation": "HORIZONTAL"
+            }
+          },
+          "7,0": {
+            "size": [
+              7,
+              4
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [2]",
+              "_title": "Ungrouped/Talon SRX [2]",
+              "Visuals/Orientation": "HORIZONTAL"
+            }
+          },
+          "14,0": {
+            "size": [
+              7,
+              4
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [3]",
+              "_title": "Ungrouped/Talon SRX [3]",
+              "Visuals/Orientation": "HORIZONTAL"
+            }
+          },
+          "21,0": {
+            "size": [
+              7,
+              4
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [4]",
+              "_title": "Ungrouped/Talon SRX [4]",
+              "Visuals/Orientation": "HORIZONTAL"
+            }
+          },
+          "28,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[0]/Value",
+              "_title": "Ungrouped/DigitalInput[0]/Value",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "0,4": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[1]/Value",
+              "_title": "Ungrouped/DigitalInput[1]/Value",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "4,4": {
+            "size": [
+              7,
+              4
+            ],
+            "content": {
+              "_type": "Encoder",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]",
+              "_title": "Ungrouped/Encoder[0]"
+            }
+          },
+          "11,4": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[2]/Value",
+              "_title": "Ungrouped/DigitalInput[2]/Value",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "15,4": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[3]/Value",
+              "_title": "Ungrouped/DigitalInput[3]/Value",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "19,4": {
+            "size": [
+              7,
+              4
+            ],
+            "content": {
+              "_type": "Encoder",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[2]",
+              "_title": "Ungrouped/Encoder[2]"
+            }
+          },
+          "26,4": {
+            "size": [
+              6,
+              6
+            ],
+            "content": {
+              "_type": "Gyro",
+              "_source0": "network_table:///LiveWindow/Ungrouped/AnalogGyro[0]",
+              "_title": "Ungrouped/AnalogGyro[0]",
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
+            }
+          }
+        }
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": -3.0,
+    "y": 33.0,
+    "width": 1366.0,
+    "height": 523.0
+  }
+}
