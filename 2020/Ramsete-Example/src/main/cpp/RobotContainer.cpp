@@ -94,8 +94,12 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
    // TODO: Fix path does not exist error
     wpi::SmallString<64> deployDirectory;
     frc::filesystem::GetDeployDirectory(deployDirectory);
-    wpi::sys::path::append(deployDirectory, "paths");
+    wpi::sys::path::append(deployDirectory, "output");
     wpi::sys::path::append(deployDirectory, chooser->GetSelected());
+
+    std::string path = chooser->GetSelected();
+
+    std::printf("%s\n", path.c_str());
     // wpi::sys::path::append(deployDirectory, selectedPath);
     // wpi::sys::path::append(deployDirectory, "Blue_Alliance_Team_1.wpilib.json");
     // wpi::sys::path::append(deployDirectory, "Blue_Alliance_Team_2.wpilib.json");
@@ -159,7 +163,8 @@ void RobotContainer::SmartDashboardStartChooser() {
    chooser->AddOption("test_8", "meghna.wpilib.json");
    chooser->AddOption("test_9", "savannah.wpilib.json"); 
    chooser->AddOption("test_10", "anika.wpilib.json"); 
+  
 
 
-  frc::SmartDashboard::PutData("paths", chooser);
+  frc::SmartDashboard::PutData("output", chooser);
 }
