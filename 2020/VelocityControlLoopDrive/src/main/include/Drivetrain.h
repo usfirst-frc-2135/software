@@ -73,7 +73,7 @@ class Drivetrain
     double GetSpeed(WPI_TalonSRX *talon);
 
     // JLM: 7fps = 2.15mps
-    static constexpr units::meters_per_second_t kMaxSpeed = 2.3_mps;  //Changed from 3 meters per second
+    static constexpr units::meters_per_second_t kMaxSpeed = 1.1336_mps;  //Changed from 3 meters per second, after 2.3
     static constexpr units::radians_per_second_t kMaxAngularSpeed { wpi::math::pi } ;  // 1/2 rotation per second
 
     void Periodic();
@@ -98,8 +98,8 @@ class Drivetrain
     frc::Encoder m_leftEncoder { 0, 1 };
     frc::Encoder m_rightEncoder { 2, 3 };
 
-    frc2::PIDController m_leftPIDController { 0.6, 0.0, 0.0 };
-    frc2::PIDController m_rightPIDController { 0.6, 0.0, 0.0 };
+    frc2::PIDController m_leftPIDController { 1.0, 0.0, 0.0 };
+    frc2::PIDController m_rightPIDController { 1.0, 0.0, 0.0 };
 
     frc::AnalogGyro m_gyro { 0 };
 
@@ -108,5 +108,5 @@ class Drivetrain
 
     // JLM: I don't believe kS is really 2.0V, since we measured 0.866 (or something similar) during characterization
     // JLM: kV and kA (not set here) should come from characterization?
-    frc::SimpleMotorFeedforward<units::meters> m_feedforward { 0.866_V, 3.7_V / 1_mps }; //original: 1.0_V, 3_V / 1_mps
+    frc::SimpleMotorFeedforward<units::meters> m_feedforward { 0.899_V, 4.63_V / 1_mps, 0.69_V / 1_mps_sq }; //original: 1.0_V, 3_V / 1_mps
 };
