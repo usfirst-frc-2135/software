@@ -76,6 +76,11 @@ AddChild("Shifter", shifter);
         config->GetValueAsDouble("DT_PidKi", m_pidKi, 0.0);
         config->GetValueAsDouble("DT_PidKd", m_pidKd, 0.0);
         config->GetValueAsDouble("DT_ArbFeedForward", m_arbFeedForward, 1.0);
+		config->GetValueAsDouble("DT_VCMaxSpeed", m_vcMaxSpeed, 3.7192);
+		config->GetValueAsDouble("DT_VCMaxAngSpeed", m_vcMaxAngSpeed, M_PI);
+		config->GetValueAsDouble("DT_VCPIDKp", m_vcpidKp, 1.0);
+		config->GetValueAsDouble("DT_VCPIDKi", m_vcpidKi, 0.0);
+		config->GetValueAsDouble("DT_VCPIDKd", m_vcpidKd, 0.0);
 
     // Invert the direction of the motors
     // Set to brake mode (in comparison to coast)
@@ -149,6 +154,12 @@ AddChild("Shifter", shifter);
    	// driveTurnPIDLoop->SetPID(m_turnKp, 0.0, 0.0);
    	// driveTurnPIDLoop->SetOutputRange(-m_turnMaxOut, m_turnMaxOut);
    	// driveTurnPIDLoop->SetAbsoluteTolerance(m_turnTolDeg);
+
+	// Velocity Control Loop 
+	m_leftPIDController = new frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
+	m_rightPIDController = new frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
+	m_kinematics = new frc::DifferentialDriveKinematics(TRACK_WIDTH_FEET);
+	m_odometry = new frc::DifferentialDriveOdometry(GetAngle());
 }
 
 void Drivetrain::InitDefaultCommand() {
@@ -297,6 +308,9 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 		}
 	}
 
+	units::feet_per_second_t ySpeed = 0.0_fps;
+	units::radians_per_second_t rot = 0.0_rad_per_s;
+
     switch (m_curDriveMode) {
     case DRIVEMODE_ARCADE:
 		diffDrive->ArcadeDrive(-yValue, xValue, true);
@@ -304,6 +318,11 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
     case DRIVEMODE_CURVATURE: 
 		diffDrive->CurvatureDrive(-yValue, xValue, false);	// Boolean is for quick turn or not
         break;
+	case DRIVEMODE_VELCONTROL:
+		ySpeed = yValue * units::feet_per_second_t(m_vcMaxSpeed);
+		rot = xValue * units::radians_per_second_t(m_vcMaxAngSpeed);
+		VCLDrive(m_kinematics->ToWheelSpeeds({ySpeed, 0_fps, rot}));
+		break;
     default:
 		diffDrive->ArcadeDrive(-yValue, xValue, true);
         break;
@@ -316,6 +335,53 @@ void Drivetrain::ToggleDriveMode() {
 
 	std::printf("2135 Current Drive: %d\n", m_curDriveMode);
 	frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
+}
+
+// Velocity Control Loop
+
+void Drivetrain::VCLDrive(const frc::DifferentialDriveWheelSpeeds& speeds) {
+
+	// calculates FF output
+	const auto leftFeedforward = m_feedforward.Calculate(speeds.left);
+	const auto rightFeedforward = m_feedforward.Calculate(speeds.right);
+	double leftCurSpeed = GetSpeed(motorL1);
+	double rightCurSpeed = GetSpeed(motorR3);
+	double leftTargetSpeed = speeds.left.to<double>();
+	double rightTargetSpeed = speeds.right.to<double>();
+	// calculates PID output
+  	const auto leftOutput = m_leftPIDController->Calculate(leftCurSpeed, leftTargetSpeed);
+	const auto rightOutput = m_rightPIDController->Calculate(rightCurSpeed, rightTargetSpeed);
+
+	// Divide FF by 12 to normalize to the same units as the outputs
+	double leftTotalOutput = -leftOutput - double(leftFeedforward) / 12.0;	
+  	double rightTotalOutput = rightOutput + double(rightFeedforward) / 12.0;
+	motorL1->Set(leftTotalOutput);
+	motorR3->Set(rightTotalOutput);
+
+	if (m_driveDebug > 0) {
+		frc::SmartDashboard::PutNumber("leftOutput", -leftOutput);
+		frc::SmartDashboard::PutNumber("rightOutput", rightOutput);
+  		frc::SmartDashboard::PutNumber("leftTotalOutput", leftTotalOutput);
+  		frc::SmartDashboard::PutNumber("rightTotalOutput", rightTotalOutput);
+  		frc::SmartDashboard::PutNumber("leftCurSpeed", leftCurSpeed);
+  		frc::SmartDashboard::PutNumber("rightCurSpeed", rightCurSpeed);
+  		frc::SmartDashboard::PutNumber("leftTargetSpeed", leftTargetSpeed);
+  		frc::SmartDashboard::PutNumber("rightTargetSpeed", rightTargetSpeed);
+  		frc::SmartDashboard::PutNumber("speed difference", rightCurSpeed - leftCurSpeed);
+  		frc::SmartDashboard::PutNumber("Output difference", rightOutput - leftOutput);
+	}
+}
+
+void Drivetrain::UpdateOdometry() {
+  m_odometry->Update(GetAngle(), units::foot_t(GetDistance(motorL1)), units::foot_t(GetDistance(motorR3)));
+}
+
+double Drivetrain::GetDistance(std::shared_ptr<WPI_TalonFX> talon) {
+  return DIST_PER_COUNT * talon->GetSelectedSensorPosition();
+}
+
+double Drivetrain::GetSpeed(std::shared_ptr<WPI_TalonFX> talon) {
+  return DIST_PER_COUNT * (talon->GetSelectedSensorVelocity() * 10);
 }
 
 //	Automatic Drive Spin movement
@@ -505,6 +571,10 @@ double Drivetrain::GetIMUHeading() {
 	}
 
     return heading;
+}
+
+frc::Rotation2d Drivetrain::GetAngle() {
+	return frc::Rotation2d(units::degree_t(GetIMUHeading()));
 }
 
 void Drivetrain::ResetSensors(void) {

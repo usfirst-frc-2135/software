@@ -18,6 +18,10 @@
 #include <frc/PIDController.h>
 #include <frc/PIDOutput.h>
 #include <frc/PIDSource.h>
+#include <frc/controller/PIDController.h>
+#include <frc/controller/SimpleMotorFeedforward.h>
+#include <frc/kinematics/DifferentialDriveKinematics.h>
+#include <frc/kinematics/DifferentialDriveOdometry.h>
 
 #include <ctre/Phoenix.h>
 #include <ctre/phoenix/sensors/PigeonIMU.h>
@@ -56,8 +60,10 @@ private:
 	const int m_pidIndex = 0;					   // PID slot index for sensors
 	const int m_timeout = 30;					   // CAN timeout in msec to wait for response
 	const double COUNTS_PER_ROTATION = (1024 * 4); // CPR is 1024 and multiplied by 4
-	const double WHEEL_DIA_INCHES = 6.0;		   // TODO: change based on wheel decision
 	const double CountsPerInch = COUNTS_PER_ROTATION / (WHEEL_DIA_INCHES * M_PI);
+	const double WHEEL_DIA_INCHES = 6.0;
+	const units::foot_t TRACK_WIDTH_FEET = 2.125_ft;		   
+	const double DIST_PER_COUNT = (WHEEL_DIA_INCHES/12 * M_PI) / COUNTS_PER_ROTATION;
 	const double m_circumInches = (WHEEL_DIA_INCHES * M_PI);
 	const int m_reqPigeonVer = ((20 * 256) + 0);   // Pigeon IMU version is 20.0
 
@@ -99,6 +105,19 @@ private:
 	double m_pidKd;			 // Drivetrain PID derivative constant
 	double m_arbFeedForward; // Drivetrain Motion Magic Arbitrary Feed Forward
 
+	double m_vcMaxSpeed;
+	double m_vcMaxAngSpeed;
+	double m_vcpidKp;
+	double m_vcpidKi;
+	double m_vcpidKd;
+
+	frc::SimpleMotorFeedforward<units::feet> m_feedforward {0.899_V, 4.63_V / 1_fps, 0.69_V / 1_fps_sq}; // TODO: dtermine values for ft/s
+	frc2::PIDController *m_leftPIDController;
+	frc2::PIDController *m_rightPIDController;
+
+	frc::DifferentialDriveKinematics *m_kinematics;
+    frc::DifferentialDriveOdometry *m_odometry;
+
 	bool m_throttleZeroed; // Throttle joystick zeroed check for safety
 
 	double m_alignTurnKp = 0.05; // TODO: change to be set in config file
@@ -110,6 +129,7 @@ private:
 		DRIVEMODE_ARCADE 	= DRIVEMODE_FIRST,
 		DRIVEMODE_CURVATURE = 1,
 	//	DRIVEMODE_CUBIC 	= 2,
+		DRIVEMODE_VELCONTROL = 3,
 		DRIVEMODE_LAST
 	};
 
@@ -139,6 +159,12 @@ Drivetrain();
 	void MoveWithJoysticks(std::shared_ptr<frc::Joystick>, std::shared_ptr<frc::Joystick>);
 	void ToggleDriveMode();
 
+	// Velocity Control Loop
+	void VCLDrive(const frc::DifferentialDriveWheelSpeeds& speeds);
+	void UpdateOdometry();
+	double GetDistance(std::shared_ptr<WPI_TalonFX>);
+	double GetSpeed(std::shared_ptr<WPI_TalonFX>);
+
 	void MoveSpin(bool spinRight);
 	void MoveStop();
 
@@ -157,6 +183,7 @@ Drivetrain();
 	bool PigeonIMUInitialize();
 	void PigeonIMUFaultDump(void);
 	double GetIMUHeading();
+	frc::Rotation2d GetAngle();
 
 	void ResetSensors();
 

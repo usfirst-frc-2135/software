@@ -21,6 +21,11 @@
   DT_PidKi = 0.000
   DT_PidKd = 0.000
   DT_ArbFeedForward = 0.000
+  DT_VCMaxSpeed = 3.7192
+  DT_VCMaxAngSpeed = 3.14159
+  DT_VCPIDKp = 1.0
+  DT_VCPIDKi = 0.0
+  DT_VCPIDKd = 0.0
 # Intake settings
   IN_AcquireSpeed = 0.75
   IN_ExpelSpeed = -0.75
