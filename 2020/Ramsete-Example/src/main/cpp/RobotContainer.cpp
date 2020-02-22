@@ -113,6 +113,12 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
     // wpi::sys::path::append(deployDirectory, "Test_Path_4.wpilib.json");
 
    frc::Trajectory trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDirectory);
+   auto trajectoryStates = trajectory.States(); 
+   printf("Size of state table is %d\n", trajectoryStates.size());
+ for (int i = 0; i < trajectoryStates.size(); i++) {
+  auto curState = trajectoryStates[i];
+  printf("State time: %d, velocity %d, acceleration %d\n", curState.t, curState.velocity, curState.acceleration);
+ }
 
   frc2::PIDController leftController(DriveConstants::kPDriveVel, 0,0);
   frc2::PIDController rightController(DriveConstants::kPDriveVel, 0,0);

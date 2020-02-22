@@ -71,7 +71,18 @@ void DriveSubsystem::Periodic() {
     if ((count++ % 5) == 0) {
       printf("%f, %f, %f\n", left_dist, right_dist, gyroAngle);
     }
+
+    std::printf("9135:LR cts %5d %5d out %4.2f %4.2f amps %6.3f %6.3f\n",  
+    m_talon_left1.GetSelectedSensorPosition(),
+    m_talon_right3.GetSelectedSensorPosition(), 
+    m_talon_left1.GetMotorOutputPercent(),  
+    m_talon_right3.GetMotorOutputPercent(),
+    m_talon_left1.GetOutputCurrent(),
+    m_talon_right3.GetOutputCurrent()
+     );
 }
+
+
 
 void DriveSubsystem::ArcadeDrive(double fwd, double rot) {
   m_drive.ArcadeDrive(fwd, rot);

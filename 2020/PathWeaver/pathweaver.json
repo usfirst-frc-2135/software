@@ -1,8 +1,8 @@
 {
-  "lengthUnit": "Meter",
-  "maxVelocity": 2.0,
-  "maxAcceleration": 0.5,
-  "wheelBase": 0.6096,
+  "lengthUnit": "Foot",
+  "maxVelocity": 4.0,
+  "maxAcceleration": 2.0,
+  "wheelBase": 2.0,
   "gameName": "Infinite Recharge",
   "outputDir": "../Ramsete-Example/src/main/deploy"
 }
