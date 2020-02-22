@@ -81,6 +81,7 @@ AddChild("Shifter", shifter);
 		config->GetValueAsDouble("DT_VCPIDKp", m_vcpidKp, 1.0);
 		config->GetValueAsDouble("DT_VCPIDKi", m_vcpidKi, 0.0);
 		config->GetValueAsDouble("DT_VCPIDKd", m_vcpidKd, 0.0);
+		config->GetValueAsInt("DT_DriveMode", m_curDriveMode, 0);
 
     // Invert the direction of the motors
     // Set to brake mode (in comparison to coast)

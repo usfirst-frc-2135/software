@@ -15,8 +15,8 @@
 #include <rev/ColorSensorV3.h>
 #include <rev/ColorMatch.h>
 
-#include <frc/util/color.h>
-#include <frc/smartdashboard/smartdashboard.h>
+#include <frc/util/Color.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include <frc2135/RobotConfig.h>
 

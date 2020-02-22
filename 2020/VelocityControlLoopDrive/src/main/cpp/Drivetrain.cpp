@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Drivetrain.h"
-#include <frc/SmartDashboard/SmartDashboard.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds)
 {
