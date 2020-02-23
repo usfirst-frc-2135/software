@@ -80,6 +80,12 @@ void DriveSubsystem::Periodic() {
     m_talon_left1.GetOutputCurrent(),
     m_talon_right3.GetOutputCurrent()
      );
+     frc::SmartDashboard::PutNumber("left encoder", m_talon_left1.GetSelectedSensorPosition());
+     frc::SmartDashboard::PutNumber("right encoder", m_talon_right3.GetSelectedSensorPosition()); 
+     frc::SmartDashboard::PutNumber("L Output Percent", m_talon_left1.GetMotorOutputPercent()); 
+     frc::SmartDashboard::PutNumber("R Output Percent", m_talon_right3.GetMotorOutputPercent()); 
+     frc::SmartDashboard::PutNumber("L Output Current", m_talon_left1.GetOutputCurrent());
+     frc::SmartDashboard::PutNumber("R Output Current", m_talon_right3.GetOutputCurrent());
 }
 
 
