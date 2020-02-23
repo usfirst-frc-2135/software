@@ -83,6 +83,7 @@ shiftSpeed->WhileHeld(new DriveShift(false));
     frc::SmartDashboard::PutData("Shooter Run: REVERSE_SPEED", new ShooterRun(-1));
     frc::SmartDashboard::PutData("Shooter Run: STOP_SPEED", new ShooterRun(0));
     frc::SmartDashboard::PutData("Shooter Run: ON_SPEED", new ShooterRun(1));
+    frc::SmartDashboard::PutData("Shooter Run: SMARTDASH_SPEED", new ShooterRun(2));
     frc::SmartDashboard::PutData("Drive Align PID Turn: default", new DriveAlignPIDTurn(0.0));
     frc::SmartDashboard::PutData("Drive Align Turn", new DriveAlignTurn());
     frc::SmartDashboard::PutData("Drive Reset", new DriveReset());

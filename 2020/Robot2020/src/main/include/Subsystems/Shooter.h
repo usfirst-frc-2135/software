@@ -65,6 +65,9 @@ private:
 	double		m_pidKd;					// Shooter PID derivative constant
 	double		m_neutralDeadband;			// Shooter PID neutral deadband in percent
 
+	double m_smartDashOutput;
+	double m_smartDashSpeed;
+
 public:
 Shooter();
 	void InitDefaultCommand() override;
@@ -80,7 +83,8 @@ Shooter();
 	enum {
 		STOP_SPEED = 0,				// Stop shooter
 		ON_SPEED = 1,				// Shooter velocity
-		REVERSE_SPEED = -1			// Shooter reverse		
+		REVERSE_SPEED = -1,			// Shooter reverse		
+		SMARTDASH_SPEED = 2
 	};
 
 	void Initialize(void);
