@@ -24,7 +24,8 @@ m_direction = direction;
 
 // Called just before this Command runs the first time
 void ConveyorRun::Initialize() {
-
+    std::printf("2135: ConveyorRun - Init\n");
+    Robot::conveyor->SetConveyorMotorSpeed(m_direction);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -39,11 +40,12 @@ bool ConveyorRun::IsFinished() {
 
 // Called once after isFinished returns true
 void ConveyorRun::End() {
-
+    std::printf("2135: ConveyorRun - End \n");
+    Robot::conveyor->SetConveyorMotorSpeed(m_direction);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ConveyorRun::Interrupted() {
-
+    std::printf("2135: ConveyorRun - Interrupted \n");
 }
