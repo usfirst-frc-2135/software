@@ -337,7 +337,13 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 		}
 		if (!m_lowGear) {
 			m_vcMaxSpeed = 16.77;
+			std::printf("Changed Max Speed to High Gear");
 		}
+		else {
+			m_vcMaxSpeed = 6.73;
+			std::printf("Changed Max Speed to Low Gear");
+		} 
+			
 		ySpeed = yValueSquared * units::feet_per_second_t(m_vcMaxSpeed);
 		rot = xValueSquared * units::radians_per_second_t(m_vcMaxAngSpeed);
 		VCLDrive(m_kinematics->ToWheelSpeeds({ySpeed, 0_fps, rot}));
