@@ -1285,6 +1285,40 @@ Children:
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: Intake Run
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: DRIVEMODE_ARCADE,
+          type: boolean}
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: DRIVEMODE_CURVATURE,
+          type: boolean}
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: DRIVEMODE_VELCONTROL,
+          type: boolean}
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Drivetrain}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id020
+        - !!robotbuilder.data.properties.ParameterSet
+          name: default
+          parameters:
+          - {name: DRIVEMODE_ARCADE, type: boolean, value: 'false'}
+          - {name: DRIVEMODE_CURVATURE, type: boolean, value: 'false'}
+          - {name: DRIVEMODE_VELCONTROL, type: boolean, value: 'true'}
+        name: Parameter presets
+        validators: null
+        value: *id020
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: Drive Mode
   Properties: {}
   Base: Commands
   Name: Commands
@@ -1306,9 +1340,9 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Administrator\',
     extension: null, folder: true, name: Wiring file location, validators: null, value: ./}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS-User\FRCProjects',
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Administrator\FRCProjects',
     extension: null, folder: true, name: Export Directory, validators: null, value: ./}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
