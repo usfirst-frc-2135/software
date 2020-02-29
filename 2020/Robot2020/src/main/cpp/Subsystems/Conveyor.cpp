@@ -87,7 +87,6 @@ void Conveyor::Periodic() {
     }
     else {
         Robot::lED->DetectPowerCell(false);
-        Robot::lED->LEDSetRGB (0,0,0);
     } 
 
 }
