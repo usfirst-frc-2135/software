@@ -42,6 +42,11 @@ DriveSubsystem::DriveSubsystem() :
     m_talon_right3.SetNeutralMode(NeutralMode::Brake);   // Don't coast after movements
     m_talon_right4.SetNeutralMode(NeutralMode::Brake);
     ResetEncoders();
+
+    m_talon_left1.SetSafetyEnabled(false);
+    m_talon_left2.SetSafetyEnabled(false);
+    m_talon_right3.SetSafetyEnabled(false);
+    m_talon_right4.SetSafetyEnabled(false);
   }
 
 void DriveSubsystem::Periodic() {
@@ -72,14 +77,20 @@ void DriveSubsystem::Periodic() {
       printf("%f, %f, %f\n", left_dist, right_dist, gyroAngle);
     }
 
-    std::printf("9135:LR cts %5d %5d out %4.2f %4.2f amps %6.3f %6.3f\n",  
-    m_talon_left1.GetSelectedSensorPosition(),
-    m_talon_right3.GetSelectedSensorPosition(), 
-    m_talon_left1.GetMotorOutputPercent(),  
-    m_talon_right3.GetMotorOutputPercent(),
-    m_talon_left1.GetOutputCurrent(),
-    m_talon_right3.GetOutputCurrent()
-     );
+    // std::printf("9135:LR cts %5d %5d out %4.2f %4.2f amps %6.3f %6.3f\n",  
+    // m_talon_left1.GetSelectedSensorPosition(),
+    // m_talon_right3.GetSelectedSensorPosition(), 
+    // m_talon_left1.GetMotorOutputPercent(),  
+    // m_talon_right3.GetMotorOutputPercent(),
+    // m_talon_left1.GetOutputCurrent(),
+    // m_talon_right3.GetOutputCurrent()
+    //  );
+     frc::SmartDashboard::PutNumber("left encoder", m_talon_left1.GetSelectedSensorPosition());
+     frc::SmartDashboard::PutNumber("right encoder", m_talon_right3.GetSelectedSensorPosition()); 
+     frc::SmartDashboard::PutNumber("L Output Percent", m_talon_left1.GetMotorOutputPercent()); 
+     frc::SmartDashboard::PutNumber("R Output Percent", m_talon_right3.GetMotorOutputPercent()); 
+     frc::SmartDashboard::PutNumber("L Output Current", m_talon_left1.GetOutputCurrent());
+     frc::SmartDashboard::PutNumber("R Output Current", m_talon_right3.GetOutputCurrent());
 }
 
 

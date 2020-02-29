@@ -19,6 +19,7 @@
 #include "Commands/ConveyorRun.h"
 #include "Commands/DriveAlignPIDTurn.h"
 #include "Commands/DriveAlignTurn.h"
+#include "Commands/DriveMode.h"
 #include "Commands/DriveReset.h"
 #include "Commands/DriveShift.h"
 #include "Commands/DriveTeleop.h"
@@ -59,6 +60,8 @@ sPColor.reset(new frc::JoystickButton(controlBoard.get(), 1));
 sPColor->WhenPressed(new SpinColor());
 dStick.reset(new frc::Joystick(0));
 
+changeDriveMode.reset(new frc::JoystickButton(dStick.get(), 3));
+changeDriveMode->WhenPressed(new DriveMode(3));
 alignTurn.reset(new frc::JoystickButton(dStick.get(), 4));
 alignTurn->WhenPressed(new DriveAlignTurn());
 pIDAlignTurn.reset(new frc::JoystickButton(dStick.get(), 2));
@@ -67,6 +70,7 @@ shiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
 shiftSpeed->WhileHeld(new DriveShift(false));
 
     // SmartDashboard Buttons
+    frc::SmartDashboard::PutData("Drive Mode: default", new DriveMode(3));
     frc::SmartDashboard::PutData("Intake Run: INTAKE_STOP", new IntakeRun(0));
     frc::SmartDashboard::PutData("Intake Run: INTAKE_FORWARD", new IntakeRun(1));
     frc::SmartDashboard::PutData("Intake Run: INTAKE_REVERSE", new IntakeRun(-1));

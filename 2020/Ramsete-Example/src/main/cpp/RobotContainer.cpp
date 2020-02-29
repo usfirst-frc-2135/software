@@ -79,17 +79,17 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 
   m_drive.ResetOdometry(frc::Pose2d());
 
-  // An example trajectory to follow.  All units in meters.
-  auto exampleTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
-      // Start at the origin facing the +X direction
-      frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
-      // Pass through these two interior waypoints, making an 's' curve path
-      {frc::Translation2d(.8_m, .8_m), frc::Translation2d(1.6_m, -.8_m)},
-      // End 3 meters straight ahead of where we started, facing forward
-      frc::Pose2d(2.4_m, 0_m, frc::Rotation2d(0_deg)),
-      // Pass the config
-      config
-    );
+  // An example trajectory to follow.  All units in feet.
+  // auto exampleTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
+  //     // Start at the origin facing the +X direction
+  //     frc::Pose2d(0_ft, 0_ft, frc::Rotation2d(0_deg)),
+  //     // Pass through these two interior waypoints, making an 's' curve path
+  //     {frc::Translation2d(.8_ft, .8_ft), frc::Translation2d(1.6_ft, -.8_ft)},
+  //     // End 3 feet straight ahead of where we started, facing forward
+  //     frc::Pose2d(2.4_ft, 0_ft, frc::Rotation2d(0_deg)),
+  //     // Pass the config
+  //     config
+  //   );
 
    // TODO: Fix path does not exist error
     wpi::SmallString<64> deployDirectory;
@@ -114,11 +114,11 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 
    frc::Trajectory trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDirectory);
    auto trajectoryStates = trajectory.States(); 
-   printf("Size of state table is %d\n", trajectoryStates.size());
- for (int i = 0; i < trajectoryStates.size(); i++) {
-  auto curState = trajectoryStates[i];
-  printf("State time: %d, velocity %d, acceleration %d\n", curState.t, curState.velocity, curState.acceleration);
- }
+ //  printf("Size of state table is %d\n", trajectoryStates.size());
+//  for (int i = 0; i < trajectoryStates.size(); i++) {
+//   auto curState = trajectoryStates[i];
+//   printf("State time: %d, velocity %d, acceleration %d\n", curState.t, curState.velocity, curState.acceleration);
+//  }
 
   frc2::PIDController leftController(DriveConstants::kPDriveVel, 0,0);
   frc2::PIDController rightController(DriveConstants::kPDriveVel, 0,0);
@@ -128,7 +128,7 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 
   leftController.SetTolerance(dashValue);
   rightController.SetTolerance(dashValue);
-
+  
   frc2::RamseteCommand ramseteCommand(
       trajectory,
       [this]() { return m_drive.GetPose(); },
@@ -168,9 +168,20 @@ void RobotContainer::SmartDashboardStartChooser() {
    chooser->AddOption("test_7", "sheryl.wpilib.json");
    chooser->AddOption("test_8", "meghna.wpilib.json");
    chooser->AddOption("test_9", "savannah.wpilib.json"); 
-   chooser->AddOption("test_10", "anika.wpilib.json"); 
+   chooser->AddOption("test_10", "anika.wpilib.json");
+   chooser->AddOption("b1", "BlueAlliance1.wpilib.json");
+   chooser->AddOption("b2", "BlueAlliance2.wpilib.json"); 
+   chooser->AddOption("b3", "BlueAlliance3.wpilib.json");
+   chooser->AddOption("b4", "BlueAlliance4.wpilib.json"); 
+   chooser->AddOption("b5", "BlueAlliance5.wpilib.json"); 
+   chooser->AddOption("r1", "RedAlliance1.wpilib.json");
+   chooser->AddOption("r2", "RedAlliance2.wpilib.json"); 
+   chooser->AddOption("r3", "RedAlliance3.wpilib.json");
+   chooser->AddOption("r4", "RedAlliance4.wpilib.json"); 
+   chooser->AddOption("r5", "RedAlliance5.wpilib.json");  
   
 
 
   frc::SmartDashboard::PutData("output", chooser);
 }
+

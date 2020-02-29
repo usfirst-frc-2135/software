@@ -63,6 +63,12 @@ AddChild("Shooter Indexer", shooterIndexer);
      config->GetValueAsDouble("SH_PidKd", m_pidKd, 0.000);
      config->GetValueAsDouble("SH_NeutralDeadband", m_neutralDeadband, 0.004);
 
+     frc::SmartDashboard::PutNumber("SH_SmartDashSpeed", 0);
+     m_smartDashSpeed = frc::SmartDashboard::GetNumber("SH_SmartDashSpeed", 0);
+
+     frc::SmartDashboard::PutNumber("SH_SmartDashOutput", 0);
+     m_smartDashOutput = frc::SmartDashboard::GetNumber("SH_SmartDashOutput", 0);
+
     // Initialize modes and set power to off
     // Set motor peak outputs
      if (m_talonValidSH10) {
@@ -230,6 +236,10 @@ void Shooter::SetShooterSpeedInit(int level) {
 		m_targetVelocityRPM = m_reverseSpeed;
         shooterOutput = m_revOutput;
 		break;
+    case SMARTDASH_SPEED:
+         m_targetVelocityRPM = m_smartDashSpeed;
+         shooterOutput = m_smartDashOutput;
+         break;
 	default:
 		std::printf("2135: SH invalid velocity requested - %d\n", level);
 		return;

@@ -76,7 +76,7 @@ AddChild("Shifter", shifter);
         config->GetValueAsDouble("DT_PidKi", m_pidKi, 0.0);
         config->GetValueAsDouble("DT_PidKd", m_pidKd, 0.0);
         config->GetValueAsDouble("DT_ArbFeedForward", m_arbFeedForward, 1.0);
-		config->GetValueAsDouble("DT_VCMaxSpeed", m_vcMaxSpeed, 3.7192);
+		config->GetValueAsDouble("DT_VCMaxSpeed", m_vcMaxSpeed, 6.73);
 		config->GetValueAsDouble("DT_VCMaxAngSpeed", m_vcMaxAngSpeed, M_PI);
 		config->GetValueAsDouble("DT_VCPIDKp", m_vcpidKp, 1.0);
 		config->GetValueAsDouble("DT_VCPIDKi", m_vcpidKi, 0.0);
@@ -320,8 +320,32 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 		diffDrive->CurvatureDrive(-yValue, xValue, false);	// Boolean is for quick turn or not
         break;
 	case DRIVEMODE_VELCONTROL:
-		ySpeed = yValue * units::feet_per_second_t(m_vcMaxSpeed);
-		rot = xValue * units::radians_per_second_t(m_vcMaxAngSpeed);
+		double yValueSquared;
+		double xValueSquared;
+		if (yValue >= 0) {
+			yValueSquared = yValue * yValue;
+		}
+		else {
+			yValueSquared = -(yValue * yValue); 
+		}
+
+		if (xValue >= 0) {
+			xValueSquared = xValue * xValue;
+		}
+		else {
+			xValueSquared = -(xValue * xValue); 
+		}
+		if (!m_lowGear) {
+			m_vcMaxSpeed = 16.77;
+			std::printf("Changed Max Speed to High Gear");
+		}
+		else {
+			m_vcMaxSpeed = 6.73;
+			std::printf("Changed Max Speed to Low Gear");
+		} 
+			
+		ySpeed = yValueSquared * units::feet_per_second_t(m_vcMaxSpeed);
+		rot = xValueSquared * units::radians_per_second_t(m_vcMaxAngSpeed);
 		VCLDrive(m_kinematics->ToWheelSpeeds({ySpeed, 0_fps, rot}));
 		break;
     default:
@@ -333,7 +357,9 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 void Drivetrain::ToggleDriveMode() {
 	if (++m_curDriveMode >= DRIVEMODE_LAST)
 		m_curDriveMode = DRIVEMODE_FIRST;
-
+	else
+		m_curDriveMode++;
+	
 	std::printf("2135 Current Drive: %d\n", m_curDriveMode);
 	frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
 }

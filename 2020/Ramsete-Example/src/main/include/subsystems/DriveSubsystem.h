@@ -131,7 +131,7 @@ class DriveSubsystem : public frc2::SubsystemBase {
 
   // double CountsToMeters(int counts);
 
-  const double WHEEL_DIA_METERS = 0.1524;
+  const double WHEEL_DIA_METERS = 0.5;
   const double m_circumMeters = (WHEEL_DIA_METERS * M_PI);
   const double COUNTS_PER_ROTATION = (1024 * 4); //CPR is 4096
 };
