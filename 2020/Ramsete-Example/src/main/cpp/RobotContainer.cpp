@@ -100,17 +100,6 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
     std::string path = chooser->GetSelected();
 
     std::printf("%s\n", path.c_str());
-    // wpi::sys::path::append(deployDirectory, selectedPath);
-    // wpi::sys::path::append(deployDirectory, "Blue_Alliance_Team_1.wpilib.json");
-    // wpi::sys::path::append(deployDirectory, "Blue_Alliance_Team_2.wpilib.json");
-    // wpi::sys::path::append(deployDirectory, "Blue_Alliance_Team_3.wpilib.json");
-    // wpi::sys::path::append(deployDirectory, "Red_Alliance_Team_1.wpilib.json");
-    // wpi::sys::path::append(deployDirectory, "Red_Alliance_Team_2.wpilib.json");
-    // wpi::sys::path::append(deployDirectory, "Red_Alliance_Team_3.wpilib.json");
-    // wpi::sys::path::append(deployDirectory, "Test_Square.wpilib.json");
-    // wpi::sys::path::append(deployDirectory, "Test_Path_1.wpilib.json");
-    // wpi::sys::path::append(deployDirectory, "Test_Path_3.wpilib.json");
-    // wpi::sys::path::append(deployDirectory, "Test_Path_4.wpilib.json");
 
    frc::Trajectory trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDirectory);
    auto trajectoryStates = trajectory.States(); 
@@ -159,34 +148,13 @@ void RobotContainer::SmartDashboardStartChooser() {
 
     delete chooser; 
     chooser = new frc::SendableChooser<std::string>;
-  //  chooser->AddOption("test_1", "alisha.wpilib.json");
-  //  chooser->AddOption("test_2", "christine.wpilib.json"); 
-  //  chooser->AddOption("test_3", "gurmehr.wpilib.json");
-  //  chooser->AddOption("test_4", "joyce.wpilib.json"); 
-  //  chooser->AddOption("test_5", "nitya.wpilib.json"); 
-  //  chooser->AddOption("test_6", "rithu.wpilib.json"); 
-  //  chooser->AddOption("test_7", "sheryl.wpilib.json");
-  //  chooser->AddOption("test_8", "meghna.wpilib.json");
-  //  chooser->AddOption("test_9", "savannah.wpilib.json"); 
-  //  chooser->AddOption("test_10", "anika.wpilib.json");
-  //  chooser->AddOption("b1", "BlueAlliance1.wpilib.json");
-  //  chooser->AddOption("b2", "BlueAlliance2.wpilib.json"); 
-  //  chooser->AddOption("b3", "BlueAlliance3.wpilib.json");
-  //  chooser->AddOption("b4", "BlueAlliance4.wpilib.json"); 
-  //  chooser->AddOption("b5", "BlueAlliance5.wpilib.json"); 
-  //  chooser->AddOption("r1", "RedAlliance1.wpilib.json");
-  //  chooser->AddOption("r2", "RedAlliance2.wpilib.json"); 
-  //  chooser->AddOption("r3", "RedAlliance3.wpilib.json");
-  //  chooser->AddOption("r4", "RedAlliance4.wpilib.json"); 
-  //  chooser->AddOption("r5", "RedAlliance5.wpilib.json");  
+
   chooser->AddOption("line", "testingpath1-line.wpilib.json"); 
   chooser->AddOption("arc", "testingpath2-arc.wpilib.json");
   chooser->AddOption("curve", "testingpath3-curve.wpilib.json"); 
   chooser->AddOption("nose", "testingpath4-nose.wpilib.json"); 
   chooser->AddOption("scur", "testingpath5-scur.wpilib.json"); 
   
-
-
   frc::SmartDashboard::PutData("output", chooser);
 }
 
