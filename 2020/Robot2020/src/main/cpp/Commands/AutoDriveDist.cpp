@@ -25,7 +25,7 @@ m_distance = distance;
 
 // Called just before this Command runs the first time
 void AutoDriveDist::Initialize() {
-
+    std::printf("2135: AutoDriveDist - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -40,11 +40,11 @@ bool AutoDriveDist::IsFinished() {
 
 // Called once after isFinished returns true
 void AutoDriveDist::End() {
-
+    std::printf("2135: AutoDriveDist - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoDriveDist::Interrupted() {
-
+    std::printf("2135: AutoDriveDist - Interrupted\n");
 }

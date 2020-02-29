@@ -25,7 +25,7 @@ m_state = state;
 
 // Called just before this Command runs the first time
 void IndexerSet::Initialize() {
-
+    std::printf("2135: IndexerSet - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -40,11 +40,11 @@ bool IndexerSet::IsFinished() {
 
 // Called once after isFinished returns true
 void IndexerSet::End() {
-
+    std::printf("2135: IndexerSet - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void IndexerSet::Interrupted() {
-
+    std::printf("2135: IndexerSet - Interrupted\n");
 }
