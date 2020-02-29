@@ -357,7 +357,9 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 void Drivetrain::ToggleDriveMode() {
 	if (++m_curDriveMode >= DRIVEMODE_LAST)
 		m_curDriveMode = DRIVEMODE_FIRST;
-
+	else
+		m_curDriveMode++;
+	
 	std::printf("2135 Current Drive: %d\n", m_curDriveMode);
 	frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
 }
