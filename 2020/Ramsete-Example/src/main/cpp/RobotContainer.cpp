@@ -35,7 +35,7 @@ RobotContainer::RobotContainer() {
   // Configure the button bindings
   ConfigureButtonBindings();
 
-  SmartDashboardStartChooser(); 
+//  SmartDashboardStartChooser(); 
 
   // Set up default drive command
   m_drive.SetDefaultCommand(frc2::RunCommand(
@@ -95,19 +95,21 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
     wpi::SmallString<64> deployDirectory;
     frc::filesystem::GetDeployDirectory(deployDirectory);
     wpi::sys::path::append(deployDirectory, "output");
-    wpi::sys::path::append(deployDirectory, chooser->GetSelected());
+    //wpi::sys::path::append(deployDirectory, chooser->GetSelected());
+    wpi::sys::path::append(deployDirectory, "testingpath3-curve.wpilib.json");
 
-    std::string path = chooser->GetSelected();
+   // std::string path = chooser->GetSelected();
 
-    std::printf("%s\n", path.c_str());
+   // std::printf("%s\n", path.c_str());
 
    frc::Trajectory trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDirectory);
    auto trajectoryStates = trajectory.States(); 
- //  printf("Size of state table is %d\n", trajectoryStates.size());
-//  for (int i = 0; i < trajectoryStates.size(); i++) {
-//   auto curState = trajectoryStates[i];
-//   printf("State time: %d, velocity %d, acceleration %d\n", curState.t, curState.velocity, curState.acceleration);
-//  }
+  printf("Size of state table is %d\n", trajectoryStates.size());
+  for (int i = 0; i < trajectoryStates.size(); i++) {
+   auto curState = trajectoryStates[i];
+   std::cout << "state time: " << curState.t << ", Velocity: " << curState.velocity << 
+   ", Acceleration: " <<  curState.acceleration << ", Rotation: " << curState.pose.Rotation().Degrees() << "\n";
+ }
 
   frc2::PIDController leftController(DriveConstants::kPDriveVel, 0,0);
   frc2::PIDController rightController(DriveConstants::kPDriveVel, 0,0);
@@ -144,17 +146,17 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 }
 
 
-void RobotContainer::SmartDashboardStartChooser() { 
+// void RobotContainer::SmartDashboardStartChooser() { 
 
-    delete chooser; 
-    chooser = new frc::SendableChooser<std::string>;
+//     delete chooser; 
+//     chooser = new frc::SendableChooser<std::string>;
 
-  chooser->AddOption("line", "testingpath1-line.wpilib.json"); 
-  chooser->AddOption("arc", "testingpath2-arc.wpilib.json");
-  chooser->AddOption("curve", "testingpath3-curve.wpilib.json"); 
-  chooser->AddOption("nose", "testingpath4-nose.wpilib.json"); 
-  chooser->AddOption("scur", "testingpath5-scur.wpilib.json"); 
+//   chooser->AddOption("line", "testingpath1-line.wpilib.json"); 
+//   chooser->AddOption("arc", "testingpath2-arc.wpilib.json");
+//   chooser->AddOption("curve", "testingpath3-curve.wpilib.json"); 
+//   chooser->AddOption("nose", "testingpath4-nose.wpilib.json"); 
+//   chooser->AddOption("scur", "testingpath5-scur.wpilib.json"); 
   
-  frc::SmartDashboard::PutData("output", chooser);
-}
+//   frc::SmartDashboard::PutData("output", chooser);
+// }
 
