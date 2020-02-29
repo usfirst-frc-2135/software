@@ -1,7 +1,7 @@
 # Comment lines start with '#'
   RB_Name = 2135-Unknown
 # DriveTrain settings
-  DT_DriveMode = 3
+  DT_DriveMode = 0
   DT_DriveXScaling = 0.7
 # Competition mode
 # DT_DriveYScaling = 1.00
