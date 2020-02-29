@@ -24,7 +24,7 @@ DriveReset::DriveReset(): frc::Command() {
 
 // Called just before this Command runs the first time
 void DriveReset::Initialize() {
-
+    std::printf("2135: DriveReset - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -39,11 +39,11 @@ bool DriveReset::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveReset::End() {
-
+    std::printf("2135: DriveReset - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveReset::Interrupted() {
-
+    std::printf("2135: DriveReset - Interrupted\n");    
 }

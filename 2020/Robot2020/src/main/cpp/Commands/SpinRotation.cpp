@@ -25,6 +25,7 @@ SpinRotation::SpinRotation(): frc::Command() {
 // Called just before this Command runs the first time
 void SpinRotation::Initialize() {
     Robot::spinner->ControlRotationInit();
+    std::printf("2135: SpinRotation - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -40,10 +41,12 @@ bool SpinRotation::IsFinished() {
 // Called once after isFinished returns true
 void SpinRotation::End() {
     Robot::spinner->ControlRotationEnd();
+    std::printf("2135: SpinRotation - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void SpinRotation::Interrupted() {
     Robot::spinner->ControlRotationEnd();
+    std::printf("2135: SpinRotation - Interrupted\n");
 }

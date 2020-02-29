@@ -24,7 +24,7 @@ ClimberRun::ClimberRun(): frc::Command() {
 
 // Called just before this Command runs the first time
 void ClimberRun::Initialize() {
-
+    std::printf("2135: ClimberRun - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -39,11 +39,11 @@ bool ClimberRun::IsFinished() {
 
 // Called once after isFinished returns true
 void ClimberRun::End() {
-
+    std::printf("2135: ClimberRun - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ClimberRun::Interrupted() {
-
+    std::printf("2135: ClimberRun - Interrupted\n");
 }

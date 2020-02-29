@@ -22,7 +22,7 @@ AutonomousCommand::AutonomousCommand(): frc::Command() {
 
 // Called just before this Command runs the first time
 void AutonomousCommand::Initialize() {
-
+    std::printf("2135: AutonomousCommand - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -37,11 +37,11 @@ bool AutonomousCommand::IsFinished() {
 
 // Called once after isFinished returns true
 void AutonomousCommand::End() {
-
+    std::printf("2135: AutonomousCommand - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutonomousCommand::Interrupted() {
-
+    std::printf("2135: AutonomousCommand - Interrupted\n");
 }
