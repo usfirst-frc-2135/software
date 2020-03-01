@@ -62,7 +62,7 @@ std::shared_ptr<frc::DoubleSolenoid> shifter;
 	const double COUNTS_PER_ROTATION = (1024 * 4); // CPR is 1024 and multiplied by 4
 	const double CountsPerInch = COUNTS_PER_ROTATION / (WHEEL_DIA_INCHES * M_PI);
 	const double WHEEL_DIA_INCHES = 6.0;
-	const units::foot_t TRACK_WIDTH_FEET = 2.125_ft;		   
+	const units::foot_t TRACK_WIDTH_FEET = 2.125_ft;
 	const double DIST_PER_COUNT = (WHEEL_DIA_INCHES/12 * M_PI) / COUNTS_PER_ROTATION;
 	const double m_circumInches = (WHEEL_DIA_INCHES * M_PI);
 	const int m_reqPigeonVer = ((20 * 256) + 0);   // Pigeon IMU version is 20.0
@@ -160,7 +160,7 @@ Drivetrain();
 	void ToggleDriveMode();
 
 	// Velocity Control Loop
-	void VCLDrive(const frc::DifferentialDriveWheelSpeeds& speeds);
+	void VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds& speeds);
 	void UpdateOdometry();
 	double GetDistance(std::shared_ptr<WPI_TalonFX>);
 	double GetSpeed(std::shared_ptr<WPI_TalonFX>);

@@ -44,17 +44,19 @@ void Power::Periodic() {
     // Put code here to be run every loop
 
 	if (m_powerDebug  > 0) {
-		char			chanStr[32];
-		int				i;
+		static	int loopCount = 0;
+		char	chanStr[32];
+		int		chan;
 
 		frc::SmartDashboard::PutNumber("PDP Temp", pDP->GetTemperature());
 		frc::SmartDashboard::PutNumber("PDP Total Amps", pDP->GetTotalCurrent());
 		frc::SmartDashboard::PutNumber("PDP Total Watts", pDP->GetTotalPower());
 		frc::SmartDashboard::PutNumber("PDP Total Joules", pDP->GetTotalEnergy());
 
-		for (i = 0; i <= 15; i++) {
-			std::sprintf(chanStr, "PDP Chan %2d A\n", i);
-			frc::SmartDashboard::PutNumber(chanStr, pDP->GetCurrent(i));
+		for (chan = 0; chan <= 15; chan++) {
+			if (++loopCount % 50 == 0)
+				std::sprintf(chanStr, "PDP Chan %2d A\n", chan);
+			frc::SmartDashboard::PutNumber(chanStr, pDP->GetCurrent(chan));
 		}
 	}
 }
@@ -68,11 +70,11 @@ void Power::Periodic() {
 // here. Call these from Commands.
 
 void Power::Initialize(void) {
-    
+
 }
 
 void Power::FaultDump(void) {
-	
+
 	// Print out PDP faults and clear sticky ones
 	std::printf("2135: %s --------------\n", "PDP FAULTS");
 	std::printf("2135: Temperature      %5.1f\n", pDP->GetTemperature());

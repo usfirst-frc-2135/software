@@ -33,7 +33,7 @@
   IN_ExpelSpeed = -0.75
 # Conveyor settings
   CV_AcquireSpeed = 0.75
-  CV_HoldSpeed = 0.1
+  CV_HoldSpeed = 0.0
   CV_ExpelSpeed = -0.75
 # Shooter settings
   SH_OnSpeed = 60.0
