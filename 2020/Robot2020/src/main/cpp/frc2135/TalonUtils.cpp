@@ -44,7 +44,7 @@ bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, cons
 				subsystem, name, deviceID, error);
 			return error;
 		}
-		if (fwVersion == m_reqVersion) {
+		if (fwVersion >= m_reqVersion) {
 			talonValid = true;
 			break;
 		}

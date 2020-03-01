@@ -48,7 +48,7 @@ motorR4.reset(new WPI_TalonFX(4));
 pigeonIMU.reset(new PigeonIMU(5));
 
 
-shifter.reset(new frc::DoubleSolenoid(0, 0, 1));
+shifter.reset(new frc::DoubleSolenoid(0, 0, 7));
 AddChild("Shifter", shifter);
 
 
