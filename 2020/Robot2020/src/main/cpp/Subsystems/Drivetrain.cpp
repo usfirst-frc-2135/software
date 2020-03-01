@@ -85,18 +85,18 @@ AddChild("Shifter", shifter);
 
     // Invert the direction of the motors
     // Set to brake mode (in comparison to coast)
-    // Set voltage compensation to 12V 
-    // Set encoder as a CTRE magnetic in relative mode with sensor in phase with output 
-    if (m_talonValidL1) { 
-        motorL1->SetInverted(true); 
-        motorL1->SetNeutralMode(NeutralMode::Coast); 
-        motorL1->ConfigVoltageCompSaturation(12.0, m_timeout); 
+    // Set voltage compensation to 12V
+    // Set encoder as a CTRE magnetic in relative mode with sensor in phase with output
+    if (m_talonValidL1) {
+        motorL1->SetInverted(true);
+        motorL1->SetNeutralMode(NeutralMode::Coast);
+        motorL1->ConfigVoltageCompSaturation(12.0, m_timeout);
 		motorL1->EnableVoltageCompensation(true);
 
-        motorL1->Set(ControlMode::PercentOutput, 0.0); 
-        motorL1->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout); 
-        motorL1->SetSensorPhase(false); 
-        motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout); 
+        motorL1->Set(ControlMode::PercentOutput, 0.0);
+        motorL1->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
+        motorL1->SetSensorPhase(false);
+        motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
     }
 
     if (m_talonValidL2) {
@@ -119,11 +119,11 @@ AddChild("Shifter", shifter);
         motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
     }
 
-    if (m_talonValidR4) { 
-        motorR4->Set(ControlMode::Follower, 3); 
+    if (m_talonValidR4) {
+        motorR4->Set(ControlMode::Follower, 3);
         motorR4->SetInverted(InvertType::FollowMaster);
-        motorR4->SetNeutralMode(NeutralMode::Coast); 
-        motorR4->ConfigVoltageCompSaturation(12.0, m_timeout); 
+        motorR4->SetNeutralMode(NeutralMode::Coast);
+        motorR4->ConfigVoltageCompSaturation(12.0, m_timeout);
         motorR4->EnableVoltageCompensation(true);
     }
 
@@ -137,7 +137,7 @@ AddChild("Shifter", shifter);
 
     // If either master drive talons are valid, enable safety timer
     diffDrive->SetSafetyEnabled(m_talonValidL1 || m_talonValidR3);
- 
+
     // Initialize and calibrate Pigeon IMU
 	m_pigeonValid = PigeonIMUInitialize();
 
@@ -149,16 +149,30 @@ AddChild("Shifter", shifter);
 	// Vision-based PID Controller
     driveVisionPIDSource = new PIDSourceDriveVision();
     driveVisionPIDOutput = new PIDOutputDriveVision(diffDrive);
+// Ignore the warning that it is deprecated
+// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     driveVisionPIDLoop = new frc::PIDController(m_visionTurnKp, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
+#pragma GCC diagnostic pop
 
     // // Settings for Turn PID
    	// driveTurnPIDLoop->SetPID(m_turnKp, 0.0, 0.0);
    	// driveTurnPIDLoop->SetOutputRange(-m_turnMaxOut, m_turnMaxOut);
    	// driveTurnPIDLoop->SetAbsoluteTolerance(m_turnTolDeg);
 
-	// Velocity Control Loop 
+	// Velocity Control Loop
+// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 	m_leftPIDController = new frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
+#pragma GCC diagnostic pop
+
+// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 	m_rightPIDController = new frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
+#pragma GCC diagnostic pop
 	m_kinematics = new frc::DifferentialDriveKinematics(TRACK_WIDTH_FEET);
 	m_odometry = new frc::DifferentialDriveOdometry(GetAngle());
 }
@@ -243,24 +257,24 @@ void Drivetrain::Periodic() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Drivetrain::Initialize(void) { 
-    std::printf("2135: DT Initialize\n"); 
+void Drivetrain::Initialize(void) {
+    std::printf("2135: DT Initialize\n");
 
-    //When disabled, low gear and coast mode to allow easier pushing 
-     m_lowGear = true; 
-     m_brakeMode = false; 
+    //When disabled, low gear and coast mode to allow easier pushing
+     m_lowGear = true;
+     m_brakeMode = false;
      m_throttleZeroed = false;
 
-    // If ENABLED and AUTON mode, set brake mode 
-     if(!frc::RobotState::IsDisabled()) { 
-        if(!frc::RobotState::IsOperatorControl()) { 
-            m_brakeMode = true; 
+    // If ENABLED and AUTON mode, set brake mode
+     if(!frc::RobotState::IsDisabled()) {
+        if(!frc::RobotState::IsOperatorControl()) {
+            m_brakeMode = true;
         }
     }
 
-    MoveShiftGears(m_lowGear); 
-    MoveSetBrakeMode(m_brakeMode); 
-    MoveStop(); 
+    MoveShiftGears(m_lowGear);
+    MoveSetBrakeMode(m_brakeMode);
+    MoveStop();
 }
 
 void Drivetrain::FaultDump(void) {
@@ -299,7 +313,7 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 
 	if (m_talonValidL1 || m_talonValidR3) {
 	// If joystick reports a very small throttle value
-		if (fabs(yValue) < 0.05) 
+		if (fabs(yValue) < 0.05)
 			m_throttleZeroed = true;
 
 	// If throttle not zeroed, prevent joystick inputs from entering drive
@@ -316,7 +330,7 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
     case DRIVEMODE_ARCADE:
 		diffDrive->ArcadeDrive(-yValue, xValue, true);
         break;
-    case DRIVEMODE_CURVATURE: 
+    case DRIVEMODE_CURVATURE:
 		diffDrive->CurvatureDrive(-yValue, xValue, false);	// Boolean is for quick turn or not
         break;
 	case DRIVEMODE_VELCONTROL:
@@ -326,14 +340,14 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 			yValueSquared = yValue * yValue;
 		}
 		else {
-			yValueSquared = -(yValue * yValue); 
+			yValueSquared = -(yValue * yValue);
 		}
 
 		if (xValue >= 0) {
 			xValueSquared = xValue * xValue;
 		}
 		else {
-			xValueSquared = -(xValue * xValue); 
+			xValueSquared = -(xValue * xValue);
 		}
 		if (!m_lowGear) {
 			m_vcMaxSpeed = 16.77;
@@ -342,8 +356,8 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 		else {
 			m_vcMaxSpeed = 6.73;
 			std::printf("Changed Max Speed to Low Gear");
-		} 
-			
+		}
+
 		ySpeed = yValueSquared * units::feet_per_second_t(m_vcMaxSpeed);
 		rot = xValueSquared * units::radians_per_second_t(m_vcMaxAngSpeed);
 		VCLDrive(m_kinematics->ToWheelSpeeds({ySpeed, 0_fps, rot}));
@@ -360,7 +374,7 @@ void Drivetrain::ToggleDriveMode() {
 		m_curDriveMode = DRIVEMODE_FIRST;
 	else
 		m_curDriveMode++;
-	
+
 	std::printf("2135 Current Drive: %d\n", m_curDriveMode);
 	frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
 }
@@ -381,7 +395,7 @@ void Drivetrain::VCLDrive(const frc::DifferentialDriveWheelSpeeds& speeds) {
 	const auto rightOutput = m_rightPIDController->Calculate(rightCurSpeed, rightTargetSpeed);
 
 	// Divide FF by 12 to normalize to the same units as the outputs
-	double leftTotalOutput = -leftOutput - double(leftFeedforward) / 12.0;	
+	double leftTotalOutput = -leftOutput - double(leftFeedforward) / 12.0;
   	double rightTotalOutput = rightOutput + double(rightFeedforward) / 12.0;
 	motorL1->Set(leftTotalOutput);
 	motorR3->Set(rightTotalOutput);
@@ -512,7 +526,7 @@ bool Drivetrain::PigeonIMUInitialize() {
     // Display Pigeon IMU firmware versions
 	deviceID = pigeonIMU->GetDeviceNumber();
 	if ((error = pigeonIMU->GetLastError()) != OKAY) {
-		std::printf("2135: ERROR: %s %s GetDeviceNumber error - %d\n", 
+		std::printf("2135: ERROR: %s %s GetDeviceNumber error - %d\n",
 			subsystem, name, error);
 		return error;
 	}
@@ -520,7 +534,7 @@ bool Drivetrain::PigeonIMUInitialize() {
 	for (i = 0; i < retries; i++) {
 		pigeonVersion = pigeonIMU->GetFirmwareVersion();
 		if ((error = pigeonIMU->GetLastError()) != OKAY) {
-			std::printf("2135: ERROR: %s %s ID %d GetFirmwareVersion error - %d\n", 
+			std::printf("2135: ERROR: %s %s ID %d GetFirmwareVersion error - %d\n",
 				subsystem, name, deviceID, error);
 			return error;
 		}
@@ -534,11 +548,11 @@ bool Drivetrain::PigeonIMUInitialize() {
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
-	
+
 	if (pigeonValid) {
 		// Initialize Pigeon IMU to all factory defaults
 		if ((error = pigeonIMU->ConfigFactoryDefault(m_timeout)) != OKAY) {
-			std::printf("2135: ERROR: %s %s ID %d ConfigFactoryDefault error - %d\n", 
+			std::printf("2135: ERROR: %s %s ID %d ConfigFactoryDefault error - %d\n",
 				subsystem, name, deviceID, error);
 			pigeonValid = false;
 		}
@@ -550,14 +564,14 @@ bool Drivetrain::PigeonIMUInitialize() {
 
 		pigeonIMU->SetYaw(0.0, m_timeout);
 		if ((error = pigeonIMU->GetLastError()) != OKAY) {
-			std::printf("2135: ERROR: %s %s ID %d SetFusedHeading error - %d\n", 
+			std::printf("2135: ERROR: %s %s ID %d SetFusedHeading error - %d\n",
 				subsystem, name, deviceID, error);
 			pigeonValid = false;
 		}
 
 		pigeonIMU->SetFusedHeading(0.0, m_timeout);
 		if ((error = pigeonIMU->GetLastError()) != OKAY) {
-			std::printf("2135: ERROR: %s %s ID %d SetYaw error - %d\n", 
+			std::printf("2135: ERROR: %s %s ID %d SetYaw error - %d\n",
 				subsystem, name, deviceID, error);
 			pigeonValid = false;
 		}
@@ -590,7 +604,7 @@ void Drivetrain::PigeonIMUFaultDump(void) {
 double Drivetrain::GetIMUHeading() {
 	// Fused Heading is better than Yaw from Pigeon
 	double	heading = 0.0;
-	
+
 	if (m_pigeonValid) {
 		if (pigeonIMU->GetState() != PigeonIMU::Ready)
 			std::printf("2135: ERROR: %s %s ID %d is NOT READY\n",
@@ -606,9 +620,9 @@ frc::Rotation2d Drivetrain::GetAngle() {
 }
 
 void Drivetrain::ResetSensors(void) {
-	if (m_talonValidL1) 
+	if (m_talonValidL1)
 		motorL1->SetSelectedSensorPosition(0, m_pidIndex, 0);
-	if (m_talonValidR3) 
+	if (m_talonValidR3)
 		motorR3->SetSelectedSensorPosition(0, m_pidIndex, 0);
 	if (m_pigeonValid) {
 		pigeonIMU->SetYaw(0.0);
@@ -637,12 +651,12 @@ void Drivetrain::MoveAlignTurnExecute(std::shared_ptr<frc::Joystick> throttleJst
 
 	m_alignTurnError = (Robot::vision->GetHorzOffset());
 	alignTurnAdjustment = m_alignTurnError * m_alignTurnKp;
-	
+
 	double leftThrottle = throttle - alignTurnAdjustment;
 	double rightThrottle = throttle + alignTurnAdjustment;
 
 	if (m_alignTurnDebug) {
-	std::printf("2135: DTAT - Error %5.2f degrees Adjustment %5.2f Left Throttle %5.2f Right Throttle %5.2f/n", 
+	std::printf("2135: DTAT - Error %5.2f degrees Adjustment %5.2f Left Throttle %5.2f Right Throttle %5.2f/n",
 		m_alignTurnError, alignTurnAdjustment, leftThrottle, rightThrottle);
 	}
 
@@ -669,7 +683,7 @@ bool Drivetrain::MoveAlignTurnIsFinished() {
 }
 
 ///////// Aligning with Target Using Vision Processing with (deprecated) PID Controller ///////////
-	
+
 void Drivetrain::MoveAlignTurnPIDInit(double targetHorz) {
 	// Set current angle
 	double currAngle = Robot::vision->GetHorzOffset();
@@ -678,7 +692,7 @@ void Drivetrain::MoveAlignTurnPIDInit(double targetHorz) {
 
 	// Set target turn angle
 	driveVisionPIDLoop->SetSetpoint(targetHorz);
-	
+
 	driveVisionPIDLoop->SetOutputRange(-0.75, 0.75);
 
 	// Enable the PID loop (tolerance is in encoder count units)
