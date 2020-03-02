@@ -49,7 +49,7 @@ conveyorOn->WhileHeld(new ConveyorRun(0));
 shooterToggle.reset(new frc::JoystickButton(controlBoard.get(), 7));
 shooterToggle->WhenPressed(new ShooterRun(0));
 lEDToggle.reset(new frc::JoystickButton(controlBoard.get(), 5));
-lEDToggle->WhenPressed(new LEDSet());
+lEDToggle->WhileHeld(new LEDSet());
 climberRetract.reset(new frc::JoystickButton(controlBoard.get(), 4));
 climberRetract->WhenPressed(new ClimberRun());
 climberExtend.reset(new frc::JoystickButton(controlBoard.get(), 3));

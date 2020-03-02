@@ -135,3 +135,24 @@ void LED::DetectPowerCell(bool powerCellOn) {
     }
 }
 
+void LED::DisplayColor(LED_Source source, bool enable){
+    if (enable){
+        m_sourceEnabled |= source;
+    }
+    else {
+        m_sourceEnabled &= ~source;
+    }
+    if (m_sourceEnabled & LED_Source_Shooter){
+        SetColor(m_shooterLEDColor);
+    }
+    else if (m_sourceEnabled & LED_Source_Conveyor){
+        SetColor(m_conveyorLEDColor);
+    }
+    else if (m_sourceEnabled & LED_Source_Command){
+        SetColor(chooser.GetSelected());
+    }
+    else {
+        SetColor(LED_SetBlack);
+    }
+
+}
