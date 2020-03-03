@@ -168,6 +168,7 @@ void Shooter::Initialize(void) {
 	// Motor off
 	 if (m_talonValidSH10)
 		motorSH10->Set(ControlMode::PercentOutput, 0.0);
+
     m_targetVelocityRPM = 0.0;
 }
 
@@ -178,15 +179,11 @@ void Shooter::FaultDump(void) {
 }
 
 double Shooter::RpmToNative(double rpm) {
-	double 	native;
-	native = (rpm*COUNTS_PER_ROTATION)/(60*10);
-	return native;
+	return (rpm * COUNTS_PER_ROTATION) / (60 * 10);
 }
 
 double Shooter::NativeToRpm(double native) {
-	double 	rpm;
-	rpm = native*(60*10)/(COUNTS_PER_ROTATION);
-	return 	rpm;
+	return 	(native * 60 * 10) / COUNTS_PER_ROTATION;
 }
 
 // Set mode of shooter
@@ -255,11 +252,6 @@ void Shooter::SetShooterSpeedInit(int level) {
 	 if (m_talonValidSH10)
 		curVelocityNative = motorSH10->GetSelectedSensorVelocity(m_pidIndex);
 	 m_curVelocityRPM = NativeToRpm(curVelocityNative);
-
-	// Start the safety timer.
-	 m_safetyTimeout = 2.4;
-	 m_safetyTimer.Reset();
-	 m_safetyTimer.Start();
 
     motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
 	std::printf("2135: SH Velocity RPM %5.2f -> %5.2f Native Unit %5.2f-> %5.2f\n",

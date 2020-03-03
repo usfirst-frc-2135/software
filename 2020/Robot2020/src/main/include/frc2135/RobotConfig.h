@@ -20,6 +20,15 @@ namespace frc2135 {
 
 class RobotConfig {
 
+private:
+	RobotConfig();
+	virtual ~RobotConfig();
+
+	static void GetConfigFileName(std::string& fileName);
+
+	static RobotConfig* currentConfig;
+	std::map<std::string, std::string> m_configMap;
+
 public:
 	static RobotConfig* GetInstance();
 	bool LoadConfig();
@@ -29,15 +38,6 @@ public:
 	bool GetValueAsFloat(const std::string& name, float& valueFloat, float defaultFloat = DUMMY_DEFAULT_FLOAT);
 	bool GetValueAsDouble(const std::string& name, double& valueDouble, double defaultDouble = DUMMY_DEFAULT_DOUBLE);
 	void DumpConfig();
-
-private:
-	RobotConfig();
-	virtual ~RobotConfig();
-
-	static void GetConfigFileName(std::string& fileName);
-
-	static RobotConfig* currentConfig;
-	std::map<std::string, std::string> m_configMap;
 };
 
 } /* namespace frc2135 */

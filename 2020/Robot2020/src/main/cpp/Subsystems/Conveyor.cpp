@@ -127,10 +127,6 @@ void Conveyor::SetConveyorMotorSpeed(int direction) {
 		strName = "UP";
 		outputCV = m_acquireSpeed;
 		break;
-	case CONVEYOR_HOLD:
-		strName = "HOLD";
-		outputCV = m_holdSpeed;
-		break;
 	case CONVEYOR_DOWN:
 		strName = "DOWN";
 		outputCV = m_expelSpeed;
