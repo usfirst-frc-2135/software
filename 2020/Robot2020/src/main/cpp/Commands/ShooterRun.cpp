@@ -25,7 +25,7 @@ m_shooterSpeed = shooterSpeed;
 
 // Called just before this Command runs the first time
 void ShooterRun::Initialize() {
-    std::printf("2135: SH Run - Init [%d]\n", m_shooterSpeed);
+    std::printf("2135: ShooterRun - Init [%d]\n", m_shooterSpeed);
     Robot::shooter->SetShooterSpeedInit(m_shooterSpeed);
 }
 
@@ -41,11 +41,11 @@ bool ShooterRun::IsFinished() {
 
 // Called once after isFinished returns true
 void ShooterRun::End() {
-	std::printf("2135: SH Run - End\n");
+	std::printf("2135: ShooterRun - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShooterRun::Interrupted() {
-	std::printf("2135: SH Run - Interrupted\n");
+	std::printf("2135: ShooterRun - Interrupted\n");
 }

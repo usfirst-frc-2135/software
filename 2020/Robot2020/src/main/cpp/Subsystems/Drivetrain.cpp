@@ -338,28 +338,15 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 		double yValueSquared = yValue * abs(yValue);
 		double xValueSquared = xValue * abs(xValue);
 
-		// if (yValue >= 0) {
-		// 	yValueSquared = yValue * yValue;
-		// }
-		// else {
-		// 	yValueSquared = -(yValue * yValue);
-		// }
-
-		// if (xValue >= 0) {
-		// 	xValueSquared = xValue * xValue;
-		// }
-		// else {
-		// 	xValueSquared = -(xValue * xValue);
-		// }
 
 		// FIXME: (JLM) These print statements will flood the console!
 		if (!m_lowGear) {
 			m_vcMaxSpeed = 16.77;
-			std::printf("Changed Max Speed to High Gear");
+			std::printf("2135: Changed Max Speed to High Gear");
 		}
 		else {
 			m_vcMaxSpeed = 6.73;
-			std::printf("Changed Max Speed to Low Gear");
+			std::printf("2135: Changed Max Speed to Low Gear");
 		}
 
 		ySpeed = yValueSquared * units::feet_per_second_t(m_vcMaxSpeed);

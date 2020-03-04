@@ -253,7 +253,13 @@ void Shooter::SetShooterSpeedInit(int level) {
 		curVelocityNative = motorSH10->GetSelectedSensorVelocity(m_pidIndex);
 	 m_curVelocityRPM = NativeToRpm(curVelocityNative);
 
-    motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
+    if (m_targetVelocityRPM == 0) {
+        motorSH10->Set(ControlMode::PercentOutput, 0.0);
+    }
+    else {
+        motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
+    }
+
 	std::printf("2135: SH Velocity RPM %5.2f -> %5.2f Native Unit %5.2f-> %5.2f\n",
 		m_curVelocityRPM, m_targetVelocityRPM, curVelocityNative, m_targetVelocityNative);
 

@@ -25,7 +25,7 @@ m_indexer = indexer;
 
 // Called just before this Command runs the first time
 void IndexerDeploy::Initialize() {
-
+    std::printf("2135: IndexerDeploy - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -40,11 +40,11 @@ bool IndexerDeploy::IsFinished() {
 
 // Called once after isFinished returns true
 void IndexerDeploy::End() {
-
+    std::printf("2135: IndexerDeploy - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void IndexerDeploy::Interrupted() {
-
+    std::printf("2135: IndexerDeploy - Interrupted\n");
 }

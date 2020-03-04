@@ -50,6 +50,7 @@ std::shared_ptr<frc::JoystickButton> inExpel;
 std::shared_ptr<frc::JoystickButton> inStow;
 std::shared_ptr<frc::JoystickButton> inDeploy;
 std::shared_ptr<frc::Joystick> dStick;
+std::shared_ptr<frc::JoystickButton> dtModeToggle;
 std::shared_ptr<frc::JoystickButton> dtAlignTurn;
 std::shared_ptr<frc::JoystickButton> dtPIDAlignTurn;
 std::shared_ptr<frc::JoystickButton> dtShiftSpeed;

@@ -24,7 +24,7 @@ m_intakeDeploy = intakeDeploy;
 
 // Called just before this Command runs the first time
 void IntakeDeploy::Initialize() {
-
+    std::printf("2135: IntakeDeploy - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -39,11 +39,11 @@ bool IntakeDeploy::IsFinished() {
 
 // Called once after isFinished returns true
 void IntakeDeploy::End() {
-
+    std::printf("2135: IntakeDeploy - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void IntakeDeploy::Interrupted() {
-
+    std::printf("2135: IntakeDeploy - Interrupted\n");
 }

@@ -126,12 +126,12 @@ private:
 
 	enum
 	{ // Driving Algorithms
-		DRIVEMODE_FIRST		= 0,
-		DRIVEMODE_ARCADE 	= DRIVEMODE_FIRST,
-		DRIVEMODE_CURVATURE = 1,
-	//	DRIVEMODE_CUBIC 	= 2,
-		DRIVEMODE_VELCONTROL = 3,
-		DRIVEMODE_LAST
+		DRIVEMODE_FIRST      = 0,
+		DRIVEMODE_ARCADE     = DRIVEMODE_FIRST,
+		DRIVEMODE_CURVATURE  = 1,
+		DRIVEMODE_VELCONTROL = 2,
+	//	DRIVEMODE_CUBIC      = 3,
+		DRIVEMODE_LAST	
 	};
 
 	int m_curDriveMode; 		// Current driving mode, arcade by default
