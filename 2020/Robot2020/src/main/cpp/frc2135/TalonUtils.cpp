@@ -26,13 +26,18 @@ bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, cons
 	ErrorCode	error = OKAY;
 
 	// Configure subsystem and component name
+// Ignore the warning that it is deprecated
+// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     talon->SetName(subsystem, name);
    	std::printf("2135: Talon Subsystem %s Name %s\n", talon->GetSubsystem().c_str(), talon->GetName().c_str());
+#pragma GCC diagnostic pop
 
     // Display Talon firmware versions
 	deviceID = talon->GetDeviceID();
 	if ((error = talon->GetLastError()) != OKAY) {
-		std::printf("2135: ERROR: %s Motor %s GetDeviceID error - %d\n", 
+		std::printf("2135: ERROR: %s Motor %s GetDeviceID error - %d\n",
 			subsystem, name, error);
 		return error;
 	}
@@ -40,11 +45,11 @@ bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, cons
 	for (i = 0; i < m_retries; i++) {
 		fwVersion = talon->GetFirmwareVersion();
 		if ((error = talon->GetLastError()) != OKAY) {
-			std::printf("2135: ERROR: %s Motor %s ID %d GetFirmwareVersion error - %d\n", 
+			std::printf("2135: ERROR: %s Motor %s ID %d GetFirmwareVersion error - %d\n",
 				subsystem, name, deviceID, error);
 			return error;
 		}
-		if (fwVersion == m_reqVersion) {
+		if (fwVersion >= m_reqVersion) {
 			talonValid = true;
 			break;
 		}
@@ -58,7 +63,7 @@ bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, cons
 	if (talonValid) {
 			// Initialize Talon to all factory defaults
 		if ((error = talon->ConfigFactoryDefault(m_timeout)) != OKAY) {
-			std::printf("2135: ERROR: %s Motor %s ID %d ConfigFactoryDefault error - %d\n", 
+			std::printf("2135: ERROR: %s Motor %s ID %d ConfigFactoryDefault error - %d\n",
 				subsystem, name, deviceID, error);
 		}
 
@@ -85,20 +90,35 @@ void TalonUtils::TalonFaultDump(const char *talonName, std::shared_ptr<WPI_BaseM
     // Check Talon by getting device ID and validating firmware versions
 	talon->GetDeviceID();
 	if ((error = talon->GetLastError()) != OKAY) {
+// Ignore the warning that it is deprecated
+// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 		std::printf("2135: ERROR: %s Motor %s GetDeviceID error - %d\n",
 			talon->GetSubsystem().c_str(), talon->GetName().c_str(), error);
+#pragma GCC diagnostic pop
 		return;
 	}
 
 	fwVersion = talon->GetFirmwareVersion();
 	if ((error = talon->GetLastError()) != OKAY) {
+// Ignore the warning that it is deprecated
+// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 		std::printf("2135: ERROR: %s Motor %s GetFirmwareVersion error - %d\n",
 			talon->GetSubsystem().c_str(), talon->GetName().c_str(), error);
+#pragma GCC diagnostic pop
 		return;
 	}
 	if (fwVersion != m_reqVersion) {
+// Ignore the warning that it is deprecated
+// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 		std::printf("2135: WARNING: %s Motor %s Incorrect FW version %d.%d expected %d.%d\n",
 			talon->GetSubsystem().c_str(), talon->GetName().c_str(), fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
+#pragma GCC diagnostic pop
 		return;
 	}
 

@@ -27,8 +27,8 @@ constexpr int kLeftMotor2Port = 2;
 constexpr int kRightMotor1Port = 3;
 constexpr int kRightMotor2Port = 4;
 
-constexpr int kLeftEncoderPorts[]{1, 2};
-constexpr int kRightEncoderPorts[]{3, 4};
+// constexpr int kLeftEncoderPorts[]{1, 2};
+// constexpr int kRightEncoderPorts[]{3, 4};
 constexpr bool kLeftEncoderReversed = true;
 constexpr bool kRightEncoderReversed = true;
 
@@ -37,12 +37,13 @@ extern const frc::DifferentialDriveKinematics kDriveKinematics;
 
 constexpr int kEncoderCPR = 4096;
 constexpr double kWheelDiameterMeters = 0.1524;
+// Assumes the encoders are directly mounted on the wheel shafts
 constexpr double kEncoderDistancePerPulse =
-    // Assumes the encoders are directly mounted on the wheel shafts
     (kWheelDiameterMeters * wpi::math::pi) / static_cast<double>(kEncoderCPR);
 
 constexpr bool kGyroReversed = true;
 
+// FIXME (JLM): Are these really example values? If not update the comment!
 // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
 // These characterization values MUST be determined either experimentally or
 // theoretically for *your* robot's drive. The Robot Characterization
@@ -67,5 +68,5 @@ constexpr double kRamseteZeta = 0.7;
 }  // namespace AutoConstants
 
 namespace OIConstants {
-constexpr int kDriverControllerPort = 0;
+// constexpr int kDriverControllerPort = 0;
 }  // namespace OIConstants

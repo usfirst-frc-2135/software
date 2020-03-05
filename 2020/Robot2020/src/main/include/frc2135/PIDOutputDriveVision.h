@@ -10,10 +10,11 @@
 #include <frc/drive/DifferentialDrive.h>
 
 class PIDOutputDriveVision: public frc::PIDOutput {
+
 private:
 	std::shared_ptr<frc::DifferentialDrive> m_robotDrive;
 	double m_visionAngle;
-    double m_turnAngle; 
+    double m_turnAngle;
 
 public:
 	PIDOutputDriveVision(std::shared_ptr<frc::DifferentialDrive> robotDrive);
