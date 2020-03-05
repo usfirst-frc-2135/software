@@ -68,20 +68,23 @@ pigeonIMU.reset(new PigeonIMU(20));
 	config->GetValueAsDouble("DT_PidTurnKp", m_turnKp, 0.030);
 	config->GetValueAsDouble("DT_VisionTurnKp", m_visionTurnKp, 0.0);
 	config->GetValueAsDouble("DT_PeakOut", m_peakOut, 1.0);
-	config->GetValueAsInt("DT_Velocity", m_velocity, 1732);
-	config->GetValueAsInt("DT_Acceleration", m_acceleration, 6927);
+	config->GetValueAsInt("DT_Velocity", m_velocity, 1918);
+	config->GetValueAsInt("DT_Acceleration", m_acceleration, 3836);
 	config->GetValueAsInt("DT_SCurveStrength", m_sCurveStrength, 0);
-	config->GetValueAsDouble("DT_PidKf", m_pidKf, 0.5832);
-	config->GetValueAsDouble("DT_PidKp", m_pidKp, 0.0);
+	config->GetValueAsDouble("DT_PidKf", m_pidKf, 0.0);
+	config->GetValueAsDouble("DT_PidKp", m_pidKp, 0.25);
 	config->GetValueAsDouble("DT_PidKi", m_pidKi, 0.0);
 	config->GetValueAsDouble("DT_PidKd", m_pidKd, 0.0);
-	config->GetValueAsDouble("DT_ArbFeedForward", m_arbFeedForward, 1.0);
+	config->GetValueAsDouble("DT_ArbFeedForward", m_arbFeedForward, 0.0);
 	config->GetValueAsDouble("DT_VCMaxSpeed", m_vcMaxSpeed, 6.73);
 	config->GetValueAsDouble("DT_VCMaxAngSpeed", m_vcMaxAngSpeed, M_PI);
 	config->GetValueAsDouble("DT_VCPIDKp", m_vcpidKp, 1.0);
 	config->GetValueAsDouble("DT_VCPIDKi", m_vcpidKi, 0.0);
 	config->GetValueAsDouble("DT_VCPIDKd", m_vcpidKd, 0.0);
 	config->GetValueAsInt("DT_DriveMode", m_curDriveMode, 0);
+
+	
+	frc::SmartDashboard::PutNumber("DT_DriveYScaling", m_driveYScaling);
 
     // Invert the direction of the motors
     // Set to brake mode (in comparison to coast)
@@ -207,6 +210,8 @@ void Drivetrain::Periodic() {
 	frc::SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
 	frc::SmartDashboard::PutNumber("DT_Encoder_R", encoderRight);
 	frc::SmartDashboard::PutNumber("DT_Heading", heading);
+	frc::SmartDashboard::PutNumber("DT_DriveXScaling", m_driveXScaling);
+
 
     if (m_driveDebug > 1 || (m_driveDebug > 0 && m_isMovingAuto)) {
 

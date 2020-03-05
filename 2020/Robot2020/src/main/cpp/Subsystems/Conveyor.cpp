@@ -105,6 +105,10 @@ void Conveyor::Initialize(void) {
 	// Motor off
 	if (m_talonValidCV8)
 		motorCV8->Set(ControlMode::PercentOutput, 0.0);
+        motorCV8->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_timeout);
+        motorCV8->SetSensorPhase(false);
+        motorCV8->SetSelectedSensorPosition(0, m_timeout);
+
 }
 
 void Conveyor::FaultDump(void) {
