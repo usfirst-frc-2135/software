@@ -3,6 +3,8 @@
 # DriveTrain settings
   DT_DriveMode = 0
   DT_DriveXScaling = 0.7
+  DT_OpenLoopRampRate = 1.0
+  DT_ClosedLoopRampRate = 1.0
 # Competition mode
 # DT_DriveYScaling = 1.00
 # Training mode

@@ -82,8 +82,9 @@ pigeonIMU.reset(new PigeonIMU(20));
 	config->GetValueAsDouble("DT_VCPIDKi", m_vcpidKi, 0.0);
 	config->GetValueAsDouble("DT_VCPIDKd", m_vcpidKd, 0.0);
 	config->GetValueAsInt("DT_DriveMode", m_curDriveMode, 0);
+	config->GetValueAsDouble("DT_OpenLoopRampRate", m_openLoopRampRate, 1.0);
+	config->GetValueAsDouble("DT_ClosedLoopRampRate", m_closedLoopRampRate, 1.0);
 
-	
 	frc::SmartDashboard::PutNumber("DT_DriveYScaling", m_driveYScaling);
 
     // Invert the direction of the motors
@@ -100,6 +101,9 @@ pigeonIMU.reset(new PigeonIMU(20));
         motorL1->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
         motorL1->SetSensorPhase(false);
         motorL1->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+
+		motorL1->ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
+		motorL1->ConfigClosedloopRamp (m_closedLoopRampRate, m_timeout);
     }
 
     if (m_talonValidL2) {
@@ -120,6 +124,9 @@ pigeonIMU.reset(new PigeonIMU(20));
         motorR3->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
         motorR3->SetSensorPhase(false);
         motorR3->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
+
+		motorR3->ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
+		motorR3->ConfigClosedloopRamp (m_closedLoopRampRate, m_timeout);
     }
 
     if (m_talonValidR4) {

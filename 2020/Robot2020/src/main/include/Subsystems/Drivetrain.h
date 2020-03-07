@@ -112,6 +112,9 @@ private:
 	double m_vcpidKi;
 	double m_vcpidKd;
 
+	double m_openLoopRampRate;
+	double m_closedLoopRampRate;
+
 	frc::SimpleMotorFeedforward<units::feet> m_feedforward {0.899_V, 4.63_V / 1_fps, 0.69_V / 1_fps_sq}; // TODO: dtermine values for ft/s
 	frc2::PIDController *m_leftPIDController;
 	frc2::PIDController *m_rightPIDController;
