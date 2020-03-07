@@ -48,6 +48,7 @@
 # Spinner settings
   SP_TurnSpeed = 0.6
 # Climber settings
+  CL_ClimbSpeed = 0.5
 # Autonomous settings
   AutoDriveDist = 97.25
   AutoDriveTurn = 90.0
