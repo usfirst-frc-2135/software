@@ -55,21 +55,16 @@ AddChild("Indexer", indexer);
 
     // Initialize Variables
      frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
-     config->GetValueAsDouble("SH_OnSpeed", m_onSpeed, 60.0);
-     config->GetValueAsDouble("SH_ReverseSpeed", m_reverseSpeed, -20.0);
-     config->GetValueAsDouble("SH_FwdOutput", m_fwdOutput, 0.75);
-     config->GetValueAsDouble("SH_RevOutput", m_revOutput, -0.25);
+     config->GetValueAsDouble("SH_FwdOutput", m_fwdOutput, 0.25);
+     config->GetValueAsDouble("SH_RevOutput", m_revOutput, -0.10);
      config->GetValueAsDouble("SH_PidKf", m_pidKf, 0.427);
-     config->GetValueAsDouble("SH_PidKp", m_pidKp, 0.250);
+     config->GetValueAsDouble("SH_PidKp", m_pidKp, 1.230);
      config->GetValueAsDouble("SH_PidKi", m_pidKi, 0.000);
      config->GetValueAsDouble("SH_PidKd", m_pidKd, 0.000);
      config->GetValueAsDouble("SH_NeutralDeadband", m_neutralDeadband, 0.004);
-
-     frc::SmartDashboard::PutNumber("SH_SmartDashSpeed", 0);
-     m_smartDashSpeed = frc::SmartDashboard::GetNumber("SH_SmartDashSpeed", 0);
-
-     frc::SmartDashboard::PutNumber("SH_SmartDashOutput", 0);
-     m_smartDashOutput = frc::SmartDashboard::GetNumber("SH_SmartDashOutput", 0);
+     config->GetValueAsDouble("SH_ffKs", m_ffKs, 1.06);
+     config->GetValueAsDouble("SH_ffKv", m_ffKv, 0.12);
+     config->GetValueAsDouble("SH_ffKa", m_ffKa, 0.0259);
 
     // Initialize modes and set power to off
     // Set motor peak outputs
@@ -170,6 +165,18 @@ void Shooter::Initialize(void) {
 		motorSH10->Set(ControlMode::PercentOutput, 0.0);
 
     m_targetVelocityRPM = 0.0;
+
+    /*
+     * TODO: Make sure that the values of kv and ka are correct according to frc documentation
+     * It expects angular or linear distances.
+     */
+
+    // Convert feedforward values to units SimpleMotorFeedforward requires
+    auto ks = m_ffKs * 1_V;
+    auto kv = m_ffKv * 1_V * 1_s / 1_m;
+    auto ka = m_ffKa * 1_V * 1_s * 1_s / 1_m;
+    // Create FeedForward calculator
+    m_feedforward = frc::SimpleMotorFeedforward<units::meter>(ks, kv, ka);
 }
 
 void Shooter::FaultDump(void) {
@@ -186,66 +193,36 @@ double Shooter::NativeToRpm(double native) {
 	return 	(native * 60 * 10) / COUNTS_PER_ROTATION;
 }
 
-// Set mode of shooter
-void Shooter::SetShooterMotorOutput(int direction) {
-	// const char *strName;
-	// double outputSH = 0.0; 		// Default: off
-
-    // switch (direction)
-	// {
-	// default:
-	// case SHOOTER_STOP:
-	// 	strName = "STOP";
-	// 	outputSH = 0.0;
-    //     indexer->Set(false);
-	// 	break;
-	// case SHOOTER_FORWARD:
-	// 	strName = "FORWARD";
-	// 	outputSH = 0.75;
-    //     indexer->Set(true);
-	// 	break;
-	// case SHOOTER_REVERSE:
-	// 	strName = "REVERSE";
-	// 	outputSH = -0.25;
-    //     indexer->Set(true);
-	// 	break;
-	// }
-
-    // std::printf("2135: Shooter Set Speed - %s\n", strName);
-
-	// if (m_talonValidSH10)
-	// 	motorSH10->Set(ControlMode::PercentOutput, outputSH);
+double Shooter::OutputToRpm(double output) {
+    return output*MAX_RPM;
 }
 
 void Shooter::SetShooterSpeedInit(int level) {
     double 	curVelocityNative = 0.0;
-    double  shooterOutput = 0.0;
 
 	m_shooterLevel = level;
 
 	// Validate and set the requested position to move
 	switch (level) {
 	case STOP_SPEED:
-		m_targetVelocityRPM = 0.0;
-        shooterOutput = 0.0;
+		m_targetOutput = 0.0;
 		break;
 	case ON_SPEED:
-		m_targetVelocityRPM = m_onSpeed;
-        shooterOutput = m_fwdOutput;
+		m_targetOutput = m_fwdOutput;
 		break;
 	case REVERSE_SPEED:
-		m_targetVelocityRPM = m_reverseSpeed;
-        shooterOutput = m_revOutput;
+		m_targetOutput = m_revOutput;
 		break;
     case SMARTDASH_SPEED:
-         m_targetVelocityRPM = m_smartDashSpeed;
-         shooterOutput = m_smartDashOutput;
-         break;
+        m_smartDashOutput = frc::SmartDashboard::GetNumber("SH_SmartDashOutput", 0.0);
+        m_targetOutput = m_smartDashOutput;
+        break;
 	default:
 		std::printf("2135: SH invalid velocity requested - %d\n", level);
 		return;
 	}
 
+    m_targetVelocityRPM = OutputToRpm(m_targetOutput);
     m_targetVelocityNative = RpmToNative(m_targetVelocityRPM);
 
 	// Get current position in inches and set position mode and target counts
@@ -257,16 +234,14 @@ void Shooter::SetShooterSpeedInit(int level) {
         motorSH10->Set(ControlMode::PercentOutput, 0.0);
     }
     else {
-        motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
+        // motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
+        // TODO: Units are definitely not right in the Calculate call
+        double ff_val = (double) m_feedforward.Calculate(m_curVelocityRPM * 1_m / 1_s);
+        // TODO: Check if the ArbitraryFeedForward argument is being used correctly
+        motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative, DemandType::DemandType_ArbitraryFeedForward, ff_val);
     }
 
-	std::printf("2135: SH Velocity RPM %5.2f -> %5.2f Native Unit %5.2f-> %5.2f\n",
-		m_curVelocityRPM, m_targetVelocityRPM, curVelocityNative, m_targetVelocityNative);
-
-    // motorSH10->Set(ControlMode::PercentOutput, shooterOutput);
-    // double curOutput = motorSH10->GetMotorOutputPercent();
-    // std::printf("2135: SH Output %5.2f -> %5.2f\n", curOutput, shooterOutput);
-    // TODO: Remove warning while stuff is commented out above
-    shooterOutput = shooterOutput;
+	std::printf("2135: SH Velocity Output -> %5.2f RPM %5.2f -> %5.2f Native Unit %5.2f-> %5.2f\n",
+		m_targetOutput, m_curVelocityRPM, m_targetVelocityRPM, curVelocityNative, m_targetVelocityNative);
 }
 
