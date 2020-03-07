@@ -897,8 +897,8 @@ Children:
           name: Parameters
           validators: null
           value:
-          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: climberDirection,
-            type: int, value: '0'}
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: climberDeploy,
+            type: boolean, value: 'true'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id015
           default: '1'
@@ -910,7 +910,7 @@ Children:
           name: Command
           type: Command
           validators: *id016
-          value: Climber Run
+          value: Climber Deploy
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id017
           default: whileHeld
@@ -918,7 +918,38 @@ Children:
           validators: null
           value: whenPressed
       Base: Joystick Button
-      Name: Cl Extend
+      Name: Cl Deploy
+    - Children: []
+      Properties:
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: Control Board}
+        Parameters: !!robotbuilder.data.properties.ParametersProperty
+          default: []
+          name: Parameters
+          validators: null
+          value:
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: climberDeploy,
+            type: boolean, value: 'false'}
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id015
+          default: '1'
+          name: Button
+          validators: null
+          value: '10'
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id016
+          value: Climber Deploy
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id017
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whenPressed
+      Base: Joystick Button
+      Name: Cl Stow
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
@@ -929,13 +960,13 @@ Children:
           validators: null
           value:
           - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: climberDirection,
-            type: int, value: '0'}
+            type: int, value: '1'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id015
           default: '1'
           name: Button
           validators: null
-          value: '10'
+          value: '11'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -949,7 +980,38 @@ Children:
           validators: null
           value: whenPressed
       Base: Joystick Button
-      Name: Cl Retract
+      Name: Cl Ascend
+    - Children: []
+      Properties:
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: Control Board}
+        Parameters: !!robotbuilder.data.properties.ParametersProperty
+          default: []
+          name: Parameters
+          validators: null
+          value:
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: climberDirection,
+            type: int, value: '-1'}
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id015
+          default: '1'
+          name: Button
+          validators: null
+          value: '12'
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id016
+          value: Climber Run
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id017
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whenPressed
+      Base: Joystick Button
+      Name: Cl Descend
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
@@ -1470,11 +1532,11 @@ Children:
         validators: null
         value:
         - !!robotbuilder.data.properties.ParameterSet
-          name: CLIMBER_SPOOLOUT
+          name: CLIMBER_UP
           parameters:
           - {name: climberDirection, type: int, value: '1'}
         - !!robotbuilder.data.properties.ParameterSet
-          name: CLIMBER_REELIN
+          name: CLIMBER_DOWN
           parameters:
           - {name: climberDirection, type: int, value: '-1'}
         - !!robotbuilder.data.properties.ParameterSet

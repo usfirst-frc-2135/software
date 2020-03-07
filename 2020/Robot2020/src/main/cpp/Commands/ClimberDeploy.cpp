@@ -25,6 +25,7 @@ m_climberDeploy = climberDeploy;
 // Called just before this Command runs the first time
 void ClimberDeploy::Initialize() {
     std::printf("2135: ClimberDeploy - Init\n");
+    Robot::climber->DeployClimber(m_climberDeploy);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -34,7 +35,7 @@ void ClimberDeploy::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ClimberDeploy::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true

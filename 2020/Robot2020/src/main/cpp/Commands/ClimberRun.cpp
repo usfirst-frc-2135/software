@@ -26,6 +26,7 @@ m_climberDirection = climberDirection;
 // Called just before this Command runs the first time
 void ClimberRun::Initialize() {
     std::printf("2135: ClimberRun - Init\n");
+    Robot::climber->SetClimberMotorOutput(m_climberDirection);
 }
 
 // Called repeatedly when this Command is scheduled to run
