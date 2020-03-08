@@ -86,9 +86,9 @@ private:
 	double m_safetyTimeout;   // Time in seconds for safety timer
 	bool m_isMovingAuto;	  // Indicates an auton movement is active
 
-	// double m_distTargetInches; // Drive to Position target inches value
-	// double m_distTargetCounts; // Drive to Position target counts value
-	// double m_distTolInches;	  // Tolerated error for MM PID loop
+	double m_distTargetInches; // Drive to Position target inches value
+	double m_distTargetCounts; // Drive to Position target counts value
+	double m_distTolInches;	  // Tolerated error for MM PID loop
 
 	double m_turnAngle = 0.0; // Desired turn angle from present course
 	double m_turnTolDeg;	  // DriveTurn tolerance in degrees
@@ -190,6 +190,14 @@ public:
 	frc::Rotation2d GetAngle();
 
 	void ResetSensors();
+
+	void MoveDriveStraight(double output);
+
+	// Driving to a distance using Motion Magic
+	void MoveDriveDistanceMMInit(double distance);
+	void MoveDriveDistanceMMExecute();
+	bool MoveDriveDistanceMMIsFinished();
+	void MoveDriveDistanceMMEnd();
 
 	// Aligning with Target Using Vision Processing
 	void MoveAlignTurnInit();

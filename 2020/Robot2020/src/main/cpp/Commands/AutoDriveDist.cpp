@@ -25,26 +25,29 @@ m_distance = distance;
 
 // Called just before this Command runs the first time
 void AutoDriveDist::Initialize() {
-    std::printf("2135: AutoDriveDist - Init\n");
+    std::printf("2135: AutoDriveDist - Init %5.2f inches\n", m_distance);
+    Robot::drivetrain->MoveDriveDistanceMMInit(m_distance);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveDist::Execute() {
-
+    Robot::drivetrain->MoveDriveDistanceMMExecute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDriveDist::IsFinished() {
-    return false;
+    return Robot::drivetrain->MoveDriveDistanceMMIsFinished();
 }
 
 // Called once after isFinished returns true
 void AutoDriveDist::End() {
     std::printf("2135: AutoDriveDist - End\n");
+    Robot::drivetrain->MoveDriveDistanceMMEnd();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoDriveDist::Interrupted() {
     std::printf("2135: AutoDriveDist - Interrupted\n");
+    Robot::drivetrain->MoveDriveDistanceMMEnd();
 }

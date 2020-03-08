@@ -19,6 +19,7 @@
 #include "Commands/AutoStop.h"
 #include "Commands/AutoStop.h"
 #include "Commands/AutoDriveDist.h"
+#include "Commands/AutoShootDrive.h"
 #include "Subsystems/Climber.h"
 #include "Subsystems/Conveyor.h"
 #include "Subsystems/Drivetrain.h"

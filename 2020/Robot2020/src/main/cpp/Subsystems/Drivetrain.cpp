@@ -631,6 +631,89 @@ void Drivetrain::ResetSensors(void) {
 	}
 }
 
+void Drivetrain::MoveDriveStraight(double output) {
+	diffDrive->TankDrive(output, output, false);
+}
+
+////////////////////////// MOTION MAGIC ///////////////////////////
+void Drivetrain::MoveDriveDistanceMMInit(double inches) {
+    m_distTargetInches = inches;
+    m_distTargetCounts = round(m_distTargetInches * CountsPerInch);
+    std::printf("2135: DTDD Init %d cts %5.2f in %5.2f CountsPerInch\n", 
+        (int) m_distTargetCounts, m_distTargetInches, CountsPerInch);
+
+    // Initialize the encoders ot start movement at reference of zero counts
+	ResetSensors();
+
+    diffDrive->SetSafetyEnabled(false);
+	if (m_talonValidL1)
+    	motorL1->Set(ControlMode::MotionMagic, m_distTargetCounts);
+	if (m_talonValidR3)
+    	motorR3->Set(ControlMode::MotionMagic, -m_distTargetCounts);
+
+	// Start safety timer with 2.0 sec padding (feet * 6.73 fps)
+	m_safetyTimeout = (inches / 12) * 5.0 + 2.0;
+	m_safetyTimer.Reset();
+	m_safetyTimer.Start();
+
+	m_isMovingAuto = true;
+}
+
+void Drivetrain::MoveDriveDistanceMMExecute() {
+    // Internal - Talon
+}
+
+bool Drivetrain::MoveDriveDistanceMMIsFinished() {
+    bool isFinished = false;
+    int curCounts_L = 0;
+    int curCounts_R = 0;
+    double errorInInches_L = 0.0;
+    double errorInInches_R = 0.0;
+
+    if (m_talonValidL1)
+        curCounts_L = motorL1->GetSelectedSensorPosition(m_pidIndex);
+
+    if (m_talonValidR3)
+        curCounts_R = motorR3->GetSelectedSensorPosition(m_pidIndex);
+
+    errorInInches_L = CountsToInches(m_distTargetCounts - curCounts_L);
+    errorInInches_R = CountsToInches(-m_distTargetCounts - curCounts_R);
+
+    m_distTolInches = 2.0;              // tolerance
+
+    // Check to see if the error is in an acceptable number of inches.
+    if ((fabs(errorInInches_L) < m_distTolInches) && (fabs(errorInInches_R) < m_distTolInches)) {
+        isFinished = true;
+ 		std::printf("2135: DTDD Move Finished - Time %f\n", m_safetyTimer.Get());
+   }
+
+    // Check to see if the Safety Timer has timed out.
+	if (m_safetyTimer.Get() >= m_safetyTimeout) {
+		isFinished = true;
+		std::printf("2135: DTDD Move Safety timer has timed out\n");
+	}
+
+    return isFinished;
+}
+
+void Drivetrain::MoveDriveDistanceMMEnd() {
+	if (m_talonValidL1)
+    	motorL1->Set(ControlMode::PercentOutput, 0.0);
+	if (m_talonValidR3)
+		motorR3->Set(ControlMode::PercentOutput, 0.0);
+
+	// Stop the safety timer
+    std::printf("2135: DTDD End %d cts %5.2f in TimeToTarget: %3.2f\n", 
+        (int) m_distTargetCounts, m_distTargetInches, m_safetyTimer.Get());
+
+	m_safetyTimer.Stop();
+	m_isMovingAuto = false;
+
+    // If either master drive talons are valid, re-enable safety timer
+    diffDrive->SetSafetyEnabled(m_talonValidL1 || m_talonValidR3);
+}
+
+
 ////////////////////////// Aligning with Target Using Vision Processing ///////////////////////////
 
 void Drivetrain::MoveAlignTurnInit() {

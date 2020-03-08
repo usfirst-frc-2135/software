@@ -60,6 +60,7 @@ led.reset(new Led());
 
 	chooser.AddOption("Auto Stop", new AutoStop());
 	chooser.AddOption("Auto Drive Dist: DEFAULT", new AutoDriveDist(0));
+	chooser.AddOption("Auto Shoot Drive", new AutoShootDrive());
 
 	chooser.SetDefaultOption("Auto Stop", new AutoStop());
 
