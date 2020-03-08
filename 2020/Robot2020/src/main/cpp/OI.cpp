@@ -18,6 +18,8 @@
 #include "Commands/ClimberDeploy.h"
 #include "Commands/ClimberRun.h"
 #include "Commands/ConveyorRun.h"
+#include "Commands/DTBumpDownRampRate.h"
+#include "Commands/DTBumpUpRampRate.h"
 #include "Commands/DriveAlignPIDTurn.h"
 #include "Commands/DriveAlignTurn.h"
 #include "Commands/DriveModeToggle.h"
@@ -78,6 +80,8 @@ dtShiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
 dtShiftSpeed->WhileHeld(new DriveShift(false));
 
     // SmartDashboard Buttons
+    frc::SmartDashboard::PutData("DT Bump Down Ramp Rate", new DTBumpDownRampRate());
+    frc::SmartDashboard::PutData("DT Bump Up Ramp Rate", new DTBumpUpRampRate());
     frc::SmartDashboard::PutData("Led Set", new LedSet());
     frc::SmartDashboard::PutData("Spin Rotation", new SpinRotation());
     frc::SmartDashboard::PutData("Spin Color", new SpinColor());

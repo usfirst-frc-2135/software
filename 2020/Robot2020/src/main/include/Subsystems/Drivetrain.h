@@ -200,5 +200,8 @@ public:
 	void MoveAlignTurnPIDInit(double targetHorz);
 	bool MoveAlignTurnPIDISFinished();
 	void MoveAlignTurnPIDStop();
+
+	void BumpUpRampRate();
+	void BumpDownRampRate();
 };
 

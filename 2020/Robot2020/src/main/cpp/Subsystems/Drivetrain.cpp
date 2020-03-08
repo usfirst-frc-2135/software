@@ -257,6 +257,9 @@ void Drivetrain::Periodic() {
 			frc::SmartDashboard::PutNumber("DT_Output_R3", outputR3);
 			frc::SmartDashboard::PutNumber("DT_Current_R3", currentR3);
 			frc::SmartDashboard::PutNumber("DT_Current_R4", currentR4);
+
+			frc::SmartDashboard::PutNumber("DT_OpenLoopRampRate", m_openLoopRampRate);
+			frc::SmartDashboard::PutNumber("DT_ClosedLoopRampRate", m_closedLoopRampRate);
 		}
 	}
 }
@@ -742,4 +745,22 @@ void Drivetrain::MoveAlignTurnPIDStop() {
 
 	// Re-enable the motor safety helper (temporarily disabled)
 	diffDrive->SetSafetyEnabled(false);
+}
+
+void Drivetrain::BumpUpRampRate(){
+	m_openLoopRampRate += 0.1;
+	m_closedLoopRampRate += 0.1;
+	motorL1 -> ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
+	motorL1 -> ConfigClosedloopRamp(m_closedLoopRampRate, m_timeout);	
+	motorR3 -> ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
+	motorR3 -> ConfigClosedloopRamp(m_closedLoopRampRate, m_timeout);	
+}
+
+void Drivetrain::BumpDownRampRate(){
+	m_openLoopRampRate -= 0.1;
+	m_closedLoopRampRate -= 0.1;
+	motorL1 -> ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
+	motorL1 -> ConfigClosedloopRamp(m_closedLoopRampRate, m_timeout);	
+	motorR3 -> ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
+	motorR3 -> ConfigClosedloopRamp(m_closedLoopRampRate, m_timeout);	
 }
