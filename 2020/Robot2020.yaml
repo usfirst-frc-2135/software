@@ -1026,7 +1026,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '12'
+          value: '13'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -1055,7 +1055,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '13'
+          value: '14'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -1070,10 +1070,20 @@ Children:
           value: whenPressed
       Base: Joystick Button
       Name: Sp Rotation
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: *id018
+        default: 1
+        name: Number
+        validators: *id019
+        value: '1'
+    Base: Joystick
+    Name: Control Board
+  - Children:
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: Control Board}
+          name: Joystick, validators: null, value: Control Board 2}
         Parameters: !!robotbuilder.data.properties.ParametersProperty
           default: []
           name: Parameters
@@ -1084,7 +1094,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '14'
+          value: '1'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -1105,9 +1115,9 @@ Children:
         default: 1
         name: Number
         validators: *id019
-        value: '1'
+        value: '2'
     Base: Joystick
-    Name: Control Board
+    Name: Control Board 2
   Properties: {}
   Base: OI
   Name: Operator Interface
