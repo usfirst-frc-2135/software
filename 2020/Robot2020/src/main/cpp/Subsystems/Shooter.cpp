@@ -267,12 +267,19 @@ void Shooter::SetShooterSpeedInit(int level)
         {
             motorSH10->Set(ControlMode::PercentOutput, 0.0);
         }
-    else {
+        else
+        {
             // motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
+
             // TODO: Units are definitely not right in the Calculate call
-        double ff_val = (double) m_feedforward.Calculate(m_curVelocityRPM * 1_m / 1_s);
-        // TODO: Check if the ArbitraryFeedForward argument is being used correctly
-        motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative, DemandType::DemandType_ArbitraryFeedForward, ff_val);
+            // double ff_val = (double) m_feedforward.Calculate(m_curVelocityRPM * 1_m / 1_s);
+
+            // TODO: Check if the ArbitraryFeedForward argument is being used correctly - (JLM) not really
+            // motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative, DemandType::DemandType_ArbitraryFeedForward, ff_val);
+            // (JLM) If we use the WPILib calculation of FF, then it needs to use ControlMode::PercentOutput API
+
+            motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
+        }
     }
 
 	std::printf("2135: SH Velocity Output -> %5.2f RPM %5.2f -> %5.2f Native Unit %5.2f-> %5.2f\n",
