@@ -53,7 +53,7 @@ AddChild("Position", position);
     config->GetValueAsDouble("IN_ExpelSpeed", m_expelSpeed, -0.8);
 
     // Set motor directions
-    // Turn on Brake mode (not coast)
+    // Turn on Coast mode (not brake)
     // Set motor peak outputs
 
     // TODO: Need to check that talon is working
@@ -61,14 +61,11 @@ AddChild("Position", position);
 
     if (m_talonValidIN6) {
         motorIN6->SetInverted(false);
-        motorIN6->SetNeutralMode(NeutralMode::Brake);
+        motorIN6->SetNeutralMode(NeutralMode::Coast);
         motorIN6->SetSafetyEnabled(false);
 
         motorIN6->ConfigVoltageCompSaturation(12.0, 0);
         motorIN6->EnableVoltageCompensation(true);
-
-        motorIN6->ConfigPeakOutputForward(m_acquireSpeed, m_timeout);
-        motorIN6->ConfigPeakOutputReverse(m_expelSpeed, m_timeout);
     }
 
     Initialize();
