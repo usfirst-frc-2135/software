@@ -24,7 +24,8 @@
  *
  * @author ExampleAuthor
  */
-class Pneumatics: public frc::Subsystem {
+class Pneumatics: public frc::Subsystem
+{
 
 private:
 	// It's desirable that everything possible is private except

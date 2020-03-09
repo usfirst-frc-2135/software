@@ -16,19 +16,22 @@
 
 //////////////////////////////////////////////////////////
 
-namespace frc2135 {
+namespace frc2135
+{
 
 RobotConfig* RobotConfig::currentConfig = nullptr;
 
 //////////////////////////////////////////////////////////
 
-void trimWhitespace(std::string& line) {
-	line.erase(std::remove_if( line.begin(), line.end(), [](char c){ return (c =='\r' || c =='\t' || c == ' ' || c == '\n');}), line.end() );
+void trimWhitespace(std::string& line)
+{
+	line.erase(std::remove_if( line.begin(), line.end(), [](char c) { return (c =='\r' || c =='\t' || c == ' ' || c == '\n');}), line.end() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-RobotConfig::RobotConfig() {
+RobotConfig::RobotConfig()
+{
 	std::printf("2135: RobotConfig -- LoadConfig Started  --\n");
 	LoadConfig();
 	std::printf("2135: RobotConfig -- LoadConfig Finished --\n");
@@ -37,14 +40,17 @@ RobotConfig::RobotConfig() {
 	std::printf("2135: RobotConfig -- DumpConfig Finished --\n");
 }
 
-RobotConfig::~RobotConfig() {
+RobotConfig::~RobotConfig()
+{
 
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-RobotConfig* RobotConfig::GetInstance() {
-	if (RobotConfig::currentConfig == nullptr) {
+RobotConfig* RobotConfig::GetInstance()
+{
+	if (RobotConfig::currentConfig == nullptr)
+	{
 		std::printf("2135: RobotConfig -- Creating new RobotConfig object\n");
 		RobotConfig::currentConfig = new RobotConfig();
 	}
@@ -82,7 +88,8 @@ void RobotConfig::GetConfigFileName(std::string& fileName)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-bool RobotConfig::LoadConfig() {
+bool RobotConfig::LoadConfig()
+{
 	std::string fileName;
 
 	GetConfigFileName(fileName);
@@ -96,20 +103,24 @@ bool RobotConfig::LoadConfig() {
     m_configMap.clear();
 
     std::printf("2135: RobotConfig -- Loading File %s\n", fileName.c_str());
-	while (configFile.eof() == false) {
+	while (configFile.eof() == false)
+	{
 		std::string name;
 		std::string valueStr;
 		std::string delimiter = "=";
 		std::string line;
 
-		while(getline(configFile, line)) {
+		while(getline(configFile, line))
+		{
 			name = "";			// Reset
+
 			trimWhitespace(line);
-			if (line[0] == '#') {	// Skipping comment line
+			if (line[0] == '#')	// Skipping comment line
 				continue;
-			}
+
 			size_t pos = 0;
-			if ((pos = line.find(delimiter)) != std::string::npos) {
+			if ((pos = line.find(delimiter)) != std::string::npos)
+			{
 				name = line.substr(0, pos);
 				trimWhitespace(name);
 				line.erase(0, pos + delimiter.length());
@@ -118,9 +129,7 @@ bool RobotConfig::LoadConfig() {
 			}
 
 			if (!name.empty())
-			{
 				m_configMap[name] = valueStr;
-			}
 
 			if (configFile.bad() == true)
 			{
@@ -300,78 +309,97 @@ void RobotConfig::DumpConfig()
 
 // This is testing the get functions with our dummy file. We can remove this once we are confident with the functions.
 
-//float valueFloat;
-//if (GetValueAsFloat("AutonDriveSpeed", valueFloat))
-//	std::cout<<"Test - AutonDriveSpeed" <<" " <<valueFloat <<"\n";
-//else std::printf("AutonDriveSpeed could not get float value.\n");
-//
-//int valueInt;
-//if (GetValueAsInt("BlahBlah", valueInt))
-//	std::cout<<"Test - BlahBlah (as int)" <<" " <<valueInt <<"\n";
-//else std::printf("BlahBlah could not get int value.\n");
-//
-//bool valueBool;
-//if (GetValueAsBool("BlahBlah", valueBool))
-//	std::cout<<"Test - BlahBlah (as bool)" <<" " <<valueBool <<"\n";
-//else std::printf("BlahBlah could not get bool value.\n");
-//
-//if (GetValueAsBool("NatureWalk", valueBool ))
-//	std::cout<<"Test - NatureWalk" <<" " <<valueBool <<"\n";
-//else std::printf("NatureWalk could not get value.\n");
-//
-//if (GetValueAsFloat("DeprecatedClimber", valueFloat))
-//	std::cout<<"Test - DeprecatedClimber" <<" " <<valueFloat <<"\n";
-//else std::printf("DeprecatedClimber could not get float value.\n");
-//
-//if (GetValueAsInt("ThingOne", valueInt))
-//	std::cout<<"Test - ThingOne" <<" " <<valueInt <<"\n";
-//else std::printf("ThingOne could not get int value.\n");
-//
-//if (GetValueAsInt("ThingTwo", valueInt))
-//	std::cout<<"Test - ThingTwo" <<" " <<valueInt <<"\n";
-//else std::printf("ThingTwo could not get int value.\n");
-//
-//if (GetValueAsBool("PeopleOut", valueBool))
-//	std::cout<<"Test - PeopleOut (as bool)" <<" " <<valueBool <<"\n";
-//else std::printf("PeopleOut could not get bool value.\n");
-//
-//std::string valueString;
-//if (GetValueAsString("PeopleOut", valueString))
-//	std::cout<<"Test - PeopleOut (as string)" <<" " <<valueString <<"\n";
-//else std::printf("PeopleOut (as string) could not get value.\n");
-//
-//if (GetValueAsFloat("Keyboard", valueFloat, 22.5))
-//	std::cout<<"Test - Keyboard" << " " <<valueFloat <<"\n";
-//else std::printf("Keyboard could not get float value.\n");
-//
-//// The expected value of Keyboard should be 22.5
-//if (GetValueAsFloat("Keyboard", valueFloat, 56.7))
-//	std::cout<<"Test - Keyboard" << " " <<valueFloat <<"\n";
-//else std::printf("Keyboard could not get float value.\n");
-//
-//if (GetValueAsFloat("Mouse", valueFloat))
-//	std::cout<<"Test - Mouse" << " " <<valueFloat <<"\n";
-//else std::printf("Keyboard could not get float value.\n");
-//
-//if (GetValueAsInt("Fence", valueInt))
-//	std::cout<<"Test - Fence (as int)" <<" " <<valueInt <<"\n";
-//else std::printf("Fence could not get int value.\n");
-//
-//if (GetValueAsInt("Gate", valueInt, 999999))
-//	std::cout<<"Test - Gate (int)" <<" " <<valueInt <<"\n";
-//else std::printf("Gate could not get int value.\n");
-//
-//if (GetValueAsBool("Tea", valueBool))
-//	std::cout<<"Test - Tea (as bool)" <<" " <<valueBool <<"\n";
-//else std::printf("Tea could not get bool value.\n");
-//
-//if (GetValueAsFloat("Chair",valueFloat, DUMMY_DEFAULT_FLOAT))
-//	std::cout << "Test - Chair (as float)" << " " << valueFloat << "\n";
-//else std::printf("Chair could not get float value.\n");
-//
-//if (GetValueAsString("Sweatpants", valueString))
-//	std::cout<<"Test - Sweatpants (as string)" <<" " <<valueString <<"\n";
-//else std::printf("Sweatpants (as string) could not get value.\n");
+#if defined (CONFIG_TESTING)
+	float valueFloat;
+	if (GetValueAsFloat("AutonDriveSpeed", valueFloat))
+		std::cout<<"Test - AutonDriveSpeed" <<" " <<valueFloat <<"\n";
+	else
+		std::printf("AutonDriveSpeed could not get float value.\n");
+
+	int valueInt;
+	if (GetValueAsInt("BlahBlah", valueInt))
+		std::cout<<"Test - BlahBlah (as int)" <<" " <<valueInt <<"\n";
+	else
+		std::printf("BlahBlah could not get int value.\n");
+
+	bool valueBool;
+	if (GetValueAsBool("BlahBlah", valueBool))
+		std::cout<<"Test - BlahBlah (as bool)" <<" " <<valueBool <<"\n";
+	else
+		std::printf("BlahBlah could not get bool value.\n");
+
+	if (GetValueAsBool("NatureWalk", valueBool ))
+		std::cout<<"Test - NatureWalk" <<" " <<valueBool <<"\n";
+	else
+		std::printf("NatureWalk could not get value.\n");
+
+	if (GetValueAsFloat("DeprecatedClimber", valueFloat))
+		std::cout<<"Test - DeprecatedClimber" <<" " <<valueFloat <<"\n";
+	else
+		std::printf("DeprecatedClimber could not get float value.\n");
+
+	if (GetValueAsInt("ThingOne", valueInt))
+		std::cout<<"Test - ThingOne" <<" " <<valueInt <<"\n";
+	else
+		std::printf("ThingOne could not get int value.\n");
+
+	if (GetValueAsInt("ThingTwo", valueInt))
+		std::cout<<"Test - ThingTwo" <<" " <<valueInt <<"\n";
+	else
+		std::printf("ThingTwo could not get int value.\n");
+
+	if (GetValueAsBool("PeopleOut", valueBool))
+		std::cout<<"Test - PeopleOut (as bool)" <<" " <<valueBool <<"\n";
+	else
+		std::printf("PeopleOut could not get bool value.\n");
+
+	std::string valueString;
+	if (GetValueAsString("PeopleOut", valueString))
+		std::cout<<"Test - PeopleOut (as string)" <<" " <<valueString <<"\n";
+	else
+		std::printf("PeopleOut (as string) could not get value.\n");
+
+	if (GetValueAsFloat("Keyboard", valueFloat, 22.5))
+		std::cout<<"Test - Keyboard" << " " <<valueFloat <<"\n";
+	else
+		std::printf("Keyboard could not get float value.\n");
+
+	// The expected value of Keyboard should be 22.5
+	if (GetValueAsFloat("Keyboard", valueFloat, 56.7))
+		std::cout<<"Test - Keyboard" << " " <<valueFloat <<"\n";
+	else
+		std::printf("Keyboard could not get float value.\n");
+
+	if (GetValueAsFloat("Mouse", valueFloat))
+		std::cout<<"Test - Mouse" << " " <<valueFloat <<"\n";
+	else
+		std::printf("Keyboard could not get float value.\n");
+
+	if (GetValueAsInt("Fence", valueInt))
+		std::cout<<"Test - Fence (as int)" <<" " <<valueInt <<"\n";
+	else
+		std::printf("Fence could not get int value.\n");
+
+	if (GetValueAsInt("Gate", valueInt, 999999))
+		std::cout<<"Test - Gate (int)" <<" " <<valueInt <<"\n";
+	else
+		std::printf("Gate could not get int value.\n");
+
+	if (GetValueAsBool("Tea", valueBool))
+		std::cout<<"Test - Tea (as bool)" <<" " <<valueBool <<"\n";
+	else
+		std::printf("Tea could not get bool value.\n");
+
+	if (GetValueAsFloat("Chair",valueFloat, DUMMY_DEFAULT_FLOAT))
+		std::cout << "Test - Chair (as float)" << " " << valueFloat << "\n";
+	else
+		std::printf("Chair could not get float value.\n");
+
+	if (GetValueAsString("Sweatpants", valueString))
+		std::cout<<"Test - Sweatpants (as string)" <<" " <<valueString <<"\n";
+	else
+		std::printf("Sweatpants (as string) could not get value.\n");
+#endif
 
 }
 

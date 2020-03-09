@@ -26,7 +26,8 @@
  *
  * @author ExampleAuthor
  */
-class Power: public frc::Subsystem {
+class Power: public frc::Subsystem
+{
 
 private:
 	// It's desirable that everything possible is private except

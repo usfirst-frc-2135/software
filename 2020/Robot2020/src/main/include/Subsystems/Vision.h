@@ -36,10 +36,10 @@ private:
 	std::shared_ptr<NetworkTable> table;
 
 	// Declare module variables
-	 double		m_targetOffsetAngle_Horizontal; // Horizontal Offset from Crosshair to Target
-	 double		m_targetOffsetAngle_Vertical; // Vertical Offset from Crosshair to Target
-	 double		m_targetArea; // Target Area (0% of image to 100% of image)
-	 double		m_targetSkew; // Target Skew or rotation (-90 degrees to 0 degrees)
+	double		m_targetOffsetAngle_Horizontal; 	// Horizontal Offset from Crosshair to Target
+	double		m_targetOffsetAngle_Vertical; 		// Vertical Offset from Crosshair to Target
+	double		m_targetArea; 						// Target Area (0% of image to 100% of image)
+	double		m_targetSkew; 						// Target Skew or rotation (-90 degrees to 0 degrees)
 
 public:
 	Vision();

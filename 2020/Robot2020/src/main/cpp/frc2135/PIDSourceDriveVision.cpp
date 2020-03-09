@@ -7,20 +7,21 @@
 #include "frc2135/PIDSourceDriveVision.h"
 #include "Robot.h"
 
-PIDSourceDriveVision::PIDSourceDriveVision() {
+PIDSourceDriveVision::PIDSourceDriveVision()
+{
 	m_angle = 0.0;
 }
 
-PIDSourceDriveVision::~PIDSourceDriveVision() {
+PIDSourceDriveVision::~PIDSourceDriveVision()
+{
 }
 
-double PIDSourceDriveVision::PIDGet(void) {
-	double currAngle = 0.0;
-
-	currAngle = Robot::vision->GetHorzOffset();
-    return currAngle;
+double PIDSourceDriveVision::PIDGet(void)
+{
+    return Robot::vision->GetHorzOffset();
 }
 
-void PIDSourceDriveVision::SetTurnAngle(double angle) {
+void PIDSourceDriveVision::SetTurnAngle(double angle)
+{
 	m_angle = angle;
 }

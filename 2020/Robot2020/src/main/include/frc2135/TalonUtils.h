@@ -9,9 +9,11 @@
 
 #include <ctre/Phoenix.h>
 
-namespace frc2135 {
+namespace frc2135
+{
 
-class TalonUtils {
+class TalonUtils
+{
 
 private:
 	static const int		m_slotIndex = 0;				// Motor controller profile slot index
