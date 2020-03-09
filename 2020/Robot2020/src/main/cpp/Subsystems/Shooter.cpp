@@ -55,8 +55,8 @@ AddChild("Indexer", indexer);
 
     // Initialize Variables
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
-     config->GetValueAsDouble("SH_FwdOutput", m_fwdOutput, 0.25);
-     config->GetValueAsDouble("SH_RevOutput", m_revOutput, -0.10);
+    config->GetValueAsDouble("SH_FwdOutput", m_fwdOutput, 0.80);
+    config->GetValueAsDouble("SH_RevOutput", m_revOutput, -0.25);
     config->GetValueAsDouble("SH_PidKf", m_pidKf, 0.427);
     config->GetValueAsDouble("SH_PidKp", m_pidKp, 1.230);
     config->GetValueAsDouble("SH_PidKi", m_pidKi, 0.000);

@@ -31,15 +31,15 @@
   DT_VCPIDKi = 0.0
   DT_VCPIDKd = 0.0
 # Intake settings
-  IN_AcquireSpeed = 0.75
-  IN_ExpelSpeed = -0.75
+  IN_AcquireSpeed = 0.8
+  IN_ExpelSpeed = -0.8
 # Conveyor settings
-  CV_AcquireSpeed = 0.75
+  CV_AcquireSpeed = 0.8
   CV_HoldSpeed = 0.0
-  CV_ExpelSpeed = -0.75
+  CV_ExpelSpeed = -0.8
 # Shooter settings
-  SH_FwdOutput = 0.25;
-  SH_RevOutput = -0.10;
+  SH_FwdOutput = 0.80;
+  SH_RevOutput = -0.25;
   SH_PidKf = 0.450
   SH_PidKp = 0.30
   SH_PidKi = 0.000
@@ -51,7 +51,7 @@
 # Spinner settings
   SP_TurnSpeed = 0.6
 # Climber settings
-  CL_ClimbSpeed = 0.5
+  CL_ClimbSpeed = 1.0
 # Autonomous settings
   AutoDriveDist = 97.25
   AutoDriveTurn = 90.0

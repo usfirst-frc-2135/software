@@ -49,8 +49,8 @@ AddChild("Position", position);
     // Initialize Variables
     // TODO: determine speeds (defaults are random)
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("IN_AcquireSpeed", m_acquireSpeed, 0.75);
-    config->GetValueAsDouble("IN_ExpelSpeed", m_expelSpeed, -0.75);
+    config->GetValueAsDouble("IN_AcquireSpeed", m_acquireSpeed, 0.8);
+    config->GetValueAsDouble("IN_ExpelSpeed", m_expelSpeed, -0.8);
 
     // Set motor directions
     // Turn on Brake mode (not coast)
