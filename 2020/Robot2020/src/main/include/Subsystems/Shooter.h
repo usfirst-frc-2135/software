@@ -44,8 +44,9 @@ private:
 	const int		m_slotIndex = 0;				// Motor controller profile slot index
 	const int 		m_pidIndex = 0;					// PID slot index for sensors
 	const int		m_timeout = 30;					// CAN timeout in msec to wait for response
-	const double	COUNTS_PER_ROTATION = (1024*4);	// CPR is 1024 and multipled by 4 because it is a quadrature encoder
-	const double	MAX_RPM = 5840;					// Max RPM of a mini CIM
+	const double	COUNTS_PER_REVOLUTION = (1024*4);	// CPR is 1024 and multipled by 4 because it is a quadrature encoder
+	const double	MAX_RPM = 5200;					// Measured max RPM with two mini-CIMs
+	const int		MAX_VELOCITY_NATIVE = ((int) ((MAX_RPM * COUNTS_PER_REVOLUTION) / (60 * 10)));
 
 	// Declare module variables
 	bool			m_talonValidSH10;			// Health indicator for shooter talon 10

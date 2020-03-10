@@ -62,11 +62,11 @@ private:
 	const int m_pidIndex = 0;					   	// PID slot index for sensors
 	const int m_timeout = 30;					   	// CAN timeout in msec to wait for response
 
-	const double COUNTS_PER_ROTATION = (1024 * 4); 	// CPR is 1024 and multiplied by 4
-	const double CountsPerInch = COUNTS_PER_ROTATION / (WHEEL_DIA_INCHES * M_PI);
+	const double COUNTS_PER_REVOLUTION = (1024 * 4); 	// CPR is 1024 and multiplied by 4
+	const double CountsPerInch = COUNTS_PER_REVOLUTION / (WHEEL_DIA_INCHES * M_PI);
 	const double WHEEL_DIA_INCHES = 6.0;
 	const units::foot_t TRACK_WIDTH_FEET = 2.125_ft;
-	const double DIST_PER_COUNT = (WHEEL_DIA_INCHES/12 * M_PI) / COUNTS_PER_ROTATION;
+	const double DIST_PER_COUNT = (WHEEL_DIA_INCHES/12 * M_PI) / COUNTS_PER_REVOLUTION;
 	const double m_circumInches = (WHEEL_DIA_INCHES * M_PI);
 
 	const int m_reqPigeonVer = ((20 * 256) + 0);   // Pigeon IMU version is 20.0
@@ -125,9 +125,9 @@ private:
 	frc::DifferentialDriveKinematics *m_kinematics;
     frc::DifferentialDriveOdometry *m_odometry;
 
-	bool m_throttleZeroed; 		// Throttle joystick zeroed check for safety
+	bool m_throttleZeroed; 			// Throttle joystick zeroed check for safety
 
-	double m_alignTurnKp = 0.05; // TODO: change to be set in config file
+	double m_alignTurnKp = 0.05; 	// TODO: change to be set in config file
 	double m_alignTurnError;
 
 	enum

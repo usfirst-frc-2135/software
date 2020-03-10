@@ -1,5 +1,5 @@
 # Comment lines start with '#'
-  RB_Name = 2135-Unknown
+  RB_Name = 2135-Mandy
 # DriveTrain settings
   DT_DriveMode = 0
   DT_DriveXScaling = 0.7
@@ -40,8 +40,8 @@
 # Shooter settings
   SH_FwdOutput = 0.80;
   SH_RevOutput = -0.25;
-  SH_PidKf = 0.450
-  SH_PidKp = 0.30
+  SH_PidKf = 0.02701
+  SH_PidKp = 0.01461
   SH_PidKi = 0.000
   SH_PidKd = 0.000
   SH_NeutralDeadband = 0.004

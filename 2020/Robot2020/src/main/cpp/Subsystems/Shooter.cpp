@@ -57,8 +57,8 @@ AddChild("Indexer", indexer);
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("SH_FwdOutput", m_fwdOutput, 0.80);
     config->GetValueAsDouble("SH_RevOutput", m_revOutput, -0.25);
-    config->GetValueAsDouble("SH_PidKf", m_pidKf, 0.427);
-    config->GetValueAsDouble("SH_PidKp", m_pidKp, 1.230);
+    config->GetValueAsDouble("SH_PidKf", m_pidKf, 0.02305);
+    config->GetValueAsDouble("SH_PidKp", m_pidKp, 0.01461);
     config->GetValueAsDouble("SH_PidKi", m_pidKi, 0.000);
     config->GetValueAsDouble("SH_PidKd", m_pidKd, 0.000);
     config->GetValueAsDouble("SH_NeutralDeadband", m_neutralDeadband, 0.004);
@@ -83,7 +83,7 @@ AddChild("Indexer", indexer);
 
         // Configure sensor settings
         motorSH10->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, m_pidIndex, m_timeout);
-        motorSH10->SetSensorPhase(false);
+        motorSH10->SetSensorPhase(true);
         motorSH10->SetSelectedSensorPosition(0, m_pidIndex, m_timeout);
 
 		// Configure Velocity PIDF settings
@@ -93,7 +93,7 @@ AddChild("Indexer", indexer);
         motorSH10->Config_kI(0, m_pidKi, m_timeout);
         motorSH10->Config_kD(0, m_pidKd, m_timeout);
 
-        motorSH10->Set(ControlMode::PercentOutput, 0.0);
+        motorSH10->Set(ControlMode::Velocity, 0.0);
     }
 
     if (m_talonValidSH11)
@@ -183,9 +183,8 @@ void Shooter::Periodic()
 void Shooter::Initialize(void)
 {
 	std::printf("2135: SH Init\n");
-	// Motor off
-	 if (m_talonValidSH10)
-		motorSH10->Set(ControlMode::PercentOutput, 0.0);
+	if (m_talonValidSH10)
+		motorSH10->Set(ControlMode::Velocity, 0.0);
 
     m_targetVelocityRPM = 0.0;
 
@@ -215,18 +214,18 @@ void Shooter::FaultDump(void)
 double Shooter::RpmToNative(double rpm)
 {
     // Phoenix native encoder units are CPR / 100 msec
-	return (rpm * COUNTS_PER_ROTATION) / (60 * 10);
+	return (rpm * COUNTS_PER_REVOLUTION) / (60 * 10);
 }
 
 double Shooter::NativeToRpm(double native)
 {
     // Phoenix native encoder units are CPR / 100 msec
-	return 	(native * 60 * 10) / COUNTS_PER_ROTATION;
+	return 	(native * 60 * 10) / COUNTS_PER_REVOLUTION;
 }
 
 double Shooter::OutputToRpm(double output)
 {
-    return output*MAX_RPM;
+    return output * MAX_RPM;
 }
 
 void Shooter::SetShooterSpeedInit(int level)
@@ -265,23 +264,15 @@ void Shooter::SetShooterSpeedInit(int level)
 
 	    m_curVelocityRPM = NativeToRpm(curVelocityNative);
 
-        if (m_targetVelocityRPM == 0.0)
-        {
-            motorSH10->Set(ControlMode::PercentOutput, 0.0);
-        }
-        else
-        {
-            // motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
+        // TODO: Units are definitely not right in the Calculate call
+        // double ff_val = (double) m_feedforward.Calculate(m_curVelocityRPM * 1_m / 1_s);
 
-            // TODO: Units are definitely not right in the Calculate call
-            // double ff_val = (double) m_feedforward.Calculate(m_curVelocityRPM * 1_m / 1_s);
+        // TODO: Check if the ArbitraryFeedForward argument is being used correctly - (JLM) not really
+        // motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative, DemandType::DemandType_ArbitraryFeedForward, ff_val);
+        // (JLM) If we use the WPILib calculation of FF, then it needs to use ControlMode::PercentOutput API
+        // (JLM) Using the Talon SRX internal velocity mode which is preferred
 
-            // TODO: Check if the ArbitraryFeedForward argument is being used correctly - (JLM) not really
-            // motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative, DemandType::DemandType_ArbitraryFeedForward, ff_val);
-            // (JLM) If we use the WPILib calculation of FF, then it needs to use ControlMode::PercentOutput API
-
-            motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
-        }
+        motorSH10->Set(ControlMode::Velocity, m_targetVelocityNative);
     }
 
 	std::printf("2135: SH Velocity Output -> %5.2f RPM %5.2f -> %5.2f Native Unit %5.2f-> %5.2f\n",

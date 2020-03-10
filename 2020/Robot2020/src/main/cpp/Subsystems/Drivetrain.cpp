@@ -512,7 +512,7 @@ double Drivetrain::InchesToCounts(double inches)
 {
 	double counts;
 
-	counts = (inches / m_circumInches) * COUNTS_PER_ROTATION;
+	counts = (inches / m_circumInches) * COUNTS_PER_REVOLUTION;
 	return counts;
 }
 
@@ -520,7 +520,7 @@ double Drivetrain::CountsToInches(int counts)
 {
 	double inches;
 
-	inches = ((double) counts / COUNTS_PER_ROTATION) * m_circumInches;
+	inches = ((double) counts / COUNTS_PER_REVOLUTION) * m_circumInches;
 	return inches;
 }
 
