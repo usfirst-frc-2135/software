@@ -886,22 +886,28 @@ void Drivetrain::MoveAlignTurnPIDStop()
 	diffDrive->SetSafetyEnabled(false);
 }
 
-void Drivetrain::BumpUpRampRate()
+void Drivetrain::BumpRampRate(bool bumpUp)
 {
-	m_openLoopRampRate += 0.1;
-	m_closedLoopRampRate += 0.1;
-	motorL1 -> ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
-	motorL1 -> ConfigClosedloopRamp(m_closedLoopRampRate, m_timeout);
-	motorR3 -> ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
-	motorR3 -> ConfigClosedloopRamp(m_closedLoopRampRate, m_timeout);
-}
+	if (bumpUp)
+	{
+		m_openLoopRampRate += 0.1;
+		m_closedLoopRampRate += 0.1;
+	}
+	else
+	{
+		m_openLoopRampRate -= 0.1;
+		m_closedLoopRampRate -= 0.1;
+	}
 
-void Drivetrain::BumpDownRampRate()
-{
-	m_openLoopRampRate -= 0.1;
-	m_closedLoopRampRate -= 0.1;
-	motorL1 -> ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
-	motorL1 -> ConfigClosedloopRamp(m_closedLoopRampRate, m_timeout);
-	motorR3 -> ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
-	motorR3 -> ConfigClosedloopRamp(m_closedLoopRampRate, m_timeout);
+	if (m_talonValidL1)
+	{
+		motorL1 -> ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
+		motorL1 -> ConfigClosedloopRamp(m_closedLoopRampRate, m_timeout);
+	}
+
+	if (m_talonValidR3)
+	{
+		motorR3 -> ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
+		motorR3 -> ConfigClosedloopRamp(m_closedLoopRampRate, m_timeout);
+	}
 }

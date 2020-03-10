@@ -214,7 +214,6 @@ public:
 	bool MoveAlignTurnPIDISFinished();
 	void MoveAlignTurnPIDStop();
 
-	void BumpUpRampRate();
-	void BumpDownRampRate();
+	void BumpRampRate(bool bumpUp);
 };
 

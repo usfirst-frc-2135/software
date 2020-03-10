@@ -285,3 +285,9 @@ void Shooter::SetShooterSpeedInit(int level)
 	std::printf("2135: SH Velocity Output -> %5.2f RPM %5.2f -> %5.2f Native Unit %5.2f-> %5.2f\n",
 		m_targetOutput, m_curVelocityRPM, m_targetVelocityRPM, curVelocityNative, m_targetVelocityNative);
 }
+
+void Shooter::DeployIndexer(bool state)
+{
+    // If state is true, sets climber deploy forward, else reverse.
+    indexer->Set( (state) ? indexer->kForward : indexer->kReverse);
+}

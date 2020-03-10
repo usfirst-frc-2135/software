@@ -101,4 +101,5 @@ public:
 	double OutputToRpm(double output);
 
 	void SetShooterSpeedInit(int level);
+	void DeployIndexer(bool state);
 };
