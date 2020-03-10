@@ -47,7 +47,6 @@ AddChild("Position", position);
         std::printf("2135: IN Intake Deployer REV Solenoid is FUNCTIONAL\n");
 
     // Initialize Variables
-    // TODO: determine speeds (defaults are random)
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("IN_AcquireSpeed", m_acquireSpeed, 0.8);
     config->GetValueAsDouble("IN_ExpelSpeed", m_expelSpeed, -0.8);
@@ -55,11 +54,8 @@ AddChild("Position", position);
     // Set motor directions
     // Turn on Coast mode (not brake)
     // Set motor peak outputs
-
-    // TODO: Need to check that talon is working
-    m_talonValidIN6 = true;
-
-    if (m_talonValidIN6) {
+    if (m_talonValidIN6)
+    {
         motorIN6->SetInverted(false);
         motorIN6->SetNeutralMode(NeutralMode::Coast);
         motorIN6->SetSafetyEnabled(false);
@@ -121,9 +117,8 @@ void Intake::Initialize(void)
 {
     std::printf("2135: IN Init\n");
 
-     if (m_talonValidIN6) {
+     if (m_talonValidIN6)
         SetIntakeMotorDirection(INTAKE_STOP);
-    }
 }
 
 void Intake::FaultDump(void)

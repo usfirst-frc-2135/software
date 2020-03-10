@@ -38,7 +38,8 @@ AddChild("Position", position);
     frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
 	config->GetValueAsDouble("CL_ClimbSpeed", m_climbSpeed, 1.0);
 
-    if (m_talonValidCL14) {
+    if (m_talonValidCL14)
+    {
         motorCL14->Set(ControlMode::PercentOutput, 0.0);
         motorCL14->SetNeutralMode(NeutralMode::Brake);
         motorCL14->ConfigVoltageCompSaturation(12.0, m_timeout);

@@ -72,42 +72,42 @@ private:
 	const int m_reqPigeonVer = ((20 * 256) + 0);   // Pigeon IMU version is 20.0
 
 	// Declare module variables
-	bool m_talonValidL1; // Health indicator for drive Talon Left 1
-	bool m_talonValidL2; // Health indicator for drive Talon Left 2
-	bool m_talonValidR3; // Health indicator for drive Talon Right 3
-	bool m_talonValidR4; // Health indicator for drive Talon Right 4
-	bool m_pigeonValid;  // Health indicator for Pigeon IMU
+	bool m_talonValidL1; 		// Health indicator for drive Talon Left 1
+	bool m_talonValidL2; 		// Health indicator for drive Talon Left 2
+	bool m_talonValidR3; 		// Health indicator for drive Talon Right 3
+	bool m_talonValidR4; 		// Health indicator for drive Talon Right 4
+	bool m_pigeonValid;  		// Health indicator for Pigeon IMU
 
-	double m_driveXScaling; // Scaling applied to Joystick
-	double m_driveYScaling; // Scaling applied to Joystick
-	double m_driveSpin;		// Spin turn power  setting
+	double m_driveXScaling; 	// Scaling applied to Joystick
+	double m_driveYScaling; 	// Scaling applied to Joystick
+	double m_driveSpin;			// Spin turn power  setting
 
-	bool m_lowGear;   // Low Gear or High Gear
-	bool m_brakeMode; // Brake or Coast Mode for Talons
+	bool m_lowGear;   			// Low Gear or High Gear
+	bool m_brakeMode; 			// Brake or Coast Mode for Talons
 
-	frc::Timer m_safetyTimer; // Safety timer for use during autonomous modes
-	double m_safetyTimeout;   // Time in seconds for safety timer
-	bool m_isMovingAuto;	  // Indicates an auton movement is active
+	frc::Timer m_safetyTimer; 	// Safety timer for use during autonomous modes
+	double m_safetyTimeout;   	// Time in seconds for safety timer
+	bool m_isMovingAuto;	  	// Indicates an auton movement is active
 
-	double m_distTargetInches; // Drive to Position target inches value
-	double m_distTargetCounts; // Drive to Position target counts value
-	double m_distTolInches;	  // Tolerated error for MM PID loop
+	double m_distTargetInches; 	// Drive to Position target inches value
+	double m_distTargetCounts; 	// Drive to Position target counts value
+	double m_distTolInches;	  	// Tolerated error for MM PID loop
 
-	double m_turnAngle = 0.0; // Desired turn angle from present course
-	double m_turnTolDeg;	  // DriveTurn tolerance in degrees
-	double m_turnKp;		  // Proportional value for PID for DriveTurn function
-	double m_visionTurnKp;	  // Proportional value for PID for Drive Turn with Vision-Assist
-	double m_turnMaxOut;	  // Max motor output value for PID for DriveTurn function
+	double m_turnAngle = 0.0; 	// Desired turn angle from present course
+	double m_turnTolDeg;	  	// DriveTurn tolerance in degrees
+	double m_turnKp;		  	// Proportional value for PID for DriveTurn function
+	double m_visionTurnKp;	  	// Proportional value for PID for Drive Turn with Vision-Assist
+	double m_turnMaxOut;	  	// Max motor output value for PID for DriveTurn function
 
-	double m_peakOut;		 // Drivetrain maximum speed during movement
-	int    m_velocity;		 // Drivetrain motion velocity
-	int    m_acceleration;	 // Drivetrain motion acceleration
-	int    m_sCurveStrength; // Drivetrain motion S curve smoothing strength
-	double m_pidKf;			 // Drivetrain PID force constant
-	double m_pidKp;			 // Drivetrain PID proportional constant
-	double m_pidKi;			 // Drivetrain PID integral constant
-	double m_pidKd;			 // Drivetrain PID derivative constant
-	double m_arbFeedForward; // Drivetrain Motion Magic Arbitrary Feed Forward
+	double m_peakOut;		 	// Drivetrain maximum speed during movement
+	int    m_velocity;		 	// Drivetrain motion velocity
+	int    m_acceleration;	 	// Drivetrain motion acceleration
+	int    m_sCurveStrength; 	// Drivetrain motion S curve smoothing strength
+	double m_pidKf;			 	// Drivetrain PID force constant
+	double m_pidKp;			 	// Drivetrain PID proportional constant
+	double m_pidKi;			 	// Drivetrain PID integral constant
+	double m_pidKd;			 	// Drivetrain PID derivative constant
+	double m_arbFeedForward; 	// Drivetrain Motion Magic Arbitrary Feed Forward
 
 	double m_vcMaxSpeed;
 	double m_vcMaxAngSpeed;
@@ -125,7 +125,7 @@ private:
 	frc::DifferentialDriveKinematics *m_kinematics;
     frc::DifferentialDriveOdometry *m_odometry;
 
-	bool m_throttleZeroed; // Throttle joystick zeroed check for safety
+	bool m_throttleZeroed; 		// Throttle joystick zeroed check for safety
 
 	double m_alignTurnKp = 0.05; // TODO: change to be set in config file
 	double m_alignTurnError;

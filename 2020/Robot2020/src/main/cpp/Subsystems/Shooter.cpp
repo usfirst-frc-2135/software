@@ -68,7 +68,8 @@ AddChild("Indexer", indexer);
 
     // Initialize modes and set power to off
     // Set motor peak outputs
-    if (m_talonValidSH10) {
+    if (m_talonValidSH10)
+    {
         // Set motor directions
         // Turn on Coast mode
         motorSH10->SetInverted(false);
@@ -95,7 +96,8 @@ AddChild("Indexer", indexer);
         motorSH10->Set(ControlMode::PercentOutput, 0.0);
     }
 
-    if (m_talonValidSH11) {
+    if (m_talonValidSH11)
+    {
         motorSH11->Set(ControlMode::Follower, 10);                  // Set to follow Shooter Motor 10
         motorSH11->SetInverted(InvertType::OpposeMaster);           // Sets the Talon inversion to true
         motorSH11->SetNeutralMode(NeutralMode::Coast);              // Set to coast mode
