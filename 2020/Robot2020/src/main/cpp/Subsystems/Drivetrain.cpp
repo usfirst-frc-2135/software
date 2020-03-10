@@ -85,8 +85,6 @@ pigeonIMU.reset(new PigeonIMU(20));
 	config->GetValueAsDouble("DT_OpenLoopRampRate", m_openLoopRampRate, 1.0);
 	config->GetValueAsDouble("DT_ClosedLoopRampRate", m_closedLoopRampRate, 1.0);
 
-	frc::SmartDashboard::PutNumber("DT_DriveYScaling", m_driveYScaling);
-
     // Invert the direction of the motors
     // Set to brake mode (in comparison to coast)
     // Set voltage compensation to 12V
@@ -217,7 +215,6 @@ void Drivetrain::Periodic() {
 	frc::SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
 	frc::SmartDashboard::PutNumber("DT_Encoder_R", encoderRight);
 	frc::SmartDashboard::PutNumber("DT_Heading", heading);
-	frc::SmartDashboard::PutNumber("DT_DriveXScaling", m_driveXScaling);
 
 
     if (m_driveDebug > 1 || (m_driveDebug > 0 && m_isMovingAuto)) {
