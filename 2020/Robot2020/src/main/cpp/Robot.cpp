@@ -146,7 +146,7 @@ void Robot::RobotFaultDump(void)
 	intake->FaultDump();
 	conveyor->FaultDump();
 	shooter->FaultDump();
-	climber->FaultDump();
+	// climber->FaultDump();
 	// spinner->FaultDump();
 	pneumatics->FaultDump();
 	power->FaultDump();

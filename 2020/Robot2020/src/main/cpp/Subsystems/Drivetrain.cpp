@@ -204,33 +204,30 @@ void Drivetrain::InitDefaultCommand()
 
 void Drivetrain::Periodic()
 {
-    // Put code here to be run every loop
-    static int 	i = 0;
-    int			encoderLeft = 0;
-	int			encoderRight = 0;
- 	double  	heading = 0.0;
+    static int  periodicInterval = 0;
 
-    if (m_talonValidL1)
-	{
-		encoderLeft = motorL1->GetSelectedSensorPosition(m_pidIndex);
-	}
+    // Put code here to be run every 20 ms loop
 
-	if (m_talonValidR3)
-	{
-		encoderRight = -motorR3->GetSelectedSensorPosition(m_pidIndex);
-	}
+    // Only update indicators every 100 ms to cut down on network traffic
+    if (periodicInterval++ % 5 == 0)
+    {
+		int			encoderLeft = 0;
+		int			encoderRight = 0;
+		double  	heading = 0.0;
 
-	heading = GetIMUHeading();
+		if (m_talonValidL1)
+			encoderLeft = motorL1->GetSelectedSensorPosition(m_pidIndex);
 
-	frc::SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
-	frc::SmartDashboard::PutNumber("DT_Encoder_R", encoderRight);
-	frc::SmartDashboard::PutNumber("DT_Heading", heading);
+		if (m_talonValidR3)
+			encoderRight = -motorR3->GetSelectedSensorPosition(m_pidIndex);
 
+		heading = GetIMUHeading();
 
-    if (m_driveDebug > 1 || (m_driveDebug > 0 && m_isMovingAuto))
-	{
-		// Slow debug message rate to every 5 * 20ms periods
-		if (i++ % 5 == 0)
+		frc::SmartDashboard::PutNumber("DT_Encoder_L", encoderLeft);
+		frc::SmartDashboard::PutNumber("DT_Encoder_R", encoderRight);
+		frc::SmartDashboard::PutNumber("DT_Heading", heading);
+
+		if (m_driveDebug > 1 || (m_driveDebug > 0 && m_isMovingAuto))
 		{
 			double	outputL1 = 0.0, currentL1 = 0.0, currentL2 = 0.0;
 			double	outputR3 = 0.0, currentR3 = 0.0, currentR4 = 0.0;
@@ -242,9 +239,7 @@ void Drivetrain::Periodic()
 			}
 
 			if (m_talonValidL2)
-			{
 				currentL2 = motorL2->GetOutputCurrent();
-			}
 
 			if (m_talonValidR3)
 			{
@@ -253,9 +248,7 @@ void Drivetrain::Periodic()
 			}
 
 			if (m_talonValidR4)
-			{
 				currentR4 = motorR4->GetOutputCurrent();
-			}
 
 			double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
@@ -269,9 +262,6 @@ void Drivetrain::Periodic()
 			frc::SmartDashboard::PutNumber("DT_Output_R3", outputR3);
 			frc::SmartDashboard::PutNumber("DT_Current_R3", currentR3);
 			frc::SmartDashboard::PutNumber("DT_Current_R4", currentR4);
-
-			frc::SmartDashboard::PutNumber("DT_OpenLoopRampRate", m_openLoopRampRate);
-			frc::SmartDashboard::PutNumber("DT_ClosedLoopRampRate", m_closedLoopRampRate);
 		}
 	}
 }
@@ -294,13 +284,9 @@ void Drivetrain::Initialize(void)
      m_throttleZeroed = false;
 
     // If ENABLED and AUTON mode, set brake mode
-     if(!frc::RobotState::IsDisabled())
-	 {
-        if(!frc::RobotState::IsOperatorControl())
-		{
-            m_brakeMode = true;
-        }
-    }
+	if(!frc::RobotState::IsDisabled())
+		if(!frc::RobotState::IsOperatorControl())
+			m_brakeMode = true;
 
     MoveShiftGears(m_lowGear);
     MoveSetBrakeMode(m_brakeMode);
@@ -317,7 +303,7 @@ void Drivetrain::FaultDump(void)
 	frc2135::TalonUtils::TalonFaultDump("DT R4", motorR4);
 	PigeonIMUFaultDump();
 
-    // Dump Pigeon faults
+    // Dump Pigeon faults TODO
     // frc2135::TalonUtils::PigeonIMUFaultDump("DT IMU", gyro);
 
 }
@@ -342,9 +328,7 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 
     xValue *= m_driveXScaling;
 	if (!m_lowGear)
-	{
 		yValue *= m_driveYScaling;
-	}
 
 	if (m_talonValidL1 || m_talonValidR3)
 	{
@@ -369,9 +353,11 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 		case DRIVEMODE_ARCADE:
 			diffDrive->ArcadeDrive(-yValue, xValue, true);
 			break;
+
 		case DRIVEMODE_CURVATURE:
 			diffDrive->CurvatureDrive(-yValue, xValue, false);	// Boolean is for quick turn or not
 			break;
+
 		case DRIVEMODE_VELCONTROL:
 			double yValueSquared = yValue * abs(yValue);
 			double xValueSquared = xValue * abs(xValue);
@@ -397,11 +383,11 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 
 void Drivetrain::ToggleDriveMode()
 {
-	std::printf("2135: Previous Drive: %d\n", m_curDriveMode);
+	std::printf("2135: ToggleDriveMode: %d (prev)\n", m_curDriveMode);
 	if (++m_curDriveMode >= DRIVEMODE_LAST)
 		m_curDriveMode = DRIVEMODE_FIRST;
 
-	std::printf("2135: Current Drive: %d\n", m_curDriveMode);
+	std::printf("2135: ToggleDriveMode: %d (curr)\n", m_curDriveMode);
 	frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
 }
 
@@ -570,24 +556,29 @@ bool Drivetrain::PigeonIMUInitialize()
 		return error;
 	}
 
-	for (i = 0; i < retries; i++) {
+	for (i = 0; i < retries; i++)
+	{
 		pigeonVersion = pigeonIMU->GetFirmwareVersion();
-		if ((error = pigeonIMU->GetLastError()) != OKAY) {
+		if ((error = pigeonIMU->GetLastError()) != OKAY)
+		{
 			std::printf("2135: ERROR: %s %s ID %d GetFirmwareVersion error - %d\n", subsystem, name, deviceID, error);
 			return error;
 		}
-		if (pigeonVersion == m_reqPigeonVer) {
+		if (pigeonVersion == m_reqPigeonVer)
+		{
 			pigeonValid = true;
 			break;
 		}
-		else {
+		else
+		{
 			std::printf("2135: WARNING: %s %s ID %d Incorrect FW version %d.%d expected %d.%d\n",
 				subsystem, name, deviceID, pigeonVersion/256, pigeonVersion%256, m_reqPigeonVer/256, m_reqPigeonVer%256);
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 
-	if (pigeonValid) {
+	if (pigeonValid)
+	{
 		// Initialize Pigeon IMU to all factory defaults
 		if ((error = pigeonIMU->ConfigFactoryDefault(m_timeout)) != OKAY)
 		{
@@ -733,7 +724,7 @@ bool Drivetrain::MoveDriveDistanceMMIsFinished()
 	{
         isFinished = true;
  		std::printf("2135: DTDD Move Finished - Time %f\n", m_safetyTimer.Get());
-   }
+   	}
 
     // Check to see if the Safety Timer has timed out.
 	if (m_safetyTimer.Get() >= m_safetyTimeout)
@@ -910,4 +901,7 @@ void Drivetrain::BumpRampRate(bool bumpUp)
 		motorR3 -> ConfigOpenloopRamp(m_openLoopRampRate, m_timeout);
 		motorR3 -> ConfigClosedloopRamp(m_closedLoopRampRate, m_timeout);
 	}
+
+	frc::SmartDashboard::PutNumber("DT_OpenLoopRampRate", m_openLoopRampRate);
+	frc::SmartDashboard::PutNumber("DT_ClosedLoopRampRate", m_closedLoopRampRate);
 }
