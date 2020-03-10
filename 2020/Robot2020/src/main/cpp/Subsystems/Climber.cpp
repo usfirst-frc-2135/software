@@ -35,7 +35,7 @@ AddChild("Position", position);
     // Validate and initialize Talon SRX controller
     m_talonValidCL14 = frc2135::TalonUtils::TalonCheck(motorCL14, "CL", "14");
 
-    frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
+    frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
 	config->GetValueAsDouble("CL_ClimbSpeed", m_climbSpeed, 1.0);
 
     if (m_talonValidCL14)

@@ -62,7 +62,7 @@ pigeonIMU.reset(new PigeonIMU(20));
 	m_talonValidR4 = frc2135::TalonUtils::TalonCheck(motorR4, "DT", "R4");
 
 	// Retrieve drivetrain modified parameters from RobotConfig
-	frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
+	frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
 	config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 1.0);
 	config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 1.0);
 	config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
@@ -380,12 +380,12 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 			if (!m_lowGear)
 			{
 				m_vcMaxSpeed = 16.77;
-				std::printf("2135: Changed Max Speed to High Gear");
+				std::printf("2135: Changed Max Speed to High Gear\n");
 			}
 			else
 			{
 				m_vcMaxSpeed = 6.73;
-				std::printf("2135: Changed Max Speed to Low Gear");
+				std::printf("2135: Changed Max Speed to Low Gear\n");
 			}
 
 			ySpeed = yValueSquared * units::feet_per_second_t(m_vcMaxSpeed);
@@ -769,7 +769,7 @@ void Drivetrain::MoveDriveDistanceMMEnd()
 void Drivetrain::MoveAlignTurnInit()
 {
 	m_alignTurnError = (Robot::vision->GetHorzOffset());
-	std::printf("2135: DTAT Init - Error %5.2f degrees/n", m_alignTurnError);
+	std::printf("2135: DTAT Init - Error %5.2f degrees\n", m_alignTurnError);
 }
 
 void Drivetrain::MoveAlignTurnExecute(std::shared_ptr<frc::Joystick> throttleJstick, std::shared_ptr<frc::Joystick> turnJstick)
@@ -788,7 +788,7 @@ void Drivetrain::MoveAlignTurnExecute(std::shared_ptr<frc::Joystick> throttleJst
 
 	if (m_alignTurnDebug)
 	{
-		std::printf("2135: DTAT - Error %5.2f degrees Adjustment %5.2f Left Throttle %5.2f Right Throttle %5.2f/n",
+		std::printf("2135: DTAT - Error %5.2f degrees Adjustment %5.2f Left Throttle %5.2f Right Throttle %5.2f\n",
 			m_alignTurnError, alignTurnAdjustment, leftThrottle, rightThrottle);
 	}
 

@@ -38,8 +38,12 @@
 class Robot : public frc::TimedRobot
 
 {
+
+private:
+	bool m_faultsCleared = false;
+
 public:
-	frc::Command* autonomousCommand = nullptr;
+	frc::Command *autonomousCommand = nullptr;
 	static std::unique_ptr<OI> oi;
 	frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
 	frc::SendableChooser<frc::Command*> chooser;
@@ -66,4 +70,5 @@ static std::shared_ptr<Led> led;
 	void AutonomousPeriodic() override;
 	void TeleopInit() override;
 	void TeleopPeriodic() override;
+	void RobotFaultDump(void);
 };

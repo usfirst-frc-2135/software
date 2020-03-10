@@ -38,7 +38,7 @@ AddChild("CV Photosensor", cVPhotosensor);
     m_talonValidCV8 = frc2135::TalonUtils::TalonCheck(motorCV8, "CV", "CV8");
 
     // Initialize Variables
-    frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
+    frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("CV_AcquireSpeed", m_acquireSpeed, 0.75);
     config->GetValueAsDouble("CV_ExpelSpeed", m_expelSpeed, -0.75);
 

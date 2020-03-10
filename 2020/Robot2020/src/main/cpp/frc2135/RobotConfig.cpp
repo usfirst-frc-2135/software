@@ -19,7 +19,7 @@
 namespace frc2135
 {
 
-RobotConfig* RobotConfig::currentConfig = nullptr;
+RobotConfig *RobotConfig::currentConfig = nullptr;
 
 //////////////////////////////////////////////////////////
 
@@ -47,7 +47,7 @@ RobotConfig::~RobotConfig()
 
 ////////////////////////////////////////////////////////////////////////////////
 
-RobotConfig* RobotConfig::GetInstance()
+RobotConfig *RobotConfig::GetInstance()
 {
 	if (RobotConfig::currentConfig == nullptr)
 	{

@@ -27,7 +27,7 @@ DriveModeToggle::DriveModeToggle(): frc::Command()
 void DriveModeToggle::Initialize()
 {
     Robot::drivetrain->ToggleDriveMode();
-    std::printf("2135: DriveModeToggle - Init");
+    std::printf("2135: DriveModeToggle - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -45,12 +45,12 @@ bool DriveModeToggle::IsFinished()
 // Called once after isFinished returns true
 void DriveModeToggle::End()
 {
-    std::printf("2135: DriveModeToggle - End");
+    std::printf("2135: DriveModeToggle - End\n");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveModeToggle::Interrupted()
 {
-    std::printf("2135: DriveModeToggle - Interrupted");
+    std::printf("2135: DriveModeToggle - Interrupted\n");
 }

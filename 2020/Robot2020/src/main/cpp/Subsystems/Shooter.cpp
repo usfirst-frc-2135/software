@@ -54,7 +54,7 @@ AddChild("Indexer", indexer);
         std::printf("2135: SH Shooter Indexer FWD Solenoid is FUNCTIONAL\n");
 
     // Initialize Variables
-    frc2135::RobotConfig* config = frc2135::RobotConfig::GetInstance();
+    frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("SH_FwdOutput", m_fwdOutput, 0.80);
     config->GetValueAsDouble("SH_RevOutput", m_revOutput, -0.25);
     config->GetValueAsDouble("SH_PidKf", m_pidKf, 0.02305);
@@ -133,6 +133,7 @@ void Shooter::Periodic()
     if (periodicInterval++ % 5 == 0)
     {
         double outputSH10 = 0.0;
+        double curVelocityNative = 0.0;
         double curVelocityRPM = 0.0;
 
         frc::SmartDashboard::PutNumber("SH_Indexer", indexer->Get());
@@ -141,7 +142,8 @@ void Shooter::Periodic()
         if (m_talonValidSH10)
         {
             outputSH10 = motorSH10->GetMotorOutputPercent();
-            curVelocityRPM = NativeToRpm(motorSH10->GetSelectedSensorVelocity(m_pidIndex));
+            curVelocityNative = motorSH10->GetSelectedSensorVelocity(m_pidIndex);
+            curVelocityRPM = NativeToRpm(curVelocityNative);
 
             frc::SmartDashboard::PutNumber("SH_Output_SH10", outputSH10);
             frc::SmartDashboard::PutNumber("SH_Velocity_RPM", curVelocityRPM);
@@ -166,6 +168,7 @@ void Shooter::Periodic()
             }
 
             frc::SmartDashboard::PutNumber("SH_Current_SH10", currentSH10);
+            frc::SmartDashboard::PutNumber("SH_Error_SH10", m_targetVelocityNative - curVelocityNative);
 
             frc::SmartDashboard::PutNumber("SH_Current_SH11", currentSH11);
             frc::SmartDashboard::PutNumber("SH_Output_SH11", outputSH11);
