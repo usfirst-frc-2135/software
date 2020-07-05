@@ -9,7 +9,8 @@
 #include <frc/PIDOutput.h>
 #include <frc/drive/DifferentialDrive.h>
 
-class PIDOutputDriveVision: public frc::PIDOutput {
+class PIDOutputDriveVision: public frc::PIDOutput
+{
 
 private:
 	std::shared_ptr<frc::DifferentialDrive> m_robotDrive;

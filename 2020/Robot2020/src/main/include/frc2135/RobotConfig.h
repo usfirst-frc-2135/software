@@ -16,9 +16,11 @@ static const int DUMMY_DEFAULT_INT = 999999;
 static const float DUMMY_DEFAULT_FLOAT = 999999.999;
 static const double DUMMY_DEFAULT_DOUBLE = 999999.999999;
 
-namespace frc2135 {
+namespace frc2135
+{
 
-class RobotConfig {
+class RobotConfig
+{
 
 private:
 	RobotConfig();

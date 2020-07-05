@@ -1,16 +1,16 @@
 # Comment lines start with '#'
-  RB_Name = 2135-Unknown
+  RB_Name = 2135-Mandy
 # DriveTrain settings
   DT_DriveMode = 0
   DT_DriveXScaling = 0.7
-  DT_OpenLoopRampRate = 1.0
-  DT_ClosedLoopRampRate = 1.0
 # Competition mode
 # DT_DriveYScaling = 1.00
 # Training mode
   DT_DriveYScaling =  0.85
 # Demo mode
 # DT_DriveYScaling =  0.60
+  DT_OpenLoopRampRate = 1.0
+  DT_ClosedLoopRampRate = 1.0
   DT_DriveSpin = 0.45
   DT_PidTurnKp = 0.030
   DT_VisionTurnKp = 0.0
@@ -31,17 +31,17 @@
   DT_VCPIDKi = 0.0
   DT_VCPIDKd = 0.0
 # Intake settings
-  IN_AcquireSpeed = 0.75
-  IN_ExpelSpeed = -0.75
+  IN_AcquireSpeed = 0.8
+  IN_ExpelSpeed = -0.8
 # Conveyor settings
-  CV_AcquireSpeed = 0.75
+  CV_AcquireSpeed = 0.8
   CV_HoldSpeed = 0.0
-  CV_ExpelSpeed = -0.75
+  CV_ExpelSpeed = -0.8
 # Shooter settings
-  SH_FwdOutput = 0.25;
-  SH_RevOutput = -0.10;
-  SH_PidKf = 0.450
-  SH_PidKp = 0.30
+  SH_FwdOutput = 0.80;
+  SH_RevOutput = -0.25;
+  SH_PidKf = 0.02701
+  SH_PidKp = 0.01461
   SH_PidKi = 0.000
   SH_PidKd = 0.000
   SH_NeutralDeadband = 0.004
@@ -51,7 +51,7 @@
 # Spinner settings
   SP_TurnSpeed = 0.6
 # Climber settings
-  CL_ClimbSpeed = 0.5
+  CL_ClimbSpeed = 1.0
 # Autonomous settings
   AutoDriveDist = 97.25
   AutoDriveTurn = 90.0

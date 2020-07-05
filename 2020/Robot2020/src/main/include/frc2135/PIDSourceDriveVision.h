@@ -8,7 +8,8 @@
 
 #include <frc/PIDSource.h>
 
-class PIDSourceDriveVision: public frc::PIDSource {
+class PIDSourceDriveVision: public frc::PIDSource
+{
 
 private:
 	double	m_angle;
