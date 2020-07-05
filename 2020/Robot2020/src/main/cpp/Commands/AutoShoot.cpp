@@ -37,13 +37,11 @@ void AutoShoot::Execute() {
 // Called once after command times out
 void AutoShoot::End() {
     std::printf("2135: AutoShoot - End \n");
-    Robot::shooter->SetShooterSpeedInit(0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoShoot::Interrupted() {
     std::printf("2135: AutoShoot - Interrupted \n");
-    Robot::shooter->SetShooterSpeedInit(0);
 
 }

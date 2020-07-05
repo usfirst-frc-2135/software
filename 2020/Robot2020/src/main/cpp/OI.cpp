@@ -18,6 +18,7 @@
 #include "Commands/AutoDriveTimed.h"
 #include "Commands/AutoShoot.h"
 #include "Commands/AutoShootDrive.h"
+#include "Commands/AutoShootStop.h"
 #include "Commands/AutoStop.h"
 #include "Commands/ClimberDeploy.h"
 #include "Commands/ClimberRun.h"
@@ -117,6 +118,7 @@ dtShiftSpeed->WhileHeld(new DriveShift(false));
     frc::SmartDashboard::PutData("Drive Align PID Turn: default", new DriveAlignPIDTurn(0.0));
     frc::SmartDashboard::PutData("Drive Align Turn", new DriveAlignTurn());
     frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
+    frc::SmartDashboard::PutData("Auto Shoot Stop", new AutoShootStop(3));
     frc::SmartDashboard::PutData("Auto Shoot Drive", new AutoShootDrive());
     frc::SmartDashboard::PutData("Auto Drive Timed", new AutoDriveTimed(1));
     frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT", new AutoDriveDist(0));
