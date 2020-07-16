@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>My Robot Dashboard!</title>
+  </head>
+  <body>
+    <frc-dashboard>
+      <nt-string key="/robotName" value="Dozer"></nt-string>
+      <nt-number key="/angle" value="135"></nt-number>
+      <h1>
+        My robot's name is <frc-label source-key="/robotName"></frc-label>
+      </h1>
+      <frc-differential-drivebase
+        source-key="/LiveWindow/Ungrouped/DifferentialDrive[1]"
+      ></frc-differential-drivebase>
+      <frc-gyro source-key="/angle" precision="2"></frc-gyro>
+    </frc-dashboard>
+    <script src="./frc-web-components.js"></script>
+  </body>
+</html>
