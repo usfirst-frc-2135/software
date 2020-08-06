@@ -303,7 +303,6 @@ void Drivetrain::FaultDump(void)
 	frc2135::TalonUtils::TalonFaultDump("DT R4", motorR4);
 	PigeonIMUFaultDump();
 
-    // Dump Pigeon faults TODO
     // frc2135::TalonUtils::PigeonIMUFaultDump("DT IMU", gyro);
 
 }
@@ -362,17 +361,8 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
 			double yValueSquared = yValue * abs(yValue);
 			double xValueSquared = xValue * abs(xValue);
 
-			// FIXME: (JLM) These print statements will flood the console!
-			if (!m_lowGear)
-			{
-				m_vcMaxSpeed = 16.77;
-				std::printf("2135: Changed Max Speed to High Gear\n");
-			}
-			else
-			{
-				m_vcMaxSpeed = 6.73;
-				std::printf("2135: Changed Max Speed to Low Gear\n");
-			}
+			m_vcMaxSpeed = (m_lowGear) ? 6.73 : 16.77; //fps
+			frc::SmartDashboard::PutBoolean("Robot in low gear", m_lowGear); 
 
 			ySpeed = yValueSquared * units::feet_per_second_t(m_vcMaxSpeed);
 			rot = xValueSquared * units::radians_per_second_t(m_vcMaxAngSpeed);
