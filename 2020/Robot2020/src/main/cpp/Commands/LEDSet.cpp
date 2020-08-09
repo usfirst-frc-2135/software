@@ -27,8 +27,8 @@ LedSet::LedSet(): frc::Command()
 // Called just before this Command runs the first time
 void LedSet::Initialize()
 {
-    std::printf("2135: LedSet - Init (%d)\n", Led::LED_Source_Command);
-    Robot::led->DisplayColor(Led::LED_Source_Command, true);
+    std::printf("2135: LedSet - Init (%d)\n", Led::LEDSOURCE_COMMAND);
+    Robot::led->DisplayColor(Led::LEDSOURCE_COMMAND, true);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -47,7 +47,7 @@ bool LedSet::IsFinished()
 void LedSet::End()
 {
     std::printf("2135: LedSet - End \n");
-    Robot::led->DisplayColor(Led::LED_Source_Command, false);
+    Robot::led->DisplayColor(Led::LEDSOURCE_COMMAND, false);
 }
 
 // Called when another command which requires one or more of the same
@@ -55,5 +55,5 @@ void LedSet::End()
 void LedSet::Interrupted()
 {
     std::printf("2135: LedSet - Interrupted \n");
-    Robot::led->DisplayColor(Led::LED_Source_Command, false);
+    Robot::led->DisplayColor(Led::LEDSOURCE_COMMAND, false);
 }

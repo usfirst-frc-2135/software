@@ -9,7 +9,7 @@
 
 PIDSourceDriveVision::PIDSourceDriveVision()
 {
-	m_angle = 0.0;
+    m_angle = 0.0;
 }
 
 PIDSourceDriveVision::~PIDSourceDriveVision()
@@ -18,10 +18,10 @@ PIDSourceDriveVision::~PIDSourceDriveVision()
 
 double PIDSourceDriveVision::PIDGet(void)
 {
-    return Robot::vision->GetHorzOffset();
+    return Robot::vision->GetHorizOffset();
 }
 
 void PIDSourceDriveVision::SetTurnAngle(double angle)
 {
-	m_angle = angle;
+    m_angle = angle;
 }

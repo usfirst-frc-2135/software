@@ -13,13 +13,13 @@ class PIDOutputDriveVision: public frc::PIDOutput
 {
 
 private:
-	std::shared_ptr<frc::DifferentialDrive> m_robotDrive;
-	double m_visionAngle;
-    double m_turnAngle;
+    std::shared_ptr<frc::DifferentialDrive> m_robotDrive;
+    double      m_visionAngle;
+    double      m_turnAngle;
 
 public:
-	PIDOutputDriveVision(std::shared_ptr<frc::DifferentialDrive> robotDrive);
-	virtual ~PIDOutputDriveVision();
-	void PIDWrite(double output);
-	void SetTurnAngle(double angle);
+    PIDOutputDriveVision(std::shared_ptr<frc::DifferentialDrive> robotDrive);
+    virtual ~PIDOutputDriveVision();
+    void PIDWrite(double output);
+    void SetTurnAngle(double angle);
 };

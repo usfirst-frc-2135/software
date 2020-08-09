@@ -28,7 +28,7 @@ m_indexer = indexer;
 void IndexerDeploy::Initialize()
 {
     std::printf("2135: IndexerDeploy - Init (%d)\n", m_indexer);
-    Robot::shooter->DeployIndexer(m_indexer);
+    Robot::shooter->IndexerDeploy(m_indexer);
 }
 
 // Called repeatedly when this Command is scheduled to run
