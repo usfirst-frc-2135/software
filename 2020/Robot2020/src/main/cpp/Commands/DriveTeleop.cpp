@@ -33,7 +33,7 @@ void DriveTeleop::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DriveTeleop::Execute()
 {
-    Robot::drivetrain->MoveWithJoysticks(Robot::oi->getDStick(), Robot::oi->getDStick2());
+    Robot::drivetrain->MoveWithJoysticks(Robot::oi->getDStick());
 }
 
 // Make this return true when this Command no longer needs to run execute()

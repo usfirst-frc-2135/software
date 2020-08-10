@@ -323,22 +323,13 @@ void Drivetrain::FaultDump(void)
 //
 //  Joystick movement during Teleop
 //
-void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick, std::shared_ptr<frc::Joystick> turnJstick)
+void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick)
 {
     double xValue = 0.0;
     double yValue = 0.0;
 
-    // If no separate turn stick, then assume Thrustmaster HOTAS 4
-    if (turnJstick == nullptr)
-    {
-        xValue = throttleJstick->GetX();
-        yValue = throttleJstick->GetZ();
-    }
-    else
-    { // Separate throttle and turn stick
-        xValue = turnJstick->GetX();
-        yValue = throttleJstick->GetY();
-    }
+    xValue = throttleJstick->GetX();
+    yValue = throttleJstick->GetZ();
 
     xValue *= m_driveXScaling;
     if (!m_lowGear)
@@ -771,13 +762,13 @@ void Drivetrain::MoveAlignTurnInit()
     std::printf("2135: DTAT Init - Error %5.2f degrees\n", m_alignTurnError);
 }
 
-void Drivetrain::MoveAlignTurnExecute(std::shared_ptr<frc::Joystick> throttleJstick, std::shared_ptr<frc::Joystick> turnJstick)
+void Drivetrain::MoveAlignTurnExecute(std::shared_ptr<frc::Joystick> throttleJstick)
 {
     double throttle = 0.0;
     double alignTurnAdjustment = 0.0;
 
     // If no separate turn stick, then assume Thrustmaster HOTAS 4 z-axis
-    throttle = (turnJstick == nullptr) ? throttleJstick->GetZ() : throttleJstick->GetY();
+    throttle = throttleJstick->GetZ();
 
     m_alignTurnError = (Robot::vision->GetHorizOffset());
     alignTurnAdjustment = m_alignTurnError * m_alignTurnKp;

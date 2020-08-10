@@ -30,7 +30,7 @@ void DriveAlignTurn::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveAlignTurn::Execute() {
-    Robot::drivetrain->MoveAlignTurnExecute(Robot::oi->getDStick(), Robot::oi->getDStick2());
+    Robot::drivetrain->MoveAlignTurnExecute(Robot::oi->getDStick());
 }
 
 // Make this return true when this Command no longer needs to run execute()

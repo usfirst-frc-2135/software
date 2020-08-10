@@ -1,5 +1,5 @@
 # Comment lines start with '#'
-  RB_Name = 2135-Mandy
+  RB_Name = 2135-Mandi
 # DriveTrain settings
   DT_DriveMode = 0
   DT_DriveXScaling = 0.7

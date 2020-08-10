@@ -185,7 +185,7 @@ public:
     void Initialize(void);
     void FaultDump(void);
 
-    void MoveWithJoysticks(std::shared_ptr<frc::Joystick>, std::shared_ptr<frc::Joystick>);
+    void MoveWithJoysticks(std::shared_ptr<frc::Joystick>);
     void ToggleDriveMode();
 
     // Velocity Control Loop
@@ -210,7 +210,7 @@ public:
 
     // Aligning with Target Using Vision Processing
     void MoveAlignTurnInit();
-    void MoveAlignTurnExecute(std::shared_ptr<frc::Joystick>, std::shared_ptr<frc::Joystick>);
+    void MoveAlignTurnExecute(std::shared_ptr<frc::Joystick>);
     bool MoveAlignTurnIsFinished();
 
     // Aligning with Target Using Vision Processing with (deprecated) PID Controller
