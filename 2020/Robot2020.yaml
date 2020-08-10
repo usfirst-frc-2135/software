@@ -391,7 +391,7 @@ Children:
           validators: *id010
           value: '3'
       Base: Double Solenoid
-      Name: Position
+      Name: ClimbPosition
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
@@ -399,9 +399,11 @@ Children:
         default: []
         name: Default command parameters
         validators: null
-        value: []
+        value:
+        - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: climberDirection,
+          type: int, value: '0'}
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: None}
+        name: Default Command, type: Command, validators: null, value: Climber Run}
       Constants: !!robotbuilder.data.properties.ConstantsProperty
         default: []
         name: Constants
@@ -1314,7 +1316,11 @@ Children:
         default: []
         name: Parameter presets
         validators: null
-        value: []
+        value:
+        - !!robotbuilder.data.properties.ParameterSet
+          name: TIMEOUT
+          parameters:
+          - {name: timeout, type: double, value: '1'}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Timed Command
@@ -1354,16 +1360,20 @@ Children:
         name: Parameters
         validators: null
         value:
-        - *id020
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: timeout, type: double}
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Shooter}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id022 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id022
+        value:
+        - !!robotbuilder.data.properties.ParameterSet
+          name: TIMEOUT
+          parameters:
+          - {name: timeout, type: double, value: '0'}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Timed Command
@@ -1530,7 +1540,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: None}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id022
+        default: []
+        name: Parameter presets
+        validators: null
+        value:
         - !!robotbuilder.data.properties.ParameterSet
           name: BUMP_UP
           parameters:
@@ -1539,9 +1552,6 @@ Children:
           name: BUMP_DOWN
           parameters:
           - {name: direction, type: boolean, value: 'false'}
-        name: Parameter presets
-        validators: null
-        value: *id022
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -1770,11 +1780,11 @@ Children:
         validators: null
         value:
         - !!robotbuilder.data.properties.ParameterSet
-          name: CLIMBER_UP
+          name: CLIMBERDIR_UP
           parameters:
           - {name: climberDirection, type: int, value: '1'}
         - !!robotbuilder.data.properties.ParameterSet
-          name: CLIMBER_DOWN
+          name: CLIMBERDIR_DOWN
           parameters:
           - {name: climberDirection, type: int, value: '-1'}
         - !!robotbuilder.data.properties.ParameterSet
@@ -1875,7 +1885,7 @@ Properties:
   Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /Users/jeffmullins/,
     extension: null, folder: true, name: Wiring file location, validators: null, value: ./}
   Export Directory: !!robotbuilder.data.properties.FileProperty {default: /Users/jeffmullins/FRCProjects,
-    extension: null, folder: true, name: Export Directory, validators: null, value: .\}
+    extension: null, folder: true, name: Export Directory, validators: null, value: ./}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Auto Stop}
 Base: Robot
