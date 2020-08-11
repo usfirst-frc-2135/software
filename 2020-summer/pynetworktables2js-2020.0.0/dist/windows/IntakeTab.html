@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>Christine's Robot Dashboard!</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #6200B4;
+  color: white;
+}
+
+</style>
+</head>
+  <body>
+      
+<div class="topnav">
+  <a href="index.html">Competition</a>
+  <a href="DrivetrainTab.html">Drivetrain</a>
+  <a href="ShooterTab.html">Shooter</a>
+  <a class="active" href="IntakeTab.html">Intake</a>
+  <a href="ConveyorTab.html">Conveyor</a>
+  <a href="ClimberTab.html">Climber</a>
+  <a href="CameraTab.html">Camera</a></div>
+      
+      <!font face="Verdana" size="4">
+    <center><frc-dashboard>
+      <h1>
+        Intake Dashboard
+      </h1>
+        <!-- Code for "With attributes and NetworkTables" example -->
+<!nt-boolean key="/box2/value" value="false"><!/nt-boolean>
+<!frc-boolean-box source-key="/box2" true-color="blue" false-color="#00aa88" value><!BrakeMode><!/frc-boolean-box>
+        <!nt-boolean key="/box2/value" value="false"><!/nt-boolean>
+<!frc-boolean-box source-key="/box2" true-color="blue" false-color="#00aa88" value><!Low Gear><!/frc-boolean-box>
+        
+          <!-- Code for "With styles" example -->
+<style>
+  .with-styles {
+    width: 150px;
+    height: 150px;
+  }
+
+  .with-styles::part(button) {
+    border-radius: 20px;
+    background: green;
+    color: white;
+    font-size: 18px;
+  }
+
+  .with-styles[toggled]::part(button) {
+    background: red;
+    color: white;
+    width:100%;
+    position: relative;
+    display: inline-block;
+    height: auto;
+  }
+</style>
+
+<frc-toggle-button class="with-styles"></frc-toggle-button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+<frc-toggle-button class="with-styles">Brake Mode</frc-toggle-button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+<frc-toggle-button class="with-styles">Drive Reset</frc-toggle-button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+        
+    </frc-dashboard>
+    <script src="./frc-web-components.js"></script>
+      </center>
+  </body>
+</html>
