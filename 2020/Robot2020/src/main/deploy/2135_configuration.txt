@@ -14,6 +14,8 @@
   DT_DriveSpin = 0.45
   DT_PidTurnKp = 0.030
   DT_VisionTurnKp = 0.0
+  DT_AlignTurnTolerance = 1.0
+  DT_AlignTurnKp = 0.05
   DT_SeparateJoysticks = false
   DT_PeakOut = 1.0
   DT_Velocity = 1918

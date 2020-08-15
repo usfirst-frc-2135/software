@@ -102,6 +102,7 @@ private:
     double          m_turnKp;           // Proportional value for PID for DriveTurn function
     double          m_visionTurnKp;     // Proportional value for PID for Drive Turn with Vision-Assist
     double          m_turnMaxOut;       // Max motor output value for PID for DriveTurn function
+	double          m_alignTurnTolerance; // Minimum align turn error to finish aligning
 
     double          m_peakOut;          // Drivetrain maximum speed during movement
     int             m_velocity;         // Drivetrain motion velocity
@@ -122,7 +123,7 @@ private:
     double         m_openLoopRampRate;
     double         m_closedLoopRampRate;
 
-    frc::SimpleMotorFeedforward<units::feet> m_feedforward {0.899_V, 4.63_V / 1_fps, 0.69_V / 1_fps_sq}; // TODO: dtermine values for ft/s
+    frc::SimpleMotorFeedforward<units::feet> m_feedforward {0.899_V, 1.411_V / 1_fps, 0.21_V / 1_fps_sq}; // Do another drive characterization
     frc2::PIDController *m_leftPIDController;
     frc2::PIDController *m_rightPIDController;
 
@@ -131,7 +132,7 @@ private:
 
     bool            m_throttleZeroed;   // Throttle joystick zeroed check for safety
 
-    double          m_alignTurnKp = 0.05;   // TODO: change to be set in config file
+    double          m_alignTurnKp;
     double          m_alignTurnError;
 
     typedef enum driveMode_e

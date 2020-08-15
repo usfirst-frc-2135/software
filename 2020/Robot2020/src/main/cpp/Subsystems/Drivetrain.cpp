@@ -87,6 +87,9 @@ pigeonIMU.reset(new PigeonIMU(20));
     config->GetValueAsInt("DT_DriveMode", m_curDriveMode, 0);
     config->GetValueAsDouble("DT_OpenLoopRampRate", m_openLoopRampRate, 1.0);
     config->GetValueAsDouble("DT_ClosedLoopRampRate", m_closedLoopRampRate, 1.0);
+	config->GetValueAsDouble("DT_AlignTurnTolerance", m_alignTurnTolerance, 1.0);
+	config->GetValueAsDouble("DT_AlignTurnKp", m_alignTurnKp, 0.05);
+	
 
     //
     //  Invert the direction of the motors
@@ -798,8 +801,8 @@ bool Drivetrain::MoveAlignTurnIsFinished()
 
     m_alignTurnError = (Robot::vision->GetHorizOffset());
 
-    if (abs(m_alignTurnError) < 1.0)
-    { // TODO: change tolerance to variable set in config
+    if (abs(m_alignTurnError) < m_alignTurnTolerance)
+    { 
         std::printf("2135: DTAT - Error Within Tolerance\n");
         isFinished = true;
     }
