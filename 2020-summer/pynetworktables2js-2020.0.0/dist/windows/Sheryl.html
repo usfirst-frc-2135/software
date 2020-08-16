@@ -1,53 +1,15 @@
 <html>
   <head>
-    <title>Christine's Robot Dashboard!</title>
-                <link href="style-sheryl.css" rel="stylesheet"> 
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
-
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav a.active {
-  background-color: #6200B4;
-  color: white;
-}
-
-</style>
-</head>
+    <title>My Robot Dashboard!</title>
+    <link href="style-sheryl.css" rel="stylesheet"> 
+  </head>
   <body>
-      
-      <div class="topnav">
-  <a class="active" href="index.html">Competition</a>
-  <a href="DrivetrainTab.html">Drivetrain</a>
-  <a href="ShooterTab.html">Shooter</a>
-  <a href="IntakeTab.html">Intake</a>
-  <a href="ConveyorTab.html">Conveyor</a>
-  <a href="ClimberTab.html">Climber</a>
-  <a href="CameraTab.html">Camera</a>
-</div>
-        <frc-dashboard onload="ntLoaded()">
-      <h1 class="centeredText">Competition Dashboard</h1><br><br><br>
+    <frc-dashboard onload="ntLoaded()">
+      <nt-string key="/robotName" value="Mandi"></nt-string>
+      <nt-number key="/angle" value="135"></nt-number>
+      <h1 class="centeredText">
+        My robot's name is <frc-label source-key="/robotName"></frc-label>
+      </h1>
     <div>   
     <div class="left" id="camera"></div>
     <div id="autonpath">
@@ -116,7 +78,8 @@ body {
         <nt-boolean key="/Talon14/value" value="true"></nt-boolean>
         <frc-boolean-box id="talon14" source-key="/Talon14"> CL14 </frc-boolean-box>
     </div>
-            </div>
+    </div>
+        <br>
     <div>
         <h3 id="power-cell-label"> Power Cell Count </h3>
         <div class = "circle" id="cell1"> </div>
@@ -125,7 +88,18 @@ body {
         <div class = "circle2" id="cell4"> </div>
         <div class = "circle2" id="cell5"> </div>
     </div>
-              <script src="/ball-counter.js"></script>
-            <script src="./frc-web-components.js"></script>
+        
+    </frc-dashboard>
+    <script src="./frc-web-components.js"></script>
+      <script src="/ball-counter.js"></script>
   </body>
 </html>
+
+
+
+<!--<div class="parent">
+            <div class="column">Column 1</div>
+            <div class="column">Column 2<br>Column 2<br>Column 2<br>Column 2<br></div>
+            <div class="column">Column 3</div>
+</div>-->
+ No newline at end of file

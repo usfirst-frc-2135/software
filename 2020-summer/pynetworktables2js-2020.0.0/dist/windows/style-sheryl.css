@@ -1,12 +1,15 @@
 :root {
-    --intake-position: 120px;
+    --intake-position: 170px;
     --shooter-position: calc(var(--intake-position) + 170px);
     --talon-width: 80px;
     --talon-height: 60px;
-    --talon-top-position: 60px; /* top distance */
+    --talon-top-position: 160px; /* top distance */
     --talon-left-position: 900px; /* left distance */
     --power-cell-position: 30px;
-    --power-cell-top: 430px;
+    --power-cell-top: 555px;
+    --lowGear-top-position: 250px;
+    --lowGear-left-position: 250px;
+
 }
 .left { 
     float:left;   
@@ -48,10 +51,10 @@
 #camera {
     padding: 0;
     position: absolute;
-    top: 40px;
+    top: 120px;
     left: 0;
     width: 45vw;
-    height: 70vh;
+    height: 65vh;
     overflow: hidden;
     background-color: #333;
     /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
@@ -60,7 +63,7 @@
 #autonpath {
     position: absolute;
     left: 600px;
-    top: 40px;
+    top: 100px;
 }
 #intakeLabel {
     position: absolute;
@@ -70,14 +73,14 @@
 #intakeBool {
     position: absolute;
     left: 650px;
-    top: calc(var(--intake-position) + 40px);
+    top: calc(var(--intake-position) + 50px);
     width: 80px;
     height: 80px;
 }
 #intakeCheck {
     position: absolute;
     left: 650px;
-    top: calc(var(--intake-position) + 130px);
+    top: calc(var(--intake-position) + 140px);
 }
 #shooterLabel {
     position: absolute;
@@ -87,19 +90,19 @@
 #shooterBool {
     position: absolute;
     left: 650px;
-    top: calc(var(--shooter-position) + 40px);
+    top: calc(var(--shooter-position) + 50px);
     width: 80px;
     height: 80px;
 }
 #shooterCheck {
     position: absolute;
     left: 650px;
-    top: calc(var(--shooter-position) + 130px);
+    top: calc(var(--shooter-position) + 140px);
 }
 #talonLabel {
     position: absolute;
     left: 1020px;
-    top: 20px;
+    top: 100px;
 }
 #talon1 {
     position: absolute;
@@ -211,3 +214,16 @@
     font-size: 20vh;
     line-height: .8;
 }
+/*#lowGearLabel {
+    position: absolute;
+    left: 400px;
+    top: var(--lowGear-position);
+}
+#lowGearBool {
+    position: absolute;
+    left: 600px;
+    top: calc(var(--lowGear-position + 1000px));
+    width: 100px;
+    height: 100px;
+}*/
+ No newline at end of file

@@ -1,0 +1,242 @@
+<html>
+  <head>
+    <title>Christine's Robot Dashboard!</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style-sheryl.css" rel="stylesheet"> 
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #6200B4;
+  color: white;
+}
+</style>
+</head>
+    
+  <body>
+      
+<div class="topnav">
+  <a href="index.html">Competition</a>
+  <a class="active" href="DrivetrainTab.html">Drivetrain</a>
+  <a href="ShooterTab.html">Shooter</a>
+  <a href="IntakeTab.html">Intake</a>
+  <a href="ConveyorTab.html">Conveyor</a>
+  <a href="ClimberTab.html">Climber</a>
+  <a href="CameraTab.html">Camera</a>
+</div>
+
+      
+      <!font face="Verdana" size="4">
+    <center><frc-dashboard>
+      <nt-string key="/robotName" value="Mandi"></nt-string>
+      <nt-number key="/angle" value="45"></nt-number>
+      <h1>
+        DriveTrain Dashboard
+        </h1>
+        <!-- Code for "With styles" example -->
+<style>
+  .with-styles {
+    width: 100px;
+    height: 500px;
+  }
+</style>
+        <!-- Code for "With attributes and NetworkTables" example -->
+<!nt-boolean key="/box2/value" value="false"><!/nt-boolean>
+<!frc-boolean-box source-key="/box2" true-color="blue" false-color="#00aa88" value><!BrakeMode><!/frc-boolean-box>
+        <!nt-boolean key="/box2/value" value="false"><!/nt-boolean>
+<!frc-boolean-box source-key="/box2" true-color="blue" false-color="#00aa88" value><!Low Gear><!/frc-boolean-box>
+        
+        <!-- Code for "With styles" example -->
+<style>
+  .with-styles {
+    width: 120px;
+    height: 120px;
+  }
+
+  .with-styles::part(button) {
+    border-radius: 20px;
+    background: green;
+    color: white;
+    font-size: 15px;
+  }
+
+  .with-styles[toggled]::part(button) {
+    background: red;
+    color: white;
+    width:100%;
+    position: relative;
+    display: inline-block;
+    height: auto;
+  }
+</style>
+
+<frc-toggle-button class="with-styles">Low Gear</frc-toggle-button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+<frc-toggle-button class="with-styles">Brake Mode</frc-toggle-button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+<frc-toggle-button class="with-styles">Drive Reset</frc-toggle-button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+        
+<!nt-boolean key="/LowGear/value" value="false"><!/nt-boolean>
+<!h3 id="lowGearLabel"><! Low Gear ><!/h3>
+<!frc-boolean-box id="lowGearBool" source-key="/LowGear"><!/frc-boolean-box>
+<!frc-checkbox id="lowGearCheck" source-key="/LowGear/value"><!Low Gear><!/frc-checkbox>
+        
+<!nt-boolean key="/BreakMode/value" value="false"><!/nt-boolean>
+<!h3 id="brakeModeLabel"><! Break Mode ><!/h3>
+<!frc-boolean-box id="breakModeBool" source-key="/BreakMode"><!/frc-boolean-box>
+<!frc-checkbox id="breakModeCheck" source-key="/BreakMode/value"><!Break Mode><!/frc-checkbox>
+        
+        <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field1/value" value="0"></nt-number>
+<nt-string key="/field1/label" value="Drivemode"></nt-string>
+<nt-boolean key="/field1/hasControls" value="true"></nt-boolean>
+
+<frc-number-field source-key="/field1" min="0" max="4" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+<br>
+         <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field2/value" value="0"></nt-number>
+<nt-string key="/field2/label" value="Encoder 1"></nt-string>
+<nt-boolean key="/field2/hasControls" value="true"></nt-boolean>
+
+<frc-number-field source-key="/field2" min="0" max="4" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+         <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field3/value" value="0"></nt-number>
+<nt-string key="/field3/label" value="Encoder 3"></nt-string>
+<nt-boolean key="/field3/hasControls" value="true"></nt-boolean>
+        
+<frc-number-field source-key="/field3" min="0" max="4" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+         <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field4/value" value="0"></nt-number>
+<nt-string key="/field4/label" value="Output L1"></nt-string>
+<nt-boolean key="/field4/hasControls" value="true"></nt-boolean>
+
+<frc-number-field source-key="/field4" min="0" max="4" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+        <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field5/value" value="0"></nt-number>
+<nt-string key="/field5/label" value="Output L2"></nt-string>
+<nt-boolean key="/field5/hasControls" value="true"></nt-boolean>
+
+<frc-number-field source-key="/field5" min="0" max="4" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+        <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field6/value" value="0"></nt-number>
+<nt-string key="/field6/label" value="Output R3"></nt-string>
+<nt-boolean key="/field6/hasControls" value="true"></nt-boolean>
+
+<frc-number-field source-key="/field6" min="0" max="4" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+        <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field7/value" value="0"></nt-number>
+<nt-string key="/field7/label" value="Output R4"></nt-string>
+<nt-boolean key="/field7/hasControls" value="true"></nt-boolean>
+
+<frc-number-field source-key="/field7" min="0" max="4" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+        <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field8/value" value="0"></nt-number>
+<nt-string key="/field8/label" value="Current L1"></nt-string>
+<nt-boolean key="/field8/hasControls" value="true"></nt-boolean>
+
+<frc-number-field source-key="/field8" min="0" max="4" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+          <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field9/value" value="0"></nt-number>
+<nt-string key="/field9/label" value="Current L2"></nt-string>
+<nt-boolean key="/field9/hasControls" value="true"></nt-boolean>
+
+<frc-number-field source-key="/field9" min="0" max="4" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+          <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field10/value" value="0"></nt-number>
+<nt-string key="/field10/label" value="Current R3"></nt-string>
+<nt-boolean key="/field10/hasControls" value="true"></nt-boolean>
+
+<frc-number-field source-key="/field10" min="0" max="4" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+          <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field11/value" value="0"></nt-number>
+<nt-string key="/field11/label" value="Current R4"></nt-string>
+<nt-boolean key="/field11/hasControls" value="true"></nt-boolean>
+
+<frc-number-field source-key="/field11" min="0" max="4" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+          <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field12/value" value="1"></nt-number>
+<nt-string key="/field12/label" value="Drive XScaling"></nt-string>
+<nt-boolean key="/field12/hasControls" value="true"></nt-boolean>
+
+<frc-number-field source-key="/field12" min="1" max="1" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+          <!-- Code for "With attributes and NetworkTables" example -->
+<nt-number key="/field13/value" value="1"></nt-number>
+<nt-string key="/field13/label" value="Drive YScaling"></nt-string>
+<nt-boolean key="/field13/hasControls" value="true"></nt-boolean>
+
+<frc-number-field source-key="/field13" min="1" max="1" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+
+        <br>
+     
+        <!-- Code for "With attributes and NetworkTables" example -->
+
+<frc-gauge source-key="/field14/value" min="0" max="100"></frc-gauge>&nbsp;
+      <nt-number key="/field14/value" value="0"></nt-number>
+<nt-string key="/field14/label" value="Speed"></nt-string>
+<nt-boolean key="/field14/hasControls" value="true"></nt-boolean>
+<frc-number-field source-key="/field14" min="0" max="100" theme="align-right"></frc-number-field>
+        
+        <!-- Code for "With attributes and NetworkTables" example -->
+        <nt-number key="/field15/value" value="60"></nt-number>
+    <frc-gyro source-key="/field15" precision="1"></frc-gyro>
+<nt-string key="/field15/label" value="Gyro Angle"></nt-string>
+<nt-boolean key="/field15/hasControls" value="true"></nt-boolean>
+<frc-number-field source-key="/field15" min="0" max="100" theme="align-right"></frc-number-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!five spaces>
+        
+    </frc-dashboard>
+    <script src="./frc-web-components.js"></script>
+      </center>
+  </body>
+</html>
