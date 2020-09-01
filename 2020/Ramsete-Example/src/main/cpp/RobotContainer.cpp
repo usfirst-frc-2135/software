@@ -146,17 +146,17 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 }
 
 
-// void RobotContainer::SmartDashboardStartChooser() { 
+void RobotContainer::SmartDashboardStartChooser() { 
 
-//     delete chooser; 
-//     chooser = new frc::SendableChooser<std::string>;
+    delete chooser; 
+    chooser = new frc::SendableChooser<std::string>;
 
-//   chooser->AddOption("line", "testingpath1-line.wpilib.json"); 
-//   chooser->AddOption("arc", "testingpath2-arc.wpilib.json");
-//   chooser->AddOption("curve", "testingpath3-curve.wpilib.json"); 
-//   chooser->AddOption("nose", "testingpath4-nose.wpilib.json"); 
-//   chooser->AddOption("scur", "testingpath5-scur.wpilib.json"); 
+  chooser->AddOption("line", "testingpath1-line.wpilib.json"); 
+  chooser->AddOption("arc", "testingpath2-arc.wpilib.json");
+  chooser->AddOption("curve", "testingpath3-curve.wpilib.json"); 
+  chooser->AddOption("nose", "testingpath4-nose.wpilib.json"); 
+  chooser->AddOption("scur", "testingpath5-scur.wpilib.json"); 
   
-//   frc::SmartDashboard::PutData("output", chooser);
-// }
+  frc::SmartDashboard::PutData("output", chooser);
+}
 

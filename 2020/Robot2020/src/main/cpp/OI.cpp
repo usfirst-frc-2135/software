@@ -18,6 +18,7 @@
 #include "Commands/AutoDriveTimed.h"
 #include "Commands/AutoShoot.h"
 #include "Commands/AutoShootDrive.h"
+#include "Commands/AutoShootStop.h"
 #include "Commands/AutoStop.h"
 #include "Commands/ClimberDeploy.h"
 #include "Commands/ClimberRun.h"
@@ -33,6 +34,7 @@
 #include "Commands/IntakeDeploy.h"
 #include "Commands/IntakeRun.h"
 #include "Commands/LedSet.h"
+#include "Commands/RunTrajectory.h"
 #include "Commands/ShooterRun.h"
 #include "Commands/SpinColor.h"
 #include "Commands/SpinRotation.h"
@@ -95,6 +97,7 @@ dtShiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
 dtShiftSpeed->WhileHeld(new DriveShift(false));
 
     // SmartDashboard Buttons
+    frc::SmartDashboard::PutData("RunTrajectory", new RunTrajectory());
     frc::SmartDashboard::PutData("Led Set", new LedSet());
     frc::SmartDashboard::PutData("Spin Rotation", new SpinRotation());
     frc::SmartDashboard::PutData("Spin Color", new SpinColor());
@@ -122,8 +125,9 @@ dtShiftSpeed->WhileHeld(new DriveShift(false));
     frc::SmartDashboard::PutData("Drive Align PID Turn: default", new DriveAlignPIDTurn(0.0));
     frc::SmartDashboard::PutData("Drive Align Turn", new DriveAlignTurn());
     frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
+    frc::SmartDashboard::PutData("Auto Shoot Stop", new AutoShootStop());
     frc::SmartDashboard::PutData("Auto Shoot Drive", new AutoShootDrive());
-    frc::SmartDashboard::PutData("Auto Drive Timed", new AutoDriveTimed(1));
+    frc::SmartDashboard::PutData("Auto Drive Timed", new AutoDriveTimed());
     frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT", new AutoDriveDist(0));
     frc::SmartDashboard::PutData("Auto Convey: shoot", new AutoConvey(3));
     frc::SmartDashboard::PutData("Auto Shoot: shoot", new AutoShoot(3));
