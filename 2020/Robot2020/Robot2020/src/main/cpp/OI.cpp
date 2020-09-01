@@ -95,7 +95,7 @@ dtShiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
 dtShiftSpeed->WhileHeld(new DriveShift(false));
 
     // SmartDashboard Buttons
-    frc::SmartDashboard::PutData("RunTrajectory", new RunTrajectory());
+    frc::SmartDashboard::PutData("RunTrajectory: DEFAULTPATH", new RunTrajectory("/"));
     frc::SmartDashboard::PutData("Led Set", new LedSet());
     frc::SmartDashboard::PutData("Spin Rotation", new SpinRotation());
     frc::SmartDashboard::PutData("Spin Color", new SpinColor());
