@@ -25,12 +25,12 @@ DriveAlignTurn::DriveAlignTurn(): frc::Command() {
 // Called just before this Command runs the first time
 void DriveAlignTurn::Initialize() {
     std::printf("2135: Drive Align Turn - Init\n");
-    Robot::drivetrain->MoveAlignTurnInit(); 
+    Robot::drivetrain->MoveAlignTurnInit();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveAlignTurn::Execute() {
-    Robot::drivetrain->MoveAlignTurnExecute(Robot::oi->getDStick(), Robot::oi->getDStick2());
+    Robot::drivetrain->MoveAlignTurnExecute(Robot::oi->getDStick());
 }
 
 // Make this return true when this Command no longer needs to run execute()

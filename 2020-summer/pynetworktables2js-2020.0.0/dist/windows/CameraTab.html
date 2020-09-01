@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <title>Christine's Robot Dashboard!</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link href="style-sheryl.css" rel="stylesheet"> 
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #6200B4;
+  color: white;
+}
+
+</style>
+</head>
+  <body>
+      
+<div class="topnav">
+  <a href="index.html">Competition</a>
+  <a href="DrivetrainTab.html">Drivetrain</a>
+  <a href="ShooterTab.html">Shooter</a>
+  <a href="IntakeTab.html">Intake</a>
+  <a href="ConveyorTab.html">Conveyor</a>
+  <a href="ClimberTab.html">Climber</a>
+  <a class="active" href="CameraTab.html">Camera</a>
+  </div>
+      
+      <!font face="Verdana" size="4">
+    <center><frc-dashboard>
+      <h1>
+        Camera
+      </h1>
+        <!-- Code for "With attributes and NetworkTables" example -->
+<!nt-boolean key="/box2/value" value="false"><!/nt-boolean>
+<!frc-boolean-box source-key="/box2" true-color="blue" false-color="#00aa88" value><!BrakeMode><!/frc-boolean-box>
+        <!nt-boolean key="/box2/value" value="false"><!/nt-boolean>
+<!frc-boolean-box source-key="/box2" true-color="blue" false-color="#00aa88" value><!Low Gear><!/frc-boolean-box>
+        
+          <!-- Code for "With styles" example -->
+    <div id="camera"></div>
+        
+    </frc-dashboard>
+    <script src="./frc-web-components.js"></script>
+      </center>
+  </body>
+</html>
