@@ -51,76 +51,76 @@ void Led::Periodic()
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Led::LEDInit()
+void Led::Initialize()
 {
     //Default to a length of 60, start empty output
     //Length is expensive to set, so only set it once, then just update data
-    m_led.SetLength(kLength);
+    m_led.SetLength(kLEDStringLength);
     m_led.SetData(m_ledBuffer);
     m_led.Start();
 
 
     // Add options for colors in SmartDashboard
-	chooser.AddOption("LED_Black", LED_SetBlack);
-    chooser.AddOption("LED_White", LED_SetWhite);
-    chooser.AddOption("LED_Red", LED_SetRed);
-    chooser.AddOption("LED_Orange", LED_SetOrange);
-    chooser.AddOption("LED_Yellow", LED_SetYellow);
-    chooser.AddOption("LED_Green", LED_SetGreen);
-    chooser.AddOption("LED_Blue", LED_SetBlue);
-    chooser.AddOption("LED_Purple", LED_SetPurple);
+    m_ledChooser.AddOption("LED_Off",    LEDCOLOR_OFF);
+    m_ledChooser.AddOption("LED_White",  LEDCOLOR_WHITE);
+    m_ledChooser.AddOption("LED_Red",    LEDCOLOR_RED);
+    m_ledChooser.AddOption("LED_Orange", LEDCOLOR_ORANGE);
+    m_ledChooser.AddOption("LED_Yellow", LEDCOLOR_YELLOW);
+    m_ledChooser.AddOption("LED_Green",  LEDCOLOR_GREEN);
+    m_ledChooser.AddOption("LED_Blue",   LEDCOLOR_BLUE);
+    m_ledChooser.AddOption("LED_Purple", LEDCOLOR_PURPLE);
 
-    frc::SmartDashboard::PutData("LED Color", &chooser);
+    frc::SmartDashboard::PutData("LED Color", &m_ledChooser);
 }
 
-// Take RGB value to change color of LED
-void Led::LedSetRGB(int rgbRed, int rgbGreen, int rgbBlue)
+// Send RGB values to change color of each LED in string
+void Led::SendRGBToString(int rgbRed, int rgbGreen, int rgbBlue)
 {
-    for (int i = 0; i < kLength; i++)
+    for (int i = 0; i < kLEDStringLength; i++)
         m_ledBuffer[i].SetRGB(rgbRed, rgbGreen, rgbBlue);
 
     m_led.SetData(m_ledBuffer);
 }
 
-// Set color of LED
-void Led::SetColor (int color)
+// Set color of LED string
+void Led::SetColor(int color)
 {
     const char *strName;
 
     switch(color)
     {
         default:
-        case LED_SetBlack:
-            strName = "BLACK";
-            LedSetRGB(0, 0, 0);         //black
+        case LEDCOLOR_OFF:
+            strName = "OFF";
+            SendRGBToString(0, 0, 0);         //black
             break;
-        case LED_SetWhite:
+        case LEDCOLOR_WHITE:
             strName = "WHITE";
-            LedSetRGB(255, 255, 255);   //white
+            SendRGBToString(255, 255, 255);   //white
             break;
-        case LED_SetRed:
+        case LEDCOLOR_RED:
             strName = "RED";
-            LedSetRGB(255, 0, 0);       //red
+            SendRGBToString(255, 0, 0);       //red
             break;
-        case LED_SetOrange:
+        case LEDCOLOR_ORANGE:
             strName = "ORANGE";
-            LedSetRGB(255, 80, 0);      //orange
+            SendRGBToString(255, 80, 0);      //orange
             break;
-        case LED_SetYellow:
+        case LEDCOLOR_YELLOW:
             strName = "YELLOW";
-            LedSetRGB(255, 255, 0);     //yellow
+            SendRGBToString(255, 255, 0);     //yellow
             break;
-        case LED_SetGreen:
+        case LEDCOLOR_GREEN:
             strName = "GREEN";
-            LedSetRGB(0, 255, 0);       //green
+            SendRGBToString(0, 255, 0);       //green
             break;
-        case LED_SetBlue:
+        case LEDCOLOR_BLUE:
             strName = "BLUE";
-            LedSetRGB(0, 0, 255);       //blue
+            SendRGBToString(0, 0, 255);       //blue
             break;
-        case LED_SetPurple:             // For Rithu
+        case LEDCOLOR_PURPLE:             // For Rithu
             strName = "PURPLE";
-            LedSetRGB(255, 0, 255);     //purple
+            SendRGBToString(255, 0, 255);     //purple
             break;
     }
 
@@ -132,26 +132,27 @@ void Led::SetColor (int color)
 }
 
 // Turn on LED when certain conditions are met
+// TODO: (JLM) This function should go away, since DisplayColor replaces it
 void Led::DetectPowerCell(bool powerCellOn)
 {
     if (powerCellOn)
-        SetColor(chooser.GetSelected());
+        SetColor(m_ledChooser.GetSelected());
     else
-        SetColor(LED_SetBlack);
+        SetColor(LEDCOLOR_OFF);
 }
 
-void Led::DisplayColor(LED_Source_e source, bool enable) {
+void Led::DisplayColor(LEDSource_e source, bool enable) {
     if (enable)
         m_sourceEnabled |= source;
     else
         m_sourceEnabled &= ~source;
 
-    if (m_sourceEnabled & LED_Source_Shooter)
+    if (m_sourceEnabled & LEDSOURCE_SHOOTER)
         SetColor(m_shooterLEDColor);
-    else if (m_sourceEnabled & LED_Source_Conveyor)
+    else if (m_sourceEnabled & LEDSOURCE_CONVEYOR)
         SetColor(m_conveyorLEDColor);
-    else if (m_sourceEnabled & LED_Source_Command)
-        SetColor(chooser.GetSelected());
+    else if (m_sourceEnabled & LEDSOURCE_COMMAND)
+        SetColor(m_ledChooser.GetSelected());
     else
-        SetColor(LED_SetBlack);
+        SetColor(LEDCOLOR_OFF);
 }

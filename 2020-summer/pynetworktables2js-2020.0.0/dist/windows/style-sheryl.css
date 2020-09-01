@@ -1,0 +1,229 @@
+:root {
+    --intake-position: 170px;
+    --shooter-position: calc(var(--intake-position) + 170px);
+    --talon-width: 80px;
+    --talon-height: 60px;
+    --talon-top-position: 160px; /* top distance */
+    --talon-left-position: 900px; /* left distance */
+    --power-cell-position: 30px;
+    --power-cell-top: 555px;
+    --lowGear-top-position: 250px;
+    --lowGear-left-position: 250px;
+
+}
+.left { 
+    float:left;   
+} 
+.right{ 
+    float:right; 
+} 
+.centeredText {
+    text-align: center;
+}
+.with-styles {
+    width: 200px;
+    height: 200px;
+}
+.parent {
+  display: flex;
+  flex-direction:row;
+}
+.column {
+  flex: 1 1 0px;
+  border: 1px solid black;
+}
+.circle {
+  height: 50px;
+  width: 50px;
+  background-color: yellow;
+  border-style: solid;
+  border-color: black;
+  border-radius: 100%;
+}   
+.circle2 {
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  border-style: solid;
+  border-color: black;
+  border-radius: 100%;
+}
+#camera {
+    padding: 0;
+    position: absolute;
+    top: 120px;
+    left: 0;
+    width: 45vw;
+    height: 65vh;
+    overflow: hidden;
+    background-color: #333;
+    /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
+    /*background-image: url('LINK TO CAMERA SOURCE HERE');*/
+}
+#autonpath {
+    position: absolute;
+    left: 600px;
+    top: 100px;
+}
+#intakeLabel {
+    position: absolute;
+    left: 600px;
+    top: var(--intake-position);
+}
+#intakeBool {
+    position: absolute;
+    left: 650px;
+    top: calc(var(--intake-position) + 50px);
+    width: 80px;
+    height: 80px;
+}
+#intakeCheck {
+    position: absolute;
+    left: 650px;
+    top: calc(var(--intake-position) + 140px);
+}
+#shooterLabel {
+    position: absolute;
+    left: 600px;
+    top: var(--shooter-position);
+}
+#shooterBool {
+    position: absolute;
+    left: 650px;
+    top: calc(var(--shooter-position) + 50px);
+    width: 80px;
+    height: 80px;
+}
+#shooterCheck {
+    position: absolute;
+    left: 650px;
+    top: calc(var(--shooter-position) + 140px);
+}
+#talonLabel {
+    position: absolute;
+    left: 1020px;
+    top: 100px;
+}
+#talon1 {
+    position: absolute;
+    left: var(--talon-left-position);
+    top: var(--talon-top-position);
+    width: var(--talon-width);
+    height: var(--talon-height);
+}
+#talon2 {
+    position: absolute;
+    left: calc(var(--talon-left-position) + 90px);
+    top: var(--talon-top-position);
+    width: var(--talon-width);
+    height: var(--talon-height);
+}
+#talon3 {
+    position: absolute;
+    left: calc(var(--talon-left-position) + 180px);
+    top: var(--talon-top-position);
+    width: var(--talon-width);
+    height: var(--talon-height);
+}
+#talon4 {
+    position: absolute;
+    left: calc(var(--talon-left-position) + 270px);
+    top: var(--talon-top-position);
+    width: var(--talon-width);
+    height: var(--talon-height);
+}
+#talon6 {
+    position: absolute;
+    left: var(--talon-left-position);
+    top: calc(var(--talon-top-position) + 70px);
+    width: var(--talon-width);
+    height: var(--talon-height);
+}
+#talon8 {
+    position: absolute;
+    left: calc(var(--talon-left-position) + 90px);
+    top: calc(var(--talon-top-position) + 70px);
+    width: var(--talon-width);
+    height: var(--talon-height);
+}
+#talon10 {
+    position: absolute;
+    left: calc(var(--talon-left-position) + 180px);
+    top: calc(var(--talon-top-position) + 70px);
+    width: var(--talon-width);
+    height: var(--talon-height);
+}
+#talon11 {
+    position: absolute;
+    left: calc(var(--talon-left-position) + 270px);
+    top: calc(var(--talon-top-position) + 70px);
+    width: var(--talon-width);
+    height: var(--talon-height);
+}
+#talon12 {
+    position: absolute;
+    left: calc(var(--talon-left-position) + 90px);
+    top: calc(var(--talon-top-position) + 140px);
+    width: var(--talon-width);
+    height: var(--talon-height);
+}
+#talon14 {
+    position: absolute;
+    left: calc(var(--talon-left-position) + 180px);
+    top: calc(var(--talon-top-position) + 140px);
+    width: var(--talon-width);
+    height: var(--talon-height);
+}
+#power-cell-label {
+    position: absolute;
+    left: 30px;
+    top: var(--power-cell-top);
+}
+#cell1 {
+    position: absolute;
+    left: var(--power-cell-position);
+    top: calc(var(--power-cell-top) + 50px);
+}
+#cell2 {
+    position: absolute;
+    left: calc(var(--power-cell-position) + 60px);
+    top: calc(var(--power-cell-top) + 50px);
+}
+#cell3 {
+    position: absolute;
+    left: calc(var(--power-cell-position) + 120px);
+    top: calc(var(--power-cell-top) + 50px);
+}
+#cell4 {
+    position: absolute;
+    left: calc(var(--power-cell-position) + 180px);
+    top: calc(var(--power-cell-top) + 50px);
+}
+#cell5 {
+    position: absolute;
+    left: calc(var(--power-cell-position) + 240px);
+    top: calc(var(--power-cell-top) + 50px);
+}
+#timer {
+    font-family: monospace;
+    display: block;
+    height: 20vh;
+    width: 20vw;
+    top: 0;
+    left: 0;
+    font-size: 20vh;
+    line-height: .8;
+}
+/*#lowGearLabel {
+    position: absolute;
+    left: 400px;
+    top: var(--lowGear-position);
+}
+#lowGearBool {
+    position: absolute;
+    left: 600px;
+    top: calc(var(--lowGear-position + 1000px));
+    width: 100px;
+    height: 100px;
+}*/
+ No newline at end of file

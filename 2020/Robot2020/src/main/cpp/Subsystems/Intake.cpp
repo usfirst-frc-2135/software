@@ -121,11 +121,10 @@ void Intake::Initialize(void)
         SetIntakeMotorDirection(INTAKE_STOP);
 }
 
+// Dump all Talon faults
 void Intake::FaultDump(void)
 {
-
-// Dump all Talon faults
-	frc2135::TalonUtils::TalonFaultDump("IN 6", motorIN6);
+    frc2135::TalonUtils::TalonFaultDump("IN 6", motorIN6);
 }
 
 // Set mode of intake

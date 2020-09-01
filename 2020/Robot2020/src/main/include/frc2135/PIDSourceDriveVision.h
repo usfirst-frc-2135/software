@@ -12,12 +12,12 @@ class PIDSourceDriveVision: public frc::PIDSource
 {
 
 private:
-	double	m_angle;
-    // double  m_visionAngle;
+    double      m_angle;
+    // double     m_visionAngle;
 
 public:
-	PIDSourceDriveVision();
-	virtual ~PIDSourceDriveVision();
+    PIDSourceDriveVision();
+    virtual ~PIDSourceDriveVision();
     double PIDGet(void);
-	void SetTurnAngle(double angle);
+    void SetTurnAngle(double angle);
 };

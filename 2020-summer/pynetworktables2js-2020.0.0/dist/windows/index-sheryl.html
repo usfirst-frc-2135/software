@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <title>My Robot Dashboard!</title>
+    <link href="style.css" rel="stylesheet"> 
+  </head>
+  <body>
+    <frc-dashboard onload="ntLoaded()">
+      <nt-string key="/robotName" value="Mandi"></nt-string>
+      <nt-number key="/angle" value="135"></nt-number>
+      <h1 class="centeredText">
+        My robot's name is <frc-label source-key="/robotName"></frc-label>
+      </h1>
+    <div>   
+    <div class="left" id="camera"></div>
+    <div id="autonpath">
+        <nt-string key="/SmartDashboard/Autonomous Path/.name" value="Autonomous Path"></nt-string>
+
+        <nt-string key="/SmartDashboard/Autonomous Path/selected" value="Path 2"></nt-string>
+
+        <nt-string key="/SmartDashboard/Autonomous Path/default" value="Path 2"></nt-string>
+
+        <nt-string-array key="/SmartDashboard/Autonomous Path/options" value='["Path 1", "Path 2", "Path 3", "Path 4", "Path 5", "Path 6"]'></nt-string-array>
+
+        <nt-string key="/SmartDashboard/Autonomous Path/placeholder" value="placeholder"></nt-string>
+        <nt-boolean key="/SmartDashboard/Autonomous Path/disabled" value="false"></nt-boolean>
+        <nt-boolean key="/SmartDashboard/Autonomous Path/readonly" value="false"></nt-boolean>
+        <nt-boolean key="/SmartDashboard/Autonomous Path/clearButtonVisible" value="false"></nt-boolean>
+        <nt-string key="/SmartDashboard/Autonomous Path/theme" value="align-center"></nt-string>
+        <nt-boolean key="/SmartDashboard/Autonomous Path/required" value="true"></nt-boolean>
+        <nt-string key="/SmartDashboard/Autonomous Path/errorMessage" value="This is an error"></nt-string>
+        <nt-boolean key="/SmartDashboard/Autonomous Path/allowCustomValue" value="false"></nt-boolean>
+
+        <frc-combo-box source-key="/SmartDashboard/Autonomous Path"></frc-combo-box>
+    </div>
+    <div>    
+        <nt-boolean key="/IntakeMechanism/value" value="true"></nt-boolean>
+        <h3 id="intakeLabel"> Intake Mechanism Stored </h3>
+        <frc-boolean-box id="intakeBool" source-key="/IntakeMechanism"> 
+        </frc-boolean-box>
+        <frc-checkbox id="intakeCheck" source-key="/IntakeMechanism/value">Intake</frc-checkbox>
+    </div>    
+    <div>    
+        <nt-boolean key="/ShooterAim/value" value="true"></nt-boolean>
+        <h3 id="shooterLabel"> Automatic Shooter Aim </h3>
+        <frc-boolean-box id="shooterBool" source-key="/ShooterAim">
+        </frc-boolean-box>
+        <frc-checkbox id="shooterCheck" source-key="/ShooterAim/value"> Automatic </frc-checkbox>
+    </div> 
+    <div>
+        <h3 id="talonLabel"> Talon Checks </h3>
+        <nt-boolean key="/TalonL1/value" value="true"></nt-boolean>
+        <frc-boolean-box id="talon1" source-key="/TalonL1"> L1 </frc-boolean-box>
+        
+        <nt-boolean key="/TalonL2/value" value="true"></nt-boolean>
+        <frc-boolean-box id="talon2" source-key="/TalonL2"> L2 </frc-boolean-box>
+        
+        <nt-boolean key="/TalonR3/value" value="true"></nt-boolean>
+        <frc-boolean-box id="talon3" source-key="/TalonR3"> R3 </frc-boolean-box>
+        
+        <nt-boolean key="/TalonR4/value" value="true"></nt-boolean>
+        <frc-boolean-box id="talon4" source-key="/TalonR4"> R4 </frc-boolean-box>
+        
+        <nt-boolean key="/Talon6/value" value="true"></nt-boolean>
+        <frc-boolean-box id="talon6" source-key="/Talon6">IN6 </frc-boolean-box>
+        
+        <nt-boolean key="/Talon8/value" value="true"></nt-boolean>
+        <frc-boolean-box id="talon8" source-key="/Talon8">CV8 </frc-boolean-box>
+        
+        <nt-boolean key="/Talon10/value" value="true"></nt-boolean>
+        <frc-boolean-box id="talon10" source-key="/Talon10"> SH10 </frc-boolean-box>
+        
+        <nt-boolean key="/Talon11/value" value="true"></nt-boolean>
+        <frc-boolean-box id="talon11" source-key="/Talon11"> SH11 </frc-boolean-box>
+        
+        <nt-boolean key="/Talon12/value" value="true"></nt-boolean>
+        <frc-boolean-box id="talon12" source-key="/Talon12"> SP12 </frc-boolean-box>
+        
+        <nt-boolean key="/Talon14/value" value="true"></nt-boolean>
+        <frc-boolean-box id="talon14" source-key="/Talon14"> CL14 </frc-boolean-box>
+    </div>
+    </div>
+    <div>
+        <h3 id="power-cell-label"> Power Cell Count </h3>
+        <div class = "circle" id="cell1"> </div>
+        <div class = "circle" id="cell2"> </div>
+        <div class = "circle" id="cell3"> </div>
+        <div class = "circle2" id="cell4"> </div>
+        <div class = "circle2" id="cell5"> </div>
+    </div>
+        
+    </frc-dashboard>
+    <script src="./frc-web-components.js"></script>
+      <script src="/ball-counter.js"></script>
+  </body>
+</html>
+
+
+
+<!--<div class="parent">
+            <div class="column">Column 1</div>
+            <div class="column">Column 2<br>Column 2<br>Column 2<br>Column 2<br></div>
+            <div class="column">Column 3</div>
+</div>-->
