@@ -184,8 +184,8 @@ pigeonIMU.reset(new PigeonIMU(20));
 // Ignore the warning that it is deprecated
 // TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    driveVisionPIDLoop = new frc::PIDController(m_visionTurnKp, 0.0, 0.0, driveVisionPIDSource, driveVisionPIDOutput);
+// #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+    driveVisionPIDLoop = new frc2::PIDController(m_visionTurnKp, 0.0, 0.0);
 #pragma GCC diagnostic pop
 
     //
@@ -199,16 +199,16 @@ pigeonIMU.reset(new PigeonIMU(20));
     // Velocity Control Loop
     //
 // TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+//#pragma GCC diagnostic push
+//#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     m_leftPIDController = new frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
-#pragma GCC diagnostic pop
+//#pragma GCC diagnostic pop
 
 // TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+//#pragma GCC diagnostic push
+//#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     m_rightPIDController = new frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
-#pragma GCC diagnostic pop
+//#pragma GCC diagnostic pop
     m_kinematics = new frc::DifferentialDriveKinematics(kTrackWidthFeet);
     m_odometry = new frc::DifferentialDriveOdometry(GetAngle());
 }
@@ -324,10 +324,10 @@ void Drivetrain::FaultDump(void)
     frc2135::TalonUtils::TalonFaultDump("DT L2", motorL2);
     frc2135::TalonUtils::TalonFaultDump("DT R3", motorR3);
     frc2135::TalonUtils::TalonFaultDump("DT R4", motorR4);
-    PigeonIMUFaultDump();
+    //PigeonIMUFaultDump();
 
     //  Dump Pigeon faults TODO
-    // frc2135::TalonUtils::PigeonIMUFaultDump("DT IMU", gyro);
+     frc2135::TalonUtils::PigeonIMUFaultDump("DT IMU", pigeonIMU);
 }
 
 //
@@ -819,22 +819,8 @@ bool Drivetrain::MoveAlignTurnIsFinished()
 
 ///////// Aligning with Target Using Vision Processing with (deprecated) PID Controller ///////////
 //
-void Drivetrain::MoveAlignTurnPIDInit(double targetHorz)
+void Drivetrain::MoveAlignTurnPIDInit()
 {
-    // Set current angle
-    double currAngle = Robot::vision->GetHorizOffset();
-    driveVisionPIDOutput->SetTurnAngle(currAngle);
-    driveVisionPIDSource->SetTurnAngle(currAngle);
-
-    // Set target turn angle
-    driveVisionPIDLoop->SetSetpoint(targetHorz);
-
-    driveVisionPIDLoop->SetOutputRange(-0.75, 0.75);
-
-    // Enable the PID loop (tolerance is in encoder count units)
-    driveVisionPIDLoop->SetAbsoluteTolerance(0.5); // This is +/-, so 0.5 => 1.0 degree
-    driveVisionPIDLoop->Enable();
-
     //Start safety timer
     m_safetyTimer.Reset();
     m_safetyTimer.Start();
@@ -844,12 +830,36 @@ void Drivetrain::MoveAlignTurnPIDInit(double targetHorz)
     diffDrive->SetSafetyEnabled(false);
 }
 
+void Drivetrain::MoveAlignTurnPIDExecute(double targetHorz)
+{
+    // Set current angle
+    double currAngle = Robot::vision->GetHorizOffset();
+    //driveVisionPIDOutput->SetTurnAngle(currAngle);
+    //driveVisionPIDSource->SetTurnAngle(currAngle);
+
+    // Set target turn angle
+    //driveVisionPIDLoop->SetSetpoint(targetHorz);
+
+    // Enable the PID loop (tolerance is in encoder count units) 
+    driveVisionPIDLoop->SetTolerance(0.5, 0.5); // deprecated version: This is +/-, so 0.5 => 1.0 degree
+    double motor_output = driveVisionPIDLoop->Calculate(currAngle, targetHorz);
+    if (motor_output < -0.75)
+        motor_output = -0.75;
+    else if (motor_output > 0.75)
+        motor_output = 0.75;
+    
+    //Apply motor output to turn accordingly
+    //Use same sign because left motor's direction is switched
+    motorL1->Set(ControlMode::PercentOutput,motor_output)
+    motorR3->Set(ControlMode::PercentOutput,motor_output);
+}
+
 bool Drivetrain::MoveAlignTurnPIDISFinished()
 {
     double isFinished = false;
 
     // Test the PID to see if it is on the programmed target
-    if (driveVisionPIDLoop->OnTarget())
+    if (driveVisionPIDLoop->AtSetpoint()) //Use AtSetpoint
     {
         isFinished = true;
 
@@ -871,15 +881,15 @@ void Drivetrain::MoveAlignTurnPIDStop()
 {
     double closedLoopError;
 
-    // Disable PID loop
-    driveVisionPIDLoop->Disable();
+    // Disable PID loop - unnecessary in frc2?
+    //driveVisionPIDLoop->Disable();
 
     // Stop safety timer
     std::printf("2135: TimeToTarget:  %3.2f\n", m_safetyTimer.Get());
     m_safetyTimer.Stop();
 
     // Gets closed loop error and prints it
-    closedLoopError = driveVisionPIDLoop->GetError();
+    closedLoopError = driveVisionPIDLoop->GetPositionError() + driveVisionPIDLoop->GetVelocityError();
     std::printf("2135: ClosedLoopError: %f\n", closedLoopError);
 
     // Re-enable the motor safety helper (temporarily disabled)

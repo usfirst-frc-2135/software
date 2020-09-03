@@ -153,7 +153,7 @@ private:
 
     PIDOutputDriveVision *driveVisionPIDOutput; // Drive with Vision to angle using gyro - initialize output
     PIDSourceDriveVision *driveVisionPIDSource; // Drive with Vision PID source loop
-    frc::PIDController     *driveVisionPIDLoop;    // Drive with Vision PID controller loop
+    frc2::PIDController  *driveVisionPIDLoop;   // Drive with Vision PID controller loop
 
     void ResetSensors();
 
@@ -216,7 +216,8 @@ public:
     bool MoveAlignTurnIsFinished();
 
     // Aligning with Target Using Vision Processing with (deprecated) PID Controller
-    void MoveAlignTurnPIDInit(double targetHorz);
+    void MoveAlignTurnPIDInit();
+    void MoveAlignTurnPIDExecute(double targetHorz);
     bool MoveAlignTurnPIDISFinished();
     void MoveAlignTurnPIDStop();
 
