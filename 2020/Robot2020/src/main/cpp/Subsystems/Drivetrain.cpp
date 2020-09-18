@@ -89,7 +89,7 @@ pigeonIMU.reset(new PigeonIMU(20));
     config->GetValueAsDouble("DT_ClosedLoopRampRate", m_closedLoopRampRate, 1.0);
 	config->GetValueAsDouble("DT_AlignTurnTolerance", m_alignTurnTolerance, 1.0);
 	config->GetValueAsDouble("DT_AlignTurnKp", m_alignTurnKp, 0.05);
-	
+
 
     //
     //  Invert the direction of the motors
@@ -181,12 +181,7 @@ pigeonIMU.reset(new PigeonIMU(20));
     //
     driveVisionPIDSource = new PIDSourceDriveVision();
     driveVisionPIDOutput = new PIDOutputDriveVision(diffDrive);
-// Ignore the warning that it is deprecated
-// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
-#pragma GCC diagnostic push
-// #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     driveVisionPIDLoop = new frc2::PIDController(m_visionTurnKp, 0.0, 0.0);
-#pragma GCC diagnostic pop
 
     //
     // // Settings for Turn PID
@@ -198,17 +193,8 @@ pigeonIMU.reset(new PigeonIMU(20));
     //
     // Velocity Control Loop
     //
-// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
-//#pragma GCC diagnostic push
-//#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     m_leftPIDController = new frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
-//#pragma GCC diagnostic pop
-
-// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
-//#pragma GCC diagnostic push
-//#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     m_rightPIDController = new frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
-//#pragma GCC diagnostic pop
     m_kinematics = new frc::DifferentialDriveKinematics(kTrackWidthFeet);
     m_odometry = new frc::DifferentialDriveOdometry(GetAngle());
 }
@@ -802,7 +788,7 @@ bool Drivetrain::MoveAlignTurnIsFinished()
     m_alignTurnError = (Robot::vision->GetHorizOffset());
 
     if (abs(m_alignTurnError) < m_alignTurnTolerance)
-    { 
+    {
         std::printf("2135: DTAT - Error Within Tolerance\n");
         isFinished = true;
     }
@@ -840,17 +826,17 @@ void Drivetrain::MoveAlignTurnPIDExecute(double targetHorz)
     // Set target turn angle
     //driveVisionPIDLoop->SetSetpoint(targetHorz);
 
-    // Enable the PID loop (tolerance is in encoder count units) 
+    // Enable the PID loop (tolerance is in encoder count units)
     driveVisionPIDLoop->SetTolerance(0.5, 0.5); // deprecated version: This is +/-, so 0.5 => 1.0 degree
     double motor_output = driveVisionPIDLoop->Calculate(currAngle, targetHorz);
     if (motor_output < -0.75)
         motor_output = -0.75;
     else if (motor_output > 0.75)
         motor_output = 0.75;
-    
+
     //Apply motor output to turn accordingly
     //Use same sign because left motor's direction is switched
-    motorL1->Set(ControlMode::PercentOutput,motor_output)
+    motorL1->Set(ControlMode::PercentOutput,motor_output);
     motorR3->Set(ControlMode::PercentOutput,motor_output);
 }
 

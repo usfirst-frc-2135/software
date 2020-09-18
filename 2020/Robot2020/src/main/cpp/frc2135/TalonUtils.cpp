@@ -29,14 +29,7 @@ bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, cons
     bool        talonValid = false;
     ErrorCode   error = OKAY;
 
-    // Configure subsystem and component name
-// Ignore the warning that it is deprecated
-// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    talon->SetName(subsystem, name);
-       std::printf("2135: Talon Subsystem %s Name %s\n", talon->GetSubsystem().c_str(), talon->GetName().c_str());
-#pragma GCC diagnostic pop
+    // Configure subsystem
 
     // Display Talon firmware versions
     deviceID = talon->GetDeviceID();
@@ -46,7 +39,8 @@ bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, cons
         return error;
     }
 
-    for (i = 0; i < m_retries; i++) {
+    for (i = 0; i < m_retries; i++)
+    {
         fwVersion = talon->GetFirmwareVersion();
         if ((error = talon->GetLastError()) != OKAY)
         {
@@ -59,10 +53,9 @@ bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, cons
             break;
         }
         else
-        {
             std::printf("2135: WARNING: %s Motor %s ID %d Incorrect FW version %d.%d expected %d.%d\n",
                 subsystem, name, deviceID, fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
-        }
+
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
@@ -70,19 +63,15 @@ bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, cons
     {
             // Initialize Talon to all factory defaults
         if ((error = talon->ConfigFactoryDefault(kCANTimeout)) != OKAY)
-        {
             std::printf("2135: ERROR: %s Motor %s ID %d ConfigFactoryDefault error - %d\n",
                 subsystem, name, deviceID, error);
-        }
 
         std::printf("2135: %s Motor %s ID %d ver %d.%d is RESPONSIVE and INITIALIZED (error %d)\n",
                 subsystem, name, deviceID, fwVersion/256, fwVersion&0xff, error);
     }
     else
-    {
         std::printf("2135: ERROR: %s Motor %s ID %d ver %d.%d is UNRESPONSIVE, (error %d)\n",
                 subsystem, name, deviceID, fwVersion/256, fwVersion&0xff, error);
-    }
 
     return talonValid;
 }
@@ -101,37 +90,20 @@ void TalonUtils::TalonFaultDump(const char *talonName, std::shared_ptr<WPI_BaseM
     talon->GetDeviceID();
     if ((error = talon->GetLastError()) != OKAY)
     {
-// Ignore the warning that it is deprecated
-// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-        std::printf("2135: ERROR: %s Motor %s GetDeviceID error - %d\n",
-            talon->GetSubsystem().c_str(), talon->GetName().c_str(), error);
-#pragma GCC diagnostic pop
+        std::printf("2135: ERROR: Motor %s GetDeviceID error - %d\n", talonName, error);
         return;
     }
 
     fwVersion = talon->GetFirmwareVersion();
     if ((error = talon->GetLastError()) != OKAY)
     {
-// Ignore the warning that it is deprecated
-// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-        std::printf("2135: ERROR: %s Motor %s GetFirmwareVersion error - %d\n",
-            talon->GetSubsystem().c_str(), talon->GetName().c_str(), error);
-#pragma GCC diagnostic pop
+        std::printf("2135: ERROR: Motor %s GetFirmwareVersion error - %d\n", talonName, error);
         return;
     }
     if (fwVersion != m_reqVersion)
     {
-// Ignore the warning that it is deprecated
-// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-        std::printf("2135: WARNING: %s Motor %s Incorrect FW version %d.%d expected %d.%d\n",
-            talon->GetSubsystem().c_str(), talon->GetName().c_str(), fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
-#pragma GCC diagnostic pop
+        std::printf("2135: WARNING: Motor %s Incorrect FW version %d.%d expected %d.%d\n", talonName,
+            fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
         return;
     }
 
@@ -167,9 +139,7 @@ void TalonUtils::TalonFaultDump(const char *talonName, std::shared_ptr<WPI_BaseM
             std::printf("\tUnderVoltage\n");
     }
     else
-    {
         std::printf("2135: NO Talon FX active faults detected\n");
-    }
 
     if (stickyFaults.HasAnyFault())
     {
@@ -198,9 +168,7 @@ void TalonUtils::TalonFaultDump(const char *talonName, std::shared_ptr<WPI_BaseM
             std::printf("\tUnderVoltage\n");
     }
     else
-    {
         std::printf("2135: NO Talon FX sticky faults detected\n");
-    }
 }
 
 void TalonUtils::PigeonIMUFaultDump(const char *pigeonName, std::shared_ptr<PigeonIMU> pigeonPtr)
@@ -217,37 +185,20 @@ void TalonUtils::PigeonIMUFaultDump(const char *pigeonName, std::shared_ptr<Pige
     pigeonPtr->GetDeviceNumber();
     if ((error = pigeonPtr->GetLastError()) != OKAY)
     {
-// Ignore the warning that it is deprecated
-// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-        std::printf("2135: ERROR: PigeonIMU Gyro GetDeviceID error - %d\n",
-             error);
-#pragma GCC diagnostic pop
+        std::printf("2135: ERROR: PigeonIMU Gyro GetDeviceID error - %d\n", error);
         return;
     }
 
     fwVersion = pigeonPtr->GetFirmwareVersion();
     if ((error = pigeonPtr->GetLastError()) != OKAY)
     {
-// Ignore the warning that it is deprecated
-// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-        std::printf("2135: ERROR: PigeonIMU Gyro GetFirmwareVersion error - %d\n",
-             error);
-#pragma GCC diagnostic pop
+        std::printf("2135: ERROR: PigeonIMU Gyro GetFirmwareVersion error - %d\n", error);
         return;
     }
     if (fwVersion != m_reqVersion)
     {
-// Ignore the warning that it is deprecated
-// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
         std::printf("2135: WARNING: PigeonIMU Gyro Incorrect FW version %d.%d expected %d.%d\n",
              fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
-#pragma GCC diagnostic pop
         return;
     }
 
@@ -257,13 +208,9 @@ void TalonUtils::PigeonIMUFaultDump(const char *pigeonName, std::shared_ptr<Pige
     pigeonPtr->ClearStickyFaults(100);
 
     if (faults.HasAnyFault())
-    {
         std::printf("2135: ERROR: %s %s ID %d has a FAULT - %d\n", "DT", "PigeonIMU", 2, faults.ToBitfield());
-    }
     else
-    {
         std::printf("2135: NO PigeonIMU sticky faults detected\n");
-    }
 }
 
 } /* namespace frc2135 */
