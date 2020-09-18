@@ -26,12 +26,12 @@ m_horizontalTarget = horizontalTarget;
 // Called just before this Command runs the first time
 void DriveAlignPIDTurn::Initialize() {
     std::printf("2135: Drive Align PID Turn - Init\n");
-    Robot::drivetrain->MoveAlignTurnPIDInit(m_horizontalTarget);
+    Robot::drivetrain->MoveAlignTurnPIDInit();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveAlignPIDTurn::Execute() {
-
+    Robot::drivetrain->MoveAlignTurnPIDExecute(m_horizontalTarget);
 }
 
 // Make this return true when this Command no longer needs to run execute()

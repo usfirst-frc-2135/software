@@ -203,4 +203,67 @@ void TalonUtils::TalonFaultDump(const char *talonName, std::shared_ptr<WPI_BaseM
     }
 }
 
+void TalonUtils::PigeonIMUFaultDump(const char *pigeonName, std::shared_ptr<PigeonIMU> pigeonPtr)
+{
+    int             fwVersion = 0;
+    ErrorCode       error = OKAY;
+    PigeonIMU_Faults          faults;
+    PigeonIMU_StickyFaults    stickyFaults;
+
+    // Print out PigeonIMU faults and clear sticky ones
+    std::printf("2135: %s -------------- %s\n", "PigeonIMU ", pigeonName);
+
+    // Check PigeonIMU by getting device ID and validating firmware versions
+    pigeonPtr->GetDeviceNumber();
+    if ((error = pigeonPtr->GetLastError()) != OKAY)
+    {
+// Ignore the warning that it is deprecated
+// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+        std::printf("2135: ERROR: PigeonIMU Gyro GetDeviceID error - %d\n",
+             error);
+#pragma GCC diagnostic pop
+        return;
+    }
+
+    fwVersion = pigeonPtr->GetFirmwareVersion();
+    if ((error = pigeonPtr->GetLastError()) != OKAY)
+    {
+// Ignore the warning that it is deprecated
+// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+        std::printf("2135: ERROR: PigeonIMU Gyro GetFirmwareVersion error - %d\n",
+             error);
+#pragma GCC diagnostic pop
+        return;
+    }
+    if (fwVersion != m_reqVersion)
+    {
+// Ignore the warning that it is deprecated
+// TODO: WE WILL REMOVE ALL DEPRECATED CODE IN OFF-SEASON
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+        std::printf("2135: WARNING: PigeonIMU Gyro Incorrect FW version %d.%d expected %d.%d\n",
+             fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
+#pragma GCC diagnostic pop
+        return;
+    }
+
+    // Now the PigeonIMU has been validated
+    pigeonPtr->GetFaults(faults);
+    pigeonPtr->GetStickyFaults(stickyFaults);
+    pigeonPtr->ClearStickyFaults(100);
+
+    if (faults.HasAnyFault())
+    {
+        std::printf("2135: ERROR: %s %s ID %d has a FAULT - %d\n", "DT", "PigeonIMU", 2, faults.ToBitfield());
+    }
+    else
+    {
+        std::printf("2135: NO PigeonIMU sticky faults detected\n");
+    }
+}
+
 } /* namespace frc2135 */
