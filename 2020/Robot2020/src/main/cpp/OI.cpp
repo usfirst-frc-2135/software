@@ -21,7 +21,6 @@
 #include "Commands/ClimberDeploy.h"
 #include "Commands/ClimberRun.h"
 #include "Commands/ConveyorRun.h"
-#include "Commands/DriveAlignPIDTurn.h"
 #include "Commands/DriveAlignTurn.h"
 #include "Commands/DriveBumpRamp.h"
 #include "Commands/DriveModeToggle.h"
@@ -88,8 +87,6 @@ dtModeToggle.reset(new frc::JoystickButton(dStick.get(), 3));
 dtModeToggle->WhenPressed(new DriveModeToggle());
 dtAlignTurn.reset(new frc::JoystickButton(dStick.get(), 4));
 dtAlignTurn->WhenPressed(new DriveAlignTurn());
-dtPIDAlignTurn.reset(new frc::JoystickButton(dStick.get(), 2));
-dtPIDAlignTurn->WhenPressed(new DriveAlignPIDTurn(0));
 dtShiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
 dtShiftSpeed->WhileHeld(new DriveShift(false));
 
@@ -118,12 +115,10 @@ dtShiftSpeed->WhileHeld(new DriveShift(false));
     frc::SmartDashboard::PutData("Drive Bump Ramp: BUMP_UP", new DriveBumpRamp(true));
     frc::SmartDashboard::PutData("Drive Bump Ramp: BUMP_DOWN", new DriveBumpRamp(false));
     frc::SmartDashboard::PutData("Drive Mode Toggle", new DriveModeToggle());
-    frc::SmartDashboard::PutData("Drive Align PID Turn: default", new DriveAlignPIDTurn(0.0));
     frc::SmartDashboard::PutData("Drive Align Turn", new DriveAlignTurn());
     frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
     frc::SmartDashboard::PutData("Auto Shoot Stop: TIMEOUT", new AutoShootStop(0));
     frc::SmartDashboard::PutData("Auto Shoot Drive", new AutoShootDrive());
-    frc::SmartDashboard::PutData("Auto Drive Timed: TIMEOUT", new AutoDriveTimed(1));
     frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT", new AutoDriveDist(0));
     frc::SmartDashboard::PutData("Auto Convey: shoot", new AutoConvey(3));
     frc::SmartDashboard::PutData("Auto Shoot: shoot", new AutoShoot(3));
