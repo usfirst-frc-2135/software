@@ -29,7 +29,7 @@ void AutoStop::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutoStop::Execute() {
-    Robot::drivetrain->MoveDriveStraight(0.0);
+    Robot::drivetrain->MoveStop();
 }
 
 // Make this return true when this Command no longer needs to run execute()
