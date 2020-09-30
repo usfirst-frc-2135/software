@@ -252,8 +252,6 @@ public:
     void MoveWithJoysticks(std::shared_ptr<frc::Joystick>);
     void ToggleDriveMode();
 
-    // void MoveDriveStraight(double output);
-
     // Autonomous - Driving to a distance using Motion Magic
     void MoveDriveDistanceMMInit(double distance);
     void MoveDriveDistanceMMExecute(void);

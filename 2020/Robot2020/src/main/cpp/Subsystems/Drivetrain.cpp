@@ -919,7 +919,7 @@ void Drivetrain::RamseteFollowerExecute(void)
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
-    return (trajCurState >= trajectoryStates.Size());
+    return (trajCurState >= trajectoryStates.size());
 }
 
 void Drivetrain::RamseteFollowerEnd(void)
