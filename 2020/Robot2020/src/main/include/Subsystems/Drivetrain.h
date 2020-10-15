@@ -190,6 +190,8 @@ private:
     frc2::PIDController                 *rightController;
     frc::RamseteController              *ramseteController;
 
+    bool m_isQuickTurn = false;
+
     ///////////////////////////////////////////////////////////////////////////
 
     void ConfigFileLoad(void);

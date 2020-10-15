@@ -89,6 +89,8 @@ dtAlignTurn.reset(new frc::JoystickButton(dStick.get(), 4));
 dtAlignTurn->WhenPressed(new DriveAlignTurn());
 dtShiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
 dtShiftSpeed->WhileHeld(new DriveShift(false));
+quickTurn.reset(new frc::JoystickButton(dStick.get(), 5));
+quickTurn->WhileHeld(new QuickTurn());
 
     // SmartDashboard Buttons
     frc::SmartDashboard::PutData("Led Set", new LedSet());
