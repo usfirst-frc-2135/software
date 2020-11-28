@@ -24,6 +24,7 @@
 #include "Commands/DriveAlignTurn.h"
 #include "Commands/DriveBumpRamp.h"
 #include "Commands/DriveModeToggle.h"
+#include "Commands/DriveQuickTurn.h"
 #include "Commands/DriveReset.h"
 #include "Commands/DriveShift.h"
 #include "Commands/DriveTeleop.h"
@@ -83,14 +84,14 @@ inDeploy.reset(new frc::JoystickButton(controlBoard.get(), 1));
 inDeploy->WhenPressed(new IntakeDeploy(false));
 dStick.reset(new frc::Joystick(0));
 
-dtModeToggle.reset(new frc::JoystickButton(dStick.get(), 3));
-dtModeToggle->WhenPressed(new DriveModeToggle());
+dtQuickTurn.reset(new frc::JoystickButton(dStick.get(), 5));
+dtQuickTurn->WhileHeld(new DriveQuickTurn());
 dtAlignTurn.reset(new frc::JoystickButton(dStick.get(), 4));
 dtAlignTurn->WhenPressed(new DriveAlignTurn());
+dtModeToggle.reset(new frc::JoystickButton(dStick.get(), 3));
+dtModeToggle->WhenPressed(new DriveModeToggle());
 dtShiftSpeed.reset(new frc::JoystickButton(dStick.get(), 1));
 dtShiftSpeed->WhileHeld(new DriveShift(false));
-quickTurn.reset(new frc::JoystickButton(dStick.get(), 5));
-quickTurn->WhileHeld(new QuickTurn());
 
     // SmartDashboard Buttons
     frc::SmartDashboard::PutData("Led Set", new LedSet());
