@@ -80,18 +80,20 @@ private:
 
     // Drivetrain constants
     const double    kWheelDiaInches = 6.0;          // Measured wheel diameter
-    const int       kEncoderCPR = (1024 * 4);       // CPR is 1024 and multiplied by 4 since quadrature
+    //CPR for TalonFX is 2048, quadrature yes?
+    const int       kEncoderCPR = 2048; //(1024 * 4);       // CPR is 1024 and multiplied by 4 since quadrature
     const foot_t    kTrackWidthFeet = 2.125_ft;     // Measured track width
+    const double    kEncoderCountsPerWheelRotation = m_lowGear ? 7.33 : 16.67; //for new Falcon encoders
 
     // Derived values
     const double    kWheelCircumInches = kWheelDiaInches * wpi::math::pi;
-    const double    kWheelCountsPerInch = kEncoderCPR / kWheelCircumInches;
-    const foot_t    kEncoderFeetPerCount = foot_t(kWheelCircumInches / 12.0) / kEncoderCPR;
+    const double    kWheelCountsPerInch = (kEncoderCPR*kEncoderCountsPerWheelRotation) / kWheelCircumInches;
+    const foot_t    kEncoderFeetPerCount = foot_t(kWheelCircumInches / 12.0) / (kEncoderCPR*kEncoderCountsPerWheelRotation);
 
     const meter_t   kWheelDiameterMeters = 6.0_in;
     // Assumes the encoders are directly mounted on the wheel shafts
     const meter_t   kEncoderMetersPerCount =
-        (kWheelDiameterMeters * wpi::math::pi) / static_cast<double>(kEncoderCPR);
+        (kWheelDiameterMeters * wpi::math::pi) / (static_cast<double>(kEncoderCPR)*kEncoderCountsPerWheelRotation);
 
     // Kinematics values for 2135 Bebula - 2019 B-bot
     static constexpr auto   ks = 0.899_V;
