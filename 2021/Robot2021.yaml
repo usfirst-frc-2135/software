@@ -28,12 +28,6 @@ Children:
         Base: Talon FX
         Name: Motor R3
       Properties:
-        Left Motor Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Left Motor Inverted, validators: null, value: false}
-        Right Motor Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Right Motor Inverted, validators: null, value: false}
-        Sensitivity: !!robotbuilder.data.properties.DoubleProperty {default: 0.5,
-          name: Sensitivity, validators: null, value: 0.5}
         Right Motor: !!robotbuilder.data.properties.ChildSelectionProperty
           default: 1
           name: Right Motor
@@ -52,8 +46,8 @@ Children:
           name: Safety Expiration Time, validators: null, value: 0.1}
         Safety Enabled: !!robotbuilder.data.properties.BooleanProperty {default: true,
           name: Safety Enabled, validators: null, value: true}
-      Base: Robot Drive 2
-      Name: Robot Drive 2
+      Base: Differential Drive
+      Name: Diff Drive
     - Children: []
       Properties:
         CAN ID: !!robotbuilder.data.properties.ChoicesProperty

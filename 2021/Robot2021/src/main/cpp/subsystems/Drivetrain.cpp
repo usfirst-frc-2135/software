@@ -25,11 +25,10 @@ SetName("Drivetrain");
  
  
 
- 
- m_robotDrive2.SetSafetyEnabled(true);
-m_robotDrive2.SetExpiration(0.1);
-m_robotDrive2.SetSensitivity(0.5);
-m_robotDrive2.SetMaxOutput(1.0);
+ AddChild("Diff Drive", &m_diffDrive);
+ m_diffDrive.SetSafetyEnabled(true);
+m_diffDrive.SetExpiration(0.1);
+m_diffDrive.SetMaxOutput(1.0);
 
 
  
