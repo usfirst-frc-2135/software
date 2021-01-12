@@ -24,9 +24,9 @@ private:
 public:
     TalonUtils();
     virtual ~TalonUtils();
-    static bool TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, const char *subsystem, const char *name);
-    static void TalonFaultDump(const char *talonName, std::shared_ptr<WPI_BaseMotorController> talonPtr);
-    static void PigeonIMUFaultDump(const char *pigeonName, std::shared_ptr<PigeonIMU> pigeonPtr);
+    static bool TalonCheck(WPI_BaseMotorController &talon, const char *subsystem, const char *name);
+    static void TalonFaultDump(const char *talonName, WPI_BaseMotorController &talonPtr);
+    static void PigeonIMUFaultDump(const char *pigeonName, PigeonIMU &pigeonPtr);
 };
 
 } /* namespace frc2135 */

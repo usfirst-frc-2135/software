@@ -21,7 +21,7 @@ TalonUtils::~TalonUtils()
     // Auto-generated destructor stub
 }
 
-bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, const char *subsystem, const char *name)
+bool TalonUtils::TalonCheck(WPI_BaseMotorController &talon, const char *subsystem, const char *name)
 {
     int         i;
     int         deviceID = 0;
@@ -32,8 +32,8 @@ bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, cons
     // Configure subsystem
 
     // Display Talon firmware versions
-    deviceID = talon->GetDeviceID();
-    if ((error = talon->GetLastError()) != OKAY)
+    deviceID = talon.GetDeviceID();
+    if ((error = talon.GetLastError()) != OKAY)
     {
         std::printf("2135: ERROR: %s Motor %s GetDeviceID error - %d\n", subsystem, name, error);
         return error;
@@ -41,8 +41,8 @@ bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, cons
 
     for (i = 0; i < m_retries; i++)
     {
-        fwVersion = talon->GetFirmwareVersion();
-        if ((error = talon->GetLastError()) != OKAY)
+        fwVersion = talon.GetFirmwareVersion();
+        if ((error = talon.GetLastError()) != OKAY)
         {
             std::printf("2135: ERROR: %s Motor %s ID %d GetFirmwareVersion error - %d\n", subsystem, name, deviceID, error);
             return error;
@@ -62,7 +62,7 @@ bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, cons
     if (talonValid)
     {
             // Initialize Talon to all factory defaults
-        if ((error = talon->ConfigFactoryDefault(kCANTimeout)) != OKAY)
+        if ((error = talon.ConfigFactoryDefault(kCANTimeout)) != OKAY)
             std::printf("2135: ERROR: %s Motor %s ID %d ConfigFactoryDefault error - %d\n",
                 subsystem, name, deviceID, error);
 
@@ -76,7 +76,7 @@ bool TalonUtils::TalonCheck(std::shared_ptr<WPI_BaseMotorController> talon, cons
     return talonValid;
 }
 
-void TalonUtils::TalonFaultDump(const char *talonName, std::shared_ptr<WPI_BaseMotorController> talon)
+void TalonUtils::TalonFaultDump(const char *talonName, WPI_BaseMotorController &talon)
 {
     int             fwVersion = 0;
     ErrorCode       error = OKAY;
@@ -87,15 +87,15 @@ void TalonUtils::TalonFaultDump(const char *talonName, std::shared_ptr<WPI_BaseM
     std::printf("2135: %s -------------- %s\n", "Talon ", talonName);
 
     // Check Talon by getting device ID and validating firmware versions
-    talon->GetDeviceID();
-    if ((error = talon->GetLastError()) != OKAY)
+    talon.GetDeviceID();
+    if ((error = talon.GetLastError()) != OKAY)
     {
         std::printf("2135: ERROR: Motor %s GetDeviceID error - %d\n", talonName, error);
         return;
     }
 
-    fwVersion = talon->GetFirmwareVersion();
-    if ((error = talon->GetLastError()) != OKAY)
+    fwVersion = talon.GetFirmwareVersion();
+    if ((error = talon.GetLastError()) != OKAY)
     {
         std::printf("2135: ERROR: Motor %s GetFirmwareVersion error - %d\n", talonName, error);
         return;
@@ -108,9 +108,9 @@ void TalonUtils::TalonFaultDump(const char *talonName, std::shared_ptr<WPI_BaseM
     }
 
     // Now the Talon has been validated
-    talon->GetFaults(faults);
-    talon->GetStickyFaults(stickyFaults);
-    talon->ClearStickyFaults(100);
+    talon.GetFaults(faults);
+    talon.GetStickyFaults(stickyFaults);
+    talon.ClearStickyFaults(100);
 
     if (faults.HasAnyFault())
     {
@@ -171,7 +171,7 @@ void TalonUtils::TalonFaultDump(const char *talonName, std::shared_ptr<WPI_BaseM
         std::printf("2135: NO Talon FX sticky faults detected\n");
 }
 
-void TalonUtils::PigeonIMUFaultDump(const char *pigeonName, std::shared_ptr<PigeonIMU> pigeonPtr)
+void TalonUtils::PigeonIMUFaultDump(const char *pigeonName, PigeonIMU &pigeonPtr)
 {
     int             fwVersion = 0;
     ErrorCode       error = OKAY;
@@ -182,15 +182,15 @@ void TalonUtils::PigeonIMUFaultDump(const char *pigeonName, std::shared_ptr<Pige
     std::printf("2135: %s -------------- %s\n", "PigeonIMU ", pigeonName);
 
     // Check PigeonIMU by getting device ID and validating firmware versions
-    pigeonPtr->GetDeviceNumber();
-    if ((error = pigeonPtr->GetLastError()) != OKAY)
+    pigeonPtr.GetDeviceNumber();
+    if ((error = pigeonPtr.GetLastError()) != OKAY)
     {
         std::printf("2135: ERROR: PigeonIMU Gyro GetDeviceID error - %d\n", error);
         return;
     }
 
-    fwVersion = pigeonPtr->GetFirmwareVersion();
-    if ((error = pigeonPtr->GetLastError()) != OKAY)
+    fwVersion = pigeonPtr.GetFirmwareVersion();
+    if ((error = pigeonPtr.GetLastError()) != OKAY)
     {
         std::printf("2135: ERROR: PigeonIMU Gyro GetFirmwareVersion error - %d\n", error);
         return;
@@ -203,9 +203,9 @@ void TalonUtils::PigeonIMUFaultDump(const char *pigeonName, std::shared_ptr<Pige
     }
 
     // Now the PigeonIMU has been validated
-    pigeonPtr->GetFaults(faults);
-    pigeonPtr->GetStickyFaults(stickyFaults);
-    pigeonPtr->ClearStickyFaults(100);
+    pigeonPtr.GetFaults(faults);
+    pigeonPtr.GetStickyFaults(stickyFaults);
+    pigeonPtr.ClearStickyFaults(100);
 
     if (faults.HasAnyFault())
         std::printf("2135: ERROR: %s %s ID %d has a FAULT - %d\n", "DT", "PigeonIMU", 2, faults.ToBitfield());
