@@ -92,5 +92,6 @@
     "xutility": "cpp",
     "filesystem": "cpp",
     "bit": "cpp"
-  }
+  },
+  "C_Cpp.default.configurationProvider": "vscode-wpilib"
 }

@@ -580,6 +580,14 @@ void Drivetrain::BumpRampRate(bool bumpUp)
 }
 
 //
+//  Set quick turn for curvature drive
+//
+void Drivetrain::MoveSetQuickTurn(bool quickTurn)
+{
+    m_isQuickTurn = quickTurn;
+}
+
+//
 //  Autonomous Shift transmission gears
 //
 void Drivetrain::MoveShiftGears(bool lowGear)
@@ -637,16 +645,6 @@ void Drivetrain::MoveStop()
 //  Joystick movement during Teleop
 //
 
-void Drivetrain::setQuickTurn(bool quick_turn)
-{
-    m_isQuickTurn = quick_turn;
-}
-
-bool Drivetrain::getQuickTurn()
-{
-    return m_isQuickTurn;
-}
-
 void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick)
 {
     double xValue = 0.0;
@@ -684,7 +682,7 @@ void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick
         break;
 
     case DRIVEMODE_CURVATURE:
-        diffDrive->CurvatureDrive(-yValue, xValue, getQuickTurn()); // Boolean is for quick turn or not
+        diffDrive->CurvatureDrive(-yValue, xValue, m_isQuickTurn); // Boolean is for quick turn or not
         break;
 
     case DRIVEMODE_VELCONTROL:

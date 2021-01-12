@@ -125,6 +125,7 @@ private:
     bool            m_lowGear;          // Low Gear or High Gear
     bool            m_brakeMode;        // Brake or Coast Mode for Talons
     int             m_curDriveMode;     // Current driving mode, arcade by default
+    bool            m_isQuickTurn;      // Setting for quickturn in curvature drive
 
     frc::Timer      m_safetyTimer;      // Safety timer for use during autonomous modes
     double          m_safetyTimeout;    // Time in seconds for safety timer
@@ -192,8 +193,6 @@ private:
     frc2::PIDController                 *rightController;
     frc::RamseteController              *ramseteController;
 
-    bool m_isQuickTurn = false;
-
     ///////////////////////////////////////////////////////////////////////////
 
     void ConfigFileLoad(void);
@@ -250,6 +249,7 @@ public:
     void FaultDump(void);
 
     void BumpRampRate(bool bumpUp);
+    void MoveSetQuickTurn(bool quickTurn);
     void MoveShiftGears(bool lowGear);
     void MoveSpin(bool spinRight);
     void MoveStop();
