@@ -21,7 +21,10 @@
 
 #include "Constants.h"
 
-class DriveSubsystem : public frc2::SubsystemBase {
+// JLM: Some of this is already in our Drivetrain subsystem
+// and the rest of the prototypes need to be ported in
+class DriveSubsystem : public frc2::SubsystemBase
+{
  public:
   DriveSubsystem();
 
@@ -105,7 +108,6 @@ class DriveSubsystem : public frc2::SubsystemBase {
 
   double GetDistance(WPI_TalonSRX *talon);
 
-
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
@@ -115,10 +117,10 @@ class DriveSubsystem : public frc2::SubsystemBase {
   WPI_TalonSRX m_talon_right4;
 
   // The motors on the left side of the drive
-  frc::SpeedControllerGroup m_leftMotors{m_talon_left1, m_talon_left2};
+  frc::SpeedControllerGroup m_leftMotors {m_talon_left1, m_talon_left2};
 
   // The motors on the right side of the drive
-  frc::SpeedControllerGroup m_rightMotors{m_talon_right3, m_talon_right4};
+  frc::SpeedControllerGroup m_rightMotors {m_talon_right3, m_talon_right4};
 
   // The robot's drive
   frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};
@@ -129,9 +131,9 @@ class DriveSubsystem : public frc2::SubsystemBase {
   // Odometry class for tracking robot pose
   frc::DifferentialDriveOdometry m_odometry;
 
-  // double CountsToMeters(int counts);
+  double CountsToMeters(int counts);
 
-  const double WHEEL_DIA_METERS = 0.5;
-  const double m_circumMeters = (WHEEL_DIA_METERS * M_PI);
-  const double COUNTS_PER_ROTATION = (1024 * 4); //CPR is 4096
+  // const double WHEEL_DIA_METERS = 0.5;
+  // const double m_circumMeters = (WHEEL_DIA_METERS * M_PI);
+  // const double COUNTS_PER_ROTATION = (1024 * 4); //CPR is 4096
 };

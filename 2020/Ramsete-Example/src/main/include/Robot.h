@@ -15,7 +15,8 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "frc/smartdashboard/SendableChooser.h"
 
-class Robot : public frc::TimedRobot {
+class Robot : public frc::TimedRobot
+{
  public:
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -32,7 +33,9 @@ class Robot : public frc::TimedRobot {
  private:
   // Have it null by default so that if testing teleop it
   // doesn't have undefined behavior and potentially crash.
+  // JLM: this should already be in our Robot.h file
   frc2::Command* m_autonomousCommand = nullptr;
 
+  // JLM: We don't need a RobotContainer object
   RobotContainer m_container;
 };
