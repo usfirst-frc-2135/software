@@ -137,7 +137,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: &id013 [CANID]
-          value: '5'
+          value: '6'
       Base: Talon SRX
       Name: Motor IN6
     - Children: []
