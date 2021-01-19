@@ -28,12 +28,6 @@ Children:
         Base: Talon FX
         Name: Motor R3
       Properties:
-        Left Motor Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Left Motor Inverted, validators: null, value: false}
-        Right Motor Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Right Motor Inverted, validators: null, value: false}
-        Sensitivity: !!robotbuilder.data.properties.DoubleProperty {default: 0.5,
-          name: Sensitivity, validators: null, value: 0.5}
         Right Motor: !!robotbuilder.data.properties.ChildSelectionProperty
           default: 1
           name: Right Motor
@@ -52,8 +46,8 @@ Children:
           name: Safety Expiration Time, validators: null, value: 0.1}
         Safety Enabled: !!robotbuilder.data.properties.BooleanProperty {default: true,
           name: Safety Enabled, validators: null, value: true}
-      Base: Robot Drive 2
-      Name: Robot Drive 2
+      Base: Differential Drive
+      Name: Diff Drive
     - Children: []
       Properties:
         CAN ID: !!robotbuilder.data.properties.ChoicesProperty
@@ -143,7 +137,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: &id013 [CANID]
-          value: '5'
+          value: '6'
       Base: Talon SRX
       Name: Motor IN6
     - Children: []
@@ -552,9 +546,9 @@ Properties:
       Number, validators: null, value: 2135}
   Export Subsystems: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Subsystems, validators: null, value: true}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /Users/Naina/,
-    extension: null, folder: true, name: Wiring file location, validators: null, value: /Users/Naina}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: /Users/Naina/FRCProjects,
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /Users/jeffmullins/,
+    extension: null, folder: true, name: Wiring file location, validators: null, value: ./}
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: /Users/jeffmullins/FRCProjects,
     extension: null, folder: true, name: Export Directory, validators: null, value: ./}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
