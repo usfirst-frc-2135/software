@@ -26,7 +26,15 @@ SetName("Vision");
 void Vision::Periodic()
 {
     // Put code here to be run every loop
+    m_targetOffsetAngle_Horizontal = table->GetNumber("tx", 0.0);
+    m_targetOffsetAngle_Vertical = table->GetNumber("ty", 0.0);
+    m_targetArea = table->GetNumber("ta", 0.0);
+    m_targetSkew = table->GetNumber ("ts", 0.0);
 
+    frc::SmartDashboard::PutNumber("VI_HORZ_OFFSET_ANGLE", m_targetOffsetAngle_Horizontal);
+    frc::SmartDashboard::PutNumber("VI_VERT_OFFSET_ANGLE", m_targetOffsetAngle_Vertical);
+    frc::SmartDashboard::PutNumber("VI_TARGET_AREA", m_targetArea);
+    frc::SmartDashboard::PutNumber("VI_TARGET_SKEW", m_targetSkew);
 }
 
 void Vision::SimulationPeriodic()
@@ -42,3 +50,24 @@ void Vision::SimulationPeriodic()
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+void Vision::Initialize(void)
+{
+    std::printf("2135: VI Init\n");
+}
+
+double Vision::GetHorizOffset() {
+    return m_targetOffsetAngle_Horizontal;
+}
+
+double Vision::GetVertOffset() {
+    return m_targetOffsetAngle_Vertical;
+}
+
+double Vision::GetTargetArea() {
+    return m_targetArea;
+}
+
+double Vision::GetTargetSkew() {
+    return m_targetSkew;
+}
