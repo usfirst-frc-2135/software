@@ -13,7 +13,9 @@
 
 #include "commands/DriveShift.h"
 
-DriveShift::DriveShift(){
+DriveShift::DriveShift(bool gearSetting) :
+    m_gearSetting(gearSetting)
+{
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());

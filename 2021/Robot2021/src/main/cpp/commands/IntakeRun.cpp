@@ -13,7 +13,9 @@
 
 #include "commands/IntakeRun.h"
 
-IntakeRun::IntakeRun(){
+IntakeRun::IntakeRun(int intakeDirection) :
+    m_intakeDirection(intakeDirection)
+{
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());

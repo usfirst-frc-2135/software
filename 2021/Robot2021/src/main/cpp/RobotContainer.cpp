@@ -31,18 +31,28 @@ RobotContainer::RobotContainer() : m_autonomousCommand(
 
     // SmartDashboard Buttons
     frc::SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
-    frc::SmartDashboard::PutData("Climber Deploy", new ClimberDeploy( &m_dummy ));
-    frc::SmartDashboard::PutData("Climber Run", new ClimberRun());
-    frc::SmartDashboard::PutData("Conveyor Run", new ConveyorRun());
-    frc::SmartDashboard::PutData("Drive Mode Toggle", new DriveModeToggle( &m_dummy ));
+    frc::SmartDashboard::PutData("Climber Deploy: CLIMBER_STOW", new ClimberDeploy(false));
+    frc::SmartDashboard::PutData("Climber Deploy: CLIMBER_DEPLOY", new ClimberDeploy(true));
+    frc::SmartDashboard::PutData("Climber Run: CLIMBERDIR_UP", new ClimberRun(1));
+    frc::SmartDashboard::PutData("Climber Run: CLIMBERDIR_DOWN", new ClimberRun(-1));
+    frc::SmartDashboard::PutData("Climber Run: CLIMBERDIR_STOP", new ClimberRun(0));
+    frc::SmartDashboard::PutData("Conveyor Run: CONVEYORDIRECTION_STOP", new ConveyorRun(0));
+    frc::SmartDashboard::PutData("Conveyor Run: CONVEYORDIRECTION_UP", new ConveyorRun(1));
+    frc::SmartDashboard::PutData("Conveyor Run: CONVEYORDIRECTION_DOWN", new ConveyorRun(-1));
+    frc::SmartDashboard::PutData("Drive Mode Toggle", new DriveModeToggle());
     frc::SmartDashboard::PutData("Drive Quick Turn", new DriveQuickTurn());
-    frc::SmartDashboard::PutData("Drive Reset", new DriveReset( &m_dummy ));
-    frc::SmartDashboard::PutData("Drive Shift", new DriveShift());
-    frc::SmartDashboard::PutData("Drive Teleop", new DriveTeleop());
-    frc::SmartDashboard::PutData("Indexer Deploy", new IndexerDeploy( &m_dummy ));
-    frc::SmartDashboard::PutData("Intake Run", new IntakeRun());
-    frc::SmartDashboard::PutData("LED Set", new LEDSet( &m_dummy ));
-    frc::SmartDashboard::PutData("Shooter Run", new ShooterRun());
+    frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
+    frc::SmartDashboard::PutData("Drive Shift: GEARSETTING_LOW", new DriveShift(false));
+    frc::SmartDashboard::PutData("Drive Shift: GEARSETTING_HIGH", new DriveShift(true));
+    frc::SmartDashboard::PutData("Indexer Deploy: INDEXER_CLOSE", new IndexerDeploy(false));
+    frc::SmartDashboard::PutData("Indexer Deploy: INDEXER_OPEN", new IndexerDeploy(true));
+    frc::SmartDashboard::PutData("Intake Run: INTAKE_STOP", new IntakeRun(0));
+    frc::SmartDashboard::PutData("Intake Run: INTAKE_ACQUIRE", new IntakeRun(1));
+    frc::SmartDashboard::PutData("Intake Run: INTAKE_EXPEL", new IntakeRun(-1));
+    frc::SmartDashboard::PutData("LED Set", new LEDSet());
+    frc::SmartDashboard::PutData("Shooter Run: SHOOTERSPEED_REVERSE", new ShooterRun(-1));
+    frc::SmartDashboard::PutData("Shooter Run: SHOOTERSPEED_STOP", new ShooterRun(0));
+    frc::SmartDashboard::PutData("Shooter Run: SHOOTERSPEED_FORWARD", new ShooterRun(1));
     frc::SmartDashboard::PutData("Spin Color", new SpinColor());
     frc::SmartDashboard::PutData("Spin Rotation", new SpinRotation());
 

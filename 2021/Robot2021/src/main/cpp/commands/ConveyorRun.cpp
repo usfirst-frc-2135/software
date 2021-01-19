@@ -13,7 +13,9 @@
 
 #include "commands/ConveyorRun.h"
 
-ConveyorRun::ConveyorRun(){
+ConveyorRun::ConveyorRun(int conveyorDirection) :
+    m_conveyorDirection(conveyorDirection)
+{
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());

@@ -13,7 +13,9 @@
 
 #include "commands/ShooterRun.h"
 
-ShooterRun::ShooterRun(){
+ShooterRun::ShooterRun(int shooterSpeed) :
+    m_shooterSpeed(shooterSpeed)
+{
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());

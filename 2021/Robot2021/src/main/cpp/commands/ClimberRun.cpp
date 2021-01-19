@@ -13,7 +13,9 @@
 
 #include "commands/ClimberRun.h"
 
-ClimberRun::ClimberRun(){
+ClimberRun::ClimberRun(int climberDirection) :
+    m_climberDirection(climberDirection)
+{
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());
