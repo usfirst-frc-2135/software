@@ -48,6 +48,7 @@
 #include "commands/DriveShift.h"
 #include "commands/DriveTeleop.h"
 #include "commands/IndexerDeploy.h"
+#include "commands/IntakeDeploy.h"
 #include "commands/IntakeRun.h"
 #include "commands/LEDSet.h"
 #include "commands/ShooterRun.h"
