@@ -79,7 +79,7 @@ private:
 
     // Drivetrain constants
     const double    kWheelDiaInches = 6.0;          // Measured wheel diameter
-    const int       kEncoderCPR = (1024 * 4);       // CPR is 1024 and multiplied by 4 since quadrature
+    const int       kEncoderCPR = 2048;       // CPR is 2048 for new TalonFX
     const foot_t    kTrackWidthFeet = 2.125_ft;     // Measured track width
 
     // Derived values
