@@ -29,7 +29,8 @@ m_shooter(m_shooter)
 
 // Called just before this Command runs the first time
 void ShooterRun::Initialize() {
-
+    std::printf("2135: ShooterRun - Init [%d]\n", m_shooterSpeed);
+    m_shooter->SetShooterSpeedInit(m_shooterSpeed);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -44,7 +45,7 @@ bool ShooterRun::IsFinished() {
 
 // Called once after isFinished returns true
 void ShooterRun::End(bool interrupted) {
-
+    std::printf("2135: ShooterRun - End\n");
 }
 
 bool ShooterRun::RunsWhenDisabled() const {
