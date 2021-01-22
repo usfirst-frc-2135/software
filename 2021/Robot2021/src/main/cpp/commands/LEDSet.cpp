@@ -27,7 +27,8 @@ LEDSet::LEDSet(Led* m_led)
 
 // Called just before this Command runs the first time
 void LEDSet::Initialize() {
-
+    std::printf("2135: LedSet - Init (%d)\n", Led::LEDSOURCE_COMMAND);
+    m_led->DisplayColor(Led::LEDSOURCE_COMMAND, true);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -42,7 +43,8 @@ bool LEDSet::IsFinished() {
 
 // Called once after isFinished returns true
 void LEDSet::End(bool interrupted) {
-
+    std::printf("2135: LedSet - End \n");
+    m_led->DisplayColor(Led::LEDSOURCE_COMMAND, false);
 }
 
 bool LEDSet::RunsWhenDisabled() const {
