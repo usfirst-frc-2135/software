@@ -29,7 +29,8 @@ m_shooter(m_shooter)
 
 // Called just before this Command runs the first time
 void IndexerDeploy::Initialize() {
-
+    std::printf("2135: IndexerDeploy - Init (%d)\n", m_indexer);
+    m_shooter->IndexerDeploy(m_indexer);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -39,12 +40,12 @@ void IndexerDeploy::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool IndexerDeploy::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
 void IndexerDeploy::End(bool interrupted) {
-
+    std::printf("2135: IndexerDeploy - End\n");
 }
 
 bool IndexerDeploy::RunsWhenDisabled() const {
