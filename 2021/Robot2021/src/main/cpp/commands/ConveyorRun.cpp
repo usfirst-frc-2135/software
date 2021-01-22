@@ -45,7 +45,8 @@ bool ConveyorRun::IsFinished() {
 
 // Called once after isFinished returns true
 void ConveyorRun::End(bool interrupted) {
-
+    std::printf("2135: ConveyorRun - End (%d)\n", m_conveyorDirection);
+    m_conveyor->SetConveyorMotorSpeed(m_conveyorDirection);
 }
 
 bool ConveyorRun::RunsWhenDisabled() const {
