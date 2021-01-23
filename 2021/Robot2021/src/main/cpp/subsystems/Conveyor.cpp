@@ -49,7 +49,6 @@ Conveyor::Conveyor()
     }
 }
 
-
 void Conveyor::Periodic()
 {
 
