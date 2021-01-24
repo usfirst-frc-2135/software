@@ -27,12 +27,13 @@ SpinRotation::SpinRotation(Spinner* m_spinner)
 
 // Called just before this Command runs the first time
 void SpinRotation::Initialize() {
-
+    std::printf("2135: SpinRotation - Init\n");
+    m_spinner->ControlRotationInit();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void SpinRotation::Execute() {
-
+    m_spinner->ControlRotationExecute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -42,7 +43,8 @@ bool SpinRotation::IsFinished() {
 
 // Called once after isFinished returns true
 void SpinRotation::End(bool interrupted) {
-
+    std::printf("2135: SpinRotation - End\n");
+    m_spinner->ControlRotationEnd();
 }
 
 bool SpinRotation::RunsWhenDisabled() const {
