@@ -27,11 +27,12 @@ DriveTeleop::DriveTeleop(Drivetrain* m_drivetrain)
 
 // Called just before this Command runs the first time
 void DriveTeleop::Initialize() {
-
+    std::printf("2135: DriveTeleop - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveTeleop::Execute() {
+    // m_drivetrain->MoveWithJoysticks(m_oi->getDStick());
 
 }
 
@@ -42,7 +43,7 @@ bool DriveTeleop::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveTeleop::End(bool interrupted) {
-
+    std::printf("2135: DriveTeleop - End\n");
 }
 
 bool DriveTeleop::RunsWhenDisabled() const {
