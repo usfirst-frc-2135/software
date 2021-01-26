@@ -8,7 +8,6 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 #include <frc/util/Color.h>
 #include <frc2135/TalonUtils.h>
 
