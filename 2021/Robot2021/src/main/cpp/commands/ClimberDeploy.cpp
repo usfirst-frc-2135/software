@@ -29,7 +29,8 @@ m_climber(m_climber)
 // Called just before this Command runs the first time
 void ClimberDeploy::Initialize()
 {
-
+    std::printf("2135: ClimberDeploy - Init (%d)\n", m_climberDeploy);
+    m_climber->DeployClimber(m_climberDeploy);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -47,7 +48,7 @@ bool ClimberDeploy::IsFinished()
 // Called once after isFinished returns true
 void ClimberDeploy::End(bool interrupted)
 {
-
+    std::printf("2135: ClimberDeploy - End\n");
 }
 
 bool ClimberDeploy::RunsWhenDisabled() const
