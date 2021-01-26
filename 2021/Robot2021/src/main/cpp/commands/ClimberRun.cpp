@@ -29,7 +29,8 @@ m_climber(m_climber)
 // Called just before this Command runs the first time
 void ClimberRun::Initialize()
 {
-
+    std::printf("2135: ClimberRun - Init (%d)\n", m_climberDirection);
+    m_climber->SetClimberMotorOutput(m_climberDirection);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -47,7 +48,7 @@ bool ClimberRun::IsFinished()
 // Called once after isFinished returns true
 void ClimberRun::End(bool interrupted)
 {
-
+    std::printf("2135: ClimberRun - End\n");
 }
 
 bool ClimberRun::RunsWhenDisabled() const

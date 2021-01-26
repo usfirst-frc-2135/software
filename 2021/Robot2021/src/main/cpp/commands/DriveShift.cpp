@@ -29,7 +29,8 @@ m_drivetrain(m_drivetrain)
 // Called just before this Command runs the first time
 void DriveShift::Initialize()
 {
-
+    std::printf("2135: DriveShift - Init (%d)\n", m_gearSetting);
+    m_drivetrain->MoveShiftGears(m_gearSetting);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -47,7 +48,8 @@ bool DriveShift::IsFinished()
 // Called once after isFinished returns true
 void DriveShift::End(bool interrupted)
 {
-
+    std::printf("2135: DriveShift - End (%d)\n", !m_gearSetting);
+    m_drivetrain->MoveShiftGears(!m_gearSetting);
 }
 
 bool DriveShift::RunsWhenDisabled() const

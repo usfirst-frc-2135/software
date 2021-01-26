@@ -25,9 +25,9 @@ DriveQuickTurn::DriveQuickTurn(Drivetrain* m_drivetrain)
 }
 
 // Called just before this Command runs the first time
-void DriveQuickTurn::Initialize()
-{
-
+void DriveQuickTurn::Initialize() {
+    std::printf("2135: DriveQuickTurn - Init\n");
+    m_drivetrain->MoveSetQuickTurn(true);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -43,9 +43,9 @@ bool DriveQuickTurn::IsFinished()
 }
 
 // Called once after isFinished returns true
-void DriveQuickTurn::End(bool interrupted)
-{
-
+void DriveQuickTurn::End(bool interrupted) {
+    std::printf("2135: DriveQuickTurn - End\n");
+    m_drivetrain->MoveSetQuickTurn(false);
 }
 
 bool DriveQuickTurn::RunsWhenDisabled() const
