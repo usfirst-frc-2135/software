@@ -634,13 +634,13 @@ void Drivetrain::MoveStop()
 
 // TODO: Adjust method to work without shared pointer Joystick
 
-/* void Drivetrain::MoveWithJoysticks(std::shared_ptr<frc::Joystick> throttleJstick)
+void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
 {
     double xValue = 0.0;
     double yValue = 0.0;
 
-    xValue = throttleJstick.GetX();
-    yValue = throttleJstick.GetZ();
+    xValue = throttleJstick->GetX(frc::GenericHID::JoystickHand::kRightHand);
+    yValue = throttleJstick->GetY(frc::GenericHID::JoystickHand::kLeftHand);
 
     xValue *= m_driveXScaling;
     if (!m_lowGear)
@@ -667,11 +667,11 @@ void Drivetrain::MoveStop()
     {
     default:
     case DRIVEMODE_ARCADE:
-        diffDrive.ArcadeDrive(-yValue, xValue, true);
+        m_diffDrive.ArcadeDrive(-yValue, xValue, true);
         break;
 
     case DRIVEMODE_CURVATURE:
-        diffDrive.CurvatureDrive(-yValue, xValue, m_isQuickTurn); // Boolean is for quick turn or not
+        m_diffDrive.CurvatureDrive(-yValue, xValue, m_isQuickTurn); // Boolean is for quick turn or not
         break;
 
     case DRIVEMODE_VELCONTROL:
@@ -686,7 +686,7 @@ void Drivetrain::MoveStop()
         VelocityCLDrive(m_kinematics.ToWheelSpeeds({ySpeed, 0_fps, rot}));
         break;
     }
-} */
+}
 
 void Drivetrain::ToggleDriveMode()
 {

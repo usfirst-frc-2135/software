@@ -16,6 +16,7 @@
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
 #include <frc/trajectory/Trajectory.h>
+#include <frc/XboxController.h>
 #include <units/angle.h>
 #include <units/length.h>
 #include <units/velocity.h>
@@ -250,7 +251,7 @@ public:
     void MoveShiftGears(bool lowGear);
     void MoveSpin(bool spinRight);
     void MoveStop();
-    //void MoveWithJoysticks(std::shared_ptr<frc::Joystick>);
+    void MoveWithJoysticks(frc::XboxController *driverPad);
     void ToggleDriveMode();
 
     // Autonomous - Driving to a distance using Motion Magic
