@@ -262,7 +262,7 @@ public:
 
     // Autonomous - Aligning with Target Using Vision Processing
     void MoveAlignTurnInit(void);
-    //void MoveAlignTurnExecute(std::shared_ptr<frc::Joystick>);
+    void MoveAlignTurnExecute(frc::XboxController *throttleJstick);
     bool MoveAlignTurnIsFinished(void);
     void MoveAlignTurnEnd(void);
 

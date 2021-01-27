@@ -122,11 +122,11 @@ m_dtQuickTurn.WhenPressed(DriveQuickTurn( &m_drivetrain ), true);
     //dtQuickTurn is LeftBumper
 
     //not defined in RobotBuilder
-// frc2::JoystickButton m_dtShiftSpeed{&m_driverPad, };
+frc2::JoystickButton m_dtShiftSpeed{&m_driverPad, 1};
 // frc2::JoystickButton m_inDeploy{&m_operatorPad, };
 // frc2::JoystickButton m_inStow{&m_operatorPad, };
 
-// m_dtShiftSpeed.WhileHeld(DriveShift(false, &m_drivetrain), true);
+m_dtShiftSpeed.WhileHeld(DriveShift(false, &m_drivetrain), true);
 // m_dtShiftSpeed.WhenPressed(IntakeDeploy(false, &m_intake), true);
 // m_dtShiftSpeed.WhenPressed(IntakeDeploy(false, &m_intake), true);
 
