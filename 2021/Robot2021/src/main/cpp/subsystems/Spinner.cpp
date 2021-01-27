@@ -19,7 +19,7 @@
 
 Spinner::Spinner()
 {
-SetName("Spinner");
+    SetName("Spinner");
 
 #if 0   // TODO: Until we get a spinner mechanism installed
 
