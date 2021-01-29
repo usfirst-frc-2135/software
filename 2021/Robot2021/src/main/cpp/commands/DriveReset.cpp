@@ -29,6 +29,7 @@ DriveReset::DriveReset(Drivetrain* m_drivetrain)
 void DriveReset::Initialize()
 {
     std::printf("2135: DriveReset - Init\n");
+    m_drivetrain->ResetOdometry();
 }
 
 // Called repeatedly when this Command is scheduled to run

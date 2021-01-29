@@ -204,7 +204,6 @@ PigeonIMU m_pigeonIMU{0};
     void MoveSetBrakeMode(bool m_brakeMode);
 
     // Conversion Functions
-    void ResetSensors();
     double InchesToCounts(double inches);
     double CountsToInches(int counts);
 
@@ -246,6 +245,7 @@ public:
     void Initialize(void);
     void FaultDump(void);
 
+    void ResetSensors();
     void BumpRampRate(bool bumpUp);
     void MoveSetQuickTurn(bool quickTurn);
     void MoveShiftGears(bool lowGear);
