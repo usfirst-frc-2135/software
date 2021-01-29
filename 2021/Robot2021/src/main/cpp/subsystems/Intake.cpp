@@ -113,7 +113,7 @@ void Intake::Initialize(void)
     std::printf("2135: IN Init\n");
 
      if (m_talonValidIN6)
-        SetIntakeMotorDirection(INTAKE_STOP);
+        SetIntakeSpeed(INTAKE_STOP);
 }
 
 // Dump all Talon faults
@@ -123,7 +123,7 @@ void Intake::FaultDump(void)
 }
 
 // Set mode of intake
-void Intake::SetIntakeMotorDirection(int direction)
+void Intake::SetIntakeSpeed(int direction)
 {
     const char *strName;
     double output = 0.0;        // Default: off

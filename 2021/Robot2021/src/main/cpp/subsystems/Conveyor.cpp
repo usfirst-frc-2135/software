@@ -121,7 +121,7 @@ void Conveyor::FaultDump(void)
 }
 
 // Set mode of conveyor
-void Conveyor::SetConveyorMotorSpeed(int direction)
+void Conveyor::SetConveyorSpeed(int direction)
 {
     const char *strName;
     double outputCV = 0.0;         // Default: off

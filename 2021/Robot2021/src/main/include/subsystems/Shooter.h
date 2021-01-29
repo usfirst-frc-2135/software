@@ -102,6 +102,6 @@ public:
     void Initialize(void);
     void FaultDump(void);
 
-    void SetShooterSpeedInit(int speed);
+    void SetShooterSpeed(int speed);
     void IndexerDeploy(bool state);
 };

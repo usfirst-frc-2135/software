@@ -221,7 +221,7 @@ double Shooter::OutputToRpm(double output)
     return output * kFlywheelMaxRPM;
 }
 
-void Shooter::SetShooterSpeedInit(int level)
+void Shooter::SetShooterSpeed(int level)
 {
     double     curVelocityNative = 0.0;
 

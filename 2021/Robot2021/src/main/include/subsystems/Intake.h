@@ -67,6 +67,6 @@ public:
     void Initialize(void);
     void FaultDump(void);
 
-    void SetIntakeMotorDirection(int direction);
+    void SetIntakeSpeed(int direction);
     void SetDeployerSolenoid(bool extended);
 };

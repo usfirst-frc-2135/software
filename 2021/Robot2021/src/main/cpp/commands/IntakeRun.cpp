@@ -30,7 +30,7 @@ m_intake(m_intake)
 void IntakeRun::Initialize()
 {
     std::printf("2135: IntakeRun - Init (%d)\n", m_intakeDirection);
-    m_intake->SetIntakeMotorDirection(m_intakeDirection);
+    m_intake->SetIntakeSpeed(m_intakeDirection);
 }
 
 // Called repeatedly when this Command is scheduled to run
