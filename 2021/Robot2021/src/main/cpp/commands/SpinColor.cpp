@@ -15,8 +15,7 @@
 #include "commands/SpinColor.h"
 
 SpinColor::SpinColor(Spinner* m_spinner)
-:m_spinner(m_spinner)
-{
+:m_spinner(m_spinner){
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());

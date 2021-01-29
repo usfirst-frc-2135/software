@@ -15,8 +15,7 @@
 #include "commands/DriveAlignTurn.h"
 
 DriveAlignTurn::DriveAlignTurn(Drivetrain* m_drivetrain)
-:m_drivetrain(m_drivetrain)
-{
+:m_drivetrain(m_drivetrain){
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());

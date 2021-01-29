@@ -13,8 +13,7 @@
 #include "commands/DriveModeToggle.h"
 
 DriveModeToggle::DriveModeToggle(Drivetrain* m_drivetrain)
-:m_drivetrain(m_drivetrain)
-{
+:m_drivetrain(m_drivetrain){
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());

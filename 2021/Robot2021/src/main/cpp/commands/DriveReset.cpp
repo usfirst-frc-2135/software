@@ -13,8 +13,7 @@
 #include "commands/DriveReset.h"
 
 DriveReset::DriveReset(Drivetrain* m_drivetrain)
-:m_drivetrain(m_drivetrain)
-{
+:m_drivetrain(m_drivetrain){
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());
@@ -29,7 +28,7 @@ DriveReset::DriveReset(Drivetrain* m_drivetrain)
 void DriveReset::Initialize()
 {
     std::printf("2135: DriveReset - Init\n");
-    m_drivetrain->ResetOdometry();
+    m_drivetrain->ResetSensors();
 }
 
 // Called repeatedly when this Command is scheduled to run

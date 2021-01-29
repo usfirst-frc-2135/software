@@ -13,8 +13,7 @@
 #include "commands/SpinRotation.h"
 
 SpinRotation::SpinRotation(Spinner* m_spinner)
-:m_spinner(m_spinner)
-{
+:m_spinner(m_spinner){
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());

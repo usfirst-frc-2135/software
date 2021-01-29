@@ -14,8 +14,7 @@
 #include "commands/AutoShootDrive.h"
 
 AutoShootDrive::AutoShootDrive(Shooter* m_shooter)
-:m_shooter(m_shooter)
-{
+:m_shooter(m_shooter){
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());
