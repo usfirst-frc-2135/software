@@ -27,12 +27,12 @@ AutoDriveStop::AutoDriveStop(Drivetrain* m_drivetrain)
 
 // Called just before this Command runs the first time
 void AutoDriveStop::Initialize() {
-
+    std::printf("2135: AutoDriveStop - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveStop::Execute() {
-
+    m_drivetrain->MoveStop();
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -42,7 +42,7 @@ bool AutoDriveStop::IsFinished() {
 
 // Called once after isFinished returns true
 void AutoDriveStop::End(bool interrupted) {
-
+    std::printf("2135: AutoDriveStop - End\n");
 }
 
 bool AutoDriveStop::RunsWhenDisabled() const {

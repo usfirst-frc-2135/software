@@ -29,12 +29,13 @@ m_drivetrain(m_drivetrain)
 
 // Called just before this Command runs the first time
 void AutoDriveDist::Initialize() {
-
+    std::printf("2135: AutoDriveDist - Init %5.2f inches\n", m_distance);
+    m_drivetrain->MoveDriveDistanceMMInit(m_distance);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveDist::Execute() {
-
+    m_drivetrain->MoveDriveDistanceMMExecute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -44,7 +45,8 @@ bool AutoDriveDist::IsFinished() {
 
 // Called once after isFinished returns true
 void AutoDriveDist::End(bool interrupted) {
-
+    std::printf("2135: AutoDriveDist - End\n");
+    m_drivetrain->MoveDriveDistanceMMEnd();
 }
 
 bool AutoDriveDist::RunsWhenDisabled() const {
