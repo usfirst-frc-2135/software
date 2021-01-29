@@ -151,3 +151,11 @@ void Intake::SetIntakeMotorDirection(int direction)
     if (m_talonValidIN6)
         m_motorIN6.Set(ControlMode::PercentOutput, output);
 }
+
+void Intake::SetDeployerSolenoid(bool extended)
+{
+    std::printf("2135: IN %s \n", (extended) ? "EXTENDED" : "NOT EXTENDED");
+    frc::SmartDashboard::PutBoolean("IN POSITION", extended);
+
+    m_position.Set((extended) ? m_position.kForward : m_position.kReverse);
+}

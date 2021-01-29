@@ -30,6 +30,7 @@ m_intake(m_intake)
 void IntakeDeploy::Initialize()
 {
     std::printf("2135: IntakeDeploy - Init\n");
+    m_intake->SetDeployerSolenoid(m_intakeDeploy);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -41,7 +42,7 @@ void IntakeDeploy::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool IntakeDeploy::IsFinished()
 {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
