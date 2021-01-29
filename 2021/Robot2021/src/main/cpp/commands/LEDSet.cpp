@@ -13,7 +13,8 @@
 #include "commands/LEDSet.h"
 
 LEDSet::LEDSet(Led* m_led)
-:m_led(m_led){
+:m_led(m_led)
+{
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());

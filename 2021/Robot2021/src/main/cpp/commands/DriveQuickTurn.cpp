@@ -13,7 +13,8 @@
 #include "commands/DriveQuickTurn.h"
 
 DriveQuickTurn::DriveQuickTurn(Drivetrain* m_drivetrain)
-:m_drivetrain(m_drivetrain){
+:m_drivetrain(m_drivetrain)
+{
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());
@@ -25,7 +26,8 @@ DriveQuickTurn::DriveQuickTurn(Drivetrain* m_drivetrain)
 }
 
 // Called just before this Command runs the first time
-void DriveQuickTurn::Initialize() {
+void DriveQuickTurn::Initialize()
+{
     std::printf("2135: DriveQuickTurn - Init\n");
     m_drivetrain->MoveSetQuickTurn(true);
 }
@@ -43,7 +45,8 @@ bool DriveQuickTurn::IsFinished()
 }
 
 // Called once after isFinished returns true
-void DriveQuickTurn::End(bool interrupted) {
+void DriveQuickTurn::End(bool interrupted)
+{
     std::printf("2135: DriveQuickTurn - End\n");
     m_drivetrain->MoveSetQuickTurn(false);
 }

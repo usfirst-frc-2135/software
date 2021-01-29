@@ -13,7 +13,8 @@
 #include "commands/DriveReset.h"
 
 DriveReset::DriveReset(Drivetrain* m_drivetrain)
-:m_drivetrain(m_drivetrain){
+:m_drivetrain(m_drivetrain)
+{
 
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(Robot::chassis.get());
