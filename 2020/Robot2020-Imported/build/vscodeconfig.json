@@ -1,0 +1,393 @@
+[
+  {
+    "name": "linuxathena",
+    "architecture": "arm-v7",
+    "operatingSystem": "linux",
+    "flavor": "default",
+    "buildType": "debug",
+    "cppPath": "C:\\Users\\Public\\wpilib\\2021\\roborio\\bin\\arm-frc2021-linux-gnueabi-g++.exe",
+    "cPath": "C:\\Users\\Public\\wpilib\\2021\\roborio\\bin\\arm-frc2021-linux-gnueabi-gcc.exe",
+    "msvc": false,
+    "gcc": true,
+    "systemCppMacros": [],
+    "systemCppArgs": [],
+    "systemCMacros": [],
+    "systemCArgs": [],
+    "allLibFiles": [
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\0c674801e74ab5d08e79492868fe1ef8\\wpilibOldCommands-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\5e6342d5fcf83a0fe52f448cd4c4b919\\wpilibc-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\aa48f1167224d7408f733f6df7fa775a\\ntcore-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\e24954c07aaf73a889338959f163e740\\hal-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\8a8355574aa3424e2f2261e35f67eaa9\\wpiutil-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\49c76e39ce37096dd83f355a544a562a\\wpimath-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\4b6192c384cf8473a9d086e6adb4b937\\chipobject-2020.10.1-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\cd1da3a238ebc04371ef638a62a8c4a8\\netcomm-2020.10.1-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\cca00724dbd9d228d2bdefb7d7faaa8d\\visa-2020.10.1-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\40984598c2d1cf0ef50e598634bf90a1\\cameraserver-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\66ab2e64df6b4978dada20083dd4db6a\\cscore-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\67a79c1c661a84cbc99042d108434bbc\\opencv-cpp-3.4.7-5-headers\\",
+      "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\include\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\529f6ddbe69e7e04239025dad335e45d\\wpilibOldCommands-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\fa8a7738c861f717726236028d8ba2e3\\wpilibc-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\d0991808f0c2c464d7deaa3807967034\\ntcore-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\f1403597e95c92f0cd56a6e537b521a8\\hal-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\f8ccf676e80c96b5d4c15e376f41075a\\wpiutil-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\5ab47bf44ee9d8b8f32ff18d2259d866\\wpimath-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\01ca7cc73a4481e2777c76665f949234\\cameraserver-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\9473ed0d14be75ecd72f776cfa9e7b93\\cscore-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\c16b0dc01f031b98b7869bbe788c74e4\\opencv-cpp-3.4.7-5-sources\\"
+    ],
+    "allLibSources": [
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\529f6ddbe69e7e04239025dad335e45d\\wpilibOldCommands-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\fa8a7738c861f717726236028d8ba2e3\\wpilibc-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\d0991808f0c2c464d7deaa3807967034\\ntcore-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\f1403597e95c92f0cd56a6e537b521a8\\hal-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\f8ccf676e80c96b5d4c15e376f41075a\\wpiutil-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\5ab47bf44ee9d8b8f32ff18d2259d866\\wpimath-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\01ca7cc73a4481e2777c76665f949234\\cameraserver-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\9473ed0d14be75ecd72f776cfa9e7b93\\cscore-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\c16b0dc01f031b98b7869bbe788c74e4\\opencv-cpp-3.4.7-5-sources\\"
+    ],
+    "allLibHeaders": [
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\0c674801e74ab5d08e79492868fe1ef8\\wpilibOldCommands-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\5e6342d5fcf83a0fe52f448cd4c4b919\\wpilibc-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\aa48f1167224d7408f733f6df7fa775a\\ntcore-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\e24954c07aaf73a889338959f163e740\\hal-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\8a8355574aa3424e2f2261e35f67eaa9\\wpiutil-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\49c76e39ce37096dd83f355a544a562a\\wpimath-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\4b6192c384cf8473a9d086e6adb4b937\\chipobject-2020.10.1-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\cd1da3a238ebc04371ef638a62a8c4a8\\netcomm-2020.10.1-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\cca00724dbd9d228d2bdefb7d7faaa8d\\visa-2020.10.1-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\40984598c2d1cf0ef50e598634bf90a1\\cameraserver-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\66ab2e64df6b4978dada20083dd4db6a\\cscore-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\67a79c1c661a84cbc99042d108434bbc\\opencv-cpp-3.4.7-5-headers\\",
+      "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\include\\"
+    ],
+    "binaries": [
+      {
+        "componentName": "frcUserProgram",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\cpp\\"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\include\\"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-Wall",
+              "-Wextra",
+              "-std=c++17",
+              "-Wformat=2",
+              "-pedantic",
+              "-Wno-psabi",
+              "-Wno-unused-parameter",
+              "-Wno-error=deprecated-declarations",
+              "-fPIC",
+              "-rdynamic",
+              "-pthread",
+              "-Og",
+              "-g"
+            ],
+            "macros": []
+          }
+        ],
+        "libHeaders": [
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\0c674801e74ab5d08e79492868fe1ef8\\wpilibOldCommands-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\5e6342d5fcf83a0fe52f448cd4c4b919\\wpilibc-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\aa48f1167224d7408f733f6df7fa775a\\ntcore-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\e24954c07aaf73a889338959f163e740\\hal-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\8a8355574aa3424e2f2261e35f67eaa9\\wpiutil-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\49c76e39ce37096dd83f355a544a562a\\wpimath-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\4b6192c384cf8473a9d086e6adb4b937\\chipobject-2020.10.1-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\cd1da3a238ebc04371ef638a62a8c4a8\\netcomm-2020.10.1-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\cca00724dbd9d228d2bdefb7d7faaa8d\\visa-2020.10.1-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\40984598c2d1cf0ef50e598634bf90a1\\cameraserver-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\66ab2e64df6b4978dada20083dd4db6a\\cscore-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\67a79c1c661a84cbc99042d108434bbc\\opencv-cpp-3.4.7-5-headers\\",
+          "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\include\\"
+        ],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "sourceBinaries": [
+      {
+        "source": {
+          "srcDirs": [
+            "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\cpp\\"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-Og",
+          "-g"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\include\\"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-Og",
+          "-g"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "nameBinaryMap": {
+      "frcUserProgram": 0
+    }
+  },
+  {
+    "name": "linuxathena",
+    "architecture": "arm-v7",
+    "operatingSystem": "linux",
+    "flavor": "default",
+    "buildType": "release",
+    "cppPath": "C:\\Users\\Public\\wpilib\\2021\\roborio\\bin\\arm-frc2021-linux-gnueabi-g++.exe",
+    "cPath": "C:\\Users\\Public\\wpilib\\2021\\roborio\\bin\\arm-frc2021-linux-gnueabi-gcc.exe",
+    "msvc": false,
+    "gcc": true,
+    "systemCppMacros": [],
+    "systemCppArgs": [],
+    "systemCMacros": [],
+    "systemCArgs": [],
+    "allLibFiles": [
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\0c674801e74ab5d08e79492868fe1ef8\\wpilibOldCommands-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\5e6342d5fcf83a0fe52f448cd4c4b919\\wpilibc-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\aa48f1167224d7408f733f6df7fa775a\\ntcore-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\e24954c07aaf73a889338959f163e740\\hal-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\8a8355574aa3424e2f2261e35f67eaa9\\wpiutil-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\49c76e39ce37096dd83f355a544a562a\\wpimath-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\4b6192c384cf8473a9d086e6adb4b937\\chipobject-2020.10.1-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\cd1da3a238ebc04371ef638a62a8c4a8\\netcomm-2020.10.1-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\cca00724dbd9d228d2bdefb7d7faaa8d\\visa-2020.10.1-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\40984598c2d1cf0ef50e598634bf90a1\\cameraserver-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\66ab2e64df6b4978dada20083dd4db6a\\cscore-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\67a79c1c661a84cbc99042d108434bbc\\opencv-cpp-3.4.7-5-headers\\",
+      "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\include\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\529f6ddbe69e7e04239025dad335e45d\\wpilibOldCommands-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\fa8a7738c861f717726236028d8ba2e3\\wpilibc-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\d0991808f0c2c464d7deaa3807967034\\ntcore-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\f1403597e95c92f0cd56a6e537b521a8\\hal-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\f8ccf676e80c96b5d4c15e376f41075a\\wpiutil-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\5ab47bf44ee9d8b8f32ff18d2259d866\\wpimath-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\01ca7cc73a4481e2777c76665f949234\\cameraserver-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\9473ed0d14be75ecd72f776cfa9e7b93\\cscore-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\c16b0dc01f031b98b7869bbe788c74e4\\opencv-cpp-3.4.7-5-sources\\"
+    ],
+    "allLibSources": [
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\529f6ddbe69e7e04239025dad335e45d\\wpilibOldCommands-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\fa8a7738c861f717726236028d8ba2e3\\wpilibc-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\d0991808f0c2c464d7deaa3807967034\\ntcore-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\f1403597e95c92f0cd56a6e537b521a8\\hal-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\f8ccf676e80c96b5d4c15e376f41075a\\wpiutil-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\5ab47bf44ee9d8b8f32ff18d2259d866\\wpimath-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\01ca7cc73a4481e2777c76665f949234\\cameraserver-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\9473ed0d14be75ecd72f776cfa9e7b93\\cscore-cpp-2021.1.1-beta-2-sources\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\c16b0dc01f031b98b7869bbe788c74e4\\opencv-cpp-3.4.7-5-sources\\"
+    ],
+    "allLibHeaders": [
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\0c674801e74ab5d08e79492868fe1ef8\\wpilibOldCommands-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\5e6342d5fcf83a0fe52f448cd4c4b919\\wpilibc-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\aa48f1167224d7408f733f6df7fa775a\\ntcore-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\e24954c07aaf73a889338959f163e740\\hal-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\8a8355574aa3424e2f2261e35f67eaa9\\wpiutil-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\49c76e39ce37096dd83f355a544a562a\\wpimath-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\4b6192c384cf8473a9d086e6adb4b937\\chipobject-2020.10.1-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\cd1da3a238ebc04371ef638a62a8c4a8\\netcomm-2020.10.1-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\cca00724dbd9d228d2bdefb7d7faaa8d\\visa-2020.10.1-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\40984598c2d1cf0ef50e598634bf90a1\\cameraserver-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\66ab2e64df6b4978dada20083dd4db6a\\cscore-cpp-2021.1.1-beta-2-headers\\",
+      "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\67a79c1c661a84cbc99042d108434bbc\\opencv-cpp-3.4.7-5-headers\\",
+      "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\include\\"
+    ],
+    "binaries": [
+      {
+        "componentName": "frcUserProgram",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\cpp\\"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\include\\"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-Wall",
+              "-Wextra",
+              "-std=c++17",
+              "-Wformat=2",
+              "-pedantic",
+              "-Wno-psabi",
+              "-Wno-unused-parameter",
+              "-Wno-error=deprecated-declarations",
+              "-fPIC",
+              "-rdynamic",
+              "-pthread",
+              "-O2"
+            ],
+            "macros": []
+          }
+        ],
+        "libHeaders": [
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\0c674801e74ab5d08e79492868fe1ef8\\wpilibOldCommands-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\5e6342d5fcf83a0fe52f448cd4c4b919\\wpilibc-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\aa48f1167224d7408f733f6df7fa775a\\ntcore-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\e24954c07aaf73a889338959f163e740\\hal-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\8a8355574aa3424e2f2261e35f67eaa9\\wpiutil-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\49c76e39ce37096dd83f355a544a562a\\wpimath-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\4b6192c384cf8473a9d086e6adb4b937\\chipobject-2020.10.1-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\cd1da3a238ebc04371ef638a62a8c4a8\\netcomm-2020.10.1-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\cca00724dbd9d228d2bdefb7d7faaa8d\\visa-2020.10.1-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\40984598c2d1cf0ef50e598634bf90a1\\cameraserver-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\66ab2e64df6b4978dada20083dd4db6a\\cscore-cpp-2021.1.1-beta-2-headers\\",
+          "C:\\Users\\joyce\\.gradle\\caches\\transforms-2\\files-2.1\\67a79c1c661a84cbc99042d108434bbc\\opencv-cpp-3.4.7-5-headers\\",
+          "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\include\\"
+        ],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "sourceBinaries": [
+      {
+        "source": {
+          "srcDirs": [
+            "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\cpp\\"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "C:\\Users\\joyce\\OneDrive\\Documents\\software\\2020\\Robot2020-Imported\\src\\main\\include\\"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "nameBinaryMap": {
+      "frcUserProgram": 0
+    }
+  }
+]
