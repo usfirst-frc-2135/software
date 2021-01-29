@@ -29,7 +29,8 @@ m_drivetrain(m_drivetrain)
 
 // Called just before this Command runs the first time
 void DriveBumpRamp::Initialize() {
-
+    std::printf("2135: DriveBumpRamp - Init (%d)\n", m_direction);
+    m_drivetrain->BumpRampRate(m_direction);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -44,7 +45,7 @@ bool DriveBumpRamp::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveBumpRamp::End(bool interrupted) {
-
+    std::printf("2135: DriveBumpRamp - End\n");
 }
 
 bool DriveBumpRamp::RunsWhenDisabled() const {
