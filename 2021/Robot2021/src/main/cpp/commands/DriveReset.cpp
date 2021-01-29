@@ -27,7 +27,7 @@ DriveReset::DriveReset(Drivetrain* m_drivetrain)
 // Called just before this Command runs the first time
 void DriveReset::Initialize()
 {
-
+    std::printf("2135: DriveReset - Init\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -39,13 +39,13 @@ void DriveReset::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool DriveReset::IsFinished()
 {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
 void DriveReset::End(bool interrupted)
 {
-
+    std::printf("2135: DriveReset - End\n");
 }
 
 bool DriveReset::RunsWhenDisabled() const
