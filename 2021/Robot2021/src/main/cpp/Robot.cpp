@@ -11,6 +11,7 @@
 
 #include "Robot.h"
 
+#include <frc/RobotController.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
@@ -33,7 +34,22 @@ void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
  */
 void Robot::DisabledInit() {}
 
-void Robot::DisabledPeriodic() {}
+void Robot::DisabledPeriodic()
+{
+    // If RoboRIO User button is pressed, dump all CAN faults
+    if (frc::RobotController::GetUserButton())
+    {
+        if (!m_faultsCleared)
+        {
+            m_faultsCleared = true;
+            RobotFaultDump();
+        }
+    }
+    else if (m_faultsCleared)
+    {
+        m_faultsCleared = false;
+    }
+}
 
 /**
  * This autonomous runs the autonomous command selected by your {@link
@@ -71,6 +87,26 @@ void Robot::TeleopPeriodic() {}
  * This function is called periodically during test mode.
  */
 void Robot::TestPeriodic() {}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//  Fault handling utilities
+
+void Robot::RobotFaultDump(void)
+{
+    // TODO: update to rew robot framework - subsystem access changed from shared_ptr
+#if o
+    //    Print out talon SRX faults and clear sticky ones
+    std::printf("2135: %s --------------\n", "FAULT DUMPS");
+    drivetrain->FaultDump();
+    intake->FaultDump();
+    conveyor->FaultDump();
+    shooter->FaultDump();
+    // climber->FaultDump();
+    // spinner->FaultDump();
+    pneumatics->FaultDump();
+    power->FaultDump();
+#endif
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }
