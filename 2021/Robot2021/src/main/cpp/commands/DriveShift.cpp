@@ -42,7 +42,7 @@ void DriveShift::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool DriveShift::IsFinished()
 {
-    return true;
+    return false;
 }
 
 // Called once after isFinished returns true

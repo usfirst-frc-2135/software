@@ -40,7 +40,7 @@ void SpinRotation::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool SpinRotation::IsFinished()
 {
-    return false;
+    return m_spinner->ControlRotationIsFinished();
 }
 
 // Called once after isFinished returns true
