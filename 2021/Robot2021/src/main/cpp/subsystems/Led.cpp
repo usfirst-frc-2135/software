@@ -125,16 +125,6 @@ void Led::SetColor(int color)
     }
 }
 
-// Turn on LED when certain conditions are met
-// TODO: (JLM) This function should go away, since DisplayColor replaces it
-void Led::DetectPowerCell(bool powerCellOn)
-{
-    if (powerCellOn)
-        SetColor(m_ledChooser.GetSelected());
-    else
-        SetColor(LEDCOLOR_OFF);
-}
-
 void Led::DisplayColor(LEDSource_e source, bool enable) {
     if (enable)
         m_sourceEnabled |= source;
