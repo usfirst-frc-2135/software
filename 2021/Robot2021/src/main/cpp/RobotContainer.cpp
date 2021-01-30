@@ -92,7 +92,7 @@ RobotContainer* RobotContainer::GetInstance()
     return(m_robotContainer);
 }
 
-
+// TODO: Put a button name - number table here (A -> 1) and remove comments
 
 void RobotContainer::ConfigureButtonBindings()
 {
