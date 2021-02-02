@@ -16,7 +16,7 @@ LEDSet::LEDSet(Led* m_led)
 :m_led(m_led){
 
     // Use AddRequirements() here to declare subsystem dependencies
-    // eg. AddRequirements(Robot::chassis.get());
+    // eg. AddRequirements(m_Subsystem);
     SetName("LEDSet");
     AddRequirements(m_led);
 

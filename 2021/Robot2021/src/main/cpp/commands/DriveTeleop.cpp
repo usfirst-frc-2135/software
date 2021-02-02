@@ -18,7 +18,7 @@ DriveTeleop::DriveTeleop(Drivetrain* m_drivetrain)
 :m_drivetrain(m_drivetrain){
 
     // Use AddRequirements() here to declare subsystem dependencies
-    // eg. AddRequirements(Robot::chassis.get());
+    // eg. AddRequirements(m_Subsystem);
     SetName("DriveTeleop");
     AddRequirements(m_drivetrain);
 

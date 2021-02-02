@@ -18,7 +18,7 @@ m_climber(m_climber)
 {
 
     // Use AddRequirements() here to declare subsystem dependencies
-    // eg. AddRequirements(Robot::chassis.get());
+    // eg. AddRequirements(m_Subsystem);
     SetName("ClimberDeploy");
     AddRequirements(m_climber);
 

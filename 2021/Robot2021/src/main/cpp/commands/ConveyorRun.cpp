@@ -18,7 +18,7 @@ m_conveyor(m_conveyor)
 {
 
     // Use AddRequirements() here to declare subsystem dependencies
-    // eg. AddRequirements(Robot::chassis.get());
+    // eg. AddRequirements(m_Subsystem);
     SetName("ConveyorRun");
     AddRequirements(m_conveyor);
 

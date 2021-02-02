@@ -18,7 +18,7 @@ m_intake(m_intake)
 {
 
     // Use AddRequirements() here to declare subsystem dependencies
-    // eg. AddRequirements(Robot::chassis.get());
+    // eg. AddRequirements(m_Subsystem);
     SetName("IntakeRun");
     AddRequirements(m_intake);
 

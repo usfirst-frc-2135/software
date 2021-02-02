@@ -18,7 +18,7 @@ SpinColor::SpinColor(Spinner* m_spinner)
 :m_spinner(m_spinner){
 
     // Use AddRequirements() here to declare subsystem dependencies
-    // eg. AddRequirements(Robot::chassis.get());
+    // eg. AddRequirements(m_Subsystem);
     SetName("SpinColor");
     AddRequirements(m_spinner);
 

@@ -18,7 +18,7 @@ DriveAlignTurn::DriveAlignTurn(Drivetrain* m_drivetrain)
 :m_drivetrain(m_drivetrain){
 
     // Use AddRequirements() here to declare subsystem dependencies
-    // eg. AddRequirements(Robot::chassis.get());
+    // eg. AddRequirements(m_Subsystem);
     SetName("DriveAlignTurn");
     AddRequirements(m_drivetrain);
 
