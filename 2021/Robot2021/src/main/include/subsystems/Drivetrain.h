@@ -74,11 +74,9 @@ PigeonIMU m_pigeonIMU{0};
     const int       kPidIndex = 0;                  // PID slot index for sensors
     const int       kCANTimeout = 30;               // CAN timeout in msec to wait for response
 
-    const int       m_reqPigeonVer = ((20 * 256) + 0);   // Pigeon IMU version is 20.0
-
     // Drivetrain constants
     const double    kWheelDiaInches = 6.0;          // Measured wheel diameter
-    const int       kEncoderCPR = 2048;       // CPR is 2048 for new TalonFX
+    const int       kEncoderCPR = 2048 * 4;         // CPR is 2048 for new TalonFX
     const foot_t    kTrackWidthFeet = 2.125_ft;     // Measured track width
 
     // Derived values
@@ -135,7 +133,7 @@ PigeonIMU m_pigeonIMU{0};
     // Drive turn PID settings
     double          m_turnAngle = 0.0;  // Desired turn angle from present course
     double          m_turnTolDeg;       // DriveTurn tolerance in degrees
-    double          m_visionTurnKp;     // Proportional value for PID for Drive Turn with Vision-Assist
+    double          m_visionTurnKp = 1.0; // Proportional value for PID for Drive Turn with Vision-Assist
     double          m_turnMaxOut;       // Max motor output value for PID for DriveTurn function
 	double          m_alignTurnTolerance; // Minimum align turn error to finish aligning
     double          m_alignTurnKp;
@@ -155,9 +153,9 @@ PigeonIMU m_pigeonIMU{0};
 
     double          m_vcMaxSpeed;
     double          m_vcMaxAngSpeed;
-    double          m_vcpidKp;
-    double          m_vcpidKi;
-    double          m_vcpidKd;
+    double          m_vcpidKp = 1.0;
+    double          m_vcpidKi = 0.0;
+    double          m_vcpidKd = 0.0;
 
     const bool      kGyroReversed = true;
 
@@ -224,11 +222,6 @@ PigeonIMU m_pigeonIMU{0};
     meter_t GetDistanceMeters(int encoderCounts);
     feet_per_second_t GetWheelSpeeds(int encoderCountsPerSecond);
     meters_per_second_t GetVelocityMPS(int encoderCountsPerSecond);
-
-    // Pigeon IMU
-    bool PigeonIMUInitialize();
-    void PigeonIMUFaultDump(void);
-
 
 public:
     Drivetrain();

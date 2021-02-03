@@ -58,7 +58,7 @@ m_diffDrive.SetMaxOutput(1.0);
     m_talonValidL2 = frc2135::TalonUtils::TalonCheck(m_motorL2, "DT", "L2");
     m_talonValidR3 = frc2135::TalonUtils::TalonCheck(m_motorR3, "DT", "R3");
     m_talonValidR4 = frc2135::TalonUtils::TalonCheck(m_motorR4, "DT", "R4");
-    m_pigeonValid = PigeonIMUInitialize();
+    m_pigeonValid = frc2135::TalonUtils::PigeonIMUInitialize(m_pigeonIMU);
 
     //  Load config file values
     ConfigFileLoad ();
@@ -98,7 +98,6 @@ m_diffDrive.SetMaxOutput(1.0);
     rightController = frc2::PIDController(kPDriveVel, 0, 0);
 
     ramseteController = frc::RamseteController(kRamseteB, kRamseteZeta);
-
 }
 
 void Drivetrain::Periodic()
@@ -437,107 +436,6 @@ meters_per_second_t Drivetrain::GetVelocityMPS(int velocityCounts)
   return kEncoderMetersPerCount * velocityCounts / 1.0_s;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-//
-//    Pigeon IMU
-//
-bool Drivetrain::PigeonIMUInitialize()
-{
-    int i;
-    int retries = 5;
-    int deviceID = 0;
-    int pigeonVersion = 0;
-    bool pigeonValid = false;
-    ErrorCode error = OKAY;
-    char subsystem[] = "DT";
-    char name[] = "Pigeon IMU";
-
-    std::printf("2135: TalonFX Subsystem %s Name %s\n", subsystem, name);
-
-    // Display Pigeon IMU firmware versions
-    deviceID = m_pigeonIMU.GetDeviceNumber();
-    if ((error = m_pigeonIMU.GetLastError()) != OKAY)
-    {
-        std::printf("2135: ERROR: %s %s GetDeviceNumber error - %d\n", subsystem, name, error);
-        return error;
-    }
-
-    for (i = 0; i < retries; i++)
-    {
-        pigeonVersion = m_pigeonIMU.GetFirmwareVersion();
-        if ((error = m_pigeonIMU.GetLastError()) != OKAY)
-        {
-            std::printf("2135: ERROR: %s %s ID %d GetFirmwareVersion error - %d\n", subsystem, name, deviceID, error);
-            return error;
-        }
-        else if (pigeonVersion == m_reqPigeonVer)
-        {
-            pigeonValid = true;
-            break;
-        }
-        else
-        {
-            std::printf("2135: WARNING: %s %s ID %d Incorrect FW version %d.%d expected %d.%d\n",
-                subsystem, name, deviceID, pigeonVersion / 256, pigeonVersion % 256, m_reqPigeonVer / 256, m_reqPigeonVer % 256);
-        }
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
-
-    if (pigeonValid)
-    {
-        // Initialize Pigeon IMU to all factory defaults
-        if ((error = m_pigeonIMU.ConfigFactoryDefault(kCANTimeout)) != OKAY)
-        {
-            std::printf("2135: ERROR: %s %s ID %d ConfigFactoryDefault error - %d\n", subsystem, name, deviceID, error);
-            pigeonValid = false;
-        }
-
-        double headingDeg = m_pigeonIMU.GetFusedHeading();
-        bool angleIsGood = (m_pigeonIMU.GetState() == PigeonIMU::Ready) ? true : false;
-        std::printf("2135: %s %s ID %d fused m_headingDeg %5.1f angle is %s degrees\n",
-            subsystem, name, deviceID, headingDeg, (angleIsGood) ? "TRUE" : "FALSE");
-
-        m_pigeonIMU.SetYaw(0.0, kCANTimeout);
-        if ((error = m_pigeonIMU.GetLastError()) != OKAY)
-        {
-            std::printf("2135: ERROR: %s %s ID %d SetFusedHeading error - %d\n", subsystem, name, deviceID, error);
-            pigeonValid = false;
-        }
-
-        m_pigeonIMU.SetFusedHeading(0.0, kCANTimeout);
-        if ((error = m_pigeonIMU.GetLastError()) != OKAY)
-        {
-            std::printf("2135: ERROR: %s %s ID %d SetYaw error - %d\n", subsystem, name, deviceID, error);
-            pigeonValid = false;
-        }
-
-        std::printf("2135: %s %s ID %d ver %d.%d is RESPONSIVE and INITIALIZED (error %d)\n",
-            subsystem, name, deviceID, pigeonVersion / 256, pigeonVersion & 0xff, error);
-    }
-    else
-    {
-        std::printf("2135: ERROR: %s %s ID %d ver %d.%d is UNRESPONSIVE, (error %d)\n",
-            subsystem, name, deviceID, pigeonVersion / 256, pigeonVersion & 0xff, error);
-        pigeonValid = false;
-    }
-
-    return pigeonValid;
-}
-
-void Drivetrain::PigeonIMUFaultDump(void)
-{
-    PigeonIMU_Faults faults;
-    PigeonIMU_StickyFaults stickyFaults;
-
-    m_pigeonIMU.GetFaults(faults);
-    if (faults.HasAnyFault())
-        std::printf("2135: ERROR: %s %s ID %d has a FAULT - %d\n", "DT", "PigeonIMU", 2, faults.ToBitfield());
-
-    m_pigeonIMU.GetStickyFaults(stickyFaults);
-    m_pigeonIMU.ClearStickyFaults(kCANTimeout);
-}
-
 ///////////////////////////// Public Interfaces ///////////////////////////////
 //
 
@@ -843,7 +741,7 @@ void Drivetrain::RamseteFollowerInit(void)
     trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDirectory);
     trajectoryStates = trajectory.States();
 
-    printf("Size of state table is %d\n", trajectoryStates.size());
+    std::printf("Size of state table is %d\n", (int)trajectoryStates.size());
 
     for (uint i = 0; i < trajectoryStates.size(); i++)
     {

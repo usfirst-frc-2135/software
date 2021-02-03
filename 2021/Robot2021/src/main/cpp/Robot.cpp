@@ -15,7 +15,15 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
-void Robot::RobotInit() {}
+void Robot::RobotInit()
+{
+  std::string robotName;
+  frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
+
+  std::printf("RB Init");
+  config->GetValueAsString("RB_Name", robotName, "unknown");
+  std::printf("RobotInit: name - %s", robotName.c_str());
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -94,15 +102,15 @@ void Robot::TestPeriodic() {}
 void Robot::RobotFaultDump(void)
 {
     // TODO: update to rew robot framework - subsystem access changed from shared_ptr
-#if o
+#if 0
     //    Print out talon SRX faults and clear sticky ones
     std::printf("2135: %s --------------\n", "FAULT DUMPS");
     drivetrain->FaultDump();
     intake->FaultDump();
     conveyor->FaultDump();
     shooter->FaultDump();
-    // climber->FaultDump();
-    // spinner->FaultDump();
+    climber->FaultDump();
+    spinner->FaultDump();
     pneumatics->FaultDump();
     power->FaultDump();
 #endif

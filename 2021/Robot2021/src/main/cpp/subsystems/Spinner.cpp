@@ -52,6 +52,8 @@ Spinner::Spinner()
     }
 
     frc::SmartDashboard::PutString("Color Setpoint", "");
+
+    Initialize ();
 #endif
 }
 
@@ -255,7 +257,7 @@ std::string Spinner::ReadColorValue()
 
     return colorString;
 #else
-    return "Unknow";
+    return "Unknown";
 #endif
 }
 

@@ -25,6 +25,8 @@ Vision::Vision()
 
     table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
     table->PutNumber("ledMode", 0);
+
+    Initialize ();
 }
 
 void Vision::Periodic()
