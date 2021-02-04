@@ -117,12 +117,12 @@ void RobotContainer::ConfigureButtonBindings()
     frc2::JoystickButton m_shFire{&m_operatorPad, 2};
     frc2::JoystickButton m_shRun{&m_operatorPad, 6};
 
-    m_clStowD.WhenPressed(ClimberDeploy(false, &m_climber), true);
-    m_clDeployD.WhenPressed(ClimberDeploy(true, &m_climber), true);
-    m_dtQuickTurn.WhenPressed(DriveQuickTurn( &m_drivetrain ), true);
+    m_clStowD.WhenPressed(ClimberDeploy(false), true);
+    m_clDeployD.WhenPressed(ClimberDeploy(true), true);
+    m_dtQuickTurn.WhenPressed(DriveQuickTurn(), true);
     m_dtAlignTurn.WhenPressed(DriveAlignTurn( &m_drivetrain ), true);
 
-    m_shFire.WhenPressed(IndexerDeploy(false, &m_shooter), true);
+    m_shFire.WhenPressed(IndexerDeploy(false), true);
     m_shRun.WhileHeld(ShooterRun(1, &m_shooter), true);
 
     //not defined in RobotBuilder
@@ -140,12 +140,12 @@ void RobotContainer::ConfigureButtonBindings()
     frc2::JoystickButton m_clStowO{&m_operatorPad, 1};
     frc2::JoystickButton m_clDeployO{&m_operatorPad, 4};
 
-    m_dtShiftSpeed.WhileHeld(DriveShift(false, &m_drivetrain), true);
+    m_dtShiftSpeed.WhileHeld(DriveShift(false), true);
 
-    m_inDeploy.WhenPressed(IntakeDeploy(true, &m_intake), true);
-    m_inStow.WhenPressed(IntakeDeploy(false, &m_intake), true);
-    m_clStowO.WhenPressed(ClimberDeploy(false, &m_climber), true);
-    m_clDeployO.WhenPressed(ClimberDeploy(true, &m_climber), true);
+    m_inDeploy.WhenPressed(IntakeDeploy(true), true);
+    m_inStow.WhenPressed(IntakeDeploy(false), true);
+    m_clStowO.WhenPressed(ClimberDeploy(false), true);
+    m_clDeployO.WhenPressed(ClimberDeploy(true), true);
 
 }
 
