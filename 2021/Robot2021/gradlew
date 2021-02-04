@@ -142,7 +142,7 @@ if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
     i=0
     for arg in "$@" ; do
         CHECK=`echo "$arg"|egrep -c "$OURCYGPATTERN" -`
-        CHECK2=`echo "$arg"|egrep -c "^-"`                                 
+        CHECK2=`echo "$arg"|egrep -c "^-"`
         if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                                eval `echo args$i`=`cygpath --path --ignore --mixed "$arg"`
         else
             eval `echo args$i`="\"$arg\""

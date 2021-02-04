@@ -43,8 +43,10 @@ frc::DoubleSolenoid m_position{1, 0, 7};
     const int       kCANTimeout = 30;    // CAN timeout in msec to wait for response
 
     const frc::I2C::Port    kI2cPort = frc::I2C::Port::kOnboard;
+    #if 0
     rev::ColorSensorV3      m_colorSensor { kI2cPort };
     rev::ColorMatch         m_colorMatcher;
+    #endif
 
     frc::Color  kBlueTarget     = frc::Color(0.143, 0.427, 0.429);
     frc::Color  kGreenTarget    = frc::Color(0.197, 0.561, 0.240);

@@ -29,11 +29,12 @@ Power::Power()
     m_pdp.ResetTotalEnergy();
 
     std::printf("2135: PDP Voltage %5.1f Volts\n", m_pdp.GetVoltage());
+
+    Initialize ();
 }
 
 void Power::Periodic()
 {
-
     static int  periodicInterval = 0;
 
     // Put code here to be run every loop

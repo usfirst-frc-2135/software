@@ -52,6 +52,8 @@ Climber::Climber()
 
     std::printf("2135: CL Climber Deployer REV Solenoid is %s\n",
         (m_climbPosition.IsRevSolenoidBlackListed()) ? "BLACKLISTED - ERROR" : "OK");
+
+    Initialize ();
 }
 
 void Climber::Periodic()
@@ -79,7 +81,6 @@ void Climber::Periodic()
             frc::SmartDashboard::PutNumber("CL_Current_CL14", currentCL14);
         }
     }
-
 }
 
 void Climber::SimulationPeriodic()

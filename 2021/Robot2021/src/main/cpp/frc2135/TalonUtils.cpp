@@ -5,6 +5,7 @@
  *      Author: PHS_User
  */
 
+#include <frc/RobotBase.h>
 #include <frc2135/TalonUtils.h>
 #include <chrono>
 
@@ -39,6 +40,8 @@ bool TalonUtils::TalonCheck(WPI_BaseMotorController &talon, const char *subsyste
         return error;
     }
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(250));
+
     for (i = 0; i < m_retries; i++)
     {
         fwVersion = talon.GetFirmwareVersion();
@@ -53,8 +56,8 @@ bool TalonUtils::TalonCheck(WPI_BaseMotorController &talon, const char *subsyste
             break;
         }
         else
-            std::printf("2135: WARNING: %s Motor %s ID %d Incorrect FW version %d.%d expected %d.%d\n",
-                subsystem, name, deviceID, fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
+            std::printf("2135: WARNING: %s Motor %s ID %d Incorrect FW version %u.%u expected %u.%u\n",
+                subsystem, name, deviceID, fwVersion / 256, fwVersion  & 0xff, m_reqVersion / 256, m_reqVersion & 0xff);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
@@ -66,12 +69,15 @@ bool TalonUtils::TalonCheck(WPI_BaseMotorController &talon, const char *subsyste
             std::printf("2135: ERROR: %s Motor %s ID %d ConfigFactoryDefault error - %d\n",
                 subsystem, name, deviceID, error);
 
-        std::printf("2135: %s Motor %s ID %d ver %d.%d is RESPONSIVE and INITIALIZED (error %d)\n",
-                subsystem, name, deviceID, fwVersion/256, fwVersion&0xff, error);
+        std::printf("2135: %s Motor %s ID %d ver %u.%u is RESPONSIVE and INITIALIZED (error %d)\n",
+                subsystem, name, deviceID, fwVersion / 256, fwVersion & 0xff, error);
     }
     else
-        std::printf("2135: ERROR: %s Motor %s ID %d ver %d.%d is UNRESPONSIVE, (error %d)\n",
-                subsystem, name, deviceID, fwVersion/256, fwVersion&0xff, error);
+        std::printf("2135: ERROR: %s Motor %s ID %d ver %u.%u is UNRESPONSIVE, (error %d)\n",
+                subsystem, name, deviceID, fwVersion / 256, fwVersion & 0xff, error);
+
+    if (!frc::RobotBase::IsReal())
+        talonValid = true;
 
     return talonValid;
 }
@@ -102,8 +108,8 @@ void TalonUtils::TalonFaultDump(const char *talonName, WPI_BaseMotorController &
     }
     if (fwVersion != m_reqVersion)
     {
-        std::printf("2135: WARNING: Motor %s Incorrect FW version %d.%d expected %d.%d\n", talonName,
-            fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
+        std::printf("2135: WARNING: Motor %s Incorrect FW version %u.%u expected %u.%u\n", talonName,
+            fwVersion / 256, fwVersion & 0xff, m_reqVersion / 256, m_reqVersion & 0xff);
         return;
     }
 
@@ -171,6 +177,94 @@ void TalonUtils::TalonFaultDump(const char *talonName, WPI_BaseMotorController &
         std::printf("2135: NO Talon FX sticky faults detected\n");
 }
 
+///////////////////////////////////////////////////////////////////////////////
+//
+//    Pigeon IMU
+//
+bool TalonUtils::PigeonIMUInitialize(PigeonIMU &pigeonPtr)
+{
+    int i;
+    int retries = 5;
+    int deviceID = 0;
+    int pigeonVersion = 0;
+    bool pigeonValid = false;
+    ErrorCode error = OKAY;
+    char subsystem[] = "DT";
+    char name[] = "Pigeon IMU";
+
+    std::printf("2135: TalonFX Subsystem %s Name %s\n", subsystem, name);
+
+    // Display Pigeon IMU firmware versions
+    deviceID = pigeonPtr.GetDeviceNumber();
+    if ((error = pigeonPtr.GetLastError()) != OKAY)
+    {
+        std::printf("2135: ERROR: %s %s GetDeviceNumber error - %d\n", subsystem, name, error);
+        return error;
+    }
+
+    for (i = 0; i < retries; i++)
+    {
+        pigeonVersion = pigeonPtr.GetFirmwareVersion();
+        if ((error = pigeonPtr.GetLastError()) != OKAY)
+        {
+            std::printf("2135: ERROR: %s %s ID %d GetFirmwareVersion error - %d\n", subsystem, name, deviceID, error);
+            return error;
+        }
+        else if (pigeonVersion == m_reqPigeonVer)
+        {
+            pigeonValid = true;
+            break;
+        }
+        else
+        {
+            std::printf("2135: WARNING: %s %s ID %d Incorrect FW version %u.%u expected %u.%u\n",
+                subsystem, name, deviceID, pigeonVersion / 256, pigeonVersion & 0xff, m_reqPigeonVer / 256, m_reqPigeonVer & 0xff);
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+
+    if (pigeonValid)
+    {
+        // Initialize Pigeon IMU to all factory defaults
+        if ((error = pigeonPtr.ConfigFactoryDefault(kCANTimeout)) != OKAY)
+        {
+            std::printf("2135: ERROR: %s %s ID %d ConfigFactoryDefault error - %d\n", subsystem, name, deviceID, error);
+            pigeonValid = false;
+        }
+
+        double headingDeg = pigeonPtr.GetFusedHeading();
+        bool angleIsGood = (pigeonPtr.GetState() == PigeonIMU::Ready) ? true : false;
+        std::printf("2135: %s %s ID %d fused m_headingDeg %5.1f angle is %s degrees\n",
+            subsystem, name, deviceID, headingDeg, (angleIsGood) ? "TRUE" : "FALSE");
+
+        pigeonPtr.SetYaw(0.0, kCANTimeout);
+        if ((error = pigeonPtr.GetLastError()) != OKAY)
+        {
+            std::printf("2135: ERROR: %s %s ID %d SetFusedHeading error - %d\n", subsystem, name, deviceID, error);
+            pigeonValid = false;
+        }
+
+        pigeonPtr.SetFusedHeading(0.0, kCANTimeout);
+        if ((error = pigeonPtr.GetLastError()) != OKAY)
+        {
+            std::printf("2135: ERROR: %s %s ID %d SetYaw error - %d\n", subsystem, name, deviceID, error);
+            pigeonValid = false;
+        }
+
+        std::printf("2135: %s %s ID %d ver %u.%u is RESPONSIVE and INITIALIZED (error %d)\n",
+            subsystem, name, deviceID, pigeonVersion / 256, pigeonVersion & 0xff, error);
+    }
+    else
+    {
+        std::printf("2135: ERROR: %s %s ID %d ver %u.%u is UNRESPONSIVE, (error %d)\n",
+            subsystem, name, deviceID, pigeonVersion / 256, pigeonVersion & 0xff, error);
+        pigeonValid = false;
+    }
+
+    return pigeonValid;
+}
+
 void TalonUtils::PigeonIMUFaultDump(const char *pigeonName, PigeonIMU &pigeonPtr)
 {
     int             fwVersion = 0;
@@ -197,8 +291,8 @@ void TalonUtils::PigeonIMUFaultDump(const char *pigeonName, PigeonIMU &pigeonPtr
     }
     if (fwVersion != m_reqVersion)
     {
-        std::printf("2135: WARNING: PigeonIMU Gyro Incorrect FW version %d.%d expected %d.%d\n",
-             fwVersion/256, fwVersion%256, m_reqVersion/256, m_reqVersion%256);
+        std::printf("2135: WARNING: PigeonIMU Gyro Incorrect FW version %u.%u expected %u.%u\n",
+             fwVersion / 256, fwVersion & 0xff, m_reqVersion / 256, m_reqVersion & 0xff);
         return;
     }
 

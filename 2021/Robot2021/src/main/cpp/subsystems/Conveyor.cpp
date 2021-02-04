@@ -49,11 +49,12 @@ Conveyor::Conveyor()
         m_motorCV8.SetNeutralMode(NeutralMode::Coast);
         m_motorCV8.Set(ControlMode::PercentOutput, 0.0);
     }
+
+    Initialize ();
 }
 
 void Conveyor::Periodic()
 {
-
     static int  periodicInterval = 0;
 
     // Put code here to be run every 20 ms loop
