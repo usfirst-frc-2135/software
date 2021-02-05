@@ -9,7 +9,11 @@
 #include <fstream>      // std::ifstream
 #include <map>
 #include <algorithm>
-#include <unistd.h>        // gethostname
+#ifdef _WIN32       // gethostname
+    #include <winsock.h>
+#else
+    #include <unistd.h>
+#endif
 #include <string.h>        // strncmp
 
 #include <frc/RobotBase.h>

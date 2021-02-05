@@ -10,6 +10,8 @@
 
 #pragma once
 
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include <frc/controller/PIDController.h>
 #include <frc/controller/RamseteController.h>
 #include <frc/controller/SimpleMotorFeedforward.h>

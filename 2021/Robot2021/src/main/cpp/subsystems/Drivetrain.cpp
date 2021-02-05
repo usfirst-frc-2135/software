@@ -743,7 +743,7 @@ void Drivetrain::RamseteFollowerInit(void)
 
     std::printf("Size of state table is %d\n", (int)trajectoryStates.size());
 
-    for (uint i = 0; i < trajectoryStates.size(); i++)
+    for (unsigned int i = 0; i < trajectoryStates.size(); i++)
     {
         frc::Trajectory::State curState = trajectoryStates[i];
         std::cout
