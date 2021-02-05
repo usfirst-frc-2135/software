@@ -18,7 +18,7 @@ m_conveyor(m_conveyor)
 {
 
     // Use AddRequirements() here to declare subsystem dependencies
-    // eg. AddRequirements(Robot::chassis.get());
+    // eg. AddRequirements(m_Subsystem);
     SetName("ConveyorRun");
     AddRequirements(m_conveyor);
 
@@ -30,7 +30,7 @@ m_conveyor(m_conveyor)
 void ConveyorRun::Initialize()
 {
     std::printf("2135: ConveyorRun - Init (%d)\n", m_conveyorDirection);
-    m_conveyor->SetConveyorMotorSpeed(m_conveyorDirection);
+    m_conveyor->SetConveyorSpeed(m_conveyorDirection);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -49,7 +49,7 @@ bool ConveyorRun::IsFinished()
 void ConveyorRun::End(bool interrupted)
 {
     std::printf("2135: ConveyorRun - End (%d)\n", m_conveyorDirection);
-    m_conveyor->SetConveyorMotorSpeed(m_conveyorDirection);
+    m_conveyor->SetConveyorSpeed(m_conveyorDirection);
 }
 
 bool ConveyorRun::RunsWhenDisabled() const

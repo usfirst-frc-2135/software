@@ -49,16 +49,14 @@ frc::DoubleSolenoid m_indexer{0, 2, 5};
     const int       kFlywheelMaxVelNative = ((int) ((kFlywheelMaxRPM * kFlywheelCPR) / (60 * 10)));
 
     // Declare module variables
-    bool            m_talonValidSH10;            // Health indicator for shooter talon 10
-    bool            m_talonValidSH11;            // Health indicator for shooter talon 11
+    bool            m_talonValidSH10;           // Health indicator for shooter talon 10
+    bool            m_talonValidSH11;           // Health indicator for shooter talon 11
 
-    int             m_shooterLevel;                // Current shooter speed level
-    double          m_targetOutput;                // Target output
+    int             m_shooterLevel;             // Current shooter speed level
+    double          m_targetOutput;             // Target output
     double          m_targetVelocityRPM;        // Target shooter velocity in RPM
-    double          m_targetVelocityNative;        // Target shooter velcoity in native units per 100 ms
-    double          m_curVelocityRPM;            // Current shooter velocity in RPM
-
-    frc::SimpleMotorFeedforward<meter> m_feedforward; // Shooter feedforward calculator
+    double          m_targetVelocityNative;     // Target shooter velcoity in native units per 100 ms
+    double          m_curVelocityRPM;           // Current shooter velocity in RPM
 
     // Configuration file parameters
     double          m_fwdOutput;
@@ -68,10 +66,12 @@ frc::DoubleSolenoid m_indexer{0, 2, 5};
     double          m_pidKp;                    // Shooter PID proportional constant
     double          m_pidKi;                    // Shooter PID integral constant
     double          m_pidKd;                    // Shooter PID derivative constant
-    double          m_neutralDeadband;            // Shooter PID neutral deadband in percent
-    double          m_ffKs;                        // Feedforward kS
-    double          m_ffKv;                        // Feedforward kV
-    double          m_ffKa;                        // Feedforward kA
+    double          m_neutralDeadband;          // Shooter PID neutral deadband in percent
+    double          m_ffKs;                     // Feedforward kS
+    double          m_ffKv;                     // Feedforward kV
+    double          m_ffKa;                     // Feedforward kA
+
+    frc::SimpleMotorFeedforward<meter> m_feedforward; // Shooter feedforward calculator
 
     // Conversion functions between RPM and Output and CTRE Native Units / 100ms
     double RpmToNative(double rpm);
@@ -102,6 +102,6 @@ public:
     void Initialize(void);
     void FaultDump(void);
 
-    void SetShooterSpeedInit(int speed);
+    void SetShooterSpeed(int speed);
     void IndexerDeploy(bool state);
 };

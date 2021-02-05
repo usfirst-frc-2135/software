@@ -84,7 +84,6 @@ public:
     } LEDSource_e;
 
     void Initialize (void);
-    void DetectPowerCell(bool powerCellOn);
     void DisplayColor(LEDSource_e source, bool enable);
 
     frc::SendableChooser<LEDColor_e> m_ledChooser;

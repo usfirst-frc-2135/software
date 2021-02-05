@@ -16,7 +16,7 @@ SpinRotation::SpinRotation(Spinner* m_spinner)
 :m_spinner(m_spinner){
 
     // Use AddRequirements() here to declare subsystem dependencies
-    // eg. AddRequirements(Robot::chassis.get());
+    // eg. AddRequirements(m_Subsystem);
     SetName("SpinRotation");
     AddRequirements(m_spinner);
 
@@ -40,7 +40,7 @@ void SpinRotation::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool SpinRotation::IsFinished()
 {
-    return false;
+    return m_spinner->ControlRotationIsFinished();
 }
 
 // Called once after isFinished returns true

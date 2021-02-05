@@ -18,7 +18,7 @@ m_intake(m_intake)
 {
 
     // Use AddRequirements() here to declare subsystem dependencies
-    // eg. AddRequirements(Robot::chassis.get());
+    // eg. AddRequirements(m_Subsystem);
     SetName("IntakeRun");
     AddRequirements(m_intake);
 
@@ -29,7 +29,8 @@ m_intake(m_intake)
 // Called just before this Command runs the first time
 void IntakeRun::Initialize()
 {
-
+    std::printf("2135: IntakeRun - Init (%d)\n", m_intakeDirection);
+    m_intake->SetIntakeSpeed(m_intakeDirection);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -47,7 +48,7 @@ bool IntakeRun::IsFinished()
 // Called once after isFinished returns true
 void IntakeRun::End(bool interrupted)
 {
-
+    std::printf("2135: IntakeRun - End \n");
 }
 
 bool IntakeRun::RunsWhenDisabled() const

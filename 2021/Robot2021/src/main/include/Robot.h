@@ -15,7 +15,8 @@
 
 #include "RobotContainer.h"
 
-class Robot : public frc::TimedRobot {
+class Robot : public frc::TimedRobot
+{
  public:
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -33,4 +34,9 @@ class Robot : public frc::TimedRobot {
   frc2::Command* m_autonomousCommand = nullptr;
 
   RobotContainer* m_container = RobotContainer::GetInstance();
+  
+  bool m_faultsCleared = false;
+
+  void RobotFaultDump(void);
+
 };

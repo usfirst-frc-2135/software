@@ -9,9 +9,14 @@
 #include <fstream>      // std::ifstream
 #include <map>
 #include <algorithm>
-#include <unistd.h>        // gethostname
+#ifdef _WIN32       // gethostname
+    #include <winsock.h>
+#else
+    #include <unistd.h>
+#endif
 #include <string.h>        // strncmp
 
+#include <frc/RobotBase.h>
 #include <frc2135/RobotConfig.h>
 
 //////////////////////////////////////////////////////////
@@ -70,7 +75,10 @@ void RobotConfig::GetConfigFileName(std::string& fileName)
     char nameBuf[NAMEBUFSIZE+1];
 
     memset(nameBuf, 0, sizeof(nameBuf));
-    gethostname(nameBuf, NAMEBUFSIZE);
+    if (frc::RobotBase::IsReal())
+        gethostname(nameBuf, NAMEBUFSIZE);
+    else
+        strncpy(nameBuf, "roborio-2135", sizeof(nameBuf));
     nameBuf[NAMEBUFSIZE] = '\0';
 
     // Extract the robot number from the hostname (assumed to be of the form roboRIO-<4-digit-number>-FRC)

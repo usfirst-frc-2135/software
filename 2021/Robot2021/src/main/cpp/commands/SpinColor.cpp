@@ -18,7 +18,7 @@ SpinColor::SpinColor(Spinner* m_spinner)
 :m_spinner(m_spinner){
 
     // Use AddRequirements() here to declare subsystem dependencies
-    // eg. AddRequirements(Robot::chassis.get());
+    // eg. AddRequirements(m_Subsystem);
     SetName("SpinColor");
     AddRequirements(m_spinner);
 
@@ -42,7 +42,7 @@ void SpinColor::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool SpinColor::IsFinished()
 {
-    return false;
+    return m_spinner->ControlPositionIsFinished();
 }
 
 // Called once after isFinished returns true

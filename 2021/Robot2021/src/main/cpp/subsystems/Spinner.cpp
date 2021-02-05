@@ -19,7 +19,7 @@
 
 Spinner::Spinner()
 {
-SetName("Spinner");
+    SetName("Spinner");
 
 #if 0   // TODO: Until we get a spinner mechanism installed
 
@@ -52,6 +52,8 @@ SetName("Spinner");
     }
 
     frc::SmartDashboard::PutString("Color Setpoint", "");
+
+    Initialize ();
 #endif
 }
 
@@ -255,7 +257,7 @@ std::string Spinner::ReadColorValue()
 
     return colorString;
 #else
-    return "Unknow";
+    return "Unknown";
 #endif
 }
 

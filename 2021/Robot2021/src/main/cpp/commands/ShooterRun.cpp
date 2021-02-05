@@ -18,7 +18,7 @@ m_shooter(m_shooter)
 {
 
     // Use AddRequirements() here to declare subsystem dependencies
-    // eg. AddRequirements(Robot::chassis.get());
+    // eg. AddRequirements(m_Subsystem);
     SetName("ShooterRun");
     AddRequirements(m_shooter);
 
@@ -30,7 +30,7 @@ m_shooter(m_shooter)
 void ShooterRun::Initialize()
 {
     std::printf("2135: ShooterRun - Init [%d]\n", m_shooterSpeed);
-    m_shooter->SetShooterSpeedInit(m_shooterSpeed);
+    m_shooter->SetShooterSpeed(m_shooterSpeed);
 }
 
 // Called repeatedly when this Command is scheduled to run
