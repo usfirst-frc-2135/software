@@ -31,10 +31,6 @@ void DriveModeToggle::Initialize()
 {
     m_drivetrain->ToggleDriveMode();
     std::printf("2135: DriveModeToggle - Init\n");
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/dev-jyu
 }
 
 // Called repeatedly when this Command is scheduled to run
