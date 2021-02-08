@@ -5,18 +5,21 @@
  *      Author: Administrator
  */
 
+#include <algorithm>
 #include <iostream>     // std::cout
 #include <fstream>      // std::ifstream
 #include <map>
-#include <algorithm>
-#ifdef _WIN32       // gethostname
+#include <string.h>     // strncmp
+#ifdef _WIN32           // gethostname
     #include <winsock.h>
 #else
     #include <unistd.h>
 #endif
-#include <string.h>        // strncmp
 
+#include <frc/Filesystem.h>
 #include <frc/RobotBase.h>
+#include <wpi/SmallString.h>
+
 #include <frc2135/RobotConfig.h>
 
 //////////////////////////////////////////////////////////
@@ -64,33 +67,26 @@ RobotConfig *RobotConfig::GetInstance()
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#include <frc/Filesystem.h>
+
 void RobotConfig::GetConfigFileName(std::string& fileName)
 {
     // Initialize with the absolute path to the home directory
-    fileName = "/home/lvuser/deploy/";
+    wpi::SmallString<64> deployDirectory;
+    frc::filesystem::GetDeployDirectory(deployDirectory);
+    deployDirectory.append("/");
 
-    // Get the host name of the roboRIO
-    const size_t NAMEBUFSIZE = 12;
-    char nameBuf[NAMEBUFSIZE+1];
+    // Default the host name of the roboRIO
+    char nameBuf[] = "roborio-2135";
 
-    memset(nameBuf, 0, sizeof(nameBuf));
+    // If running on RoboRIO, get its name
     if (frc::RobotBase::IsReal())
-        gethostname(nameBuf, NAMEBUFSIZE);
-    else
-        strncpy(nameBuf, "roborio-2135", sizeof(nameBuf));
-    nameBuf[NAMEBUFSIZE] = '\0';
-
-    // Extract the robot number from the hostname (assumed to be of the form roboRIO-<4-digit-number>-FRC)
-    char numBuf[5];
-
-    strncpy(numBuf, nameBuf+8, 4);
-    numBuf[4] = '\0';
+        gethostname(nameBuf, sizeof(nameBuf));
 
     // Add the robot number to the file name
-    fileName += numBuf;
-
-    // Add the configuration file name suffix
-    fileName += "_configuration.txt";
+    fileName.append(nameBuf, 8, 4);
+    fileName.append("_configuration.txt");
+    fileName.insert(0, deployDirectory.str());
 }
 
 ////////////////////////////////////////////////////////////////////////////////

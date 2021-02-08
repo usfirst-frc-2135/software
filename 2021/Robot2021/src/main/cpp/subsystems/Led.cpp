@@ -49,6 +49,8 @@ void Led::SimulationPeriodic()
 
 void Led::Initialize()
 {
+    std::printf("2135: LED Init\n");
+
     //Default to a length of 60, start empty output
     //Length is expensive to set, so only set it once, then just update data
     m_led.SetLength(kLEDStringLength);
