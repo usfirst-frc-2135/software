@@ -50,7 +50,8 @@ bool DriveShift::IsFinished()
 void DriveShift::End(bool interrupted)
 {
     std::printf("2135: DriveShift - End (%d)\n", !m_gearSetting);
-    m_drivetrain->MoveShiftGears(!m_gearSetting);
+    RobotContainer *robotContainer = RobotContainer::GetInstance ();
+    robotContainer->m_drivetrain.MoveShiftGears(!m_gearSetting);
 }
 
 bool DriveShift::RunsWhenDisabled() const
