@@ -100,8 +100,6 @@ m_diffDrive.SetMaxOutput(1.0);
 
     ramseteController = frc::RamseteController(kRamseteB, kRamseteZeta);
 
-    RobotContainer *container = RobotContainer::GetInstance();
-    m_vision = &container->m_vision;
 }
 
 void Drivetrain::Periodic()
@@ -689,7 +687,8 @@ void Drivetrain::MoveAlignTurnExecute(frc::XboxController *throttleJstick)
     throttle = throttleJstick->GetY(frc::GenericHID::JoystickHand::kLeftHand);
 
     // TODO: Update to new robot framework - vision not visible here
-    m_alignTurnError = (m_vision->GetHorizOffset());
+    RobotContainer *robotContainer = RobotContainer::GetInstance();
+    m_alignTurnError = (robotContainer->m_vision.GetHorizOffset());
     alignTurnAdjustment = m_alignTurnError * m_alignTurnKp;
 
     double leftThrottle = throttle - alignTurnAdjustment;
@@ -709,7 +708,8 @@ bool Drivetrain::MoveAlignTurnIsFinished(void)
     bool isFinished = false;
 
     // TODO: Update to new robot framework - vision not visible here
-    m_alignTurnError = (m_vision->GetHorizOffset());
+    RobotContainer *robotContainer = RobotContainer::GetInstance();
+    m_alignTurnError = (robotContainer->m_vision.GetHorizOffset());
 
     if (abs(m_alignTurnError) < m_alignTurnTolerance)
     {

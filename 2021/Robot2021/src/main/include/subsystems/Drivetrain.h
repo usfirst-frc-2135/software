@@ -225,8 +225,6 @@ PigeonIMU m_pigeonIMU{0};
     meter_t GetDistanceMeters(int encoderCounts);
     feet_per_second_t GetWheelSpeeds(int encoderCountsPerSecond);
     meters_per_second_t GetVelocityMPS(int encoderCountsPerSecond);
-    
-    Vision *m_vision;
 
 public:
     Drivetrain();
