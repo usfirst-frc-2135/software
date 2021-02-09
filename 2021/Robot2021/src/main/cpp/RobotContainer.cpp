@@ -109,13 +109,13 @@ void RobotContainer::ConfigureButtonBindings()
 
     // TODO: Use XBoxController buttons instead of ints if available
     //        (int)frc::XboxController::Button::kA instead of 1
-    frc2::JoystickButton m_clStowD{&m_driverPad, 1};
-    frc2::JoystickButton m_clDeployD{&m_driverPad, 4};
-    frc2::JoystickButton m_dtQuickTurn{&m_driverPad, 5};
-    frc2::JoystickButton m_dtAlignTurn{&m_driverPad, 6};
+    frc2::JoystickButton m_clStowD{&m_driverPad, (int)frc::XboxController::Button::kA};
+    frc2::JoystickButton m_clDeployD{&m_driverPad, (int)frc::XboxController::Button::kY};
+    frc2::JoystickButton m_dtQuickTurn{&m_driverPad, (int)frc::XboxController::Button::kBumperLeft};
+    frc2::JoystickButton m_dtAlignTurn{&m_driverPad, (int)frc::XboxController::Button::kBumperRight};
 
-    frc2::JoystickButton m_shFire{&m_operatorPad, 2};
-    frc2::JoystickButton m_shRun{&m_operatorPad, 6};
+    frc2::JoystickButton m_shFire{&m_operatorPad, (int)frc::XboxController::Button::kB};
+    frc2::JoystickButton m_shRun{&m_operatorPad, (int)frc::XboxController::Button::kBumperRight};
 
     m_clStowD.WhenPressed(ClimberDeploy(false), true);
     m_clDeployD.WhenPressed(ClimberDeploy(true), true);
@@ -133,12 +133,12 @@ void RobotContainer::ConfigureButtonBindings()
     // clStowO is A
     // clDeployO is Y
 
-    frc2::JoystickButton m_dtShiftSpeed{&m_driverPad, 1};
+    frc2::JoystickButton m_dtShiftSpeed{&m_driverPad, (int)frc::XboxController::Button::kA};
 
     frc2::POVButton      m_inDeploy{&m_operatorPad, 0};
     frc2::POVButton      m_inStow{&m_operatorPad, 180};
-    frc2::JoystickButton m_clStowO{&m_operatorPad, 1};
-    frc2::JoystickButton m_clDeployO{&m_operatorPad, 4};
+    frc2::JoystickButton m_clStowO{&m_operatorPad, (int)frc::XboxController::Button::kA};
+    frc2::JoystickButton m_clDeployO{&m_operatorPad, (int)frc::XboxController::Button::kY};
 
     m_dtShiftSpeed.WhileHeld(DriveShift(false), true);
 
