@@ -118,6 +118,7 @@ void Spinner::SimulationPeriodic()
 void Spinner::Initialize(void)
 {
     std::printf("2135: SP12 Init\n");
+#if 0
     // Motor off
     if (m_talonValidSP12)
     {
@@ -127,12 +128,15 @@ void Spinner::Initialize(void)
         m_motorSP12.SetSensorPhase(false);
         m_motorSP12.SetSelectedSensorPosition(0, kCANTimeout);
     }
+#endif
 }
 
 //    Dump all Talon faults
 void Spinner::FaultDump(void)
 {
+#if 0
     frc2135::TalonUtils::TalonFaultDump("SP 12", m_motorSP12);
+#endif
 }
 
 ///// Rotate the control panel to a given color. /////
