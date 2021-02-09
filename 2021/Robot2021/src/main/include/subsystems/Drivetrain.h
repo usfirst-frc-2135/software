@@ -65,7 +65,6 @@ PigeonIMU m_pigeonIMU{0};
     typedef enum driveMode_e
     {   // Driving Algorithms
         DRIVEMODE_FIRST      = 0,
-        DRIVEMODE_ARCADE     = DRIVEMODE_FIRST,
         DRIVEMODE_CURVATURE  = 1,
         DRIVEMODE_VELCONTROL = 2,
         DRIVEMODE_LAST

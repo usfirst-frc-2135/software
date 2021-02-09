@@ -561,10 +561,6 @@ void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
     switch (m_curDriveMode)
     {
     default:
-    case DRIVEMODE_ARCADE:
-        m_diffDrive.ArcadeDrive(-yValue, xValue, true);
-        break;
-
     case DRIVEMODE_CURVATURE:
         m_diffDrive.CurvatureDrive(-yValue, xValue, m_isQuickTurn); // Boolean is for quick turn or not
         break;
