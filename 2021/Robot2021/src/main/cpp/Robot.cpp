@@ -102,18 +102,18 @@ void Robot::TestPeriodic() {}
 void Robot::RobotFaultDump(void)
 {
     // TODO: update to rew robot framework - subsystem access changed from shared_ptr
-#if 0
-    //    Print out talon SRX faults and clear sticky ones
+    // Print out talon SRX faults and clear sticky ones
     std::printf("2135: %s --------------\n", "FAULT DUMPS");
-    drivetrain->FaultDump();
-    intake->FaultDump();
-    conveyor->FaultDump();
-    shooter->FaultDump();
-    climber->FaultDump();
-    spinner->FaultDump();
-    pneumatics->FaultDump();
-    power->FaultDump();
-#endif
+    
+    RobotContainer *robotContainer = RobotContainer::GetInstance ();
+    robotContainer->m_drivetrain.FaultDump();
+    robotContainer->m_intake.FaultDump();
+    robotContainer->m_conveyor.FaultDump();
+    robotContainer->m_shooter.FaultDump();
+    robotContainer->m_climber.FaultDump();
+    robotContainer->m_spinner.FaultDump();
+    robotContainer->m_pneumatics.FaultDump();
+    robotContainer->m_power.FaultDump();
 }
 
 #ifndef RUNNING_FRC_TESTS
