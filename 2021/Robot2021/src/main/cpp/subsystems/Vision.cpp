@@ -36,6 +36,7 @@ void Vision::Periodic()
     m_targetOffsetAngle_Vertical = table->GetNumber("ty", 0.0);
     m_targetArea = table->GetNumber("ta", 0.0);
     m_targetSkew = table->GetNumber ("ts", 0.0);
+    m_targetValid = (bool)table->GetNumber("tv", 0.0);
 
     frc::SmartDashboard::PutNumber("VI_HORZ_OFFSET_ANGLE", m_targetOffsetAngle_Horizontal);
     frc::SmartDashboard::PutNumber("VI_VERT_OFFSET_ANGLE", m_targetOffsetAngle_Vertical);
@@ -80,4 +81,9 @@ double Vision::GetTargetArea()
 double Vision::GetTargetSkew()
 {
     return m_targetSkew;
+}
+
+bool Vision::GetTargetValid()
+{
+    return m_targetValid;
 }
