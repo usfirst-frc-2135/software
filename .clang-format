@@ -1,12 +1,12 @@
 # 1538 C++ Style Guide
 AccessModifierOffset: -4
 AlignAfterOpenBracket: AlwaysBreak
-AlignConsecutiveAssignments: true
-AlignConsecutiveDeclarations: true
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
 AlignConsecutiveMacros: true
 AlignEscapedNewlines: DontAlign
 AlignOperands: true
-AlignTrailingComments: false
+AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: false
 AllowAllConstructorInitializersOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
@@ -48,6 +48,7 @@ KeepEmptyLinesAtTheStartOfBlocks: false
 Language: Cpp
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: All
+PenaltyReturnTypeOnItsOwnLine: 1000
 PointerAlignment: Right
 ReflowComments: false
 SortIncludes: true
