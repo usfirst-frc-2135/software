@@ -133,7 +133,7 @@ void RobotContainer::ConfigureButtonBindings()
     // clStowO is A
     // clDeployO is Y
 
-    frc2::JoystickButton m_dtShiftSpeed{&m_driverPad, (int)frc::XboxController::Button::kA};
+    frc2::JoystickButton m_dtShiftSpeed{&m_driverPad, (int)frc::XboxController::Button::kB};
 
     frc2::POVButton      m_inDeploy{&m_operatorPad, 0};
     frc2::POVButton      m_inStow{&m_operatorPad, 180};

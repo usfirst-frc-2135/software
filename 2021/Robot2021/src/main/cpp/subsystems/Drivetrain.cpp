@@ -386,11 +386,6 @@ meter_t Drivetrain::GetAverageEncoderDistance()
   return (GetDistanceMeters(m_encoderLeft) + GetDistanceMeters(m_encoderRight)) / 2.0;
 }
 
-void Drivetrain::SetMaxOutput(double maxOutput)
-{
-  m_diffDrive.SetMaxOutput(maxOutput);
-}
-
 double Drivetrain::GetHeading()
 {
   return std::remainder(m_headingDeg, 360) * (kGyroReversed ? -1.0 : 1.0);
