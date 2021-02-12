@@ -215,7 +215,6 @@ PigeonIMU m_pigeonIMU{0};
     void TankDriveVolts(volt_t left, volt_t right);
     void ResetEncoders();
     meter_t GetAverageEncoderDistance();
-    void SetMaxOutput(double maxOutput);
     double GetHeading();
     double GetTurnRate();
     frc::Pose2d GetPose();
