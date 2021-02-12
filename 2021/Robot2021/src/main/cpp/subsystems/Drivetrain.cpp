@@ -668,7 +668,7 @@ void Drivetrain::MoveAlignTurnExecute(frc::XboxController *throttleJstick)
     double leftThrottle = throttle - alignTurnAdjustment;
     double rightThrottle = throttle + alignTurnAdjustment;
 
-    if (m_alignTurnDebug)
+    if (m_driveDebug)
     {
         std::printf("2135: DTAT - Error %5.2f degrees Adjustment %5.2f Left Throttle %5.2f Right Throttle %5.2f\n",
             m_alignTurnError, alignTurnAdjustment, leftThrottle, rightThrottle);
