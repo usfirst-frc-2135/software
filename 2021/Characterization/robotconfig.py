@@ -9,9 +9,9 @@
     # 'WPI_VictorSPX'
     # 'WPI_TalonFX'
     # If doing drive test, treat this as the left side of the drivetrain
-    "controllerTypes": ['WPI_TaloFX', 'WPI_TaloFX'],
+    "controllerTypes": ['WPI_TalonFX', 'WPI_TalonFX'],
     # Only if you are doing drive (leave empty "[]" if not)
-    "rightControllerTypes": ['WPI_TaloFX', 'WPI_TaloFX'],
+    "rightControllerTypes": ['WPI_TalonFX', 'WPI_TalonFX'],
     # Set motors to inverted or not
     # If doing drive test, treat this as the left side of the drivetrain
     "motorsInverted": [True, True],
@@ -19,7 +19,7 @@
     "rightMotorsInverted": [True, True],
     # Encoder edges-per-revolution (*NOT* cycles per revolution!)
     # For the CTRE Mag Encoder, use 16384 (4 * 4096 = 16384)
-    "encoderEPR": 8192,
+    "encoderEPR": 2048,
     # Gearing accounts for the gearing between the encoder and the output shaft
     "gearing": 13.94,
     # Encoder ports (leave empty "[]" if not needed)
@@ -46,4 +46,6 @@
     # "" (NavX using default SPI, ADXRS450 using onboard CS0, or no gyro)
     "gyroPort": "SPI.Port.kMXP",
 }
+
+
 
