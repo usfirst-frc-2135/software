@@ -74,9 +74,7 @@ m_diffDrive.SetMaxOutput(1.0);
     if (m_talonValidR4)
         TalonFollowerInitialize(m_motorR4, 3);
 
-    // Set to low gear (default), and first drive mode option
-    m_lowGear = true;
-    MoveShiftGears(m_lowGear);
+    // Set to first drive mode option
     m_curDriveMode = DRIVEMODE_LAST;
     ToggleDriveMode();
 
@@ -100,6 +98,7 @@ m_diffDrive.SetMaxOutput(1.0);
 
     ramseteController = frc::RamseteController(kRamseteB, kRamseteZeta);
 
+    Initialize ();
 }
 
 void Drivetrain::Periodic()
