@@ -87,3 +87,8 @@ bool Vision::GetTargetValid()
 {
     return m_targetValid;
 }
+
+void Vision::SetLEDMode(bool mode)
+{
+    table->PutNumber("led", mode);
+}
