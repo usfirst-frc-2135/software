@@ -1,8 +1,8 @@
 # 1538 C++ Style Guide
 AccessModifierOffset: -4
 AlignAfterOpenBracket: AlwaysBreak
-AlignConsecutiveAssignments: false
-AlignConsecutiveDeclarations: false
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
 AlignConsecutiveMacros: true
 AlignEscapedNewlines: DontAlign
 AlignOperands: true
