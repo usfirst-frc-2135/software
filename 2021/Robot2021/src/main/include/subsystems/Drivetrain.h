@@ -243,7 +243,6 @@ public:
     void ResetSensors();
     void MoveSetQuickTurn(bool quickTurn);
     void MoveShiftGears(bool lowGear);
-    void MoveSpin(bool spinRight);
     void MoveStop();
     void MoveWithJoysticks(frc::XboxController *driverPad);
     void ToggleDriveMode();
