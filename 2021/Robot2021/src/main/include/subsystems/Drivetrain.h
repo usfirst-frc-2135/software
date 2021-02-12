@@ -241,7 +241,6 @@ public:
     void FaultDump(void);
 
     void ResetSensors();
-    void BumpRampRate(bool bumpUp);
     void MoveSetQuickTurn(bool quickTurn);
     void MoveShiftGears(bool lowGear);
     void MoveSpin(bool spinRight);

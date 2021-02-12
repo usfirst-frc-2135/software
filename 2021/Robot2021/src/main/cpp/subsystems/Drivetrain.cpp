@@ -441,28 +441,6 @@ meters_per_second_t Drivetrain::GetVelocityMPS(int velocityCounts)
 ///////////////////////////// Public Interfaces ///////////////////////////////
 //
 
-void Drivetrain::BumpRampRate(bool bumpUp)
-{
-    const double bumpDelta = 0.1;
-
-    m_openLoopRampRate += (bumpUp) ? bumpDelta : -bumpDelta;
-    m_closedLoopRampRate += (bumpUp) ? bumpDelta : -bumpDelta;
-
-    if (m_talonValidL1)
-    {
-        m_motorL1.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
-        m_motorL1.ConfigClosedloopRamp(m_closedLoopRampRate, kCANTimeout);
-    }
-
-    if (m_talonValidR3)
-    {
-        m_motorR3.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
-        m_motorR3.ConfigClosedloopRamp(m_closedLoopRampRate, kCANTimeout);
-    }
-
-    frc::SmartDashboard::PutNumber("DT_OpenLoopRampRate", m_openLoopRampRate);
-    frc::SmartDashboard::PutNumber("DT_ClosedLoopRampRate", m_closedLoopRampRate);
-}
 
 //
 //  Set quick turn for curvature drive
