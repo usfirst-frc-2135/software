@@ -459,17 +459,6 @@ void Drivetrain::MoveShiftGears(bool lowGear)
 }
 
 //
-//  Autonomous Drive Spin movement
-//
-void Drivetrain::MoveSpin(bool spinRight)
-{
-    double spinSpeed = (spinRight) ? m_driveSpin : -m_driveSpin;
-
-    if (m_talonValidL1 || m_talonValidR3)
-        m_diffDrive.TankDrive(spinSpeed, -spinSpeed, false);
-}
-
-//
 //  Autonomous Move stop command - used to feed the motors when stopped
 //
 void Drivetrain::MoveStop()
