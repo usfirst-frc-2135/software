@@ -85,6 +85,9 @@ m_diffDrive.SetMaxOutput(1.0);
     // m_kinematics = new frc::DifferentialDriveKinematics(kTrackWidthFeet);
     m_odometry = frc::DifferentialDriveOdometry(gyroAngle);
 
+    // Set up Field 2d for simulator
+    frc::SmartDashboard::PutData("Field", &m_field);
+
     // Velocity Control Loop PID Controllers
     m_leftPIDController = frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
     m_rightPIDController = frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
@@ -107,6 +110,7 @@ void Drivetrain::Periodic()
     UpdateOdometry();
     UpdateDashboardValues();
     UpdateMotorOutputs();
+    m_field.SetRobotPose(m_odometry.GetPose());
 }
 
 void Drivetrain::SimulationPeriodic()

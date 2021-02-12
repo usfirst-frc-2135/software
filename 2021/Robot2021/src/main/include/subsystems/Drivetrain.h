@@ -17,6 +17,7 @@
 #include <frc/controller/SimpleMotorFeedforward.h>
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
+#include <frc/smartdashboard/Field2d.h>
 #include <frc/trajectory/Trajectory.h>
 #include <frc/XboxController.h>
 #include <units/angle.h>
@@ -176,6 +177,7 @@ PigeonIMU m_pigeonIMU{0};
     frc::SimpleMotorFeedforward<meter>  m_feedforward {ks, kv, ka};
     frc::DifferentialDriveKinematics    m_kinematics {kTrackWidthFeet};
     frc::DifferentialDriveOdometry      m_odometry {gyroAngle};
+    frc::Field2d m_field;
 
     frc2::PIDController                 m_leftPIDController {m_vcpidKp, m_vcpidKi, m_vcpidKd};
     frc2::PIDController                 m_rightPIDController {m_vcpidKp, m_vcpidKi, m_vcpidKd};
