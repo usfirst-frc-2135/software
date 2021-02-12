@@ -190,7 +190,7 @@ void Drivetrain::TalonMasterInitialize(WPI_BaseMotorController &motor)
     motor.EnableVoltageCompensation(true);
 
     motor.Set(ControlMode::PercentOutput, 0.0);
-    motor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, kPidIndex, kCANTimeout);
+    motor.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, kPidIndex, kCANTimeout);
     motor.SetSensorPhase(false);
     motor.SetSelectedSensorPosition(0, kPidIndex, kCANTimeout);
 
