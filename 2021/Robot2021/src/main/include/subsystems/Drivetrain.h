@@ -78,7 +78,7 @@ PigeonIMU m_pigeonIMU{0};
 
     // Drivetrain constants
     const double    kWheelDiaInches = 6.0;          // Measured wheel diameter
-    const int       kEncoderCPR = 2048 * 4;         // CPR is 2048 for new TalonFX
+    const int       kEncoderCPR = 2048;         // CPR is 2048 for new TalonFX
     const foot_t    kTrackWidthFeet = 2.125_ft;     // Measured track width
 
     // Derived values
