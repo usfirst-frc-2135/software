@@ -10,6 +10,6 @@
         "lint-staged": "^10.5.4"
     },
     "lint-staged": {
-        "*.(c|h)?(pp)": "npx clang-format -i"
+        "*.(c|h)?(pp)": "sh ./clang-format.sh"
     }
 }
