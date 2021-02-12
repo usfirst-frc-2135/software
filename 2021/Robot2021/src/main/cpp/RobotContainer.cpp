@@ -43,8 +43,6 @@ RobotContainer::RobotContainer() : m_autonomousCommand(
     frc::SmartDashboard::PutData("Conveyor Run: CONVEYORDIRECTION_UP", new ConveyorRun(1, &m_conveyor));
     frc::SmartDashboard::PutData("Conveyor Run: CONVEYORDIRECTION_DOWN", new ConveyorRun(-1, &m_conveyor));
     frc::SmartDashboard::PutData("Drive Align Turn", new DriveAlignTurn( &m_drivetrain ));
-    frc::SmartDashboard::PutData("Drive Bump Ramp: BUMP_UP", new DriveBumpRamp(true));
-    frc::SmartDashboard::PutData("Drive Bump Ramp: BUMP_DOWN", new DriveBumpRamp(false));
     frc::SmartDashboard::PutData("Drive Mode Toggle", new DriveModeToggle());
     frc::SmartDashboard::PutData("Drive Quick Turn", new DriveQuickTurn());
     frc::SmartDashboard::PutData("Drive Reset", new DriveReset());

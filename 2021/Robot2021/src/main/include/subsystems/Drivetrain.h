@@ -72,7 +72,6 @@ PigeonIMU m_pigeonIMU{0};
 
     //    Declare constants
     const int       m_driveDebug = 0;               // Debug flag to disable extra logging calls
-    const int       m_alignTurnDebug = 0;           // Debug flag to disable extra logging calls
     const int       kPidIndex = 0;                  // PID slot index for sensors
     const int       kCANTimeout = 30;               // CAN timeout in msec to wait for response
 
@@ -240,10 +239,8 @@ public:
     void FaultDump(void);
 
     void ResetSensors();
-    void BumpRampRate(bool bumpUp);
     void MoveSetQuickTurn(bool quickTurn);
     void MoveShiftGears(bool lowGear);
-    void MoveSpin(bool spinRight);
     void MoveStop();
     void MoveWithJoysticks(frc::XboxController *driverPad);
     void ToggleDriveMode();

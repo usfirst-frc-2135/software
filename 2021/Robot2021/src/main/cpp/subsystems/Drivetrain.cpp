@@ -436,28 +436,6 @@ meters_per_second_t Drivetrain::GetVelocityMPS(int velocityCounts)
 ///////////////////////////// Public Interfaces ///////////////////////////////
 //
 
-void Drivetrain::BumpRampRate(bool bumpUp)
-{
-    const double bumpDelta = 0.1;
-
-    m_openLoopRampRate += (bumpUp) ? bumpDelta : -bumpDelta;
-    m_closedLoopRampRate += (bumpUp) ? bumpDelta : -bumpDelta;
-
-    if (m_talonValidL1)
-    {
-        m_motorL1.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
-        m_motorL1.ConfigClosedloopRamp(m_closedLoopRampRate, kCANTimeout);
-    }
-
-    if (m_talonValidR3)
-    {
-        m_motorR3.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
-        m_motorR3.ConfigClosedloopRamp(m_closedLoopRampRate, kCANTimeout);
-    }
-
-    frc::SmartDashboard::PutNumber("DT_OpenLoopRampRate", m_openLoopRampRate);
-    frc::SmartDashboard::PutNumber("DT_ClosedLoopRampRate", m_closedLoopRampRate);
-}
 
 //
 //  Set quick turn for curvature drive
@@ -478,17 +456,6 @@ void Drivetrain::MoveShiftGears(bool lowGear)
     frc::SmartDashboard::PutBoolean("DT Low Gear", lowGear);
 
     m_shifter.Set((lowGear) ? m_shifter.kForward : m_shifter.kReverse);
-}
-
-//
-//  Autonomous Drive Spin movement
-//
-void Drivetrain::MoveSpin(bool spinRight)
-{
-    double spinSpeed = (spinRight) ? m_driveSpin : -m_driveSpin;
-
-    if (m_talonValidL1 || m_talonValidR3)
-        m_diffDrive.TankDrive(spinSpeed, -spinSpeed, false);
 }
 
 //
@@ -685,7 +652,7 @@ void Drivetrain::MoveAlignTurnExecute(frc::XboxController *throttleJstick)
     double leftThrottle = throttle - alignTurnAdjustment;
     double rightThrottle = throttle + alignTurnAdjustment;
 
-    if (m_alignTurnDebug)
+    if (m_driveDebug)
     {
         std::printf("2135: DTAT - Error %5.2f degrees Adjustment %5.2f Left Throttle %5.2f Right Throttle %5.2f\n",
             m_alignTurnError, alignTurnAdjustment, leftThrottle, rightThrottle);
