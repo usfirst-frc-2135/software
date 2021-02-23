@@ -22,3 +22,6 @@ DS Log Parser/.vs/
 2019/VisionTest/.vs/visiontest/v15/
 2019/cpp-multiCameraServer/.vscode/ipch/
 2019/VisionTest/.vscode/ipch/
+
+# Third party nodejs code
+node_modules

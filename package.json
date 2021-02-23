@@ -1,0 +1,15 @@
+{
+    "name": "software",
+    "private": true,
+    "scripts": {
+        "postinstall": "husky install"
+    },
+    "devDependencies": {
+        "clang-format": "^1.5.0",
+        "husky": "^5.0.9",
+        "lint-staged": "^10.5.4"
+    },
+    "lint-staged": {
+        "*.(c|h)?(pp)": "sh ./clang-format.sh"
+    }
+}
