@@ -77,10 +77,5 @@
     "thread": "cpp",
     "cinttypes": "cpp",
     "typeinfo": "cpp"
-  },
-  "clang-format.executable": "${workspaceRoot}/../../node_modules/.bin/clang-format",
-  "[cpp]": {
-    "editor.defaultFormatter": "xaver.clang-format",
-    "editor.formatOnSave": true,
   }
 }
