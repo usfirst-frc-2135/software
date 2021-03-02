@@ -123,13 +123,14 @@ void Drivetrain::SimulationPeriodic()
     m_driverSim.Update(20_ms);
     
     m_leftEncoderSim.SetDistance(
-        m_drivetrainSimulator.GetLeftPosition().to<double>());
+        m_driverSim.GetLeftPosition().to<double>());
     m_leftEncoderSim.SetRate(
-        m_drivetrainSimulator.GetLeftVelocity().to<double>());
+        m_driverSim.GetLeftVelocity().to<double>());
     m_rightEncoderSim.SetDistance(
-        m_drivetrainSimulator.GetRightPosition().to<double>());
+        m_driverSim.GetRightPosition().to<double>());
     m_rightEncoderSim.SetRate(
-        m_drivetrainSimulator.GetRightVelocity().to<double>());
+        m_driverSim.GetRightVelocity().to<double>());
+    m_gyroSim.SetAngle(-m_driverSim.GetHeading().Degrees());
     
     
 }
