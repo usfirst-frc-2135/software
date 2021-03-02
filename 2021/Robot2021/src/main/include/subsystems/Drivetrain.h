@@ -15,6 +15,7 @@
 #include <frc/controller/PIDController.h>
 #include <frc/controller/RamseteController.h>
 #include <frc/controller/SimpleMotorFeedforward.h>
+#include <frc/Encoder.h>
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
 #include <frc/smartdashboard/Field2d.h>
@@ -30,6 +31,7 @@
 #include "Constants.h"
 #include "frc2135/DriverSim.h"
 #include "frc/simulation/DifferentialDrivetrainSim.h"
+#include "frc/simulation/EncoderSim.h"
 #include "frc/system/plant/LinearSystemId.h"
 #include "frc/RobotBase.h"
 
@@ -80,6 +82,10 @@ WPI_TalonSRX m_motorL2{2};
 WPI_TalonSRX m_motorR4{4};
 frc::DoubleSolenoid m_shifter{0, 0, 7};
 PigeonIMU m_pigeonIMU{0};
+frc::Encoder m_leftEncoder{DriveConstants::kLeftEncoderPorts[0], DriveConstants::kLeftEncoderPorts[1]};
+frc::Encoder m_rightEncoder{DriveConstants::kRightEncoderPorts[0], DriveConstants::kRightEncoderPorts[1]};
+frc::sim::EncoderSim m_leftEncoderSim{m_leftEncoder};
+frc::sim::EncoderSim m_rightEncoderSim{m_rightEncoder};
 #endif
 
 
