@@ -19,32 +19,32 @@
 
 namespace AutoConstants
 {
-}  // namespace AutoConstants
+} // namespace AutoConstants
 
 namespace DriveConstants
 {
-    constexpr int kLeftEncoderPorts[]{0,1};
-    constexpr int kRightEncoderPorts[]{2,3};
+    constexpr int kLeftEncoderPorts[]{ 0, 1 };
+    constexpr int kRightEncoderPorts[]{ 2, 3 };
     // Add CAN timeout, wheel diameter, etc.
-}  // namespace DriveConstants
+} // namespace DriveConstants
 
 namespace IntakeConstants
 {
-}  // namespace IntakeConstants
+} // namespace IntakeConstants
 
 namespace ConveyorConstants
 {
-}  // namespace ConveyorConstants
+} // namespace ConveyorConstants
 
 namespace ClimberConstants
 {
-}  // namespace ClimberConstants
+} // namespace ClimberConstants
 
 namespace ShooterConstants
 {
-}  // namespace ShooterConstants
+} // namespace ShooterConstants
 
 namespace OIConstants
 {
     constexpr int kDriverControllerPort = 1;
-}  // namespace OIConstants
+} // namespace OIConstants

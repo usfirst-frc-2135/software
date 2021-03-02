@@ -14,10 +14,8 @@
 
 #include "commands/ClimberDeploy.h"
 
-ClimberDeploy::ClimberDeploy(bool climberDeploy) :
-    m_climberDeploy(climberDeploy)
+ClimberDeploy::ClimberDeploy(bool climberDeploy) : m_climberDeploy(climberDeploy)
 {
-
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(m_Subsystem);
     SetName("ClimberDeploy");
@@ -29,15 +27,12 @@ ClimberDeploy::ClimberDeploy(bool climberDeploy) :
 void ClimberDeploy::Initialize()
 {
     std::printf("2135: ClimberDeploy - Init (%d)\n", m_climberDeploy);
-    RobotContainer *robotContainer = RobotContainer::GetInstance ();
+    RobotContainer *robotContainer = RobotContainer::GetInstance();
     robotContainer->m_climber.DeployClimber(m_climberDeploy);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ClimberDeploy::Execute()
-{
-
-}
+void ClimberDeploy::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
 bool ClimberDeploy::IsFinished()
