@@ -82,12 +82,12 @@ WPI_TalonSRX m_motorL2{2};
 WPI_TalonSRX m_motorR4{4};
 frc::DoubleSolenoid m_shifter{0, 0, 7};
 PigeonIMU m_pigeonIMU{0};
+#endif
+
 frc::Encoder m_leftEncoder{DriveConstants::kLeftEncoderPorts[0], DriveConstants::kLeftEncoderPorts[1]};
 frc::Encoder m_rightEncoder{DriveConstants::kRightEncoderPorts[0], DriveConstants::kRightEncoderPorts[1]};
 frc::sim::EncoderSim m_leftEncoderSim{m_leftEncoder};
 frc::sim::EncoderSim m_rightEncoderSim{m_rightEncoder};
-#endif
-
 
     typedef enum driveMode_e
     {   // Driving Algorithms
