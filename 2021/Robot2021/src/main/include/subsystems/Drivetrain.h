@@ -310,6 +310,7 @@ public:
     void MoveStop();
     void MoveWithJoysticks(frc::XboxController *driverPad);
     void ToggleDriveMode();
+    bool LoadTrajectory();
 
     // Autonomous - Driving to a distance using Motion Magic
     void MoveDriveDistanceMMInit(double distance);
