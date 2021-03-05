@@ -86,6 +86,9 @@ Drivetrain::Drivetrain()
 
     ramseteController = frc::RamseteController(kRamseteB, kRamseteZeta);
 
+    m_leftEncoder.SetDistancePerPulse(kEncoderMetersPerCount.to<double>());
+    m_rightEncoder.SetDistancePerPulse(kEncoderMetersPerCount.to<double>());
+
     Initialize();
 }
 
