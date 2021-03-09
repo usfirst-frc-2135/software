@@ -6,5 +6,8 @@ jobs:
             - uses: actions/checkout@v2
             - run: sudo apt-get install -y clang-tidy
             - working-directory: 2021/Robot2021/
-              run: ./gradlew installRoboRioToolchain && ./gradlew generateCompileCommands
-            - run: run-clang-tidy -checks='bugprone-*,cert-*,clang-analyzer-*,concurrency-*,cppcoreguidelines-*,hicpp-*,misc-*,modernize-*,-modernize-use-trailing-return-type,performance-*,readability-*' -p build/compile_commands/linuxx86-64/
+              run: ./gradlew installRoboRioToolchain
+            - working-directory: 2021/Robot2021/
+              run: ./gradlew generateCompileCommands
+            - working-directory: 2021/Robot2021/
+              run: run-clang-tidy -checks='bugprone-*,cert-*,clang-analyzer-*,concurrency-*,cppcoreguidelines-*,hicpp-*,misc-*,modernize-*,-modernize-use-trailing-return-type,performance-*,readability-*' -p build/compile_commands/linuxx86-64/
