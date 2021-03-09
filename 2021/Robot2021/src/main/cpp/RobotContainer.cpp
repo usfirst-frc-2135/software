@@ -107,6 +107,7 @@ void RobotContainer::ConfigureButtonBindings()
     frc2::JoystickButton m_clStowO{ &m_operatorPad, (int)frc::XboxController::Button::kA };
     frc2::JoystickButton m_shFire{ &m_operatorPad, (int)frc::XboxController::Button::kB };
     frc2::JoystickButton m_clDeployO{ &m_operatorPad, (int)frc::XboxController::Button::kY };
+    frc2::JoystickButton m_autoDrive{ &m_operatorPad, (int)frc::XboxController::Button::kX };
     frc2::JoystickButton m_shRun{ &m_operatorPad, (int)frc::XboxController::Button::kBumperRight };
     frc2::POVButton m_inDeploy{ &m_operatorPad, 0 };
     frc2::POVButton m_inStow{ &m_operatorPad, 180 };
@@ -120,6 +121,7 @@ void RobotContainer::ConfigureButtonBindings()
     m_clStowO.WhenPressed(ClimberDeploy(false), true);
     m_shFire.WhenPressed(IndexerDeploy(false), true);
     m_clDeployO.WhenPressed(ClimberDeploy(true), true);
+    m_autoDrive.WhenPressed(AutoDrivePath(&m_drivetrain), true);
     m_shRun.WhileHeld(ShooterRun(1, &m_shooter), true);
     m_inDeploy.WhenPressed(IntakeDeploy(true), true);
     m_inStow.WhenPressed(IntakeDeploy(false), true);

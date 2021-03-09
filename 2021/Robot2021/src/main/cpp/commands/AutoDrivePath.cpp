@@ -23,19 +23,28 @@ AutoDrivePath::AutoDrivePath(Drivetrain *m_drivetrain) : m_drivetrain(m_drivetra
 }
 
 // Called just before this Command runs the first time
-void AutoDrivePath::Initialize() {}
+void AutoDrivePath::Initialize()
+{
+    m_drivetrain->RamseteFollowerInit();
+}
 
 // Called repeatedly when this Command is scheduled to run
-void AutoDrivePath::Execute() {}
+void AutoDrivePath::Execute()
+{
+    m_drivetrain->RamseteFollowerExecute();
+}
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDrivePath::IsFinished()
 {
-    return false;
+    return m_drivetrain->RamseteFollowerIsFinished();
 }
 
 // Called once after isFinished returns true
-void AutoDrivePath::End(bool interrupted) {}
+void AutoDrivePath::End(bool interrupted)
+{
+    m_drivetrain->RamseteFollowerEnd();
+}
 
 bool AutoDrivePath::RunsWhenDisabled() const
 {

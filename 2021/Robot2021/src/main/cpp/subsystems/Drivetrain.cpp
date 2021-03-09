@@ -726,10 +726,15 @@ void Drivetrain::RamseteFollowerInit(void)
     // Get our trajectory
     // TODO: Move this to be able to load a trajectory while disabled when the user changes the chooser selection
 
-    wpi::Twine deployDirectory;
-    frc::Trajectory trajectory;
+    wpi::SmallString<64> outputDirectory;
+    frc::filesystem::GetDeployDirectory(outputDirectory);
+    outputDirectory.append("/output/testPath.wpilib.json");
+    std::printf("2135: Output Directory is: %s\n", outputDirectory.c_str());
+    std::ifstream pathFile(outputDirectory.c_str());
+    std::printf("2135: pathFile good: %d\n", pathFile.good());
 
-    trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDirectory);
+    frc::Trajectory trajectory;
+    trajectory = frc::TrajectoryUtil::FromPathweaverJson(outputDirectory);
     trajectoryStates = trajectory.States();
 
     std::printf("Size of state table is %d\n", (int)trajectoryStates.size());
@@ -812,7 +817,7 @@ bool Drivetrain::LoadTrajectory()
 {
     wpi::SmallString<64> outputDirectory;
     frc::filesystem::GetDeployDirectory(outputDirectory);
-    outputDirectory.append("/output/test path.wpilib.json");
+    outputDirectory.append("/output/testPath.wpilib.json");
     std::printf("2135: Output Directory is: %s\n", outputDirectory.c_str());
     std::ifstream pathFile(outputDirectory.c_str());
     std::printf("2135: pathFile good: %d\n", pathFile.good());
