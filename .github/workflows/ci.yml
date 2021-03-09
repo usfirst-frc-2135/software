@@ -4,7 +4,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-            - run: sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+            - run: sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" && sudo apt install -y clang-tidy-12
             - working-directory: 2021/Robot2021/
               run: ./gradlew installRoboRioToolchain
             - working-directory: 2021/Robot2021/
