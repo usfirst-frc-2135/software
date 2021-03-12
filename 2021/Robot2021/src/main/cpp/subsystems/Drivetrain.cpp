@@ -804,6 +804,15 @@ void Drivetrain::RamseteFollowerExecute(void)
     // Apply the calculated values to the motors
     m_motorL1.Set(ControlMode::PercentOutput, leftTotalOutput);
     m_motorR3.Set(ControlMode::PercentOutput, rightTotalOutput);
+
+    m_diffDrive.Feed();
+
+    std::printf(
+        "leftTotalOutput: %lf, rightTotalOutput: %lf, trajCurState: %d, trajectoryLength %lu \n",
+        leftTotalOutput,
+        rightTotalOutput,
+        trajCurState,
+        trajectoryStates.size());
 }
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
