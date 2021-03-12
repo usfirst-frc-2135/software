@@ -798,12 +798,17 @@ void Drivetrain::RamseteFollowerExecute(void)
 
     // Divide FF by 12 to normalize to the same units as the outputs
     // TODO: Verify units on PID constants (are they scaled -1.0 to 1.0 or in volts)
+    leftFBOutput = 0;
+    rightFBOutput = 0;
+
     double leftTotalOutput = -(leftFBOutput + double(leftFFVolts) / 12.0);
     double rightTotalOutput = rightFBOutput + double(RightFFVolts) / 12.0;
 
     // Apply the calculated values to the motors
-    m_motorL1.Set(ControlMode::PercentOutput, leftTotalOutput);
-    m_motorR3.Set(ControlMode::PercentOutput, rightTotalOutput);
+    //m_motorL1.Set(ControlMode::PercentOutput, 1);
+    //m_motorR3.Set(ControlMode::PercentOutput, 1);
+
+    m_diffDrive.TankDrive(leftTotalOutput, rightTotalOutput);
 
     m_diffDrive.Feed();
 
