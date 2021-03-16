@@ -801,7 +801,7 @@ void Drivetrain::RamseteFollowerExecute(void)
     leftFBOutput = 0;
     rightFBOutput = 0;
 
-    double leftTotalOutput = -(leftFBOutput + double(leftFFVolts) / 12.0);
+    double leftTotalOutput = leftFBOutput + double(leftFFVolts) / 12.0;
     double rightTotalOutput = rightFBOutput + double(RightFFVolts) / 12.0;
 
     // Apply the calculated values to the motors
@@ -813,11 +813,11 @@ void Drivetrain::RamseteFollowerExecute(void)
     m_diffDrive.Feed();
 
     std::printf(
-        "leftTotalOutput: %lf, rightTotalOutput: %lf, trajCurState: %d, trajectoryLength %lu \n",
+        "leftTotalOutput: %lf, rightTotalOutput: %lf, trajCurState: %d, gyro: %f \n",
         leftTotalOutput,
         rightTotalOutput,
         trajCurState,
-        trajectoryStates.size());
+        m_odometry.GetPose().Rotation().Degrees().to<double>());
 }
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
