@@ -404,8 +404,17 @@ void Drivetrain::TankDriveVolts(volt_t left, volt_t right)
 // JLM: We already have this (or similar that should be used)
 void Drivetrain::ResetEncoders()
 {
-    m_motorL1.SetSelectedSensorPosition(0);
-    m_motorR3.SetSelectedSensorPosition(0);
+    if (frc::RobotBase::IsReal())
+    {
+        m_motorL1.SetSelectedSensorPosition(0);
+        m_motorR3.SetSelectedSensorPosition(0);
+    }
+
+    else
+    {
+        m_leftEncoder.Reset();
+        m_rightEncoder.Reset();
+    }
 }
 
 meter_t Drivetrain::GetAverageEncoderDistance()
@@ -728,7 +737,7 @@ void Drivetrain::RamseteFollowerInit(void)
 
     wpi::SmallString<64> outputDirectory;
     frc::filesystem::GetDeployDirectory(outputDirectory);
-    outputDirectory.append("/output/testPath.wpilib.json");
+    outputDirectory.append("/output/curvePath.wpilib.json");
     std::printf("2135: Output Directory is: %s\n", outputDirectory.c_str());
     std::ifstream pathFile(outputDirectory.c_str());
     std::printf("2135: pathFile good: %d\n", pathFile.good());
@@ -763,7 +772,7 @@ void Drivetrain::RamseteFollowerInit(void)
 #endif
 
     // This initializes the odometry (where we are) and tolerance
-    ResetOdometry(frc::Pose2d());
+    ResetOdometry(trajectory.InitialPose());
     trajCurState = 0;
 
     // TODO: should reset trajectory states here
@@ -813,11 +822,16 @@ void Drivetrain::RamseteFollowerExecute(void)
     m_diffDrive.Feed();
 
     std::printf(
-        "leftTotalOutput: %lf, rightTotalOutput: %lf, trajCurState: %d, gyro: %f \n",
+        "lOut: %.3lf, rOut: %.3lf, trajCur: %d, gyro: %.3f, tarSpeedX: %.3f, tarSpeedY: %.3f, tarSpeedO: %.3f, tarLSpeed: %.3f, tarRSpeed: %.3f \n",
         leftTotalOutput,
         rightTotalOutput,
         trajCurState,
-        m_odometry.GetPose().Rotation().Degrees().to<double>());
+        m_odometry.GetPose().Rotation().Degrees().to<double>(),
+        targetChassisSpeeds.vx.to<double>(),
+        targetChassisSpeeds.vy.to<double>(),
+        targetChassisSpeeds.omega.to<double>(),
+        targetWheelSpeeds.left.to<double>(),
+        targetWheelSpeeds.right.to<double>());
 }
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
