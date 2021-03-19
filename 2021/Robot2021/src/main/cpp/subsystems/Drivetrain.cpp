@@ -742,9 +742,11 @@ void Drivetrain::RamseteFollowerInit(void)
     std::ifstream pathFile(outputDirectory.c_str());
     std::printf("2135: pathFile good: %d\n", pathFile.good());
 
-    frc::Trajectory trajectory;
     trajectory = frc::TrajectoryUtil::FromPathweaverJson(outputDirectory);
     trajectoryStates = trajectory.States();
+    trajectoryTimer.Reset();
+    trajectoryTimer.Start();
+
 
     std::printf("Size of state table is %d\n", (int)trajectoryStates.size());
 
@@ -789,7 +791,7 @@ void Drivetrain::RamseteFollowerExecute(void)
     frc::DifferentialDriveWheelSpeeds targetWheelSpeeds;
 
     // Need to step through the states through the trajectory
-    targetChassisSpeeds = ramseteController.Calculate(GetPose(), trajectoryStates[trajCurState++]);
+    targetChassisSpeeds = ramseteController.Calculate(GetPose(), trajectory.Sample(trajectoryTimer.Get()*1_s));
     targetWheelSpeeds = m_kinematics.ToWheelSpeeds(targetChassisSpeeds);
 
     // Calculates FF output contribution to reach the speed
@@ -836,7 +838,7 @@ void Drivetrain::RamseteFollowerExecute(void)
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
-    return (trajCurState >= trajectoryStates.size());
+    return ((trajectoryTimer.Get()*1_s) >= trajectory.TotalTime());
 }
 
 void Drivetrain::RamseteFollowerEnd(void) {}
