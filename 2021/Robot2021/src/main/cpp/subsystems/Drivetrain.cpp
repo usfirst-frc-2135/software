@@ -737,7 +737,7 @@ void Drivetrain::RamseteFollowerInit(void)
 
     wpi::SmallString<64> outputDirectory;
     frc::filesystem::GetDeployDirectory(outputDirectory);
-    outputDirectory.append("/output/curvePath.wpilib.json");
+    outputDirectory.append("/output/testPath1.wpilib.json");
     std::printf("2135: Output Directory is: %s\n", outputDirectory.c_str());
     std::ifstream pathFile(outputDirectory.c_str());
     std::printf("2135: pathFile good: %d\n", pathFile.good());
@@ -746,7 +746,6 @@ void Drivetrain::RamseteFollowerInit(void)
     trajectoryStates = trajectory.States();
     trajectoryTimer.Reset();
     trajectoryTimer.Start();
-
 
     std::printf("Size of state table is %d\n", (int)trajectoryStates.size());
 
@@ -791,7 +790,8 @@ void Drivetrain::RamseteFollowerExecute(void)
     frc::DifferentialDriveWheelSpeeds targetWheelSpeeds;
 
     // Need to step through the states through the trajectory
-    targetChassisSpeeds = ramseteController.Calculate(GetPose(), trajectory.Sample(trajectoryTimer.Get()*1_s));
+    targetChassisSpeeds =
+        ramseteController.Calculate(GetPose(), trajectory.Sample(trajectoryTimer.Get() * 1_s));
     targetWheelSpeeds = m_kinematics.ToWheelSpeeds(targetChassisSpeeds);
 
     // Calculates FF output contribution to reach the speed
@@ -824,7 +824,11 @@ void Drivetrain::RamseteFollowerExecute(void)
     m_diffDrive.Feed();
 
     std::printf(
-        "lOut: %.3lf, rOut: %.3lf, trajCur: %d, gyro: %.3f, tarSpeedX: %.3f, tarSpeedY: %.3f, tarSpeedO: %.3f, tarLSpeed: %.3f, tarRSpeed: %.3f \n",
+        "lDist: %.3f, rDist: %.3f, lVolt: %.3f, rVolt: %.3f, lOut: %.3lf, rOut: %.3lf, traj: %d, gyro: %.3f, tSpdX: %.3f, tSPdY: %.3f, tSpdO: %.3f, tLSpd: %.3f, tRSpd: %.3f \n",
+        m_driverSim.GetLeftPosition().to<double>(),
+        m_driverSim.GetRightPosition().to<double>(),
+        m_motorL1.Get() * frc::RobotController::GetInputVoltage(),
+        -m_motorR3.Get() * frc::RobotController::GetInputVoltage(),
         leftTotalOutput,
         rightTotalOutput,
         trajCurState,
@@ -832,13 +836,13 @@ void Drivetrain::RamseteFollowerExecute(void)
         targetChassisSpeeds.vx.to<double>(),
         targetChassisSpeeds.vy.to<double>(),
         targetChassisSpeeds.omega.to<double>(),
-        targetWheelSpeeds.left.to<double>(),
-        targetWheelSpeeds.right.to<double>());
+        leftTargetSpeed.to<double>(),
+        rightTargetSpeed.to<double>());
 }
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
-    return ((trajectoryTimer.Get()*1_s) >= trajectory.TotalTime());
+    return ((trajectoryTimer.Get() * 1_s) >= trajectory.TotalTime());
 }
 
 void Drivetrain::RamseteFollowerEnd(void) {}
