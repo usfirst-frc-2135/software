@@ -12,7 +12,6 @@
 
 #include "Constants.h"
 #include "Vision.h"
-#include "frc2135/DriverSim.h"
 
 #include <frc/ADXRS450_Gyro.h>
 #include <frc/Encoder.h>
@@ -249,7 +248,6 @@ private:
     frc2::PIDController driveVisionPIDLoop{ m_visionTurnKp, 0.0, 0.0 }; // Drive with Vision
 
     std::vector<frc::Trajectory::State> trajectoryStates;
-    uint32_t trajCurState;
 
     frc2::PIDController leftController{ kPDriveVel, 0, 0 };
     frc2::PIDController rightController{ kPDriveVel, 0, 0 };
