@@ -70,11 +70,11 @@ model {
 
             sources.cpp {
                 source {
-                    srcDir '../../spdlog/src'
+                    srcDir '../../third_party/spdlog-1.8.2/src'
                     include '**/*.cpp'
                 }
                 exportedHeaders {
-                    srcDir '../../spdlog/include'
+                    srcDir '../../third_party/spdlog-1.8.2/include'
                 }
             }
             binaries.all {
