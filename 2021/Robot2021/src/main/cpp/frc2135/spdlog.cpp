@@ -17,7 +17,7 @@ namespace frc2135
         auto stdout_logger = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 
         auto logger = std::make_shared<spdlog::async_logger>(
-            "spdlog",
+            "2135",
             spdlog::sinks_init_list{
                 basic_file_logger,
                 stdout_logger,
