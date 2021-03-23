@@ -451,6 +451,7 @@ frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeeds()
 void Drivetrain::ResetOdometry(frc::Pose2d pose)
 {
     ResetEncoders();
+    m_driverSim.SetPose(pose);
     m_odometry.ResetPosition(pose, frc::Rotation2d(degree_t(GetHeading())));
 }
 
@@ -737,7 +738,7 @@ void Drivetrain::RamseteFollowerInit(void)
 
     wpi::SmallString<64> outputDirectory;
     frc::filesystem::GetDeployDirectory(outputDirectory);
-    outputDirectory.append("/output/testPath1.wpilib.json");
+    outputDirectory.append("/output/curvePath.wpilib.json");
     std::printf("2135: Output Directory is: %s\n", outputDirectory.c_str());
     std::ifstream pathFile(outputDirectory.c_str());
     std::printf("2135: pathFile good: %d\n", pathFile.good());
@@ -790,8 +791,12 @@ void Drivetrain::RamseteFollowerExecute(void)
     frc::DifferentialDriveWheelSpeeds targetWheelSpeeds;
 
     // Need to step through the states through the trajectory
-    targetChassisSpeeds =
-        ramseteController.Calculate(GetPose(), trajectory.Sample(trajectoryTimer.Get() * 1_s));
+    frc::Trajectory::State trajState;
+    frc::Pose2d currentPose;
+    trajState = trajectory.Sample(trajectoryTimer.Get() * 1_s);
+    currentPose = GetPose();
+
+    targetChassisSpeeds = ramseteController.Calculate(currentPose, trajState);
     targetWheelSpeeds = m_kinematics.ToWheelSpeeds(targetChassisSpeeds);
 
     // Calculates FF output contribution to reach the speed
@@ -824,15 +829,19 @@ void Drivetrain::RamseteFollowerExecute(void)
     m_diffDrive.Feed();
 
     std::printf(
-        "lDist: %.3f, rDist: %.3f, lVolt: %.3f, rVolt: %.3f, lOut: %.3lf, rOut: %.3lf, traj: %d, gyro: %.3f, tSpdX: %.3f, tSPdY: %.3f, tSpdO: %.3f, tLSpd: %.3f, tRSpd: %.3f \n",
+        "cX %.3f cY %.3f cR %.3f tX %.3f tY %.3f tR %.3f lDist %.3f rDist %.3f tSpdX %.3f tSPdY %.3f tSpdO %.3f tLSpd %.3f tRSpd %.3f \n",
+        currentPose.X(),
+        currentPose.Y(),
+        currentPose.Rotation().Degrees().to<double>(),
+        trajState.pose.X(),
+        trajState.pose.Y(),
+        trajState.pose.Rotation().Degrees().to<double>(),
         m_driverSim.GetLeftPosition().to<double>(),
         m_driverSim.GetRightPosition().to<double>(),
-        m_motorL1.Get() * frc::RobotController::GetInputVoltage(),
-        -m_motorR3.Get() * frc::RobotController::GetInputVoltage(),
-        leftTotalOutput,
-        rightTotalOutput,
-        trajCurState,
-        m_odometry.GetPose().Rotation().Degrees().to<double>(),
+        // m_motorL1.Get() * frc::RobotController::GetInputVoltage(),
+        // -m_motorR3.Get() * frc::RobotController::GetInputVoltage(),
+        // leftTotalOutput,
+        // rightTotalOutput,
         targetChassisSpeeds.vx.to<double>(),
         targetChassisSpeeds.vy.to<double>(),
         targetChassisSpeeds.omega.to<double>(),
