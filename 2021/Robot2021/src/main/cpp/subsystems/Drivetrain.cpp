@@ -775,7 +775,6 @@ void Drivetrain::RamseteFollowerInit(void)
 
     // This initializes the odometry (where we are) and tolerance
     ResetOdometry(trajectory.InitialPose());
-    trajCurState = 0;
 
     // TODO: should reset trajectory states here
 
