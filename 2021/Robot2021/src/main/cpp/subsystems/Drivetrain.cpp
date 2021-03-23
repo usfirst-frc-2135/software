@@ -87,7 +87,7 @@ Drivetrain::Drivetrain()
     leftController = frc2::PIDController(kPDriveVel, 0, 0);
     rightController = frc2::PIDController(kPDriveVel, 0, 0);
 
-    ramseteController = frc::RamseteController(kRamseteB, kRamseteZeta);
+    m_ramseteController = frc::RamseteController(kRamseteB, kRamseteZeta);
     LoadTrajectory();
 
     m_leftEncoder.SetDistancePerPulse(kEncoderMetersPerCount.to<double>());
@@ -796,7 +796,7 @@ void Drivetrain::RamseteFollowerExecute(void)
     trajState = trajectory.Sample(trajectoryTimer.Get() * 1_s);
     currentPose = GetPose();
 
-    targetChassisSpeeds = ramseteController.Calculate(currentPose, trajState);
+    targetChassisSpeeds = m_ramseteController.Calculate(currentPose, trajState);
     targetWheelSpeeds = m_kinematics.ToWheelSpeeds(targetChassisSpeeds);
 
     // Calculates FF output contribution to reach the speed
