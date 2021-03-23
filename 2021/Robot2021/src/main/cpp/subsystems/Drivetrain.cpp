@@ -744,6 +744,7 @@ void Drivetrain::RamseteFollowerInit(void)
     std::printf("2135: pathFile good: %d\n", pathFile.good());
 
     trajectory = frc::TrajectoryUtil::FromPathweaverJson(outputDirectory);
+    std::vector<frc::Trajectory::State> trajectoryStates;
     trajectoryStates = trajectory.States();
     trajectoryTimer.Reset();
     trajectoryTimer.Start();

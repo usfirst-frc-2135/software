@@ -247,7 +247,6 @@ private:
 
     frc2::PIDController driveVisionPIDLoop{ m_visionTurnKp, 0.0, 0.0 }; // Drive with Vision
 
-    std::vector<frc::Trajectory::State> trajectoryStates;
 
     frc2::PIDController leftController{ kPDriveVel, 0, 0 };
     frc2::PIDController rightController{ kPDriveVel, 0, 0 };
