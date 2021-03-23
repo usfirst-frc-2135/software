@@ -1,6 +1,7 @@
 #include <chrono>
 #include <spdlog/async.h>
-#include <spdlog/sinks/rotating_file_sink.h>
+#include <spdlog/fmt/chrono.h>
+#include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
 
@@ -11,8 +12,8 @@ namespace frc2135
         spdlog::init_thread_pool(256, 1);
         spdlog::flush_every(std::chrono::seconds(1));
 
-        auto rotating_logger =
-            std::make_shared<spdlog::sinks::rotating_file_sink_mt>("logs/rotating.txt", 10 * 1024 * 1024, 5);
+        auto rotating_logger = std::make_shared<spdlog::sinks::basic_file_sink_mt>(
+            fmt::format("logs/{:%Y-%m-%d_%H-%M-%S}.log", std::chrono::system_clock::now()));
         auto stdout_logger = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 
         auto logger = std::make_shared<spdlog::async_logger>(
