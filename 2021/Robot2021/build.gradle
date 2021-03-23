@@ -62,6 +62,28 @@ sim {
 
 model {
     components {
+        spdlog(NativeLibrarySpec) {
+            targetPlatform wpi.platforms.roborio
+            if (includeDesktopSupport) {
+                targetPlatform wpi.platforms.desktop
+            }
+
+            sources.cpp {
+                source {
+                    srcDir '../../third_party/spdlog-1.8.2/src'
+                    include '**/*.cpp'
+                }
+                exportedHeaders {
+                    srcDir '../../third_party/spdlog-1.8.2/include'
+                }
+            }
+            binaries.all {
+                cppCompiler.args << '-std=c++17' << '-DSPDLOG_COMPILED_LIB'
+            }
+            binaries.withType(SharedLibraryBinarySpec) {
+                buildable = false
+            }
+        }
         frcUserProgram(NativeExecutableSpec) {
             targetPlatform wpi.platforms.roborio
             if (includeDesktopSupport) {
@@ -79,6 +101,8 @@ model {
                         srcDir 'src/main/cpp'
                     }
                 }
+
+                lib library: 'spdlog', linkage: 'static'
             }
 
             // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
