@@ -12,14 +12,14 @@ namespace frc2135
         spdlog::init_thread_pool(256, 1);
         spdlog::flush_every(std::chrono::seconds(1));
 
-        auto rotating_logger = std::make_shared<spdlog::sinks::basic_file_sink_mt>(
+        auto basic_file_logger = std::make_shared<spdlog::sinks::basic_file_sink_mt>(
             fmt::format("logs/{:%Y-%m-%d_%H-%M-%S}.log", std::chrono::system_clock::now()));
         auto stdout_logger = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 
         auto logger = std::make_shared<spdlog::async_logger>(
             "spdlog",
             spdlog::sinks_init_list{
-                rotating_logger,
+                basic_file_logger,
                 stdout_logger,
             },
             spdlog::thread_pool(),
