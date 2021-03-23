@@ -11,19 +11,21 @@
 #include "Robot.h"
 
 #include "frc2135/RobotConfig.h"
+#include "frc2135/spdlog.h"
 
 #include <frc/RobotController.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
+#include <spdlog/spdlog.h>
 
 void Robot::RobotInit()
 {
     std::string robotName;
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
 
-    std::printf("RB Init");
+    spdlog::info("RB Init");
     config->GetValueAsString("RB_Name", robotName, "unknown");
-    std::printf("RobotInit: name - %s", robotName.c_str());
+    spdlog::info("RobotInit: name - {}", robotName);
 }
 
 /**
@@ -124,6 +126,7 @@ void Robot::RobotFaultDump(void)
 #ifndef RUNNING_FRC_TESTS
 int main()
 {
+    frc2135::initialize_spdlog();
     return frc::StartRobot<Robot>();
 }
 #endif
