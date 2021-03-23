@@ -830,11 +830,11 @@ void Drivetrain::RamseteFollowerExecute(void)
 
     std::printf(
         "cX %.3f cY %.3f cR %.3f tX %.3f tY %.3f tR %.3f lDist %.3f rDist %.3f tSpdX %.3f tSPdY %.3f tSpdO %.3f tLSpd %.3f tRSpd %.3f \n",
-        currentPose.X(),
-        currentPose.Y(),
+        currentPose.X().to<double>(),
+        currentPose.Y().to<double>(),
         currentPose.Rotation().Degrees().to<double>(),
-        trajState.pose.X(),
-        trajState.pose.Y(),
+        trajState.pose.X().to<double>(),
+        trajState.pose.Y().to<double>(),
         trajState.pose.Rotation().Degrees().to<double>(),
         m_driverSim.GetLeftPosition().to<double>(),
         m_driverSim.GetRightPosition().to<double>(),
