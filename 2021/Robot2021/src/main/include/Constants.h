@@ -23,8 +23,8 @@ namespace AutoConstants
 
 namespace DriveConstants
 {
-    constexpr int kLeftEncoderPorts[]{ 0, 1 };
-    constexpr int kRightEncoderPorts[]{ 2, 3 };
+    constexpr int kLeftEncoderPorts[]{ 1, 2 };
+    constexpr int kRightEncoderPorts[]{ 3, 4 };
     // Add CAN timeout, wheel diameter, etc.
 } // namespace DriveConstants
 
