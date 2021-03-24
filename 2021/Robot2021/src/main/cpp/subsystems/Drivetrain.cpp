@@ -746,8 +746,8 @@ void Drivetrain::RamseteFollowerInit(void)
     m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(outputDirectory);
     std::vector<frc::Trajectory::State> trajectoryStates;
     trajectoryStates = m_trajectory.States();
-    trajectoryTimer.Reset();
-    trajectoryTimer.Start();
+    m_trajTimer.Reset();
+    m_trajTimer.Start();
 
     std::printf("Size of state table is %d\n", (int)trajectoryStates.size());
 
@@ -793,7 +793,7 @@ void Drivetrain::RamseteFollowerExecute(void)
     // Need to step through the states through the trajectory
     frc::Trajectory::State trajState;
     frc::Pose2d currentPose;
-    trajState = m_trajectory.Sample(trajectoryTimer.Get() * 1_s);
+    trajState = m_trajectory.Sample(m_trajTimer.Get() * 1_s);
     currentPose = GetPose();
 
     targetChassisSpeeds = m_ramseteController.Calculate(currentPose, trajState);
@@ -851,7 +851,7 @@ void Drivetrain::RamseteFollowerExecute(void)
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
-    return ((trajectoryTimer.Get() * 1_s) >= m_trajectory.TotalTime());
+    return ((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime());
 }
 
 void Drivetrain::RamseteFollowerEnd(void) {}
