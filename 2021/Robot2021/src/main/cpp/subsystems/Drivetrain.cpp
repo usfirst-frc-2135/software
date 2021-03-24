@@ -70,7 +70,7 @@ Drivetrain::Drivetrain()
     m_diffDrive.SetSafetyEnabled(m_talonValidL1 || m_talonValidR3);
 
     // Set up drivetrain kinematics and initialize the odometry
-    // m_kinematics = new frc::DifferentialDriveKinematics(kTrackWidthFeet);
+    // m_kinematics = new frc::DifferentialDriveKinematics(kTrackWidthMeters);
     m_odometry = frc::DifferentialDriveOdometry(m_gyroAngle);
 
     // Set up Field 2d for simulator

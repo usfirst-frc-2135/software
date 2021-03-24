@@ -109,9 +109,9 @@ private:
     const int kCANTimeout = 30; // CAN timeout in msec to wait for response
 
     // Drivetrain constants
-    const double kWheelDiaInches = 6.0;      // Measured wheel diameter
-    const int kEncoderCPR = 2048;            // CPR is 2048 for new TalonFX
-    const foot_t kTrackWidthFeet = 2.125_ft; // Measured track width
+    const double kWheelDiaInches = 6.0;         // Measured wheel diameter
+    const int kEncoderCPR = 2048;               // CPR is 2048 for new TalonFX
+    const meter_t kTrackWidthMeters = 0.6477_m; // Measured track width
 
     // Derived values
     const double kWheelCircumInches = kWheelDiaInches * wpi::math::pi;
@@ -153,7 +153,7 @@ private:
     // TODO: adjust kV and kA angular from robot characterization
     frc::sim::DifferentialDrivetrainSim m_driverSim{
         frc::LinearSystemId::IdentifyDrivetrainSystem(kv, ka, 1.5_V / 1_rad_per_s, 0.3_V / 1_rad_per_s_sq),
-        kTrackWidthFeet,
+        kTrackWidthMeters,
         frc::DCMotor::Falcon500(2),
         13.94,
         kWheelDiameterMeters / 2
@@ -238,7 +238,7 @@ private:
 
     // Do another drive characterization
     frc::SimpleMotorFeedforward<meter> m_feedforward{ ks, kv, ka };
-    frc::DifferentialDriveKinematics m_kinematics{ kTrackWidthFeet };
+    frc::DifferentialDriveKinematics m_kinematics{ kTrackWidthMeters };
     frc::DifferentialDriveOdometry m_odometry{ m_gyroAngle };
     frc::Field2d m_field;
 
@@ -246,7 +246,6 @@ private:
     frc2::PIDController m_rightPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
 
     frc2::PIDController driveVisionPIDLoop{ m_visionTurnKp, 0.0, 0.0 }; // Drive with Vision
-
 
     frc2::PIDController leftController{ kPDriveVel, 0, 0 };
     frc2::PIDController rightController{ kPDriveVel, 0, 0 };
