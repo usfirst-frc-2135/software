@@ -743,9 +743,9 @@ void Drivetrain::RamseteFollowerInit(void)
     std::ifstream pathFile(outputDirectory.c_str());
     std::printf("2135: pathFile good: %d\n", pathFile.good());
 
-    trajectory = frc::TrajectoryUtil::FromPathweaverJson(outputDirectory);
+    m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(outputDirectory);
     std::vector<frc::Trajectory::State> trajectoryStates;
-    trajectoryStates = trajectory.States();
+    trajectoryStates = m_trajectory.States();
     trajectoryTimer.Reset();
     trajectoryTimer.Start();
 
@@ -775,7 +775,7 @@ void Drivetrain::RamseteFollowerInit(void)
 #endif
 
     // This initializes the odometry (where we are) and tolerance
-    ResetOdometry(trajectory.InitialPose());
+    ResetOdometry(m_trajectory.InitialPose());
 
     // TODO: should reset trajectory states here
 
@@ -793,7 +793,7 @@ void Drivetrain::RamseteFollowerExecute(void)
     // Need to step through the states through the trajectory
     frc::Trajectory::State trajState;
     frc::Pose2d currentPose;
-    trajState = trajectory.Sample(trajectoryTimer.Get() * 1_s);
+    trajState = m_trajectory.Sample(trajectoryTimer.Get() * 1_s);
     currentPose = GetPose();
 
     targetChassisSpeeds = m_ramseteController.Calculate(currentPose, trajState);
@@ -851,7 +851,7 @@ void Drivetrain::RamseteFollowerExecute(void)
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
-    return ((trajectoryTimer.Get() * 1_s) >= trajectory.TotalTime());
+    return ((trajectoryTimer.Get() * 1_s) >= m_trajectory.TotalTime());
 }
 
 void Drivetrain::RamseteFollowerEnd(void) {}

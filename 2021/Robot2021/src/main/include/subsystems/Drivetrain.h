@@ -250,7 +250,7 @@ private:
     frc2::PIDController leftController{ kPDriveVel, 0, 0 };
     frc2::PIDController rightController{ kPDriveVel, 0, 0 };
     frc::RamseteController m_ramseteController;
-    frc::Trajectory trajectory;
+    frc::Trajectory m_trajectory;
     frc::Timer trajectoryTimer;
 
     ///////////////////////////////////////////////////////////////////////////
