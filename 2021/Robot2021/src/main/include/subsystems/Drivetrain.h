@@ -247,8 +247,8 @@ private:
 
     frc2::PIDController driveVisionPIDLoop{ m_visionTurnKp, 0.0, 0.0 }; // Drive with Vision
 
-    frc2::PIDController leftController{ kPDriveVel, 0, 0 };
-    frc2::PIDController rightController{ kPDriveVel, 0, 0 };
+    frc2::PIDController m_leftController{ kPDriveVel, 0, 0 };
+    frc2::PIDController m_rightController{ kPDriveVel, 0, 0 };
     frc::RamseteController m_ramseteController;
     frc::Trajectory m_trajectory;
     frc::Timer m_trajTimer;

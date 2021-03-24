@@ -84,8 +84,8 @@ Drivetrain::Drivetrain()
     driveVisionPIDLoop = frc2::PIDController(m_visionTurnKp, 0.0, 0.0);
     driveVisionPIDLoop.SetTolerance(m_turnTolDeg);
 
-    leftController = frc2::PIDController(kPDriveVel, 0, 0);
-    rightController = frc2::PIDController(kPDriveVel, 0, 0);
+    m_leftController = frc2::PIDController(kPDriveVel, 0, 0);
+    m_rightController = frc2::PIDController(kPDriveVel, 0, 0);
 
     m_ramseteController = frc::RamseteController(kRamseteB, kRamseteZeta);
     LoadTrajectory();
@@ -781,8 +781,8 @@ void Drivetrain::RamseteFollowerInit(void)
 
     double dashValue;
     dashValue = frc::SmartDashboard::GetNumber("L_Ctr", 0.99);
-    leftController.SetTolerance(dashValue);
-    rightController.SetTolerance(dashValue);
+    m_leftController.SetTolerance(dashValue);
+    m_rightController.SetTolerance(dashValue);
 }
 
 void Drivetrain::RamseteFollowerExecute(void)
@@ -808,9 +808,9 @@ void Drivetrain::RamseteFollowerExecute(void)
     feet_per_second_t rightCurSpeed = GetWheelSpeeds(m_velocityRight);
     feet_per_second_t leftTargetSpeed = targetWheelSpeeds.left;
     feet_per_second_t rightTargetSpeed = targetWheelSpeeds.right;
-    double leftFBOutput = leftController.Calculate(leftCurSpeed.to<double>(), leftTargetSpeed.to<double>());
+    double leftFBOutput = m_leftController.Calculate(leftCurSpeed.to<double>(), leftTargetSpeed.to<double>());
     double rightFBOutput =
-        leftController.Calculate(rightCurSpeed.to<double>(), rightTargetSpeed.to<double>());
+        m_rightController.Calculate(rightCurSpeed.to<double>(), rightTargetSpeed.to<double>());
 
     // Divide FF by 12 to normalize to the same units as the outputs
     // TODO: Verify units on PID constants (are they scaled -1.0 to 1.0 or in volts)
