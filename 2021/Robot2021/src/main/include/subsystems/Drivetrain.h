@@ -234,12 +234,12 @@ private:
     double m_currentR3 = 0.0;  // Motor R3 output current from Falcon
     double m_currentR4 = 0.0;  // Motor R4 output current from Falcon
     double m_headingDeg = 0.0; // Pigeon IMU heading in degrees
-    frc::Rotation2d gyroAngle;
+    frc::Rotation2d m_gyroAngle;
 
     // Do another drive characterization
     frc::SimpleMotorFeedforward<meter> m_feedforward{ ks, kv, ka };
     frc::DifferentialDriveKinematics m_kinematics{ kTrackWidthFeet };
-    frc::DifferentialDriveOdometry m_odometry{ gyroAngle };
+    frc::DifferentialDriveOdometry m_odometry{ m_gyroAngle };
     frc::Field2d m_field;
 
     frc2::PIDController m_leftPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };

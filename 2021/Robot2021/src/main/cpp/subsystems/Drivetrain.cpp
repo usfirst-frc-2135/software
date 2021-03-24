@@ -71,7 +71,7 @@ Drivetrain::Drivetrain()
 
     // Set up drivetrain kinematics and initialize the odometry
     // m_kinematics = new frc::DifferentialDriveKinematics(kTrackWidthFeet);
-    m_odometry = frc::DifferentialDriveOdometry(gyroAngle);
+    m_odometry = frc::DifferentialDriveOdometry(m_gyroAngle);
 
     // Set up Field 2d for simulator
     frc::SmartDashboard::PutData("Field", &m_field);
