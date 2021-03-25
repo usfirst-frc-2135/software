@@ -744,6 +744,7 @@ void Drivetrain::RamseteFollowerInit(void)
     std::printf("2135: pathFile good: %d\n", pathFile.good());
 
     m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(outputDirectory);
+    PlotTrajectory(m_trajectory);
     std::vector<frc::Trajectory::State> trajectoryStates;
     trajectoryStates = m_trajectory.States();
     m_trajTimer.Reset();
@@ -865,4 +866,14 @@ bool Drivetrain::LoadTrajectory()
     std::ifstream pathFile(outputDirectory.c_str());
     std::printf("2135: pathFile good: %d\n", pathFile.good());
     return pathFile.good();
+}
+
+void Drivetrain::PlotTrajectory(frc::Trajectory trajectory)
+{
+    // std::vector<frc::Pose2d> poses;
+    std::vector<frc::Trajectory::State> states = trajectory.States();
+    std::vector<frc::Pose2d> poses;
+    for (size_t i = 0; i < states.size(); i++)
+        poses.push_back(states[i].pose);
+    m_field.GetObject("trajectory")->SetPoses(poses);
 }
