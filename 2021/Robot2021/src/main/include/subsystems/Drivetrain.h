@@ -124,9 +124,10 @@ private:
         (kWheelDiameterMeters * wpi::math::pi) / static_cast<double>(kEncoderCPR);
 
     // Kinematics values for 2135 Bebula - 2019 B-bot
+    // Changed units from V/fps to V/mps
     static constexpr auto ks = 0.899_V;
-    static constexpr auto kv = 1.411_V / 1_fps;
-    static constexpr auto ka = 0.21_V / 1_fps_sq;
+    static constexpr auto kv = 1.411_V / 1_mps;
+    static constexpr auto ka = 0.21_V / 1_mps_sq;
 
     /*
 // Create the simulation model of our drivetrain.
