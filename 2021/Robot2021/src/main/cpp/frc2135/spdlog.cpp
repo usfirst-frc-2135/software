@@ -4,9 +4,16 @@
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
+#include <string>
 
 namespace frc2135
 {
+    void handle_spdlog_error(const std::string &msg)
+    {
+        // Log when an error occurs within spdlog
+        spdlog::error("*** SPDLOG ERROR ***: {}", msg);
+    }
+
     void initialize_spdlog()
     {
         spdlog::init_thread_pool(256, 1);
@@ -26,6 +33,8 @@ namespace frc2135
             spdlog::async_overflow_policy::overrun_oldest);
 
         spdlog::set_default_logger(logger); // keeps the logger alive
-        spdlog::info("spdlog default logger set");
+        spdlog::set_error_handler(handle_spdlog_error);
+
+        spdlog::info("spdlog initialized");
     }
 } // namespace frc2135
