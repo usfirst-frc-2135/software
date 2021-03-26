@@ -20,6 +20,8 @@
 
 #include <frc/Filesystem.h>
 #include <frc/RobotBase.h>
+#include <spdlog/fmt/bundled/ranges.h>
+#include <spdlog/spdlog.h>
 #include <wpi/SmallString.h>
 
 //////////////////////////////////////////////////////////
@@ -44,12 +46,12 @@ namespace frc2135
 
     RobotConfig::RobotConfig()
     {
-        std::printf("2135: RobotConfig -- LoadConfig Started  --\n");
+        spdlog::info("RobotConfig -- LoadConfig Started  --");
         LoadConfig();
-        std::printf("2135: RobotConfig -- LoadConfig Finished --\n");
-        std::printf("2135: RobotConfig -- DumpConfig Started  --\n");
+        spdlog::info("RobotConfig -- LoadConfig Finished --");
+        spdlog::info("RobotConfig -- DumpConfig Started  --");
         DumpConfig();
-        std::printf("2135: RobotConfig -- DumpConfig Finished --\n");
+        spdlog::info("RobotConfig -- DumpConfig Finished --");
     }
 
     RobotConfig::~RobotConfig() {}
@@ -60,7 +62,7 @@ namespace frc2135
     {
         if (RobotConfig::currentConfig == nullptr)
         {
-            std::printf("2135: RobotConfig -- Creating new RobotConfig object\n");
+            spdlog::info("RobotConfig -- Creating new RobotConfig object");
             RobotConfig::currentConfig = new RobotConfig();
         }
 
@@ -98,16 +100,16 @@ namespace frc2135
         std::string fileName;
 
         GetConfigFileName(fileName);
-        std::ifstream configFile(fileName.c_str());
+        std::ifstream configFile(fileName);
         if (configFile.good() == false)
         {
-            std::printf("2135: ERROR: RobotConfig -- No such file %s\n", fileName.c_str());
+            spdlog::error("RobotConfig -- No such file {}", fileName);
             return false;
         }
 
         m_configMap.clear();
 
-        std::printf("2135: RobotConfig -- Loading File %s\n", fileName.c_str());
+        spdlog::info("RobotConfig -- Loading File {}", fileName);
         while (configFile.eof() == false)
         {
             std::string name;
@@ -138,7 +140,7 @@ namespace frc2135
 
                 if (configFile.bad() == true)
                 {
-                    std::printf("2135: ERROR: RobotConfig -- configFile %s bad\n", fileName.c_str());
+                    spdlog::error("RobotConfig -- configFile {} bad", fileName);
                     return false;
                 }
             }
@@ -167,14 +169,11 @@ namespace frc2135
             {
                 valueStr = defaultStr;
                 m_configMap[name] = valueStr;
-                std::printf(
-                    "2135: WARNING: RobotConfig -- %s NOT found - using default value %s\n",
-                    name.c_str(),
-                    defaultStr.c_str());
+                spdlog::warn("RobotConfig -- {} NOT found - using default value {}", name, defaultStr);
                 rtnStatus = true;
             }
             else
-                std::printf("2135: ERROR: RobotConfig -- %s NOT found and no default value\n", name.c_str());
+                spdlog::error("RobotConfig -- {} NOT found and no default value", name);
         }
 
         return rtnStatus;
@@ -192,7 +191,7 @@ namespace frc2135
 
         if (!valueStr.empty())
         {
-            valueInt = atoi(valueStr.c_str()); // convert to int
+            valueInt = stoi(valueStr); // convert to int
             rtnStatus = true;
         }
         else // this name is not found in m_configMap, so add it if there is a default specified
@@ -202,14 +201,11 @@ namespace frc2135
                 valueInt = defaultInt;
                 std::string valueStr = std::to_string(defaultInt);
                 m_configMap[name] = valueStr;
-                std::printf(
-                    "2135: WARNING: RobotConfig -- %s not found - using default value %d\n",
-                    name.c_str(),
-                    defaultInt);
+                spdlog::warn("RobotConfig -- {} not found - using default value {}", name, defaultInt);
                 rtnStatus = true;
             }
             else
-                std::printf("2135: ERROR: RobotConfig -- %s not found and no default value\n", name.c_str());
+                spdlog::error("RobotConfig -- {} not found and no default value", name);
         }
 
         return rtnStatus;
@@ -242,10 +238,7 @@ namespace frc2135
             if (defaultBool)
                 defaultStr = "true";
             m_configMap[name] = defaultStr;
-            std::printf(
-                "2135: WARNING: RobotConfig -- %s not found - using default value %d\n",
-                name.c_str(),
-                defaultBool);
+            spdlog::warn("RobotConfig -- {} not found - using default value {}", name, defaultBool);
             rtnStatus = true;
         }
 
@@ -262,7 +255,7 @@ namespace frc2135
 
         if (!valueStr.empty())
         {
-            valueFloat = atof(valueStr.c_str()); // convert stored value to float
+            valueFloat = stof(valueStr); // convert stored value to float
             rtnStatus = true;
         }
         else
@@ -272,16 +265,11 @@ namespace frc2135
                 valueFloat = defaultFloat;
                 std::string defaultStr = std::to_string(defaultFloat);
                 m_configMap[name] = defaultStr;
-                std::printf(
-                    "2135: WARNING: RobotConfig -- %s not found using default value %f\n",
-                    name.c_str(),
-                    defaultFloat);
+                spdlog::warn("RobotConfig -- {} not found using default value {}", name, defaultFloat);
                 rtnStatus = true;
             }
             else
-                std::printf(
-                    "2135: ERROR: RobotConfig -- %s not found and no default value specified\n",
-                    name.c_str());
+                spdlog::error("RobotConfig -- {} not found and no default value specified", name);
         }
 
         return rtnStatus;
@@ -297,7 +285,7 @@ namespace frc2135
 
         if (!valueStr.empty())
         {
-            valueDouble = atof(valueStr.c_str()); // convert stored value to double
+            valueDouble = stod(valueStr); // convert stored value to double
             rtnStatus = true;
         }
         else
@@ -307,16 +295,11 @@ namespace frc2135
                 valueDouble = defaultDouble;
                 std::string defaultStr = std::to_string(defaultDouble);
                 m_configMap[name] = defaultStr;
-                std::printf(
-                    "2135: WARNING: RobotConfig -- %s not found - using default value %f\n",
-                    name.c_str(),
-                    defaultDouble);
+                spdlog::warn("RobotConfig -- {} not found - using default value {}", name, defaultDouble);
                 rtnStatus = true;
             }
             else
-                std::printf(
-                    "2135: ERROR: RobotConfig -- %s not found and no default value specified\n",
-                    name.c_str());
+                spdlog::error("RobotConfig -- {} not found and no default value specified", name);
         }
 
         return rtnStatus;
@@ -326,11 +309,7 @@ namespace frc2135
 
     void RobotConfig::DumpConfig()
     {
-        for (std::map<std::string, std::string>::iterator itr = m_configMap.begin(); itr != m_configMap.end();
-             itr++)
-        {
-            std::cout << itr->first << ": " << itr->second << "\n";
-        }
+        spdlog::info("Robot config:\n\t{}", fmt::join(m_configMap, "\n\t"));
 
         // This is testing the get functions with our dummy file. We can remove this once we are confident with the functions.
 
