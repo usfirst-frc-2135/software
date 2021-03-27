@@ -7,6 +7,9 @@
 
 #include "frc2135/TalonUtils.h"
 
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
+
 #include <chrono>
 #include <frc/RobotBase.h>
 
@@ -36,7 +39,7 @@ namespace frc2135
         deviceID = talon.GetDeviceID();
         if ((error = talon.GetLastError()) != OKAY)
         {
-            std::printf("2135: ERROR: %s Motor %s GetDeviceID error - %d\n", subsystem, name, error);
+            spdlog::error(" {} Motor {} GetDeviceID error - {}", subsystem, name, error);
             return error;
         }
 
@@ -47,8 +50,8 @@ namespace frc2135
             fwVersion = talon.GetFirmwareVersion();
             if ((error = talon.GetLastError()) != OKAY)
             {
-                std::printf(
-                    "2135: ERROR: %s Motor %s ID %d GetFirmwareVersion error - %d\n",
+                spdlog::error(
+                    "{} Motor {} ID {} GetFirmwareVersion error - {}",
                     subsystem,
                     name,
                     deviceID,
@@ -61,8 +64,8 @@ namespace frc2135
                 break;
             }
             else
-                std::printf(
-                    "2135: WARNING: %s Motor %s ID %d Incorrect FW version %u.%u expected %u.%u\n",
+                spdlog::warn(
+                    "{} Motor {} ID {} Incorrect FW version {}.{} expected {}.{}",
                     subsystem,
                     name,
                     deviceID,
@@ -78,15 +81,15 @@ namespace frc2135
         {
             // Initialize Talon to all factory defaults
             if ((error = talon.ConfigFactoryDefault(kCANTimeout)) != OKAY)
-                std::printf(
-                    "2135: ERROR: %s Motor %s ID %d ConfigFactoryDefault error - %d\n",
+                spdlog::error(
+                    "{} Motor {} ID {} ConfigFactoryDefault error - {}",
                     subsystem,
                     name,
                     deviceID,
                     error);
 
-            std::printf(
-                "2135: %s Motor %s ID %d ver %u.%u is RESPONSIVE and INITIALIZED (error %d)\n",
+            spdlog::error(
+                "{} Motor {} ID {} ver {}.{} is RESPONSIVE and INITIALIZED (error {})",
                 subsystem,
                 name,
                 deviceID,
@@ -95,8 +98,8 @@ namespace frc2135
                 error);
         }
         else
-            std::printf(
-                "2135: ERROR: %s Motor %s ID %d ver %u.%u is UNRESPONSIVE, (error %d)\n",
+            spdlog::error(
+                "{} Motor {} ID {} ver {}.{} is UNRESPONSIVE, (error {})",
                 subsystem,
                 name,
                 deviceID,
@@ -118,26 +121,26 @@ namespace frc2135
         StickyFaults stickyFaults;
 
         // Print out Talon faults and clear sticky ones
-        std::printf("2135: %s -------------- %s\n", "Talon ", talonName);
+        spdlog::info("{} -------------- {}", "Talon ", talonName);
 
         // Check Talon by getting device ID and validating firmware versions
         talon.GetDeviceID();
         if ((error = talon.GetLastError()) != OKAY)
         {
-            std::printf("2135: ERROR: Motor %s GetDeviceID error - %d\n", talonName, error);
+            spdlog::error("Motor {} GetDeviceID error - {}", talonName, error);
             return;
         }
 
         fwVersion = talon.GetFirmwareVersion();
         if ((error = talon.GetLastError()) != OKAY)
         {
-            std::printf("2135: ERROR: Motor %s GetFirmwareVersion error - %d\n", talonName, error);
+            spdlog::error("Motor {} GetFirmwareVersion error - {}", talonName, error);
             return;
         }
         if (fwVersion != m_reqVersion)
         {
-            std::printf(
-                "2135: WARNING: Motor %s Incorrect FW version %u.%u expected %u.%u\n",
+            spdlog::warn(
+                "Motor {} Incorrect FW version {}.{} expected {}.{}",
                 talonName,
                 fwVersion / 256,
                 fwVersion & 0xff,
@@ -153,61 +156,20 @@ namespace frc2135
 
         if (faults.HasAnyFault())
         {
-            std::printf("At Least one fault below\n");
-            if (faults.ForwardLimitSwitch)
-                std::printf("\tForwardLimitSwitch\n");
-            if (faults.ForwardSoftLimit)
-                std::printf("\tForwardSoftLimit\n");
-            if (faults.HardwareESDReset)
-                std::printf("\tHardwareESDReset\n");
-            if (faults.HardwareFailure)
-                std::printf("\tHardwareFailure\n");
-            if (faults.RemoteLossOfSignal)
-                std::printf("\tRemoteLossOfSignal\n");
-            if (faults.ResetDuringEn)
-                std::printf("\tResetDuringEn\n");
-            if (faults.ReverseLimitSwitch)
-                std::printf("\tReverseLimitSwitch\n");
-            if (faults.ReverseSoftLimit)
-                std::printf("\tReverseSoftLimit\n");
-            if (faults.SensorOutOfPhase)
-                std::printf("\tSensorOutOfPhase\n");
-            if (faults.SensorOverflow)
-                std::printf("\tSensorOverflow\n");
-            if (faults.UnderVoltage)
-                std::printf("\tUnderVoltage\n");
+            // Do we need this
+            spdlog::warn("At least one fault below");
+            spdlog::warn("faults: {}", faults.ToString());
         }
         else
-            std::printf("2135: NO Talon FX active faults detected\n");
+            spdlog::info("NO Talon FX active faults detected");
 
         if (stickyFaults.HasAnyFault())
         {
-            std::printf("At Least one STICKY fault below\n");
-            if (stickyFaults.ForwardLimitSwitch)
-                std::printf("\tForwardLimitSwitch\n");
-            if (stickyFaults.ForwardSoftLimit)
-                std::printf("\tForwardSoftLimit\n");
-            if (stickyFaults.HardwareESDReset)
-                std::printf("\tHardwareESDReset\n");
-            //    if (stickyFaults.HardwareFailure)
-            //        std::printf("\tHardwareFailure\n");
-            if (stickyFaults.RemoteLossOfSignal)
-                std::printf("\tRemoteLossOfSignal\n");
-            if (stickyFaults.ResetDuringEn)
-                std::printf("\tResetDuringEn\n");
-            if (stickyFaults.ReverseLimitSwitch)
-                std::printf("\tReverseLimitSwitch\n");
-            if (stickyFaults.ReverseSoftLimit)
-                std::printf("\tReverseSoftLimit\n");
-            if (stickyFaults.SensorOutOfPhase)
-                std::printf("\tSensorOutOfPhase\n");
-            if (stickyFaults.SensorOverflow)
-                std::printf("\tSensorOverflow\n");
-            if (stickyFaults.UnderVoltage)
-                std::printf("\tUnderVoltage\n");
+            spdlog::warn("At least one STICKY fault below");
+            spdlog::warn("sticky faults: {}", stickyFaults.ToString());
         }
         else
-            std::printf("2135: NO Talon FX sticky faults detected\n");
+            spdlog::info("NO Talon FX sticky faults detected");
     }
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -225,13 +187,13 @@ namespace frc2135
         char subsystem[] = "DT";
         char name[] = "Pigeon IMU";
 
-        std::printf("2135: TalonFX Subsystem %s Name %s\n", subsystem, name);
+        spdlog::info("TalonFX Subsystem {} Name {}", subsystem, name);
 
         // Display Pigeon IMU firmware versions
         deviceID = pigeonPtr.GetDeviceNumber();
         if ((error = pigeonPtr.GetLastError()) != OKAY)
         {
-            std::printf("2135: ERROR: %s %s GetDeviceNumber error - %d\n", subsystem, name, error);
+            spdlog::error("{} {} GetDeviceNumber error - {}", subsystem, name, error);
             return error;
         }
 
@@ -240,12 +202,7 @@ namespace frc2135
             pigeonVersion = pigeonPtr.GetFirmwareVersion();
             if ((error = pigeonPtr.GetLastError()) != OKAY)
             {
-                std::printf(
-                    "2135: ERROR: %s %s ID %d GetFirmwareVersion error - %d\n",
-                    subsystem,
-                    name,
-                    deviceID,
-                    error);
+                spdlog::error("{} {} ID {} GetFirmwareVersion error - {}", subsystem, name, deviceID, error);
                 return error;
             }
             else if (pigeonVersion == m_reqPigeonVer)
@@ -255,8 +212,8 @@ namespace frc2135
             }
             else
             {
-                std::printf(
-                    "2135: WARNING: %s %s ID %d Incorrect FW version %u.%u expected %u.%u\n",
+                spdlog::warn(
+                    "{} {} ID {} Incorrect FW version {}.{} expected {}.{}",
                     subsystem,
                     name,
                     deviceID,
@@ -274,8 +231,8 @@ namespace frc2135
             // Initialize Pigeon IMU to all factory defaults
             if ((error = pigeonPtr.ConfigFactoryDefault(kCANTimeout)) != OKAY)
             {
-                std::printf(
-                    "2135: ERROR: %s %s ID %d ConfigFactoryDefault error - %d\n",
+                spdlog::error(
+                    "{} {} ID {} ConfigFactoryDefault error - {}",
                     subsystem,
                     name,
                     deviceID,
@@ -285,8 +242,8 @@ namespace frc2135
 
             double headingDeg = pigeonPtr.GetFusedHeading();
             bool angleIsGood = (pigeonPtr.GetState() == PigeonIMU::Ready) ? true : false;
-            std::printf(
-                "2135: %s %s ID %d fused m_headingDeg %5.1f angle is %s degrees\n",
+            spdlog::info(
+                "{} {} ID {} fused m_headingDeg {} angle is {} degrees",
                 subsystem,
                 name,
                 deviceID,
@@ -296,23 +253,18 @@ namespace frc2135
             pigeonPtr.SetYaw(0.0, kCANTimeout);
             if ((error = pigeonPtr.GetLastError()) != OKAY)
             {
-                std::printf(
-                    "2135: ERROR: %s %s ID %d SetFusedHeading error - %d\n",
-                    subsystem,
-                    name,
-                    deviceID,
-                    error);
+                spdlog::error("{} {} ID {} SetFusedHeading error - {}", subsystem, name, deviceID, error);
                 pigeonValid = false;
             }
 
             pigeonPtr.SetFusedHeading(0.0, kCANTimeout);
             if ((error = pigeonPtr.GetLastError()) != OKAY)
             {
-                std::printf("2135: ERROR: %s %s ID %d SetYaw error - %d\n", subsystem, name, deviceID, error);
+                spdlog::error("{} {} ID {} SetYaw error - {}", subsystem, name, deviceID, error);
                 pigeonValid = false;
             }
 
-            std::printf(
+            spdlog::error(
                 "2135: %s %s ID %d ver %u.%u is RESPONSIVE and INITIALIZED (error %d)\n",
                 subsystem,
                 name,
@@ -323,8 +275,8 @@ namespace frc2135
         }
         else
         {
-            std::printf(
-                "2135: ERROR: %s %s ID %d ver %u.%u is UNRESPONSIVE, (error %d)\n",
+            spdlog::error(
+                "{} {} ID {} ver {}.{} is UNRESPONSIVE, (error {})",
                 subsystem,
                 name,
                 deviceID,
@@ -345,26 +297,26 @@ namespace frc2135
         PigeonIMU_StickyFaults stickyFaults;
 
         // Print out PigeonIMU faults and clear sticky ones
-        std::printf("2135: %s -------------- %s\n", "PigeonIMU ", pigeonName);
+        spdlog::info("{} -------------- {}", "PigeonIMU ", pigeonName);
 
         // Check PigeonIMU by getting device ID and validating firmware versions
         pigeonPtr.GetDeviceNumber();
         if ((error = pigeonPtr.GetLastError()) != OKAY)
         {
-            std::printf("2135: ERROR: PigeonIMU Gyro GetDeviceID error - %d\n", error);
+            spdlog::error("PigeonIMU Gyro GetDeviceID error - {}", error);
             return;
         }
 
         fwVersion = pigeonPtr.GetFirmwareVersion();
         if ((error = pigeonPtr.GetLastError()) != OKAY)
         {
-            std::printf("2135: ERROR: PigeonIMU Gyro GetFirmwareVersion error - %d\n", error);
+            spdlog::error("PigeonIMU Gyro GetFirmwareVersion error - {}", error);
             return;
         }
         if (fwVersion != m_reqVersion)
         {
-            std::printf(
-                "2135: WARNING: PigeonIMU Gyro Incorrect FW version %u.%u expected %u.%u\n",
+            spdlog::warn(
+                "PigeonIMU Gyro Incorrect FW version {}.{} expected {}.{}",
                 fwVersion / 256,
                 fwVersion & 0xff,
                 m_reqVersion / 256,
@@ -378,14 +330,9 @@ namespace frc2135
         pigeonPtr.ClearStickyFaults(100);
 
         if (faults.HasAnyFault())
-            std::printf(
-                "2135: ERROR: %s %s ID %d has a FAULT - %d\n",
-                "DT",
-                "PigeonIMU",
-                2,
-                faults.ToBitfield());
+            spdlog::error("{} {} ID {} has a FAULT - {}", "DT", "PigeonIMU", 2, faults.ToBitfield());
         else
-            std::printf("2135: NO PigeonIMU sticky faults detected\n");
+            spdlog::info("NO PigeonIMU sticky faults detected");
     }
 
 } /* namespace frc2135 */
