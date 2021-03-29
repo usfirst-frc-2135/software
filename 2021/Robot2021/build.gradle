@@ -77,9 +77,16 @@ model {
                     srcDir '../../third_party/spdlog-1.8.2/include'
                 }
             }
+            
             binaries.all {
-                cppCompiler.args << '-std=c++17' << '-DSPDLOG_COMPILED_LIB'
+                if (targetPlatform.operatingSystem.isWindows()) {
+                    cppCompiler.args << '/std:c++17'
+                } else {
+                    cppCompiler.args << '-std=c++17'
+                }
+                cppCompiler.define 'SPDLOG_COMPILED_LIB'
             }
+
             binaries.withType(SharedLibraryBinarySpec) {
                 buildable = false
             }
@@ -101,7 +108,6 @@ model {
                         srcDir 'src/main/cpp'
                     }
                 }
-
                 lib library: 'spdlog', linkage: 'static'
             }
 

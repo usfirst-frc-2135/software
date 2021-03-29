@@ -888,10 +888,12 @@ bool Drivetrain::LoadTrajectory()
 
 void Drivetrain::PlotTrajectory(frc::Trajectory trajectory)
 {
+#ifndef _WIN32 // Disable on Windows due to linker and runtime issues
     // std::vector<frc::Pose2d> poses;
     std::vector<frc::Trajectory::State> states = trajectory.States();
     std::vector<frc::Pose2d> poses;
     for (size_t i = 0; i < states.size(); i++)
         poses.push_back(states[i].pose);
     m_field.GetObject("trajectory")->SetPoses(poses);
+#endif
 }
