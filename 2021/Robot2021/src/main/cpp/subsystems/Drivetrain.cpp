@@ -860,6 +860,7 @@ void Drivetrain::RamseteFollowerExecute(void)
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
+    m_trajTimer.Stop();
     return ((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime());
 }
 
