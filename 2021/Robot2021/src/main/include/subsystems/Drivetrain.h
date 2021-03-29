@@ -197,7 +197,6 @@ private:
     double m_distTolInches;    // Tolerated error for MM PID loop
 
     // Drive turn PID settings
-    double m_turnAngle = 0.0;    // Desired turn angle from present course
     double m_turnTolDeg;         // DriveTurn tolerance in degrees
     double m_visionTurnKp = 1.0; // Proportional value for PID for Drive Turn with Vision-Assist
     double m_turnMaxOut;         // Max motor output value for PID for DriveTurn function

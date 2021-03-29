@@ -279,11 +279,11 @@ void Drivetrain::UpdateDashboardValues(void)
     {
         double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
+        //change to spdlog
         std::printf(
-            "2135: DT %6.3f deg %4.1f turn %4.1f LR cts %5d %5d amps %6.3f %6.3f %6.3f %6.3f\n",
+            "2135: DT %6.3f deg %4.1f LR cts %5d %5d amps %6.3f %6.3f %6.3f %6.3f\n",
             secs,
             m_headingDeg,
-            m_turnAngle,
             m_encoderLeft,
             m_encoderRight,
             m_currentl1,
@@ -743,10 +743,12 @@ void Drivetrain::RamseteFollowerInit(void)
     outputDirectory.append("/output/curvePath.wpilib.json");
     spdlog::info("Output Directory is: {}", outputDirectory);
     std::ifstream pathFile(outputDirectory.c_str());
-    if (pathFile.good()){
+    if (pathFile.good())
+    {
         spdlog::info("pathFile is good");
     }
-    else {
+    else
+    {
         spdlog::error("pathFile not good");
     };
 
@@ -762,8 +764,12 @@ void Drivetrain::RamseteFollowerInit(void)
     for (unsigned int i = 0; i < trajectoryStates.size(); i++)
     {
         frc::Trajectory::State curState = trajectoryStates[i];
-        spdlog::info("state time {} Velocity {} Accleration {} Rotation {}", 
-                    curState.t, curState.velocity, curState.acceleration, curState.pose.Rotation().Degrees());
+        spdlog::info(
+            "state time {} Velocity {} Accleration {} Rotation {}",
+            curState.t,
+            curState.velocity,
+            curState.acceleration,
+            curState.pose.Rotation().Degrees());
     }
 
 #if 0 // REMOVE - only for onboard trajectory generation
@@ -866,10 +872,12 @@ bool Drivetrain::LoadTrajectory()
     outputDirectory.append("/output/testPath.wpilib.json");
     spdlog::info("Output Directory is {}", outputDirectory);
     std::ifstream pathFile(outputDirectory.c_str());
-    if (pathFile.good()){
+    if (pathFile.good())
+    {
         spdlog::info("pathFile is good");
     }
-    else {
+    else
+    {
         spdlog::error("pathFile not good");
     };
     return pathFile.good();
