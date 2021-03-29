@@ -111,6 +111,14 @@ model {
                 lib library: 'spdlog', linkage: 'static'
             }
 
+            binaries.all {
+                if (targetPlatform.operatingSystem.isWindows()) {
+                    // Static linking is weird on Windows, and we need to force-allow duplicate symbols
+                    // even though this isn't a problem for Unix-like targets
+                    linker.args << '/force:multiple'
+                }
+            }
+
             // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
             wpi.deps.vendor.cpp(it)
             wpi.deps.wpilib(it)
@@ -124,6 +132,12 @@ model {
                 source {
                     srcDir 'src/test/cpp'
                     include '**/*.cpp'
+                }
+            }
+
+            binaries.all {
+                if (targetPlatform.operatingSystem.isWindows()) {
+                    linker.args << '/force:multiple'
                 }
             }
 
