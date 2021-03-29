@@ -741,9 +741,14 @@ void Drivetrain::RamseteFollowerInit(void)
     wpi::SmallString<64> outputDirectory;
     frc::filesystem::GetDeployDirectory(outputDirectory);
     outputDirectory.append("/output/curvePath.wpilib.json");
-    std::printf("2135: Output Directory is: %s\n", outputDirectory.c_str());
+    spdlog::info("Output Directory is: {}", outputDirectory);
     std::ifstream pathFile(outputDirectory.c_str());
-    std::printf("2135: pathFile good: %d\n", pathFile.good());
+    if (pathFile.good()){
+        spdlog::info("pathFile is good");
+    }
+    else {
+        spdlog::error("pathFile not good");
+    };
 
     m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(outputDirectory);
     PlotTrajectory(m_trajectory);
@@ -752,14 +757,13 @@ void Drivetrain::RamseteFollowerInit(void)
     m_trajTimer.Reset();
     m_trajTimer.Start();
 
-    std::printf("Size of state table is %d\n", (int)trajectoryStates.size());
+    spdlog::info("Size of state table is {}", trajectoryStates.size());
 
     for (unsigned int i = 0; i < trajectoryStates.size(); i++)
     {
         frc::Trajectory::State curState = trajectoryStates[i];
-        std::cout << "state time: " << curState.t << ", Velocity: " << curState.velocity
-                  << ", Acceleration: " << curState.acceleration
-                  << ", Rotation: " << curState.pose.Rotation().Degrees() << "\n";
+        spdlog::info("state time {} Velocity {} Accleration {} Rotation {}", 
+                    curState.t, curState.velocity, curState.acceleration, curState.pose.Rotation().Degrees());
     }
 
 #if 0 // REMOVE - only for onboard trajectory generation
@@ -831,26 +835,6 @@ void Drivetrain::RamseteFollowerExecute(void)
 
     m_diffDrive.Feed();
 
-    std::printf(
-        "cX %.3f cY %.3f cR %.3f tX %.3f tY %.3f tR %.3f lDist %.3f rDist %.3f tSpdX %.3f tSPdY %.3f tSpdO %.3f tLSpd %.3f tRSpd %.3f \n",
-        currentPose.X().to<double>(),
-        currentPose.Y().to<double>(),
-        currentPose.Rotation().Degrees().to<double>(),
-        trajState.pose.X().to<double>(),
-        trajState.pose.Y().to<double>(),
-        trajState.pose.Rotation().Degrees().to<double>(),
-        m_driverSim.GetLeftPosition().to<double>(),
-        m_driverSim.GetRightPosition().to<double>(),
-        // m_motorL1.Get() * frc::RobotController::GetInputVoltage(),
-        // -m_motorR3.Get() * frc::RobotController::GetInputVoltage(),
-        // leftTotalOutput,
-        // rightTotalOutput,
-        targetChassisSpeeds.vx.to<double>(),
-        targetChassisSpeeds.vy.to<double>(),
-        targetChassisSpeeds.omega.to<double>(),
-        leftTargetSpeed.to<double>(),
-        rightTargetSpeed.to<double>());
-
     spdlog::info(
         "cX {} cY {} cR {} tX {} tY {} tR {} lDist {} rDist {} tSpdX {} tSpdY {} tSpdO {} tLSpd {} tRSpd {}",
         currentPose.X(),
@@ -880,9 +864,14 @@ bool Drivetrain::LoadTrajectory()
     wpi::SmallString<64> outputDirectory;
     frc::filesystem::GetDeployDirectory(outputDirectory);
     outputDirectory.append("/output/testPath.wpilib.json");
-    std::printf("2135: Output Directory is: %s\n", outputDirectory.c_str());
+    spdlog::info("Output Directory is {}", outputDirectory);
     std::ifstream pathFile(outputDirectory.c_str());
-    std::printf("2135: pathFile good: %d\n", pathFile.good());
+    if (pathFile.good()){
+        spdlog::info("pathFile is good");
+    }
+    else {
+        spdlog::error("pathFile not good");
+    };
     return pathFile.good();
 }
 
