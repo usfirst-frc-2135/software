@@ -180,7 +180,6 @@ private:
     double m_driveXScaling; // Scaling applied to Joystick
     double m_driveYScaling; // Scaling applied to Joystick
     bool m_throttleZeroed;  // Throttle joystick zeroed check for safety
-    double m_driveSpin;     // Spin turn power  setting
 
     bool m_lowGear;     // Low Gear or High Gear
     bool m_brakeMode;   // Brake or Coast Mode for Talons

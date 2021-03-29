@@ -166,7 +166,6 @@ void Drivetrain::ConfigFileLoad(void)
     config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 1.0);
     config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 1.0);
     config->GetValueAsInt("DT_DriveMode", m_curDriveMode, 0);
-    config->GetValueAsDouble("DT_DriveSpin", m_driveSpin, 0.45);
     config->GetValueAsDouble("DT_VisionTurnKp", m_visionTurnKp, 0.0);
     config->GetValueAsDouble("DT_PeakOut", m_peakOut, 1.0);
     config->GetValueAsInt("DT_Velocity", m_velocity, 1918);
