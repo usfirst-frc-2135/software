@@ -199,7 +199,6 @@ private:
     // Drive turn PID settings
     double m_turnTolDeg;         // DriveTurn tolerance in degrees
     double m_visionTurnKp = 1.0; // Proportional value for PID for Drive Turn with Vision-Assist
-    double m_turnMaxOut;         // Max motor output value for PID for DriveTurn function
     double m_alignTurnTolerance; // Minimum align turn error to finish aligning
     double m_alignTurnKp;
     double m_alignTurnError;
