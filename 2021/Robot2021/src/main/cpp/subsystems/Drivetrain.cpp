@@ -399,6 +399,7 @@ double Drivetrain::CountsToInches(int counts)
 //
 void Drivetrain::TankDriveVolts(volt_t left, volt_t right)
 {
+    m_diffDrive.Feed();
     m_motorL1.SetVoltage(left);
     m_motorR3.SetVoltage(-right);
 }
@@ -838,8 +839,6 @@ void Drivetrain::RamseteFollowerExecute(void)
     //m_motorR3.Set(ControlMode::PercentOutput, 1);
 
     m_diffDrive.TankDrive(leftTotalOutput, rightTotalOutput);
-
-    m_diffDrive.Feed();
 
     spdlog::info(
         "cX {} cY {} cR {} tX {} tY {} tR {} lDist {} rDist {} tSpdX {} tSpdY {} tSpdO {} tLSpd {} tRSpd {}",
