@@ -307,8 +307,7 @@ public:
     void MoveStop();
     void MoveWithJoysticks(frc::XboxController *driverPad);
     void ToggleDriveMode();
-    bool LoadTrajectory();
-    void PlotTrajectory(frc::Trajectory trajectory);
+    degree_t GetHeadingAngle();
 
     // Autonomous - Driving to a distance using Motion Magic
     void MoveDriveDistanceMMInit(double distance);
@@ -327,4 +326,6 @@ public:
     void RamseteFollowerExecute(void);
     bool RamseteFollowerIsFinished(void);
     void RamseteFollowerEnd(void);
+    bool LoadTrajectory();
+    void PlotTrajectory(frc::Trajectory trajectory);
 };
