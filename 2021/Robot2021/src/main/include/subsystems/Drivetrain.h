@@ -301,9 +301,6 @@ public:
     void Initialize(void);
     void FaultDump(void);
 
-    meter_t GetDistanceMetersLeft();
-    meter_t GetDistanceMetersRight();
-
     void ResetSensors();
     void MoveSetQuickTurn(bool quickTurn);
     void MoveShiftGears(bool lowGear);
@@ -311,6 +308,9 @@ public:
     void MoveWithJoysticks(frc::XboxController *driverPad);
     void ToggleDriveMode();
     degree_t GetHeadingAngle();
+    meter_t GetDistanceMetersLeft();
+    meter_t GetDistanceMetersRight();
+    frc::DifferentialDriveWheelSpeeds GetRateMPS();
 
     // Autonomous - Driving to a distance using Motion Magic
     void MoveDriveDistanceMMInit(double distance);
