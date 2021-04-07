@@ -590,6 +590,16 @@ void Drivetrain::ToggleDriveMode()
     frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
 }
 
+degree_t Drivetrain::GetHeadingAngle() 
+{
+    if (frc::RobotBase::IsReal()) {
+        return(-m_pigeonIMU.GetFusedHeading() * 1_deg);
+    }
+    else {
+        return (-m_gyro.GetAngle() * 1_deg);
+    }
+}
+
 ///////////////////// Autonomous command - MOTION MAGIC ///////////////////////
 //
 void Drivetrain::MoveDriveDistanceMMInit(double inches)
@@ -859,11 +869,12 @@ void Drivetrain::RamseteFollowerExecute(void)
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
-    m_trajTimer.Stop();
     return ((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime());
 }
 
-void Drivetrain::RamseteFollowerEnd(void) {}
+void Drivetrain::RamseteFollowerEnd(void) {
+    m_trajTimer.Stop();
+}
 
 bool Drivetrain::LoadTrajectory()
 {
@@ -894,3 +905,4 @@ void Drivetrain::PlotTrajectory(frc::Trajectory trajectory)
     m_field.GetObject("trajectory")->SetPoses(poses);
 #endif
 }
+
