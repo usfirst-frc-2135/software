@@ -818,10 +818,10 @@ void Drivetrain::RamseteFollowerExecute(void)
     volt_t rightFFVolts = m_feedforward.Calculate(targetWheelSpeeds.right);
 
     // Calculate PID feedback output contribution to reach the speed
-    feet_per_second_t leftCurSpeed = GetWheelSpeeds(m_velocityLeft);
-    feet_per_second_t rightCurSpeed = GetWheelSpeeds(m_velocityRight);
-    feet_per_second_t leftTargetSpeed = targetWheelSpeeds.left;
-    feet_per_second_t rightTargetSpeed = targetWheelSpeeds.right;
+    meters_per_second_t leftCurSpeed = GetWheelSpeeds(m_velocityLeft);
+    meters_per_second_t rightCurSpeed = GetWheelSpeeds(m_velocityRight);
+    meters_per_second_t leftTargetSpeed = targetWheelSpeeds.left;
+    meters_per_second_t rightTargetSpeed = targetWheelSpeeds.right;
     double leftFBOutput = m_leftController.Calculate(leftCurSpeed.to<double>(), leftTargetSpeed.to<double>());
     double rightFBOutput =
         m_rightController.Calculate(rightCurSpeed.to<double>(), rightTargetSpeed.to<double>());
