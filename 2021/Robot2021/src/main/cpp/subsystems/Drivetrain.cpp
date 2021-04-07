@@ -368,6 +368,30 @@ void Drivetrain::MoveSetBrakeMode(bool brakeMode)
         m_motorR4.SetNeutralMode(brakeOutput);
 }
 
+meter_t Drivetrain::GetDistanceMetersLeft()
+{
+    if (frc::RobotBase::IsReal())
+    {
+        return kEncoderMetersPerCount * m_motorL1.GetSelectedSensorPosition(kPidIndex);
+    }
+    else
+    {
+        return m_leftEncoder.GetDistance() * 1_m;
+    }
+}
+
+meter_t Drivetrain::GetDistanceMetersRight()
+{
+    if (frc::RobotBase::IsReal())
+    {
+        return kEncoderMetersPerCount * m_motorR3.GetSelectedSensorPosition(kPidIndex);
+    }
+    else
+    {
+        return m_rightEncoder.GetDistance() * 1_m;
+    }
+}
+
 void Drivetrain::ResetSensors(void)
 {
     if (m_talonValidL1)
@@ -590,12 +614,14 @@ void Drivetrain::ToggleDriveMode()
     frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
 }
 
-degree_t Drivetrain::GetHeadingAngle() 
+degree_t Drivetrain::GetHeadingAngle()
 {
-    if (frc::RobotBase::IsReal()) {
-        return(-m_pigeonIMU.GetFusedHeading() * 1_deg);
+    if (frc::RobotBase::IsReal())
+    {
+        return (-m_pigeonIMU.GetFusedHeading() * 1_deg);
     }
-    else {
+    else
+    {
         return (-m_gyro.GetAngle() * 1_deg);
     }
 }
@@ -872,7 +898,8 @@ bool Drivetrain::RamseteFollowerIsFinished(void)
     return ((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime());
 }
 
-void Drivetrain::RamseteFollowerEnd(void) {
+void Drivetrain::RamseteFollowerEnd(void)
+{
     m_trajTimer.Stop();
 }
 
@@ -905,4 +932,3 @@ void Drivetrain::PlotTrajectory(frc::Trajectory trajectory)
     m_field.GetObject("trajectory")->SetPoses(poses);
 #endif
 }
-

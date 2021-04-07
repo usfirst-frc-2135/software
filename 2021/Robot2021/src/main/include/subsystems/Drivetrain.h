@@ -301,6 +301,9 @@ public:
     void Initialize(void);
     void FaultDump(void);
 
+    meter_t GetDistanceMetersLeft();
+    meter_t GetDistanceMetersRight();
+
     void ResetSensors();
     void MoveSetQuickTurn(bool quickTurn);
     void MoveShiftGears(bool lowGear);
