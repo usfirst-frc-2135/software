@@ -367,6 +367,30 @@ void Drivetrain::MoveSetBrakeMode(bool brakeMode)
         m_motorR4.SetNeutralMode(brakeOutput);
 }
 
+meter_t Drivetrain::GetDistanceMetersLeft()
+{
+    if (frc::RobotBase::IsReal())
+    {
+        return kEncoderMetersPerCount * m_motorL1.GetSelectedSensorPosition(kPidIndex);
+    }
+    else
+    {
+        return m_leftEncoder.GetDistance() * 1_m;
+    }
+}
+
+meter_t Drivetrain::GetDistanceMetersRight()
+{
+    if (frc::RobotBase::IsReal())
+    {
+        return kEncoderMetersPerCount * m_motorR3.GetSelectedSensorPosition(kPidIndex);
+    }
+    else
+    {
+        return m_rightEncoder.GetDistance() * 1_m;
+    }
+}
+
 void Drivetrain::ResetSensors(void)
 {
     if (m_talonValidL1)
@@ -587,6 +611,18 @@ void Drivetrain::ToggleDriveMode()
 
     std::printf("2135: ToggleDriveMode: %d (curr)\n", m_curDriveMode);
     frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
+}
+
+degree_t Drivetrain::GetHeadingAngle()
+{
+    if (frc::RobotBase::IsReal())
+    {
+        return (-m_pigeonIMU.GetFusedHeading() * 1_deg);
+    }
+    else
+    {
+        return (-m_gyro.GetAngle() * 1_deg);
+    }
 }
 
 ///////////////////// Autonomous command - MOTION MAGIC ///////////////////////
@@ -817,10 +853,10 @@ void Drivetrain::RamseteFollowerExecute(void)
     volt_t rightFFVolts = m_feedforward.Calculate(targetWheelSpeeds.right);
 
     // Calculate PID feedback output contribution to reach the speed
-    feet_per_second_t leftCurSpeed = GetWheelSpeeds(m_velocityLeft);
-    feet_per_second_t rightCurSpeed = GetWheelSpeeds(m_velocityRight);
-    feet_per_second_t leftTargetSpeed = targetWheelSpeeds.left;
-    feet_per_second_t rightTargetSpeed = targetWheelSpeeds.right;
+    meters_per_second_t leftCurSpeed = GetWheelSpeeds(m_velocityLeft);
+    meters_per_second_t rightCurSpeed = GetWheelSpeeds(m_velocityRight);
+    meters_per_second_t leftTargetSpeed = targetWheelSpeeds.left;
+    meters_per_second_t rightTargetSpeed = targetWheelSpeeds.right;
     double leftFBOutput = m_leftController.Calculate(leftCurSpeed.to<double>(), leftTargetSpeed.to<double>());
     double rightFBOutput =
         m_rightController.Calculate(rightCurSpeed.to<double>(), rightTargetSpeed.to<double>());
@@ -858,11 +894,13 @@ void Drivetrain::RamseteFollowerExecute(void)
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
-    m_trajTimer.Stop();
     return ((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime());
 }
 
-void Drivetrain::RamseteFollowerEnd(void) {}
+void Drivetrain::RamseteFollowerEnd(void)
+{
+    m_trajTimer.Stop();
+}
 
 bool Drivetrain::LoadTrajectory()
 {
