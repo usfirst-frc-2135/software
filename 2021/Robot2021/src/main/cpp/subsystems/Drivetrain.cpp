@@ -368,30 +368,6 @@ void Drivetrain::MoveSetBrakeMode(bool brakeMode)
         m_motorR4.SetNeutralMode(brakeOutput);
 }
 
-meter_t Drivetrain::GetDistanceMetersLeft()
-{
-    if (frc::RobotBase::IsReal())
-    {
-        return kEncoderMetersPerCount * m_motorL1.GetSelectedSensorPosition(kPidIndex);
-    }
-    else
-    {
-        return m_leftEncoder.GetDistance() * 1_m;
-    }
-}
-
-meter_t Drivetrain::GetDistanceMetersRight()
-{
-    if (frc::RobotBase::IsReal())
-    {
-        return kEncoderMetersPerCount * m_motorR3.GetSelectedSensorPosition(kPidIndex);
-    }
-    else
-    {
-        return m_rightEncoder.GetDistance() * 1_m;
-    }
-}
-
 void Drivetrain::ResetSensors(void)
 {
     if (m_talonValidL1)
@@ -624,6 +600,46 @@ degree_t Drivetrain::GetHeadingAngle()
     {
         return (-m_gyro.GetAngle() * 1_deg);
     }
+}
+
+meter_t Drivetrain::GetDistanceMetersLeft()
+{
+    if (frc::RobotBase::IsReal())
+    {
+        return kEncoderMetersPerCount * m_motorL1.GetSelectedSensorPosition(kPidIndex);
+    }
+    else
+    {
+        return m_leftEncoder.GetDistance() * 1_m;
+    }
+}
+
+meter_t Drivetrain::GetDistanceMetersRight()
+{
+    if (frc::RobotBase::IsReal())
+    {
+        return kEncoderMetersPerCount * m_motorR3.GetSelectedSensorPosition(kPidIndex);
+    }
+    else
+    {
+        return m_rightEncoder.GetDistance() * 1_m;
+    }
+}
+
+frc::DifferentialDriveWheelSpeeds Drivetrain::GetRateMPS() 
+{
+    meters_per_second_t leftVelocity;
+    meters_per_second_t rightVelocity;
+
+    if (frc::RobotBase::IsReal()) {
+        leftVelocity = kEncoderMetersPerCount * m_motorL1.GetSelectedSensorVelocity() * 10 / 1_s;
+        rightVelocity = kEncoderMetersPerCount * m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
+    }
+    else {
+        leftVelocity = m_leftEncoder.GetRate() * 1_mps;
+        rightVelocity = m_rightEncoder.GetRate() * 1_mps;
+    }
+    return {leftVelocity, rightVelocity};
 }
 
 ///////////////////// Autonomous command - MOTION MAGIC ///////////////////////
