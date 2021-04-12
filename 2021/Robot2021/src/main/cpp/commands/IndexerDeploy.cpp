@@ -27,7 +27,7 @@ IndexerDeploy::IndexerDeploy(bool indexer) : m_indexer(indexer)
 // Called just before this Command runs the first time
 void IndexerDeploy::Initialize()
 {
-    spdlog::info("2135: IndexerDeploy - Init {}", m_indexer);
+    spdlog::info("IndexerDeploy - Init {}", m_indexer);
     RobotContainer *robotContainer = RobotContainer::GetInstance();
     robotContainer->m_shooter.IndexerDeploy(m_indexer);
 }
@@ -44,7 +44,7 @@ bool IndexerDeploy::IsFinished()
 // Called once after isFinished returns true
 void IndexerDeploy::End(bool interrupted)
 {
-    spdlog::info("2135: IndexerDeploy - End");
+    spdlog::info("IndexerDeploy - End");
 }
 
 bool IndexerDeploy::RunsWhenDisabled() const
