@@ -286,6 +286,11 @@ private:
     feet_per_second_t GetWheelSpeeds(int encoderCountsPerSecond);
     meters_per_second_t GetVelocityMPS(int encoderCountsPerSecond);
 
+    degree_t GetHeadingAngle();
+    meter_t GetDistanceMetersLeft();
+    meter_t GetDistanceMetersRight();
+    frc::DifferentialDriveWheelSpeeds GetRateMPS();
+
 public:
     Drivetrain();
 
@@ -307,10 +312,6 @@ public:
     void MoveStop();
     void MoveWithJoysticks(frc::XboxController *driverPad);
     void ToggleDriveMode();
-    degree_t GetHeadingAngle();
-    meter_t GetDistanceMetersLeft();
-    meter_t GetDistanceMetersRight();
-    frc::DifferentialDriveWheelSpeeds GetRateMPS();
 
     // Autonomous - Driving to a distance using Motion Magic
     void MoveDriveDistanceMMInit(double distance);
