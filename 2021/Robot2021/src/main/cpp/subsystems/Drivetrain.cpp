@@ -84,7 +84,6 @@ Drivetrain::Drivetrain()
 
     // Vision-based PID Controller
     driveVisionPIDLoop = frc2::PIDController(m_visionTurnKp, 0.0, 0.0);
-    driveVisionPIDLoop.SetTolerance(m_turnTolDeg);
 
     m_leftController = frc2::PIDController(kPDriveVel, 0, 0);
     m_rightController = frc2::PIDController(kPDriveVel, 0, 0);
@@ -625,20 +624,22 @@ meter_t Drivetrain::GetDistanceMetersRight()
     }
 }
 
-frc::DifferentialDriveWheelSpeeds Drivetrain::GetRateMPS() 
+frc::DifferentialDriveWheelSpeeds Drivetrain::GetRateMPS()
 {
     meters_per_second_t leftVelocity;
     meters_per_second_t rightVelocity;
 
-    if (frc::RobotBase::IsReal()) {
+    if (frc::RobotBase::IsReal())
+    {
         leftVelocity = kEncoderMetersPerCount * m_motorL1.GetSelectedSensorVelocity() * 10 / 1_s;
         rightVelocity = kEncoderMetersPerCount * m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
     }
-    else {
+    else
+    {
         leftVelocity = m_leftEncoder.GetRate() * 1_mps;
         rightVelocity = m_rightEncoder.GetRate() * 1_mps;
     }
-    return {leftVelocity, rightVelocity};
+    return { leftVelocity, rightVelocity };
 }
 
 ///////////////////// Autonomous command - MOTION MAGIC ///////////////////////
