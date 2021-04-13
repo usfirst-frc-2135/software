@@ -102,7 +102,6 @@ void Drivetrain::Periodic()
     // Put code here to be run every loop
     UpdateOdometry();
     UpdateDashboardValues();
-    UpdateMotorOutputs();
     m_field.SetRobotPose(m_odometry.GetPose());
 }
 
@@ -214,6 +213,11 @@ void Drivetrain::TalonFollowerInitialize(WPI_BaseMotorController &motor, int mas
 
 void Drivetrain::UpdateOdometry(void)
 {
+    m_odometry.Update(
+        frc::Rotation2d(radian_t(GetHeadingAngle())),
+        GetDistanceMetersLeft(),
+        GetDistanceMetersRight());
+
     // Gather all odometry and telemetry
     if (frc::RobotBase::IsReal())
     {
@@ -227,15 +231,6 @@ void Drivetrain::UpdateOdometry(void)
             m_encoderRight = -m_motorR3.GetSelectedSensorPosition(kPidIndex); // counts
             m_velocityRight = m_motorR3.GetSelectedSensorVelocity() * 10;     // counts/second
         }
-        if (m_pigeonValid)
-            if (m_pigeonIMU.GetState() == PigeonIMU::Ready)
-                m_headingDeg = m_pigeonIMU.GetFusedHeading();
-
-        if (m_talonValidL1 && m_talonValidR3 && m_pigeonValid)
-            m_odometry.Update(
-                frc::Rotation2d(radian_t(m_headingDeg)),
-                GetDistanceMeters(m_encoderLeft),
-                GetDistanceMeters(m_encoderRight));
 
         if (m_driveDebug)
         {
@@ -248,14 +243,6 @@ void Drivetrain::UpdateOdometry(void)
             if (m_talonValidR4)
                 m_currentR4 = m_motorR4.GetOutputCurrent();
         }
-    }
-
-    else
-    {
-        m_odometry.Update(
-            m_driverSim.GetHeading(),
-            m_driverSim.GetLeftPosition(),
-            m_driverSim.GetRightPosition());
     }
 }
 
@@ -290,8 +277,6 @@ void Drivetrain::UpdateDashboardValues(void)
             m_currentR4);
     }
 }
-
-void Drivetrain::UpdateMotorOutputs(void) {}
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -420,7 +405,7 @@ void Drivetrain::ResetEncoders()
 
 meter_t Drivetrain::GetAverageEncoderDistance()
 {
-    return (GetDistanceMeters(m_encoderLeft) + GetDistanceMeters(m_encoderRight)) / 2.0;
+    return (GetDistanceMetersLeft() + GetDistanceMetersRight()) / 2.0;
 }
 
 double Drivetrain::GetHeading()
