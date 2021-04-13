@@ -31,14 +31,10 @@ AutoDriveDist::AutoDriveDist(double distance, Drivetrain *m_drivetrain) :
 void AutoDriveDist::Initialize()
 {
     spdlog::info("AutoDriveDist - Init {}", m_distance);
-    m_drivetrain->MoveDriveDistanceMMInit(m_distance);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void AutoDriveDist::Execute()
-{
-    m_drivetrain->MoveDriveDistanceMMExecute();
-}
+void AutoDriveDist::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDriveDist::IsFinished()
@@ -50,7 +46,6 @@ bool AutoDriveDist::IsFinished()
 void AutoDriveDist::End(bool interrupted)
 {
     spdlog::info("AutoDriveDist - End");
-    m_drivetrain->MoveDriveDistanceMMEnd();
 }
 
 bool AutoDriveDist::RunsWhenDisabled() const

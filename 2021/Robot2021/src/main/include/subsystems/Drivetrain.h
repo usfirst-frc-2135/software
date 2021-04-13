@@ -312,12 +312,6 @@ public:
     void MoveWithJoysticks(frc::XboxController *driverPad);
     void ToggleDriveMode();
 
-    // Autonomous - Driving to a distance using Motion Magic
-    void MoveDriveDistanceMMInit(double distance);
-    void MoveDriveDistanceMMExecute(void);
-    bool MoveDriveDistanceMMIsFinished(void);
-    void MoveDriveDistanceMMEnd(void);
-
     // Autonomous - Aligning with Target Using Vision Processing
     void MoveAlignTurnInit(double angle);
     void MoveAlignTurnExecute(frc::XboxController *throttleJstick, double angle);
