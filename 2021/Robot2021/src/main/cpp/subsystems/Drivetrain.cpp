@@ -84,7 +84,6 @@ Drivetrain::Drivetrain()
 
     // Vision-based PID Controller
     driveVisionPIDLoop = frc2::PIDController(m_visionTurnKp, 0.0, 0.0);
-    driveVisionPIDLoop.SetTolerance(m_turnTolDeg);
 
     m_leftController = frc2::PIDController(kPDriveVel, 0, 0);
     m_rightController = frc2::PIDController(kPDriveVel, 0, 0);

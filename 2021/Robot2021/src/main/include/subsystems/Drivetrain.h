@@ -196,7 +196,6 @@ private:
     double m_distTolInches;    // Tolerated error for MM PID loop
 
     // Drive turn PID settings
-    double m_turnTolDeg;         // DriveTurn tolerance in degrees
     double m_visionTurnKp = 1.0; // Proportional value for PID for Drive Turn with Vision-Assist
     double m_alignTurnTolerance; // Minimum align turn error to finish aligning
     double m_alignTurnKp;
