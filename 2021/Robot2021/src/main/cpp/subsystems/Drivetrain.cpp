@@ -294,14 +294,11 @@ void Drivetrain::VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &target
     volt_t rightFFVolts = m_feedforward.Calculate(targetWheelSpeeds.right);
 
     // calculates PID feedback output contribution
-    feet_per_second_t leftCurSpeed = GetWheelSpeeds(m_velocityLeft);
-    feet_per_second_t rightCurSpeed = GetWheelSpeeds(m_velocityRight);
-    feet_per_second_t leftTargetSpeed = targetWheelSpeeds.left;
-    feet_per_second_t rightTargetSpeed = targetWheelSpeeds.right;
+    frc::DifferentialDriveWheelSpeeds curSpeed = GetWheelSpeedsMPS();
     double leftFBOutput =
-        m_leftPIDController.Calculate(leftCurSpeed.to<double>(), leftTargetSpeed.to<double>());
+        m_leftPIDController.Calculate(curSpeed.left.to<double>(), targetWheelSpeeds.left.to<double>());
     double rightFBOutput =
-        m_rightPIDController.Calculate(rightCurSpeed.to<double>(), rightTargetSpeed.to<double>());
+        m_rightPIDController.Calculate(curSpeed.right.to<double>(), targetWheelSpeeds.right.to<double>());
 
     // Divide FF by 12 to normalize to the same units as the outputs
     // TODO: Verify units on PID constants (are they scaled -1.0 to 1.0 or in volts)
@@ -316,17 +313,17 @@ void Drivetrain::VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &target
     {
         frc::SmartDashboard::PutNumber("Vel_leftFF", -leftFFVolts.to<double>());
         frc::SmartDashboard::PutNumber("Vel_rightFF", rightFFVolts.to<double>());
-        frc::SmartDashboard::PutNumber("Vel_leftCurSpeed", leftCurSpeed.to<double>());
-        frc::SmartDashboard::PutNumber("Vel_rightCurSpeed", rightCurSpeed.to<double>());
-        frc::SmartDashboard::PutNumber("Vel_leftTargetSpeed", leftTargetSpeed.to<double>());
-        frc::SmartDashboard::PutNumber("Vel_rightTargetSpeed", rightTargetSpeed.to<double>());
+        frc::SmartDashboard::PutNumber("Vel_curSpeed.left", curSpeed.left.to<double>());
+        frc::SmartDashboard::PutNumber("Vel_curSpeed.right", curSpeed.right.to<double>());
+        frc::SmartDashboard::PutNumber("Vel_targetWheelSpeeds.left", targetWheelSpeeds.left.to<double>());
+        frc::SmartDashboard::PutNumber("Vel_targetWheelSpeed.right", targetWheelSpeeds.right.to<double>());
         frc::SmartDashboard::PutNumber("Vel_leftFBOutput", -leftFBOutput);
         frc::SmartDashboard::PutNumber("Vel_rightFBOutput", rightFBOutput);
         frc::SmartDashboard::PutNumber("Vel_leftTotalOutput", leftTotalOutput);
         frc::SmartDashboard::PutNumber("Vel_rightTotalOutput", rightTotalOutput);
         frc::SmartDashboard::PutNumber(
             "Vel_diffCurrent",
-            rightCurSpeed.to<double>() - leftCurSpeed.to<double>());
+            curSpeed.right.to<double>() - curSpeed.left.to<double>());
         frc::SmartDashboard::PutNumber("Vel_diffOutput", rightFBOutput - leftFBOutput);
     }
 }
@@ -440,16 +437,6 @@ void Drivetrain::ResetOdometry(frc::Pose2d pose)
 meter_t Drivetrain::GetDistanceMeters(int encoderCounts)
 {
     return kEncoderMetersPerCount * encoderCounts;
-}
-
-feet_per_second_t Drivetrain::GetWheelSpeeds(int velocityCounts)
-{
-    return kEncoderFeetPerCount * velocityCounts / 1.0_s;
-}
-
-meters_per_second_t Drivetrain::GetVelocityMPS(int velocityCounts)
-{
-    return kEncoderMetersPerCount * velocityCounts / 1.0_s;
 }
 
 ///////////////////////////// Public Interfaces ///////////////////////////////
@@ -605,7 +592,7 @@ meter_t Drivetrain::GetDistanceMetersRight()
     }
 }
 
-frc::DifferentialDriveWheelSpeeds Drivetrain::GetRateMPS()
+frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeedsMPS()
 {
     meters_per_second_t leftVelocity;
     meters_per_second_t rightVelocity;
@@ -768,13 +755,11 @@ void Drivetrain::RamseteFollowerExecute(void)
     volt_t rightFFVolts = m_feedforward.Calculate(targetWheelSpeeds.right);
 
     // Calculate PID feedback output contribution to reach the speed
-    meters_per_second_t leftCurSpeed = GetWheelSpeeds(m_velocityLeft);
-    meters_per_second_t rightCurSpeed = GetWheelSpeeds(m_velocityRight);
-    meters_per_second_t leftTargetSpeed = targetWheelSpeeds.left;
-    meters_per_second_t rightTargetSpeed = targetWheelSpeeds.right;
-    double leftFBOutput = m_leftController.Calculate(leftCurSpeed.to<double>(), leftTargetSpeed.to<double>());
+    frc::DifferentialDriveWheelSpeeds curSpeed = GetWheelSpeedsMPS();
+    double leftFBOutput =
+        m_leftController.Calculate(curSpeed.left.to<double>(), targetWheelSpeeds.left.to<double>());
     double rightFBOutput =
-        m_rightController.Calculate(rightCurSpeed.to<double>(), rightTargetSpeed.to<double>());
+        m_rightController.Calculate(curSpeed.right.to<double>(), targetWheelSpeeds.right.to<double>());
 
     // Divide FF by 12 to normalize to the same units as the outputs
     // TODO: Verify units on PID constants (are they scaled -1.0 to 1.0 or in volts)
@@ -785,9 +770,6 @@ void Drivetrain::RamseteFollowerExecute(void)
     double rightTotalOutput = rightFBOutput + double(rightFFVolts) / 12.0;
 
     // Apply the calculated values to the motors
-    //m_motorL1.Set(ControlMode::PercentOutput, 1);
-    //m_motorR3.Set(ControlMode::PercentOutput, 1);
-
     m_diffDrive.TankDrive(leftTotalOutput, rightTotalOutput);
 
     spdlog::info(
@@ -803,8 +785,8 @@ void Drivetrain::RamseteFollowerExecute(void)
         targetChassisSpeeds.vx,
         targetChassisSpeeds.vy,
         targetChassisSpeeds.omega,
-        leftTargetSpeed,
-        rightTargetSpeed);
+        targetWheelSpeeds.left,
+        targetWheelSpeeds.right);
 }
 
 bool Drivetrain::RamseteFollowerIsFinished(void)

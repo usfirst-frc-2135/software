@@ -281,13 +281,11 @@ private:
     frc::Pose2d GetPose();
     void ResetOdometry(frc::Pose2d pose);
     meter_t GetDistanceMeters(int encoderCounts);
-    feet_per_second_t GetWheelSpeeds(int encoderCountsPerSecond);
-    meters_per_second_t GetVelocityMPS(int encoderCountsPerSecond);
 
     degree_t GetHeadingAngle();
     meter_t GetDistanceMetersLeft();
     meter_t GetDistanceMetersRight();
-    frc::DifferentialDriveWheelSpeeds GetRateMPS();
+    frc::DifferentialDriveWheelSpeeds GetWheelSpeedsMPS();
 
 public:
     Drivetrain();
