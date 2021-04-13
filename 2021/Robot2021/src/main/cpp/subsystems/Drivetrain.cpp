@@ -103,7 +103,6 @@ void Drivetrain::Periodic()
     // Put code here to be run every loop
     UpdateOdometry();
     UpdateDashboardValues();
-    UpdateMotorOutputs();
     m_field.SetRobotPose(m_odometry.GetPose());
 }
 
@@ -291,8 +290,6 @@ void Drivetrain::UpdateDashboardValues(void)
             m_currentR4);
     }
 }
-
-void Drivetrain::UpdateMotorOutputs(void) {}
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -625,20 +622,22 @@ meter_t Drivetrain::GetDistanceMetersRight()
     }
 }
 
-frc::DifferentialDriveWheelSpeeds Drivetrain::GetRateMPS() 
+frc::DifferentialDriveWheelSpeeds Drivetrain::GetRateMPS()
 {
     meters_per_second_t leftVelocity;
     meters_per_second_t rightVelocity;
 
-    if (frc::RobotBase::IsReal()) {
+    if (frc::RobotBase::IsReal())
+    {
         leftVelocity = kEncoderMetersPerCount * m_motorL1.GetSelectedSensorVelocity() * 10 / 1_s;
         rightVelocity = kEncoderMetersPerCount * m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
     }
-    else {
+    else
+    {
         leftVelocity = m_leftEncoder.GetRate() * 1_mps;
         rightVelocity = m_rightEncoder.GetRate() * 1_mps;
     }
-    return {leftVelocity, rightVelocity};
+    return { leftVelocity, rightVelocity };
 }
 
 ///////////////////// Autonomous command - MOTION MAGIC ///////////////////////

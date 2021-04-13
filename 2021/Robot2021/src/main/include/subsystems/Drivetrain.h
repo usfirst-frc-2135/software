@@ -259,7 +259,6 @@ private:
 
     void UpdateOdometry(void);
     void UpdateDashboardValues(void);
-    void UpdateMotorOutputs(void);
 
     // Brake or Coast Mode
     void MoveSetBrakeMode(bool m_brakeMode);
