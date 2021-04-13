@@ -425,14 +425,6 @@ frc::Pose2d Drivetrain::GetPose()
     return m_odometry.GetPose();
 }
 
-frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeeds()
-{
-    meters_per_second_t leftVel = GetVelocityMPS(m_encoderLeft);
-    meters_per_second_t rightVel = GetVelocityMPS(m_encoderLeft);
-
-    return { leftVel, rightVel };
-}
-
 // JLM: We need to port this
 void Drivetrain::ResetOdometry(frc::Pose2d pose)
 {

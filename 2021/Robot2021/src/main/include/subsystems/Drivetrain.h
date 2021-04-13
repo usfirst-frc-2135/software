@@ -277,7 +277,6 @@ private:
     double GetHeading();
     double GetTurnRate();
     frc::Pose2d GetPose();
-    frc::DifferentialDriveWheelSpeeds GetWheelSpeeds();
     void ResetOdometry(frc::Pose2d pose);
     meter_t GetDistanceMeters(int encoderCounts);
     feet_per_second_t GetWheelSpeeds(int encoderCountsPerSecond);
