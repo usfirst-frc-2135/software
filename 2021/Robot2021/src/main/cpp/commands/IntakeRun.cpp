@@ -12,6 +12,9 @@
 
 #include "commands/IntakeRun.h"
 
+#include <spdlog/fmt/ostr.h>
+#include <spdlog/spdlog.h>
+
 IntakeRun::IntakeRun(int intakeDirection, Intake *m_intake) :
     m_intakeDirection(intakeDirection),
     m_intake(m_intake)
@@ -27,7 +30,7 @@ IntakeRun::IntakeRun(int intakeDirection, Intake *m_intake) :
 // Called just before this Command runs the first time
 void IntakeRun::Initialize()
 {
-    std::printf("2135: IntakeRun - Init (%d)\n", m_intakeDirection);
+    spdlog::info("IntakeRun - Init {}", m_intakeDirection);
     m_intake->SetIntakeSpeed(m_intakeDirection);
 }
 
@@ -43,7 +46,7 @@ bool IntakeRun::IsFinished()
 // Called once after isFinished returns true
 void IntakeRun::End(bool interrupted)
 {
-    std::printf("2135: IntakeRun - End \n");
+    spdlog::info("IntakeRun - End");
 }
 
 bool IntakeRun::RunsWhenDisabled() const
