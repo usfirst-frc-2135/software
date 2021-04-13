@@ -421,7 +421,7 @@ void Drivetrain::ResetEncoders()
 
 meter_t Drivetrain::GetAverageEncoderDistance()
 {
-    return (GetDistanceMeters(m_encoderLeft) + GetDistanceMeters(m_encoderRight)) / 2.0;
+    return (GetDistanceMetersLeft() + GetDistanceMetersRight()) / 2.0;
 }
 
 double Drivetrain::GetHeading()
@@ -625,20 +625,22 @@ meter_t Drivetrain::GetDistanceMetersRight()
     }
 }
 
-frc::DifferentialDriveWheelSpeeds Drivetrain::GetRateMPS() 
+frc::DifferentialDriveWheelSpeeds Drivetrain::GetRateMPS()
 {
     meters_per_second_t leftVelocity;
     meters_per_second_t rightVelocity;
 
-    if (frc::RobotBase::IsReal()) {
+    if (frc::RobotBase::IsReal())
+    {
         leftVelocity = kEncoderMetersPerCount * m_motorL1.GetSelectedSensorVelocity() * 10 / 1_s;
         rightVelocity = kEncoderMetersPerCount * m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
     }
-    else {
+    else
+    {
         leftVelocity = m_leftEncoder.GetRate() * 1_mps;
         rightVelocity = m_rightEncoder.GetRate() * 1_mps;
     }
-    return {leftVelocity, rightVelocity};
+    return { leftVelocity, rightVelocity };
 }
 
 ///////////////////// Autonomous command - MOTION MAGIC ///////////////////////
