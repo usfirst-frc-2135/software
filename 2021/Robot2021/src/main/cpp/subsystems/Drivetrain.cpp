@@ -152,7 +152,7 @@ void Drivetrain::FaultDump(void)
     frc2135::TalonUtils::TalonFaultDump("DT L2", m_motorL2);
     frc2135::TalonUtils::TalonFaultDump("DT R3", m_motorR3);
     frc2135::TalonUtils::TalonFaultDump("DT R4", m_motorR4);
-    frc2135::TalonUtils::PigeonIMUFaultDump("DT IMU", m_pigeonIMU);
+    // frc2135::TalonUtils::PigeonIMUFaultDump("DT IMU", m_pigeonIMU);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -554,14 +554,14 @@ void Drivetrain::ToggleDriveMode()
 
 degree_t Drivetrain::GetHeadingAngle()
 {
-    if (frc::RobotBase::IsReal())
-    {
-        return (-m_pigeonIMU.GetFusedHeading() * 1_deg);
-    }
-    else
-    {
+    // if (frc::RobotBase::IsReal())
+    // {
+    //     return (-m_pigeonIMU.GetFusedHeading() * 1_deg);
+    // }
+    // else
+    // {
         return (-m_gyro.GetAngle() * 1_deg);
-    }
+    // }
 }
 
 meter_t Drivetrain::GetDistanceMetersLeft()
