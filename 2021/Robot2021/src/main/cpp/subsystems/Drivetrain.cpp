@@ -202,11 +202,11 @@ void Drivetrain::TalonMasterInitialize(WPI_BaseMotorController &motor)
 
 void Drivetrain::TalonFollowerInitialize(WPI_BaseMotorController &motor, int master)
 {
-    m_motorL2.Set(ControlMode::Follower, master);
-    m_motorL2.SetInverted(InvertType::FollowMaster);
-    m_motorL2.SetNeutralMode(NeutralMode::Coast);
-    m_motorL2.ConfigVoltageCompSaturation(12.0, kCANTimeout);
-    m_motorL2.EnableVoltageCompensation(true);
+    motor.Set(ControlMode::Follower, master);
+    motor.SetInverted(InvertType::FollowMaster);
+    motor.SetNeutralMode(NeutralMode::Coast);
+    motor.ConfigVoltageCompSaturation(12.0, kCANTimeout);
+    motor.EnableVoltageCompensation(true);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
