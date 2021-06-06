@@ -257,8 +257,8 @@ void Shooter::SetShooterSpeed(int level)
 
         // TODO: Check if the ArbitraryFeedForward argument is being used correctly - (JLM) not really
         // m_motorSH10.Set(ControlMode::Velocity, m_targetVelocityNative, DemandType::DemandType_ArbitraryFeedForward, ff_val);
-        // (JLM) If we use the WPILib calculation of FF, then it needs to use ControlMode::PercentOutput API
-        // (JLM) Using the Talon SRX internal velocity mode which is preferred
+        // If we use the WPILib calculation of FF, then it needs to use ControlMode::PercentOutput API
+        // Using the Talon SRX internal velocity mode which is preferred
 
         m_motorSH10.Set(ControlMode::Velocity, m_targetVelocityNative);
     }
