@@ -8,37 +8,7 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 //
-// Subsystem outline and order
-//
-// RobotBuilder methods in all subsystems
-//     Constructor
-//     Periodic
-//     SimulationPeriodic
-//
-// frc2135 methods in all subsystems
-//     Initialize
-//     FaultDump
-//
-// Initialization helpers
-//     <config file loading>
-//     <talon initialization>
-//     <sensor initialization>
-//
-// Periodic helpers
-//     <update sensors>
-//     <update dashboard values>
-//
-// Private methods
-//     <getter/setter functions for sensors>
-//
-// Public command methods
-//     <command helpers>
-//     <command interfaces>
-//         Init
-//         Execute
-//         IsFinished
-//         End
-//
+
 #pragma once
 
 #include "Constants.h"
@@ -117,12 +87,15 @@ private:
 #endif
 
     // Sensors
+
+    // Simulated quadrature encoders, since TalonFX is not supported
     frc::Encoder m_leftEncoder{ DriveConstants::kLeftEncoderPorts[0], DriveConstants::kLeftEncoderPorts[1] };
     frc::Encoder m_rightEncoder{ DriveConstants::kRightEncoderPorts[0],
                                  DriveConstants::kRightEncoderPorts[1] };
     frc::sim::EncoderSim m_leftEncoderSim{ m_leftEncoder };
     frc::sim::EncoderSim m_rightEncoderSim{ m_rightEncoder };
 
+    // Gyro - same on robot and in simulation
     frc::ADXRS450_Gyro m_gyro;
     frc::sim::ADXRS450_GyroSim m_gyroSim{ m_gyro };
 
@@ -208,7 +181,6 @@ private:
     double m_currentR3 = 0.0;  // Motor R3 output current from Falcon
     double m_currentR4 = 0.0;  // Motor R4 output current from Falcon
     double m_headingDeg = 0.0; // Pigeon IMU heading in degrees
-    frc::Rotation2d m_gyroAngle;
 
     // Auton safety timer
     frc::Timer m_safetyTimer; // Safety timer for use during autonomous modes
@@ -224,7 +196,7 @@ private:
     // Do another drive characterization
     frc::SimpleMotorFeedforward<meter> m_feedforward{ DriveConstants::ks, DriveConstants::kv, DriveConstants::ka };
     frc::DifferentialDriveKinematics m_kinematics{ DriveConstants::kTrackWidthMeters };
-    frc::DifferentialDriveOdometry m_odometry{ m_gyroAngle };
+    frc::DifferentialDriveOdometry m_odometry{ 0.0_deg };
     frc::Field2d m_field;
 
     frc2::PIDController m_leftPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };

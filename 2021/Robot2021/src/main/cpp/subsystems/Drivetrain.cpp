@@ -103,10 +103,6 @@ Drivetrain::Drivetrain()
     // If either master drive talons are valid, enable safety timer
     m_diffDrive.SetSafetyEnabled(m_talonValidL1 || m_talonValidR3);
 
-    // Set up drivetrain kinematics and initialize the odometry
-    // m_kinematics = new frc::DifferentialDriveKinematics(DriveConstans::kTrackWidthMeters);
-    m_odometry = frc::DifferentialDriveOdometry(m_gyroAngle);
-
     // Set up Field 2d for simulator
     frc::SmartDashboard::PutData("Field", &m_field);
 
@@ -117,12 +113,14 @@ Drivetrain::Drivetrain()
     // Vision-based PID Controller
     driveVisionPIDLoop = frc2::PIDController(m_visionTurnKp, 0.0, 0.0);
 
+    // Ramsete PID Controllers
     m_leftController = frc2::PIDController(DriveConstants::kPDriveVel, 0, 0);
     m_rightController = frc2::PIDController(DriveConstants::kPDriveVel, 0, 0);
 
     m_ramseteController = frc::RamseteController(DriveConstants::kRamseteB, DriveConstants::kRamseteZeta);
     LoadTrajectory();
 
+    // Simulation only - quadrature encoders
     m_leftEncoder.SetDistancePerPulse(DriveConstants::kEncoderMetersPerCount.to<double>());
     m_rightEncoder.SetDistancePerPulse(DriveConstants::kEncoderMetersPerCount.to<double>());
 
