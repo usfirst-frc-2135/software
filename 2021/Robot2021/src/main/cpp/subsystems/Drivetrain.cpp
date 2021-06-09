@@ -400,6 +400,7 @@ degrees_per_second_t Drivetrain::GetTurnRate()
 void Drivetrain::ResetOdometry(frc::Pose2d pose)
 {
     ResetEncoders();
+    ResetGyro();
     m_driverSim.SetPose(pose);
     m_odometry.ResetPosition(pose, GetHeadingAngle());
 }
@@ -482,10 +483,44 @@ void Drivetrain::VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &target
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+//
+//  Trajectory management
+//
+bool Drivetrain::LoadTrajectory()
+{
+    wpi::SmallString<64> outputDirectory;
+    frc::filesystem::GetDeployDirectory(outputDirectory);
+    outputDirectory.append("/output/testPath.wpilib.json");
+    spdlog::info("Output Directory is {}", outputDirectory);
+    std::ifstream pathFile(outputDirectory.c_str());
+    if (pathFile.good())
+    {
+        spdlog::info("pathFile is good");
+    }
+    else
+    {
+        spdlog::error("pathFile not good");
+    };
+    return pathFile.good();
+}
+
+void Drivetrain::PlotTrajectory(frc::Trajectory trajectory)
+{
+#ifndef _WIN32 // Disable on Windows due to linker and runtime issues
+    // std::vector<frc::Pose2d> poses;
+    std::vector<frc::Trajectory::State> states = trajectory.States();
+    std::vector<frc::Pose2d> poses;
+    for (size_t i = 0; i < states.size(); i++)
+        poses.push_back(states[i].pose);
+    m_field.GetObject("trajectory")->SetPoses(poses);
+#endif
+}
+
+///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Public Interfaces ///////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Reset all sensors prior to autonomous
+//  Reset all sensors - gyro and encoders
 //
 void Drivetrain::ResetSensors(void)
 {
@@ -584,39 +619,6 @@ void Drivetrain::ToggleDriveMode()
 
     std::printf("2135: ToggleDriveMode: %d (curr)\n", m_curDriveMode);
     frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
-}
-
-//
-//  Trajectory management
-//
-bool Drivetrain::LoadTrajectory()
-{
-    wpi::SmallString<64> outputDirectory;
-    frc::filesystem::GetDeployDirectory(outputDirectory);
-    outputDirectory.append("/output/testPath.wpilib.json");
-    spdlog::info("Output Directory is {}", outputDirectory);
-    std::ifstream pathFile(outputDirectory.c_str());
-    if (pathFile.good())
-    {
-        spdlog::info("pathFile is good");
-    }
-    else
-    {
-        spdlog::error("pathFile not good");
-    };
-    return pathFile.good();
-}
-
-void Drivetrain::PlotTrajectory(frc::Trajectory trajectory)
-{
-#ifndef _WIN32 // Disable on Windows due to linker and runtime issues
-    // std::vector<frc::Pose2d> poses;
-    std::vector<frc::Trajectory::State> states = trajectory.States();
-    std::vector<frc::Pose2d> poses;
-    for (size_t i = 0; i < states.size(); i++)
-        poses.push_back(states[i].pose);
-    m_field.GetObject("trajectory")->SetPoses(poses);
-#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -171,10 +171,12 @@ private:
     double m_alignTurnError;
 
     // Odometry and telemetry
-    int m_encoderLeft = 0;     // Distance from Falcon - left side - counts
-    int m_encoderRight = 0;    // Distance from Falcon - right side - counts
-    int m_velocityLeft = 0;    // Velocity from Falcon - left side - counts/second
-    int m_velocityRight = 0;   // Velocity from Falcon - right side - counts/second
+    int m_encoderLeft = 0;   // Distance from Falcon - left side - counts
+    int m_encoderRight = 0;  // Distance from Falcon - right side - counts
+    int m_velocityLeft = 0;  // Velocity from Falcon - left side - counts/second
+    int m_velocityRight = 0; // Velocity from Falcon - right side - counts/second
+    frc::DifferentialDriveOdometry m_odometry{ m_gyro.GetRotation2d() };
+
     double m_currentl1 = 0.0;  // Motor L1 output current from Falcon
     double m_currentL2 = 0.0;  // Motor L2 output current from Falcon
     double m_currentR3 = 0.0;  // Motor R3 output current from Falcon
@@ -197,14 +199,16 @@ private:
                                                       DriveConstants::kv,
                                                       DriveConstants::ka };
     frc::DifferentialDriveKinematics m_kinematics{ DriveConstants::kTrackWidthMeters };
-    frc::DifferentialDriveOdometry m_odometry{ 0.0_deg };
     frc::Field2d m_field;
 
+    // Velocity Closed Loop Drive
     frc2::PIDController m_leftPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
     frc2::PIDController m_rightPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
 
+    // Vision assisted driving
     frc2::PIDController driveVisionPIDLoop{ m_visionTurnKp, 0.0, 0.0 }; // Drive with Vision
 
+    // Ramsete follower objects
     frc2::PIDController m_leftController{ DriveConstants::kPDriveVel, 0.0, 0.0 };
     frc2::PIDController m_rightController{ DriveConstants::kPDriveVel, 0.0, 0.0 };
     frc::RamseteController m_ramseteController;
@@ -213,13 +217,16 @@ private:
 
     ///////////////////////////////////////////////////////////////////////////
 
+    // Initialization methods
     void ConfigFileLoad(void);
     void TalonMasterInitialize(WPI_BaseMotorController &motor);
     void TalonFollowerInitialize(WPI_BaseMotorController &motor, int master);
 
+    // Periodic update methods
     void UpdateOdometry(void);
     void UpdateDashboardValues(void);
 
+    // Encoders
     void ResetEncoders(void);
     meter_t GetDistanceMetersLeft(void);
     meter_t GetDistanceMetersRight(void);
@@ -231,7 +238,6 @@ private:
     degrees_per_second_t GetTurnRate(void);
 
     void ResetOdometry(frc::Pose2d pose);
-    frc::Pose2d GetPose(void);
 
     void SetBrakeMode(bool m_brakeMode);
     void TankDriveVolts(volt_t left, volt_t right);
