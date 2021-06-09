@@ -81,7 +81,6 @@ Drivetrain::Drivetrain()
     m_talonValidL2 = frc2135::TalonUtils::TalonCheck(m_motorL2, "DT", "L2");
     m_talonValidR3 = frc2135::TalonUtils::TalonCheck(m_motorR3, "DT", "R3");
     m_talonValidR4 = frc2135::TalonUtils::TalonCheck(m_motorR4, "DT", "R4");
-    m_pigeonValid = frc2135::TalonUtils::PigeonIMUInitialize(m_pigeonIMU);
 
     //  Load config file values
     ConfigFileLoad();
@@ -141,6 +140,7 @@ void Drivetrain::SimulationPeriodic()
     m_driverSim.SetInputs(
         units::volt_t{ m_motorL1.Get() } * frc::RobotController::GetInputVoltage(),
         units::volt_t{ -m_motorR3.Get() } * frc::RobotController::GetInputVoltage());
+
     m_driverSim.Update(20_ms);
 
     m_leftEncoderSim.SetDistance(m_driverSim.GetLeftPosition().to<double>());
@@ -184,7 +184,6 @@ void Drivetrain::FaultDump(void)
     frc2135::TalonUtils::TalonFaultDump("DT L2", m_motorL2);
     frc2135::TalonUtils::TalonFaultDump("DT R3", m_motorR3);
     frc2135::TalonUtils::TalonFaultDump("DT R4", m_motorR4);
-    // frc2135::TalonUtils::PigeonIMUFaultDump("DT IMU", m_pigeonIMU);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -364,8 +363,10 @@ frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeedsMPS()
 
     if (frc::RobotBase::IsReal())
     {
-        leftVelocity = DriveConstants::kEncoderMetersPerCount * m_motorL1.GetSelectedSensorVelocity() * 10 / 1_s;
-        rightVelocity = DriveConstants::kEncoderMetersPerCount * m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
+        leftVelocity =
+            DriveConstants::kEncoderMetersPerCount * m_motorL1.GetSelectedSensorVelocity() * 10 / 1_s;
+        rightVelocity =
+            DriveConstants::kEncoderMetersPerCount * m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
     }
     else
     {
@@ -376,45 +377,31 @@ frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeedsMPS()
 }
 
 //
-//  Gyro angle
+//  Gyro
 //
-double Drivetrain::GetHeading()
+void Drivetrain::ResetGyro()
 {
-    return -std::remainder(m_headingDeg, 360);
+    m_gyro.Reset();
 }
 
 degree_t Drivetrain::GetHeadingAngle()
 {
-    // if (frc::RobotBase::IsReal())
-    // {
-    //     return (-m_pigeonIMU.GetFusedHeading() * 1_deg);
-    // }
-    // else
-    // {
-        return (-m_gyro.GetAngle() * 1_deg);
-    // }
+    return (-m_gyro.GetAngle() * 1_deg);
 }
 
-double Drivetrain::GetTurnRate()
+degrees_per_second_t Drivetrain::GetTurnRate()
 {
-    //  TODO: Pigeon does not appear to have a turn rate - investigate
-    //   return -m_pigeonIMU.GetFusedHeading();
-    return 0;
+    return (-m_gyro.GetRate() * 1_deg_per_s);
 }
 
 //
 //  Odometry
-
+//
 void Drivetrain::ResetOdometry(frc::Pose2d pose)
 {
     ResetEncoders();
     m_driverSim.SetPose(pose);
-    m_odometry.ResetPosition(pose, frc::Rotation2d(degree_t(GetHeading())));
-}
-
-frc::Pose2d Drivetrain::GetPose()
-{
-    return m_odometry.GetPose();
+    m_odometry.ResetPosition(pose, GetHeadingAngle());
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -502,17 +489,8 @@ void Drivetrain::VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &target
 //
 void Drivetrain::ResetSensors(void)
 {
-    if (m_talonValidL1)
-        m_motorL1.SetSelectedSensorPosition(0, kPidIndex, 0);
-
-    if (m_talonValidR3)
-        m_motorR3.SetSelectedSensorPosition(0, kPidIndex, 0);
-
-    if (m_pigeonValid)
-    {
-        m_pigeonIMU.SetYaw(0.0);
-        m_pigeonIMU.SetFusedHeading(0.0, 0);
-    }
+    ResetEncoders();
+    ResetGyro();
 }
 
 //
@@ -780,7 +758,7 @@ void Drivetrain::RamseteFollowerExecute(void)
     frc::Trajectory::State trajState;
     frc::Pose2d currentPose;
     trajState = m_trajectory.Sample(m_trajTimer.Get() * 1_s);
-    currentPose = GetPose();
+    currentPose = m_odometry.GetPose();
 
     targetChassisSpeeds = m_ramseteController.Calculate(currentPose, trajState);
     targetWheelSpeeds = m_kinematics.ToWheelSpeeds(targetChassisSpeeds);
