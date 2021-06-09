@@ -7,8 +7,8 @@
 #include <frc/controller/SimpleMotorFeedforward.h>
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <units/acceleration.h>
-#include <units/angular_velocity.h>
 #include <units/angular_acceleration.h>
+#include <units/angular_velocity.h>
 #include <units/length.h>
 #include <units/velocity.h>
 #include <wpi/math>
@@ -37,8 +37,8 @@ namespace DriveConstants
     static constexpr int kRightEncoderPorts[]{ 3, 4 };
 
     // Odometry constants
-    static constexpr int kEncoderCPR = 2048;               // CPR is 2048 for new TalonFX
-    static constexpr meter_t kWheelDiaMeters = 6.0_in;     // Units library does the conversion
+    static constexpr int kEncoderCPR = 2048;           // CPR is 2048 for new TalonFX
+    static constexpr meter_t kWheelDiaMeters = 6.0_in; // Units library does the conversion
     static constexpr meter_t kEncoderMetersPerCount =
         (kWheelDiaMeters * wpi::math::pi) / static_cast<double>(kEncoderCPR);
     static constexpr meter_t kTrackWidthMeters = 0.6477_m; // Measured track width
@@ -51,7 +51,7 @@ namespace DriveConstants
     static constexpr auto KvAngular = 1.5_V / 1_rad_per_s;
     static constexpr auto KaAngular = 0.3_V / 1_rad_per_s_sq;
 
-    static constexpr double kPDriveVel = 0.00291;
+    static constexpr double kPDriveVel = 2.0;
     static constexpr meters_per_second_t kMaxSpeed = 1.1336_mps;
     static constexpr meters_per_second_squared_t kMaxAcceleration = 10.668_mps_sq;
 

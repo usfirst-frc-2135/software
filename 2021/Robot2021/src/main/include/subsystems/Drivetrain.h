@@ -171,10 +171,9 @@ private:
     double m_alignTurnError;
 
     // Odometry and telemetry
-    int m_encoderLeft = 0;   // Distance from Falcon - left side - counts
-    int m_encoderRight = 0;  // Distance from Falcon - right side - counts
-    int m_velocityLeft = 0;  // Velocity from Falcon - left side - counts/second
-    int m_velocityRight = 0; // Velocity from Falcon - right side - counts/second
+    meter_t m_distanceLeft;
+    meter_t m_distanceRight;
+    frc::DifferentialDriveWheelSpeeds m_wheelSpeeds;
     frc::DifferentialDriveOdometry m_odometry{ m_gyro.GetRotation2d() };
 
     double m_currentl1 = 0.0;  // Motor L1 output current from Falcon
