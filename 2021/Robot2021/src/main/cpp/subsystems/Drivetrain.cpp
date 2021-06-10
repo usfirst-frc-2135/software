@@ -443,20 +443,19 @@ void Drivetrain::VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &target
 
     // calculates PID feedback output contribution
     frc::DifferentialDriveWheelSpeeds curSpeed = GetWheelSpeedsMPS();
-    double leftFBOutput =
-        m_leftPIDController.Calculate(curSpeed.left.to<double>(), targetWheelSpeeds.left.to<double>());
-    double rightFBOutput =
-        m_rightPIDController.Calculate(curSpeed.right.to<double>(), targetWheelSpeeds.right.to<double>());
+    volt_t leftFBVolts =
+        1_V * m_leftPIDController.Calculate(curSpeed.left.to<double>(), targetWheelSpeeds.left.to<double>());
+    volt_t rightFBVolts =
+        1_V
+        * m_rightPIDController.Calculate(curSpeed.right.to<double>(), targetWheelSpeeds.right.to<double>());
 
-    // Divide FF by 12 to normalize to the same units as the outputs
-    // TODO: Verify units on PID constants (are they scaled -1.0 to 1.0 or in volts)
-    double leftTotalOutput = -(leftFBOutput + double(leftFFVolts) / 12.0);
-    double rightTotalOutput = rightFBOutput + double(rightFFVolts) / 12.0;
+    volt_t leftTotalVolts = leftFBVolts + leftFFVolts;
+    volt_t rightTotalVolts = rightFBVolts + rightFFVolts;
 
     // Apply the calculated values to the motors
-    m_motorL1.Set(ControlMode::PercentOutput, leftTotalOutput);
-    m_motorR3.Set(ControlMode::PercentOutput, rightTotalOutput);
+    TankDriveVolts(leftTotalVolts, rightTotalVolts);
 
+    // TODO: Change Smartdasbhoard output to spdlog
     if (m_driveDebug > 0)
     {
         frc::SmartDashboard::PutNumber("Vel_leftFF", -leftFFVolts.to<double>());
@@ -465,14 +464,14 @@ void Drivetrain::VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &target
         frc::SmartDashboard::PutNumber("Vel_curSpeed.right", curSpeed.right.to<double>());
         frc::SmartDashboard::PutNumber("Vel_targetWheelSpeeds.left", targetWheelSpeeds.left.to<double>());
         frc::SmartDashboard::PutNumber("Vel_targetWheelSpeed.right", targetWheelSpeeds.right.to<double>());
-        frc::SmartDashboard::PutNumber("Vel_leftFBOutput", -leftFBOutput);
-        frc::SmartDashboard::PutNumber("Vel_rightFBOutput", rightFBOutput);
-        frc::SmartDashboard::PutNumber("Vel_leftTotalOutput", leftTotalOutput);
-        frc::SmartDashboard::PutNumber("Vel_rightTotalOutput", rightTotalOutput);
+        frc::SmartDashboard::PutNumber("Vel_leftFBVolts", leftFBVolts.to<double>());
+        frc::SmartDashboard::PutNumber("Vel_rightFBVolts", rightFBVolts.to<double>());
+        frc::SmartDashboard::PutNumber("Vel_leftTotalOutput", leftTotalVolts.to<double>());
+        frc::SmartDashboard::PutNumber("Vel_rightTotalOutput", rightTotalVolts.to<double>());
         frc::SmartDashboard::PutNumber(
             "Vel_diffCurrent",
             curSpeed.right.to<double>() - curSpeed.left.to<double>());
-        frc::SmartDashboard::PutNumber("Vel_diffOutput", rightFBOutput - leftFBOutput);
+        frc::SmartDashboard::PutNumber("Vel_diffOutput", (rightFBVolts - leftFBVolts).to<double>());
     }
 }
 
