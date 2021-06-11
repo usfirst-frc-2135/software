@@ -113,10 +113,7 @@ namespace frc2135
                 fwVersion & 0xff,
                 error);
         }
-        if (!frc::RobotBase::IsReal())
-        {
-            talonValid = true;
-        }
+
         return talonValid;
     }
 
