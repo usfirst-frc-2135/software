@@ -113,10 +113,7 @@ namespace frc2135
                 fwVersion & 0xff,
                 error);
         }
-        if (!frc::RobotBase::IsReal())
-        {
-            talonValid = true;
-        }
+
         return talonValid;
     }
 
@@ -254,12 +251,12 @@ namespace frc2135
             double headingDeg = pigeonPtr.GetFusedHeading();
             bool angleIsGood = (pigeonPtr.GetState() == PigeonIMU::Ready) ? true : false;
             spdlog::info(
-                "{} {} ID {} fused m_headingDeg {} angle is {} degrees",
+                "{} {} ID {} fused heading angle is {} degrees {}",
                 subsystem,
                 name,
                 deviceID,
                 headingDeg,
-                (angleIsGood) ? "TRUE" : "FALSE");
+                (angleIsGood) ? "VALID" : "NOTREADY");
 
             pigeonPtr.SetYaw(0.0, kCANTimeout);
             if ((error = pigeonPtr.GetLastError()) != OKAY)

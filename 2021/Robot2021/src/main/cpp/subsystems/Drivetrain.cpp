@@ -81,7 +81,6 @@ Drivetrain::Drivetrain()
     m_talonValidL2 = frc2135::TalonUtils::TalonCheck(m_motorL2, "DT", "L2");
     m_talonValidR3 = frc2135::TalonUtils::TalonCheck(m_motorR3, "DT", "R3");
     m_talonValidR4 = frc2135::TalonUtils::TalonCheck(m_motorR4, "DT", "R4");
-    m_pigeonValid = frc2135::TalonUtils::PigeonIMUInitialize(m_pigeonIMU);
 
     //  Load config file values
     ConfigFileLoad();
@@ -141,6 +140,7 @@ void Drivetrain::SimulationPeriodic()
     m_driverSim.SetInputs(
         units::volt_t{ m_motorL1.Get() } * frc::RobotController::GetInputVoltage(),
         units::volt_t{ -m_motorR3.Get() } * frc::RobotController::GetInputVoltage());
+
     m_driverSim.Update(20_ms);
 
     m_leftEncoderSim.SetDistance(m_driverSim.GetLeftPosition().to<double>());
@@ -175,6 +175,12 @@ void Drivetrain::Initialize(void)
     MoveShiftGears(m_lowGear);
     SetBrakeMode(m_brakeMode);
     MoveStop();
+
+    // Initialize the odometry
+    ResetSensors();
+    ResetOdometry({ { 0_m, 0_m }, m_gyro.GetRotation2d() });
+    m_driverSim.SetPose(m_odometry.GetPose());
+    m_field.SetRobotPose(m_odometry.GetPose());
 }
 
 void Drivetrain::FaultDump(void)
@@ -184,7 +190,6 @@ void Drivetrain::FaultDump(void)
     frc2135::TalonUtils::TalonFaultDump("DT L2", m_motorL2);
     frc2135::TalonUtils::TalonFaultDump("DT R3", m_motorR3);
     frc2135::TalonUtils::TalonFaultDump("DT R4", m_motorR4);
-    // frc2135::TalonUtils::PigeonIMUFaultDump("DT IMU", m_pigeonIMU);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -242,36 +247,22 @@ void Drivetrain::TalonFollowerInitialize(WPI_BaseMotorController &motor, int mas
 //
 void Drivetrain::UpdateOdometry(void)
 {
-    m_odometry.Update(
-        frc::Rotation2d(radian_t(GetHeadingAngle())),
-        GetDistanceMetersLeft(),
-        GetDistanceMetersRight());
+    // Get all sensors and update odometry
+    m_distanceLeft = GetDistanceMetersLeft();
+    m_distanceRight = GetDistanceMetersRight();
+    m_wheelSpeeds = GetWheelSpeedsMPS();
+    m_odometry.Update(frc::Rotation2d(GetHeadingAngle()), m_distanceLeft, m_distanceRight);
 
-    // Gather all odometry and telemetry
-    if (frc::RobotBase::IsReal())
+    if (m_driveDebug)
     {
         if (m_talonValidL1)
-        {
-            m_encoderLeft = m_motorL1.GetSelectedSensorPosition(kPidIndex); // counts
-            m_velocityLeft = m_motorL1.GetSelectedSensorVelocity() * 10;    // counts/second
-        }
+            m_currentl1 = m_motorL1.GetOutputCurrent();
+        if (m_talonValidL2)
+            m_currentL2 = m_motorL2.GetOutputCurrent();
         if (m_talonValidR3)
-        {
-            m_encoderRight = -m_motorR3.GetSelectedSensorPosition(kPidIndex); // counts
-            m_velocityRight = m_motorR3.GetSelectedSensorVelocity() * 10;     // counts/second
-        }
-
-        if (m_driveDebug)
-        {
-            if (m_talonValidL1)
-                m_currentl1 = m_motorL1.GetOutputCurrent();
-            if (m_talonValidL2)
-                m_currentL2 = m_motorL2.GetOutputCurrent();
-            if (m_talonValidR3)
-                m_currentR3 = m_motorR3.GetOutputCurrent();
-            if (m_talonValidR4)
-                m_currentR4 = m_motorR4.GetOutputCurrent();
-        }
+            m_currentR3 = m_motorR3.GetOutputCurrent();
+        if (m_talonValidR4)
+            m_currentR4 = m_motorR4.GetOutputCurrent();
     }
 }
 
@@ -279,9 +270,11 @@ void Drivetrain::UpdateDashboardValues(void)
 {
     static int periodicInterval = 0;
 
-    frc::SmartDashboard::PutNumber("DT_Encoder_L", m_encoderLeft);
-    frc::SmartDashboard::PutNumber("DT_Encoder_R", m_encoderRight);
-    frc::SmartDashboard::PutNumber("DT_Heading", m_headingDeg);
+    frc::SmartDashboard::PutNumber("DT_distanceLeft", m_distanceLeft.to<double>());
+    frc::SmartDashboard::PutNumber("DT_distanceRight", m_distanceRight.to<double>());
+    frc::SmartDashboard::PutNumber("DT_wheelSpeedLeft", m_wheelSpeeds.left.to<double>());
+    frc::SmartDashboard::PutNumber("DT_wheelSpeedRight", m_wheelSpeeds.right.to<double>());
+    frc::SmartDashboard::PutNumber("DT_heading", m_odometry.GetPose().Rotation().Degrees().to<double>());
 
     frc::SmartDashboard::PutNumber("DT_Current_L1", m_currentl1);
     frc::SmartDashboard::PutNumber("DT_Current_L2", m_currentL2);
@@ -295,11 +288,11 @@ void Drivetrain::UpdateDashboardValues(void)
 
         //change to spdlog
         std::printf(
-            "2135: DT %6.3f deg %4.1f LR cts %5d %5d amps %6.3f %6.3f %6.3f %6.3f\n",
+            "2135: DT %6.3f deg %4.1f LR cts %6.3f %6.3f amps %6.3f %6.3f %6.3f %6.3f\n",
             secs,
-            m_headingDeg,
-            m_encoderLeft,
-            m_encoderRight,
+            m_odometry.GetPose().Rotation().Degrees().to<double>(),
+            m_distanceLeft.to<double>(),
+            m_distanceLeft.to<double>(),
             m_currentl1,
             m_currentL2,
             m_currentR3,
@@ -364,8 +357,10 @@ frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeedsMPS()
 
     if (frc::RobotBase::IsReal())
     {
-        leftVelocity = DriveConstants::kEncoderMetersPerCount * m_motorL1.GetSelectedSensorVelocity() * 10 / 1_s;
-        rightVelocity = DriveConstants::kEncoderMetersPerCount * m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
+        leftVelocity =
+            DriveConstants::kEncoderMetersPerCount * m_motorL1.GetSelectedSensorVelocity() * 10 / 1_s;
+        rightVelocity =
+            DriveConstants::kEncoderMetersPerCount * m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
     }
     else
     {
@@ -376,45 +371,32 @@ frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeedsMPS()
 }
 
 //
-//  Gyro angle
+//  Gyro
 //
-double Drivetrain::GetHeading()
+void Drivetrain::ResetGyro()
 {
-    return -std::remainder(m_headingDeg, 360);
+    m_gyro.Reset();
 }
 
 degree_t Drivetrain::GetHeadingAngle()
 {
-    // if (frc::RobotBase::IsReal())
-    // {
-    //     return (-m_pigeonIMU.GetFusedHeading() * 1_deg);
-    // }
-    // else
-    // {
-        return (-m_gyro.GetAngle() * 1_deg);
-    // }
+    return (-m_gyro.GetAngle() * 1_deg);
 }
 
-double Drivetrain::GetTurnRate()
+degrees_per_second_t Drivetrain::GetTurnRate()
 {
-    //  TODO: Pigeon does not appear to have a turn rate - investigate
-    //   return -m_pigeonIMU.GetFusedHeading();
-    return 0;
+    return (-m_gyro.GetRate() * 1_deg_per_s);
 }
 
 //
 //  Odometry
-
+//
 void Drivetrain::ResetOdometry(frc::Pose2d pose)
 {
     ResetEncoders();
+    ResetGyro();
     m_driverSim.SetPose(pose);
-    m_odometry.ResetPosition(pose, frc::Rotation2d(degree_t(GetHeading())));
-}
-
-frc::Pose2d Drivetrain::GetPose()
-{
-    return m_odometry.GetPose();
+    m_odometry.ResetPosition(pose, GetHeadingAngle());
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -461,20 +443,19 @@ void Drivetrain::VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &target
 
     // calculates PID feedback output contribution
     frc::DifferentialDriveWheelSpeeds curSpeed = GetWheelSpeedsMPS();
-    double leftFBOutput =
-        m_leftPIDController.Calculate(curSpeed.left.to<double>(), targetWheelSpeeds.left.to<double>());
-    double rightFBOutput =
-        m_rightPIDController.Calculate(curSpeed.right.to<double>(), targetWheelSpeeds.right.to<double>());
+    volt_t leftFBVolts =
+        1_V * m_leftPIDController.Calculate(curSpeed.left.to<double>(), targetWheelSpeeds.left.to<double>());
+    volt_t rightFBVolts =
+        1_V
+        * m_rightPIDController.Calculate(curSpeed.right.to<double>(), targetWheelSpeeds.right.to<double>());
 
-    // Divide FF by 12 to normalize to the same units as the outputs
-    // TODO: Verify units on PID constants (are they scaled -1.0 to 1.0 or in volts)
-    double leftTotalOutput = -(leftFBOutput + double(leftFFVolts) / 12.0);
-    double rightTotalOutput = rightFBOutput + double(rightFFVolts) / 12.0;
+    volt_t leftTotalVolts = leftFBVolts + leftFFVolts;
+    volt_t rightTotalVolts = rightFBVolts + rightFFVolts;
 
     // Apply the calculated values to the motors
-    m_motorL1.Set(ControlMode::PercentOutput, leftTotalOutput);
-    m_motorR3.Set(ControlMode::PercentOutput, rightTotalOutput);
+    TankDriveVolts(leftTotalVolts, rightTotalVolts);
 
+    // TODO: Change Smartdasbhoard output to spdlog
     if (m_driveDebug > 0)
     {
         frc::SmartDashboard::PutNumber("Vel_leftFF", -leftFFVolts.to<double>());
@@ -483,36 +464,61 @@ void Drivetrain::VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &target
         frc::SmartDashboard::PutNumber("Vel_curSpeed.right", curSpeed.right.to<double>());
         frc::SmartDashboard::PutNumber("Vel_targetWheelSpeeds.left", targetWheelSpeeds.left.to<double>());
         frc::SmartDashboard::PutNumber("Vel_targetWheelSpeed.right", targetWheelSpeeds.right.to<double>());
-        frc::SmartDashboard::PutNumber("Vel_leftFBOutput", -leftFBOutput);
-        frc::SmartDashboard::PutNumber("Vel_rightFBOutput", rightFBOutput);
-        frc::SmartDashboard::PutNumber("Vel_leftTotalOutput", leftTotalOutput);
-        frc::SmartDashboard::PutNumber("Vel_rightTotalOutput", rightTotalOutput);
+        frc::SmartDashboard::PutNumber("Vel_leftFBVolts", leftFBVolts.to<double>());
+        frc::SmartDashboard::PutNumber("Vel_rightFBVolts", rightFBVolts.to<double>());
+        frc::SmartDashboard::PutNumber("Vel_leftTotalOutput", leftTotalVolts.to<double>());
+        frc::SmartDashboard::PutNumber("Vel_rightTotalOutput", rightTotalVolts.to<double>());
         frc::SmartDashboard::PutNumber(
             "Vel_diffCurrent",
             curSpeed.right.to<double>() - curSpeed.left.to<double>());
-        frc::SmartDashboard::PutNumber("Vel_diffOutput", rightFBOutput - leftFBOutput);
+        frc::SmartDashboard::PutNumber("Vel_diffOutput", (rightFBVolts - leftFBVolts).to<double>());
     }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Trajectory management
+//
+bool Drivetrain::LoadTrajectory()
+{
+    wpi::SmallString<64> outputDirectory;
+    frc::filesystem::GetDeployDirectory(outputDirectory);
+    outputDirectory.append("/output/testPath.wpilib.json");
+    spdlog::info("Output Directory is {}", outputDirectory);
+    std::ifstream pathFile(outputDirectory.c_str());
+    if (pathFile.good())
+    {
+        spdlog::info("pathFile is good");
+    }
+    else
+    {
+        spdlog::error("pathFile not good");
+    };
+    return pathFile.good();
+}
+
+void Drivetrain::PlotTrajectory(frc::Trajectory trajectory)
+{
+#ifndef _WIN32 // Disable on Windows due to linker and runtime issues
+    // std::vector<frc::Pose2d> poses;
+    std::vector<frc::Trajectory::State> states = trajectory.States();
+    std::vector<frc::Pose2d> poses;
+    for (size_t i = 0; i < states.size(); i++)
+        poses.push_back(states[i].pose);
+    m_field.GetObject("trajectory")->SetPoses(poses);
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Public Interfaces ///////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Reset all sensors prior to autonomous
+//  Reset all sensors - gyro and encoders
 //
 void Drivetrain::ResetSensors(void)
 {
-    if (m_talonValidL1)
-        m_motorL1.SetSelectedSensorPosition(0, kPidIndex, 0);
-
-    if (m_talonValidR3)
-        m_motorR3.SetSelectedSensorPosition(0, kPidIndex, 0);
-
-    if (m_pigeonValid)
-    {
-        m_pigeonIMU.SetYaw(0.0);
-        m_pigeonIMU.SetFusedHeading(0.0, 0);
-    }
+    ResetEncoders();
+    ResetGyro();
 }
 
 //
@@ -608,39 +614,6 @@ void Drivetrain::ToggleDriveMode()
     frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
 }
 
-//
-//  Trajectory management
-//
-bool Drivetrain::LoadTrajectory()
-{
-    wpi::SmallString<64> outputDirectory;
-    frc::filesystem::GetDeployDirectory(outputDirectory);
-    outputDirectory.append("/output/testPath.wpilib.json");
-    spdlog::info("Output Directory is {}", outputDirectory);
-    std::ifstream pathFile(outputDirectory.c_str());
-    if (pathFile.good())
-    {
-        spdlog::info("pathFile is good");
-    }
-    else
-    {
-        spdlog::error("pathFile not good");
-    };
-    return pathFile.good();
-}
-
-void Drivetrain::PlotTrajectory(frc::Trajectory trajectory)
-{
-#ifndef _WIN32 // Disable on Windows due to linker and runtime issues
-    // std::vector<frc::Pose2d> poses;
-    std::vector<frc::Trajectory::State> states = trajectory.States();
-    std::vector<frc::Pose2d> poses;
-    for (size_t i = 0; i < states.size(); i++)
-        poses.push_back(states[i].pose);
-    m_field.GetObject("trajectory")->SetPoses(poses);
-#endif
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  Autonomous command - Vision assisted drive
@@ -709,8 +682,8 @@ void Drivetrain::MoveAlignTurnEnd(void) {}
 void Drivetrain::RamseteFollowerInit(void)
 {
     // Get our trajectory
-    // TODO: Move this to be able to load a trajectory while disabled when the user changes the chooser selection
-
+    // TODO: Move this to be able to load a trajectory while disabled when
+    //          the user changes the chooser selection
     wpi::SmallString<64> outputDirectory;
     frc::filesystem::GetDeployDirectory(outputDirectory);
     outputDirectory.append("/output/curvePath.wpilib.json");
@@ -731,6 +704,7 @@ void Drivetrain::RamseteFollowerInit(void)
     trajectoryStates = m_trajectory.States();
     m_trajTimer.Reset();
     m_trajTimer.Start();
+    SetBrakeMode(true);
 
     spdlog::info("Size of state table is {}", trajectoryStates.size());
 
@@ -761,10 +735,12 @@ void Drivetrain::RamseteFollowerInit(void)
 #endif
 
     // This initializes the odometry (where we are) and tolerance
+    ResetSensors();
     ResetOdometry(m_trajectory.InitialPose());
+    m_driverSim.SetPose(m_odometry.GetPose());
+    m_field.SetRobotPose(m_odometry.GetPose());
 
-    // TODO: should reset trajectory states here
-
+    // TODO: Not sure if this is really needed or used
     double dashValue;
     dashValue = frc::SmartDashboard::GetNumber("L_Ctr", 0.99);
     m_leftController.SetTolerance(dashValue);
@@ -780,7 +756,7 @@ void Drivetrain::RamseteFollowerExecute(void)
     frc::Trajectory::State trajState;
     frc::Pose2d currentPose;
     trajState = m_trajectory.Sample(m_trajTimer.Get() * 1_s);
-    currentPose = GetPose();
+    currentPose = m_odometry.GetPose();
 
     targetChassisSpeeds = m_ramseteController.Calculate(currentPose, trajState);
     targetWheelSpeeds = m_kinematics.ToWheelSpeeds(targetChassisSpeeds);
@@ -791,37 +767,34 @@ void Drivetrain::RamseteFollowerExecute(void)
 
     // Calculate PID feedback output contribution to reach the speed
     frc::DifferentialDriveWheelSpeeds curSpeed = GetWheelSpeedsMPS();
-    double leftFBOutput =
-        m_leftController.Calculate(curSpeed.left.to<double>(), targetWheelSpeeds.left.to<double>());
-    double rightFBOutput =
-        m_rightController.Calculate(curSpeed.right.to<double>(), targetWheelSpeeds.right.to<double>());
+    volt_t leftFBVolts =
+        1_V * m_leftController.Calculate(curSpeed.left.to<double>(), targetWheelSpeeds.left.to<double>());
+    volt_t rightFBVolts =
+        1_V * m_rightController.Calculate(curSpeed.right.to<double>(), targetWheelSpeeds.right.to<double>());
 
-    // Divide FF by 12 to normalize to the same units as the outputs
-    // TODO: Verify units on PID constants (are they scaled -1.0 to 1.0 or in volts)
-    leftFBOutput = 0;
-    rightFBOutput = 0;
-
-    double leftTotalOutput = leftFBOutput + double(leftFFVolts) / 12.0;
-    double rightTotalOutput = rightFBOutput + double(rightFFVolts) / 12.0;
+    volt_t leftTotalVolts = leftFBVolts + leftFFVolts;
+    volt_t rightTotalVolts = rightFBVolts + rightFFVolts;
 
     // Apply the calculated values to the motors
-    m_diffDrive.TankDrive(leftTotalOutput, rightTotalOutput);
+    TankDriveVolts(leftTotalVolts, rightTotalVolts);
 
     spdlog::info(
-        "cX {} cY {} cR {} tX {} tY {} tR {} lDist {} rDist {} tSpdX {} tSpdY {} tSpdO {} tLSpd {} tRSpd {}",
+        "cur X {} Y {} R {} | targ X {} Y {} R {} | chas X {} Y {} O {} | whl L {} R {} ffV L {} R {} | toV L {} R {}",
         currentPose.X(),
         currentPose.Y(),
         currentPose.Rotation().Degrees(),
         trajState.pose.X(),
         trajState.pose.Y(),
         trajState.pose.Rotation().Degrees(),
-        m_driverSim.GetLeftPosition(),
-        m_driverSim.GetRightPosition(),
         targetChassisSpeeds.vx,
         targetChassisSpeeds.vy,
         targetChassisSpeeds.omega,
         targetWheelSpeeds.left,
-        targetWheelSpeeds.right);
+        targetWheelSpeeds.right,
+        leftFFVolts,
+        rightFFVolts,
+        leftTotalVolts,
+        rightTotalVolts);
 }
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
@@ -832,4 +805,5 @@ bool Drivetrain::RamseteFollowerIsFinished(void)
 void Drivetrain::RamseteFollowerEnd(void)
 {
     m_trajTimer.Stop();
+    SetBrakeMode(false);
 }
