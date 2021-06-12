@@ -29,7 +29,7 @@ DriveTeleop::DriveTeleop(Drivetrain *m_drivetrain) : m_drivetrain(m_drivetrain)
 // Called just before this Command runs the first time
 void DriveTeleop::Initialize()
 {
-    spdlog::info("\t2135: DriveTeleop - Init");
+    spdlog::info("DriveTeleop - Init");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -47,7 +47,7 @@ bool DriveTeleop::IsFinished()
 // Called once after isFinished returns true
 void DriveTeleop::End(bool interrupted)
 {
-    spdlog::info("\t2135: DriveTeleop - End");
+    spdlog::info("DriveTeleop - End");
 }
 
 bool DriveTeleop::RunsWhenDisabled() const

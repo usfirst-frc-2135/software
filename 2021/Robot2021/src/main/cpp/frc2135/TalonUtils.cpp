@@ -64,6 +64,7 @@ namespace frc2135
                 break;
             }
             else
+            {
                 spdlog::warn(
                     "{} Motor {} ID {} Incorrect FW version {}.{} expected {}.{}",
                     subsystem,
@@ -73,7 +74,7 @@ namespace frc2135
                     fwVersion & 0xff,
                     m_reqVersion / 256,
                     m_reqVersion & 0xff);
-
+            }
             std::this_thread::sleep_for(std::chrono::milliseconds(50));
         }
 
@@ -81,23 +82,28 @@ namespace frc2135
         {
             // Initialize Talon to all factory defaults
             if ((error = talon.ConfigFactoryDefault(kCANTimeout)) != OKAY)
+            {
                 spdlog::error(
                     "{} Motor {} ID {} ConfigFactoryDefault error - {}",
                     subsystem,
                     name,
                     deviceID,
                     error);
-
-            spdlog::error(
-                "{} Motor {} ID {} ver {}.{} is RESPONSIVE and INITIALIZED (error {})",
-                subsystem,
-                name,
-                deviceID,
-                fwVersion / 256,
-                fwVersion & 0xff,
-                error);
+            }
+            else
+            {
+                spdlog::info(
+                    "{} Motor {} ID {} ver {}.{} is RESPONSIVE and INITIALIZED (error {})",
+                    subsystem,
+                    name,
+                    deviceID,
+                    fwVersion / 256,
+                    fwVersion & 0xff,
+                    error);
+            }
         }
         else
+        {
             spdlog::error(
                 "{} Motor {} ID {} ver {}.{} is UNRESPONSIVE, (error {})",
                 subsystem,
@@ -106,9 +112,7 @@ namespace frc2135
                 fwVersion / 256,
                 fwVersion & 0xff,
                 error);
-
-        if (!frc::RobotBase::IsReal())
-            talonValid = true;
+        }
 
         return talonValid;
     }
@@ -161,7 +165,9 @@ namespace frc2135
             spdlog::warn("faults: {}", faults.ToString());
         }
         else
+        {
             spdlog::info("NO Talon FX active faults detected");
+        }
 
         if (stickyFaults.HasAnyFault())
         {
@@ -169,7 +175,9 @@ namespace frc2135
             spdlog::warn("sticky faults: {}", stickyFaults.ToString());
         }
         else
+        {
             spdlog::info("NO Talon FX sticky faults detected");
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -243,12 +251,12 @@ namespace frc2135
             double headingDeg = pigeonPtr.GetFusedHeading();
             bool angleIsGood = (pigeonPtr.GetState() == PigeonIMU::Ready) ? true : false;
             spdlog::info(
-                "{} {} ID {} fused m_headingDeg {} angle is {} degrees",
+                "{} {} ID {} fused heading angle is {} degrees {}",
                 subsystem,
                 name,
                 deviceID,
                 headingDeg,
-                (angleIsGood) ? "TRUE" : "FALSE");
+                (angleIsGood) ? "VALID" : "NOTREADY");
 
             pigeonPtr.SetYaw(0.0, kCANTimeout);
             if ((error = pigeonPtr.GetLastError()) != OKAY)
@@ -264,14 +272,17 @@ namespace frc2135
                 pigeonValid = false;
             }
 
-            spdlog::error(
-                "2135: %s %s ID %d ver %u.%u is RESPONSIVE and INITIALIZED (error %d)\n",
-                subsystem,
-                name,
-                deviceID,
-                pigeonVersion / 256,
-                pigeonVersion & 0xff,
-                error);
+            if (pigeonValid)
+            {
+                spdlog::info(
+                    "2135: %s %s ID %d ver %u.%u is RESPONSIVE and INITIALIZED (error %d)\n",
+                    subsystem,
+                    name,
+                    deviceID,
+                    pigeonVersion / 256,
+                    pigeonVersion & 0xff,
+                    error);
+            }
         }
         else
         {
@@ -330,9 +341,13 @@ namespace frc2135
         pigeonPtr.ClearStickyFaults(100);
 
         if (faults.HasAnyFault())
+        {
             spdlog::error("{} {} ID {} has a FAULT - {}", "DT", "PigeonIMU", 2, faults.ToBitfield());
+        }
         else
+        {
             spdlog::info("NO PigeonIMU sticky faults detected");
+        }
     }
 
 } /* namespace frc2135 */
