@@ -8,13 +8,15 @@
 #pragma once
 
 #include <map>
+#include <cfloat>
+#include <climits>
 #include <stdlib.h>
 #include <string>
 #include <vector>
 
-static const int DUMMY_DEFAULT_INT = 999999;
-static const float DUMMY_DEFAULT_FLOAT = 999999.999;
-static const double DUMMY_DEFAULT_DOUBLE = 999999.999999;
+static const int DUMMY_DEFAULT_INT = INT_MAX;
+static const float DUMMY_DEFAULT_FLOAT = FLT_MAX;
+static const double DUMMY_DEFAULT_DOUBLE = DBL_MAX;
 
 namespace frc2135
 {
