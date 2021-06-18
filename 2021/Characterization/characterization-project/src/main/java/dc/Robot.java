@@ -26,6 +26,8 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SPI;
 
+import com.playingwithfusion.CANVenom;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -55,7 +57,7 @@ import java.util.ArrayList;
 
 public class Robot extends TimedRobot {
 
-  static private double ENCODER_EDGES_PER_REV = 2048 / 4.;
+  static private double ENCODER_EDGES_PER_REV = 2048;
   static private int PIDIDX = 0;
   static private int ENCODER_EPR = 2048;
   static private double GEARING = 13.94;
@@ -127,8 +129,7 @@ public class Robot extends TimedRobot {
           -> motor.getSelectedSensorPosition(PIDIDX) * encoderConstant;
         rightEncoderRate = ()
           -> motor.getSelectedSensorVelocity(PIDIDX) * encoderConstant *
-               10;
-
+               10;          
 
         break;
       case LEFT:
@@ -179,7 +180,7 @@ public class Robot extends TimedRobot {
 
     // Note that the angle from the NavX and all implementors of WPILib Gyro
     // must be negated because getAngle returns a clockwise positive angle
-    Gyro gyro = new ADXRS450_Gyro(SPI.Port.kMXP);
+    Gyro gyro = new ADXRS450_Gyro();
     gyroAngleRadians = () -> -1 * Math.toRadians(gyro.getAngle());
 
     // Set the update rate instead of using flush because of a ntcore bug
