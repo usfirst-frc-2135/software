@@ -607,8 +607,8 @@ void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
 
 void Drivetrain::ToggleDriveMode()
 {
-    if (++m_curDriveMode >= DRIVEMODE_LAST)
-        m_curDriveMode = DRIVEMODE_FIRST;
+    // if (++m_curDriveMode >= DRIVEMODE_LAST)
+    //     m_curDriveMode = DRIVEMODE_FIRST;
 
     std::printf("2135: ToggleDriveMode: %d (curr)\n", m_curDriveMode);
     frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
