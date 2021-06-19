@@ -113,7 +113,7 @@ void RobotContainer::ConfigureButtonBindings()
     frc2::POVButton m_inStow{ &m_operatorPad, 180 };
 
     m_clStowD.WhenPressed(ClimberDeploy(false), true);
-    m_dtShiftSpeed.WhileHeld(DriveShift(false), true);
+    // m_dtShiftSpeed.WhileHeld(DriveShift(false), true);
     m_clDeployD.WhenPressed(ClimberDeploy(true), true);
     m_dtQuickTurn.WhileHeld(DriveQuickTurn(), true);
     m_dtAlignTurn.WhenPressed(DriveAlignTurn(&m_drivetrain), true);
