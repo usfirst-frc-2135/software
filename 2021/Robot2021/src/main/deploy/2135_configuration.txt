@@ -2,11 +2,11 @@
   RB_Name = 2135-Mandi
 # DriveTrain settings
   DT_DriveMode = 0
-  DT_DriveXScaling = 0.7
+  DT_DriveXScaling = 0.4
 # Competition mode
 # DT_DriveYScaling = 1.00
 # Training mode
-  DT_DriveYScaling =  0.85
+  DT_DriveYScaling =  0.4
 # Demo mode
 # DT_DriveYScaling =  0.60
   DT_OpenLoopRampRate = 0

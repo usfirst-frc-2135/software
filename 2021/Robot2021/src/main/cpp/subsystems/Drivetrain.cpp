@@ -200,8 +200,8 @@ void Drivetrain::ConfigFileLoad(void)
 {
     //  Retrieve drivetrain modified parameters from RobotConfig
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 1.0);
-    config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 1.0);
+    config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 0.4);
+    config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 0.4);
     config->GetValueAsInt("DT_DriveMode", m_curDriveMode, 0);
     config->GetValueAsDouble("DT_VisionTurnKp", m_visionTurnKp, 0.0);
     config->GetValueAsDouble("DT_VCMaxSpeed", m_vcMaxSpeed, 6.73);
