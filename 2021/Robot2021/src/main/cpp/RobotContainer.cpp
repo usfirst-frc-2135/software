@@ -98,7 +98,7 @@ void RobotContainer::ConfigureButtonBindings()
 
     // Driver Button Assignments
     frc2::JoystickButton m_clStowD{ &m_driverPad, (int)frc::XboxController::Button::kA };
-    frc2::JoystickButton m_dtShiftSpeed{ &m_driverPad, (int)frc::XboxController::Button::kB };
+    // frc2::JoystickButton m_dtShiftSpeed{ &m_driverPad, (int)frc::XboxController::Button::kB };
     frc2::JoystickButton m_clDeployD{ &m_driverPad, (int)frc::XboxController::Button::kY };
     frc2::JoystickButton m_dtQuickTurn{ &m_driverPad, (int)frc::XboxController::Button::kBumperLeft };
     frc2::JoystickButton m_dtAlignTurn{ &m_driverPad, (int)frc::XboxController::Button::kBumperRight };
