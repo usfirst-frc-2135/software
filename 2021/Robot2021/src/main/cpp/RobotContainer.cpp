@@ -98,7 +98,7 @@ void RobotContainer::ConfigureButtonBindings()
 
     // Driver Button Assignments
     frc2::JoystickButton m_clStowD{ &m_driverPad, (int)frc::XboxController::Button::kA };
-    frc2::JoystickButton m_dtShiftSpeed{ &m_driverPad, (int)frc::XboxController::Button::kB };
+    // frc2::JoystickButton m_dtShiftSpeed{ &m_driverPad, (int)frc::XboxController::Button::kB };
     frc2::JoystickButton m_clDeployD{ &m_driverPad, (int)frc::XboxController::Button::kY };
     frc2::JoystickButton m_dtQuickTurn{ &m_driverPad, (int)frc::XboxController::Button::kBumperLeft };
     frc2::JoystickButton m_dtAlignTurn{ &m_driverPad, (int)frc::XboxController::Button::kBumperRight };
@@ -113,7 +113,7 @@ void RobotContainer::ConfigureButtonBindings()
     frc2::POVButton m_inStow{ &m_operatorPad, 180 };
 
     m_clStowD.WhenPressed(ClimberDeploy(false), true);
-    m_dtShiftSpeed.WhileHeld(DriveShift(false), true);
+    // m_dtShiftSpeed.WhileHeld(DriveShift(false), true);
     m_clDeployD.WhenPressed(ClimberDeploy(true), true);
     m_dtQuickTurn.WhileHeld(DriveQuickTurn(), true);
     m_dtAlignTurn.WhenPressed(DriveAlignTurn(&m_drivetrain), true);
