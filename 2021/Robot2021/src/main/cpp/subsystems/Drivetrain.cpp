@@ -160,7 +160,7 @@ void Drivetrain::SimulationPeriodic()
 //
 void Drivetrain::Initialize(void)
 {
-    std::printf("2135: DT Initialize\n");
+    spdlog::info("DT Initialize");
 
     // When disabled, set low gear and coast mode to allow easier pushing
     m_lowGear = true;
@@ -286,9 +286,8 @@ void Drivetrain::UpdateDashboardValues(void)
     {
         double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
 
-        //change to spdlog
-        std::printf(
-            "2135: DT %6.3f deg %4.1f LR cts %6.3f %6.3f amps %6.3f %6.3f %6.3f %6.3f\n",
+        spdlog::info(
+            "DT {} deg {} LR cts {} {} amps {} {} {} {}",
             secs,
             m_odometry.GetPose().Rotation().Degrees().to<double>(),
             m_distanceLeft.to<double>(),
@@ -407,7 +406,7 @@ void Drivetrain::SetBrakeMode(bool brakeMode)
 {
     m_brakeMode = brakeMode;
 
-    std::printf("2135: DT %s Mode\n", (brakeMode) ? "BRAKE" : "COAST");
+    spdlog::info("DT {} Mode", (brakeMode) ? "BRAKE" : "COAST");
     frc::SmartDashboard::PutBoolean("DT Brake Mode", brakeMode);
 
     NeutralMode brakeOutput;
@@ -536,7 +535,7 @@ void Drivetrain::MoveShiftGears(bool lowGear)
 {
     m_lowGear = lowGear;
 
-    std::printf("2135: DT %s Gear\n", (lowGear) ? "LOW" : "HIGH");
+    spdlog::info("DT {} Gear", (lowGear) ? "LOW" : "HIGH");
     frc::SmartDashboard::PutBoolean("DT Low Gear", lowGear);
 
     m_shifter.Set((lowGear) ? m_shifter.kForward : m_shifter.kReverse);
@@ -610,7 +609,7 @@ void Drivetrain::ToggleDriveMode()
     // if (++m_curDriveMode >= DRIVEMODE_LAST)
     m_curDriveMode = DRIVEMODE_FIRST;
 
-    std::printf("2135: ToggleDriveMode: %d (curr)\n", m_curDriveMode);
+    spdlog::info("ToggleDriveMode: {} (curr)", m_curDriveMode);
     frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
 }
 
@@ -621,7 +620,7 @@ void Drivetrain::ToggleDriveMode()
 void Drivetrain::MoveAlignTurnInit(double angle)
 {
     m_alignTurnError = angle;
-    std::printf("2135: DTAT Init - Error %5.2f degrees\n", m_alignTurnError);
+    spdlog::info("DTAT Init - Error {} degrees", m_alignTurnError);
 }
 
 void Drivetrain::MoveAlignTurnExecute(frc::XboxController *throttleJstick, double angle)
@@ -640,8 +639,8 @@ void Drivetrain::MoveAlignTurnExecute(frc::XboxController *throttleJstick, doubl
 
     if (m_driveDebug)
     {
-        std::printf(
-            "2135: DTAT - Error %5.2f degrees Adjustment %5.2f Left Throttle %5.2f Right Throttle %5.2f\n",
+        spdlog::info(
+            "DTAT - Error {} degrees Adjustment {} Left Throttle {} Right Throttle {}",
             m_alignTurnError,
             alignTurnAdjustment,
             leftThrottle,
@@ -659,14 +658,14 @@ bool Drivetrain::MoveAlignTurnIsFinished(double angle)
 
     if (abs(m_alignTurnError) < m_alignTurnTolerance)
     {
-        std::printf("2135: DTAT - Error Within Tolerance\n");
+        spdlog::info("DTAT - Error Within Tolerance\n");
         isFinished = true;
     }
 
     // Check to see if the Safety Timer has timed out.
     if (m_safetyTimer.Get() >= m_safetyTimeout)
     {
-        std::printf("2135: DTAT Safety timer has timed out\n");
+        spdlog::warn("DTAT Safety timer has timed out");
         isFinished = true;
     }
 
