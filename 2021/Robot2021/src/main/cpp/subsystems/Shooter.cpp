@@ -241,7 +241,7 @@ void Shooter::SetShooterSpeed(int level)
             m_targetOutput = frc::SmartDashboard::GetNumber("SH_SmartDashOutput", 0.0);
             break;
         default:
-            spdlog::warn("2135: SH invalid velocity requested - {}", level);
+            spdlog::warn("SH invalid velocity requested - {}", level);
             return;
     }
 
