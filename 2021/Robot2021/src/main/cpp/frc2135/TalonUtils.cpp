@@ -7,11 +7,10 @@
 
 #include "frc2135/TalonUtils.h"
 
-#include "spdlog/fmt/ostr.h"
-#include "spdlog/spdlog.h"
-
 #include <chrono>
 #include <frc/RobotBase.h>
+#include <spdlog/fmt/ostr.h>
+#include <spdlog/spdlog.h>
 
 namespace frc2135
 {
