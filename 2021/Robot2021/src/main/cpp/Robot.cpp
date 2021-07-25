@@ -110,7 +110,7 @@ void Robot::TestPeriodic() {}
 void Robot::RobotFaultDump(void)
 {
     // Print out talon SRX faults and clear sticky ones
-    std::printf("2135: %s --------------\n", "FAULT DUMPS");
+    spdlog::info("----- DUMP FAULTS --------------");
 
     RobotContainer *robotContainer = RobotContainer::GetInstance();
     robotContainer->m_drivetrain.FaultDump();

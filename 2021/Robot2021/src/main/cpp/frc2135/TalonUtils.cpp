@@ -38,7 +38,7 @@ namespace frc2135
         deviceID = talon.GetDeviceID();
         if ((error = talon.GetLastError()) != OKAY)
         {
-            spdlog::error(" {} Motor {} GetDeviceID error - {}", subsystem, name, error);
+            spdlog::error("{} Motor {} GetDeviceID error - {}", subsystem, name, error);
             return error;
         }
 
@@ -124,7 +124,7 @@ namespace frc2135
         StickyFaults stickyFaults;
 
         // Print out Talon faults and clear sticky ones
-        spdlog::info("{} -------------- {}", "Talon ", talonName);
+        spdlog::info("Talon -------------- {}", talonName);
 
         // Check Talon by getting device ID and validating firmware versions
         talon.GetDeviceID();
@@ -274,7 +274,7 @@ namespace frc2135
             if (pigeonValid)
             {
                 spdlog::info(
-                    "2135: %s %s ID %d ver %u.%u is RESPONSIVE and INITIALIZED (error %d)\n",
+                    "{} {} ID {} ver {}.{} is RESPONSIVE and INITIALIZED (error {})",
                     subsystem,
                     name,
                     deviceID,
@@ -301,16 +301,17 @@ namespace frc2135
 
     void TalonUtils::PigeonIMUFaultDump(const char *pigeonName, PigeonIMU &pigeonPtr)
     {
+        int deviceID = 0;
         int fwVersion = 0;
         ErrorCode error = OKAY;
         PigeonIMU_Faults faults;
         PigeonIMU_StickyFaults stickyFaults;
 
         // Print out PigeonIMU faults and clear sticky ones
-        spdlog::info("{} -------------- {}", "PigeonIMU ", pigeonName);
+        spdlog::info("PigeonIMU -------------- {}", pigeonName);
 
         // Check PigeonIMU by getting device ID and validating firmware versions
-        pigeonPtr.GetDeviceNumber();
+        deviceID = pigeonPtr.GetDeviceNumber();
         if ((error = pigeonPtr.GetLastError()) != OKAY)
         {
             spdlog::error("PigeonIMU Gyro GetDeviceID error - {}", error);
@@ -341,7 +342,7 @@ namespace frc2135
 
         if (faults.HasAnyFault())
         {
-            spdlog::error("{} {} ID {} has a FAULT - {}", "DT", "PigeonIMU", 2, faults.ToBitfield());
+            spdlog::error("PigeonIMU ID {} has a FAULT - {}", deviceID, faults.ToBitfield());
         }
         else
         {

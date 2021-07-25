@@ -69,13 +69,13 @@ void Pneumatics::Initialize(void)
 void Pneumatics::FaultDump(void)
 {
     // Print out PCM faults and clear sticky ones
-    spdlog::warn(" -------------- {}", "PCM FAULTS");
+    spdlog::info("----- PCM FAULTS --------------");
 
     if (m_pcm.GetCompressorCurrentTooHighStickyFault())
-        spdlog::warn("\tCurrentTooHighFault");
+        spdlog::warn("CurrentTooHighFault");
     if (m_pcm.GetCompressorNotConnectedFault())
-        spdlog::warn("\tCompressorNotConnectedFault");
+        spdlog::warn("CompressorNotConnectedFault");
     if (m_pcm.GetCompressorShortedFault())
-        spdlog::warn("\tCompressorShortedFault");
+        spdlog::warn("CompressorShortedFault");
     m_pcm.ClearAllPCMStickyFaults();
 }
