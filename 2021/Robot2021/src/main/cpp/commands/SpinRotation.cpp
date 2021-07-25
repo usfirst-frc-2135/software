@@ -12,6 +12,8 @@
 
 #include "commands/SpinRotation.h"
 
+#include <spdlog/spdlog.h>
+
 SpinRotation::SpinRotation(Spinner *m_spinner) : m_spinner(m_spinner)
 {
     // Use AddRequirements() here to declare subsystem dependencies
@@ -25,7 +27,7 @@ SpinRotation::SpinRotation(Spinner *m_spinner) : m_spinner(m_spinner)
 // Called just before this Command runs the first time
 void SpinRotation::Initialize()
 {
-    std::printf("2135: SpinRotation - Init\n");
+    spdlog::info("SpinRotation - Init");
     m_spinner->ControlRotationInit();
 }
 
@@ -44,7 +46,7 @@ bool SpinRotation::IsFinished()
 // Called once after isFinished returns true
 void SpinRotation::End(bool interrupted)
 {
-    std::printf("2135: SpinRotation - End\n");
+    spdlog::info("SpinRotation - End");
     m_spinner->ControlRotationEnd();
 }
 
