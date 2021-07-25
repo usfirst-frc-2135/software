@@ -7,7 +7,6 @@
 
 #include <algorithm>
 #include <fstream>  // std::ifstream
-#include <iostream> // std::cout
 #include <map>
 #include <string.h> // strncmp
 #ifdef _WIN32       // gethostname
@@ -309,117 +308,101 @@ namespace frc2135
 
     void RobotConfig::DumpConfig()
     {
-        spdlog::info("Robot config:\n\t{}", fmt::join(m_configMap, "\n\t"));
+        for (auto it = m_configMap.begin(); it != m_configMap.end(); it++)
+            spdlog::info("    {} = {}", it->first, it->second);
 
         // This is testing the get functions with our dummy file. We can remove this once we are confident with the functions.
 
 #if defined(CONFIG_TESTING)
         float valueFloat;
         if (GetValueAsFloat("AutonDriveSpeed", valueFloat))
-            std::cout << "Test - AutonDriveSpeed"
-                      << " " << valueFloat << "\n";
+            spdlog::info("Test0: AutonDriveSpeed {}", valueFloat);
         else
-            std::printf("AutonDriveSpeed could not get float value.\n");
+            spdlog::error("Test0: AutonDriveSpeed could not get float value.");
 
         int valueInt;
         if (GetValueAsInt("BlahBlah", valueInt))
-            std::cout << "Test - BlahBlah (as int)"
-                      << " " << valueInt << "\n";
+            spdlog::info("Test1: BlahBlah (as int) {}", valueInt);
         else
-            std::printf("BlahBlah could not get int value.\n");
+            spdlog::error("Test1: BlahBlah could not get int value.");
 
         bool valueBool;
         if (GetValueAsBool("BlahBlah", valueBool))
-            std::cout << "Test - BlahBlah (as bool)"
-                      << " " << valueBool << "\n";
+            spdlog::info("Test2: BlahBlah (as bool) {}", valueBool);
         else
-            std::printf("BlahBlah could not get bool value.\n");
+            spdlog::error("Test2: BlahBlah could not get bool value.");
 
         if (GetValueAsBool("NatureWalk", valueBool))
-            std::cout << "Test - NatureWalk"
-                      << " " << valueBool << "\n";
+            spdlog::info("Test3: NatureWalk {}", valueBool);
         else
-            std::printf("NatureWalk could not get value.\n");
+            spdlog::error("Test3: NatureWalk could not get value.");
 
         if (GetValueAsFloat("DeprecatedClimber", valueFloat))
-            std::cout << "Test - DeprecatedClimber"
-                      << " " << valueFloat << "\n";
+            spdlog::info("Test4: DeprecatedClimber {}", valueFloat);
         else
-            std::printf("DeprecatedClimber could not get float value.\n");
+            spdlog::error("Test4: DeprecatedClimber could not get float value.");
 
         if (GetValueAsInt("ThingOne", valueInt))
-            std::cout << "Test - ThingOne"
-                      << " " << valueInt << "\n";
+            spdlog::info("Test5: ThingOne {}", valueInt);
         else
-            std::printf("ThingOne could not get int value.\n");
+            spdlog::error("Test5: ThingOne could not get int value.");
 
         if (GetValueAsInt("ThingTwo", valueInt))
-            std::cout << "Test - ThingTwo"
-                      << " " << valueInt << "\n";
+            spdlog::info("Test6: ThingTwo {}", valueInt);
         else
-            std::printf("ThingTwo could not get int value.\n");
+            spdlog::error("Test6: ThingTwo could not get int value.");
 
         if (GetValueAsBool("PeopleOut", valueBool))
-            std::cout << "Test - PeopleOut (as bool)"
-                      << " " << valueBool << "\n";
+            spdlog::info("Test7: PeopleOut (as bool) {}", valueBool);
         else
-            std::printf("PeopleOut could not get bool value.\n");
+            spdlog::error("Test7: PeopleOut could not get bool value.");
 
         std::string valueString;
         if (GetValueAsString("PeopleOut", valueString))
-            std::cout << "Test - PeopleOut (as string)"
-                      << " " << valueString << "\n";
+            spdlog::info("Test8: PeopleOut (as string) {}", valueString);
         else
-            std::printf("PeopleOut (as string) could not get value.\n");
+            spdlog::error("Test8: PeopleOut (as string) could not get value.");
 
         if (GetValueAsFloat("Keyboard", valueFloat, 22.5))
-            std::cout << "Test - Keyboard"
-                      << " " << valueFloat << "\n";
+            spdlog::info("Test9: Keyboard {}", valueFloat);
         else
-            std::printf("Keyboard could not get float value.\n");
+            spdlog::error("Test9: Keyboard could not get float value.");
 
         // The expected value of Keyboard should be 22.5
         if (GetValueAsFloat("Keyboard", valueFloat, 56.7))
-            std::cout << "Test - Keyboard"
-                      << " " << valueFloat << "\n";
+            spdlog::info("Test10: Keyboard {}", valueFloat);
         else
-            std::printf("Keyboard could not get float value.\n");
+            spdlog::error("Test10: Keyboard could not get float value.");
 
         if (GetValueAsFloat("Mouse", valueFloat))
-            std::cout << "Test - Mouse"
-                      << " " << valueFloat << "\n";
+            spdlog::info("Test11: Mouse {}", valueFloat);
         else
-            std::printf("Keyboard could not get float value.\n");
+            spdlog::error("Test11: Keyboard could not get float value.");
 
         if (GetValueAsInt("Fence", valueInt))
-            std::cout << "Test - Fence (as int)"
-                      << " " << valueInt << "\n";
+            spdlog::info("Test12: Fence (as int) {}", valueInt);
         else
-            std::printf("Fence could not get int value.\n");
+            spdlog::error("Test12: Fence could not get int value.");
 
         if (GetValueAsInt("Gate", valueInt, 999999))
-            std::cout << "Test - Gate (int)"
-                      << " " << valueInt << "\n";
+            spdlog::info("Test13: Gate (int) {}", valueInt);
         else
-            std::printf("Gate could not get int value.\n");
+            spdlog::error("Test13: Gate could not get int value.");
 
         if (GetValueAsBool("Tea", valueBool))
-            std::cout << "Test - Tea (as bool)"
-                      << " " << valueBool << "\n";
+            spdlog::info("Test14: Tea (as bool) {}", valueBool);
         else
-            std::printf("Tea could not get bool value.\n");
+            spdlog::error("Test14: Tea could not get bool value.");
 
         if (GetValueAsFloat("Chair", valueFloat, DUMMY_DEFAULT_FLOAT))
-            std::cout << "Test - Chair (as float)"
-                      << " " << valueFloat << "\n";
+            spdlog::info("Test15: Chair (as float) {}", valueFloat);
         else
-            std::printf("Chair could not get float value.\n");
+            spdlog::error("Test15: Chair could not get float value.");
 
         if (GetValueAsString("Sweatpants", valueString))
-            std::cout << "Test - Sweatpants (as string)"
-                      << " " << valueString << "\n";
+            spdlog::info("Test16: Sweatpants (as string) {}", valueString);
         else
-            std::printf("Sweatpants (as string) could not get value.\n");
+            spdlog::error("Test16: Sweatpants (as string) could not get value.");
 #endif
     }
 
