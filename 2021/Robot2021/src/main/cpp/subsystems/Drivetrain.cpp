@@ -658,7 +658,7 @@ bool Drivetrain::MoveAlignTurnIsFinished(double angle)
 
     if (abs(m_alignTurnError) < m_alignTurnTolerance)
     {
-        spdlog::info("DTAT - Error Within Tolerance\n");
+        spdlog::info("DTAT - Error Within Tolerance");
         isFinished = true;
     }
 

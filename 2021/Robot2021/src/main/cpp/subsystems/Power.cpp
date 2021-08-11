@@ -87,7 +87,7 @@ void Power::Initialize(void)
 void Power::FaultDump(void)
 {
     // Print out PDP faults and clear sticky ones
-    spdlog::info("PDP FAULTS --------------");
+    spdlog::info("----- PDP FAULTS --------------");
     spdlog::info("Temperature      {}", m_pdp.GetTemperature());
     spdlog::info("Input Voltage    {}", m_pdp.GetVoltage());
     for (int i = 0; i <= 15; i++)
