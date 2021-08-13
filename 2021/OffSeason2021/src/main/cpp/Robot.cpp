@@ -10,6 +10,8 @@
 
 #include "Robot.h"
 
+#include "frc2135/spdlog.h"
+
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
@@ -79,6 +81,7 @@ void Robot::TestPeriodic() {}
 #ifndef RUNNING_FRC_TESTS
 int main()
 {
+    frc2135::initialize_spdlog();
     return frc::StartRobot<Robot>();
 }
 #endif
