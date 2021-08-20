@@ -11,6 +11,7 @@
 #include "frc2135/RobotConfig.h"
 #include "frc2135/TalonUtils.h"
 
+#include <frc/RobotController.h>
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 
@@ -155,4 +156,27 @@ void Intake::SetDeployerSolenoid(bool extended)
     frc::SmartDashboard::PutBoolean("IN POSITION", extended);
 
     m_position.Set((extended) ? m_position.kForward : m_position.kReverse);
+}
+
+void Intake::MoveIntakeWithJoysticks(frc::XboxController *throttleJoystick)
+{
+    double yINValue = 0.0;
+
+    yINValue = throttleJoystick->GetY(frc::GenericHID::JoystickHand::kLeftHand);
+
+    if (m_talonValidIN6)
+    {
+        // If joystick reports a very small throttle value
+        if (fabs(yINValue) < 0.05)
+            m_throttleINZeroed = true;
+        // If joystick is between a range, intake will have constant speed
+        if (fabs(yINValue) > 0.05 || fabs(yINValue) <= 1)
+            yINValue = 0.7;
+
+        // If throttle not zeroed, prevent joystick inputs from entering drive
+        if (!m_throttleINZeroed)
+        {
+            yINValue = 0.0;
+        }
+    }
 }
