@@ -161,22 +161,30 @@ void Intake::SetDeployerSolenoid(bool extended)
 void Intake::MoveIntakeWithJoysticks(frc::XboxController *throttleJoystick)
 {
     double yINValue = 0.0;
+    double motorOutput = 0.0;
 
     yINValue = throttleJoystick->GetY(frc::GenericHID::JoystickHand::kLeftHand);
 
     if (m_talonValidIN6)
     {
-        // If joystick reports a very small throttle value
-        if (fabs(yINValue) < 0.05)
-            m_throttleINZeroed = true;
-        // If joystick is between a range, intake will have constant speed
-        if (fabs(yINValue) > 0.05 || fabs(yINValue) <= 1)
-            yINValue = 0.7;
-
-        // If throttle not zeroed, prevent joystick inputs from entering drive
-        if (!m_throttleINZeroed)
+        if (m_throttleINZeroed)
         {
-            yINValue = 0.0;
+            // If joystick is above a value, intake will acquire
+            if (yINValue > 0.35)
+                motorOutput = m_acquireSpeed;
+
+            // If joystick is below a value, intake will expel
+            else if (yINValue < -0.35)
+                motorOutput = m_expelSpeed;
         }
+
+        else
+        {
+            // If joystick reports a small throttle value
+            if (yINValue > -0.35 && yINValue < 0.35)
+                m_throttleINZeroed = true;
+        }
+
+        m_motorIN6.Set(ControlMode::PercentOutput, motorOutput);
     }
 }
