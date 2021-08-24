@@ -8,6 +8,8 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
+#include "RobotContainer.h"
+
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 
@@ -35,7 +37,10 @@ void ConveyorRun::Initialize()
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ConveyorRun::Execute() {}
+void ConveyorRun::Execute()
+{
+    m_conveyor->SetCVSpeedFromJoysticks(RobotContainer::GetInstance()->getOperatorPad());
+}
 
 // Make this return true when this Command no longer needs to run execute()
 bool ConveyorRun::IsFinished()
