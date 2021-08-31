@@ -146,3 +146,33 @@ void Conveyor::SetConveyorSpeed(int direction)
     if (m_talonValidCV8)
         m_motorCV8.Set(ControlMode::PercentOutput, outputCV);
 }
+
+void Conveyor::SetCVSpeedFromJoysticks(frc::XboxController *joystick)
+{
+    double yCVValue = 0.0;
+    double motorOutput = 0.0;
+
+    yCVValue = joystick->GetY(frc::GenericHID::JoystickHand::kRightHand);
+
+    if (m_talonValidCV8)
+    {
+        if (m_joystickCVZeroed)
+        {
+            // If joystick is above a value, intake will acquire
+            if (yCVValue > 0.35)
+                motorOutput = m_acquireSpeed;
+
+            // If joystick is below a value, intake will expel
+            else if (yCVValue < -0.35)
+                motorOutput = m_expelSpeed;
+        }
+        else
+        {
+            // If joystick reports a small throttle value
+            if (yCVValue > -0.35 && yCVValue < 0.35)
+                m_joystickCVZeroed = true;
+        }
+
+        m_motorCV8.Set(ControlMode::PercentOutput, motorOutput);
+    }
+}

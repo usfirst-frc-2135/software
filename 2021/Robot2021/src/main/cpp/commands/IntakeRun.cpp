@@ -39,7 +39,7 @@ void IntakeRun::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void IntakeRun::Execute()
 {
-    m_intake->MoveIntakeWithJoysticks(RobotContainer::GetInstance()->getOperatorPad());
+    m_intake->SetINSpeedFromJoysticks(RobotContainer::GetInstance()->getOperatorPad());
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -43,6 +43,7 @@ private:
     // Declare module variables
     bool m_talonValidIN6; // Health indicator for intake Talon 6
 
+    bool m_joystickINZeroed;
     double m_acquireSpeed;
     double m_expelSpeed;
 
@@ -66,12 +67,10 @@ public:
         INTAKE_REVERSE = -1
     } intakeDirection_e;
 
-    bool m_throttleINZeroed;
-
     void Initialize(void);
     void FaultDump(void);
 
     void SetIntakeSpeed(int direction);
     void SetDeployerSolenoid(bool extended);
-    void MoveIntakeWithJoysticks(frc::XboxController *operatorPad);
+    void SetINSpeedFromJoysticks(frc::XboxController *operatorPad);
 };
