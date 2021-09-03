@@ -179,7 +179,7 @@ void Intake::SetINSpeedFromJoysticks(frc::XboxController *joystick)
         }
         else
         {
-            // If joystick reports a small throttle value
+            // If joystick reports a small value
             if (yINValue > -0.35 && yINValue < 0.35)
                 m_joystickINZeroed = true;
         }
