@@ -36,15 +36,10 @@ Intake::Intake()
     m_talonValidIN6 = frc2135::TalonUtils::TalonCheck(m_motorIN6, "IN", "IN6");
 
     // Check if solenoids are functional or blacklisted
-    if (m_position.IsFwdSolenoidBlackListed())
-        spdlog::error("IN Intake Deployer FWD Solenoid is BLACKLISTED");
+    if (m_position.IsBlackListed())
+        spdlog::error("IN Intake Deployer Solenoid is BLACKLISTED");
     else
-        spdlog::info("IN Intake Deployer FWD Solenoid is FUNCTIONAL");
-
-    if (m_position.IsRevSolenoidBlackListed())
-        spdlog::error("IN Intake Deployer REV Solenoid is BLACKLISTED");
-    else
-        spdlog::info("IN Intake Deployer REV Solenoid is FUNCTIONAL");
+        spdlog::info("IN Intake Deployer Solenoid is FUNCTIONAL");
 
     // Initialize Variables
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
@@ -155,5 +150,5 @@ void Intake::SetDeployerSolenoid(bool extended)
     spdlog::info("IN {}", (extended) ? "EXTENDED" : "NOT EXTENDED");
     frc::SmartDashboard::PutBoolean("IN POSITION", extended);
 
-    m_position.Set((extended) ? m_position.kForward : m_position.kReverse);
+    m_position.Set(extended);
 }
