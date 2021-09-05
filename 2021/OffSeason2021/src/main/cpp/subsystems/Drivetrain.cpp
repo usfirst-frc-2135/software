@@ -181,7 +181,7 @@ void Drivetrain::ConfigFileLoad(void)
 void Drivetrain::TalonMasterInitialize(WPI_BaseMotorController &motor)
 {
     //  Setup motor direction, neutral mode, voltage compensation, and encoder
-    motor.SetInverted(true);
+    motor.SetInverted(false);
     motor.SetNeutralMode(NeutralMode::Coast);
     motor.ConfigVoltageCompSaturation(12.0, kCANTimeout);
     motor.EnableVoltageCompensation(true);
