@@ -80,7 +80,6 @@ private:
     frc::DifferentialDrive m_diffDrive{ m_motorL1, m_motorR3 };
     WPI_TalonSRX m_motorL2{ 2 };
     WPI_TalonSRX m_motorR4{ 4 };
-    frc::DoubleSolenoid m_shifter{ 0, 0, 7 };
 #endif
 
     // Sensors
