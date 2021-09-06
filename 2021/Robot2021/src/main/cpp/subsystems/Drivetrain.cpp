@@ -118,8 +118,10 @@ Drivetrain::Drivetrain()
     LoadTrajectory();
 
     // Simulation only - quadrature encoders
-    m_leftEncoder.SetDistancePerPulse(DriveConstants::kEncoderMetersPerCount.to<double>());
-    m_rightEncoder.SetDistancePerPulse(DriveConstants::kEncoderMetersPerCount.to<double>());
+    m_leftEncoder.SetDistancePerPulse(
+        DriveConstants::kEncoderMetersPerCount.to<double>() * DriveConstants::kGearRatio);
+    m_rightEncoder.SetDistancePerPulse(
+        DriveConstants::kEncoderMetersPerCount.to<double>() * DriveConstants::kGearRatio);
 
     Initialize();
 }
