@@ -332,7 +332,7 @@ meter_t Drivetrain::GetDistanceMetersRight()
 {
     if (frc::RobotBase::IsReal())
     {
-        return DriveConstants::kEncoderMetersPerCount * m_motorR3.GetSelectedSensorPosition(kPidIndex);
+        return DriveConstants::kEncoderMetersPerCount * -m_motorR3.GetSelectedSensorPosition(kPidIndex);
     }
     else
     {
@@ -355,7 +355,7 @@ frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeedsMPS()
         leftVelocity =
             DriveConstants::kEncoderMetersPerCount * m_motorL1.GetSelectedSensorVelocity() * 10 / 1_s;
         rightVelocity =
-            DriveConstants::kEncoderMetersPerCount * m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
+            DriveConstants::kEncoderMetersPerCount * -m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
     }
     else
     {
