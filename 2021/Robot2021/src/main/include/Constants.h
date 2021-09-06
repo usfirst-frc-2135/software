@@ -39,15 +39,15 @@ namespace DriveConstants
     // Odometry constants
     static constexpr int kEncoderCPR = 2048;           // CPR is 2048 for new TalonFX
     static constexpr meter_t kWheelDiaMeters = 6.0_in; // Units library does the conversion
+    static constexpr double kGearRatio = 12.31;        // Gear reduction
     static constexpr meter_t kEncoderMetersPerCount =
-        (kWheelDiaMeters * wpi::math::pi) / static_cast<double>(kEncoderCPR);
+        (kWheelDiaMeters * wpi::math::pi) / static_cast<double>(kEncoderCPR) / kGearRatio;
     static constexpr meter_t kTrackWidthMeters = 0.6477_m; // Measured track width
-    static constexpr double kGearRatio = 13.94;            // Gear reduction
 
     // Kinematics values for 2135 Bebula - 2019 B-bot
-    static constexpr auto ks = 0.899_V;
-    static constexpr auto kv = 1.411_V / 1_mps;
-    static constexpr auto ka = 0.21_V / 1_mps_sq;
+    static constexpr auto ks = 0.629_V;
+    static constexpr auto kv = 2.79_V / 1_mps;
+    static constexpr auto ka = 0.194_V / 1_mps_sq;
     static constexpr auto KvAngular = 1.5_V / 1_rad_per_s;
     static constexpr auto KaAngular = 0.3_V / 1_rad_per_s_sq;
 
