@@ -41,7 +41,7 @@ namespace DriveConstants
     static constexpr meter_t kWheelDiaMeters = 6.0_in; // Units library does the conversion
     static constexpr double kGearRatio = 12.31;        // Gear reduction
     static constexpr meter_t kEncoderMetersPerCount =
-        (kWheelDiaMeters * wpi::math::pi) / static_cast<double>(kEncoderCPR) / kGearRatio;
+        (kWheelDiaMeters * wpi::math::pi) / kEncoderCPR / kGearRatio;
     static constexpr meter_t kTrackWidthMeters = 0.6477_m; // Measured track width
 
     // Kinematics values for 2135 Bebula - 2019 B-bot
