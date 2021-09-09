@@ -32,7 +32,7 @@ FloorConveyorRun::FloorConveyorRun(int conveyorDirection, FloorConveyor *m_floor
 // Called just before this Command runs the first time
 void FloorConveyorRun::Initialize()
 {
-    spdlog::info("ConveyorRun - Init {}", m_conveyorDirection);
+    spdlog::info("FloorConveyorRun - Init {}", m_conveyorDirection);
     m_floorconveyor->SetFloorConveyorSpeed(m_conveyorDirection);
 }
 
@@ -42,13 +42,13 @@ void FloorConveyorRun::Execute() {}
 // Make this return true when this Command no longer needs to run execute()
 bool FloorConveyorRun::IsFinished()
 {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
 void FloorConveyorRun::End(bool interrupted)
 {
-    spdlog::info("ConveyorRun - End {}", m_conveyorDirection);
+    spdlog::info("FloorConveyorRun - End {}", m_conveyorDirection);
     m_floorconveyor->SetFloorConveyorSpeed(m_conveyorDirection);
 }
 
