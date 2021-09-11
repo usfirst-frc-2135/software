@@ -40,9 +40,9 @@
   FCV_HoldSpeed = 0.0
   FCV_ExpelSpeed = -0.8
 # Vert Conveyor settings
-  VCV_AcquireSpeed = 0.8
-  VCV_HoldSpeed = 0.0
-  VCV_ExpelSpeed = -0.8
+  VC_AcquireSpeed = 0.8
+  VC_HoldSpeed = 0.0
+  VC_ExpelSpeed = -0.8
 # Shooter settings
   SH_FwdOutput = 0.80;
   SH_RevOutput = -0.25;
