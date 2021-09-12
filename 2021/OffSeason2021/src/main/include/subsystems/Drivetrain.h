@@ -134,15 +134,8 @@ private:
 
     // Drive modes
     bool m_brakeMode;   // Brake or Coast Mode for Talons
-    bool m_lowGear;     // Low Gear or High Gear
     int m_curDriveMode; // Current driving mode, arcade by default
     bool m_isQuickTurn; // Setting for quickturn in curvature drive
-
-    // Drive turn PID settings
-    double m_visionTurnKp = 1.0; // Proportional value for PID for Drive Turn with Vision-Assist
-    double m_alignTurnTolerance; // Minimum align turn error to finish aligning
-    double m_alignTurnKp;
-    double m_alignTurnError;
 
     // Odometry and telemetry
     meter_t m_distanceLeft;
@@ -154,7 +147,6 @@ private:
     double m_currentL2 = 0.0;  // Motor L2 output current from Falcon
     double m_currentR3 = 0.0;  // Motor R3 output current from Falcon
     double m_currentR4 = 0.0;  // Motor R4 output current from Falcon
-    double m_headingDeg = 0.0; // Pigeon IMU heading in degrees
 
     // Auton safety timer
     frc::Timer m_safetyTimer; // Safety timer for use during autonomous modes
@@ -177,9 +169,6 @@ private:
     // Velocity Closed Loop Drive
     frc2::PIDController m_leftPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
     frc2::PIDController m_rightPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
-
-    // Vision assisted driving
-    frc2::PIDController driveVisionPIDLoop{ m_visionTurnKp, 0.0, 0.0 }; // Drive with Vision
 
     // Ramsete follower objects
     frc2::PIDController m_leftController{ DriveConstants::kPDriveVel, 0.0, 0.0 };
