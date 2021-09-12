@@ -128,12 +128,12 @@ void Intake::SetIntakeSpeed(int direction)
             strName = "STOP";
             output = 0.0;
             break;
-        case INTAKE_FORWARD:
-            strName = "FORWARD";
+        case INTAKE_ACQUIRE:
+            strName = "ACQUIRE";
             output = m_acquireSpeed;
             break;
-        case INTAKE_REVERSE:
-            strName = "REVERSE";
+        case INTAKE_EXPEL:
+            strName = "EXPEL";
             output = m_expelSpeed;
             break;
     }
