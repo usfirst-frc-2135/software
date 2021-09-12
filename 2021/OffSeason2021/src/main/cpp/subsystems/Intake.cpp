@@ -51,7 +51,7 @@ Intake::Intake()
     // Set motor peak outputs
     if (m_talonValidIN6)
     {
-        m_motorIN6.SetInverted(false);
+        m_motorIN6.SetInverted(true);
         m_motorIN6.SetNeutralMode(NeutralMode::Coast);
         m_motorIN6.SetSafetyEnabled(false);
 
@@ -128,12 +128,12 @@ void Intake::SetIntakeSpeed(int direction)
             strName = "STOP";
             output = 0.0;
             break;
-        case INTAKE_FORWARD:
-            strName = "FORWARD";
+        case INTAKE_ACQUIRE:
+            strName = "ACQUIRE";
             output = m_acquireSpeed;
             break;
-        case INTAKE_REVERSE:
-            strName = "REVERSE";
+        case INTAKE_EXPEL:
+            strName = "EXPEL";
             output = m_expelSpeed;
             break;
     }
