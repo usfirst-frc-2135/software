@@ -30,29 +30,21 @@ DriveAlignTurn::DriveAlignTurn(Drivetrain *m_drivetrain) : m_drivetrain(m_drivet
 void DriveAlignTurn::Initialize()
 {
     spdlog::info("Drive Align Turn - Init");
-    RobotContainer *container = RobotContainer::GetInstance();
-    m_drivetrain->MoveAlignTurnInit(container->m_vision.GetHorizOffset());
 }
 
 // Called repeatedly when this Command is scheduled to run
-void DriveAlignTurn::Execute()
-{
-    RobotContainer *container = RobotContainer::GetInstance();
-    m_drivetrain->MoveAlignTurnExecute(container->getDriverPad(), container->m_vision.GetHorizOffset());
-}
+void DriveAlignTurn::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveAlignTurn::IsFinished()
 {
-    RobotContainer *container = RobotContainer::GetInstance();
-    return m_drivetrain->MoveAlignTurnIsFinished(container->m_vision.GetHorizOffset());
+    return true;
 }
 
 // Called once after isFinished returns true
 void DriveAlignTurn::End(bool interrupted)
 {
     spdlog::info("Drive Align Turn - End");
-    m_drivetrain->MoveAlignTurnEnd();
 }
 
 bool DriveAlignTurn::RunsWhenDisabled() const
