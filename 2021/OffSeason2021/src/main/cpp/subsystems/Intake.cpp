@@ -51,7 +51,7 @@ Intake::Intake()
     // Set motor peak outputs
     if (m_talonValidIN6)
     {
-        m_motorIN6.SetInverted(false);
+        m_motorIN6.SetInverted(true);
         m_motorIN6.SetNeutralMode(NeutralMode::Coast);
         m_motorIN6.SetSafetyEnabled(false);
 
