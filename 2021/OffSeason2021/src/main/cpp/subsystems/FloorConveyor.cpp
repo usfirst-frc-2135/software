@@ -92,10 +92,6 @@ void FloorConveyor::Initialize(void)
     if (m_talonValidFC8)
     {
         m_motorFC8.Set(ControlMode::PercentOutput, 0.0);
-
-        m_motorFC8.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, kCANTimeout);
-        m_motorFC8.SetSensorPhase(false);
-        m_motorFC8.SetSelectedSensorPosition(0, kCANTimeout);
     }
 }
 
