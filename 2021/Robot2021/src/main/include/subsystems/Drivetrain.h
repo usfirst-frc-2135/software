@@ -125,9 +125,6 @@ private:
         // l and r position: 0.005 m
         {0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005}
         };
-
-    static constexpr auto KvAngular = 1.5_V / 1_rad_per_s;
-    static constexpr auto KaAngular = 0.3_V / 1_rad_per_s_sq;
     */
 
     // TODO: adjust kV and kA angular from robot characterization
@@ -160,12 +157,6 @@ private:
     bool m_brakeMode;   // Brake or Coast Mode for Talons
     int m_curDriveMode; // Current driving mode, arcade by default
     bool m_isQuickTurn; // Setting for quickturn in curvature drive
-
-    // Drive turn PID settings
-    double m_visionTurnKp = 1.0; // Proportional value for PID for Drive Turn with Vision-Assist
-    double m_alignTurnTolerance; // Minimum align turn error to finish aligning
-    double m_alignTurnKp;
-    double m_alignTurnError;
 
     // Odometry and telemetry
     meter_t m_distanceLeft;
@@ -200,9 +191,6 @@ private:
     // Velocity Closed Loop Drive
     frc2::PIDController m_leftPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
     frc2::PIDController m_rightPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
-
-    // Vision assisted driving
-    frc2::PIDController driveVisionPIDLoop{ m_visionTurnKp, 0.0, 0.0 }; // Drive with Vision
 
     // Ramsete follower objects
     frc2::PIDController m_leftController{ DriveConstants::kPDriveVel, 0.0, 0.0 };

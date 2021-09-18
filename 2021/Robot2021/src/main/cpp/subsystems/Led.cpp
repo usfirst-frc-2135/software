@@ -66,7 +66,7 @@ void Led::Initialize()
     m_ledChooser.AddOption("LED_Blue", LEDCOLOR_BLUE);
     m_ledChooser.AddOption("LED_Purple", LEDCOLOR_PURPLE);
 
-    frc::SmartDashboard::PutData("LED Color", &m_ledChooser);
+    frc::SmartDashboard::PutData("LED_Color", &m_ledChooser);
 }
 
 // Send RGB values to change color of each LED in string

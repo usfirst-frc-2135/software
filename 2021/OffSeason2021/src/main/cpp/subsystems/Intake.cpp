@@ -43,15 +43,15 @@ Intake::Intake()
 
     // Initialize Variables
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("IN_AcquireSpeed", m_acquireSpeed, 0.8);
-    config->GetValueAsDouble("IN_ExpelSpeed", m_expelSpeed, -0.8);
+    config->GetValueAsDouble("IN_AcquireSpeed", m_acquireSpeed, 1.0);
+    config->GetValueAsDouble("IN_ExpelSpeed", m_expelSpeed, -0.2);
 
     // Set motor directions
     // Turn on Coast mode (not brake)
     // Set motor peak outputs
     if (m_talonValidIN6)
     {
-        m_motorIN6.SetInverted(false);
+        m_motorIN6.SetInverted(true);
         m_motorIN6.SetNeutralMode(NeutralMode::Coast);
         m_motorIN6.SetSafetyEnabled(false);
 
@@ -107,6 +107,8 @@ void Intake::Initialize(void)
 
     if (m_talonValidIN6)
         SetIntakeSpeed(INTAKE_STOP);
+
+    SetDeployerSolenoid(false);
 }
 
 // Dump all Talon faults
@@ -128,12 +130,12 @@ void Intake::SetIntakeSpeed(int direction)
             strName = "STOP";
             output = 0.0;
             break;
-        case INTAKE_FORWARD:
-            strName = "FORWARD";
+        case INTAKE_ACQUIRE:
+            strName = "ACQUIRE";
             output = m_acquireSpeed;
             break;
-        case INTAKE_REVERSE:
-            strName = "REVERSE";
+        case INTAKE_EXPEL:
+            strName = "EXPEL";
             output = m_expelSpeed;
             break;
     }
@@ -148,7 +150,7 @@ void Intake::SetIntakeSpeed(int direction)
 void Intake::SetDeployerSolenoid(bool extended)
 {
     spdlog::info("IN {}", (extended) ? "EXTENDED" : "NOT EXTENDED");
-    frc::SmartDashboard::PutBoolean("IN POSITION", extended);
+    frc::SmartDashboard::PutBoolean("IN_Position", extended);
 
     m_position.Set(extended);
 }

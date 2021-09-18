@@ -107,9 +107,6 @@ Drivetrain::Drivetrain()
     m_leftPIDController = frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
     m_rightPIDController = frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
 
-    // Vision-based PID Controller
-    driveVisionPIDLoop = frc2::PIDController(m_visionTurnKp, 0.0, 0.0);
-
     // Ramsete PID Controllers
     m_leftController = frc2::PIDController(DriveConstants::kPDriveVel, 0, 0);
     m_rightController = frc2::PIDController(DriveConstants::kPDriveVel, 0, 0);
@@ -198,19 +195,16 @@ void Drivetrain::ConfigFileLoad(void)
 {
     //  Retrieve drivetrain modified parameters from RobotConfig
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
+    config->GetValueAsInt("DT_DriveMode", m_curDriveMode, 0);
     config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 0.4);
     config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 0.4);
-    config->GetValueAsInt("DT_DriveMode", m_curDriveMode, 0);
-    config->GetValueAsDouble("DT_VisionTurnKp", m_visionTurnKp, 0.0);
-    config->GetValueAsDouble("DT_VCMaxSpeed", m_vcMaxSpeed, 6.73);
+    config->GetValueAsDouble("DT_OpenLoopRampRate", m_openLoopRampRate, 1.0);
+    config->GetValueAsDouble("DT_ClosedLoopRampRate", m_closedLoopRampRate, 1.0);
+    config->GetValueAsDouble("DT_VCMaxSpeed", m_vcMaxSpeed, 13.50);
     config->GetValueAsDouble("DT_VCMaxAngSpeed", m_vcMaxAngSpeed, wpi::math::pi);
     config->GetValueAsDouble("DT_VCPIDKp", m_vcpidKp, 1.0);
     config->GetValueAsDouble("DT_VCPIDKi", m_vcpidKi, 0.0);
     config->GetValueAsDouble("DT_VCPIDKd", m_vcpidKd, 0.0);
-    config->GetValueAsDouble("DT_OpenLoopRampRate", m_openLoopRampRate, 1.0);
-    config->GetValueAsDouble("DT_ClosedLoopRampRate", m_closedLoopRampRate, 1.0);
-    config->GetValueAsDouble("DT_AlignTurnTolerance", m_alignTurnTolerance, 1.0);
-    config->GetValueAsDouble("DT_AlignTurnKp", m_alignTurnKp, 0.05);
 }
 
 void Drivetrain::TalonMasterInitialize(WPI_BaseMotorController &motor)
@@ -405,7 +399,7 @@ void Drivetrain::SetBrakeMode(bool brakeMode)
     m_brakeMode = brakeMode;
 
     spdlog::info("DT {} Mode", (brakeMode) ? "BRAKE" : "COAST");
-    frc::SmartDashboard::PutBoolean("DT Brake Mode", brakeMode);
+    frc::SmartDashboard::PutBoolean("DT_BrakeMode", brakeMode);
 
     NeutralMode brakeOutput;
     brakeOutput = (brakeMode) ? NeutralMode::Brake : NeutralMode::Coast;
@@ -590,69 +584,8 @@ void Drivetrain::ToggleDriveMode()
     m_curDriveMode = DRIVEMODE_FIRST;
 
     spdlog::info("ToggleDriveMode: {} (curr)", m_curDriveMode);
-    frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
+    frc::SmartDashboard::PutNumber("DT_DriveMode", m_curDriveMode);
 }
-
-///////////////////////////////////////////////////////////////////////////////
-//
-//  Autonomous command - Vision assisted drive
-//
-void Drivetrain::MoveAlignTurnInit(double angle)
-{
-    m_alignTurnError = angle;
-    spdlog::info("DTAT Init - Error {} degrees", m_alignTurnError);
-}
-
-void Drivetrain::MoveAlignTurnExecute(frc::XboxController *throttleJstick, double angle)
-{
-    double throttle = 0.0;
-    double alignTurnAdjustment = 0.0;
-
-    // If no separate turn stick, then assume Thrustmaster HOTAS 4 z-axis
-    throttle = throttleJstick->GetY(frc::GenericHID::JoystickHand::kLeftHand);
-
-    m_alignTurnError = angle;
-    alignTurnAdjustment = m_alignTurnError * m_alignTurnKp;
-
-    double leftThrottle = throttle - alignTurnAdjustment;
-    double rightThrottle = throttle + alignTurnAdjustment;
-
-    if (m_driveDebug)
-    {
-        spdlog::info(
-            "DTAT - Error {} degrees Adjustment {} Left Throttle {} Right Throttle {}",
-            m_alignTurnError,
-            alignTurnAdjustment,
-            leftThrottle,
-            rightThrottle);
-    }
-
-    m_diffDrive.TankDrive(leftThrottle, rightThrottle);
-}
-
-bool Drivetrain::MoveAlignTurnIsFinished(double angle)
-{
-    bool isFinished = false;
-
-    m_alignTurnError = angle;
-
-    if (abs(m_alignTurnError) < m_alignTurnTolerance)
-    {
-        spdlog::info("DTAT - Error Within Tolerance");
-        isFinished = true;
-    }
-
-    // Check to see if the Safety Timer has timed out.
-    if (m_safetyTimer.Get() >= m_safetyTimeout)
-    {
-        spdlog::warn("DTAT Safety timer has timed out");
-        isFinished = true;
-    }
-
-    return isFinished;
-}
-
-void Drivetrain::MoveAlignTurnEnd(void) {}
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -721,7 +654,7 @@ void Drivetrain::RamseteFollowerInit(void)
 
     // TODO: Not sure if this is really needed or used
     double dashValue;
-    dashValue = frc::SmartDashboard::GetNumber("L_Ctr", 0.99);
+    dashValue = frc::SmartDashboard::GetNumber("DT_Tolerance", 0.99);
     m_leftController.SetTolerance(dashValue);
     m_rightController.SetTolerance(dashValue);
 }

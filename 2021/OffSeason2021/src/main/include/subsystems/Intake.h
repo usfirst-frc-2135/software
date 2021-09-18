@@ -60,8 +60,8 @@ public:
     typedef enum intakeDirection_e
     {
         INTAKE_STOP = 0,
-        INTAKE_FORWARD = 1,
-        INTAKE_REVERSE = -1
+        INTAKE_ACQUIRE = 1,
+        INTAKE_EXPEL = -1
     } intakeDirection_e;
 
     bool m_throttleINZeroed;
