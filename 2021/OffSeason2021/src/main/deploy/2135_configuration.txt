@@ -19,16 +19,14 @@
   DT_VCPIDKi = 0.0
   DT_VCPIDKd = 0.0
 # Intake settings
-  IN_AcquireSpeed = 0.8
-  IN_ExpelSpeed = -0.8
+  IN_AcquireSpeed = 1.0
+  IN_ExpelSpeed = -0.2
 # Floor Conveyor settings
-  FC_AcquireSpeed = 0.8
-  FC_HoldSpeed = 0.0
-  FC_ExpelSpeed = -0.8
+  FC_AcquireSpeed = 1.0
+  FC_ExpelSpeed = -0.2
 # Vert Conveyor settings
-  VC_AcquireSpeed = 0.8
-  VC_HoldSpeed = 0.0
-  VC_ExpelSpeed = -0.8
+  VC_AcquireSpeed = 1.0
+  VC_ExpelSpeed = -0.2
 # Shooter settings
   SH_FwdOutput = 0.80;
   SH_RevOutput = -0.25;
