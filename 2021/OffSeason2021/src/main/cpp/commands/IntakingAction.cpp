@@ -8,30 +8,29 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-#include "commands/IntakeAction.h"
+#include "commands/IntakingAction.h"
 
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 
-
-IntakeAction::IntakeAction(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv)
+IntakingAction::IntakingAction(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv)
 {
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(m_Subsystem);
-    SetName("IntakeAction");
+    SetName("IntakingAction");
 
-    spdlog::info("IntakeAction");
+    spdlog::info("IntakingAction");
 
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
-    AddCommands (
+    AddCommands(
+        IntakeDeploy(true),
         IntakeRun(1, intake),
-        FloorConveyorRun(1, fConv),
-        VerticalConveyorRun(1, vConv)
-        );
+        FloorConveyorRun(-1, fConv),
+        VerticalConveyorRun(-1, vConv));
 }
 
-bool IntakeAction::RunsWhenDisabled() const
+bool IntakingAction::RunsWhenDisabled() const
 {
     return false;
 }
