@@ -150,12 +150,9 @@ Children:
         default: []
         name: Default command parameters
         validators: null
-        value:
-        - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: conveyorDirection,
-          type: int, value: '0'}
+        value: []
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Floor Conveyor
-          Run}
+        name: Default Command, type: Command, validators: null, value: None}
       Constants: !!robotbuilder.data.properties.ConstantsProperty
         default: []
         name: Constants
@@ -409,41 +406,6 @@ Children:
           value: whileHeld
       Base: Xbox Button
       Name: Quickturn
-    - Children: []
-      Properties:
-        Interruptible: !!robotbuilder.data.properties.BooleanProperty {default: true,
-          name: Interruptible, validators: null, value: true}
-        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: Driver Controller}
-        Parameters: !!robotbuilder.data.properties.ParametersProperty
-          default: []
-          name: Parameters
-          validators: null
-          value: []
-        Button: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id010
-          default: A
-          name: Button
-          validators: null
-          value: BumperLeft
-        Command: !!robotbuilder.data.properties.TypeSelectionProperty
-          default: None
-          name: Command
-          type: Command
-          validators: *id011
-          value: Intake Action
-        Timeout: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: Timeout,
-          validators: null, value: 0.0}
-        Add Timeout: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Add Timeout, validators: null, value: false}
-        When to Run: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id012
-          default: whenPressed
-          name: When to Run
-          validators: null
-          value: whenPressed
-      Base: Xbox Button
-      Name: Intaking
     - Children: []
       Properties:
         Interruptible: !!robotbuilder.data.properties.BooleanProperty {default: true,
@@ -1004,10 +966,10 @@ Properties:
       Number, validators: null, value: 2135}
   Export Subsystems: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Subsystems, validators: null, value: true}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /Users/Naina/,
-    extension: null, folder: true, name: Wiring file location, validators: null, value: /Users/christineyang/}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: /Users/Naina/FRCProjects,
-    extension: null, folder: true, name: Export Directory, validators: null, value: /Users/christineyang/Documents/Github/software/2021}
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS_User\',
+    extension: null, folder: true, name: Wiring file location, validators: null, value: .\}
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\PHS_User\FRCProjects',
+    extension: null, folder: true, name: Export Directory, validators: null, value: .\}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Auto Drive Stop}
 Base: Robot
