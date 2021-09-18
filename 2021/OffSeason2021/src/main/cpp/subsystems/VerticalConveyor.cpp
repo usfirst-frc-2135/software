@@ -90,10 +90,6 @@ void VerticalConveyor::Initialize(void)
     if (m_talonValidVC9)
     {
         m_motorVC9.Set(ControlMode::PercentOutput, 0.0);
-
-        m_motorVC9.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, kCANTimeout);
-        m_motorVC9.SetSensorPhase(false);
-        m_motorVC9.SetSelectedSensorPosition(0, kCANTimeout);
     }
 }
 
