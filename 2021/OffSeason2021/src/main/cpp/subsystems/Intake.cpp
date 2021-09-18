@@ -107,6 +107,8 @@ void Intake::Initialize(void)
 
     if (m_talonValidIN6)
         SetIntakeSpeed(INTAKE_STOP);
+
+    SetDeployerSolenoid(false);
 }
 
 // Dump all Talon faults
