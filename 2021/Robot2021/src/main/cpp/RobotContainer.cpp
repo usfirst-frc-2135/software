@@ -27,44 +27,53 @@ RobotContainer::RobotContainer() :
     // Smartdashboard Subsystems
 
     // SmartDashboard Buttons
-    frc::SmartDashboard::PutData("Spin Rotation", new SpinRotation(&m_spinner));
-    frc::SmartDashboard::PutData("Spin Color", new SpinColor(&m_spinner));
-    frc::SmartDashboard::PutData("Shooter Run: SHOOTERSPEED_REVERSE", new ShooterRun(-1, &m_shooter));
-    frc::SmartDashboard::PutData("Shooter Run: SHOOTERSPEED_STOP", new ShooterRun(0, &m_shooter));
-    frc::SmartDashboard::PutData("Shooter Run: SHOOTERSPEED_FORWARD", new ShooterRun(1, &m_shooter));
-    frc::SmartDashboard::PutData("LED Set", new LEDSet(&m_led));
-    frc::SmartDashboard::PutData("Intake Run: INTAKE_STOP", new IntakeRun(0, &m_intake));
-    frc::SmartDashboard::PutData("Intake Run: INTAKE_ACQUIRE", new IntakeRun(1, &m_intake));
-    frc::SmartDashboard::PutData("Intake Run: INTAKE_EXPEL", new IntakeRun(-1, &m_intake));
-    frc::SmartDashboard::PutData("Intake Deploy: INTAKE_DEPLOY", new IntakeDeploy(true));
-    frc::SmartDashboard::PutData("Intake Deploy: INTAKE_STOW", new IntakeDeploy(false));
-    frc::SmartDashboard::PutData("Indexer Deploy: INDEXER_CLOSE", new IndexerDeploy(false));
-    frc::SmartDashboard::PutData("Indexer Deploy: INDEXER_OPEN", new IndexerDeploy(true));
-    frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
-    frc::SmartDashboard::PutData("Drive Quick Turn", new DriveQuickTurn());
-    frc::SmartDashboard::PutData("Drive Mode Toggle", new DriveModeToggle());
-    frc::SmartDashboard::PutData("Drive Align Turn", new DriveAlignTurn(&m_drivetrain));
-    frc::SmartDashboard::PutData("Conveyor Run: CONVEYORDIRECTION_STOP", new ConveyorRun(0, &m_conveyor));
-    frc::SmartDashboard::PutData("Conveyor Run: CONVEYORDIRECTION_UP", new ConveyorRun(1, &m_conveyor));
-    frc::SmartDashboard::PutData("Conveyor Run: CONVEYORDIRECTION_DOWN", new ConveyorRun(-1, &m_conveyor));
+    frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT", new AutoDriveDist(0, &m_drivetrain));
+    frc::SmartDashboard::PutData(
+        "Auto Drive Path: driveForward",
+        new AutoDrivePath("driveForward", &m_drivetrain));
+    frc::SmartDashboard::PutData(
+        "Auto Drive Path: driveBackward",
+        new AutoDrivePath("driveBackward", &m_drivetrain));
+    frc::SmartDashboard::PutData(
+        "Auto Drive Path: rightAngleTurn",
+        new AutoDrivePath("rightAngleTurn", &m_drivetrain));
+    frc::SmartDashboard::PutData("Auto Drive Stop", new AutoDriveStop(&m_drivetrain));
+    frc::SmartDashboard::PutData("Auto Shoot Drive", new AutoShootDrive(&m_shooter));
+    frc::SmartDashboard::PutData("Climber Deploy: CLIMBER_STOW", new ClimberDeploy(false));
+    frc::SmartDashboard::PutData("Climber Deploy: CLIMBER_DEPLOY", new ClimberDeploy(true));
     frc::SmartDashboard::PutData("Climber Run: CLIMBERDIR_UP", new ClimberRun(1, &m_climber));
     frc::SmartDashboard::PutData("Climber Run: CLIMBERDIR_DOWN", new ClimberRun(-1, &m_climber));
     frc::SmartDashboard::PutData("Climber Run: CLIMBERDIR_STOP", new ClimberRun(0, &m_climber));
-    frc::SmartDashboard::PutData("Climber Deploy: CLIMBER_STOW", new ClimberDeploy(false));
-    frc::SmartDashboard::PutData("Climber Deploy: CLIMBER_DEPLOY", new ClimberDeploy(true));
-    frc::SmartDashboard::PutData("Auto Shoot Drive", new AutoShootDrive(&m_shooter));
-    frc::SmartDashboard::PutData("Auto Drive Stop", new AutoDriveStop(&m_drivetrain));
-    frc::SmartDashboard::PutData("Auto Drive Path", new AutoDrivePath(&m_drivetrain));
-    frc::SmartDashboard::PutData("Auto Drive Dist: DEFAULT", new AutoDriveDist(0, &m_drivetrain));
+    frc::SmartDashboard::PutData("Conveyor Run: CONVEYORDIRECTION_STOP", new ConveyorRun(0, &m_conveyor));
+    frc::SmartDashboard::PutData("Conveyor Run: CONVEYORDIRECTION_UP", new ConveyorRun(1, &m_conveyor));
+    frc::SmartDashboard::PutData("Conveyor Run: CONVEYORDIRECTION_DOWN", new ConveyorRun(-1, &m_conveyor));
+    frc::SmartDashboard::PutData("Drive Align Turn", new DriveAlignTurn(&m_drivetrain));
+    frc::SmartDashboard::PutData("Drive Mode Toggle", new DriveModeToggle());
+    frc::SmartDashboard::PutData("Drive Quick Turn", new DriveQuickTurn());
+    frc::SmartDashboard::PutData("Drive Reset", new DriveReset());
+    frc::SmartDashboard::PutData("Indexer Deploy: INDEXER_CLOSE", new IndexerDeploy(false));
+    frc::SmartDashboard::PutData("Indexer Deploy: INDEXER_OPEN", new IndexerDeploy(true));
+    frc::SmartDashboard::PutData("Intake Deploy: INTAKE_DEPLOY", new IntakeDeploy(true));
+    frc::SmartDashboard::PutData("Intake Deploy: INTAKE_STOW", new IntakeDeploy(false));
+    frc::SmartDashboard::PutData("Intake Run: INTAKE_STOP", new IntakeRun(0, &m_intake));
+    frc::SmartDashboard::PutData("Intake Run: INTAKE_ACQUIRE", new IntakeRun(1, &m_intake));
+    frc::SmartDashboard::PutData("Intake Run: INTAKE_EXPEL", new IntakeRun(-1, &m_intake));
+    frc::SmartDashboard::PutData("LED Set", new LEDSet(&m_led));
+    frc::SmartDashboard::PutData("Shooter Run: SHOOTERSPEED_REVERSE", new ShooterRun(-1, &m_shooter));
+    frc::SmartDashboard::PutData("Shooter Run: SHOOTERSPEED_STOP", new ShooterRun(0, &m_shooter));
+    frc::SmartDashboard::PutData("Shooter Run: SHOOTERSPEED_FORWARD", new ShooterRun(1, &m_shooter));
+    frc::SmartDashboard::PutData("Spin Color", new SpinColor(&m_spinner));
+    frc::SmartDashboard::PutData("Spin Rotation", new SpinRotation(&m_spinner));
+    frc::SmartDashboard::PutData("Auto Path Sequence Test", new AutoPathSequenceTest(&m_drivetrain));
 
     // END AUTOGENERATED CODE, SOURCE=ROBOTBUILDER ID=SMARTDASHBOARD
 
     ConfigureButtonBindings();
 
     // BEGIN AUTOGENERATED CODE, SOURCE=ROBOTBUILDER ID=DEFAULT-COMMANDS
-    m_drivetrain.SetDefaultCommand(DriveTeleop(&m_drivetrain));
-    m_intake.SetDefaultCommand(IntakeRun(0, &m_intake));
     m_conveyor.SetDefaultCommand(ConveyorRun(0, &m_conveyor));
+    m_intake.SetDefaultCommand(IntakeRun(0, &m_intake));
+    m_drivetrain.SetDefaultCommand(DriveTeleop(&m_drivetrain));
 
     // END AUTOGENERATED CODE, SOURCE=ROBOTBUILDER ID=DEFAULT-COMMANDS
 
@@ -131,13 +140,13 @@ void RobotContainer::ConfigureButtonBindings()
 
 // BEGIN AUTOGENERATED CODE, SOURCE=ROBOTBUILDER ID=FUNCTIONS
 
-frc::XboxController *RobotContainer::getDriverPad()
-{
-    return &m_driverPad;
-}
 frc::XboxController *RobotContainer::getOperatorPad()
 {
     return &m_operatorPad;
+}
+frc::XboxController *RobotContainer::getDriverPad()
+{
+    return &m_driverPad;
 }
 
 // END AUTOGENERATED CODE, SOURCE=ROBOTBUILDER ID=FUNCTIONS
