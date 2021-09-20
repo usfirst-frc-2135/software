@@ -18,6 +18,10 @@
   DT_VCPIDKp = 1.0
   DT_VCPIDKi = 0.0
   DT_VCPIDKd = 0.0
+#Path names
+  path1 = rightAngleTurn
+  path2 = rightAngleTurnReverse2
+  path3 = rightAngleTurn
 # Intake settings
   IN_AcquireSpeed = 0.8
   IN_ExpelSpeed = -0.8
