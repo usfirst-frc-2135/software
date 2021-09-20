@@ -33,8 +33,8 @@ VerticalConveyor::VerticalConveyor()
 
     // Initialize Variables
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("VC_AcquireSpeed", m_acquireSpeed, 0.8);
-    config->GetValueAsDouble("VC_ExpelSpeed", m_expelSpeed, -0.8);
+    config->GetValueAsDouble("VC_AcquireSpeed", m_acquireSpeed, 1.0);
+    config->GetValueAsDouble("VC_ExpelSpeed", m_expelSpeed, -0.2);
 
     // Set motor directions
     // Turn on Coast mode (not brake)
@@ -90,10 +90,6 @@ void VerticalConveyor::Initialize(void)
     if (m_talonValidVC9)
     {
         m_motorVC9.Set(ControlMode::PercentOutput, 0.0);
-
-        m_motorVC9.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, kCANTimeout);
-        m_motorVC9.SetSensorPhase(false);
-        m_motorVC9.SetSelectedSensorPosition(0, kCANTimeout);
     }
 }
 

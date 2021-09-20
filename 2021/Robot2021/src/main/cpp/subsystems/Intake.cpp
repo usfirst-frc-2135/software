@@ -153,7 +153,7 @@ void Intake::SetIntakeSpeed(int direction)
 void Intake::SetDeployerSolenoid(bool extended)
 {
     spdlog::info("IN {}", (extended) ? "EXTENDED" : "NOT EXTENDED");
-    frc::SmartDashboard::PutBoolean("IN POSITION", extended);
+    frc::SmartDashboard::PutBoolean("IN_Position", extended);
 
     m_position.Set((extended) ? m_position.kForward : m_position.kReverse);
 }

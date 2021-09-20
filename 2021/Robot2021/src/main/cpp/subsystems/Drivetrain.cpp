@@ -399,7 +399,7 @@ void Drivetrain::SetBrakeMode(bool brakeMode)
     m_brakeMode = brakeMode;
 
     spdlog::info("DT {} Mode", (brakeMode) ? "BRAKE" : "COAST");
-    frc::SmartDashboard::PutBoolean("DT Brake Mode", brakeMode);
+    frc::SmartDashboard::PutBoolean("DT_BrakeMode", brakeMode);
 
     NeutralMode brakeOutput;
     brakeOutput = (brakeMode) ? NeutralMode::Brake : NeutralMode::Coast;
@@ -585,7 +585,7 @@ void Drivetrain::ToggleDriveMode()
     m_curDriveMode = DRIVEMODE_FIRST;
 
     spdlog::info("ToggleDriveMode: {} (curr)", m_curDriveMode);
-    frc::SmartDashboard::PutNumber("DriveMode", m_curDriveMode);
+    frc::SmartDashboard::PutNumber("DT_DriveMode", m_curDriveMode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -655,7 +655,7 @@ void Drivetrain::RamseteFollowerInit(string pathName)
 
     // TODO: Not sure if this is really needed or used
     double dashValue;
-    dashValue = frc::SmartDashboard::GetNumber("L_Ctr", 0.99);
+    dashValue = frc::SmartDashboard::GetNumber("DT_Tolerance", 0.99);
     m_leftController.SetTolerance(dashValue);
     m_rightController.SetTolerance(dashValue);
 }

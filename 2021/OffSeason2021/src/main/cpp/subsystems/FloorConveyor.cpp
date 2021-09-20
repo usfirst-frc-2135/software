@@ -33,8 +33,8 @@ FloorConveyor::FloorConveyor()
 
     // Initialize Variables
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("FC_AcquireSpeed", m_acquireSpeed, 0.8);
-    config->GetValueAsDouble("FC_ExpelSpeed", m_expelSpeed, -0.8);
+    config->GetValueAsDouble("FC_AcquireSpeed", m_acquireSpeed, 1.0);
+    config->GetValueAsDouble("FC_ExpelSpeed", m_expelSpeed, -0.2);
 
     // Set motor directions
     // Turn on Coast mode (not brake)
@@ -92,10 +92,6 @@ void FloorConveyor::Initialize(void)
     if (m_talonValidFC8)
     {
         m_motorFC8.Set(ControlMode::PercentOutput, 0.0);
-
-        m_motorFC8.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, kCANTimeout);
-        m_motorFC8.SetSensorPhase(false);
-        m_motorFC8.SetSelectedSensorPosition(0, kCANTimeout);
     }
 }
 
