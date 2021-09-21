@@ -10,6 +10,8 @@
 
 #include "commands/ShootingAction.h"
 
+#include <spdlog/spdlog.h>
+
 ShootingAction::ShootingAction(
     Intake *intake,
     FloorConveyor *fConv,
@@ -20,8 +22,17 @@ ShootingAction::ShootingAction(
     // eg. AddRequirements(m_Subsystem);
     SetName("ShootingAction");
 
+    spdlog::info("ShootingAction");
+
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
+    // Need to add if Shooter is at speed part, turning on flashlight part
+
+    AddCommands(
+        IntakeRun(Intake::INTAKE_ACQUIRE, intake),
+        FloorConveyorRun(FloorConveyor::FCONVEYOR_STOP, fConv),
+        VerticalConveyorRun(VerticalConveyor::VCONVEYOR_STOP, vConv));
+    //ShooterRun(Shooter::SHOOTER_STOP, shooter))
 }
 
 bool ShootingAction::RunsWhenDisabled() const

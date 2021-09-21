@@ -17,14 +17,14 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/ParallelCommandGroup.h>
 
 /**
  *
  *
  * @author ExampleAuthor
  */
-class ShootingAction : public frc2::CommandHelper<frc2::SequentialCommandGroup, ShootingAction>
+class ShootingAction : public frc2::CommandHelper<frc2::ParallelCommandGroup, ShootingAction>
 {
 public:
     explicit ShootingAction(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv, Shooter *shooter);

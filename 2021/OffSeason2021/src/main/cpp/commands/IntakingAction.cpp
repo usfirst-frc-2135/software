@@ -25,9 +25,9 @@ IntakingAction::IntakingAction(Intake *intake, FloorConveyor *fConv, VerticalCon
     // AddCommands(FooCommand(), BarCommand());
     AddCommands(
         IntakeDeploy(true),
-        IntakeRun(1, intake),
-        FloorConveyorRun(-1, fConv),
-        VerticalConveyorRun(-1, vConv));
+        IntakeRun(Intake::INTAKE_ACQUIRE, intake),
+        FloorConveyorRun(FloorConveyor::FCONVEYOR_EXPEL, fConv),
+        VerticalConveyorRun(VerticalConveyor::VCONVEYOR_EXPEL, vConv));
 }
 
 bool IntakingAction::RunsWhenDisabled() const

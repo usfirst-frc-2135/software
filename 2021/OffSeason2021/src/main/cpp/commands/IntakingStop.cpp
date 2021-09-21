@@ -25,9 +25,9 @@ IntakingStop::IntakingStop(Intake *intake, FloorConveyor *fConv, VerticalConveyo
     // AddCommands(FooCommand(), BarCommand());
     AddCommands(
         IntakeDeploy(true),
-        IntakeRun(0, intake),
-        FloorConveyorRun(0, fConv),
-        VerticalConveyorRun(0, vConv));
+        IntakeRun(Intake::INTAKE_STOP, intake),
+        FloorConveyorRun(FloorConveyor::FCONVEYOR_STOP, fConv),
+        VerticalConveyorRun(VerticalConveyor::VCONVEYOR_STOP, vConv));
 }
 
 bool IntakingStop::RunsWhenDisabled() const
