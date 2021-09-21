@@ -45,7 +45,7 @@ Shooter::Shooter()
     {
         // Set motor directions
         // Turn on Coast mode
-        m_motorSH10.SetInverted(false);
+        m_motorSH10.SetInverted(true);
         m_motorSH10.SetNeutralMode(NeutralMode::Coast);
         m_motorSH10.SetSafetyEnabled(false);
 
@@ -73,7 +73,7 @@ Shooter::Shooter()
     {
         // Set motor directions
         // Turn on Coast mode
-        m_motorSH11.SetInverted(false);
+        m_motorSH11.SetInverted(true);
         m_motorSH11.SetNeutralMode(NeutralMode::Coast);
         m_motorSH11.SetSafetyEnabled(false);
 
@@ -113,22 +113,20 @@ void Shooter::Periodic()
     // Only update indicators every 100 ms to cut down on network traffic
     if (periodicInterval++ % 5 == 0)
     {
+        double feederRPM;
+        double flywheelRPM;
+
         // Normal output is to show shooter output and speed
         if (m_talonValidSH10)
         {
-            // currentRPM = NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex)
-            // spdlog
-            // SmartDah
-            frc::SmartDashboard::PutNumber(
-                "SH_FeederRPM",
-                NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex)));
+            feederRPM = NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex));
+            frc::SmartDashboard::PutNumber("SH_FeederRPM", feederRPM);
         }
         // Normal output is to show shooter output and speed
         if (m_talonValidSH11)
         {
-            frc::SmartDashboard::PutNumber(
-                "SH_FlywheelRPM",
-                NativeToFlywheelRPM(m_motorSH11.GetSelectedSensorVelocity(kPidIndex)));
+            flywheelRPM = NativeToFlywheelRPM(m_motorSH11.GetSelectedSensorVelocity(kPidIndex));
+            frc::SmartDashboard::PutNumber("SH_FlywheelRPM", flywheelRPM);
         }
 
         // Show current drain and slave output if more debugging is needed
@@ -149,6 +147,8 @@ void Shooter::Periodic()
 
             frc::SmartDashboard::PutNumber("SH_Current_SH10", currentSH10);
             frc::SmartDashboard::PutNumber("SH_Current_SH11", currentSH11);
+
+            spdlog::info("SH_FeederRpm {} SH_FlywheelRPM {}", feederRPM, flywheelRPM);
         }
     }
 
