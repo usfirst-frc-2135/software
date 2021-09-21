@@ -24,7 +24,6 @@ ShootingStop::ShootingStop(Intake *intake, FloorConveyor *fConv, VerticalConveyo
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
     AddCommands(
-        IntakeDeploy(true),
         IntakeRun(Intake::INTAKE_STOP, intake),
         FloorConveyorRun(FloorConveyor::FCONVEYOR_STOP, fConv),
         VerticalConveyorRun(VerticalConveyor::VCONVEYOR_STOP, vConv));

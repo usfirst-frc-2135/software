@@ -30,8 +30,8 @@ ShootingAction::ShootingAction(
 
     AddCommands(
         IntakeRun(Intake::INTAKE_ACQUIRE, intake),
-        FloorConveyorRun(FloorConveyor::FCONVEYOR_STOP, fConv),
-        VerticalConveyorRun(VerticalConveyor::VCONVEYOR_STOP, vConv));
+        FloorConveyorRun(FloorConveyor::FCONVEYOR_ACQUIRE, fConv),
+        VerticalConveyorRun(VerticalConveyor::VCONVEYOR_ACQUIRE, vConv));
     //ShooterRun(Shooter::SHOOTER_STOP, shooter))
 }
 
