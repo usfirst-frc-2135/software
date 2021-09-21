@@ -96,6 +96,12 @@ Shooter::Shooter()
 
         m_motorSH11.Set(ControlMode::Velocity, 0.0);
     }
+
+    frc::SmartDashboard::PutNumber("SH_PidKf", m_pidKf);
+    frc::SmartDashboard::PutNumber("SH_PidKp", m_pidKp);
+    frc::SmartDashboard::PutNumber("SH_PidKi", m_pidKi);
+    frc::SmartDashboard::PutNumber("SH_PidKd", m_pidKd);
+
     Initialize();
 }
 
@@ -110,6 +116,9 @@ void Shooter::Periodic()
         // Normal output is to show shooter output and speed
         if (m_talonValidSH10)
         {
+            // currentRPM = NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex)
+            // spdlog
+            // SmartDah
             frc::SmartDashboard::PutNumber(
                 "SH_FeederRPM",
                 NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex)));
@@ -142,6 +151,12 @@ void Shooter::Periodic()
             frc::SmartDashboard::PutNumber("SH_Current_SH11", currentSH11);
         }
     }
+
+    frc::SmartDashboard::PutNumber("SH_FEEDERRPM", m_FeederCurrentRPM);
+    frc::SmartDashboard::PutNumber("SH_FLYWHEELRPM", m_FlywheelCurrentRPM);
+
+    spdlog::info("SH_FEEDERRPM", m_FeederCurrentRPM);
+    spdlog::info("SH_FLYWHEELRPM", m_FlywheelCurrentRPM);
 }
 
 void Shooter::SimulationPeriodic()
