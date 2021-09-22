@@ -8,30 +8,29 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-#include "commands/IntakeAction.h"
+#include "commands/ShootingStop.h"
 
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 
-
-IntakeAction::IntakeAction(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv)
+ShootingStop::ShootingStop(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv, Shooter *shooter)
 {
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(m_Subsystem);
-    SetName("IntakeAction");
+    SetName("ShootingStop");
 
-    spdlog::info("IntakeAction");
+    spdlog::info("ShootingStop");
 
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
-    AddCommands (
-        IntakeRun(1, intake),
-        FloorConveyorRun(1, fConv),
-        VerticalConveyorRun(1, vConv)
-        );
+    AddCommands(
+        IntakeRun(Intake::INTAKE_STOP, intake),
+        FloorConveyorRun(FloorConveyor::FCONVEYOR_STOP, fConv),
+        VerticalConveyorRun(VerticalConveyor::VCONVEYOR_STOP, vConv));
+    //ShooterRun(Shooter::SHOOTER_STOP, shooter))
 }
 
-bool IntakeAction::RunsWhenDisabled() const
+bool ShootingStop::RunsWhenDisabled() const
 {
     return false;
 }
