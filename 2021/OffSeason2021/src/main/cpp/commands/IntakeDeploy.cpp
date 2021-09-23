@@ -43,7 +43,10 @@ bool IntakeDeploy::IsFinished()
 }
 
 // Called once after isFinished returns true
-void IntakeDeploy::End(bool interrupted) {}
+void IntakeDeploy::End(bool interrupted)
+{
+    spdlog::info("IntakeDeploy - End");
+}
 
 bool IntakeDeploy::RunsWhenDisabled() const
 {
