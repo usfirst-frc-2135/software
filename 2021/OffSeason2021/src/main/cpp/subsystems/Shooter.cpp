@@ -148,15 +148,9 @@ void Shooter::Periodic()
             frc::SmartDashboard::PutNumber("SH_Current_SH10", currentSH10);
             frc::SmartDashboard::PutNumber("SH_Current_SH11", currentSH11);
 
-            spdlog::info("SH_FeederRpm {} SH_FlywheelRPM {}", feederRPM, flywheelRPM);
+            //spdlog::info("SH_FeederRpm {} SH_FlywheelRPM {}", feederRPM, flywheelRPM);
         }
     }
-
-    frc::SmartDashboard::PutNumber("SH_FEEDERRPM", m_FeederCurrentRPM);
-    frc::SmartDashboard::PutNumber("SH_FLYWHEELRPM", m_FlywheelCurrentRPM);
-
-    spdlog::info("SH_FEEDERRPM", m_FeederCurrentRPM);
-    spdlog::info("SH_FLYWHEELRPM", m_FlywheelCurrentRPM);
 }
 
 void Shooter::SimulationPeriodic()
@@ -246,26 +240,34 @@ void Shooter::SetShooterSpeed(int state)
             return;
     }
 
+    frc::SmartDashboard::GetNumber("SH_PidKf", m_pidKf);
+    frc::SmartDashboard::GetNumber("SH_PidKp", m_pidKp);
+    frc::SmartDashboard::GetNumber("SH_PidKi", m_pidKi);
+    frc::SmartDashboard::GetNumber("SH_PidKd", m_pidKd);
+
+    m_motorSH10.Config_kF(0, m_pidKf, kCANTimeout);
+    m_motorSH10.Config_kP(0, m_pidKp, kCANTimeout);
+    m_motorSH10.Config_kI(0, m_pidKi, kCANTimeout);
+    m_motorSH10.Config_kD(0, m_pidKd, kCANTimeout);
+
+    m_motorSH11.Config_kF(0, m_pidKf, kCANTimeout);
+    m_motorSH11.Config_kP(0, m_pidKp, kCANTimeout);
+    m_motorSH11.Config_kI(0, m_pidKi, kCANTimeout);
+    m_motorSH11.Config_kD(0, m_pidKd, kCANTimeout);
+
     // Get current position in inches and set position mode and target counts
     if (m_talonValidSH10)
     {
         m_FeederCurrentRPM = NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex));
         m_motorSH10.Set(ControlMode::Velocity, FeederRPMToNative(m_FeederTargetRPM));
-        spdlog::info(
-            "SH feeder setting {} {} {}",
-            m_FeederCurrentRPM,
-            m_FeederTargetRPM,
-            FeederRPMToNative(m_FeederTargetRPM));
+        spdlog::info("SH feeder setting {}", m_FeederTargetRPM);
     }
+
     if (m_talonValidSH11)
     {
         m_FlywheelCurrentRPM = NativeToFlywheelRPM(m_motorSH11.GetSelectedSensorVelocity(kPidIndex));
         m_motorSH11.Set(ControlMode::Velocity, FlywheelRPMToNative(m_FlywheelTargetRPM));
-        spdlog::info(
-            "SH flywheel setting {} {} {}",
-            m_FlywheelCurrentRPM,
-            m_FlywheelTargetRPM,
-            FlywheelRPMToNative(m_FlywheelTargetRPM));
+        spdlog::info("SH flywheel setting {}", m_FlywheelTargetRPM);
     }
 }
 
