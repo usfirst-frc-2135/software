@@ -47,7 +47,22 @@ void Robot::RobotPeriodic()
  */
 void Robot::DisabledInit() {}
 
-void Robot::DisabledPeriodic() {}
+void Robot::DisabledPeriodic()
+{
+    // If RoboRIO User button is pressed, dump all CAN faults
+    if (frc::RobotController::GetUserButton())
+    {
+        if (!m_faultsCleared)
+        {
+            m_faultsCleared = true;
+            RobotFaultDump();
+        }
+    }
+    else if (m_faultsCleared)
+    {
+        m_faultsCleared = false;
+    }
+}
 
 /**
  * This autonomous runs the autonomous command selected by your {@link
@@ -76,6 +91,16 @@ void Robot::TeleopInit()
         m_autonomousCommand->Cancel();
         m_autonomousCommand = nullptr;
     }
+
+    RobotContainer *robotContainer = RobotContainer::GetInstance();
+    robotContainer->m_drivetrain.Initialize();
+    robotContainer->m_intake.Initialize();
+    robotContainer->m_floorConveyor.Initialize();
+    robotContainer->m_verticalConveyor.Initialize();
+    robotContainer->m_shooter.Initialize();
+    // robotContainer->m_climber.Initialize();
+    robotContainer->m_pneumatics.Initialize();
+    robotContainer->m_power.Initialize();
 }
 
 /**
@@ -87,6 +112,25 @@ void Robot::TeleopPeriodic() {}
  * This function is called periodically during test mode.
  */
 void Robot::TestPeriodic() {}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//  Fault handling utilities
+
+void Robot::RobotFaultDump(void)
+{
+    // Print out talon SRX faults and clear sticky ones
+    spdlog::info("----- DUMP FAULTS --------------");
+
+    RobotContainer *robotContainer = RobotContainer::GetInstance();
+    robotContainer->m_drivetrain.FaultDump();
+    robotContainer->m_intake.FaultDump();
+    robotContainer->m_floorConveyor.FaultDump();
+    robotContainer->m_verticalConveyor.FaultDump();
+    robotContainer->m_shooter.FaultDump();
+    // robotContainer->m_climber.FaultDump();
+    robotContainer->m_pneumatics.FaultDump();
+    robotContainer->m_power.FaultDump();
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main()
