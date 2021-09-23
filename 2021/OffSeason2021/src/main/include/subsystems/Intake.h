@@ -69,6 +69,6 @@ public:
     void Initialize(void);
     void FaultDump(void);
 
-    void SetIntakeSpeed(int direction);
+    void SetIntakeSpeed(int mode);
     void SetDeployerSolenoid(bool extended);
 };

@@ -148,10 +148,6 @@ private:
     double m_currentR3 = 0.0; // Motor R3 output current from Falcon
     double m_currentR4 = 0.0; // Motor R4 output current from Falcon
 
-    // Auton safety timer
-    frc::Timer m_safetyTimer; // Safety timer for use during autonomous modes
-    double m_safetyTimeout;   // Time in seconds for safety timer
-
     // Velocity closed-loop drive
     double m_vcMaxSpeed;
     double m_vcMaxAngSpeed;
@@ -201,7 +197,7 @@ private:
 
     void ResetOdometry(frc::Pose2d pose);
 
-    void SetBrakeMode(bool m_brakeMode);
+    void SetBrakeMode(bool brakeMode);
     void TankDriveVolts(volt_t left, volt_t right);
     void VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &speeds);
 
@@ -228,12 +224,6 @@ public:
     void MoveStop(void);
     void MoveWithJoysticks(frc::XboxController *driverPad);
     void ToggleDriveMode(void);
-
-    // Autonomous - Aligning with Target Using Vision Processing
-    void MoveAlignTurnInit(double angle);
-    void MoveAlignTurnExecute(frc::XboxController *throttleJstick, double angle);
-    bool MoveAlignTurnIsFinished(double angle);
-    void MoveAlignTurnEnd(void);
 
     // Autonomous - Ramsete follower command
     void RamseteFollowerInit(void);

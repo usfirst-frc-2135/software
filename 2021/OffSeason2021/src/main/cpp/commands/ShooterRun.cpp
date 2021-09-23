@@ -43,7 +43,10 @@ bool ShooterRun::IsFinished()
 }
 
 // Called once after isFinished returns true
-void ShooterRun::End(bool interrupted) {}
+void ShooterRun::End(bool interrupted)
+{
+    spdlog::info("ShooterRun - End");
+}
 
 bool ShooterRun::RunsWhenDisabled() const
 {

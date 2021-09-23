@@ -75,6 +75,7 @@ void Intake::Periodic()
 
         if (m_talonValidIN6)
             outputIN6 = m_motorIN6.GetMotorOutputPercent();
+
         frc::SmartDashboard::PutNumber("IN_Output_IN6", outputIN6);
 
         if (m_intakeDebug > 0)
@@ -104,10 +105,7 @@ void Intake::SimulationPeriodic()
 void Intake::Initialize(void)
 {
     spdlog::info("IN Init");
-
-    if (m_talonValidIN6)
-        SetIntakeSpeed(INTAKE_STOP);
-
+    SetIntakeSpeed(INTAKE_STOP);
     SetDeployerSolenoid(false);
 }
 
@@ -118,12 +116,12 @@ void Intake::FaultDump(void)
 }
 
 // Set mode of intake
-void Intake::SetIntakeSpeed(int direction)
+void Intake::SetIntakeSpeed(int mode)
 {
     const char *strName;
     double output = 0.0; // Default: off
 
-    switch (direction)
+    switch (mode)
     {
         default:
         case INTAKE_STOP:
@@ -149,8 +147,8 @@ void Intake::SetIntakeSpeed(int direction)
 
 void Intake::SetDeployerSolenoid(bool extended)
 {
-    spdlog::info("IN {}", (extended) ? "EXTENDED" : "NOT EXTENDED");
-    frc::SmartDashboard::PutBoolean("IN_Position", extended);
+    spdlog::info("Intake {}", (extended) ? "DEPLOY" : "STOW");
+    frc::SmartDashboard::PutBoolean("IN_Deployed", extended);
 
     m_position.Set(extended);
 }

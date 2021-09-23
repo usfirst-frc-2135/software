@@ -88,11 +88,7 @@ void FloorConveyor::SimulationPeriodic()
 void FloorConveyor::Initialize(void)
 {
     spdlog::info("FC Init");
-    // Motor off
-    if (m_talonValidFC8)
-    {
-        m_motorFC8.Set(ControlMode::PercentOutput, 0.0);
-    }
+    SetFloorConveyorSpeed(FCONVEYOR_STOP);
 }
 
 //    Dump all Talon faults
@@ -102,12 +98,12 @@ void FloorConveyor::FaultDump(void)
 }
 
 // Set mode of floor conveyor
-void FloorConveyor::SetFloorConveyorSpeed(int direction)
+void FloorConveyor::SetFloorConveyorSpeed(int mode)
 {
     const char *strName;
     double outputFC = 0.0; // Default: off
 
-    switch (direction)
+    switch (mode)
     {
         default:
         case FCONVEYOR_STOP:

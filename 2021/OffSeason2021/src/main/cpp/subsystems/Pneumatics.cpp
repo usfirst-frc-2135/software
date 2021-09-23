@@ -28,7 +28,21 @@ Pneumatics::Pneumatics()
 
 void Pneumatics::Periodic()
 {
-    // Put code here to be run every loop
+    static int periodicInterval = 0;
+
+    // Put code here to be run every 20 ms loop
+
+    // Only update indicators every 100 ms to cut down on network traffic
+    if (periodicInterval++ % 5 == 0)
+    {
+        if (m_pneumaticsDebug > 0)
+        {
+            double outputComp = 0.0;
+
+            outputComp = m_pCM.GetCompressorCurrent();
+            frc::SmartDashboard::PutNumber("PCM_Output_Comp", outputComp);
+        }
+    }
 }
 
 void Pneumatics::SimulationPeriodic()
@@ -42,3 +56,22 @@ void Pneumatics::SimulationPeriodic()
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+void Pneumatics::Initialize(void)
+{
+    spdlog::info("PCM Init");
+}
+
+void Pneumatics::FaultDump(void)
+{
+    // Print out PCM faults and clear sticky ones
+    spdlog::info("----- PCM FAULTS --------------");
+
+    if (m_pCM.GetCompressorCurrentTooHighStickyFault())
+        spdlog::warn("CurrentTooHighFault");
+    if (m_pCM.GetCompressorNotConnectedFault())
+        spdlog::warn("CompressorNotConnectedFault");
+    if (m_pCM.GetCompressorShortedFault())
+        spdlog::warn("CompressorShortedFault");
+    m_pCM.ClearAllPCMStickyFaults();
+}

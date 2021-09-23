@@ -120,8 +120,6 @@ public:
     void FaultDump(void);
 
     void SetShooterSpeed(int state);
-    void IndexerDeploy(bool state);
-    void MotorRun();
     void Aiming();
     void AtDesiredRPM();
 };

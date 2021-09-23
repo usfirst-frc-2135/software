@@ -116,12 +116,11 @@ void Shooter::Periodic()
         double feederRPM = 0.0;
         double flywheelRPM = 0.0;
 
-        // Normal output is to show shooter output and speed
         if (m_talonValidSH10)
         {
             feederRPM = NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex));
         }
-        // Normal output is to show shooter output and speed
+
         if (m_talonValidSH11)
         {
             flywheelRPM = NativeToFlywheelRPM(m_motorSH11.GetSelectedSensorVelocity(kPidIndex));
@@ -129,6 +128,7 @@ void Shooter::Periodic()
 
         frc::SmartDashboard::PutNumber("SH_FeederRPM", feederRPM);
         frc::SmartDashboard::PutNumber("SH_FlywheelRPM", flywheelRPM);
+
         if (m_FlywheelTargetRPM > 0)
         {
             spdlog::info("SH_FeederRPM {} SH_FlywheelRPM {}", feederRPM, flywheelRPM);
@@ -152,8 +152,6 @@ void Shooter::Periodic()
 
             frc::SmartDashboard::PutNumber("SH_Current_SH10", currentSH10);
             frc::SmartDashboard::PutNumber("SH_Current_SH11", currentSH11);
-
-            //spdlog::info("SH_FeederRpm {} SH_FlywheelRPM {}", feederRPM, flywheelRPM);
         }
     }
 }
@@ -161,9 +159,8 @@ void Shooter::Periodic()
 void Shooter::SimulationPeriodic()
 {
     // This method will be called once per scheduler run when in simulation
-    m_feederSim.SetInputVoltage(units::volt_t{ m_motorSH10.Get() * frc::RobotController::GetInputVoltage() });
-    m_flywheelSim.SetInputVoltage(
-        units::volt_t{ m_motorSH11.Get() * frc::RobotController::GetInputVoltage() });
+    m_feederSim.SetInputVoltage( 1_V * m_motorSH10.Get() * frc::RobotController::GetInputVoltage() );
+    m_flywheelSim.SetInputVoltage( 1_V * m_motorSH11.Get() * frc::RobotController::GetInputVoltage() );
 
     m_feederSim.Update(20_ms);
     m_flywheelSim.Update(20_ms);
@@ -182,11 +179,7 @@ void Shooter::SimulationPeriodic()
 void Shooter::Initialize(void)
 {
     spdlog::info("SH Init");
-    if (m_talonValidSH10)
-        m_motorSH10.Set(ControlMode::Velocity, 0.0);
-
-    if (m_talonValidSH11)
-        m_motorSH11.Set(ControlMode::Velocity, 0.0);
+    SetShooterSpeed(SHOOTERSPEED_STOP);
 }
 
 void Shooter::FaultDump(void)
@@ -270,7 +263,8 @@ void Shooter::SetShooterSpeed(int state)
     {
         m_motorSH11.Set(ControlMode::Velocity, FlywheelRPMToNative(m_FlywheelTargetRPM));
     }
-    spdlog::info("SH feeder {}  flywheel {}", m_FeederTargetRPM, m_FlywheelTargetRPM);
+
+    spdlog::info("SH Set shooter speed - feeder {} flywheel {}", m_FeederTargetRPM, m_FlywheelTargetRPM);
 }
 
 void Shooter::Aiming() {}
