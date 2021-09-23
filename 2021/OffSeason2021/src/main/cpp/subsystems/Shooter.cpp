@@ -113,20 +113,25 @@ void Shooter::Periodic()
     // Only update indicators every 100 ms to cut down on network traffic
     if (periodicInterval++ % 5 == 0)
     {
-        double feederRPM;
-        double flywheelRPM;
+        double feederRPM = 0.0;
+        double flywheelRPM = 0.0;
 
         // Normal output is to show shooter output and speed
         if (m_talonValidSH10)
         {
             feederRPM = NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex));
-            frc::SmartDashboard::PutNumber("SH_FeederRPM", feederRPM);
         }
         // Normal output is to show shooter output and speed
         if (m_talonValidSH11)
         {
             flywheelRPM = NativeToFlywheelRPM(m_motorSH11.GetSelectedSensorVelocity(kPidIndex));
-            frc::SmartDashboard::PutNumber("SH_FlywheelRPM", flywheelRPM);
+        }
+
+        frc::SmartDashboard::PutNumber("SH_FeederRPM", feederRPM);
+        frc::SmartDashboard::PutNumber("SH_FlywheelRPM", flywheelRPM);
+        if (m_FlywheelTargetRPM > 0)
+        {
+            spdlog::info("SH_FeederRPM {} SH_FlywheelRPM {}", feederRPM, flywheelRPM);
         }
 
         // Show current drain and slave output if more debugging is needed
@@ -258,17 +263,14 @@ void Shooter::SetShooterSpeed(int state)
     // Get current position in inches and set position mode and target counts
     if (m_talonValidSH10)
     {
-        m_FeederCurrentRPM = NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex));
         m_motorSH10.Set(ControlMode::Velocity, FeederRPMToNative(m_FeederTargetRPM));
-        spdlog::info("SH feeder setting {}", m_FeederTargetRPM);
     }
 
     if (m_talonValidSH11)
     {
-        m_FlywheelCurrentRPM = NativeToFlywheelRPM(m_motorSH11.GetSelectedSensorVelocity(kPidIndex));
         m_motorSH11.Set(ControlMode::Velocity, FlywheelRPMToNative(m_FlywheelTargetRPM));
-        spdlog::info("SH flywheel setting {}", m_FlywheelTargetRPM);
     }
+    spdlog::info("SH feeder {}  flywheel {}", m_FeederTargetRPM, m_FlywheelTargetRPM);
 }
 
 void Shooter::Aiming() {}

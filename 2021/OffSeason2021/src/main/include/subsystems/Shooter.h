@@ -87,10 +87,7 @@ private:
     double m_neutralDeadband; // Shooter PID neutral deadband in percent
 
     double m_FeederTargetRPM;
-    double m_FeederCurrentRPM; // Current shooter velocity in RPM
-
     double m_FlywheelTargetRPM;
-    double m_FlywheelCurrentRPM;
 
     int m_shooterState; // Current shooter speed level
 
