@@ -159,9 +159,8 @@ void Shooter::Periodic()
 void Shooter::SimulationPeriodic()
 {
     // This method will be called once per scheduler run when in simulation
-    m_feederSim.SetInputVoltage(units::volt_t{ m_motorSH10.Get() * frc::RobotController::GetInputVoltage() });
-    m_flywheelSim.SetInputVoltage(
-        units::volt_t{ m_motorSH11.Get() * frc::RobotController::GetInputVoltage() });
+    m_feederSim.SetInputVoltage( 1_V * m_motorSH10.Get() * frc::RobotController::GetInputVoltage() );
+    m_flywheelSim.SetInputVoltage( 1_V * m_motorSH11.Get() * frc::RobotController::GetInputVoltage() );
 
     m_feederSim.Update(20_ms);
     m_flywheelSim.Update(20_ms);
@@ -180,11 +179,7 @@ void Shooter::SimulationPeriodic()
 void Shooter::Initialize(void)
 {
     spdlog::info("SH Init");
-    if (m_talonValidSH10)
-        m_motorSH10.Set(ControlMode::Velocity, 0.0);
-
-    if (m_talonValidSH11)
-        m_motorSH11.Set(ControlMode::Velocity, 0.0);
+    SetShooterSpeed(SHOOTERSPEED_STOP);
 }
 
 void Shooter::FaultDump(void)

@@ -116,12 +116,12 @@ void Intake::FaultDump(void)
 }
 
 // Set mode of intake
-void Intake::SetIntakeSpeed(int direction)
+void Intake::SetIntakeSpeed(int mode)
 {
     const char *strName;
     double output = 0.0; // Default: off
 
-    switch (direction)
+    switch (mode)
     {
         default:
         case INTAKE_STOP:
