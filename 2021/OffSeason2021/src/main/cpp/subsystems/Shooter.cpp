@@ -148,15 +148,9 @@ void Shooter::Periodic()
             frc::SmartDashboard::PutNumber("SH_Current_SH10", currentSH10);
             frc::SmartDashboard::PutNumber("SH_Current_SH11", currentSH11);
 
-            spdlog::info("SH_FeederRpm {} SH_FlywheelRPM {}", feederRPM, flywheelRPM);
+            //spdlog::info("SH_FeederRpm {} SH_FlywheelRPM {}", feederRPM, flywheelRPM);
         }
     }
-
-    frc::SmartDashboard::PutNumber("SH_FEEDERRPM", m_FeederCurrentRPM);
-    frc::SmartDashboard::PutNumber("SH_FLYWHEELRPM", m_FlywheelCurrentRPM);
-
-    spdlog::info("SH_FEEDERRPM", m_FeederCurrentRPM);
-    spdlog::info("SH_FLYWHEELRPM", m_FlywheelCurrentRPM);
 }
 
 void Shooter::SimulationPeriodic()
