@@ -10,8 +10,9 @@
 
 #pragma once
 
-#include "commands/IntakeRun.h"
 #include "commands/FloorConveyorRun.h"
+#include "commands/IntakeRun.h"
+#include "commands/ShooterRun.h"
 #include "commands/VerticalConveyorRun.h"
 
 #include <frc2/command/CommandBase.h>
@@ -23,13 +24,12 @@
  *
  * @author ExampleAuthor
  */
-class IntakeAction : public frc2::CommandHelper<frc2::ParallelCommandGroup, IntakeAction>
+class ShootingAction : public frc2::CommandHelper<frc2::ParallelCommandGroup, ShootingAction>
 {
 public:
-    explicit IntakeAction(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv);
+    explicit ShootingAction(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv, Shooter *shooter);
 
     bool RunsWhenDisabled() const override;
 
 private:
-
 };

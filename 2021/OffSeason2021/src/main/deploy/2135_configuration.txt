@@ -1,5 +1,5 @@
 # Comment lines start with '#'
-  RB_Name = 2135-Mandi
+  RB_Name = 2135-Grogu
 # DriveTrain settings
   DT_DriveMode = 0
 # Competition mode
@@ -28,18 +28,13 @@
   VC_AcquireSpeed = 1.0
   VC_ExpelSpeed = -0.2
 # Shooter settings
-  SH_FwdOutput = 0.80;
-  SH_RevOutput = -0.25;
-  SH_PidKf = 0.02701
-  SH_PidKp = 0.01461
+  SH_FlywheelRPM = 4000
+  SH_FeederRPM = 4000
+  SH_PidKf = 0.00000
+  SH_PidKp = 0.00000
   SH_PidKi = 0.000
   SH_PidKd = 0.000
   SH_NeutralDeadband = 0.004
-  SH_ffKs = 1.06
-  SH_ffKv = 0.12
-  SH_ffKa = 0.0259
-# Spinner settings
-  SP_TurnSpeed = 0.6
 # Climber settings
   CL_ClimbSpeed = 1.0
 # Autonomous settings
