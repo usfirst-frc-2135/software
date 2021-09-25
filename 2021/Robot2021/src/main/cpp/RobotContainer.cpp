@@ -34,9 +34,7 @@ RobotContainer::RobotContainer() :
     frc::SmartDashboard::PutData(
         "Auto Drive Path: driveBackward",
         new AutoDrivePath("driveBackward", &m_drivetrain));
-    frc::SmartDashboard::PutData(
-        "Auto Drive Path: rightAngleTurn",
-        new AutoDrivePath("rightAngleTurn", &m_drivetrain));
+    frc::SmartDashboard::PutData("Auto Drive Path: rightTurn", new AutoDrivePath("rightTurn", &m_drivetrain));
     frc::SmartDashboard::PutData("Auto Drive Stop", new AutoDriveStop(&m_drivetrain));
     frc::SmartDashboard::PutData("Auto Shoot Drive", new AutoShootDrive(&m_shooter));
     frc::SmartDashboard::PutData("Climber Deploy: CLIMBER_STOW", new ClimberDeploy(false));

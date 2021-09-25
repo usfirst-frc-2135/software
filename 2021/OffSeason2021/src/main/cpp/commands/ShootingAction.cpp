@@ -29,10 +29,10 @@ ShootingAction::ShootingAction(
     // Need to add if Shooter is at speed part, turning on flashlight part
 
     AddCommands(
-        IntakeRun(Intake::INTAKE_ACQUIRE, intake),
-        FloorConveyorRun(FloorConveyor::FCONVEYOR_ACQUIRE, fConv),
+        ShooterRun(Shooter::SHOOTERSPEED_FORWARD, shooter),
         VerticalConveyorRun(VerticalConveyor::VCONVEYOR_ACQUIRE, vConv),
-        ShooterRun(Shooter::SHOOTERSPEED_FORWARD, shooter));
+        FloorConveyorRun(FloorConveyor::FCONVEYOR_ACQUIRE, fConv),
+        IntakeRun(Intake::INTAKE_ACQUIRE, intake));
 }
 
 bool ShootingAction::RunsWhenDisabled() const
