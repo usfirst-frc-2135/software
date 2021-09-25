@@ -42,3 +42,8 @@ void Climber::SimulationPeriodic()
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+//
+//  Joystick movement during Teleop
+//
+void Climber::RaiseClimberWithJoysticks(frc::XboxController *throttleJstick) {}
