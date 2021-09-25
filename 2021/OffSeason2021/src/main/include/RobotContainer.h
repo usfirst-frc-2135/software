@@ -26,6 +26,7 @@
 #include "commands/ClimberRun.h"
 #include "commands/DriveQuickturn.h"
 #include "commands/DriveTeleop.h"
+#include "commands/ExhaustingAction.h"
 #include "commands/FloorConveyorRun.h"
 #include "commands/IntakeDeploy.h"
 #include "commands/IntakeRun.h"
