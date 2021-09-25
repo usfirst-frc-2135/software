@@ -45,6 +45,7 @@ Intake::Intake()
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("IN_AcquireSpeed", m_acquireSpeed, 1.0);
     config->GetValueAsDouble("IN_ExpelSpeed", m_expelSpeed, -0.2);
+    config->GetValueAsDouble("IN_ExpelSpeedFast", m_expelSpeedFast, -1.0);
 
     // Set motor directions
     // Turn on Coast mode (not brake)
@@ -139,6 +140,10 @@ void Intake::SetIntakeSpeed(int mode)
         case INTAKE_EXPEL:
             strName = "EXPEL";
             output = m_expelSpeed;
+            break;
+        case INTAKE_EXPEL_FAST:
+            strName = "EXPEL_FAST";
+            output = m_expelSpeedFast;
             break;
     }
 

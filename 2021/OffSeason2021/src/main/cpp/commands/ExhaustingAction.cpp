@@ -25,7 +25,7 @@ ExhaustingAction::ExhaustingAction(Intake *intake, FloorConveyor *fConv, Vertica
     // AddCommands(FooCommand(), BarCommand());
     AddCommands(
         IntakeDeploy(true),
-        IntakeRun(Intake::INTAKE_EXPEL, intake),
+        IntakeRun(Intake::INTAKE_EXPEL_FAST, intake),
         FloorConveyorRun(FloorConveyor::FCONVEYOR_EXPEL_FAST, fConv),
         VerticalConveyorRun(VerticalConveyor::VCONVEYOR_EXPEL_FAST, vConv));
 }

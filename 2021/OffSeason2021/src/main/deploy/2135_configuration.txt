@@ -21,6 +21,7 @@
 # Intake settings
   IN_AcquireSpeed = 1.0
   IN_ExpelSpeed = -0.2
+  IN_ExpelSpeedFast = -1.0
 # Floor Conveyor settings
   FC_AcquireSpeed = 1.0
   FC_ExpelSpeed = 0.2
