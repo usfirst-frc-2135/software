@@ -30,6 +30,7 @@
 # Shooter settings
   SH_FlywheelRPM = 3000
   SH_FeederRPM = 3000
+  SH_PidKf = 0.0475
   SH_PidKp = 0.00000
   SH_PidKi = 0.000
   SH_PidKd = 0.000

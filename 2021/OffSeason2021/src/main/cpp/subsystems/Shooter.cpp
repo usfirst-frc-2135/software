@@ -35,13 +35,13 @@ Shooter::Shooter()
 
     // Initialize Variables
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
+    config->GetValueAsDouble("SH_PidKf", m_pidKf, 0.0475);
     config->GetValueAsDouble("SH_PidKp", m_pidKp, 0.0);
     config->GetValueAsDouble("SH_PidKi", m_pidKi, 0.0);
     config->GetValueAsDouble("SH_PidKd", m_pidKd, 0.0);
     config->GetValueAsDouble("SH_NeutralDeadband", m_neutralDeadband, 0.004);
     config->GetValueAsDouble("SH_FlywheelRPM", m_FlywheelTargetRPM);
     config->GetValueAsDouble("SH_FeederRPM", m_FeederTargetRPM);
-    m_pidKf = m_FlywheelTargetRPM * kFeedForwardPerRPM;
 
     if (m_talonValidSH10)
     {
@@ -124,7 +124,7 @@ Shooter::Shooter()
     frc::SmartDashboard::PutNumber("SH_PidKi", m_pidKi);
     frc::SmartDashboard::PutNumber("SH_PidKd", m_pidKd);
 
-    frc::SmartDashboard::PutNumber("SH_FeederSmartDashRPM", m_FeederSmartDashPRM);
+    frc::SmartDashboard::PutNumber("SH_FeederSmartDashRPM", m_FeederCurrentRPM);
     frc::SmartDashboard::PutNumber("SH_FlywheelSmartDashRPM", m_FlywheelCurrentRPM);
 
     Initialize();
