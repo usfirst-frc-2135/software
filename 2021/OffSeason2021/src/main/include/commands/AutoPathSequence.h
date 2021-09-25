@@ -44,6 +44,4 @@ private:
     string path1;
     string path2;
     string path3;
-    const char *pathC1;
-    const char *pathC2;
 };
