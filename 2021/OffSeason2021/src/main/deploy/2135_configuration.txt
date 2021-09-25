@@ -39,3 +39,7 @@
   CL_ClimbSpeed = 1.0
 # Autonomous settings
   AutoDriveDist = 97.25
+# Path names
+  path1 = turn1
+  path2 = turn1Reverse
+  path3 = rightAngleTurn
