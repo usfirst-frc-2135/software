@@ -40,6 +40,7 @@ private:
     bool m_talonValidVC9; // Health indicator for vertical conveyor talon
     double m_acquireSpeed;
     double m_expelSpeed;
+    double m_expelSpeedFast;
 
 public:
     VerticalConveyor();
@@ -58,7 +59,8 @@ public:
     {
         VCONVEYOR_STOP = 0,
         VCONVEYOR_ACQUIRE = 1,
-        VCONVEYOR_EXPEL = -1
+        VCONVEYOR_EXPEL = -1,
+        VCONVEYOR_EXPEL_FAST = -2
     } conveyorDir_e;
 
     void Initialize(void);

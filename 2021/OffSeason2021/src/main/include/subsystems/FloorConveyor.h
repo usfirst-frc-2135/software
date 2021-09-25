@@ -40,6 +40,7 @@ private:
     bool m_talonValidFC8; // Health indicator for floor conveyor talon
     double m_acquireSpeed;
     double m_expelSpeed;
+    double m_expelSpeedFast;
 
 public:
     FloorConveyor();
@@ -58,7 +59,8 @@ public:
     {
         FCONVEYOR_STOP = 0,
         FCONVEYOR_ACQUIRE = 1,
-        FCONVEYOR_EXPEL = -1
+        FCONVEYOR_EXPEL = -1,
+        FCONVEYOR_EXPEL_FAST = -2
     } conveyorDir_e;
 
     void Initialize(void);

@@ -8,34 +8,29 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-#include "commands/ShootingAction.h"
+#include "commands/ExhaustingAction.h"
 
+#include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 
-ShootingAction::ShootingAction(
-    Intake *intake,
-    FloorConveyor *fConv,
-    VerticalConveyor *vConv,
-    Shooter *shooter)
+ExhaustingAction::ExhaustingAction(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv)
 {
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(m_Subsystem);
-    SetName("ShootingAction");
+    SetName("ExhaustingAction");
 
-    spdlog::info("ShootingAction");
+    spdlog::info("ExhaustingAction");
 
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
-    // Need to add if Shooter is at speed part, turning on flashlight part
-
     AddCommands(
-        ShooterRun(Shooter::SHOOTERSPEED_FORWARD, shooter),
-        VerticalConveyorRun(VerticalConveyor::VCONVEYOR_ACQUIRE, vConv),
-        FloorConveyorRun(FloorConveyor::FCONVEYOR_ACQUIRE, fConv),
-        IntakeRun(Intake::INTAKE_ACQUIRE, intake));
+        IntakeDeploy(true),
+        IntakeRun(Intake::INTAKE_EXPEL, intake),
+        FloorConveyorRun(FloorConveyor::FCONVEYOR_EXPEL_FAST, fConv),
+        VerticalConveyorRun(VerticalConveyor::VCONVEYOR_EXPEL_FAST, vConv));
 }
 
-bool ShootingAction::RunsWhenDisabled() const
+bool ExhaustingAction::RunsWhenDisabled() const
 {
     return false;
 }

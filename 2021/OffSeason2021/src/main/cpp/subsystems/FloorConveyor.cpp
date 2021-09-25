@@ -34,7 +34,8 @@ FloorConveyor::FloorConveyor()
     // Initialize Variables
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("FC_AcquireSpeed", m_acquireSpeed, 1.0);
-    config->GetValueAsDouble("FC_ExpelSpeed", m_expelSpeed, -0.2);
+    config->GetValueAsDouble("FC_ExpelSpeed", m_expelSpeed, 0.2);
+    config->GetValueAsDouble("FC_ExpelSpeedFast", m_expelSpeedFast, -1.0);
 
     // Set motor directions
     // Turn on Coast mode (not brake)
@@ -44,6 +45,10 @@ FloorConveyor::FloorConveyor()
         m_motorFC8.SetInverted(false);
         m_motorFC8.SetNeutralMode(NeutralMode::Coast);
         m_motorFC8.Set(ControlMode::PercentOutput, 0.0);
+
+        SupplyCurrentLimitConfiguration supplyCurrentLimits;
+        supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+        m_motorFC8.ConfigSupplyCurrentLimit(supplyCurrentLimits);
     }
 
     Initialize();
@@ -117,6 +122,10 @@ void FloorConveyor::SetFloorConveyorSpeed(int mode)
         case FCONVEYOR_EXPEL:
             strName = "EXPEL";
             outputFC = m_expelSpeed;
+            break;
+        case FCONVEYOR_EXPEL_FAST:
+            strName = "EXPEL_FAST";
+            outputFC = m_expelSpeedFast;
             break;
     }
 

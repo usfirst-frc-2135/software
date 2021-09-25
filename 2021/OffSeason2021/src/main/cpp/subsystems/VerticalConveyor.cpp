@@ -35,6 +35,7 @@ VerticalConveyor::VerticalConveyor()
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("VC_AcquireSpeed", m_acquireSpeed, 1.0);
     config->GetValueAsDouble("VC_ExpelSpeed", m_expelSpeed, -0.2);
+    config->GetValueAsDouble("VC_ExpelSpeedFast", m_expelSpeedFast, -1.0);
 
     // Set motor directions
     // Turn on Coast mode (not brake)
@@ -44,6 +45,10 @@ VerticalConveyor::VerticalConveyor()
         m_motorVC9.SetInverted(true);
         m_motorVC9.SetNeutralMode(NeutralMode::Coast);
         m_motorVC9.Set(ControlMode::PercentOutput, 0.0);
+
+        SupplyCurrentLimitConfiguration supplyCurrentLimits;
+        supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+        m_motorVC9.ConfigSupplyCurrentLimit(supplyCurrentLimits);
     }
 
     Initialize();
@@ -115,6 +120,10 @@ void VerticalConveyor::SetVerticalConveyorSpeed(int mode)
         case VCONVEYOR_EXPEL:
             strName = "EXPEL";
             outputVC = m_expelSpeed;
+            break;
+        case VCONVEYOR_EXPEL_FAST:
+            strName = "EXPEL_FAST";
+            outputVC = m_expelSpeedFast;
             break;
     }
 

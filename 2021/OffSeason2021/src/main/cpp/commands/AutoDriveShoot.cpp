@@ -12,6 +12,7 @@
 
 #include "commands/AutoDrivePath.h"
 #include "commands/AutoPathSequence.h"
+#include "commands/IntakeDeploy.h"
 #include "commands/ShootingAction.h"
 
 AutoDriveShoot::AutoDriveShoot(
@@ -29,7 +30,10 @@ AutoDriveShoot::AutoDriveShoot(
     // AddCommands(FooCommand(), BarCommand());
     path = "driveForward";
 
-    AddCommands(AutoDrivePath(path, drivetrain), ShootingAction(intake, fConv, vConv, shooter));
+    AddCommands(
+        IntakeDeploy(true),
+        AutoDrivePath(path, drivetrain),
+        ShootingAction(intake, fConv, vConv, shooter));
 }
 
 bool AutoDriveShoot::RunsWhenDisabled() const

@@ -47,6 +47,13 @@ Drivetrain::Drivetrain()
     m_talonValidR3 = frc2135::TalonUtils::TalonCheck(m_motorR3, "DT", "R3");
     m_talonValidR4 = frc2135::TalonUtils::TalonCheck(m_motorR4, "DT", "R4");
 
+    SupplyCurrentLimitConfiguration supplyCurrentLimits;
+    supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+    m_motorL1.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+    m_motorL2.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+    m_motorR3.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+    m_motorR4.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+
     //  Load config file values
     ConfigFileLoad();
 
@@ -501,18 +508,20 @@ void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
     feet_per_second_t ySpeed = 0.0_fps;
     radians_per_second_t rot = 0.0_rad_per_s;
 
+    double yValueSquared = yValue * abs(yValue);
+    double xValueSquared = xValue * abs(xValue);
+
     switch (m_curDriveMode)
     {
         default:
         case DRIVEMODE_CURVATURE:
-            m_diffDrive.CurvatureDrive(-yValue, xValue,
-                                       m_isQuickTurn); // Boolean is for quick turn or not
+            m_diffDrive.CurvatureDrive(
+                -yValueSquared,
+                xValueSquared,
+                m_isQuickTurn); // Boolean is for quick turn or not
             break;
 
         case DRIVEMODE_VELCONTROL:
-            double yValueSquared = yValue * abs(yValue);
-            double xValueSquared = xValue * abs(xValue);
-
             ySpeed = yValueSquared * feet_per_second_t(m_vcMaxSpeed);
             rot = xValueSquared * radians_per_second_t(m_vcMaxAngSpeed);
             VelocityCLDrive(m_kinematics.ToWheelSpeeds({ ySpeed, 0_fps, rot }));
@@ -558,7 +567,6 @@ void Drivetrain::RamseteFollowerInit(string pathName)
     trajectoryStates = m_trajectory.States();
     m_trajTimer.Reset();
     m_trajTimer.Start();
-    SetBrakeMode(true);
 
     spdlog::info("Size of state table is {}", trajectoryStates.size());
 
