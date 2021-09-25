@@ -57,6 +57,10 @@ Intake::Intake()
 
         m_motorIN6.ConfigVoltageCompSaturation(12.0, 0);
         m_motorIN6.EnableVoltageCompensation(true);
+
+        SupplyCurrentLimitConfiguration supplyCurrentLimits;
+        supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+        m_motorIN6.ConfigSupplyCurrentLimit(supplyCurrentLimits);
     }
 
     Initialize();
