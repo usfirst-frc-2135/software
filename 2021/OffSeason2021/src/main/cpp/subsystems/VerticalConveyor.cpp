@@ -44,6 +44,10 @@ VerticalConveyor::VerticalConveyor()
         m_motorVC9.SetInverted(true);
         m_motorVC9.SetNeutralMode(NeutralMode::Coast);
         m_motorVC9.Set(ControlMode::PercentOutput, 0.0);
+
+        SupplyCurrentLimitConfiguration supplyCurrentLimits;
+        supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+        m_motorVC9.ConfigSupplyCurrentLimit(supplyCurrentLimits);
     }
 
     Initialize();
