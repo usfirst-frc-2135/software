@@ -287,7 +287,7 @@ meter_t Drivetrain::GetDistanceMetersRight()
 {
     if (frc::RobotBase::IsReal())
     {
-        return DriveConstants::kEncoderMetersPerCount * m_motorR3.GetSelectedSensorPosition(kPidIndex);
+        return DriveConstants::kEncoderMetersPerCount * -m_motorR3.GetSelectedSensorPosition(kPidIndex);
     }
     else
     {
@@ -310,7 +310,7 @@ frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeedsMPS()
         leftVelocity =
             DriveConstants::kEncoderMetersPerCount * m_motorL1.GetSelectedSensorVelocity() * 10 / 1_s;
         rightVelocity =
-            DriveConstants::kEncoderMetersPerCount * m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
+            DriveConstants::kEncoderMetersPerCount * -m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
     }
     else
     {
@@ -431,6 +431,7 @@ void Drivetrain::VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &target
 //
 bool Drivetrain::LoadTrajectory()
 {
+    /*
     wpi::SmallString<64> outputDirectory;
     frc::filesystem::GetDeployDirectory(outputDirectory);
     outputDirectory.append("/output/testPath.wpilib.json");
@@ -445,6 +446,8 @@ bool Drivetrain::LoadTrajectory()
         spdlog::error("pathFile not good");
     };
     return pathFile.good();
+    */
+    return true;
 }
 
 void Drivetrain::PlotTrajectory(frc::Trajectory trajectory)
@@ -551,14 +554,14 @@ void Drivetrain::ToggleDriveMode()
 //
 //  Autonomous command - Ramsete follower
 //
-void Drivetrain::RamseteFollowerInit(void)
+void Drivetrain::RamseteFollowerInit(string pathName)
 {
     // Get our trajectory
     // TODO: Move this to be able to load a trajectory while disabled when
     //          the user changes the chooser selection
     wpi::SmallString<64> outputDirectory;
     frc::filesystem::GetDeployDirectory(outputDirectory);
-    outputDirectory.append("/output/curvePath.wpilib.json");
+    outputDirectory.append("/output/" + pathName + ".wpilib.json");
     spdlog::info("Output Directory is: {}", outputDirectory);
     std::ifstream pathFile(outputDirectory.c_str());
     if (pathFile.good())
