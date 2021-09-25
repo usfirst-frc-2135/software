@@ -45,6 +45,10 @@ FloorConveyor::FloorConveyor()
         m_motorFC8.SetInverted(false);
         m_motorFC8.SetNeutralMode(NeutralMode::Coast);
         m_motorFC8.Set(ControlMode::PercentOutput, 0.0);
+
+        SupplyCurrentLimitConfiguration supplyCurrentLimits;
+        supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+        m_motorFC8.ConfigSupplyCurrentLimit(supplyCurrentLimits);
     }
 
     Initialize();

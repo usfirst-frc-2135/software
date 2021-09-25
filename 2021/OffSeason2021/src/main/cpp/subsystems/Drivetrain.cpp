@@ -47,6 +47,13 @@ Drivetrain::Drivetrain()
     m_talonValidR3 = frc2135::TalonUtils::TalonCheck(m_motorR3, "DT", "R3");
     m_talonValidR4 = frc2135::TalonUtils::TalonCheck(m_motorR4, "DT", "R4");
 
+    SupplyCurrentLimitConfiguration supplyCurrentLimits;
+    supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+    m_motorL1.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+    m_motorL2.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+    m_motorR3.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+    m_motorR4.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+
     //  Load config file values
     ConfigFileLoad();
 
