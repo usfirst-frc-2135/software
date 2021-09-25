@@ -153,19 +153,15 @@ void RobotContainer::ConfigureButtonBindings()
 
     // Operator Controller Assignments
     frc2::JoystickButton m_intakingOp{ &m_operatorController, (int)frc::XboxController::Button::kBumperLeft };
-    frc2::JoystickButton m_shootingOp{ &m_operatorController,
-                                       (int)frc::XboxController::Button::kBumperRight };
+    frc2::JoystickButton m_shooterRunOp{ &m_operatorController, (int)frc::XboxController::Button::kBumperRight };
+    frc2::JoystickButton m_shooterOffOp{ &m_operatorController, (int)frc::XboxController::Button::kX };
     frc2::JoystickButton m_inDeployOp{ &m_operatorController, (int)frc::XboxController::Button::kY };
     frc2::JoystickButton m_inStowOp{ &m_driverController, (int)frc::XboxController::Button::kA };
 
     m_intakingOp.WhenPressed(IntakingAction(&m_intake, &m_floorConveyor, &m_verticalConveyor), true);
     m_intakingOp.WhenReleased(IntakingStop(&m_intake, &m_floorConveyor, &m_verticalConveyor), true);
-    m_shootingOp.WhenPressed(
-        ShootingAction(&m_intake, &m_floorConveyor, &m_verticalConveyor, &m_shooter),
-        true);
-    m_shootingOp.WhenReleased(
-        ShootingStop(&m_intake, &m_floorConveyor, &m_verticalConveyor, &m_shooter),
-        true);
+    m_shooterRunOp.WhenPressed(ShooterRun(Shooter::SHOOTERSPEED_FORWARD, &m_shooter), true);
+    m_shooterOffOp.WhenPressed(ShooterRun(Shooter::SHOOTERSPEED_STOP, &m_shooter), true);
     m_inDeployOp.WhenPressed(IntakeDeploy(true), true);
     m_inStowOp.WhenPressed(IntakeDeploy(false), true);
 }

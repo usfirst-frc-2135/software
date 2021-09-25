@@ -24,9 +24,11 @@
 # Floor Conveyor settings
   FC_AcquireSpeed = 1.0
   FC_ExpelSpeed = -0.2
+  FC_ExpelSpeedFast = -1.0
 # Vert Conveyor settings
   VC_AcquireSpeed = 1.0
   VC_ExpelSpeed = -0.2
+  VC_ExpelSpeedFast = -1.0
 # Shooter settings
   SH_FlywheelRPM = 3000
   SH_FeederRPM = 3000

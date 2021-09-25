@@ -35,6 +35,7 @@ FloorConveyor::FloorConveyor()
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsDouble("FC_AcquireSpeed", m_acquireSpeed, 1.0);
     config->GetValueAsDouble("FC_ExpelSpeed", m_expelSpeed, -0.2);
+    config->GetValueAsDouble("FC_ExpelSpeedFast", m_expelSpeedFast, -1.0);
 
     // Set motor directions
     // Turn on Coast mode (not brake)
@@ -121,6 +122,10 @@ void FloorConveyor::SetFloorConveyorSpeed(int mode)
         case FCONVEYOR_EXPEL:
             strName = "EXPEL";
             outputFC = m_expelSpeed;
+            break;
+        case FCONVEYOR_EXPEL_FAST:
+            strName = "EXPEL_FAST";
+            outputFC = m_expelSpeedFast;
             break;
     }
 
