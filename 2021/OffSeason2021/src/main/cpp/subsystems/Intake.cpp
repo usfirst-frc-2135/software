@@ -141,10 +141,6 @@ void Intake::SetIntakeSpeed(int mode)
             strName = "EXPEL";
             output = m_expelSpeed;
             break;
-        case INTAKE_EXPEL_FAST:
-            strName = "EXPEL_FAST";
-            output = m_expelSpeedFast;
-            break;
     }
 
     // Set speed of intake and the percent output

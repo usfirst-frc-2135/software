@@ -63,7 +63,6 @@ public:
         INTAKE_STOP = 0,
         INTAKE_ACQUIRE = 1,
         INTAKE_EXPEL = -1,
-        INTAKE_EXPEL_FAST = -2
     } intakeDirection_e;
 
     bool m_throttleINZeroed;
