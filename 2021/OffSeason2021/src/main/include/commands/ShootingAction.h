@@ -9,12 +9,6 @@
 // it from being updated in the future.
 
 #pragma once
-/*
-#include "subsystems/FloorConveyor.h"
-#include "subsystems/Intake.h"
-#include "subsystems/Shooter.h"
-#include "subsystems/VerticalConveyor.h"
-*/
 
 #include "commands/FloorConveyorRun.h"
 #include "commands/IntakeRun.h"
