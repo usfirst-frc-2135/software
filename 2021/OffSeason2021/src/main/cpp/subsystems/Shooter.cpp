@@ -64,7 +64,7 @@ Shooter::Shooter()
         statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
 
         m_motorSH10.ConfigSupplyCurrentLimit(supplyCurrentLimits);
-        m_motorSH11.ConfigStatorCurrentLimit(statorCurrentLimits);
+        m_motorSH10.ConfigStatorCurrentLimit(statorCurrentLimits);
 
         // Configure sensor settings
         m_motorSH10.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, kPidIndex, kCANTimeout);
@@ -95,6 +95,15 @@ Shooter::Shooter()
         m_motorSH11.ConfigNeutralDeadband(m_neutralDeadband, kCANTimeout);
         m_motorSH11.ConfigPeakOutputReverse(0.0, kCANTimeout);
 
+        SupplyCurrentLimitConfiguration supplyCurrentLimits;
+        supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+
+        StatorCurrentLimitConfiguration statorCurrentLimits;
+        statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
+
+        m_motorSH11.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+        m_motorSH11.ConfigStatorCurrentLimit(statorCurrentLimits);
+
         // Configure sensor settings
         m_motorSH11.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, kPidIndex, kCANTimeout);
         m_motorSH11.SetSensorPhase(true);
@@ -115,7 +124,7 @@ Shooter::Shooter()
     frc::SmartDashboard::PutNumber("SH_PidKi", m_pidKi);
     frc::SmartDashboard::PutNumber("SH_PidKd", m_pidKd);
 
-    frc::SmartDashboard::PutNumber("SH_FeederSmartDashRPM", 0.0);
+    frc::SmartDashboard::PutNumber("SH_FeederSmartDashRPM", m_FeederSmartDashPRM);
     frc::SmartDashboard::PutNumber("SH_FlywheelSmartDashRPM", m_FlywheelCurrentRPM);
 
     Initialize();
