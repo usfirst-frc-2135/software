@@ -558,7 +558,6 @@ void Drivetrain::RamseteFollowerInit(string pathName)
     trajectoryStates = m_trajectory.States();
     m_trajTimer.Reset();
     m_trajTimer.Start();
-    SetBrakeMode(true);
 
     spdlog::info("Size of state table is {}", trajectoryStates.size());
 
