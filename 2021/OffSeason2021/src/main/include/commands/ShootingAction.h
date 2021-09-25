@@ -9,6 +9,12 @@
 // it from being updated in the future.
 
 #pragma once
+/*
+#include "subsystems/FloorConveyor.h"
+#include "subsystems/Intake.h"
+#include "subsystems/Shooter.h"
+#include "subsystems/VerticalConveyor.h"
+*/
 
 #include "commands/FloorConveyorRun.h"
 #include "commands/IntakeRun.h"
@@ -17,14 +23,14 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/ParallelCommandGroup.h>
+#include <frc2/command/SequentialCommandGroup.h>
 
 /**
  *
  *
  * @author ExampleAuthor
  */
-class ShootingAction : public frc2::CommandHelper<frc2::ParallelCommandGroup, ShootingAction>
+class ShootingAction : public frc2::CommandHelper<frc2::SequentialCommandGroup, ShootingAction>
 {
 public:
     explicit ShootingAction(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv, Shooter *shooter);
