@@ -202,7 +202,6 @@ private:
     void TankDriveVolts(volt_t left, volt_t right);
     void VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &speeds);
 
-    bool LoadTrajectory(void);
     void PlotTrajectory(frc::Trajectory trajectory);
 
 public:

@@ -79,7 +79,6 @@ Drivetrain::Drivetrain()
     m_rightController = frc2::PIDController(DriveConstants::kPDriveVel, 0, 0);
 
     m_ramseteController = frc::RamseteController(DriveConstants::kRamseteB, DriveConstants::kRamseteZeta);
-    LoadTrajectory();
 
     // Simulation only - quadrature encoders
     m_leftEncoder.SetDistancePerPulse(DriveConstants::kEncoderMetersPerCount.to<double>());
@@ -429,26 +428,6 @@ void Drivetrain::VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &target
 //
 //  Trajectory management
 //
-bool Drivetrain::LoadTrajectory()
-{
-    /*
-    wpi::SmallString<64> outputDirectory;
-    frc::filesystem::GetDeployDirectory(outputDirectory);
-    outputDirectory.append("/output/testPath.wpilib.json");
-    spdlog::info("Output Directory is {}", outputDirectory);
-    std::ifstream pathFile(outputDirectory.c_str());
-    if (pathFile.good())
-    {
-        spdlog::info("pathFile is good");
-    }
-    else
-    {
-        spdlog::error("pathFile not good");
-    };
-    return pathFile.good();
-    */
-    return true;
-}
 
 void Drivetrain::PlotTrajectory(frc::Trajectory trajectory)
 {
