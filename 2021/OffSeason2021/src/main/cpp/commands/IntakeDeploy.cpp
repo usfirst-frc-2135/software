@@ -28,7 +28,7 @@ IntakeDeploy::IntakeDeploy(bool intakeExtend) : m_intakeExtend(intakeExtend)
 // Called just before this Command runs the first time
 void IntakeDeploy::Initialize()
 {
-    spdlog::info("IntakeDeploy - Init {} ");
+    spdlog::info("IntakeDeploy - Init {}", (m_intakeExtend) ? "DEPLOY" : "STOW");
     RobotContainer *robotContainer = RobotContainer::GetInstance();
     robotContainer->m_intake.SetDeployerSolenoid(m_intakeExtend);
 }

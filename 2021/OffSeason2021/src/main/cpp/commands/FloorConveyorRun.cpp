@@ -46,8 +46,7 @@ bool FloorConveyorRun::IsFinished()
 // Called once after isFinished returns true
 void FloorConveyorRun::End(bool interrupted)
 {
-    spdlog::info("FloorConveyorRun - End {}", m_conveyorDirection);
-    m_floorconveyor->SetFloorConveyorSpeed(m_conveyorDirection);
+    spdlog::info("FloorConveyorRun - End");
 }
 
 bool FloorConveyorRun::RunsWhenDisabled() const

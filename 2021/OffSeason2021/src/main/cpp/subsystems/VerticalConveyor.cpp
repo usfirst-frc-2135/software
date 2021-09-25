@@ -86,11 +86,7 @@ void VerticalConveyor::SimulationPeriodic()
 void VerticalConveyor::Initialize(void)
 {
     spdlog::info("VC Init");
-    // Motor off
-    if (m_talonValidVC9)
-    {
-        m_motorVC9.Set(ControlMode::PercentOutput, 0.0);
-    }
+    SetVerticalConveyorSpeed(VCONVEYOR_STOP);
 }
 
 //    Dump all Talon faults
@@ -100,12 +96,12 @@ void VerticalConveyor::FaultDump(void)
 }
 
 // Set mode of conveyor
-void VerticalConveyor::SetVerticalConveyorSpeed(int direction)
+void VerticalConveyor::SetVerticalConveyorSpeed(int mode)
 {
     const char *strName;
     double outputVC = 0.0; // Default: off
 
-    switch (direction)
+    switch (mode)
     {
         default:
         case VCONVEYOR_STOP:

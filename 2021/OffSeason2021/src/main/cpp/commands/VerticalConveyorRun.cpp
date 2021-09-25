@@ -46,8 +46,7 @@ bool VerticalConveyorRun::IsFinished()
 // Called once after isFinished returns true
 void VerticalConveyorRun::End(bool interrupted)
 {
-    spdlog::info("VerticalConveyorRun - End {}", m_vConveyorDirection);
-    m_verticalconveyor->SetVerticalConveyorSpeed(m_vConveyorDirection);
+    spdlog::info("VerticalConveyorRun - End");
 }
 
 bool VerticalConveyorRun::RunsWhenDisabled() const

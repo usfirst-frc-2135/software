@@ -64,5 +64,5 @@ public:
     void Initialize(void);
     void FaultDump(void);
 
-    void SetFloorConveyorSpeed(int direction);
+    void SetFloorConveyorSpeed(int mode);
 };

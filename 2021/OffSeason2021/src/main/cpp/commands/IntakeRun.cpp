@@ -46,8 +46,7 @@ bool IntakeRun::IsFinished()
 // Called once after isFinished returns true
 void IntakeRun::End(bool interrupted)
 {
-    spdlog::info("IntakeRun - End {}", m_intakeDirection);
-    m_intake->SetIntakeSpeed(m_intakeDirection);
+    spdlog::info("IntakeRun - End");
 }
 
 bool IntakeRun::RunsWhenDisabled() const
