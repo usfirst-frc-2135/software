@@ -125,29 +125,31 @@ void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
 
     yCLValue = joystick->GetY(frc::GenericHID::JoystickHand::kLeftHand);
 
-    if (!m_talonValidCL14)
-    {
-        spdlog::info("Talon not valid");
-        return;
-    }
-
     if (yCLValue > -0.1 && yCLValue < 0.1)
     {
         spdlog::info("Climber Stopped");
-        SetBrakeSolenoid(true);
-        m_motorCL14.Set(ControlMode::PercentOutput, 0);
-        return;
+        SetBrakeSolenoid(CL_BRAKE_LOCKED);
+    }
+    else
+    {
+        SetBrakeSolenoid(CL_BRAKE_UNLOCKED);
+        // If joystick is above a value, climber will move up
+        if (yCLValue > 0.1)
+            motorOutput = m_upSpeed;
+
+        // If joystick is below a value, climber will move down
+        else if (yCLValue < -0.1)
+            motorOutput = m_downSpeed;
     }
 
-    SetBrakeSolenoid(false);
-    // If joystick is above a value, climber will move up
-    if (yCLValue > 0.1)
-        motorOutput = m_upSpeed;
-
-    // If joystick is below a value, climber will move down
-    else if (yCLValue < -0.1)
-        motorOutput = m_downSpeed;
-    m_motorCL14.Set(ControlMode::PercentOutput, motorOutput);
+    if (!m_talonValidCL14)
+    {
+        spdlog::info("Talon not valid");
+    }
+    else
+    {
+        m_motorCL14.Set(ControlMode::PercentOutput, motorOutput);
+    }
 }
 
 void Climber::SetClimberStopped(void)

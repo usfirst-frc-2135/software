@@ -35,10 +35,7 @@ void ClimberRun::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ClimberRun::Execute()
 {
-    //m_climber->RaiseClimberWithJoysticks(RobotContainer::GetInstance()->getOperatorController());
-    spdlog::info("Climber Brake - Init {} ");
-    RobotContainer *robotContainer = RobotContainer::GetInstance();
-    robotContainer->m_climber.SetBrakeSolenoid(m_braking);
+    m_climber->RaiseClimberWithJoysticks(RobotContainer::GetInstance()->getOperatorController());
 }
 
 // Make this return true when this Command no longer needs to run execute()
