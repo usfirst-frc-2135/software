@@ -72,6 +72,7 @@ private:
     const double kFeederCPR = kFalconEncoderCPR * kFeederGearRatio;
     const double kFlywheelGearRatio = (1.0 / 1.0); // No reduction 1:1
     const double kFlywheelCPR = kFalconEncoderCPR * kFlywheelGearRatio;
+    const double kFeedForwardPerRPM = (0.0475 / 3000);
     const int kCANTimeout = 30; // CAN timeout in msec to wait for response
 
     // Declare module variables
@@ -89,7 +90,12 @@ private:
     double m_FeederTargetRPM;
     double m_FlywheelTargetRPM;
 
+    bool m_atDesiredSpeed;
+
     int m_shooterState; // Current shooter speed level
+
+    double m_FlywheelCurrentRPM; // Current flywheel RPM
+    double m_FeederCurrentRPM;   // Current feeder RPM
 
     // Conversion functions between RPM and Output and CTRE Native Units / 100ms
     double FlywheelRPMToNative(double rpm);
@@ -121,5 +127,5 @@ public:
 
     void SetShooterSpeed(int state);
     void Aiming();
-    void AtDesiredRPM();
+    bool AtDesiredRPM();
 };

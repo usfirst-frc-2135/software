@@ -35,11 +35,13 @@ Shooter::Shooter()
 
     // Initialize Variables
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("SH_PidKf", m_pidKf, 0.02305);
-    config->GetValueAsDouble("SH_PidKp", m_pidKp, 0.01461);
-    config->GetValueAsDouble("SH_PidKi", m_pidKi, 0.000);
-    config->GetValueAsDouble("SH_PidKd", m_pidKd, 0.000);
+    config->GetValueAsDouble("SH_PidKp", m_pidKp, 0.0);
+    config->GetValueAsDouble("SH_PidKi", m_pidKi, 0.0);
+    config->GetValueAsDouble("SH_PidKd", m_pidKd, 0.0);
     config->GetValueAsDouble("SH_NeutralDeadband", m_neutralDeadband, 0.004);
+    config->GetValueAsDouble("SH_FlywheelRPM", m_FlywheelTargetRPM);
+    config->GetValueAsDouble("SH_FeederRPM", m_FeederTargetRPM);
+    m_pidKf = m_FlywheelTargetRPM * kFeedForwardPerRPM;
 
     if (m_talonValidSH10)
     {
@@ -53,6 +55,16 @@ Shooter::Shooter()
         m_motorSH10.ConfigVoltageCompSaturation(12.0, kCANTimeout);
         m_motorSH10.EnableVoltageCompensation(true);
         m_motorSH10.ConfigNeutralDeadband(m_neutralDeadband, kCANTimeout);
+        m_motorSH10.ConfigPeakOutputReverse(0.0, kCANTimeout);
+
+        SupplyCurrentLimitConfiguration supplyCurrentLimits;
+        supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+
+        StatorCurrentLimitConfiguration statorCurrentLimits;
+        statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
+
+        m_motorSH10.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+        m_motorSH10.ConfigStatorCurrentLimit(statorCurrentLimits);
 
         // Configure sensor settings
         m_motorSH10.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, kPidIndex, kCANTimeout);
@@ -81,6 +93,16 @@ Shooter::Shooter()
         m_motorSH11.ConfigVoltageCompSaturation(12.0, kCANTimeout);
         m_motorSH11.EnableVoltageCompensation(true);
         m_motorSH11.ConfigNeutralDeadband(m_neutralDeadband, kCANTimeout);
+        m_motorSH11.ConfigPeakOutputReverse(0.0, kCANTimeout);
+
+        SupplyCurrentLimitConfiguration supplyCurrentLimits;
+        supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+
+        StatorCurrentLimitConfiguration statorCurrentLimits;
+        statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
+
+        m_motorSH11.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+        m_motorSH11.ConfigStatorCurrentLimit(statorCurrentLimits);
 
         // Configure sensor settings
         m_motorSH11.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, kPidIndex, kCANTimeout);
@@ -102,6 +124,9 @@ Shooter::Shooter()
     frc::SmartDashboard::PutNumber("SH_PidKi", m_pidKi);
     frc::SmartDashboard::PutNumber("SH_PidKd", m_pidKd);
 
+    frc::SmartDashboard::PutNumber("SH_FeederSmartDashRPM", m_FeederSmartDashPRM);
+    frc::SmartDashboard::PutNumber("SH_FlywheelSmartDashRPM", m_FlywheelCurrentRPM);
+
     Initialize();
 }
 
@@ -113,25 +138,22 @@ void Shooter::Periodic()
     // Only update indicators every 100 ms to cut down on network traffic
     if (periodicInterval++ % 5 == 0)
     {
-        double feederRPM = 0.0;
-        double flywheelRPM = 0.0;
-
         if (m_talonValidSH10)
         {
-            feederRPM = NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex));
+            m_FeederCurrentRPM = NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex));
         }
 
         if (m_talonValidSH11)
         {
-            flywheelRPM = NativeToFlywheelRPM(m_motorSH11.GetSelectedSensorVelocity(kPidIndex));
+            m_FlywheelCurrentRPM = NativeToFlywheelRPM(m_motorSH11.GetSelectedSensorVelocity(kPidIndex));
         }
 
-        frc::SmartDashboard::PutNumber("SH_FeederRPM", feederRPM);
-        frc::SmartDashboard::PutNumber("SH_FlywheelRPM", flywheelRPM);
+        frc::SmartDashboard::PutNumber("SH_FeederRPM", m_FeederCurrentRPM);
+        frc::SmartDashboard::PutNumber("SH_FlywheelRPM", m_FlywheelCurrentRPM);
 
-        if (m_FlywheelTargetRPM > 0)
+        if (m_FlywheelTargetRPM > 50)
         {
-            spdlog::info("SH_FeederRPM {} SH_FlywheelRPM {}", feederRPM, flywheelRPM);
+            spdlog::info("SH_FeederRPM {} SH_FlywheelRPM {}", m_FeederCurrentRPM, m_FlywheelCurrentRPM);
         }
 
         // Show current drain and slave output if more debugging is needed
@@ -159,8 +181,8 @@ void Shooter::Periodic()
 void Shooter::SimulationPeriodic()
 {
     // This method will be called once per scheduler run when in simulation
-    m_feederSim.SetInputVoltage( 1_V * m_motorSH10.Get() * frc::RobotController::GetInputVoltage() );
-    m_flywheelSim.SetInputVoltage( 1_V * m_motorSH11.Get() * frc::RobotController::GetInputVoltage() );
+    m_feederSim.SetInputVoltage(1_V * m_motorSH10.Get() * frc::RobotController::GetInputVoltage());
+    m_flywheelSim.SetInputVoltage(1_V * m_motorSH11.Get() * frc::RobotController::GetInputVoltage());
 
     m_feederSim.Update(20_ms);
     m_flywheelSim.Update(20_ms);
@@ -217,6 +239,7 @@ double Shooter::NativeToFeederRPM(double native)
 void Shooter::SetShooterSpeed(int state)
 {
     m_shooterState = state;
+    spdlog::info("Shooter State {}", state);
 
     // // Validate and set the requested position to move
     switch (state)
@@ -226,8 +249,8 @@ void Shooter::SetShooterSpeed(int state)
             m_FlywheelTargetRPM = 0.0;
             break;
         case SHOOTERSPEED_FORWARD:
-            m_FeederTargetRPM = 4000;
-            m_FlywheelTargetRPM = 4000;
+            m_FeederTargetRPM = 3000;
+            m_FlywheelTargetRPM = 3000;
             break;
         case SHOOTERSPEED_SMARTDASH:
             m_FeederTargetRPM = frc::SmartDashboard::GetNumber("SH_FeederSmartDashRPM", 0.0);
@@ -238,10 +261,10 @@ void Shooter::SetShooterSpeed(int state)
             return;
     }
 
-    frc::SmartDashboard::GetNumber("SH_PidKf", m_pidKf);
-    frc::SmartDashboard::GetNumber("SH_PidKp", m_pidKp);
-    frc::SmartDashboard::GetNumber("SH_PidKi", m_pidKi);
-    frc::SmartDashboard::GetNumber("SH_PidKd", m_pidKd);
+    m_pidKf = frc::SmartDashboard::GetNumber("SH_PidKf", m_pidKf);
+    m_pidKp = frc::SmartDashboard::GetNumber("SH_PidKp", m_pidKp);
+    m_pidKi = frc::SmartDashboard::GetNumber("SH_PidKi", m_pidKi);
+    m_pidKd = frc::SmartDashboard::GetNumber("SH_PidKd", m_pidKd);
 
     m_motorSH10.Config_kF(0, m_pidKf, kCANTimeout);
     m_motorSH10.Config_kP(0, m_pidKp, kCANTimeout);
@@ -269,4 +292,14 @@ void Shooter::SetShooterSpeed(int state)
 
 void Shooter::Aiming() {}
 
-void Shooter::AtDesiredRPM() {}
+bool Shooter::AtDesiredRPM()
+{
+    m_atDesiredSpeed = (fabs(m_FlywheelTargetRPM - m_FlywheelCurrentRPM) < 200.0);
+
+    if (m_atDesiredSpeed)
+    {
+        spdlog::info("RPM at Speed {}", m_atDesiredSpeed);
+    }
+
+    return m_atDesiredSpeed;
+}

@@ -27,7 +27,10 @@ ClimberRun::ClimberRun(bool braking, Climber *m_climber) : m_braking(braking), m
 }
 
 // Called just before this Command runs the first time
-void ClimberRun::Initialize() {}
+void ClimberRun::Initialize()
+{
+    spdlog::info("ClimberRun - Init");
+}
 
 // Called repeatedly when this Command is scheduled to run
 void ClimberRun::Execute()
@@ -45,7 +48,10 @@ bool ClimberRun::IsFinished()
 }
 
 // Called once after isFinished returns true
-void ClimberRun::End(bool interrupted) {}
+void ClimberRun::End(bool interrupted)
+{
+    spdlog::info("ClimberRun - End");
+}
 
 bool ClimberRun::RunsWhenDisabled() const
 {

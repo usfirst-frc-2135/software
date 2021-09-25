@@ -19,6 +19,7 @@
 #include "commands/AutoDrivePath.h"
 #include "commands/AutoDriveShoot.h"
 #include "commands/AutoDriveStop.h"
+#include "commands/AutoPathSequence.h"
 #include "commands/AutoShootTrenchLeft.h"
 #include "commands/AutoShootTrenchRight.h"
 #include "commands/ClimberBrake.h"

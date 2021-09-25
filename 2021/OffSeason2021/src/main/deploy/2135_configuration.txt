@@ -28,9 +28,8 @@
   VC_AcquireSpeed = 1.0
   VC_ExpelSpeed = -0.2
 # Shooter settings
-  SH_FlywheelRPM = 4000
-  SH_FeederRPM = 4000
-  SH_PidKf = 0.02362
+  SH_FlywheelRPM = 3000
+  SH_FeederRPM = 3000
   SH_PidKp = 0.00000
   SH_PidKi = 0.000
   SH_PidKd = 0.000
@@ -40,3 +39,7 @@
   CL_InitialDownSpeed = -0.25
 # Autonomous settings
   AutoDriveDist = 97.25
+# Path names
+  path1 = turn1
+  path2 = turn1Reverse
+  path3 = rightAngleTurn
