@@ -72,7 +72,6 @@ private:
     const double kFeederCPR = kFalconEncoderCPR * kFeederGearRatio;
     const double kFlywheelGearRatio = (1.0 / 1.0); // No reduction 1:1
     const double kFlywheelCPR = kFalconEncoderCPR * kFlywheelGearRatio;
-    const double kFeedForwardPerRPM = (0.0475 / 3000);
     const int kCANTimeout = 30; // CAN timeout in msec to wait for response
 
     // Declare module variables
