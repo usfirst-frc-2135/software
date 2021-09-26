@@ -2,6 +2,7 @@
   RB_Name = 2135-Grogu
 # DriveTrain settings
   DT_DriveMode = 0
+  DT_StoppedTolerance = 0.05
 # Competition mode
   DT_DriveXScaling = 1.0
   DT_DriveYScaling = 1.0
@@ -20,7 +21,7 @@
   DT_VCPIDKd = 0.0
 # Intake settings
   IN_AcquireSpeed = 1.0
-  IN_ExpelSpeed = -0.2
+  IN_ExpelSpeed = -1.0
 # Floor Conveyor settings
   FC_AcquireSpeed = 1.0
   FC_ExpelSpeed = 0.2
