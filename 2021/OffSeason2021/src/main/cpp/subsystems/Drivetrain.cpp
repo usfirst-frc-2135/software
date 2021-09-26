@@ -662,15 +662,9 @@ void Drivetrain::RamseteFollowerExecute(void)
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
-// check path completion on the real robot
-#ifdef __FRC_ROBORIO__
     leftNearStopped = m_tolerance * 1_mps >= m_wheelSpeeds.left;
     rightNearStopped = m_tolerance * 1_mps >= m_wheelSpeeds.right;
     return ((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime() && leftNearStopped && rightNearStopped);
-// check path completion in simulation
-#else
-    return ((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime());
-#endif
 }
 
 void Drivetrain::RamseteFollowerEnd(void)
