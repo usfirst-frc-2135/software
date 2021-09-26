@@ -16,9 +16,7 @@
 
 #include "commands/ClimberRun.h"
 
-ClimberRun::ClimberRun(int climberDirection, Climber *m_climber) :
-    m_climberDirection(climberDirection),
-    m_climber(m_climber)
+ClimberRun::ClimberRun(bool braking, Climber *m_climber) : m_braking(braking), m_climber(m_climber)
 {
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(m_Subsystem);

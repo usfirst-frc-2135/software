@@ -38,7 +38,8 @@
   SH_PidKd = 0.000
   SH_NeutralDeadband = 0.004
 # Climber settings
-  CL_ClimbSpeed = 1.0
+  CL_InitialUpSpeed = 0.25
+  CL_InitialDownSpeed = -0.25
 # Autonomous settings
   AutoDriveDist = 97.25
 # Path names
