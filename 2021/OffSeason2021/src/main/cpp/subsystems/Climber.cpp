@@ -65,7 +65,9 @@ Climber::Climber()
         statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
 
         m_motorCL14.ConfigSupplyCurrentLimit(supplyCurrentLimits);
-        m_motorCL14.ConfigStatorCurrentLimit(statorCurrentLimits);
+        #ifdef __FRC_ROBORIO__
+            m_motorCL14.ConfigStatorCurrentLimit(statorCurrentLimits);
+        #endif
     }
 
     Initialize();
