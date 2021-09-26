@@ -58,10 +58,12 @@ Drivetrain::Drivetrain()
     m_motorR3.ConfigSupplyCurrentLimit(supplyCurrentLimits);
     m_motorR4.ConfigSupplyCurrentLimit(supplyCurrentLimits);
 
-    m_motorL1.ConfigStatorCurrentLimit(statorCurrentLimits);
-    m_motorL2.ConfigStatorCurrentLimit(statorCurrentLimits);
-    m_motorR3.ConfigStatorCurrentLimit(statorCurrentLimits);
-    m_motorR4.ConfigStatorCurrentLimit(statorCurrentLimits);
+    #ifdef __FRC_ROBORIO__
+        m_motorL1.ConfigStatorCurrentLimit(statorCurrentLimits);
+        m_motorL2.ConfigStatorCurrentLimit(statorCurrentLimits);
+        m_motorR3.ConfigStatorCurrentLimit(statorCurrentLimits);
+        m_motorR4.ConfigStatorCurrentLimit(statorCurrentLimits);
+    #endif
 
     //  Load config file values
     ConfigFileLoad();
