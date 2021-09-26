@@ -43,7 +43,6 @@ private:
 
     double m_acquireSpeed;
     double m_expelSpeed;
-    double m_expelSpeedFast;
 
 public:
     Intake();

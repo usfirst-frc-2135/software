@@ -2,6 +2,7 @@
   RB_Name = 2135-Grogu
 # DriveTrain settings
   DT_DriveMode = 0
+  DT_StoppedTolerance = 0.05
 # Competition mode
   DT_DriveXScaling = 1.0
   DT_DriveYScaling = 1.0
