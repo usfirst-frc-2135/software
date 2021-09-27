@@ -41,8 +41,6 @@
 # Climber settings
   CL_InitialUpSpeed = 0.25
   CL_InitialDownSpeed = -0.25
-# Autonomous settings
-  AutoDriveDist = 97.25
 # Path names
   path1 = turn1
   path2 = turn1Reverse
