@@ -181,6 +181,7 @@ void Drivetrain::ConfigFileLoad(void)
     config->GetValueAsDouble("DT_VCPIDKp", m_vcpidKp, 1.0);
     config->GetValueAsDouble("DT_VCPIDKi", m_vcpidKi, 0.0);
     config->GetValueAsDouble("DT_VCPIDKd", m_vcpidKd, 0.0);
+    config->GetValueAsDouble("DT_StoppedTolerance", m_tolerance, 0.05);
 }
 
 void Drivetrain::TalonMasterInitialize(WPI_BaseMotorController &motor)
@@ -672,7 +673,9 @@ void Drivetrain::RamseteFollowerExecute(void)
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
-    return ((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime());
+    leftNearStopped = m_tolerance * 1_mps >= m_wheelSpeeds.left;
+    rightNearStopped = m_tolerance * 1_mps >= m_wheelSpeeds.right;
+    return ((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime() && leftNearStopped && rightNearStopped);
 }
 
 void Drivetrain::RamseteFollowerEnd(void)

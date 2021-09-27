@@ -64,7 +64,9 @@ Shooter::Shooter()
         statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
 
         m_motorSH10.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+#ifdef __FRC_ROBORIO__
         m_motorSH10.ConfigStatorCurrentLimit(statorCurrentLimits);
+#endif
 
         // Configure sensor settings
         m_motorSH10.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, kPidIndex, kCANTimeout);
@@ -102,7 +104,9 @@ Shooter::Shooter()
         statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
 
         m_motorSH11.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+#ifdef __FRC_ROBORIO__
         m_motorSH11.ConfigStatorCurrentLimit(statorCurrentLimits);
+#endif
 
         // Configure sensor settings
         m_motorSH11.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, kPidIndex, kCANTimeout);

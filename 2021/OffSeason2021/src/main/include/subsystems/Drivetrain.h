@@ -174,6 +174,11 @@ private:
     frc::Trajectory m_trajectory;
     frc::Timer m_trajTimer;
 
+    // Path following variables
+    double m_tolerance;
+    bool leftNearStopped;
+    bool rightNearStopped;
+
     ///////////////////////////////////////////////////////////////////////////
 
     // Initialization methods
