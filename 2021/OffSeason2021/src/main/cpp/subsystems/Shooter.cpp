@@ -242,7 +242,6 @@ double Shooter::NativeToFeederRPM(double native)
 
 void Shooter::SetShooterSpeed(int state)
 {
-    m_shooterState = state;
     spdlog::info("Shooter State {}", state);
 
     // // Validate and set the requested position to move
@@ -298,12 +297,12 @@ void Shooter::Aiming() {}
 
 bool Shooter::AtDesiredRPM()
 {
-    m_atDesiredSpeed = (fabs(m_FlywheelTargetRPM - m_FlywheelCurrentRPM) < 200.0);
+    bool atDesiredSpeed = (fabs(m_FlywheelTargetRPM - m_FlywheelCurrentRPM) < 200.0);
 
-    if (m_atDesiredSpeed)
+    if (atDesiredSpeed)
     {
-        spdlog::info("RPM at Speed {}", m_atDesiredSpeed);
+        spdlog::info("RPM at Speed {}", atDesiredSpeed);
     }
 
-    return m_atDesiredSpeed;
+    return atDesiredSpeed;
 }
