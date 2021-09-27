@@ -11,6 +11,7 @@
 #include "RobotContainer.h"
 
 #include "commands/ClimberRun.h"
+#include "frc2135/AxisButton.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/ParallelRaceGroup.h>
@@ -157,6 +158,11 @@ void RobotContainer::ConfigureButtonBindings()
     m_shootingDr.WhenReleased(
         ShootingStop(&m_intake, &m_floorConveyor, &m_verticalConveyor, &m_shooter),
         true);
+
+    // EXAMPLE ONLY: FIXME WITH CORRECT COMMANDS!
+    frc2135::AxisButton m_leftAxisDr(&m_driverController, (int)frc::XboxController::Axis::kLeftTrigger);
+    m_leftAxisDr.WhenPressed(IntakeDeploy(true), true);
+    m_leftAxisDr.WhenReleased(IntakeDeploy(false), true);
 
     // Operator Controller Assignments
     frc2::JoystickButton m_intakingOp{ &m_operatorController, (int)frc::XboxController::Button::kBumperLeft };
