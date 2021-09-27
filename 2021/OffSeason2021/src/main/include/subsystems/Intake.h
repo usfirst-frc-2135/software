@@ -64,8 +64,6 @@ public:
         INTAKE_EXPEL = -1,
     } intakeDirection_e;
 
-    bool m_throttleINZeroed;
-
     void Initialize(void);
     void FaultDump(void);
 

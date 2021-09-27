@@ -89,10 +89,6 @@ private:
     double m_FeederTargetRPM;
     double m_FlywheelTargetRPM;
 
-    bool m_atDesiredSpeed;
-
-    int m_shooterState; // Current shooter speed level
-
     double m_FlywheelCurrentRPM; // Current flywheel RPM
     double m_FeederCurrentRPM;   // Current feeder RPM
 
