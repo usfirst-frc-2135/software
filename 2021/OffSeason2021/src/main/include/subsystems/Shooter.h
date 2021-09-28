@@ -10,6 +10,7 @@
 
 #pragma once
 #include <frc/Encoder.h>
+#include <frc/Solenoid.h>
 #include <frc/simulation/EncoderSim.h>
 #include <frc/simulation/FlywheelSim.h>
 #include <frc/system/plant/LinearSystemId.h>
@@ -46,6 +47,8 @@ private:
     WPI_TalonSRX m_motorSH10{ 10 };
     WPI_TalonSRX m_motorSH11{ 11 };
 #endif
+
+    frc::Solenoid m_flashlight{ 0, 7 };
 
     // Sensors
 
@@ -121,6 +124,6 @@ public:
     void FaultDump(void);
 
     void SetShooterSpeed(int state);
-    void Aiming();
+    void FlashlightOn(bool onState);
     bool AtDesiredRPM();
 };

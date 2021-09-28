@@ -293,7 +293,13 @@ void Shooter::SetShooterSpeed(int state)
     spdlog::info("SH Set shooter speed - feeder {} flywheel {}", m_FeederTargetRPM, m_FlywheelTargetRPM);
 }
 
-void Shooter::Aiming() {}
+void Shooter::FlashlightOn(bool onState)
+{
+    spdlog::info("Shooter Flashlight {}", (onState) ? "ON" : "OFF");
+    frc::SmartDashboard::PutBoolean("Flashlight_State", onState);
+
+    m_flashlight.Set(onState);
+}
 
 bool Shooter::AtDesiredRPM()
 {

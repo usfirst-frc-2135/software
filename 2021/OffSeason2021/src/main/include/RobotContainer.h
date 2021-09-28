@@ -31,7 +31,6 @@
 #include "commands/IntakeDeploy.h"
 #include "commands/IntakeRun.h"
 #include "commands/ShooterAim.h"
-#include "commands/ShooterAtSpeed.h"
 #include "commands/ShooterRun.h"
 #include "commands/VerticalConveyorRun.h"
 #include "subsystems/Climber.h"
