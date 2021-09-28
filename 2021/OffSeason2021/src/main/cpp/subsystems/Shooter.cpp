@@ -144,12 +144,14 @@ void Shooter::Periodic()
     {
         if (m_talonValidSH10)
         {
-            m_FeederCurrentRPM = NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex));
+            m_FeederCurrentRPM =
+                m_feederFilter.Calculate(NativeToFeederRPM(m_motorSH10.GetSelectedSensorVelocity(kPidIndex)));
         }
 
         if (m_talonValidSH11)
         {
-            m_FlywheelCurrentRPM = NativeToFlywheelRPM(m_motorSH11.GetSelectedSensorVelocity(kPidIndex));
+            m_FlywheelCurrentRPM = m_flywheelFilter.Calculate(
+                NativeToFlywheelRPM(m_motorSH11.GetSelectedSensorVelocity(kPidIndex)));
         }
 
         frc::SmartDashboard::PutNumber("SH_FeederRPM", m_FeederCurrentRPM);
