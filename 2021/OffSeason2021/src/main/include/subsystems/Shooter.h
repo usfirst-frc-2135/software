@@ -10,6 +10,7 @@
 
 #pragma once
 #include <frc/Encoder.h>
+#include <frc/LinearFilter.h>
 #include <frc/Solenoid.h>
 #include <frc/simulation/EncoderSim.h>
 #include <frc/simulation/FlywheelSim.h>
@@ -49,6 +50,9 @@ private:
 #endif
 
     frc::Solenoid m_flashlight{ 0, 7 };
+
+    frc::LinearFilter<double> m_flywheelFilter = frc::LinearFilter<double>::MovingAverage(5);
+    frc::LinearFilter<double> m_feederFilter = frc::LinearFilter<double>::MovingAverage(5);
 
     // Sensors
 
