@@ -8,29 +8,28 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-#include "commands/ShootingStop.h"
+#include "commands/ExhaustingStop.h"
 
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 
-ShootingStop::ShootingStop(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv, Shooter *shooter)
+ExhaustingStop::ExhaustingStop(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv)
 {
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(m_Subsystem);
-    SetName("ShootingStop");
+    SetName("ExhaustingStop");
 
-    spdlog::info("ShootingStop");
+    spdlog::info("ExhaustingStop");
 
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
     AddCommands(
         IntakeRun(Intake::INTAKE_STOP, intake),
         FloorConveyorRun(FloorConveyor::FCONVEYOR_STOP, fConv),
-        VerticalConveyorRun(VerticalConveyor::VCONVEYOR_STOP, vConv),
-        ShooterRun(Shooter::SHOOTERSPEED_STOP, shooter));
+        VerticalConveyorRun(VerticalConveyor::VCONVEYOR_STOP, vConv));
 }
 
-bool ShootingStop::RunsWhenDisabled() const
+bool ExhaustingStop::RunsWhenDisabled() const
 {
     return false;
 }

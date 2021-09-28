@@ -46,9 +46,9 @@ namespace DriveConstants
                                                            // Gear reduction
 
     // Kinematics values for 2135 Bebula - 2019 B-bot
-    static constexpr auto ks = 0.899_V;
-    static constexpr auto kv = 1.411_V / 1_mps;
-    static constexpr auto ka = 0.21_V / 1_mps_sq;
+    static constexpr auto ks = 0.65_V;
+    static constexpr auto kv = 2.84_V / 1_mps;
+    static constexpr auto ka = 0.309_V / 1_mps_sq;
     static constexpr auto KvAngular = 1.5_V / 1_rad_per_s;
     static constexpr auto KaAngular = 0.3_V / 1_rad_per_s_sq;
 

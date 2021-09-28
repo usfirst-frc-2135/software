@@ -143,6 +143,7 @@ void Drivetrain::Initialize(void)
     // When disabled, set low gear and coast mode to allow easier pushing
     m_brakeMode = false;
     m_throttleZeroed = false;
+    MoveSetQuickTurn(false);
 
     SetBrakeMode(m_brakeMode);
     MoveStop();
@@ -527,10 +528,7 @@ void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
     {
         default:
         case DRIVEMODE_CURVATURE:
-            m_diffDrive.CurvatureDrive(
-                -yValueSquared,
-                xValueSquared,
-                m_isQuickTurn); // Boolean is for quick turn or not
+            m_diffDrive.CurvatureDrive(-yValueSquared, xValueSquared, m_isQuickTurn);
             break;
 
         case DRIVEMODE_VELCONTROL:

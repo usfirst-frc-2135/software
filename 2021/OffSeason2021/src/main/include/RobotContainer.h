@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include "commands/ExhaustingAction.h"
+#include "commands/ExhaustingStop.h"
 #include "commands/IntakingAction.h"
 #include "commands/IntakingStop.h"
 #include "commands/ShootingAction.h"
@@ -26,12 +28,10 @@
 #include "commands/ClimberRun.h"
 #include "commands/DriveQuickturn.h"
 #include "commands/DriveTeleop.h"
-#include "commands/ExhaustingAction.h"
 #include "commands/FloorConveyorRun.h"
 #include "commands/IntakeDeploy.h"
 #include "commands/IntakeRun.h"
 #include "commands/ShooterAim.h"
-#include "commands/ShooterAtSpeed.h"
 #include "commands/ShooterRun.h"
 #include "commands/VerticalConveyorRun.h"
 #include "subsystems/Climber.h"
