@@ -11,6 +11,7 @@
 #include "commands/AutoDriveShoot.h"
 
 #include "commands/AutoDrivePath.h"
+#include "commands/AutoDriveStop.h"
 #include "commands/AutoPathSequence.h"
 #include "commands/IntakeDeploy.h"
 #include "commands/ShootingAction.h"
@@ -33,7 +34,8 @@ AutoDriveShoot::AutoDriveShoot(
     AddCommands(
         IntakeDeploy(true),
         AutoDrivePath(path, drivetrain),
-        ShootingAction(intake, fConv, vConv, shooter));
+        ShootingAction(intake, fConv, vConv, shooter),
+        AutoDriveStop(drivetrain));
 }
 
 bool AutoDriveShoot::RunsWhenDisabled() const
