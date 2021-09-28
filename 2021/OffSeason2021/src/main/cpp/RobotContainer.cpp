@@ -35,7 +35,6 @@ RobotContainer::RobotContainer() :
     //frc::SmartDashboard::PutData("Climber Run: CLDIR_DOWN", new ClimberRun(-1, &m_climber));
     frc::SmartDashboard::PutData("Shooter Aim: LIGHT_ON", new ShooterAim(true));
     frc::SmartDashboard::PutData("Shooter Aim: LIGHT_OFF", new ShooterAim(false));
-    //frc::SmartDashboard::PutData("Shooter At Speed", new AtDesiredRPM());
     frc::SmartDashboard::PutData("Shooter Run: SHDIR_STOP", new ShooterRun(0, &m_shooter));
     frc::SmartDashboard::PutData("Shooter Run: SHDIR_SHOOT", new ShooterRun(1, &m_shooter));
     frc::SmartDashboard::PutData(
