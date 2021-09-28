@@ -65,9 +65,9 @@ Climber::Climber()
         statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
 
         m_motorCL14.ConfigSupplyCurrentLimit(supplyCurrentLimits);
-        #ifdef __FRC_ROBORIO__
-            m_motorCL14.ConfigStatorCurrentLimit(statorCurrentLimits);
-        #endif
+#ifdef __FRC_ROBORIO__
+        m_motorCL14.ConfigStatorCurrentLimit(statorCurrentLimits);
+#endif
     }
 
     Initialize();
@@ -138,7 +138,6 @@ void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
 
     if (yCLValue > -0.1 && yCLValue < 0.1)
     {
-        spdlog::info("Climber Stopped");
         SetBrakeSolenoid(CL_BRAKE_LOCKED);
     }
     else
@@ -146,11 +145,16 @@ void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
         SetBrakeSolenoid(CL_BRAKE_UNLOCKED);
         // If joystick is above a value, climber will move up
         if (yCLValue > 0.1)
-            motorOutput = m_upSpeed;
-
+        {
+            spdlog::info("Climber Up");
+            motorOutput = (yCLValue - m_deadband) * (1.0 / (1 - m_deadband));
+        }
         // If joystick is below a value, climber will move down
         else if (yCLValue < -0.1)
-            motorOutput = m_downSpeed;
+        {
+            spdlog::info("Climber Down");
+            motorOutput = (yCLValue - m_deadband) * -(1.0 / (1 - m_deadband));
+        }
     }
 
     if (!m_talonValidCL14)
@@ -171,10 +175,10 @@ void Climber::SetClimberStopped(void)
         m_motorCL14.Set(ControlMode::PercentOutput, 0);
 }
 
-void Climber::SetBrakeSolenoid(bool braking)
+void Climber::SetBrakeSolenoid(bool climberBrake)
 {
-    spdlog::info("CL {}", (braking) ? "STOPPED" : "NOT STOPPED");
-    frc::SmartDashboard::PutBoolean("CL_Stopped", braking);
+    spdlog::info("CL {}", (climberBrake) ? "STOPPED" : "NOT STOPPED");
+    frc::SmartDashboard::PutBoolean("CL_Stopped", climberBrake);
 
-    m_brake.Set(braking);
+    m_brake.Set(climberBrake);
 }

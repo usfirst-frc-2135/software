@@ -98,7 +98,7 @@ void Robot::TeleopInit()
     robotContainer->m_floorConveyor.Initialize();
     robotContainer->m_verticalConveyor.Initialize();
     robotContainer->m_shooter.Initialize();
-    // robotContainer->m_climber.Initialize();
+    robotContainer->m_climber.Initialize();
     robotContainer->m_pneumatics.Initialize();
     robotContainer->m_power.Initialize();
 }

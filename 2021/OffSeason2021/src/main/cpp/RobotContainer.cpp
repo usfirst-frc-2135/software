@@ -28,11 +28,11 @@ RobotContainer::RobotContainer() :
     // Smartdashboard Subsystems
 
     // SmartDashboard Buttons
-    frc::SmartDashboard::PutData("Climber Brake: CLIMBER_RUNNING", new ClimberBrake(false));
-    frc::SmartDashboard::PutData("Climber Brake: CLIMBER_STOP", new ClimberBrake(true));
-    frc::SmartDashboard::PutData("Climber Run: CLDIR_STOP", new ClimberRun(true, &m_climber));
-    frc::SmartDashboard::PutData("Climber Run: CLDIR_NOT_STOPPED", new ClimberRun(false, &m_climber));
-    //frc::SmartDashboard::PutData("Climber Run: CLDIR_DOWN", new ClimberRun(-1, &m_climber));
+    frc::SmartDashboard::PutData("Climber Run: CLDIR_STOP", new ClimberBrake(true));
+    frc::SmartDashboard::PutData("Climber Run: CLDIR_NOT_STOPPED", new ClimberBrake(false));
+    frc::SmartDashboard::PutData("Climber Run: CLDIR_UP", new ClimberRun(1, &m_climber));
+    frc::SmartDashboard::PutData("Climber Run: CLDIR_STOP", new ClimberRun(0, &m_climber));
+    frc::SmartDashboard::PutData("Climber Run: CLDIR_DOWN", new ClimberRun(-1, &m_climber));
     frc::SmartDashboard::PutData("Shooter Aim: LIGHT_ON", new ShooterAim(true));
     frc::SmartDashboard::PutData("Shooter Aim: LIGHT_OFF", new ShooterAim(false));
     frc::SmartDashboard::PutData("Shooter Run: SHDIR_STOP", new ShooterRun(0, &m_shooter));
