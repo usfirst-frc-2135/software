@@ -53,16 +53,25 @@ Drivetrain::Drivetrain()
     StatorCurrentLimitConfiguration statorCurrentLimits;
     statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
 
-    m_motorL1.ConfigSupplyCurrentLimit(supplyCurrentLimits);
-    m_motorL2.ConfigSupplyCurrentLimit(supplyCurrentLimits);
-    m_motorR3.ConfigSupplyCurrentLimit(supplyCurrentLimits);
-    m_motorR4.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+    // TODO:  Move these into TalonMasterInitalize and TalonFollowerInitialize
+    if (m_talonValidL1)
+        m_motorL1.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+    if (m_talonValidL2)
+        m_motorL2.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+    if (m_talonValidR3)
+        m_motorR3.ConfigSupplyCurrentLimit(supplyCurrentLimits);
+    if (m_talonValidR4)
+        m_motorR4.ConfigSupplyCurrentLimit(supplyCurrentLimits);
 
 #ifdef __FRC_ROBORIO__
-    m_motorL1.ConfigStatorCurrentLimit(statorCurrentLimits);
-    m_motorL2.ConfigStatorCurrentLimit(statorCurrentLimits);
-    m_motorR3.ConfigStatorCurrentLimit(statorCurrentLimits);
-    m_motorR4.ConfigStatorCurrentLimit(statorCurrentLimits);
+    if (m_talonValidL1)
+        m_motorL1.ConfigStatorCurrentLimit(statorCurrentLimits);
+    if (m_talonValidL2)
+        m_motorL2.ConfigStatorCurrentLimit(statorCurrentLimits);
+    if (m_talonValidR3)
+        m_motorR3.ConfigStatorCurrentLimit(statorCurrentLimits);
+    if (m_talonValidR4)
+        m_motorR4.ConfigStatorCurrentLimit(statorCurrentLimits);
 #endif
 
     //  Load config file values
@@ -279,8 +288,10 @@ void Drivetrain::ResetEncoders()
 {
     if (frc::RobotBase::IsReal())
     {
-        m_motorL1.SetSelectedSensorPosition(0);
-        m_motorR3.SetSelectedSensorPosition(0);
+        if (m_talonValidL1)
+            m_motorL1.SetSelectedSensorPosition(0);
+        if (m_talonValidR3)
+            m_motorR3.SetSelectedSensorPosition(0);
     }
 
     else
@@ -294,24 +305,30 @@ meter_t Drivetrain::GetDistanceMetersLeft()
 {
     if (frc::RobotBase::IsReal())
     {
-        return DriveConstants::kEncoderMetersPerCount * m_motorL1.GetSelectedSensorPosition(kPidIndex);
+        if (m_talonValidL1)
+            return DriveConstants::kEncoderMetersPerCount * m_motorL1.GetSelectedSensorPosition(kPidIndex);
     }
     else
     {
         return m_leftEncoder.GetDistance() * 1_m;
     }
+
+    return 0_m;
 }
 
 meter_t Drivetrain::GetDistanceMetersRight()
 {
     if (frc::RobotBase::IsReal())
     {
-        return DriveConstants::kEncoderMetersPerCount * -m_motorR3.GetSelectedSensorPosition(kPidIndex);
+        if (m_talonValidR3)
+            return DriveConstants::kEncoderMetersPerCount * -m_motorR3.GetSelectedSensorPosition(kPidIndex);
     }
     else
     {
         return m_rightEncoder.GetDistance() * 1_m;
     }
+
+    return 0_m;
 }
 
 meter_t Drivetrain::GetAverageEncoderDistance()
@@ -321,15 +338,17 @@ meter_t Drivetrain::GetAverageEncoderDistance()
 
 frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeedsMPS()
 {
-    meters_per_second_t leftVelocity;
-    meters_per_second_t rightVelocity;
+    meters_per_second_t leftVelocity = 0_mps;
+    meters_per_second_t rightVelocity = 0_mps;
 
     if (frc::RobotBase::IsReal())
     {
-        leftVelocity =
-            DriveConstants::kEncoderMetersPerCount * m_motorL1.GetSelectedSensorVelocity() * 10 / 1_s;
-        rightVelocity =
-            DriveConstants::kEncoderMetersPerCount * -m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
+        if (m_talonValidL1)
+            leftVelocity =
+                DriveConstants::kEncoderMetersPerCount * m_motorL1.GetSelectedSensorVelocity() * 10 / 1_s;
+        if (m_talonValidR3)
+            rightVelocity =
+                DriveConstants::kEncoderMetersPerCount * -m_motorR3.GetSelectedSensorVelocity() * 10 / 1_s;
     }
     else
     {
@@ -397,8 +416,10 @@ void Drivetrain::SetBrakeMode(bool brakeMode)
 void Drivetrain::TankDriveVolts(volt_t left, volt_t right)
 {
     m_diffDrive.Feed();
-    m_motorL1.SetVoltage(left);
-    m_motorR3.SetVoltage(-right);
+    if (m_talonValidL1)
+        m_motorL1.SetVoltage(left);
+    if (m_talonValidR3)
+        m_motorR3.SetVoltage(-right);
 }
 
 //
