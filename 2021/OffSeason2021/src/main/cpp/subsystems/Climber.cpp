@@ -177,7 +177,7 @@ void Climber::SetClimberStopped(void)
 
 void Climber::SetBrakeSolenoid(bool climberBrake)
 {
-    spdlog::info("CL {}", (climberBrake) ? "STOPPED" : "NOT STOPPED");
+    // spdlog::info("CL {}", (climberBrake) ? "STOPPED" : "NOT STOPPED");
     frc::SmartDashboard::PutBoolean("CL_Stopped", climberBrake);
 
     m_brake.Set(climberBrake);
