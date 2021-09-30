@@ -271,15 +271,21 @@ void Shooter::SetShooterSpeed(int state)
     m_pidKi = frc::SmartDashboard::GetNumber("SH_PidKi", m_pidKi);
     m_pidKd = frc::SmartDashboard::GetNumber("SH_PidKd", m_pidKd);
 
-    m_motorSH10.Config_kF(0, m_pidKf, kCANTimeout);
-    m_motorSH10.Config_kP(0, m_pidKp, kCANTimeout);
-    m_motorSH10.Config_kI(0, m_pidKi, kCANTimeout);
-    m_motorSH10.Config_kD(0, m_pidKd, kCANTimeout);
+    if (m_talonValidSH10)
+    {
+        m_motorSH10.Config_kF(0, m_pidKf, kCANTimeout);
+        m_motorSH10.Config_kP(0, m_pidKp, kCANTimeout);
+        m_motorSH10.Config_kI(0, m_pidKi, kCANTimeout);
+        m_motorSH10.Config_kD(0, m_pidKd, kCANTimeout);
+    }
 
-    m_motorSH11.Config_kF(0, m_pidKf, kCANTimeout);
-    m_motorSH11.Config_kP(0, m_pidKp, kCANTimeout);
-    m_motorSH11.Config_kI(0, m_pidKi, kCANTimeout);
-    m_motorSH11.Config_kD(0, m_pidKd, kCANTimeout);
+    if (m_talonValidSH11)
+    {
+        m_motorSH11.Config_kF(0, m_pidKf, kCANTimeout);
+        m_motorSH11.Config_kP(0, m_pidKp, kCANTimeout);
+        m_motorSH11.Config_kI(0, m_pidKi, kCANTimeout);
+        m_motorSH11.Config_kD(0, m_pidKd, kCANTimeout);
+    }
 
     // Get current position in inches and set position mode and target counts
     if (m_talonValidSH10)
