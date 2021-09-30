@@ -52,7 +52,7 @@ Climber::Climber()
     if (m_talonValidCL14)
     {
         m_motorCL14.SetInverted(false);
-        m_motorCL14.SetNeutralMode(NeutralMode::Coast);
+        m_motorCL14.SetNeutralMode(NeutralMode::Brake);
         m_motorCL14.SetSafetyEnabled(false);
 
         m_motorCL14.ConfigVoltageCompSaturation(12.0, 0);
@@ -153,18 +153,12 @@ void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
         else if (yCLValue < -0.1)
         {
             spdlog::info("Climber Down");
-            motorOutput = (yCLValue - m_deadband) * -(1.0 / (1 - m_deadband));
+            motorOutput = (yCLValue + m_deadband) * (1.0 / (1 - m_deadband));
         }
     }
 
-    if (!m_talonValidCL14)
-    {
-        spdlog::info("Talon not valid");
-    }
-    else
-    {
+    if (m_talonValidCL14)
         m_motorCL14.Set(ControlMode::PercentOutput, motorOutput);
-    }
 }
 
 void Climber::SetClimberStopped(void)
@@ -177,7 +171,9 @@ void Climber::SetClimberStopped(void)
 
 void Climber::SetBrakeSolenoid(bool climberBrake)
 {
-    // spdlog::info("CL {}", (climberBrake) ? "STOPPED" : "NOT STOPPED");
+    if (climberBrake != m_brake.Get())
+        spdlog::info("CL {}", (climberBrake) ? "STOPPED" : "NOT STOPPED");
+
     frc::SmartDashboard::PutBoolean("CL_Stopped", climberBrake);
 
     m_brake.Set(climberBrake);
