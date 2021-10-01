@@ -10,6 +10,7 @@
 
 #include "commands/ShootingPrime.h"
 
+#include "RobotContainer.h"
 
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
@@ -24,8 +25,7 @@ ShootingPrime::ShootingPrime(Shooter *shooter)
 
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
-    AddCommands(
-        ShooterRun(Shooter::SHOOTERSPEED_FORWARD, shooter));
+    AddCommands(ShooterRun(true, Shooter::SHOOTERSPEED_FORWARD, shooter));
 }
 
 bool ShootingPrime::RunsWhenDisabled() const

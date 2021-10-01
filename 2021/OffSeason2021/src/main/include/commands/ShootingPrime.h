@@ -10,10 +10,13 @@
 
 #pragma once
 
+#include "RobotContainer.h"
+#include "commands/ShooterAim.h"
+#include "commands/ShooterRun.h"
+#include "subsystems/Shooter.h"
+
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/ParallelCommandGroup.h>
-#include "subsystems/Shooter.h"
-#include "commands/ShooterRun.h"
 
 /**
  *
@@ -28,5 +31,4 @@ public:
     bool RunsWhenDisabled() const override;
 
 private:
-
 };

@@ -29,7 +29,7 @@ ShootingAction::ShootingAction(
     // Need to add if Shooter is at speed part, turning on flashlight part
 
     AddCommands(
-        ShooterRun(Shooter::SHOOTERSPEED_FORWARD, shooter),
+        ShooterRun(true, Shooter::SHOOTERSPEED_FORWARD, shooter),
         VerticalConveyorRun(VerticalConveyor::VCONVEYOR_ACQUIRE, vConv),
         FloorConveyorRun(FloorConveyor::FCONVEYOR_ACQUIRE, fConv),
         IntakeRun(Intake::INTAKE_ACQUIRE, intake));
