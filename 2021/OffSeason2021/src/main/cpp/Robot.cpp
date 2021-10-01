@@ -127,7 +127,7 @@ void Robot::RobotFaultDump(void)
     robotContainer->m_floorConveyor.FaultDump();
     robotContainer->m_verticalConveyor.FaultDump();
     robotContainer->m_shooter.FaultDump();
-    // robotContainer->m_climber.FaultDump();
+    robotContainer->m_climber.FaultDump();
     robotContainer->m_pneumatics.FaultDump();
     robotContainer->m_power.FaultDump();
 }
