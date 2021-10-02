@@ -27,7 +27,7 @@ ShootingStop::ShootingStop(Intake *intake, FloorConveyor *fConv, VerticalConveyo
         IntakeRun(Intake::INTAKE_STOP, intake),
         FloorConveyorRun(FloorConveyor::FCONVEYOR_STOP, fConv),
         VerticalConveyorRun(VerticalConveyor::VCONVEYOR_STOP, vConv),
-        ShooterRun(Shooter::SHOOTERSPEED_STOP, shooter));
+        ShooterRun(false, Shooter::SHOOTERSPEED_STOP, shooter));
 }
 
 bool ShootingStop::RunsWhenDisabled() const
