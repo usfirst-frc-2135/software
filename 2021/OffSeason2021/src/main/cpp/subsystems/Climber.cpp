@@ -144,16 +144,20 @@ void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
     {
         SetBrakeSolenoid(CL_BRAKE_UNLOCKED);
         // If joystick is above a value, climber will move up
-        if (yCLValue > 0.1)
-        {
-            spdlog::info("Climber Up");
-            motorOutput = (yCLValue - m_deadband) * (1.0 / (1 - m_deadband));
-        }
-        // If joystick is below a value, climber will move down
-        else if (yCLValue < -0.1)
+        if (yCLValue > m_deadband)
         {
             spdlog::info("Climber Down");
-            motorOutput = (yCLValue + m_deadband) * (1.0 / (1 - m_deadband));
+            yCLValue -= m_deadband;
+            yCLValue *= (1.0 / (1.0 - m_deadband));
+            motorOutput = yCLValue * abs(yCLValue);
+        }
+        // If joystick is below a value, climber will move down
+        else if (yCLValue < -m_deadband)
+        {
+            spdlog::info("Climber Up");
+            yCLValue += m_deadband;
+            yCLValue *= (1.0 / (1.0 - m_deadband));
+            motorOutput = yCLValue * abs(yCLValue);
         }
     }
 
