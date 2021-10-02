@@ -51,7 +51,7 @@ private:
     bool m_joystickCLZeroed;
     double m_upSpeed;
     double m_downSpeed;
-    double m_deadband = 0.1;
+    double m_deadband = 0.2;
 
 public:
     Climber();
