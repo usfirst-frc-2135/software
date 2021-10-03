@@ -549,7 +549,24 @@ void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
     {
         default:
         case DRIVEMODE_CURVATURE:
-            m_diffDrive.CurvatureDrive(-yValueSquared, xValueSquared, m_isQuickTurn);
+            if(m_isQuickTurn)
+            {
+                double xValueCubed = xValueSquared * abs(xValue);
+
+                if (xValueCubed > 0.5)
+                {
+                    xValueCubed = 0.5;
+                }
+                else if (xValueCubed < -0.5)
+                {
+                    xValueCubed = -0.5;
+                }
+                m_diffDrive.CurvatureDrive(-yValueSquared, xValueCubed, m_isQuickTurn);
+            }
+            else
+            {
+                m_diffDrive.CurvatureDrive(-yValueSquared, xValueSquared, m_isQuickTurn);
+            }
             break;
 
         case DRIVEMODE_VELCONTROL:
