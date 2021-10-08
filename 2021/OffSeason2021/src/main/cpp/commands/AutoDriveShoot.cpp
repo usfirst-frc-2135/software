@@ -14,7 +14,7 @@
 #include "commands/AutoDriveStop.h"
 #include "commands/AutoPathSequence.h"
 #include "commands/IntakeDeploy.h"
-#include "commands/ShootingAction.h"
+#include "commands/ScoringAction.h"
 
 AutoDriveShoot::AutoDriveShoot(
     Drivetrain *drivetrain,
@@ -34,7 +34,7 @@ AutoDriveShoot::AutoDriveShoot(
     AddCommands(
         IntakeDeploy(true),
         AutoDrivePath(path, drivetrain),
-        ShootingAction(intake, fConv, vConv, shooter),
+        ScoringAction(intake, fConv, vConv, shooter),
         AutoDriveStop(drivetrain));
 }
 

@@ -12,6 +12,7 @@
 
 #include "commands/FloorConveyorRun.h"
 #include "commands/IntakeRun.h"
+#include "commands/ShooterAim.h"
 #include "commands/ShooterRun.h"
 #include "commands/VerticalConveyorRun.h"
 
@@ -24,10 +25,10 @@
  *
  * @author ExampleAuthor
  */
-class ShootingStop : public frc2::CommandHelper<frc2::ParallelCommandGroup, ShootingStop>
+class ScoringStop : public frc2::CommandHelper<frc2::ParallelCommandGroup, ScoringStop>
 {
 public:
-    explicit ShootingStop(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv, Shooter *shooter);
+    explicit ScoringStop(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv, Shooter *shooter);
 
     bool RunsWhenDisabled() const override;
 

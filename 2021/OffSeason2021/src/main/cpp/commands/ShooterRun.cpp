@@ -16,8 +16,7 @@
 
 #include "commands/ShooterRun.h"
 
-ShooterRun::ShooterRun(bool lightOn, int shooterState, Shooter *m_shooter) :
-    m_lightOn(lightOn),
+ShooterRun::ShooterRun(int shooterState, Shooter *m_shooter) :
     m_shooterState(shooterState),
     m_shooter(m_shooter)
 {
@@ -34,8 +33,6 @@ void ShooterRun::Initialize()
 {
     spdlog::info("ShooterRun - Init {}", m_shooterState);
     m_shooter->SetShooterSpeed(m_shooterState);
-    RobotContainer *robotContainer = RobotContainer::GetInstance();
-    robotContainer->m_shooter.FlashlightOn(m_lightOn);
 }
 
 // Called repeatedly when this Command is scheduled to run

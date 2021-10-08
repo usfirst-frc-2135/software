@@ -23,10 +23,10 @@
  *
  * @author ExampleAuthor
  */
-class ShootingPrime : public frc2::CommandHelper<frc2::ParallelCommandGroup, ShootingPrime>
+class ScoringPrime : public frc2::CommandHelper<frc2::ParallelCommandGroup, ScoringPrime>
 {
 public:
-    explicit ShootingPrime(Shooter *shooter);
+    explicit ScoringPrime(Shooter *shooter);
 
     bool RunsWhenDisabled() const override;
 

@@ -59,10 +59,10 @@ Climber::Climber()
         m_motorCL14.EnableVoltageCompensation(true);
 
         SupplyCurrentLimitConfiguration supplyCurrentLimits;
-        supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+        supplyCurrentLimits = { true, 45.0, 45.0, 0.001 };
 
         StatorCurrentLimitConfiguration statorCurrentLimits;
-        statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
+        statorCurrentLimits = { true, 80.0, 80.0, 0.001 };
 
         m_motorCL14.ConfigSupplyCurrentLimit(supplyCurrentLimits);
 #ifdef __FRC_ROBORIO__

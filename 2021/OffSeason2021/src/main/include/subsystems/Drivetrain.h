@@ -125,9 +125,10 @@ private:
     bool m_talonValidR4; // Health indicator for drive Talon Right 4
 
     // Joysticks
-    double m_driveXScaling; // Scaling applied to Joystick
-    double m_driveYScaling; // Scaling applied to Joystick
-    bool m_throttleZeroed;  // Throttle joystick zeroed check for safety
+    double m_driveXScaling;  // Scaling applied to Joystick
+    double m_driveYScaling;  // Scaling applied to Joystick
+    double m_driveQTScaling; // Scaling applied to Joystick when QuickTurn enabled
+    bool m_throttleZeroed;   // Throttle joystick zeroed check for safety
 
     // Talon input filter settings
     double m_openLoopRampRate;

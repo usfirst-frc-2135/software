@@ -87,11 +87,17 @@ private:
 
     //Configuration file parameters
 
-    double m_pidKf;           // Shooter PID force constant
-    double m_pidKp;           // Shooter PID proportional constant
-    double m_pidKi;           // Shooter PID integral constant
-    double m_pidKd;           // Shooter PID derivative constant
-    double m_neutralDeadband; // Shooter PID neutral deadband in percent
+    double m_flywheelPidKf;           // Flywheel PID force constant
+    double m_flywheelPidKp;           // Flywheel PID proportional constant
+    double m_flywheelPidKi;           // Flywheel PID integral constant
+    double m_flywheelPidKd;           // Flywheel PID derivative constant
+    double m_flywheelNeutralDeadband; // Flywheel PID neutral deadband in percent
+
+    double m_feederPidKf;           // Feeder PID force constant
+    double m_feederPidKp;           // Feeder PID proportional constant
+    double m_feederPidKi;           // Feeder PID integral constant
+    double m_feederPidKd;           // Feeder PID derivative constant
+    double m_feederNeutralDeadband; // Feeder PID neutral deadband in percent
 
     double m_FeederTargetRPM;
     double m_FlywheelTargetRPM;

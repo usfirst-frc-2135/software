@@ -8,27 +8,30 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-#include "commands/ShootingPrime.h"
+#include "commands/ScoringPrime.h"
 
 #include "RobotContainer.h"
 
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 
-ShootingPrime::ShootingPrime(Shooter *shooter)
+ScoringPrime::ScoringPrime(Shooter *shooter)
 {
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(m_Subsystem);
-    SetName("ShootingPrime");
+    SetName("ScoringPrime");
 
-    spdlog::info("ShootingPrime");
+    spdlog::info("ScoringPrime");
 
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
-    AddCommands(ShooterRun(true, Shooter::SHOOTERSPEED_FORWARD, shooter));
+    AddCommands(
+
+        ShooterAim(true),
+        ShooterRun(Shooter::SHOOTERSPEED_FORWARD, shooter));
 }
 
-bool ShootingPrime::RunsWhenDisabled() const
+bool ScoringPrime::RunsWhenDisabled() const
 {
     return false;
 }
