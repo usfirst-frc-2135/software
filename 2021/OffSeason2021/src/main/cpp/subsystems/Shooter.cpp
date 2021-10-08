@@ -35,11 +35,18 @@ Shooter::Shooter()
 
     // Initialize Variables
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("SH_PidKf", m_pidKf, 0.0475);
-    config->GetValueAsDouble("SH_PidKp", m_pidKp, 0.0);
-    config->GetValueAsDouble("SH_PidKi", m_pidKi, 0.0);
-    config->GetValueAsDouble("SH_PidKd", m_pidKd, 0.0);
-    config->GetValueAsDouble("SH_NeutralDeadband", m_neutralDeadband, 0.004);
+    config->GetValueAsDouble("SH_PidKf", m_flywheelPidKf, 0.0475);
+    config->GetValueAsDouble("SH_PidKp", m_flywheelPidKp, 0.0);
+    config->GetValueAsDouble("SH_PidKi", m_flywheelPidKi, 0.0);
+    config->GetValueAsDouble("SH_PidKd", m_flywheelPidKd, 0.0);
+    config->GetValueAsDouble("SH_NeutralDeadband", m_flywheelNeutralDeadband, 0.004);
+
+    config->GetValueAsDouble("SH_PidKf", m_feederPidKf, 0.0475);
+    config->GetValueAsDouble("SH_PidKp", m_feederPidKp, 0.0);
+    config->GetValueAsDouble("SH_PidKi", m_feederPidKi, 0.0);
+    config->GetValueAsDouble("SH_PidKd", m_feederPidKd, 0.0);
+    config->GetValueAsDouble("SH_NeutralDeadband", m_feederNeutralDeadband, 0.004);
+
     config->GetValueAsDouble("SH_FlywheelRPM", m_FlywheelTargetRPM);
     config->GetValueAsDouble("SH_FeederRPM", m_FeederTargetRPM);
 
@@ -54,7 +61,7 @@ Shooter::Shooter()
         // Enable voltage compensation
         m_motorSH10.ConfigVoltageCompSaturation(12.0, kCANTimeout);
         m_motorSH10.EnableVoltageCompensation(true);
-        m_motorSH10.ConfigNeutralDeadband(m_neutralDeadband, kCANTimeout);
+        m_motorSH10.ConfigNeutralDeadband(m_feederNeutralDeadband, kCANTimeout);
         m_motorSH10.ConfigPeakOutputReverse(0.0, kCANTimeout);
 
         SupplyCurrentLimitConfiguration supplyCurrentLimits;
@@ -75,10 +82,10 @@ Shooter::Shooter()
 
         // Configure Velocity PIDF settings
         m_motorSH10.SelectProfileSlot(0, 0);
-        m_motorSH10.Config_kF(0, m_pidKf, kCANTimeout);
-        m_motorSH10.Config_kP(0, m_pidKp, kCANTimeout);
-        m_motorSH10.Config_kI(0, m_pidKi, kCANTimeout);
-        m_motorSH10.Config_kD(0, m_pidKd, kCANTimeout);
+        m_motorSH10.Config_kF(0, m_feederPidKf, kCANTimeout);
+        m_motorSH10.Config_kP(0, m_feederPidKp, kCANTimeout);
+        m_motorSH10.Config_kI(0, m_feederPidKi, kCANTimeout);
+        m_motorSH10.Config_kD(0, m_feederPidKd, kCANTimeout);
 
         m_motorSH10.Set(ControlMode::Velocity, 0.0);
     }
@@ -94,7 +101,7 @@ Shooter::Shooter()
         // Enable voltage compensation
         m_motorSH11.ConfigVoltageCompSaturation(12.0, kCANTimeout);
         m_motorSH11.EnableVoltageCompensation(true);
-        m_motorSH11.ConfigNeutralDeadband(m_neutralDeadband, kCANTimeout);
+        m_motorSH11.ConfigNeutralDeadband(m_flywheelNeutralDeadband, kCANTimeout);
         m_motorSH11.ConfigPeakOutputReverse(0.0, kCANTimeout);
 
         SupplyCurrentLimitConfiguration supplyCurrentLimits;
@@ -115,18 +122,23 @@ Shooter::Shooter()
 
         // Configure Velocity PIDF settings
         m_motorSH11.SelectProfileSlot(0, 0);
-        m_motorSH11.Config_kF(0, m_pidKf, kCANTimeout);
-        m_motorSH11.Config_kP(0, m_pidKp, kCANTimeout);
-        m_motorSH11.Config_kI(0, m_pidKi, kCANTimeout);
-        m_motorSH11.Config_kD(0, m_pidKd, kCANTimeout);
+        m_motorSH11.Config_kF(0, m_flywheelPidKf, kCANTimeout);
+        m_motorSH11.Config_kP(0, m_flywheelPidKp, kCANTimeout);
+        m_motorSH11.Config_kI(0, m_flywheelPidKi, kCANTimeout);
+        m_motorSH11.Config_kD(0, m_flywheelPidKd, kCANTimeout);
 
         m_motorSH11.Set(ControlMode::Velocity, 0.0);
     }
 
-    frc::SmartDashboard::PutNumber("SH_PidKf", m_pidKf);
-    frc::SmartDashboard::PutNumber("SH_PidKp", m_pidKp);
-    frc::SmartDashboard::PutNumber("SH_PidKi", m_pidKi);
-    frc::SmartDashboard::PutNumber("SH_PidKd", m_pidKd);
+    frc::SmartDashboard::PutNumber("SH_FeederPidKf", m_feederPidKf);
+    frc::SmartDashboard::PutNumber("SH_FeederPidKp", m_feederPidKp);
+    frc::SmartDashboard::PutNumber("SH_FeederPidKi", m_feederPidKi);
+    frc::SmartDashboard::PutNumber("SH_FeederPidKd", m_feederPidKd);
+
+    frc::SmartDashboard::PutNumber("SH_FlywheelPidKf", m_flywheelPidKf);
+    frc::SmartDashboard::PutNumber("SH_FlywheelPidKp", m_flywheelPidKp);
+    frc::SmartDashboard::PutNumber("SH_FlywheelPidKi", m_flywheelPidKi);
+    frc::SmartDashboard::PutNumber("SH_FlywheelPidKd", m_flywheelPidKd);
 
     frc::SmartDashboard::PutNumber("SH_FeederSmartDashRPM", m_FeederCurrentRPM);
     frc::SmartDashboard::PutNumber("SH_FlywheelSmartDashRPM", m_FlywheelCurrentRPM);
@@ -266,25 +278,30 @@ void Shooter::SetShooterSpeed(int state)
             return;
     }
 
-    m_pidKf = frc::SmartDashboard::GetNumber("SH_PidKf", m_pidKf);
-    m_pidKp = frc::SmartDashboard::GetNumber("SH_PidKp", m_pidKp);
-    m_pidKi = frc::SmartDashboard::GetNumber("SH_PidKi", m_pidKi);
-    m_pidKd = frc::SmartDashboard::GetNumber("SH_PidKd", m_pidKd);
+    m_feederPidKf = frc::SmartDashboard::PutNumber("SH_FeederPidKf", m_feederPidKf);
+    m_feederPidKp = frc::SmartDashboard::PutNumber("SH_FeederPidKp", m_feederPidKp);
+    m_feederPidKi = frc::SmartDashboard::PutNumber("SH_FeederPidKi", m_feederPidKi);
+    m_feederPidKd = frc::SmartDashboard::PutNumber("SH_FeederPidKd", m_feederPidKd);
+
+    m_flywheelPidKf = frc::SmartDashboard::PutNumber("SH_FlywheelPidKf", m_flywheelPidKf);
+    m_flywheelPidKp = frc::SmartDashboard::PutNumber("SH_FlywheelPidKp", m_flywheelPidKp);
+    m_flywheelPidKp = frc::SmartDashboard::PutNumber("SH_FlywheelPidKi", m_flywheelPidKi);
+    m_flywheelPidKd = frc::SmartDashboard::PutNumber("SH_FlywheelPidKd", m_flywheelPidKd);
 
     if (m_talonValidSH10)
     {
-        m_motorSH10.Config_kF(0, m_pidKf, kCANTimeout);
-        m_motorSH10.Config_kP(0, m_pidKp, kCANTimeout);
-        m_motorSH10.Config_kI(0, m_pidKi, kCANTimeout);
-        m_motorSH10.Config_kD(0, m_pidKd, kCANTimeout);
+        m_motorSH10.Config_kF(0, m_feederPidKf, kCANTimeout);
+        m_motorSH10.Config_kP(0, m_feederPidKp, kCANTimeout);
+        m_motorSH10.Config_kI(0, m_feederPidKi, kCANTimeout);
+        m_motorSH10.Config_kD(0, m_feederPidKd, kCANTimeout);
     }
 
     if (m_talonValidSH11)
     {
-        m_motorSH11.Config_kF(0, m_pidKf, kCANTimeout);
-        m_motorSH11.Config_kP(0, m_pidKp, kCANTimeout);
-        m_motorSH11.Config_kI(0, m_pidKi, kCANTimeout);
-        m_motorSH11.Config_kD(0, m_pidKd, kCANTimeout);
+        m_motorSH11.Config_kF(0, m_flywheelPidKf, kCANTimeout);
+        m_motorSH11.Config_kP(0, m_flywheelPidKp, kCANTimeout);
+        m_motorSH11.Config_kI(0, m_flywheelPidKi, kCANTimeout);
+        m_motorSH11.Config_kD(0, m_flywheelPidKd, kCANTimeout);
     }
 
     // Get current position in inches and set position mode and target counts
