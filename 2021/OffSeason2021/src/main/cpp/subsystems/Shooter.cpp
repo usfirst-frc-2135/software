@@ -35,17 +35,17 @@ Shooter::Shooter()
 
     // Initialize Variables
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("SH_PidKf", m_flywheelPidKf, 0.0475);
-    config->GetValueAsDouble("SH_PidKp", m_flywheelPidKp, 0.0);
-    config->GetValueAsDouble("SH_PidKi", m_flywheelPidKi, 0.0);
-    config->GetValueAsDouble("SH_PidKd", m_flywheelPidKd, 0.0);
-    config->GetValueAsDouble("SH_NeutralDeadband", m_flywheelNeutralDeadband, 0.004);
+    config->GetValueAsDouble("SH_flywheelPidKf", m_flywheelPidKf, 0.0475);
+    config->GetValueAsDouble("SH_flywheelPidKp", m_flywheelPidKp, 0.0);
+    config->GetValueAsDouble("SH_flywheelPidKi", m_flywheelPidKi, 0.0);
+    config->GetValueAsDouble("SH_flywheelPidKd", m_flywheelPidKd, 0.0);
+    config->GetValueAsDouble("SH_flywheelNeutralDeadband", m_flywheelNeutralDeadband, 0.004);
 
-    config->GetValueAsDouble("SH_PidKf", m_feederPidKf, 0.0475);
-    config->GetValueAsDouble("SH_PidKp", m_feederPidKp, 0.0);
-    config->GetValueAsDouble("SH_PidKi", m_feederPidKi, 0.0);
-    config->GetValueAsDouble("SH_PidKd", m_feederPidKd, 0.0);
-    config->GetValueAsDouble("SH_NeutralDeadband", m_feederNeutralDeadband, 0.004);
+    config->GetValueAsDouble("SH_feederPidKf", m_feederPidKf, 0.0475);
+    config->GetValueAsDouble("SH_feederPidKp", m_feederPidKp, 0.0);
+    config->GetValueAsDouble("SH_feeerPidKi", m_feederPidKi, 0.0);
+    config->GetValueAsDouble("SH_feederPidKd", m_feederPidKd, 0.0);
+    config->GetValueAsDouble("SH_feederNeutralDeadband", m_feederNeutralDeadband, 0.004);
 
     config->GetValueAsDouble("SH_FlywheelRPM", m_FlywheelTargetRPM);
     config->GetValueAsDouble("SH_FeederRPM", m_FeederTargetRPM);
@@ -65,10 +65,10 @@ Shooter::Shooter()
         m_motorSH10.ConfigPeakOutputReverse(0.0, kCANTimeout);
 
         SupplyCurrentLimitConfiguration supplyCurrentLimits;
-        supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+        supplyCurrentLimits = { true, 45.0, 45.0, 0.001 };
 
         StatorCurrentLimitConfiguration statorCurrentLimits;
-        statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
+        statorCurrentLimits = { true, 80.0, 80.0, 0.001 };
 
         m_motorSH10.ConfigSupplyCurrentLimit(supplyCurrentLimits);
 #ifdef __FRC_ROBORIO__
@@ -105,10 +105,10 @@ Shooter::Shooter()
         m_motorSH11.ConfigPeakOutputReverse(0.0, kCANTimeout);
 
         SupplyCurrentLimitConfiguration supplyCurrentLimits;
-        supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+        supplyCurrentLimits = { true, 45.0, 45.0, 0.001 };
 
         StatorCurrentLimitConfiguration statorCurrentLimits;
-        statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
+        statorCurrentLimits = { true, 80.0, 80.0, 0.001 };
 
         m_motorSH11.ConfigSupplyCurrentLimit(supplyCurrentLimits);
 #ifdef __FRC_ROBORIO__

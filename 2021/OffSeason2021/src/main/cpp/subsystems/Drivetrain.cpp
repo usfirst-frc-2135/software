@@ -48,10 +48,10 @@ Drivetrain::Drivetrain()
     m_talonValidR4 = frc2135::TalonUtils::TalonCheck(m_motorR4, "DT", "R4");
 
     SupplyCurrentLimitConfiguration supplyCurrentLimits;
-    supplyCurrentLimits = { true, 45.0, 0.0, 0.0 };
+    supplyCurrentLimits = { true, 45.0, 45.0, 0.001 };
 
     StatorCurrentLimitConfiguration statorCurrentLimits;
-    statorCurrentLimits = { true, 80.0, 0.0, 0.0 };
+    statorCurrentLimits = { true, 80.0, 80.0, 0.001 };
 
     // TODO:  Move these into TalonMasterInitalize and TalonFollowerInitialize
     if (m_talonValidL1)
