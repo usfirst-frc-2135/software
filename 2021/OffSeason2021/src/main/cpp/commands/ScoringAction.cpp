@@ -8,29 +8,31 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-#include "commands/ShootingStop.h"
+#include "commands/ScoringAction.h"
 
-#include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 
-ShootingStop::ShootingStop(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv, Shooter *shooter)
+ScoringAction::ScoringAction(Intake *intake, FloorConveyor *fConv, VerticalConveyor *vConv, Shooter *shooter)
 {
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(m_Subsystem);
-    SetName("ShootingStop");
+    SetName("ScoringAction");
 
-    spdlog::info("ShootingStop");
+    spdlog::info("ScoringAction");
 
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
+    // Need to add if Shooter is at speed part, turning on flashlight part
+
     AddCommands(
-        IntakeRun(Intake::INTAKE_STOP, intake),
-        FloorConveyorRun(FloorConveyor::FCONVEYOR_STOP, fConv),
-        VerticalConveyorRun(VerticalConveyor::VCONVEYOR_STOP, vConv),
-        ShooterRun(false, Shooter::SHOOTERSPEED_STOP, shooter));
+        ShooterAim(true),
+        ShooterRun(Shooter::SHOOTERSPEED_FORWARD, shooter),
+        VerticalConveyorRun(VerticalConveyor::VCONVEYOR_ACQUIRE, vConv),
+        FloorConveyorRun(FloorConveyor::FCONVEYOR_ACQUIRE, fConv),
+        IntakeRun(Intake::INTAKE_ACQUIRE, intake));
 }
 
-bool ShootingStop::RunsWhenDisabled() const
+bool ScoringAction::RunsWhenDisabled() const
 {
     return false;
 }
