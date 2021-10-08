@@ -150,7 +150,7 @@ void Drivetrain::Initialize(void)
     spdlog::info("DT Initialize");
 
     // When disabled, set low gear and coast mode to allow easier pushing
-    m_brakeMode = false;
+    m_brakeMode = true;
     m_throttleZeroed = false;
     MoveSetQuickTurn(false);
 
@@ -184,7 +184,8 @@ void Drivetrain::ConfigFileLoad(void)
     config->GetValueAsInt("DT_DriveMode", m_curDriveMode, 0);
     config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 0.4);
     config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 0.4);
-    config->GetValueAsDouble("DT_OpenLoopRampRate", m_openLoopRampRate, 1.0);
+    config->GetValueAsDouble("DT_QuickTurnScaling", m_driveQTScaling, 0.5);
+    config->GetValueAsDouble("DT_OpenLoopRampRate", m_openLoopRampRate, 0.5);
     config->GetValueAsDouble("DT_ClosedLoopRampRate", m_closedLoopRampRate, 1.0);
     config->GetValueAsDouble("DT_VCMaxSpeed", m_vcMaxSpeed, 13.03);
     config->GetValueAsDouble("DT_VCMaxAngSpeed", m_vcMaxAngSpeed, wpi::math::pi);
@@ -200,7 +201,7 @@ void Drivetrain::TalonMasterInitialize(WPI_BaseMotorController &motor)
     motor.SetInverted(false);
     motor.SetNeutralMode(NeutralMode::Coast);
     motor.ConfigVoltageCompSaturation(12.0, kCANTimeout);
-    motor.EnableVoltageCompensation(true);
+    // motor.EnableVoltageCompensation(true);
 
     motor.Set(ControlMode::PercentOutput, 0.0);
     motor.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, kPidIndex, kCANTimeout);
@@ -217,7 +218,7 @@ void Drivetrain::TalonFollowerInitialize(WPI_BaseMotorController &motor, int mas
     motor.SetInverted(InvertType::FollowMaster);
     motor.SetNeutralMode(NeutralMode::Coast);
     motor.ConfigVoltageCompSaturation(12.0, kCANTimeout);
-    motor.EnableVoltageCompensation(true);
+    //motor.EnableVoltageCompensation(true);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -518,46 +519,40 @@ void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
 {
     double xValue = 0.0;
     double yValue = 0.0;
+    double yOutput;
+    double xOutput;
 
     xValue = throttleJstick->GetX(frc::GenericHID::JoystickHand::kRightHand);
     yValue = throttleJstick->GetY(frc::GenericHID::JoystickHand::kLeftHand);
 
-    xValue *= m_driveXScaling;
-    yValue *= m_driveYScaling;
+    // If joysticks report a very small throttle value
+    if (fabs(yValue) < 0.05 && fabs(xValue) < 0.05)
+        m_throttleZeroed = true;
+
+    // If throttle and steering not zeroed, prevent joystick inputs from entering drive
+    if (!m_throttleZeroed)
+    {
+        xValue = 0.0;
+        yValue = 0.0;
+    }
+
+    if (m_isQuickTurn)
+    {
+        yOutput = yValue * abs(yValue);
+        xOutput = xValue * abs(xValue);
+        xOutput *= m_driveQTScaling;
+        yOutput *= m_driveQTScaling;
+    }
+    else
+    {
+        yOutput = yValue * abs(yValue);
+        xOutput = xValue * abs(xValue);
+        xValue *= m_driveXScaling;
+        yValue *= m_driveYScaling;
+    }
 
     if (m_talonValidL1 || m_talonValidR3)
-    {
-        // If joystick reports a very small throttle value
-        if (fabs(yValue) < 0.05)
-            m_throttleZeroed = true;
-
-        // If throttle not zeroed, prevent joystick inputs from entering drive
-        if (!m_throttleZeroed)
-        {
-            xValue = 0.0;
-            yValue = 0.0;
-        }
-    }
-
-    feet_per_second_t ySpeed = 0.0_fps;
-    radians_per_second_t rot = 0.0_rad_per_s;
-
-    double yValueSquared = yValue * abs(yValue);
-    double xValueSquared = xValue * abs(xValue);
-
-    switch (m_curDriveMode)
-    {
-        default:
-        case DRIVEMODE_CURVATURE:
-            m_diffDrive.CurvatureDrive(-yValueSquared, xValueSquared, m_isQuickTurn);
-            break;
-
-        case DRIVEMODE_VELCONTROL:
-            ySpeed = yValueSquared * feet_per_second_t(m_vcMaxSpeed);
-            rot = xValueSquared * radians_per_second_t(m_vcMaxAngSpeed);
-            VelocityCLDrive(m_kinematics.ToWheelSpeeds({ ySpeed, 0_fps, rot }));
-            break;
-    }
+        m_diffDrive.CurvatureDrive(-yOutput, xOutput, m_isQuickTurn);
 }
 
 void Drivetrain::ToggleDriveMode()
@@ -628,6 +623,7 @@ void Drivetrain::RamseteFollowerInit(string pathName)
 #endif
 
     // This initializes the odometry (where we are) and tolerance
+    SetBrakeMode(false);
     ResetSensors();
     ResetOdometry(m_trajectory.InitialPose());
     m_driverSim.SetPose(m_odometry.GetPose());
@@ -700,4 +696,5 @@ bool Drivetrain::RamseteFollowerIsFinished(void)
 void Drivetrain::RamseteFollowerEnd(void)
 {
     m_trajTimer.Stop();
+    SetBrakeMode(true);
 }
