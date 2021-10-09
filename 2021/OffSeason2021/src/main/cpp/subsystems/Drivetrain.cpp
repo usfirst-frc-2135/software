@@ -517,38 +517,28 @@ void Drivetrain::MoveStop()
 //
 void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
 {
-    double xValue = 0.0;
-    double yValue = 0.0;
-    double yOutput;
-    double xOutput;
+    double xValue = throttleJstick->GetX(frc::GenericHID::JoystickHand::kRightHand);
+    double yValue = throttleJstick->GetY(frc::GenericHID::JoystickHand::kLeftHand);
+    double xOutput = 0.0;
+    double yOutput = 0.0;
 
-    xValue = throttleJstick->GetX(frc::GenericHID::JoystickHand::kRightHand);
-    yValue = throttleJstick->GetY(frc::GenericHID::JoystickHand::kLeftHand);
-
-    // If joysticks report a very small throttle value
+    // If joysticks report a very small value, then stick has been centered
     if (fabs(yValue) < 0.05 && fabs(xValue) < 0.05)
         m_throttleZeroed = true;
 
-    // If throttle and steering not zeroed, prevent joystick inputs from entering drive
-    if (!m_throttleZeroed)
+    // If throttle and steering not centered, use zero outputs until they do
+    if (m_throttleZeroed)
     {
-        xValue = 0.0;
-        yValue = 0.0;
-    }
-
-    if (m_isQuickTurn)
-    {
-        yOutput = yValue * abs(yValue);
-        xOutput = xValue * abs(xValue);
-        xOutput *= m_driveQTScaling;
-        yOutput *= m_driveQTScaling;
-    }
-    else
-    {
-        yOutput = yValue * abs(yValue);
-        xOutput = xValue * abs(xValue);
-        xValue *= m_driveXScaling;
-        yValue *= m_driveYScaling;
+        if (m_isQuickTurn)
+        {
+            xOutput = m_driveQTScaling * (xValue * abs(xValue));
+            yOutput = m_driveQTScaling * (yValue * abs(yValue));
+        }
+        else
+        {
+            xOutput = m_driveXScaling * (xValue * abs(xValue));
+            yOutput = m_driveYScaling * (yValue * abs(yValue));
+        }
     }
 
     if (m_talonValidL1 || m_talonValidR3)
