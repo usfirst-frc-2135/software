@@ -229,6 +229,8 @@ public:
     void MoveSetQuickTurn(bool quickTurn);
     void MoveStop(void);
     void MoveWithJoysticks(frc::XboxController *driverPad);
+    void MoveWithJoysticksInit(void);
+    void MoveWithJoysticksEnd(void);
     void ToggleDriveMode(void);
 
     // Autonomous - Ramsete follower command
