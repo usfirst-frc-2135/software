@@ -30,7 +30,7 @@ DriveTeleop::DriveTeleop(Drivetrain *m_drivetrain) : m_drivetrain(m_drivetrain)
 void DriveTeleop::Initialize()
 {
     spdlog::info("DriveTeleop - Init");
-    m_drivetrain->SetBrakeMode(true);
+    m_drivetrain->MoveWithJoysticksInit();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -49,7 +49,7 @@ bool DriveTeleop::IsFinished()
 void DriveTeleop::End(bool interrupted)
 {
     spdlog::info("DriveTeleop - End");
-    m_drivetrain->SetBrakeMode(false);
+    m_drivetrain->MoveWithJoysticksEnd();
 }
 
 bool DriveTeleop::RunsWhenDisabled() const

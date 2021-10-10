@@ -165,8 +165,8 @@ private:
     frc::Field2d m_field;
 
     // DriveWithLimelight pid controller objects
-    frc2::PIDController m_turnController;
-    frc2::PIDController m_throttleController;
+    // frc2::PIDController m_turnController;
+    // frc2::PIDController m_throttleController;
 
     // Velocity Closed Loop Drive
     frc2::PIDController m_leftPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
@@ -232,9 +232,11 @@ public:
     void SetBrakeMode(bool brakeMode);
     void MoveSetQuickTurn(bool quickTurn);
     void MoveStop(void);
+    
+    // Teleop mode
+    void MoveWithJoysticksInit(void);
     void MoveWithJoysticks(frc::XboxController *driverPad);
-    void MoveWithLimelight(frc::XboxController *driverPad);
-
+    void MoveWithJoysticksEnd(void);
     void ToggleDriveMode(void);
 
     // Autonomous - Ramsete follower command

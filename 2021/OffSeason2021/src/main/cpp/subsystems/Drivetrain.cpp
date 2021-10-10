@@ -515,6 +515,15 @@ void Drivetrain::MoveStop()
 //
 //  Joystick movement during Teleop
 //
+void Drivetrain::MoveWithJoysticksInit(void)
+{
+    SetBrakeMode(true);
+    m_motorL1.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
+    m_motorL2.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
+    m_motorR3.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
+    m_motorR4.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
+}
+
 void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
 {
     double xValue = throttleJstick->GetX(frc::GenericHID::JoystickHand::kRightHand);
@@ -545,20 +554,13 @@ void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
         m_diffDrive.CurvatureDrive(-yOutput, xOutput, m_isQuickTurn);
 }
 
-void Drivetrain::MoveWithLimelight(frc::XboxController *throttleJstick)
+void Drivetrain::MoveWithJoysticksEnd(void)
 {
-    // get turn value
-    //  just horizontal angle from target
-    // double headingError = m_vision->GetHorizOffsetDeg();
-    // double headingAdjust = headingError * turnP
-
-    // TUNING: find the angle error and add that? min power/movement
-    // get throttle value
-    //  distance based on equation and get throttle from that
-    //  throttle = PID(limelightDistance, targetDistance)*cos(limelightError in degrees)^throttleShape
-
-    // if (m_talonValidL1 || m_talonValidR3)
-    //     m_diffDrive.ArcadeDrive(-yOutput, xOutput, true);
+    SetBrakeMode(false);
+    m_motorL1.ConfigOpenloopRamp(0.0, kCANTimeout);
+    m_motorL2.ConfigOpenloopRamp(0.0, kCANTimeout);
+    m_motorR3.ConfigOpenloopRamp(0.0, kCANTimeout);
+    m_motorR4.ConfigOpenloopRamp(0.0, kCANTimeout);
 }
 
 void Drivetrain::ToggleDriveMode()
