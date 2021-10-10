@@ -150,7 +150,7 @@ void Drivetrain::Initialize(void)
     spdlog::info("DT Initialize");
 
     // When disabled, set low gear and coast mode to allow easier pushing
-    m_brakeMode = true;
+    m_brakeMode = false;
     m_throttleZeroed = false;
     MoveSetQuickTurn(false);
 
@@ -543,6 +543,22 @@ void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
 
     if (m_talonValidL1 || m_talonValidR3)
         m_diffDrive.CurvatureDrive(-yOutput, xOutput, m_isQuickTurn);
+}
+
+void Drivetrain::MoveWithLimelight(frc::XboxController *throttleJstick)
+{
+    // get turn value
+    //  just horizontal angle from target
+    // double headingError = m_vision->GetHorizOffsetDeg();
+    // double headingAdjust = headingError * turnP
+
+    // TUNING: find the angle error and add that? min power/movement
+    // get throttle value
+    //  distance based on equation and get throttle from that
+    //  throttle = PID(limelightDistance, targetDistance)*cos(limelightError in degrees)^throttleShape
+
+    // if (m_talonValidL1 || m_talonValidR3)
+    //     m_diffDrive.ArcadeDrive(-yOutput, xOutput, true);
 }
 
 void Drivetrain::ToggleDriveMode()
