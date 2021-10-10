@@ -20,6 +20,21 @@
   DT_VCPIDKp = 1.0
   DT_VCPIDKi = 0.0
   DT_VCPIDKd = 0.0
+# Limelight settings
+  DT_MaxTurn = 0.3
+  DT_MaxThrottle = 0.2
+  DT_TurnPIDKp = 0.1
+  DT_TurnPIDKi = 0.0
+  DT_TurnPIDKd = 0.0
+  DT_ThrottlePIDKp = 0.1
+  DT_ThrottlePIDKi = 0.0
+  DT_ThrottlePIDKd = 0.0
+  DT_TargetDistance = 6
+  DT_AngleThreshold = 3
+  DT_DistThreshold = 6
+  DT_ThrottleShape = 10
+  DT_TargetAreaMin = 0
+  DT_TargetAreaMax = 0
 # Intake settings
   IN_AcquireSpeed = 1.0
   IN_ExpelSpeed = -1.0
