@@ -150,6 +150,15 @@ private:
     double m_currentR3 = 0.0; // Motor R3 output current from Falcon
     double m_currentR4 = 0.0; // Motor R4 output current from Falcon
 
+    // limelight drive
+    double m_turnpidKp = 0.1;
+    double m_turnpidKi = 0.0;
+    double m_turnpidKd = 0.0;
+    double m_throttlepidKp = 0.1;
+    double m_throttlepidKi = 0.0;
+    double m_throttlepidKd = 0.0;
+    double m_maxTurn = 0.0;
+
     // Velocity closed-loop drive
     double m_vcMaxSpeed;
     double m_vcMaxAngSpeed;
@@ -165,8 +174,8 @@ private:
     frc::Field2d m_field;
 
     // DriveWithLimelight pid controller objects
-    frc2::PIDController m_turnController;
-    frc2::PIDController m_throttleController;
+    frc2::PIDController m_turnController{ 0.0, 0.0, 0.0 };
+    frc2::PIDController m_throttleController{ 0.0, 0.0, 0.0 };
 
     // Velocity Closed Loop Drive
     frc2::PIDController m_leftPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
@@ -233,7 +242,10 @@ public:
     void MoveSetQuickTurn(bool quickTurn);
     void MoveStop(void);
     void MoveWithJoysticks(frc::XboxController *driverPad);
-    void MoveWithLimelight(frc::XboxController *driverPad);
+
+    void MoveWithLimelightInit();
+    void MoveWithLimelightExecute(frc::XboxController *driverPad);
+    void MoveWithLimelightEnd();
 
     void ToggleDriveMode(void);
 
