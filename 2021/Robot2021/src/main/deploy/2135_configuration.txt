@@ -2,36 +2,26 @@
   RB_Name = 2135-Mandi
 # DriveTrain settings
   DT_DriveMode = 0
-  DT_DriveXScaling = 0.7
 # Competition mode
-# DT_DriveYScaling = 1.00
+  DT_DriveXScaling = 1.0
+  DT_DriveYScaling = 1.0
 # Training mode
-  DT_DriveYScaling =  0.85
+# DT_DriveXScaling = 0.75
+# DT_DriveYScaling =  0.75
 # Demo mode
-# DT_DriveYScaling =  0.60
-  DT_OpenLoopRampRate = 1.0
-  DT_ClosedLoopRampRate = 1.0
-  DT_DriveSpin = 0.45
-  DT_PidTurnKp = 0.030
-  DT_VisionTurnKp = 0.0
-  DT_AlignTurnTolerance = 1.0
-  DT_AlignTurnKp = 0.05
-  DT_SeparateJoysticks = false
-  DT_PeakOut = 1.0
-  DT_Velocity = 1918
-  DT_Acceleration = 3836
-  DT_SCurveStrength = 0
-  DT_PidKf = 0.000
-  DT_PidKp = 0.250
-  DT_PidKi = 0.000
-  DT_PidKd = 0.000
-  DT_ArbFeedForward = 0.000
-# DT_VCMaxSpeed = 3.7192
-  DT_VCMaxSpeed = 6.73
+# DT_DriveXScaling = 0.3
+# DT_DriveYScaling =  0.3
+  DT_OpenLoopRampRate = 0
+  DT_ClosedLoopRampRate = 0
+  DT_VCMaxSpeed = 13.50
   DT_VCMaxAngSpeed = 3.14159
   DT_VCPIDKp = 1.0
   DT_VCPIDKi = 0.0
   DT_VCPIDKd = 0.0
+#Path names
+  path1 = rightAngleTurn
+  path2 = rightAngleTurnReverse2
+  path3 = rightAngleTurn
 # Intake settings
   IN_AcquireSpeed = 0.8
   IN_ExpelSpeed = -0.8
@@ -56,4 +46,3 @@
   CL_ClimbSpeed = 1.0
 # Autonomous settings
   AutoDriveDist = 97.25
-  AutoDriveTurn = 90.0

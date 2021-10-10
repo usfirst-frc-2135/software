@@ -8,14 +8,25 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 #include "Robot.h"
+
+#include "frc2135/RobotConfig.h"
+#include "frc2135/spdlog.h"
 
 #include <frc/RobotController.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
+#include <spdlog/spdlog.h>
 
-void Robot::RobotInit() {}
+void Robot::RobotInit()
+{
+    std::string robotName;
+    frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
+
+    spdlog::info("RB Init");
+    config->GetValueAsString("RB_Name", robotName, "unknown");
+    spdlog::info("RobotInit: name - {}", robotName);
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -25,7 +36,10 @@ void Robot::RobotInit() {}
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
+void Robot::RobotPeriodic()
+{
+    frc2::CommandScheduler::GetInstance().Run();
+}
 
 /**
  * This function is called once each time the robot enters Disabled mode. You
@@ -57,25 +71,27 @@ void Robot::DisabledPeriodic()
  */
 void Robot::AutonomousInit()
 {
-  m_autonomousCommand = m_container->GetAutonomousCommand();
+    m_autonomousCommand = m_container->GetAutonomousCommand();
 
-  if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Schedule();
-  }
+    if (m_autonomousCommand != nullptr)
+    {
+        m_autonomousCommand->Schedule();
+    }
 }
 
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-  // This makes sure that the autonomous stops running when
-  // teleop starts running. If you want the autonomous to
-  // continue until interrupted by another command, remove
-  // this line or comment it out.
-  if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Cancel();
-    m_autonomousCommand = nullptr;
-  }
+    // This makes sure that the autonomous stops running when
+    // teleop starts running. If you want the autonomous to
+    // continue until interrupted by another command, remove
+    // this line or comment it out.
+    if (m_autonomousCommand != nullptr)
+    {
+        m_autonomousCommand->Cancel();
+        m_autonomousCommand = nullptr;
+    }
 }
 
 /**
@@ -93,21 +109,24 @@ void Robot::TestPeriodic() {}
 
 void Robot::RobotFaultDump(void)
 {
-    // TODO: update to rew robot framework - subsystem access changed from shared_ptr
-#if o
-    //    Print out talon SRX faults and clear sticky ones
-    std::printf("2135: %s --------------\n", "FAULT DUMPS");
-    drivetrain->FaultDump();
-    intake->FaultDump();
-    conveyor->FaultDump();
-    shooter->FaultDump();
-    // climber->FaultDump();
-    // spinner->FaultDump();
-    pneumatics->FaultDump();
-    power->FaultDump();
-#endif
+    // Print out talon SRX faults and clear sticky ones
+    spdlog::info("----- DUMP FAULTS --------------");
+
+    RobotContainer *robotContainer = RobotContainer::GetInstance();
+    robotContainer->m_drivetrain.FaultDump();
+    robotContainer->m_intake.FaultDump();
+    robotContainer->m_conveyor.FaultDump();
+    robotContainer->m_shooter.FaultDump();
+    robotContainer->m_climber.FaultDump();
+    robotContainer->m_spinner.FaultDump();
+    robotContainer->m_pneumatics.FaultDump();
+    robotContainer->m_power.FaultDump();
 }
 
 #ifndef RUNNING_FRC_TESTS
-int main() { return frc::StartRobot<Robot>(); }
+int main()
+{
+    frc2135::initialize_spdlog();
+    return frc::StartRobot<Robot>();
+}
 #endif

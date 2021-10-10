@@ -1,0 +1,52 @@
+# Comment lines start with '#'
+  RB_Name = 2135-Grogu
+# DriveTrain settings
+  DT_DriveMode = 0
+  DT_StoppedTolerance = 0.05
+  DT_QuickTurnScaling = 0.5
+# Competition mode
+  DT_DriveXScaling = 1.0
+  DT_DriveYScaling = 1.0
+# Training mode
+# DT_DriveXScaling = 0.75
+# DT_DriveYScaling =  0.75
+# Demo mode
+# DT_DriveXScaling = 0.3
+# DT_DriveYScaling =  0.3
+  DT_OpenLoopRampRate = 0.5
+  DT_ClosedLoopRampRate = 0
+  DT_VCMaxSpeed = 13.03
+  DT_VCMaxAngSpeed = 3.14159
+  DT_VCPIDKp = 1.0
+  DT_VCPIDKi = 0.0
+  DT_VCPIDKd = 0.0
+# Intake settings
+  IN_AcquireSpeed = 1.0
+  IN_ExpelSpeed = -1.0
+# Floor Conveyor settings
+  FC_AcquireSpeed = 1.0
+  FC_ExpelSpeed = 0.2
+  FC_ExpelSpeedFast = -1.0
+# Vert Conveyor settings
+  VC_AcquireSpeed = 1.0
+  VC_ExpelSpeed = -0.2
+  VC_ExpelSpeedFast = -1.0
+# Shooter settings
+  SH_FlywheelRPM = 3000
+  SH_FeederRPM = 3000
+  SH_FlywheelPidKf = 0.0475
+  SH_FlywheelPidKp = 0.00000
+  SH_FlywheelPidKi = 0.000
+  SH_FlywheelPidKd = 0.000
+  SH_FeederPidKf = 0.0475
+  SH_FeederPidKp = 0.00000
+  SH_FeederPidKi = 0.000
+  SH_FeederPidKd = 0.000
+  SH_NeutralDeadband = 0.004
+# Climber settings
+  CL_InitialUpSpeed = 0.25
+  CL_InitialDownSpeed = -0.25
+# Path names
+  path1 = turn1
+  path2 = turn1Reverse
+  path3 = rightAngleTurn

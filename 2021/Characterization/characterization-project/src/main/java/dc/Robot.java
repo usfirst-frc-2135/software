@@ -26,6 +26,8 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SPI;
 
+import com.playingwithfusion.CANVenom;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -55,9 +57,9 @@ import java.util.ArrayList;
 
 public class Robot extends TimedRobot {
 
-  static private double ENCODER_EDGES_PER_REV = 8192 / 4.;
+  static private double ENCODER_EDGES_PER_REV = 2048;
   static private int PIDIDX = 0;
-  static private int ENCODER_EPR = 8192;
+  static private int ENCODER_EPR = 2048;
   static private double GEARING = 13.94;
   
   private double encoderConstant = (1 / GEARING) * (1 / ENCODER_EDGES_PER_REV);
@@ -96,9 +98,9 @@ public class Robot extends TimedRobot {
   }
 
   // methods to create and setup motors (reduce redundancy)
-  public WPI_TaloFX setupWPI_TaloFX(int port, Sides side, boolean inverted) {
+  public WPI_TalonFX setupWPI_TalonFX(int port, Sides side, boolean inverted) {
     // create new motor and set neutral modes (if needed)
-    WPI_TaloFX motor = new WPI_TaloFX(port);
+    WPI_TalonFX motor = new WPI_TalonFX(port);
     // setup talon
     motor.configFactoryDefault();
     motor.setNeutralMode(NeutralMode.Brake);
@@ -109,7 +111,7 @@ public class Robot extends TimedRobot {
     
       
       motor.configSelectedFeedbackSensor(
-            FeedbackDevice.QuadEncoder,
+            FeedbackDevice.IntegratedSensor,
             PIDIDX, 10
       );    
 
@@ -127,8 +129,7 @@ public class Robot extends TimedRobot {
           -> motor.getSelectedSensorPosition(PIDIDX) * encoderConstant;
         rightEncoderRate = ()
           -> motor.getSelectedSensorVelocity(PIDIDX) * encoderConstant *
-               10;
-
+               10;          
 
         break;
       case LEFT:
@@ -162,13 +163,13 @@ public class Robot extends TimedRobot {
     stick = new Joystick(0);
     
     // create left motor
-    WPI_TaloFX leftMotor = setupWPI_TaloFX(1, Sides.LEFT, true);
+    WPI_TalonFX leftMotor = setupWPI_TalonFX(1, Sides.LEFT, true);
 
-    WPI_TaloFX leftFollowerID2 = setupWPI_TaloFX(2, Sides.FOLLOWER, true);
+    WPI_TalonFX leftFollowerID2 = setupWPI_TalonFX(2, Sides.FOLLOWER, true);
     leftFollowerID2.follow(leftMotor);
 
-    WPI_TaloFX rightMotor = setupWPI_TaloFX(3, Sides.RIGHT, true);
-    WPI_TaloFX rightFollowerID4 = setupWPI_TaloFX(4, Sides.FOLLOWER, true);    
+    WPI_TalonFX rightMotor = setupWPI_TalonFX(3, Sides.RIGHT, true);
+    WPI_TalonFX rightFollowerID4 = setupWPI_TalonFX(4, Sides.FOLLOWER, true);    
     rightFollowerID4.follow(rightMotor);
     drive = new DifferentialDrive(leftMotor, rightMotor);
     drive.setDeadband(0);
@@ -179,7 +180,7 @@ public class Robot extends TimedRobot {
 
     // Note that the angle from the NavX and all implementors of WPILib Gyro
     // must be negated because getAngle returns a clockwise positive angle
-    Gyro gyro = new ADXRS450_Gyro(SPI.Port.kMXP);
+    Gyro gyro = new ADXRS450_Gyro();
     gyroAngleRadians = () -> -1 * Math.toRadians(gyro.getAngle());
 
     // Set the update rate instead of using flush because of a ntcore bug

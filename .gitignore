@@ -10,15 +10,11 @@
 **/*.exe
 
 # Eclipse internal files
-**/sysProps.xml
-**/.settings/language.settings.xml
 DS Log Parser/Debug/
 DS Log Parser/.vs/
 *.o
-2019/cpp-multiCameraServer-2/multiCameraServerExample
-2019/cpp-multiCameraServer/multiCameraServerExample
-2019/VisionTest/visiontest/x64/Debug/
-2019/VisionTest/x64/Debug/
-2019/VisionTest/.vs/visiontest/v15/
-2019/cpp-multiCameraServer/.vscode/ipch/
-2019/VisionTest/.vscode/ipch/
+
+# Third party nodejs code
+node_modules
+2021/Characterization/characterization-project/build/
+2021/Characterization/characterization-project/.gradle/
