@@ -150,7 +150,7 @@ void Drivetrain::Initialize(void)
     spdlog::info("DT Initialize");
 
     // When disabled, set low gear and coast mode to allow easier pushing
-    m_brakeMode = true;
+    m_brakeMode = false;
     m_throttleZeroed = false;
     MoveSetQuickTurn(false);
 
@@ -512,6 +512,9 @@ void Drivetrain::MoveStop()
         m_diffDrive.TankDrive(0.0, 0.0, false);
 }
 
+//
+//  Joystick movement during Teleop
+//
 void Drivetrain::MoveWithJoysticksInit(void)
 {
     SetBrakeMode(true);
@@ -521,9 +524,6 @@ void Drivetrain::MoveWithJoysticksInit(void)
     m_motorR4.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
 }
 
-//
-//  Joystick movement during Teleop
-//
 void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
 {
     double xValue = throttleJstick->GetX(frc::GenericHID::JoystickHand::kRightHand);
