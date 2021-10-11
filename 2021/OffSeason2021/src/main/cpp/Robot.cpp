@@ -101,6 +101,7 @@ void Robot::TeleopInit()
     robotContainer->m_climber.Initialize();
     robotContainer->m_pneumatics.Initialize();
     robotContainer->m_power.Initialize();
+    robotContainer->m_led.Initialize();
 }
 
 /**
