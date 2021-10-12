@@ -199,13 +199,21 @@ void Drivetrain::ConfigFileLoad(void)
     config->GetValueAsDouble("DT_VCPIDKd", m_vcpidKd, 0.0);
 
     // retrieve limelight values from config file
-    config->GetValueAsDouble("DT_TurnPIDKp", m_turnpidKp, 0.1);
-    config->GetValueAsDouble("DT_TurnPIDKi", m_turnpidKi, 0.0);
-    config->GetValueAsDouble("DT_TurnPIDKd", m_turnpidKd, 0.0);
-    config->GetValueAsDouble("DT_ThrottlePIDKp", m_throttlepidKp, 0.1);
-    config->GetValueAsDouble("DT_ThrottlePIDKi", m_throttlepidKi, 0.0);
-    config->GetValueAsDouble("DT_ThrottlePIDKd", m_throttlepidKd, 0.0);
-    config->GetValueAsDouble("DT_MaxTurn", m_maxTurn, 0.0);
+    config->GetValueAsDouble("DTL_TurnPIDKp", m_turnpidKp, 0.1);
+    config->GetValueAsDouble("DTL_TurnPIDKi", m_turnpidKi, 0.0);
+    config->GetValueAsDouble("DTL_TurnPIDKd", m_turnpidKd, 0.0);
+    config->GetValueAsDouble("DTL_ThrottlePIDKp", m_throttlepidKp, 0.1);
+    config->GetValueAsDouble("DTL_ThrottlePIDKi", m_throttlepidKi, 0.0);
+    config->GetValueAsDouble("DTL_ThrottlePIDKd", m_throttlepidKd, 0.0);
+    config->GetValueAsDouble("DTL_MaxTurn", m_maxTurn, 0.3);
+    config->GetValueAsDouble("DTL_MaxThrottle", m_maxThrottle, 0.2);
+    config->GetValueAsDouble("DTL_TargetDistance", m_targetDistance, 6);
+    config->GetValueAsDouble("DTL_AngleThreshold", m_angleThreshold, 3);
+    config->GetValueAsDouble("DTL_DistThreshold", m_distThreshold, 6);
+    config->GetValueAsDouble("DTL_ThrottleShape", m_throttleShape, 10);
+    config->GetValueAsDouble("DTL_TargetAreaMin", m_targetAreaMin, 0.0);
+    config->GetValueAsDouble("DTL_TargetAreaMax", m_targetAreaMax, 0.0);
+    config->GetValueAsDouble("DTL_DistOffset", m_distOffset, 0.0);
 
     config->GetValueAsDouble("DT_StoppedTolerance", m_tolerance, 0.05);
 }
@@ -277,12 +285,21 @@ void Drivetrain::UpdateDashboardValues(void)
     frc::SmartDashboard::PutNumber("DT_Current_R4", m_currentR4);
 
     // limelight pid values
-    frc::SmartDashboard::PutNumber("DT_TurnPIDKp", m_turnpidKd);
-    frc::SmartDashboard::PutNumber("DT_TurnPIDKi", m_turnpidKi);
-    frc::SmartDashboard::PutNumber("DT_TurnPIDKd", m_turnpidKd);
-    frc::SmartDashboard::PutNumber("DT_ThrottlePIDKp", m_throttlepidKd);
-    frc::SmartDashboard::PutNumber("DT_ThrottlePIDKi", m_throttlepidKi);
-    frc::SmartDashboard::PutNumber("DT_ThrottlePIDKd", m_throttlepidKd);
+    frc::SmartDashboard::PutNumber("DTL_TurnPIDKp", m_turnpidKd);
+    frc::SmartDashboard::PutNumber("DTL_TurnPIDKi", m_turnpidKi);
+    frc::SmartDashboard::PutNumber("DTL_TurnPIDKd", m_turnpidKd);
+    frc::SmartDashboard::PutNumber("DTL_ThrottlePIDKp", m_throttlepidKd);
+    frc::SmartDashboard::PutNumber("DTL_ThrottlePIDKi", m_throttlepidKi);
+    frc::SmartDashboard::PutNumber("DTL_ThrottlePIDKd", m_throttlepidKd);
+    frc::SmartDashboard::PutNumber("DTL_MaxTurn", m_maxTurn);
+    frc::SmartDashboard::PutNumber("DTL_MaxThrottle", m_maxThrottle);
+    frc::SmartDashboard::PutNumber("DTL_TargetDistance", m_targetDistance);
+    frc::SmartDashboard::PutNumber("DTL_AngleThreshold", m_angleThreshold);
+    frc::SmartDashboard::PutNumber("DTL_DistThreshold", m_distThreshold);
+    frc::SmartDashboard::PutNumber("DTL_ThrottleShape", m_throttleShape);
+    frc::SmartDashboard::PutNumber("DTL_TargetAreaMin", m_targetAreaMin);
+    frc::SmartDashboard::PutNumber("DTL_TargetAreaMax", m_targetAreaMax);
+    frc::SmartDashboard::PutNumber("DTL_DistOffset", m_distOffset);
 
     // Only update indicators every 100 ms to cut down on network traffic
     if ((periodicInterval++ % 5 == 0) && (m_driveDebug > 1))
@@ -568,19 +585,30 @@ void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
         m_diffDrive.CurvatureDrive(-yOutput, xOutput, m_isQuickTurn);
 }
 
+// Movement during limelight shooting phase
 void Drivetrain::MoveWithLimelightInit()
 {
     // get pid values from dashboard
-    m_turnpidKp = frc::SmartDashboard::GetNumber("DT_TurnPIDKp", m_turnpidKd);
-    m_turnpidKi = frc::SmartDashboard::GetNumber("DT_TurnPIDKi", m_turnpidKi);
-    m_turnpidKd = frc::SmartDashboard::GetNumber("DT_TurnPIDKd", m_turnpidKd);
+    m_turnpidKp = frc::SmartDashboard::GetNumber("DTL_TurnPIDKp", m_turnpidKd);
+    m_turnpidKi = frc::SmartDashboard::GetNumber("DTL_TurnPIDKi", m_turnpidKi);
+    m_turnpidKd = frc::SmartDashboard::GetNumber("DTL_TurnPIDKd", m_turnpidKd);
 
-    m_throttlepidKp = frc::SmartDashboard::GetNumber("DT_ThrottlePIDKp", m_throttlepidKd);
-    m_throttlepidKi = frc::SmartDashboard::GetNumber("DT_ThrottlePIDKi", m_throttlepidKi);
-    m_throttlepidKd = frc::SmartDashboard::GetNumber("DT_ThrottlePIDKd", m_throttlepidKd);
+    m_turnController = frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
 
-    m_leftPIDController = frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
-    m_rightPIDController = frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
+    m_throttlepidKp = frc::SmartDashboard::GetNumber("DTL_ThrottlePIDKp", m_throttlepidKd);
+    m_throttlepidKi = frc::SmartDashboard::GetNumber("DTL_ThrottlePIDKi", m_throttlepidKi);
+    m_throttlepidKd = frc::SmartDashboard::GetNumber("DTL_ThrottlePIDKd", m_throttlepidKd);
+
+    m_throttleController = frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
+
+    frc::SmartDashboard::PutNumber("DTL_MaxTurn", m_maxTurn);
+    frc::SmartDashboard::PutNumber("DTL_MaxThrottle", m_maxThrottle);
+    frc::SmartDashboard::PutNumber("DTL_TargetDistance", m_targetDistance);
+    frc::SmartDashboard::PutNumber("DTL_AngleThreshold", m_angleThreshold);
+    frc::SmartDashboard::PutNumber("DTL_DistThreshold", m_distThreshold);
+    frc::SmartDashboard::PutNumber("DTL_ThrottleShape", m_throttleShape);
+    frc::SmartDashboard::PutNumber("DTL_TargetAreaMin", m_targetAreaMin);
+    frc::SmartDashboard::PutNumber("DTL_DistOffset", m_distOffset);
 }
 
 void Drivetrain::MoveWithLimelightExecute(frc::XboxController *throttleJstick)
@@ -588,7 +616,7 @@ void Drivetrain::MoveWithLimelightExecute(frc::XboxController *throttleJstick)
     // get turn value - just horizontal offset from target
     RobotContainer *robotContainer = RobotContainer::GetInstance();
     double tx = robotContainer->m_vision.GetHorizOffsetDeg();
-    double turnOutput = m_turnController.Calculate(tx);
+    double turnOutput = -m_turnController.Calculate(tx);
 
     // cap max turn values
     if (turnOutput < -m_maxTurn)
@@ -596,17 +624,31 @@ void Drivetrain::MoveWithLimelightExecute(frc::XboxController *throttleJstick)
     if (turnOutput > m_maxTurn)
         turnOutput = m_maxTurn;
 
-    // TUNING: find the angle error and add that? min power/movement
-    // get throttle value
-    //  get distance based on equation
-    //  throttle = PID(limelightDistance, targetDistance //DISTANCE error// )*cos(limelightError in degrees //turnOutput// )^throttleShape
+    frc::SmartDashboard::PutNumber("DTL_TurnOutput", turnOutput);
 
-    // distance = m*targetArea+distOffset get target area at 0 (min) and 60-70 (max) to calculate m
-    // double throttleDistance = limelightDistance - m_targetDistance;
-    // double throttleOutput = m_throttleController.Calculate(throttleDistance);
+    // get throttle value
+    //  get distance based on equation distance = m*targetArea+distOffset
+    double ta = robotContainer->m_vision.GetTargetArea();
+
+    double slope = (m_distOffset) / (m_targetAreaMin - m_targetAreaMax);
+    double limelightDistance =
+        slope * (ta - m_targetAreaMax); // assuming max target area is when intake to wall dist is 0
+
+    double throttleDistance = limelightDistance - m_targetDistance;
+
+    double throttleOutput = m_throttleController.Calculate(throttleDistance);
+    throttleOutput = pow(throttleOutput * cos(turnOutput), m_throttleShape);
+
+    // cap max throttle values
+    if (throttleOutput < -m_maxThrottle)
+        throttleOutput = -m_maxThrottle;
+    if (throttleOutput > m_maxThrottle)
+        throttleOutput = m_maxThrottle;
+
+    frc::SmartDashboard::PutNumber("DTL_ThrottleOutput", throttleOutput);
 
     if (m_talonValidL1 || m_talonValidR3)
-        m_diffDrive.ArcadeDrive(0.0, -turnOutput, true);
+        m_diffDrive.ArcadeDrive(throttleOutput, turnOutput, true);
 }
 
 void Drivetrain::MoveWithLimelightEnd() {}

@@ -157,7 +157,15 @@ private:
     double m_throttlepidKp = 0.1;
     double m_throttlepidKi = 0.0;
     double m_throttlepidKd = 0.0;
-    double m_maxTurn = 0.0;
+    double m_maxTurn;
+    double m_maxThrottle;
+    double m_targetDistance;
+    double m_angleThreshold;
+    double m_distThreshold;
+    double m_throttleShape;
+    double m_targetAreaMin;
+    double m_targetAreaMax;
+    double m_distOffset;
 
     // Velocity closed-loop drive
     double m_vcMaxSpeed;
