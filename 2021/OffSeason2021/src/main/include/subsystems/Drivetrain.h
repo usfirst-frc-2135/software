@@ -249,7 +249,11 @@ public:
     void SetBrakeMode(bool brakeMode);
     void MoveSetQuickTurn(bool quickTurn);
     void MoveStop(void);
+
+    // Teleop mode
+    void MoveWithJoysticksInit(void);
     void MoveWithJoysticks(frc::XboxController *driverPad);
+    void MoveWithJoysticksEnd(void);
 
     void MoveWithLimelightInit();
     void MoveWithLimelightExecute(frc::XboxController *driverPad);

@@ -555,6 +555,16 @@ void Drivetrain::MoveStop()
 //
 //  Joystick movement during Teleop
 //
+
+void Drivetrain::MoveWithJoysticksInit(void)
+{
+    SetBrakeMode(true);
+    m_motorL1.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
+    m_motorL2.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
+    m_motorR3.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
+    m_motorR4.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
+}
+
 void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
 {
     double xValue = throttleJstick->GetX(frc::GenericHID::JoystickHand::kRightHand);
@@ -583,6 +593,15 @@ void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
 
     if (m_talonValidL1 || m_talonValidR3)
         m_diffDrive.CurvatureDrive(-yOutput, xOutput, m_isQuickTurn);
+}
+
+void Drivetrain::MoveWithJoysticksEnd(void)
+{
+    SetBrakeMode(false);
+    m_motorL1.ConfigOpenloopRamp(0.0, kCANTimeout);
+    m_motorL2.ConfigOpenloopRamp(0.0, kCANTimeout);
+    m_motorR3.ConfigOpenloopRamp(0.0, kCANTimeout);
+    m_motorR4.ConfigOpenloopRamp(0.0, kCANTimeout);
 }
 
 // Movement during limelight shooting phase
