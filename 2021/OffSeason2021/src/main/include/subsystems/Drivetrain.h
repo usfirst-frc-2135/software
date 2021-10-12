@@ -163,9 +163,10 @@ private:
     double m_angleThreshold;
     double m_distThreshold;
     double m_throttleShape;
-    double m_targetAreaMin;
-    double m_targetAreaMax;
-    double m_distOffset;
+    double m_targetArea1;
+    double m_targetArea2;
+    double m_dist1;
+    double m_dist2;
 
     // Velocity closed-loop drive
     double m_vcMaxSpeed;

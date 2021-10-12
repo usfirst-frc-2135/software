@@ -211,9 +211,10 @@ void Drivetrain::ConfigFileLoad(void)
     config->GetValueAsDouble("DTL_AngleThreshold", m_angleThreshold, 3);
     config->GetValueAsDouble("DTL_DistThreshold", m_distThreshold, 6);
     config->GetValueAsDouble("DTL_ThrottleShape", m_throttleShape, 10);
-    config->GetValueAsDouble("DTL_TargetAreaMin", m_targetAreaMin, 0.0);
-    config->GetValueAsDouble("DTL_TargetAreaMax", m_targetAreaMax, 0.0);
-    config->GetValueAsDouble("DTL_DistOffset", m_distOffset, 0.0);
+    config->GetValueAsDouble("DTL_TargetArea1", m_targetArea1, 0.0);
+    config->GetValueAsDouble("DTL_TargetArea2", m_targetArea2, 0.0);
+    config->GetValueAsDouble("DTL_Dist1", m_dist1, 0.0);
+    config->GetValueAsDouble("DTL_Dist2", m_dist2, 0.0);
 
     config->GetValueAsDouble("DT_StoppedTolerance", m_tolerance, 0.05);
 }
@@ -297,9 +298,10 @@ void Drivetrain::UpdateDashboardValues(void)
     frc::SmartDashboard::PutNumber("DTL_AngleThreshold", m_angleThreshold);
     frc::SmartDashboard::PutNumber("DTL_DistThreshold", m_distThreshold);
     frc::SmartDashboard::PutNumber("DTL_ThrottleShape", m_throttleShape);
-    frc::SmartDashboard::PutNumber("DTL_TargetAreaMin", m_targetAreaMin);
-    frc::SmartDashboard::PutNumber("DTL_TargetAreaMax", m_targetAreaMax);
-    frc::SmartDashboard::PutNumber("DTL_DistOffset", m_distOffset);
+    frc::SmartDashboard::PutNumber("DTL_TargetArea1", m_targetArea1);
+    frc::SmartDashboard::PutNumber("DTL_TargetArea1", m_targetArea2);
+    frc::SmartDashboard::PutNumber("DTL_Dist1", m_dist1);
+    frc::SmartDashboard::PutNumber("DTL_Dist2", m_dist2);
 
     // Only update indicators every 100 ms to cut down on network traffic
     if ((periodicInterval++ % 5 == 0) && (m_driveDebug > 1))
@@ -620,14 +622,16 @@ void Drivetrain::MoveWithLimelightInit()
 
     m_throttleController = frc2::PIDController(m_vcpidKp, m_vcpidKi, m_vcpidKd);
 
-    frc::SmartDashboard::PutNumber("DTL_MaxTurn", m_maxTurn);
-    frc::SmartDashboard::PutNumber("DTL_MaxThrottle", m_maxThrottle);
-    frc::SmartDashboard::PutNumber("DTL_TargetDistance", m_targetDistance);
-    frc::SmartDashboard::PutNumber("DTL_AngleThreshold", m_angleThreshold);
-    frc::SmartDashboard::PutNumber("DTL_DistThreshold", m_distThreshold);
-    frc::SmartDashboard::PutNumber("DTL_ThrottleShape", m_throttleShape);
-    frc::SmartDashboard::PutNumber("DTL_TargetAreaMin", m_targetAreaMin);
-    frc::SmartDashboard::PutNumber("DTL_DistOffset", m_distOffset);
+    frc::SmartDashboard::GetNumber("DTL_MaxTurn", m_maxTurn);
+    frc::SmartDashboard::GetNumber("DTL_MaxThrottle", m_maxThrottle);
+    frc::SmartDashboard::GetNumber("DTL_TargetDistance", m_targetDistance);
+    frc::SmartDashboard::GetNumber("DTL_AngleThreshold", m_angleThreshold);
+    frc::SmartDashboard::GetNumber("DTL_DistThreshold", m_distThreshold);
+    frc::SmartDashboard::GetNumber("DTL_ThrottleShape", m_throttleShape);
+    ffrc::SmartDashboard::GetNumber("DTL_TargetArea1", m_targetArea1);
+    frc::SmartDashboard::GetNumber("DTL_TargetArea1", m_targetArea2);
+    frc::SmartDashboard::GetNumber("DTL_Dist1", m_dist1);
+    frc::SmartDashboard::GetNumber("DTL_Dist2", m_dist2);
 }
 
 void Drivetrain::MoveWithLimelightExecute(frc::XboxController *throttleJstick)
@@ -649,10 +653,9 @@ void Drivetrain::MoveWithLimelightExecute(frc::XboxController *throttleJstick)
     //  get distance based on equation distance = m*targetArea+distOffset
     double ta = robotContainer->m_vision.GetTargetArea();
 
-    double slope = (m_distOffset) / (m_targetAreaMin - m_targetAreaMax);
-    double limelightDistance =
-        slope * (ta - m_targetAreaMax); // assuming max target area is when intake to wall dist is 0
-
+    double slope = (m_dist2 - m_dist1) / (m_targetArea2 - m_targetArea1);
+    double distOffset = m_dist1 - slope * m_targetArea1;
+    double limelightDistance = slope * ta - distOffset;
     double throttleDistance = limelightDistance - m_targetDistance;
 
     double throttleOutput = m_throttleController.Calculate(throttleDistance);
