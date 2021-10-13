@@ -249,7 +249,7 @@ public:
     void MoveWithJoysticksEnd(void);
 
     void MoveWithLimelightInit();
-    void MoveWithLimelightExecute(double tx, double ta);
+    void MoveWithLimelightExecute(double tx, double ta, double tv);
     bool MoveWithLimelightIsFinished();
     void MoveWithLimelightEnd();
 

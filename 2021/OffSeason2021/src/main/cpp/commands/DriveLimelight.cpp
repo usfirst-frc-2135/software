@@ -39,7 +39,8 @@ void DriveLimelight::Execute()
     RobotContainer *robotContainer = RobotContainer::GetInstance();
     double tx = robotContainer->m_vision.GetHorizOffsetDeg();
     double ta = robotContainer->m_vision.GetTargetArea();
-    m_drivetrain->MoveWithLimelightExecute(tx, ta);
+    double tv = robotContainer->m_vision.GetTargetValid();
+    m_drivetrain->MoveWithLimelightExecute(tx, ta, tv);
 }
 
 // Make this return true when this Command no longer needs to run execute()

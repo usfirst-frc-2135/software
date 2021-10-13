@@ -585,7 +585,7 @@ void Drivetrain::MoveWithLimelightInit()
     frc::SmartDashboard::PutNumber("DTL_Slope", m_slope);
 }
 
-void Drivetrain::MoveWithLimelightExecute(double tx, double ta)
+void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
 {
     // get turn value - just horizontal offset from target
     m_tx = tx;
