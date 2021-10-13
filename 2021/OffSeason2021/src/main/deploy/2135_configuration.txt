@@ -15,11 +15,6 @@
 # DT_DriveYScaling =  0.3
   DT_OpenLoopRampRate = 0.5
   DT_ClosedLoopRampRate = 0
-  DT_VCMaxSpeed = 13.03
-  DT_VCMaxAngSpeed = 3.14159
-  DT_VCPIDKp = 1.0
-  DT_VCPIDKi = 0.0
-  DT_VCPIDKd = 0.0
 # Limelight settings
   DTL_MaxTurn = 0.3
   DTL_MaxThrottle = 0.2

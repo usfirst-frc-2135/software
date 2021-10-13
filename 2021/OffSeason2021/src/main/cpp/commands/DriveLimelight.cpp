@@ -36,19 +36,23 @@ void DriveLimelight::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DriveLimelight::Execute()
 {
-    m_drivetrain->MoveWithLimelightExecute(RobotContainer::GetInstance()->getDriverController());
+    RobotContainer *robotContainer = RobotContainer::GetInstance();
+    double tx = robotContainer->m_vision.GetHorizOffsetDeg();
+    double ta = robotContainer->m_vision.GetTargetArea();
+    m_drivetrain->MoveWithLimelightExecute(tx, ta);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveLimelight::IsFinished()
 {
-    return false;
+    return m_drivetrain->MoveWithLimelightIsFinished();
 }
 
 // Called once after isFinished returns true
 void DriveLimelight::End(bool interrupted)
 {
     spdlog::info("DriveLimelight - End");
+    m_drivetrain->MoveWithLimelightEnd();
 }
 
 bool DriveLimelight::RunsWhenDisabled() const

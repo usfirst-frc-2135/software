@@ -167,13 +167,10 @@ private:
     double m_targetArea2;
     double m_dist1;
     double m_dist2;
-
-    // Velocity closed-loop drive
-    double m_vcMaxSpeed;
-    double m_vcMaxAngSpeed;
-    double m_vcpidKp = 1.0;
-    double m_vcpidKi = 0.0;
-    double m_vcpidKd = 0.0;
+    double m_slope;
+    double m_distOffset;
+    double m_tx;
+    double m_limelightDistance;
 
     // Do another drive characterization
     frc::SimpleMotorFeedforward<meter> m_feedforward{ DriveConstants::ks,
@@ -185,10 +182,6 @@ private:
     // DriveWithLimelight pid controller objects
     frc2::PIDController m_turnController{ 0.0, 0.0, 0.0 };
     frc2::PIDController m_throttleController{ 0.0, 0.0, 0.0 };
-
-    // Velocity Closed Loop Drive
-    frc2::PIDController m_leftPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
-    frc2::PIDController m_rightPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
 
     // Ramsete follower objects
     frc2::PIDController m_leftController{ DriveConstants::kPDriveVel, 0.0, 0.0 };
@@ -227,7 +220,6 @@ private:
     void ResetOdometry(frc::Pose2d pose);
 
     void TankDriveVolts(volt_t left, volt_t right);
-    void VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &speeds);
 
     void PlotTrajectory(frc::Trajectory trajectory);
 
@@ -257,7 +249,8 @@ public:
     void MoveWithJoysticksEnd(void);
 
     void MoveWithLimelightInit();
-    void MoveWithLimelightExecute(frc::XboxController *driverPad);
+    void MoveWithLimelightExecute(double tx, double ta);
+    bool MoveWithLimelightIsFinished();
     void MoveWithLimelightEnd();
 
     void ToggleDriveMode(void);
