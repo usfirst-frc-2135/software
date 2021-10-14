@@ -46,7 +46,9 @@ void DriveLimelight::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool DriveLimelight::IsFinished()
 {
-    return m_drivetrain->MoveWithLimelightIsFinished();
+    RobotContainer *robotContainer = RobotContainer::GetInstance();
+    double tx = robotContainer->m_vision.GetHorizOffsetDeg();
+    return m_drivetrain->MoveWithLimelightIsFinished(tx);
 }
 
 // Called once after isFinished returns true

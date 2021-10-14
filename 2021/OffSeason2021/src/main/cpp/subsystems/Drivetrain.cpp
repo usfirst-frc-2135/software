@@ -588,14 +588,13 @@ void Drivetrain::MoveWithLimelightInit()
 void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
 {
     // get turn value - just horizontal offset from target
-    m_tx = tx;
-    double turnOutput = -m_turnController.Calculate(m_tx);
+    double turnOutput = -m_turnController.Calculate(tx);
 
     // get throttle value
     m_limelightDistance = m_slope * ta - m_distOffset;
 
     double throttleDistance = m_throttleController.Calculate(m_limelightDistance, m_targetDistance);
-    double throttleOutput = throttleDistance * pow(cos(turnOutput * 180 / wpi::math::pi), m_throttleShape);
+    double throttleOutput = throttleDistance * pow(cos(turnOutput * wpi::math::pi / 180), m_throttleShape);
 
     // put turn and throttle outputs on the dashboard
     frc::SmartDashboard::PutNumber("DTL_TurnOutput", turnOutput);
@@ -620,11 +619,10 @@ void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
         m_diffDrive.ArcadeDrive(throttleOutput, turnOutput, true);
 }
 
-bool Drivetrain::MoveWithLimelightIsFinished()
+bool Drivetrain::MoveWithLimelightIsFinished(double tx)
 {
     return (
-        (fabs(m_tx) <= m_angleThreshold)
-        && (fabs(m_limelightDistance - m_targetDistance) <= m_distThreshold));
+        (fabs(tx) <= m_angleThreshold) && (fabs(m_targetDistance - m_limelightDistance) <= m_distThreshold));
 }
 
 void Drivetrain::MoveWithLimelightEnd() {}

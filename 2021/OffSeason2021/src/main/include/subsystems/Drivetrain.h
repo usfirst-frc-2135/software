@@ -169,7 +169,6 @@ private:
     double m_dist2;
     double m_slope;
     double m_distOffset;
-    double m_tx;
     double m_limelightDistance;
 
     // Do another drive characterization
@@ -250,7 +249,7 @@ public:
 
     void MoveWithLimelightInit();
     void MoveWithLimelightExecute(double tx, double ta, double tv);
-    bool MoveWithLimelightIsFinished();
+    bool MoveWithLimelightIsFinished(double tx);
     void MoveWithLimelightEnd();
 
     void ToggleDriveMode(void);
