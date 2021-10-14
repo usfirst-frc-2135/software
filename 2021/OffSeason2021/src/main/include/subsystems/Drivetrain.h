@@ -150,12 +150,26 @@ private:
     double m_currentR3 = 0.0; // Motor R3 output current from Falcon
     double m_currentR4 = 0.0; // Motor R4 output current from Falcon
 
-    // Velocity closed-loop drive
-    double m_vcMaxSpeed;
-    double m_vcMaxAngSpeed;
-    double m_vcpidKp = 1.0;
-    double m_vcpidKi = 0.0;
-    double m_vcpidKd = 0.0;
+    // limelight drive
+    double m_turnpidKp = 0.1;
+    double m_turnpidKi = 0.0;
+    double m_turnpidKd = 0.0;
+    double m_throttlepidKp = 0.1;
+    double m_throttlepidKi = 0.0;
+    double m_throttlepidKd = 0.0;
+    double m_maxTurn;
+    double m_maxThrottle;
+    double m_targetDistance;
+    double m_angleThreshold;
+    double m_distThreshold;
+    double m_throttleShape;
+    double m_targetArea1;
+    double m_targetArea2;
+    double m_dist1;
+    double m_dist2;
+    double m_slope;
+    double m_distOffset;
+    double m_limelightDistance;
 
     // Do another drive characterization
     frc::SimpleMotorFeedforward<meter> m_feedforward{ DriveConstants::ks,
@@ -165,12 +179,8 @@ private:
     frc::Field2d m_field;
 
     // DriveWithLimelight pid controller objects
-    // frc2::PIDController m_turnController;
-    // frc2::PIDController m_throttleController;
-
-    // Velocity Closed Loop Drive
-    frc2::PIDController m_leftPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
-    frc2::PIDController m_rightPIDController{ m_vcpidKp, m_vcpidKi, m_vcpidKd };
+    frc2::PIDController m_turnController{ 0.0, 0.0, 0.0 };
+    frc2::PIDController m_throttleController{ 0.0, 0.0, 0.0 };
 
     // Ramsete follower objects
     frc2::PIDController m_leftController{ DriveConstants::kPDriveVel, 0.0, 0.0 };
@@ -209,7 +219,6 @@ private:
     void ResetOdometry(frc::Pose2d pose);
 
     void TankDriveVolts(volt_t left, volt_t right);
-    void VelocityCLDrive(const frc::DifferentialDriveWheelSpeeds &speeds);
 
     void PlotTrajectory(frc::Trajectory trajectory);
 
@@ -232,11 +241,17 @@ public:
     void SetBrakeMode(bool brakeMode);
     void MoveSetQuickTurn(bool quickTurn);
     void MoveStop(void);
-    
+
     // Teleop mode
     void MoveWithJoysticksInit(void);
     void MoveWithJoysticks(frc::XboxController *driverPad);
     void MoveWithJoysticksEnd(void);
+
+    void MoveWithLimelightInit();
+    void MoveWithLimelightExecute(double tx, double ta, double tv);
+    bool MoveWithLimelightIsFinished(double tx);
+    void MoveWithLimelightEnd();
+
     void ToggleDriveMode(void);
 
     // Autonomous - Ramsete follower command

@@ -13,9 +13,40 @@
 #include "frc2135/RobotConfig.h"
 #include "frc2135/spdlog.h"
 
+#include <frc/DriverStation.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 #include <spdlog/spdlog.h>
+
+std::string MatchTypeToString(const frc::DriverStation::MatchType matchType)
+{
+    switch (matchType)
+    {
+        case frc::DriverStation::MatchType::kNone:
+            return "N";
+        case frc::DriverStation::MatchType::kPractice:
+            return "P";
+        case frc::DriverStation::MatchType::kQualification:
+            return "Q";
+        case frc::DriverStation::MatchType::kElimination:
+            return "E";
+    }
+    return "<unknown>";
+}
+
+std::string AllianceToString(const frc::DriverStation::Alliance alliance)
+{
+    switch (alliance)
+    {
+        case frc::DriverStation::Alliance::kRed:
+            return "Red";
+        case frc::DriverStation::Alliance::kBlue:
+            return "Blue";
+        case frc::DriverStation::Alliance::kInvalid:
+            return "Invalid";
+    }
+    return "<unknown>";
+}
 
 void Robot::RobotInit()
 {
@@ -45,7 +76,15 @@ void Robot::RobotPeriodic()
  * can use it to reset any subsystem information you want to clear when the
  * robot is disabled.
  */
-void Robot::DisabledInit() {}
+void Robot::DisabledInit()
+{
+    auto &ds = frc::DriverStation::GetInstance();
+    spdlog::info(
+        "DisabledInit: Match {}{}, {} Alliance",
+        MatchTypeToString(ds.GetMatchType()),
+        ds.GetMatchNumber(),
+        AllianceToString(ds.GetAlliance()));
+}
 
 void Robot::DisabledPeriodic()
 {
@@ -70,6 +109,13 @@ void Robot::DisabledPeriodic()
  */
 void Robot::AutonomousInit()
 {
+    auto &ds = frc::DriverStation::GetInstance();
+    spdlog::info(
+        "AutonomousInit: Match {}{}, {} Alliance",
+        MatchTypeToString(ds.GetMatchType()),
+        ds.GetMatchNumber(),
+        AllianceToString(ds.GetAlliance()));
+
     m_autonomousCommand = m_container->GetAutonomousCommand();
 
     if (m_autonomousCommand != nullptr)
@@ -82,6 +128,13 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
+    auto &ds = frc::DriverStation::GetInstance();
+    spdlog::info(
+        "TeleopInit: Match {}{}, {} Alliance",
+        MatchTypeToString(ds.GetMatchType()),
+        ds.GetMatchNumber(),
+        AllianceToString(ds.GetAlliance()));
+
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

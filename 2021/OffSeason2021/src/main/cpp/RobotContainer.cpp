@@ -180,9 +180,13 @@ void RobotContainer::ConfigureButtonBindings()
         true);
 
     // Triggers EXAMPLE ONLY: FIXME WITH CORRECT COMMANDS!
-    frc2135::AxisButton m_leftAxisDr(&m_driverController, (int)frc::XboxController::Axis::kLeftTrigger);
-    m_leftAxisDr.WhenPressed(ShooterAim(true), true);
-    m_leftAxisDr.WhenReleased(ShooterAim(false), true);
+    frc2135::AxisButton m_leftTriggerDr(&m_driverController, (int)frc::XboxController::Axis::kLeftTrigger);
+    m_leftTriggerDr.WhenPressed(ShooterAim(true), true);
+    m_leftTriggerDr.WhenReleased(ShooterAim(false), true);
+
+    // Driver Trigger for Limelight Mode
+    frc2135::AxisButton m_rightTriggerDr(&m_driverController, (int)frc::XboxController::Axis::kRightTrigger);
+    m_rightTriggerDr.WhileHeld(DriveLimelight(&m_drivetrain));
 
     // Operator Controller Assignments
     frc2::JoystickButton m_inStowOp{ &m_operatorController, (int)frc::XboxController::Button::kA };

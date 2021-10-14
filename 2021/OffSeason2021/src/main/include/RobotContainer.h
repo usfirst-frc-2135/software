@@ -27,6 +27,7 @@
 #include "commands/AutoShootTrenchRight.h"
 #include "commands/ClimberBrake.h"
 #include "commands/ClimberRun.h"
+#include "commands/DriveLimelight.h"
 #include "commands/DriveQuickturn.h"
 #include "commands/DriveTeleop.h"
 #include "commands/FloorConveyorRun.h"
