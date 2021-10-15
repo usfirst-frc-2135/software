@@ -38,7 +38,7 @@ void DriveLimelight::Execute()
 {
     RobotContainer *robotContainer = RobotContainer::GetInstance();
     double tx = robotContainer->m_vision.GetHorizOffsetDeg();
-    double ta = robotContainer->m_vision.GetTargetArea();
+    double ta = robotContainer->m_vision.GetVertOffsetDeg();
     double tv = robotContainer->m_vision.GetTargetValid();
     m_drivetrain->MoveWithLimelightExecute(tx, ta, tv);
 }
