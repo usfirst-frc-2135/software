@@ -92,7 +92,7 @@ bool Vision::GetTargetValid()
     return m_targetValid;
 }
 
-void Vision::SetLEDMode(bool mode)
+void Vision::SetLEDMode(ledMode_e mode)
 {
     table->PutNumber("led", mode);
 }
