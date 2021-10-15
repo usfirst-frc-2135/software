@@ -52,9 +52,6 @@ private:
 
     frc::Solenoid m_flashlight{ 0, 7 };
 
-    // frc::LinearFilter<double> m_flywheelFilter = frc::LinearFilter<double>::MovingAverage(5);
-    // frc::LinearFilter<double> m_feederFilter = frc::LinearFilter<double>::MovingAverage(5);
-
     frc::LinearFilter<double> m_flywheelFilter = frc::LinearFilter<double>::SinglePoleIIR(0.1, 0.02_s);
     frc::LinearFilter<double> m_feederFilter = frc::LinearFilter<double>::SinglePoleIIR(0.1, 0.02_s);
 
