@@ -16,7 +16,9 @@
 
 #include "commands/DriveLimelight.h"
 
-DriveLimelight::DriveLimelight(Drivetrain *m_drivetrain) : m_drivetrain(m_drivetrain)
+DriveLimelight::DriveLimelight(Drivetrain *m_drivetrain, Vision *m_vision) :
+    m_drivetrain(m_drivetrain),
+    m_vision(m_vision)
 {
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(m_Subsystem);
@@ -30,6 +32,7 @@ DriveLimelight::DriveLimelight(Drivetrain *m_drivetrain) : m_drivetrain(m_drivet
 void DriveLimelight::Initialize()
 {
     spdlog::info("DriveLimelight - Init");
+    m_vision->SetLEDMode(Vision::LED_ON);
     m_drivetrain->MoveWithLimelightInit();
 }
 
@@ -55,6 +58,7 @@ bool DriveLimelight::IsFinished()
 void DriveLimelight::End(bool interrupted)
 {
     spdlog::info("DriveLimelight - End");
+    m_vision->SetLEDMode(Vision::LED_OFF);
     m_drivetrain->MoveWithLimelightEnd();
 }
 

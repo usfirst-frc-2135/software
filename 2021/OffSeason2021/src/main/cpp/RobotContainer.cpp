@@ -186,7 +186,7 @@ void RobotContainer::ConfigureButtonBindings()
 
     // Driver Trigger for Limelight Mode
     frc2135::AxisButton m_rightTriggerDr(&m_driverController, (int)frc::XboxController::Axis::kRightTrigger);
-    m_rightTriggerDr.WhileHeld(DriveLimelight(&m_drivetrain));
+    m_rightTriggerDr.WhileHeld(DriveLimelight(&m_drivetrain, &m_vision));
 
     // Operator Controller Assignments
     frc2::JoystickButton m_inStowOp{ &m_operatorController, (int)frc::XboxController::Button::kA };
