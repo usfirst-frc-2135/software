@@ -507,10 +507,10 @@ void Drivetrain::MoveStop()
 void Drivetrain::MoveWithJoysticksInit(void)
 {
     SetBrakeMode(true);
-    m_motorL1.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
-    m_motorL2.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
-    m_motorR3.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
-    m_motorR4.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
+    m_motorL1.ConfigOpenloopRamp(m_openLoopRampRate, 0);
+    m_motorL2.ConfigOpenloopRamp(m_openLoopRampRate, 0);
+    m_motorR3.ConfigOpenloopRamp(m_openLoopRampRate, 0);
+    m_motorR4.ConfigOpenloopRamp(m_openLoopRampRate, 0);
 }
 
 void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
@@ -546,10 +546,10 @@ void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
 void Drivetrain::MoveWithJoysticksEnd(void)
 {
     SetBrakeMode(false);
-    m_motorL1.ConfigOpenloopRamp(0.0, kCANTimeout);
-    m_motorL2.ConfigOpenloopRamp(0.0, kCANTimeout);
-    m_motorR3.ConfigOpenloopRamp(0.0, kCANTimeout);
-    m_motorR4.ConfigOpenloopRamp(0.0, kCANTimeout);
+    m_motorL1.ConfigOpenloopRamp(0.0, 0);
+    m_motorL2.ConfigOpenloopRamp(0.0, 0);
+    m_motorR3.ConfigOpenloopRamp(0.0, 0);
+    m_motorR4.ConfigOpenloopRamp(0.0, 0);
 }
 
 // Movement during limelight shooting phase
