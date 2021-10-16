@@ -290,18 +290,18 @@ void Shooter::SetShooterSpeed(int state)
 
     if (m_talonValidSH10)
     {
-        m_motorSH10.Config_kF(0, m_feederPidKf, kCANTimeout);
-        m_motorSH10.Config_kP(0, m_feederPidKp, kCANTimeout);
-        m_motorSH10.Config_kI(0, m_feederPidKi, kCANTimeout);
-        m_motorSH10.Config_kD(0, m_feederPidKd, kCANTimeout);
+        m_motorSH10.Config_kF(0, m_feederPidKf, 0);
+        m_motorSH10.Config_kP(0, m_feederPidKp, 0);
+        m_motorSH10.Config_kI(0, m_feederPidKi, 0);
+        m_motorSH10.Config_kD(0, m_feederPidKd, 0);
     }
 
     if (m_talonValidSH11)
     {
-        m_motorSH11.Config_kF(0, m_flywheelPidKf, kCANTimeout);
-        m_motorSH11.Config_kP(0, m_flywheelPidKp, kCANTimeout);
-        m_motorSH11.Config_kI(0, m_flywheelPidKi, kCANTimeout);
-        m_motorSH11.Config_kD(0, m_flywheelPidKd, kCANTimeout);
+        m_motorSH11.Config_kF(0, m_flywheelPidKf, 0);
+        m_motorSH11.Config_kP(0, m_flywheelPidKp, 0);
+        m_motorSH11.Config_kI(0, m_flywheelPidKi, 0);
+        m_motorSH11.Config_kD(0, m_flywheelPidKd, 0);
     }
 
     // Get current position in inches and set position mode and target counts
