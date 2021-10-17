@@ -415,10 +415,10 @@ int main(int argc, char* argv[])
 
     // Open the output event file as in/out file
     std::fstream outEvtFile(outEvtName, std::fstream::in | std::fstream::out);
-    if (!outEvtFile.good()) {
-        PrintUsage("Error: could not open output event file");
-        return -1;
-    }
+//    if (!outEvtFile.good()) {
+//        PrintUsage("Error: could not open output event file");
+//        return -1;
+//    }
 
 	// Open the output filtered file
 	std::ofstream outFiltFile(outFiltName);
