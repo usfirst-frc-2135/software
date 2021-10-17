@@ -106,7 +106,7 @@ private:
     //    Declare constants
     const int m_driveDebug = 0; // Debug flag to disable extra logging calls
     const int kPidIndex = 0;    // PID slot index for sensors
-    const int kCANTimeout = 30; // CAN timeout in msec to wait for response
+    const int kCANTimeout = 10; // CAN timeout in msec to wait for response
 
     // TODO: adjust kV and kA angular from robot characterization
     frc::sim::DifferentialDrivetrainSim m_driverSim{ frc::LinearSystemId::IdentifyDrivetrainSystem(

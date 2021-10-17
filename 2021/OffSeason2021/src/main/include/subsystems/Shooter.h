@@ -75,12 +75,15 @@ private:
 
     const int m_shooterDebug = 1;              // DEBUG flag to disable/enable extra logging calls
     const int kPidIndex = 0;                   // PID slot index for sensors
+    const int kCANTimeout = 10;   // CAN timeout in msec to wait for response
+
     const double kFalconEncoderCPR = 2048;     // CPR is 2048 from Falcon 500 Manual
+
     const double kFeederGearRatio = (1.5 / 1); // Reduction of 1.5/1
     const double kFeederCPR = kFalconEncoderCPR * kFeederGearRatio;
+
     const double kFlywheelGearRatio = (1.0 / 1.0); // No reduction 1:1
     const double kFlywheelCPR = kFalconEncoderCPR * kFlywheelGearRatio;
-    const int kCANTimeout = 30; // CAN timeout in msec to wait for response
 
     // Declare module variables
     bool m_talonValidSH10; // Health indicator for shooter talon 10
