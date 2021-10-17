@@ -1,11 +1,11 @@
 #include <chrono>
 #include <frc/Filesystem.h>
 #include <spdlog/async.h>
-#include <spdlog/fmt/chrono.h>
 #include <spdlog/sinks/rotating_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
 #include <string>
+#include <wpi/SmallString.h>
 
 namespace frc2135
 {
@@ -17,6 +17,9 @@ namespace frc2135
 
     void initialize_spdlog()
     {
+        wpi::SmallString<64> operating_directory;
+        frc::filesystem::GetOperatingDirectory(operating_directory);
+
         try
         {
             spdlog::init_thread_pool(256, 1);
@@ -24,8 +27,10 @@ namespace frc2135
 
             // Rotate logs between ten 1mb files
             // This conservative limit should keep the roboRIO from running out of storage space
-            auto rotating_file_logger =
-                std::make_shared<spdlog::sinks::rotating_file_sink_mt>("RobotSpdlog.log", 1024 * 1024, 10);
+            auto rotating_file_logger = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(
+                fmt::format("{}/logs/RobotSpdlog.log", operating_directory.c_str()),
+                1024 * 1024,
+                10);
             auto stdout_logger = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 
             auto logger = std::make_shared<spdlog::async_logger>(
