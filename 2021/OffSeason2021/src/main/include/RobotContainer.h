@@ -14,6 +14,7 @@
 #include "commands/ExhaustingStop.h"
 #include "commands/IntakingAction.h"
 #include "commands/IntakingStop.h"
+#include "commands/LEDSet.h"
 #include "commands/ScoringAction.h"
 #include "commands/ScoringStop.h"
 
@@ -71,7 +72,7 @@ public:
     Pneumatics m_pneumatics;
     Power m_power;
     Vision m_vision;
-    LED m_lED;
+    LED m_led;
 
     frc::XboxController *getOperatorController();
     frc::XboxController *getDriverController();

@@ -35,17 +35,17 @@ Shooter::Shooter()
 
     // Initialize Variables
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("SH_flywheelPidKf", m_flywheelPidKf, 0.0475);
-    config->GetValueAsDouble("SH_flywheelPidKp", m_flywheelPidKp, 0.0);
-    config->GetValueAsDouble("SH_flywheelPidKi", m_flywheelPidKi, 0.0);
-    config->GetValueAsDouble("SH_flywheelPidKd", m_flywheelPidKd, 0.0);
-    config->GetValueAsDouble("SH_flywheelNeutralDeadband", m_flywheelNeutralDeadband, 0.004);
+    config->GetValueAsDouble("SH_FlywheelPidKf", m_flywheelPidKf, 0.0475);
+    config->GetValueAsDouble("SH_FlywheelPidKp", m_flywheelPidKp, 0.05);
+    config->GetValueAsDouble("SH_FlywheelPidKi", m_flywheelPidKi, 0.0);
+    config->GetValueAsDouble("SH_FlywheelPidKd", m_flywheelPidKd, 0.0);
+    config->GetValueAsDouble("SH_FlywheelNeutralDeadband", m_flywheelNeutralDeadband, 0.004);
 
-    config->GetValueAsDouble("SH_feederPidKf", m_feederPidKf, 0.0475);
-    config->GetValueAsDouble("SH_feederPidKp", m_feederPidKp, 0.0);
-    config->GetValueAsDouble("SH_feeerPidKi", m_feederPidKi, 0.0);
-    config->GetValueAsDouble("SH_feederPidKd", m_feederPidKd, 0.0);
-    config->GetValueAsDouble("SH_feederNeutralDeadband", m_feederNeutralDeadband, 0.004);
+    config->GetValueAsDouble("SH_FeederPidKf", m_feederPidKf, 0.0475);
+    config->GetValueAsDouble("SH_FeederPidKp", m_feederPidKp, 0.0);
+    config->GetValueAsDouble("SH_FeederPidKi", m_feederPidKi, 0.0);
+    config->GetValueAsDouble("SH_FeederPidKd", m_feederPidKd, 0.0);
+    config->GetValueAsDouble("SH_FeederNeutralDeadband", m_feederNeutralDeadband, 0.004);
 
     config->GetValueAsDouble("SH_FlywheelRPM", m_FlywheelTargetRPM);
     config->GetValueAsDouble("SH_FeederRPM", m_FeederTargetRPM);
@@ -169,7 +169,7 @@ void Shooter::Periodic()
         frc::SmartDashboard::PutNumber("SH_FeederRPM", m_FeederCurrentRPM);
         frc::SmartDashboard::PutNumber("SH_FlywheelRPM", m_FlywheelCurrentRPM);
 
-        if (m_FlywheelTargetRPM > 50)
+        if (m_FlywheelTargetRPM > 50 && m_FlywheelCurrentRPM > 50)
         {
             spdlog::info("SH_FeederRPM {} SH_FlywheelRPM {}", m_FeederCurrentRPM, m_FlywheelCurrentRPM);
         }
@@ -278,30 +278,30 @@ void Shooter::SetShooterSpeed(int state)
             return;
     }
 
-    m_feederPidKf = frc::SmartDashboard::PutNumber("SH_FeederPidKf", m_feederPidKf);
-    m_feederPidKp = frc::SmartDashboard::PutNumber("SH_FeederPidKp", m_feederPidKp);
-    m_feederPidKi = frc::SmartDashboard::PutNumber("SH_FeederPidKi", m_feederPidKi);
-    m_feederPidKd = frc::SmartDashboard::PutNumber("SH_FeederPidKd", m_feederPidKd);
+    m_feederPidKf = frc::SmartDashboard::GetNumber("SH_FeederPidKf", m_feederPidKf);
+    m_feederPidKp = frc::SmartDashboard::GetNumber("SH_FeederPidKp", m_feederPidKp);
+    m_feederPidKi = frc::SmartDashboard::GetNumber("SH_FeederPidKi", m_feederPidKi);
+    m_feederPidKd = frc::SmartDashboard::GetNumber("SH_FeederPidKd", m_feederPidKd);
 
-    m_flywheelPidKf = frc::SmartDashboard::PutNumber("SH_FlywheelPidKf", m_flywheelPidKf);
-    m_flywheelPidKp = frc::SmartDashboard::PutNumber("SH_FlywheelPidKp", m_flywheelPidKp);
-    m_flywheelPidKp = frc::SmartDashboard::PutNumber("SH_FlywheelPidKi", m_flywheelPidKi);
-    m_flywheelPidKd = frc::SmartDashboard::PutNumber("SH_FlywheelPidKd", m_flywheelPidKd);
+    m_flywheelPidKf = frc::SmartDashboard::GetNumber("SH_FlywheelPidKf", m_flywheelPidKf);
+    m_flywheelPidKp = frc::SmartDashboard::GetNumber("SH_FlywheelPidKp", m_flywheelPidKp);
+    m_flywheelPidKp = frc::SmartDashboard::GetNumber("SH_FlywheelPidKi", m_flywheelPidKi);
+    m_flywheelPidKd = frc::SmartDashboard::GetNumber("SH_FlywheelPidKd", m_flywheelPidKd);
 
     if (m_talonValidSH10)
     {
-        m_motorSH10.Config_kF(0, m_feederPidKf, kCANTimeout);
-        m_motorSH10.Config_kP(0, m_feederPidKp, kCANTimeout);
-        m_motorSH10.Config_kI(0, m_feederPidKi, kCANTimeout);
-        m_motorSH10.Config_kD(0, m_feederPidKd, kCANTimeout);
+        m_motorSH10.Config_kF(0, m_feederPidKf, 0);
+        m_motorSH10.Config_kP(0, m_feederPidKp, 0);
+        m_motorSH10.Config_kI(0, m_feederPidKi, 0);
+        m_motorSH10.Config_kD(0, m_feederPidKd, 0);
     }
 
     if (m_talonValidSH11)
     {
-        m_motorSH11.Config_kF(0, m_flywheelPidKf, kCANTimeout);
-        m_motorSH11.Config_kP(0, m_flywheelPidKp, kCANTimeout);
-        m_motorSH11.Config_kI(0, m_flywheelPidKi, kCANTimeout);
-        m_motorSH11.Config_kD(0, m_flywheelPidKd, kCANTimeout);
+        m_motorSH11.Config_kF(0, m_flywheelPidKf, 0);
+        m_motorSH11.Config_kP(0, m_flywheelPidKp, 0);
+        m_motorSH11.Config_kI(0, m_flywheelPidKi, 0);
+        m_motorSH11.Config_kD(0, m_flywheelPidKd, 0);
     }
 
     // Get current position in inches and set position mode and target counts
