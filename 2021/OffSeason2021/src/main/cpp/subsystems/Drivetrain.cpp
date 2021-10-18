@@ -88,10 +88,6 @@ Drivetrain::Drivetrain()
     if (m_talonValidR4)
         TalonFollowerInitialize(m_motorR4, 3);
 
-    // Set to first drive mode option
-    m_curDriveMode = DRIVEMODE_LAST;
-    ToggleDriveMode();
-
     // If either master drive talons are valid, enable safety timer
     m_diffDrive.SetSafetyEnabled(m_talonValidL1 || m_talonValidR3);
 
@@ -182,7 +178,6 @@ void Drivetrain::ConfigFileLoad(void)
 {
     //  Retrieve drivetrain modified parameters from RobotConfig
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsInt("DT_DriveMode", m_curDriveMode, 0);
     config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 0.4);
     config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 0.4);
     config->GetValueAsDouble("DT_QuickTurnScaling", m_driveQTScaling, 0.5);

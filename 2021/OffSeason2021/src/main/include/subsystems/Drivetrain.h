@@ -95,14 +95,6 @@ private:
     frc::ADXRS450_Gyro m_gyro;
     frc::sim::ADXRS450_GyroSim m_gyroSim{ m_gyro };
 
-    typedef enum driveMode_e
-    { // Driving Algorithms
-        DRIVEMODE_FIRST = 0,
-        DRIVEMODE_CURVATURE = 1,
-        DRIVEMODE_VELCONTROL = 2,
-        DRIVEMODE_LAST
-    } driveMode_e;
-
     //    Declare constants
     const int m_driveDebug = 0; // Debug flag to disable extra logging calls
     const int kPidIndex = 0;    // PID slot index for sensors
@@ -136,7 +128,6 @@ private:
 
     // Drive modes
     bool m_brakeMode;   // Brake or Coast Mode for Talons
-    int m_curDriveMode; // Current driving mode, arcade by default
     bool m_isQuickTurn; // Setting for quickturn in curvature drive
 
     // Odometry and telemetry
@@ -251,8 +242,6 @@ public:
     void MoveWithLimelightExecute(double tx, double ta, double tv);
     bool MoveWithLimelightIsFinished(double tx);
     void MoveWithLimelightEnd();
-
-    void ToggleDriveMode(void);
 
     // Autonomous - Ramsete follower command
     void RamseteFollowerInit(string pathName);
