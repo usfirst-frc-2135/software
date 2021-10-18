@@ -636,9 +636,8 @@ bool Drivetrain::MoveWithLimelightIsFinished(double tx)
     bool rightStopped = m_wheelSpeeds.right <= m_tolerance * 1_mps;
 
     return (
-        (fabs(tx) <= m_angleThreshold) &&
-        (fabs(m_targetDistance - m_limelightDistance) <= m_distThreshold) &&
-        leftStopped && rightStopped);
+        (fabs(tx) <= m_angleThreshold) && (fabs(m_targetDistance - m_limelightDistance) <= m_distThreshold)
+        && leftStopped && rightStopped);
 }
 
 void Drivetrain::MoveWithLimelightEnd()

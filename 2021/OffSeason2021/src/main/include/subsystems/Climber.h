@@ -73,4 +73,10 @@ public:
 
     const bool CL_BRAKE_LOCKED = false;
     const bool CL_BRAKE_UNLOCKED = true;
+    enum {
+        CLIMBER_INIT = -2,
+        CLIMBER_DOWN = -1,
+        CLIMBER_STOPPED = 0,
+        CLIMBER_UP = 1
+    };
 };
