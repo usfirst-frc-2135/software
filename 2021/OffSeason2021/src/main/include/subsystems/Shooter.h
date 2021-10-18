@@ -52,8 +52,8 @@ private:
 
     frc::Solenoid m_flashlight{ 0, 7 };
 
-    frc::LinearFilter<double> m_flywheelFilter = frc::LinearFilter<double>::SinglePoleIIR(0.1, 0.02_s);
     frc::LinearFilter<double> m_feederFilter = frc::LinearFilter<double>::SinglePoleIIR(0.1, 0.02_s);
+    frc::LinearFilter<double> m_flywheelFilter = frc::LinearFilter<double>::SinglePoleIIR(0.1, 0.02_s);
 
     // Sensors
 
@@ -73,44 +73,47 @@ private:
         1.5
     };
 
-    const int m_shooterDebug = 1;              // DEBUG flag to disable/enable extra logging calls
-    const int kPidIndex = 0;                   // PID slot index for sensors
-    const double kFalconEncoderCPR = 2048;     // CPR is 2048 from Falcon 500 Manual
+    const int m_shooterDebug = 1; // DEBUG flag to disable/enable extra logging calls
+    const int kPidIndex = 0;      // PID slot index for sensors
+    const int kCANTimeout = 10;   // CAN timeout in msec to wait for response
+
+    const double kFalconEncoderCPR = 2048; // CPR is 2048 from Falcon 500 Manual
+
     const double kFeederGearRatio = (1.5 / 1); // Reduction of 1.5/1
     const double kFeederCPR = kFalconEncoderCPR * kFeederGearRatio;
+
     const double kFlywheelGearRatio = (1.0 / 1.0); // No reduction 1:1
     const double kFlywheelCPR = kFalconEncoderCPR * kFlywheelGearRatio;
-    const int kCANTimeout = 30; // CAN timeout in msec to wait for response
 
     // Declare module variables
     bool m_talonValidSH10; // Health indicator for shooter talon 10
     bool m_talonValidSH11; // Health indicator for shooter talon 11
 
-    //Configuration file parameters
-
-    double m_flywheelPidKf;           // Flywheel PID force constant
-    double m_flywheelPidKp;           // Flywheel PID proportional constant
-    double m_flywheelPidKi;           // Flywheel PID integral constant
-    double m_flywheelPidKd;           // Flywheel PID derivative constant
-    double m_flywheelNeutralDeadband; // Flywheel PID neutral deadband in percent
+    // Configuration file parameters
 
     double m_feederPidKf;           // Feeder PID force constant
     double m_feederPidKp;           // Feeder PID proportional constant
     double m_feederPidKi;           // Feeder PID integral constant
     double m_feederPidKd;           // Feeder PID derivative constant
     double m_feederNeutralDeadband; // Feeder PID neutral deadband in percent
+    double m_feederTargetRPM;       // Target feeder RPM for shooting
 
-    double m_FeederTargetRPM;
-    double m_FlywheelTargetRPM;
+    double m_flywheelPidKf;           // Flywheel PID force constant
+    double m_flywheelPidKp;           // Flywheel PID proportional constant
+    double m_flywheelPidKi;           // Flywheel PID integral constant
+    double m_flywheelPidKd;           // Flywheel PID derivative constant
+    double m_flywheelNeutralDeadband; // Flywheel PID neutral deadband in percent
+    double m_flywheelTargetRPM;       // Target flywheel RPM for shooting
 
-    double m_FlywheelCurrentRPM; // Current flywheel RPM
-    double m_FeederCurrentRPM;   // Current feeder RPM
+    // Measured RPM
+    double m_feederCurrentRPM;   // Current feeder RPM
+    double m_flywheelCurrentRPM; // Current flywheel RPM
 
     // Conversion functions between RPM and Output and CTRE Native Units / 100ms
-    double FlywheelRPMToNative(double rpm);
     double FeederRPMToNative(double rpm);
-    double NativeToFlywheelRPM(double native);
     double NativeToFeederRPM(double native);
+    double FlywheelRPMToNative(double rpm);
+    double NativeToFlywheelRPM(double native);
 
 public:
     Shooter();
@@ -128,7 +131,6 @@ public:
     {
         SHOOTERSPEED_STOP = 0,    // Stop shooter
         SHOOTERSPEED_FORWARD = 1, // Shooter velocity
-        SHOOTERSPEED_SMARTDASH = 2
     } shooterSpeed_e;
 
     void Initialize(void);

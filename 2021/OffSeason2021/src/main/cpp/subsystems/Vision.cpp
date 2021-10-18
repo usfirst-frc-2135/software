@@ -47,6 +47,7 @@ void Vision::Periodic()
     frc::SmartDashboard::PutNumber("VI_VERT_ANGLE", m_targetVertAngle);
     frc::SmartDashboard::PutNumber("VI_TARGET_AREA", m_targetArea);
     frc::SmartDashboard::PutNumber("VI_TARGET_SKEW", m_targetSkew);
+    frc::SmartDashboard::PutNumber("VI_TARGET_VALID", m_targetValid);
 }
 
 void Vision::SimulationPeriodic()

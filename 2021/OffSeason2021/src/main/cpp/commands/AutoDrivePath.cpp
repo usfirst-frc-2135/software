@@ -25,7 +25,7 @@ AutoDrivePath::AutoDrivePath(const char *pathName, Drivetrain *m_drivetrain) :
 // Called just before this Command runs the first time
 void AutoDrivePath::Initialize()
 {
-    spdlog::info("pathName: {}", m_pathName);
+    spdlog::info("AutoDrivePath - Init: pathName: {}", m_pathName);
     m_drivetrain->RamseteFollowerInit(m_pathName);
 }
 

@@ -28,7 +28,7 @@ ShooterAim::ShooterAim(bool lightOn) : m_lightOn(lightOn)
 // Called just before this Command runs the first time
 void ShooterAim::Initialize()
 {
-    spdlog::info("ShooterAim - Init - Shooter Flashlight State {}", (m_lightOn) ? "ON" : "OFF");
+    spdlog::info("ShooterAim - Init - Flashlight {}", (m_lightOn) ? "ON" : "OFF");
     RobotContainer *robotContainer = RobotContainer::GetInstance();
     robotContainer->m_shooter.FlashlightOn(m_lightOn);
 }
