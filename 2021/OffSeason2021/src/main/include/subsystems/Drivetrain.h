@@ -162,28 +162,36 @@ private:
     double m_distOffset;
     double m_limelightDistance;
 
-    // Do another drive characterization
-    frc::SimpleMotorFeedforward<meter> m_feedforward{ DriveConstants::ks,
-                                                      DriveConstants::kv,
-                                                      DriveConstants::ka };
-    frc::DifferentialDriveKinematics m_kinematics{ DriveConstants::kTrackWidthMeters };
-    frc::Field2d m_field;
+    // Ramsete path follower drive
+    double m_ramsetePidKp = 0.0;
+    double m_ramsetePidKi = 0.0;
+    double m_ramsetePidKd = 0.0;
+    double m_ramseteB = 0.0;
+    double m_ramseteZeta = 0.0;
+
+    // Current limit settings
+    SupplyCurrentLimitConfiguration m_supplyCurrentLimits = { true, 45.0, 45.0, 0.001 };
+    StatorCurrentLimitConfiguration m_statorCurrentLimits = { true, 80.0, 80.0, 0.001 };
 
     // DriveWithLimelight pid controller objects
     frc2::PIDController m_turnController{ 0.0, 0.0, 0.0 };
     frc2::PIDController m_throttleController{ 0.0, 0.0, 0.0 };
 
     // Ramsete follower objects
-    frc2::PIDController m_leftController{ DriveConstants::kPDriveVel, 0.0, 0.0 };
-    frc2::PIDController m_rightController{ DriveConstants::kPDriveVel, 0.0, 0.0 };
+    frc::SimpleMotorFeedforward<meter> m_feedforward{ DriveConstants::ks,
+                                                      DriveConstants::kv,
+                                                      DriveConstants::ka };
+    frc::DifferentialDriveKinematics m_kinematics{ DriveConstants::kTrackWidthMeters };
+    frc::Field2d m_field;
+
+    frc2::PIDController m_leftController{ 0.0, 0.0, 0.0 };
+    frc2::PIDController m_rightController{ 0.0, 0.0, 0.0 };
     frc::RamseteController m_ramseteController;
     frc::Trajectory m_trajectory;
     frc::Timer m_trajTimer;
 
     // Path following variables
     double m_tolerance;
-    bool leftNearStopped;
-    bool rightNearStopped;
 
     ///////////////////////////////////////////////////////////////////////////
 
