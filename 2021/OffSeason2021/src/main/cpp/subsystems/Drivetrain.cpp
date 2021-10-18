@@ -155,7 +155,6 @@ void Drivetrain::Initialize(void)
     MoveStop();
 
     // Initialize the odometry
-    ResetSensors();
     ResetOdometry({ { 0_m, 0_m }, m_gyro.GetRotation2d() });
     m_driverSim.SetPose(m_odometry.GetPose());
     m_field.SetRobotPose(m_odometry.GetPose());
@@ -405,8 +404,7 @@ degrees_per_second_t Drivetrain::GetTurnRate()
 //
 void Drivetrain::ResetOdometry(frc::Pose2d pose)
 {
-    ResetEncoders();
-    ResetGyro();
+    ResetSensors();
     m_driverSim.SetPose(pose);
     m_odometry.ResetPosition(pose, GetHeadingAngle());
 }
@@ -685,7 +683,6 @@ void Drivetrain::RamseteFollowerInit(string pathName)
 
     // This initializes the odometry (where we are) and tolerance
     SetBrakeMode(false);
-    ResetSensors();
     ResetOdometry(m_trajectory.InitialPose());
     m_driverSim.SetPose(m_odometry.GetPose());
     m_field.SetRobotPose(m_odometry.GetPose());
