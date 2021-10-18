@@ -221,7 +221,7 @@ void Drivetrain::ConfigFileLoad(void)
     frc::SmartDashboard::PutNumber("DTL_DistThreshold", m_distThreshold);
     frc::SmartDashboard::PutNumber("DTL_ThrottleShape", m_throttleShape);
     frc::SmartDashboard::PutNumber("DTL_TargetArea1", m_targetArea1);
-    frc::SmartDashboard::PutNumber("DTL_TargetArea1", m_targetArea2);
+    frc::SmartDashboard::PutNumber("DTL_TargetArea2", m_targetArea2);
     frc::SmartDashboard::PutNumber("DTL_Dist1", m_dist1);
     frc::SmartDashboard::PutNumber("DTL_Dist2", m_dist2);
 }
@@ -507,10 +507,10 @@ void Drivetrain::MoveStop()
 void Drivetrain::MoveWithJoysticksInit(void)
 {
     SetBrakeMode(true);
-    m_motorL1.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
-    m_motorL2.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
-    m_motorR3.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
-    m_motorR4.ConfigOpenloopRamp(m_openLoopRampRate, kCANTimeout);
+    m_motorL1.ConfigOpenloopRamp(m_openLoopRampRate, 0);
+    m_motorL2.ConfigOpenloopRamp(m_openLoopRampRate, 0);
+    m_motorR3.ConfigOpenloopRamp(m_openLoopRampRate, 0);
+    m_motorR4.ConfigOpenloopRamp(m_openLoopRampRate, 0);
 }
 
 void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
@@ -546,10 +546,10 @@ void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
 void Drivetrain::MoveWithJoysticksEnd(void)
 {
     SetBrakeMode(false);
-    m_motorL1.ConfigOpenloopRamp(0.0, kCANTimeout);
-    m_motorL2.ConfigOpenloopRamp(0.0, kCANTimeout);
-    m_motorR3.ConfigOpenloopRamp(0.0, kCANTimeout);
-    m_motorR4.ConfigOpenloopRamp(0.0, kCANTimeout);
+    m_motorL1.ConfigOpenloopRamp(0.0, 0);
+    m_motorL2.ConfigOpenloopRamp(0.0, 0);
+    m_motorR3.ConfigOpenloopRamp(0.0, 0);
+    m_motorR4.ConfigOpenloopRamp(0.0, 0);
 }
 
 // Movement during limelight shooting phase
@@ -571,7 +571,7 @@ void Drivetrain::MoveWithLimelightInit()
     m_distThreshold = frc::SmartDashboard::GetNumber("DTL_DistThreshold", m_distThreshold);
     m_throttleShape = frc::SmartDashboard::GetNumber("DTL_ThrottleShape", m_throttleShape);
     m_targetArea1 = frc::SmartDashboard::GetNumber("DTL_TargetArea1", m_targetArea1);
-    m_targetArea2 = frc::SmartDashboard::GetNumber("DTL_TargetArea1", m_targetArea2);
+    m_targetArea2 = frc::SmartDashboard::GetNumber("DTL_TargetArea2", m_targetArea2);
     m_dist1 = frc::SmartDashboard::GetNumber("DTL_Dist1", m_dist1);
     m_dist2 = frc::SmartDashboard::GetNumber("DTL_Dist2", m_dist2);
 
@@ -591,10 +591,10 @@ void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
     double turnOutput = -m_turnController.Calculate(tx);
 
     // get throttle value
-    m_limelightDistance = m_slope * ta - m_distOffset;
+    m_limelightDistance = m_slope * ta + m_distOffset;
 
     double throttleDistance = m_throttleController.Calculate(m_limelightDistance, m_targetDistance);
-    double throttleOutput = throttleDistance * pow(cos(turnOutput * wpi::math::pi / 180), m_throttleShape);
+    double throttleOutput = -throttleDistance * pow(cos(turnOutput * wpi::math::pi / 180), m_throttleShape);
 
     // put turn and throttle outputs on the dashboard
     frc::SmartDashboard::PutNumber("DTL_TurnOutput", turnOutput);
@@ -615,8 +615,12 @@ void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
     turnOutput = std::clamp(turnOutput, -m_maxTurn, m_maxTurn);
     throttleOutput = std::clamp(throttleOutput, -m_maxThrottle, m_maxThrottle);
 
+    // put turn and throttle outputs on the dashboard
+    frc::SmartDashboard::PutNumber("DTL_TurnOutputClamped", turnOutput);
+    frc::SmartDashboard::PutNumber("DTL_ThrottleOutputClamped", throttleOutput);
+
     if (m_talonValidL1 || m_talonValidR3)
-        m_diffDrive.ArcadeDrive(throttleOutput, turnOutput, true);
+        m_diffDrive.ArcadeDrive(throttleOutput, turnOutput, false);
 }
 
 bool Drivetrain::MoveWithLimelightIsFinished(double tx)

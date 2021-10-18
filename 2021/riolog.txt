@@ -1,0 +1,1027 @@
+[2021-10-14 18:10:19.058] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.078] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.098] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.118] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.138] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.158] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.178] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.198] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.218] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.238] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.258] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.278] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.298] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.318] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.338] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.358] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.378] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.398] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.418] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.438] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.458] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.478] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.498] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.518] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.538] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.558] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.578] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.598] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.618] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.638] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.658] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.678] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.698] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:19.718] [info] DriveLimelight - End
+[2021-10-14 18:10:19.718] [info] DriveTeleop - Init
+[2021-10-14 18:10:19.718] [info] DT BRAKE Mode
+[2021-10-14 18:10:27.218] [info] DriveTeleop - End
+[2021-10-14 18:10:27.218] [info] DT COAST Mode
+[2021-10-14 18:10:27.226] [info] DriveLimelight - Init
+[2021-10-14 18:10:27.229] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.239] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.258] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.278] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.298] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.318] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.338] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.358] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.378] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.398] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.418] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.438] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.458] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.478] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.498] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.518] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.538] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.558] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.578] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.598] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.618] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.638] [info] tx -1.9475479125976562 ta -8.883705139160156 | turn -0 throttle -3.600072039880332 | limelightDist 42.00072039880332 throttleDist -3.600072039880332 slope -1.9375672766415502
+[2021-10-14 18:10:27.658] [info] tx -1.9475479125976562 ta -8.991592407226562 | turn -0 throttle -3.620975923897504 | limelightDist 42.20975923897504 throttleDist -3.620975923897504 slope -1.9375672766415502
+[2021-10-14 18:10:27.678] [info] DriveLimelight - End
+[2021-10-14 18:10:27.678] [info] DriveTeleop - Init
+[2021-10-14 18:10:27.678] [info] DT BRAKE Mode
+[2021-10-14 18:10:27.858] [info] DriveQuickturn - Init
+[2021-10-14 18:10:27.978] [info] DriveQuickturn - End
+[2021-10-14 18:21:04.406] [error] *** SPDLOG EXCEPTION DURING INITIALIZATION: Failed opening file RobotSpdlog.log for writing: Permission denied ***
+********** Robot program starting **********
+NT: server: client CONNECTED: 10.21.35.175 port 56222
+NT: server: client CONNECTED: 10.21.35.11 port 48318
+[phoenix] Library initialization is complete.
+[phoenix-diagnostics] Server 1.8.6 (Jan 8 2021,20:09:49) running on port: 1250
+[2021-10-14 18:21:10.290] [info] DT Motor L1 ID 1 ver 21.0 is RESPONSIVE and INITIALIZED (error 0)
+[2021-10-14 18:21:10.542] [info] DT Motor L2 ID 2 ver 21.0 is RESPONSIVE and INITIALIZED (error 0)
+[2021-10-14 18:21:10.797] [info] DT Motor R3 ID 3 ver 21.0 is RESPONSIVE and INITIALIZED (error 0)
+[2021-10-14 18:21:11.048] [info] DT Motor R4 ID 4 ver 21.0 is RESPONSIVE and INITIALIZED (error 0)
+[2021-10-14 18:21:11.087] [info] RobotConfig -- Creating new RobotConfig object
+[2021-10-14 18:21:11.087] [info] RobotConfig -- LoadConfig Started --
+[2021-10-14 18:21:11.088] [info] RobotConfig -- Loading File /home/lvuser/deploy/2135_configuration.txt
+[2021-10-14 18:21:11.089] [info] RobotConfig -- LoadConfig Finished --
+[2021-10-14 18:21:11.089] [info] RobotConfig -- DumpConfig Started --
+[2021-10-14 18:21:11.089] [info] Robot config:
+("CL_InitialDownSpeed", "-0.25")
+("CL_InitialUpSpeed", "0.25")
+("DTL_AngleThreshold", "3.0")
+("DTL_Dist1", "12")
+("DTL_Dist2", "48")
+("DTL_DistThreshold", "6.0")
+("DTL_MaxThrottle", "0.2")
+("DTL_MaxTurn", "0.4")
+("DTL_TargetArea1", "6.6")
+("DTL_TargetArea2", "-11.98")
+("DTL_TargetDistance", "12.0")
+("DTL_ThrottlePIDKd", "0.0")
+("DTL_ThrottlePIDKi", "0.0")
+("DTL_ThrottlePIDKp", "0.1")
+("DTL_ThrottleShape", "10.0")
+("DTL_TurnPIDKd", "0.0")
+("DTL_TurnPIDKi", "0.0")
+("DTL_TurnPIDKp", "0.15")
+("DT_ClosedLoopRampRate", "0")
+("DT_DriveMode", "0")
+("DT_DriveXScaling", "1.0")
+("DT_DriveYScaling", "1.0")
+("DT_OpenLoopRampRate", "0.5")
+("DT_QuickTurnScaling", "0.5")
+("DT_StoppedTolerance", "0.05")
+("FC_AcquireSpeed", "1.0")
+("FC_ExpelSpeed", "0.2")
+("FC_ExpelSpeedFast", "-1.0")
+("IN_AcquireSpeed", "1.0")
+("IN_ExpelSpeed", "-1.0")
+("RB_Name", "2135-Grogu")
+("SH_FeederPidKd", "0.000")
+("SH_FeederPidKf", "0.0475")
+("SH_FeederPidKi", "0.000")
+("SH_FeederPidKp", "0.00000")
+("SH_FeederRPM", "3000")
+("SH_FlywheelPidKd", "0.000")
+("SH_FlywheelPidKf", "0.0475")
+("SH_FlywheelPidKi", "0.000")
+("SH_FlywheelPidKp", "0.00000")
+("SH_FlywheelRPM", "3000")
+("SH_NeutralDeadband", "0.004")
+("VC_AcquireSpeed", "1.0")
+("VC_ExpelSpeed", "-0.2")
+("VC_ExpelSpeedFast", "-1.0")
+("path1", "turn1")
+("path2", "turn1Reverse")
+("path3", "rightAngleTurn")
+[2021-10-14 18:21:11.089] [info] RobotConfig -- DumpConfig Finished --
+[2021-10-14 18:21:11.112] [info] ToggleDriveMode: 0 (curr)
+[2021-10-14 18:21:11.113] [info] DT Initialize
+[2021-10-14 18:21:11.113] [info] DT COAST Mode
+[2021-10-14 18:21:11.374] [info] IN Motor IN6 ID 6 ver 21.0 is RESPONSIVE and INITIALIZED (error 0)
+[2021-10-14 18:21:11.375] [info] IN Intake Deployer Solenoid is FUNCTIONAL
+[2021-10-14 18:21:11.381] [info] IN Init
+[2021-10-14 18:21:11.382] [info] Intake Set Speed - STOP
+[2021-10-14 18:21:11.382] [info] Intake STOW
+[2021-10-14 18:21:11.636] [info] FC Motor FC8 ID 8 ver 21.0 is RESPONSIVE and INITIALIZED (error 0)
+[2021-10-14 18:21:11.641] [info] FC Init
+[2021-10-14 18:21:11.641] [info] Floor Conveyor Set Speed - STOP
+[2021-10-14 18:21:11.894] [info] VC Motor VC9 ID 9 ver 21.0 is RESPONSIVE and INITIALIZED (error 0)
+[2021-10-14 18:21:11.902] [info] VC Init
+[2021-10-14 18:21:11.902] [info] Vertical Conveyor Set Speed - STOP
+[2021-10-14 18:21:12.155] [info] SH Motor SH10 ID 10 ver 21.0 is RESPONSIVE and INITIALIZED (error 0)
+[2021-10-14 18:21:12.406] [info] SH Motor SH11 ID 11 ver 21.0 is RESPONSIVE and INITIALIZED (error 0)
+[2021-10-14 18:21:12.407] [warning] RobotConfig -- SH_flywheelPidKf not found - using default value 0.0475
+[2021-10-14 18:21:12.407] [warning] RobotConfig -- SH_flywheelPidKp not found - using default value 0
+[2021-10-14 18:21:12.407] [warning] RobotConfig -- SH_flywheelPidKi not found - using default value 0
+[2021-10-14 18:21:12.407] [warning] RobotConfig -- SH_flywheelPidKd not found - using default value 0
+[2021-10-14 18:21:12.407] [warning] RobotConfig -- SH_flywheelNeutralDeadband not found - using default value 0.004
+[2021-10-14 18:21:12.407] [warning] RobotConfig -- SH_feederPidKf not found - using default value 0.0475
+[2021-10-14 18:21:12.407] [warning] RobotConfig -- SH_feederPidKp not found - using default value 0
+[2021-10-14 18:21:12.407] [warning] RobotConfig -- SH_feeerPidKi not found - using default value 0
+[2021-10-14 18:21:12.407] [warning] RobotConfig -- SH_feederPidKd not found - using default value 0
+[2021-10-14 18:21:12.407] [warning] RobotConfig -- SH_feederNeutralDeadband not found - using default value 0.004
+[2021-10-14 18:21:12.454] [info] SH Init
+[2021-10-14 18:21:12.454] [info] Shooter State 0
+[2021-10-14 18:21:12.467] [info] SH Set shooter speed - feeder 0 flywheel 0
+[2021-10-14 18:21:12.719] [info] CL Motor CL14 ID 14 ver 21.0 is RESPONSIVE and INITIALIZED (error 0)
+[2021-10-14 18:21:12.719] [info] CL Climber Solenoid is FUNCTIONAL
+[2021-10-14 18:21:12.735] [info] CL Init
+[2021-10-14 18:21:12.735] [info] CL STOPPED
+[2021-10-14 18:21:12.735] [info] Set Climber Stopped
+[2021-10-14 18:21:12.736] [info] VI Init
+[2021-10-14 18:21:12.741] [info] ScoringAction
+[2021-10-14 18:21:12.743] [info] ScoringAction
+[2021-10-14 18:21:12.743] [info] ScoringAction
+[2021-10-14 18:21:12.744] [info] path1 name: turn1
+[2021-10-14 18:21:12.744] [info] path2 name: turn1Reverse
+[2021-10-14 18:21:12.744] [info] path3 name: rightAngleTurn
+[2021-10-14 18:21:12.744] [info] IntakingAction
+[2021-10-14 18:21:12.746] [info] IntakingStop
+[2021-10-14 18:21:12.748] [info] ScoringAction
+[2021-10-14 18:21:12.749] [info] ScoringStop
+[2021-10-14 18:21:12.751] [info] ExhaustingAction
+[2021-10-14 18:21:12.753] [info] IntakingAction
+[2021-10-14 18:21:12.754] [info] IntakingStop
+[2021-10-14 18:21:12.755] [info] ScoringAction
+[2021-10-14 18:21:12.756] [info] ScoringStop
+[2021-10-14 18:21:12.757] [info] ExhaustingAction
+[2021-10-14 18:21:12.758] [info] ExhaustingStop
+[2021-10-14 18:21:12.759] [info] IntakingAction
+[2021-10-14 18:21:12.760] [info] IntakingStop
+[2021-10-14 18:21:12.761] [info] ScoringPrime
+[2021-10-14 18:21:12.762] [info] ScoringAction
+[2021-10-14 18:21:12.762] [info] ScoringAction
+[2021-10-14 18:21:12.763] [info] ScoringAction
+[2021-10-14 18:21:12.765] [info] RB Init
+[2021-10-14 18:21:12.766] [info] RobotInit: name - 2135-Grogu
+[2021-10-14 18:21:12.767] [info] DisabledInit: Match N0, Red Alliance
+Watchdog not fed within 0.020000s
+Watchdog not fed within 0.020000s
+Loop time of 0.020000s overrun
+Loop time of 0.020000s overrun
+LiveWindow::UpdateValues(): 0.013735s
+RobotPeriodic(): 0.002803s
+SmartDashboard::UpdateValues(): 0.002231s
+DisabledPeriodic(): 0.000151s
+DisabledInit(): 0.001319s
+Shuffleboard::Update(): 0.000011s
+LiveWindow::UpdateValues(): 0.013735s
+RobotPeriodic(): 0.002803s
+SmartDashboard::UpdateValues(): 0.002231s
+DisabledPeriodic(): 0.000151s
+DisabledInit(): 0.001319s
+Shuffleboard::Update(): 0.000011s
+[2021-10-14 18:21:20.527] [info] TeleopInit: Match N0, Red Alliance
+[2021-10-14 18:21:20.527] [info] DT Initialize
+[2021-10-14 18:21:20.527] [info] DT COAST Mode
+[2021-10-14 18:21:20.534] [info] IN Init
+[2021-10-14 18:21:20.535] [info] Intake Set Speed - STOP
+[2021-10-14 18:21:20.535] [info] Intake STOW
+[2021-10-14 18:21:20.535] [info] FC Init
+[2021-10-14 18:21:20.535] [info] Floor Conveyor Set Speed - STOP
+[2021-10-14 18:21:20.535] [info] VC Init
+[2021-10-14 18:21:20.535] [info] Vertical Conveyor Set Speed - STOP
+[2021-10-14 18:21:20.535] [info] SH Init
+[2021-10-14 18:21:20.535] [info] Shooter State 0
+Watchdog not fed within 0.020000s
+Loop time of 0.020000s overrun
+Watchdog not fed within 0.020000s
+Loop time of 0.020000s overrun
+[2021-10-14 18:21:20.549] [info] SH Set shooter speed - feeder 0 flywheel 0
+[2021-10-14 18:21:20.549] [info] CL Init
+[2021-10-14 18:21:20.549] [info] CL STOPPED
+[2021-10-14 18:21:20.550] [info] Set Climber Stopped
+[2021-10-14 18:21:20.550] [info] PCM Init
+[2021-10-14 18:21:20.550] [info] PDP Init
+[2021-10-14 18:21:20.550] [info] PDP Voltage 12.55
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:20.551] [info] ClimberRun - Init
+[2021-10-14 18:21:20.552] [info] DriveTeleop - Init
+[2021-10-14 18:21:20.552] [info] DT BRAKE Mode
+buttons.Run(): 0.000405s
+ClimberRun.Initialize(): 0.000583s
+DriveTeleop.Initialize(): 0.007843s
+Subsystem Periodic(): 0.000007s
+buttons.Run(): 0.000405s
+ClimberRun.Initialize(): 0.000583s
+DriveTeleop.Initialize(): 0.007843s
+Subsystem Periodic(): 0.000007s
+LiveWindow::UpdateValues(): 0.003616s
+RobotPeriodic(): 0.010235s
+SmartDashboard::UpdateValues(): 0.003311s
+TeleopPeriodic(): 0.000254s
+Shuffleboard::Update(): 0.000012s
+TeleopInit(): 0.023587s
+LiveWindow::UpdateValues(): 0.003616s
+RobotPeriodic(): 0.010235s
+SmartDashboard::UpdateValues(): 0.003311s
+TeleopPeriodic(): 0.000254s
+Shuffleboard::Update(): 0.000012s
+TeleopInit(): 0.023587s
+[2021-10-14 18:21:20.574] [info] CL NOT STOPPED
+[2021-10-14 18:21:20.583] [info] CL NOT STOPPED
+[2021-10-14 18:21:20.590] [info] CL NOT STOPPED
+[2021-10-14 18:21:51.547] [info] DriveTeleop - End
+[2021-10-14 18:21:51.547] [info] DT COAST Mode
+[2021-10-14 18:21:51.558] [info] DriveLimelight - Init
+[2021-10-14 18:21:51.561] [info] tx -2.6641769409179688 ta -4.303825378417969 | turn -0 throttle 2.1126895243436326 | limelightDist 33.12689524343632 throttleDist -2.1126895243436326 slope -1.9375672766415502
+[2021-10-14 18:21:51.568] [info] tx -2.6641769409179688 ta -4.303825378417969 | turn -0 throttle 2.1126895243436326 | limelightDist 33.12689524343632 throttleDist -2.1126895243436326 slope -1.9375672766415502
+[2021-10-14 18:21:51.587] [info] tx -2.6641769409179688 ta -4.303825378417969 | turn -0 throttle 2.1126895243436326 | limelightDist 33.12689524343632 throttleDist -2.1126895243436326 slope -1.9375672766415502
+[2021-10-14 18:21:51.607] [info] tx -2.6641769409179688 ta -4.303825378417969 | turn -0 throttle 2.1126895243436326 | limelightDist 33.12689524343632 throttleDist -2.1126895243436326 slope -1.9375672766415502
+[2021-10-14 18:21:51.627] [info] tx -2.6641769409179688 ta -4.303825378417969 | turn -0 throttle 2.1126895243436326 | limelightDist 33.12689524343632 throttleDist -2.1126895243436326 slope -1.9375672766415502
+[2021-10-14 18:21:51.648] [info] tx -2.6641769409179688 ta -4.413749694824219 | turn -0 throttle 2.133988100181226 | limelightDist 33.33988100181226 throttleDist -2.133988100181226 slope -1.9375672766415502
+[2021-10-14 18:21:51.667] [info] tx -2.6641769409179688 ta -4.523643493652344 | turn -0 throttle 2.1552807630327466 | limelightDist 33.552807630327464 throttleDist -2.1552807630327466 slope -1.9375672766415502
+[2021-10-14 18:21:51.687] [info] tx -2.6641769409179688 ta -4.853118896484375 | turn -0 throttle 2.2191188389313106 | limelightDist 34.191188389313105 throttleDist -2.2191188389313106 slope -1.9375672766415502
+[2021-10-14 18:21:51.708] [info] tx -2.6641769409179688 ta -4.853118896484375 | turn -0 throttle 2.2191188389313106 | limelightDist 34.191188389313105 throttleDist -2.2191188389313106 slope -1.9375672766415502
+[2021-10-14 18:21:51.727] [info] tx -2.5618438720703125 ta -4.853118896484375 | turn -0 throttle 2.2191188389313106 | limelightDist 34.191188389313105 throttleDist -2.2191188389313106 slope -1.9375672766415502
+[2021-10-14 18:21:51.747] [info] tx -2.5618438720703125 ta -4.193870544433594 | turn -0 throttle 2.091385035519964 | limelightDist 32.91385035519964 throttleDist -2.091385035519964 slope -1.9375672766415502
+[2021-10-14 18:21:51.767] [info] tx -2.5618438720703125 ta -3.9738693237304688 | turn -0 throttle 2.0487583189144076 | limelightDist 32.487583189144075 throttleDist -2.0487583189144076 slope -1.9375672766415502
+[2021-10-14 18:21:51.787] [info] tx -2.5618438720703125 ta -3.3131866455078125 | turn -0 throttle 1.9207466051575954 | limelightDist 31.207466051575953 throttleDist -1.9207466051575954 slope -1.9375672766415502
+[2021-10-14 18:21:51.807] [info] tx -2.5618438720703125 ta -2.9824905395507812 | turn -0 throttle 1.8566720098160823 | limelightDist 30.566720098160822 throttleDist -1.8566720098160823 slope -1.9375672766415502
+[2021-10-14 18:21:51.827] [info] tx -2.5618438720703125 ta -2.7619247436523438 | turn -0 throttle 1.8139359029681612 | limelightDist 30.13935902968161 throttleDist -1.8139359029681612 slope -1.9375672766415502
+[2021-10-14 18:21:51.847] [info] tx -2.5618438720703125 ta -2.2101593017578125 | turn -0 throttle 1.7070276365085104 | limelightDist 29.070276365085103 throttleDist -1.7070276365085104 slope -1.9375672766415502
+[2021-10-14 18:21:51.867] [info] tx -2.5618438720703125 ta -2.0997390747070312 | turn -0 throttle 1.685632974647218 | limelightDist 28.85632974647218 throttleDist -1.685632974647218 slope -1.9375672766415502
+[2021-10-14 18:21:51.887] [info] tx -2.5618438720703125 ta -1.9893264770507812 | turn -0 throttle 1.6642397910324442 | limelightDist 28.64239791032444 throttleDist -1.6642397910324442 slope -1.9375672766415502
+[2021-10-14 18:21:51.907] [info] tx -2.6641769409179688 ta -1.8788909912109375 | turn -0 throttle 1.6428421726781146 | limelightDist 28.428421726781146 throttleDist -1.6428421726781146 slope -1.9375672766415502
+[2021-10-14 18:21:51.927] [info] tx -2.6641769409179688 ta -1.7684402465820312 | turn -0 throttle 1.6214415978307486 | limelightDist 28.214415978307485 throttleDist -1.6214415978307486 slope -1.9375672766415502
+[2021-10-14 18:21:51.948] [info] tx -2.6641769409179688 ta -1.6579742431640625 | turn -0 throttle 1.6000380664903457 | limelightDist 28.000380664903457 throttleDist -1.6000380664903457 slope -1.9375672766415502
+[2021-10-14 18:21:51.967] [info] tx -2.6641769409179688 ta -1.6579742431640625 | turn -0 throttle 1.6000380664903457 | limelightDist 28.000380664903457 throttleDist -1.6000380664903457 slope -1.9375672766415502
+[2021-10-14 18:21:51.987] [info] tx -2.7664947509765625 ta -1.1054840087890625 | turn -0 throttle 1.4929893666114435 | limelightDist 26.929893666114435 throttleDist -1.4929893666114435 slope -1.9375672766415502
+[2021-10-14 18:21:52.007] [info] tx -2.7664947509765625 ta -0.6633453369140625 | turn -0 throttle 1.4073220243751683 | limelightDist 26.07322024375168 throttleDist -1.4073220243751683 slope -1.9375672766415502
+[2021-10-14 18:21:52.027] [info] tx -2.7664794921875 ta -0.44223785400390625 | turn -0 throttle 1.3644809620244382 | limelightDist 25.64480962024438 throttleDist -1.3644809620244382 slope -1.9375672766415502
+[2021-10-14 18:21:52.047] [info] tx -2.7664947509765625 ta 0 | turn -0 throttle 1.278794402583423 | limelightDist 24.78794402583423 throttleDist -1.278794402583423 slope -1.9375672766415502
+[2021-10-14 18:21:52.067] [info] tx -2.6641769409179688 ta 0 | turn -0 throttle 1.278794402583423 | limelightDist 24.78794402583423 throttleDist -1.278794402583423 slope -1.9375672766415502
+[2021-10-14 18:21:52.087] [info] tx -2.5618438720703125 ta 0.44225311279296875 | turn -0 throttle 1.1931048866493708 | limelightDist 23.931048866493708 throttleDist -1.1931048866493708 slope -1.9375672766415502
+[2021-10-14 18:21:52.107] [info] tx -2.6641769409179688 ta 0.8844375610351562 | turn -0 throttle 1.1074286749339848 | limelightDist 23.074286749339848 throttleDist -1.1074286749339848 slope -1.9375672766415502
+[2021-10-14 18:21:52.127] [info] tx -2.6641769409179688 ta 0.8844223022460938 | turn -0 throttle 1.1074316314270214 | limelightDist 23.074316314270213 throttleDist -1.1074316314270214 slope -1.9375672766415502
+[2021-10-14 18:21:52.147] [info] tx -2.6641769409179688 ta 0.9949722290039062 | turn -0 throttle 1.0860118393749159 | limelightDist 22.860118393749158 throttleDist -1.0860118393749159 slope -1.9375672766415502
+[2021-10-14 18:21:52.168] [info] tx -2.5618438720703125 ta 1.105499267578125 | turn -0 throttle 1.0645964820623655 | limelightDist 22.645964820623654 throttleDist -1.0645964820623655 slope -1.9375672766415502
+[2021-10-14 18:21:52.187] [info] tx -2.561859130859375 ta 1.2160186767578125 | turn -0 throttle 1.0431826029963334 | limelightDist 22.431826029963332 throttleDist -1.0431826029963334 slope -1.9375672766415502
+[2021-10-14 18:21:52.208] [info] tx -2.5618438720703125 ta 1.5475082397460938 | turn -0 throttle 0.9789542700169029 | limelightDist 21.78954270016903 throttleDist -0.9789542700169029 slope -1.9375672766415502
+[2021-10-14 18:21:52.227] [info] tx -2.4594955444335938 ta 1.5475082397460938 | turn -0 throttle 0.9789542700169029 | limelightDist 21.78954270016903 throttleDist -0.9789542700169029 slope -1.9375672766415502
+[2021-10-14 18:21:52.247] [info] tx -2.4594955444335938 ta 1.8788986206054688 | turn -0 throttle 0.9147451542422126 | limelightDist 21.147451542422125 throttleDist -0.9147451542422126 slope -1.9375672766415502
+[2021-10-14 18:21:52.268] [info] tx -2.4594955444335938 ta 1.9893341064453125 | turn -0 throttle 0.8933475358878834 | limelightDist 20.933475358878834 throttleDist -0.8933475358878834 slope -1.9375672766415502
+[2021-10-14 18:21:52.287] [info] tx -2.5618438720703125 ta 2.872222900390625 | turn -0 throttle 0.722281892281687 | limelightDist 19.22281892281687 throttleDist -0.722281892281687 slope -1.9375672766415502
+[2021-10-14 18:21:52.307] [info] tx -2.6641769409179688 ta 3.423370361328125 | turn -0 throttle 0.6154933637900293 | limelightDist 18.154933637900292 throttleDist -0.6154933637900293 slope -1.9375672766415502
+[2021-10-14 18:21:52.327] [info] tx -2.5618438720703125 ta 3.5335235595703125 | turn -0 throttle 0.5941504405568822 | limelightDist 17.94150440556882 throttleDist -0.5941504405568822 slope -1.9375672766415502
+[2021-10-14 18:21:52.327] [info] DriveLimelight - End
+[2021-10-14 18:21:52.328] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.328] [info] DT BRAKE Mode
+[2021-10-14 18:21:52.347] [info] DriveTeleop - End
+[2021-10-14 18:21:52.348] [info] DT COAST Mode
+[2021-10-14 18:21:52.355] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.356] [info] tx -2.5618438720703125 ta 3.7537612915039062 | turn -0 throttle 0.5514778983092538 | limelightDist 17.514778983092537 throttleDist -0.5514778983092538 slope -1.9375672766415502
+[2021-10-14 18:21:52.357] [info] DriveLimelight - End
+[2021-10-14 18:21:52.357] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.358] [info] DT BRAKE Mode
+Watchdog not fed within 0.020000s
+Watchdog not fed within 0.020000s
+Loop time of 0.020000s overrun
+Loop time of 0.020000s overrun
+LiveWindow::UpdateValues(): 0.017230s
+RobotPeriodic(): 0.018592s
+SmartDashboard::UpdateValues(): 0.000817s
+TeleopPeriodic(): 0.000149s
+Shuffleboard::Update(): 0.000254s
+LiveWindow::UpdateValues(): 0.017230s
+RobotPeriodic(): 0.018592s
+SmartDashboard::UpdateValues(): 0.000817s
+TeleopPeriodic(): 0.000149s
+Shuffleboard::Update(): 0.000254s
+[2021-10-14 18:21:52.386] [info] DriveTeleop - End
+[2021-10-14 18:21:52.386] [info] DT COAST Mode
+[2021-10-14 18:21:52.393] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.394] [info] tx -2.4594955444335938 ta 4.303840637207031 | turn -0 throttle 0.4448963243301769 | limelightDist 16.44896324330177 throttleDist -0.4448963243301769 slope -1.9375672766415502
+[2021-10-14 18:21:52.394] [info] DriveLimelight - End
+[2021-10-14 18:21:52.394] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.394] [info] DT BRAKE Mode
+[2021-10-14 18:21:52.407] [info] DriveTeleop - End
+[2021-10-14 18:21:52.408] [info] DT COAST Mode
+[2021-10-14 18:21:52.415] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.417] [info] tx -2.5618438720703125 ta 4.633522033691406 | turn -0 throttle 0.3810183357756154 | limelightDist 15.810183357756154 throttleDist -0.3810183357756154 slope -1.9375672766415502
+[2021-10-14 18:21:52.418] [info] DriveLimelight - End
+[2021-10-14 18:21:52.419] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.419] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+buttons.Run(): 0.000034s
+DriveTeleop.Initialize(): 0.017446s
+ClimberRun.Execute(): 0.000665s
+DriveTeleop.End(true): 0.008433s
+DriveLimelight.Initialize(): 0.001361s
+DriveLimelight.Execute(): 0.001512s
+DriveLimelight.End(false): 0.000506s
+Subsystem Periodic(): 0.000006s
+buttons.Run(): 0.000034s
+DriveTeleop.Initialize(): 0.017446s
+ClimberRun.Execute(): 0.000665s
+DriveTeleop.End(true): 0.008433s
+DriveLimelight.Initialize(): 0.001361s
+DriveLimelight.Execute(): 0.001512s
+DriveLimelight.End(false): 0.000506s
+Subsystem Periodic(): 0.000006s
+[2021-10-14 18:21:52.451] [info] DriveTeleop - End
+[2021-10-14 18:21:52.452] [info] DT COAST Mode
+[2021-10-14 18:21:52.459] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.461] [info] tx -2.5618438720703125 ta 4.9628753662109375 | turn -0 throttle 0.3172039118213468 | limelightDist 15.172039118213467 throttleDist -0.3172039118213468 slope -1.9375672766415502
+[2021-10-14 18:21:52.464] [info] DriveLimelight - End
+[2021-10-14 18:21:52.465] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.465] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:52.489] [info] DriveTeleop - End
+[2021-10-14 18:21:52.489] [info] DT COAST Mode
+[2021-10-14 18:21:52.497] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.499] [info] tx -2.6641769409179688 ta 5.62060546875 | turn -0 throttle 0.18976427946716878 | limelightDist 13.897642794671688 throttleDist -0.18976427946716878 slope -1.9375672766415502
+[2021-10-14 18:21:52.500] [info] DriveLimelight - End
+[2021-10-14 18:21:52.501] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.501] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:52.528] [info] DriveTeleop - End
+[2021-10-14 18:21:52.529] [info] DT COAST Mode
+[2021-10-14 18:21:52.537] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.539] [info] tx -2.5618438720703125 ta 6.1675872802734375 | turn -0 throttle 0.08378287357457595 | limelightDist 12.83782873574576 throttleDist -0.08378287357457595 slope -1.9375672766415502
+[2021-10-14 18:21:52.540] [info] DriveLimelight - End
+[2021-10-14 18:21:52.541] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.541] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+CTR: No new response to update signal
+[2021-10-14 18:21:52.596] [info] DriveTeleop - End
+[2021-10-14 18:21:52.596] [info] DT COAST Mode
+[2021-10-14 18:21:52.603] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.604] [info] tx -2.561859130859375 ta 7.1492462158203125 | turn -0 throttle -0.10642014945926431 | limelightDist 10.935798505407357 throttleDist 0.10642014945926431 slope -1.9375672766415502
+[2021-10-14 18:21:52.604] [info] DriveLimelight - End
+[2021-10-14 18:21:52.604] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.604] [info] DT BRAKE Mode
+[2021-10-14 18:21:52.613] [info] DriveTeleop - End
+[2021-10-14 18:21:52.613] [info] DT COAST Mode
+[2021-10-14 18:21:52.620] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.625] [info] tx -2.4594955444335938 ta 7.584220886230469 | turn -0 throttle -0.19069941821473047 | limelightDist 10.093005817852696 throttleDist 0.19069941821473047 slope -1.9375672766415502
+[2021-10-14 18:21:52.626] [info] DriveLimelight - End
+[2021-10-14 18:21:52.627] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.627] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:52.650] [info] DriveTeleop - End
+[2021-10-14 18:21:52.651] [info] DT COAST Mode
+[2021-10-14 18:21:52.658] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.661] [info] tx -2.4594955444335938 ta 8.559646606445312 | turn -0 throttle -0.37969471384301023 | limelightDist 8.203052861569898 throttleDist 0.37969471384301023 slope -1.9375672766415502
+[2021-10-14 18:21:52.663] [info] DriveLimelight - End
+[2021-10-14 18:21:52.664] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.665] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:52.690] [info] DriveTeleop - End
+[2021-10-14 18:21:52.690] [info] DT COAST Mode
+[2021-10-14 18:21:52.696] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.698] [info] tx -2.3571395874023438 ta 9.637596130371094 | turn -0 throttle -0.5885546861860036 | limelightDist 6.1144531381399645 throttleDist 0.5885546861860036 slope -1.9375672766415502
+[2021-10-14 18:21:52.698] [info] DriveLimelight - End
+[2021-10-14 18:21:52.699] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.699] [info] DT BRAKE Mode
+[2021-10-14 18:21:52.715] [info] DriveTeleop - End
+[2021-10-14 18:21:52.715] [info] DT COAST Mode
+[2021-10-14 18:21:52.721] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.723] [info] tx -2.3571395874023438 ta 9.745018005371094 | turn -0 throttle -0.6093683971655512 | limelightDist 5.906316028344488 throttleDist 0.6093683971655512 slope -1.9375672766415502
+[2021-10-14 18:21:52.726] [info] tx -2.2547683715820312 ta 9.959671020507812 | turn -0 throttle -0.6509588629616861 | limelightDist 5.490411370383139 throttleDist 0.6509588629616861 slope -1.9375672766415502
+[2021-10-14 18:21:52.730] [info] tx -2.2547683715820312 ta 9.959671020507812 | turn -0 throttle -0.6509588629616861 | limelightDist 5.490411370383139 throttleDist 0.6509588629616861 slope -1.9375672766415502
+[2021-10-14 18:21:52.739] [info] tx -2.2547683715820312 ta 9.959671020507812 | turn -0 throttle -0.6509588629616861 | limelightDist 5.490411370383139 throttleDist 0.6509588629616861 slope -1.9375672766415502
+[2021-10-14 18:21:52.749] [info] tx -2.2547683715820312 ta 9.959671020507812 | turn -0 throttle -0.6509588629616861 | limelightDist 5.490411370383139 throttleDist 0.6509588629616861 slope -1.9375672766415502
+[2021-10-14 18:21:52.760] [info] tx -2.3571395874023438 ta 9.637596130371094 | turn -0 throttle -0.5885546861860036 | limelightDist 6.1144531381399645 throttleDist 0.5885546861860036 slope -1.9375672766415502
+[2021-10-14 18:21:52.761] [info] DriveLimelight - End
+[2021-10-14 18:21:52.762] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.763] [info] DT BRAKE Mode
+[2021-10-14 18:21:52.777] [info] DriveTeleop - End
+[2021-10-14 18:21:52.778] [info] DT COAST Mode
+[2021-10-14 18:21:52.788] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.791] [info] tx -2.3571395874023438 ta 9.207199096679688 | turn -0 throttle -0.5051623653415973 | limelightDist 6.948376346584027 throttleDist 0.5051623653415973 slope -1.9375672766415502
+[2021-10-14 18:21:52.792] [info] DriveLimelight - End
+[2021-10-14 18:21:52.792] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.793] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:52.810] [info] DriveTeleop - End
+[2021-10-14 18:21:52.811] [info] DT COAST Mode
+[2021-10-14 18:21:52.819] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.820] [info] tx -2.4594955444335938 ta 8.343299865722656 | turn -0 throttle -0.3377760773197828 | limelightDist 8.622239226802172 throttleDist 0.3377760773197828 slope -1.9375672766415502
+[2021-10-14 18:21:52.821] [info] DriveLimelight - End
+[2021-10-14 18:21:52.821] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.822] [info] DT BRAKE Mode
+[2021-10-14 18:21:52.838] [info] DriveTeleop - End
+[2021-10-14 18:21:52.838] [info] DT COAST Mode
+[2021-10-14 18:21:52.846] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.849] [info] tx -2.4594955444335938 ta 7.584220886230469 | turn -0 throttle -0.19069941821473047 | limelightDist 10.093005817852696 throttleDist 0.19069941821473047 slope -1.9375672766415502
+[2021-10-14 18:21:52.849] [info] DriveLimelight - End
+[2021-10-14 18:21:52.849] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.849] [info] DT BRAKE Mode
+[2021-10-14 18:21:52.865] [info] DriveTeleop - End
+[2021-10-14 18:21:52.865] [info] DT COAST Mode
+[2021-10-14 18:21:52.870] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.872] [info] tx -2.4594955444335938 ta 7.475563049316406 | turn -0 throttle -0.16964623129919634 | limelightDist 10.303537687008037 throttleDist 0.16964623129919634 slope -1.9375672766415502
+[2021-10-14 18:21:52.873] [info] DriveLimelight - End
+[2021-10-14 18:21:52.874] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.874] [info] DT BRAKE Mode
+[2021-10-14 18:21:52.885] [info] DriveTeleop - End
+[2021-10-14 18:21:52.885] [info] DT COAST Mode
+[2021-10-14 18:21:52.894] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.896] [info] tx -2.4594955444335938 ta 6.8224639892578125 | turn -0 throttle -0.043103894581707713 | limelightDist 11.568961054182923 throttleDist 0.043103894581707713 slope -1.9375672766415502
+[2021-10-14 18:21:52.897] [info] DriveLimelight - End
+[2021-10-14 18:21:52.898] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.898] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:52.908] [info] DriveTeleop - End
+[2021-10-14 18:21:52.908] [info] DT COAST Mode
+[2021-10-14 18:21:52.915] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.918] [info] tx -2.5618438720703125 ta 6.3860626220703125 | turn -0 throttle 0.041451806272705664 | limelightDist 12.414518062727057 throttleDist -0.041451806272705664 slope -1.9375672766415502
+[2021-10-14 18:21:52.919] [info] DriveLimelight - End
+[2021-10-14 18:21:52.920] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.920] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:52.937] [info] DriveTeleop - End
+[2021-10-14 18:21:52.937] [info] DT COAST Mode
+[2021-10-14 18:21:52.943] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.944] [info] tx -2.5618438720703125 ta 5.948921203613281 | turn -0 throttle 0.12615089703940702 | limelightDist 13.26150897039407 throttleDist -0.12615089703940702 slope -1.9375672766415502
+[2021-10-14 18:21:52.946] [info] DriveLimelight - End
+[2021-10-14 18:21:52.947] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.947] [info] DT BRAKE Mode
+[2021-10-14 18:21:52.960] [info] DriveTeleop - End
+[2021-10-14 18:21:52.961] [info] DT COAST Mode
+[2021-10-14 18:21:52.969] [info] DriveLimelight - Init
+[2021-10-14 18:21:52.971] [info] tx -2.6641769409179688 ta 5.8395233154296875 | turn -0 throttle 0.14734747386722927 | limelightDist 13.473474738672293 throttleDist -0.14734747386722927 slope -1.9375672766415502
+[2021-10-14 18:21:52.973] [info] DriveLimelight - End
+[2021-10-14 18:21:52.973] [info] DriveTeleop - Init
+[2021-10-14 18:21:52.974] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.002] [info] DriveTeleop - End
+[2021-10-14 18:21:53.005] [info] DT COAST Mode
+[2021-10-14 18:21:53.011] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.014] [info] tx -2.6641769409179688 ta 5.401512145996094 | turn -0 throttle 0.23221508473703223 | limelightDist 14.322150847370322 throttleDist -0.23221508473703223 slope -1.9375672766415502
+[2021-10-14 18:21:53.015] [info] DriveLimelight - End
+[2021-10-14 18:21:53.016] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.017] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.045] [info] DriveTeleop - End
+[2021-10-14 18:21:53.046] [info] DT COAST Mode
+[2021-10-14 18:21:53.053] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.055] [info] tx -2.4594955444335938 ta 4.083892822265625 | turn -0 throttle 0.4875126932101047 | limelightDist 16.875126932101047 throttleDist -0.4875126932101047 slope -1.9375672766415502
+[2021-10-14 18:21:53.055] [info] DriveLimelight - End
+[2021-10-14 18:21:53.055] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.056] [info] DT BRAKE Mode
+[2021-10-14 18:21:53.081] [info] DriveTeleop - End
+[2021-10-14 18:21:53.084] [info] DT COAST Mode
+[2021-10-14 18:21:53.090] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.091] [info] tx -2.5618438720703125 ta 3.9738693237304688 | turn -0 throttle 0.5088304862524385 | limelightDist 17.088304862524385 throttleDist -0.5088304862524385 slope -1.9375672766415502
+[2021-10-14 18:21:53.091] [info] DriveLimelight - End
+[2021-10-14 18:21:53.091] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.091] [info] DT BRAKE Mode
+[2021-10-14 18:21:53.108] [info] DriveTeleop - End
+[2021-10-14 18:21:53.109] [info] DT COAST Mode
+[2021-10-14 18:21:53.117] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.117] [info] tx -2.4594955444335938 ta 3.9738845825195312 | turn -0 throttle 0.5088275297594017 | limelightDist 17.088275297594016 throttleDist -0.5088275297594017 slope -1.9375672766415502
+[2021-10-14 18:21:53.118] [info] DriveLimelight - End
+[2021-10-14 18:21:53.118] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.118] [info] DT BRAKE Mode
+[2021-10-14 18:21:53.140] [info] DriveTeleop - End
+[2021-10-14 18:21:53.141] [info] DT COAST Mode
+[2021-10-14 18:21:53.149] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.150] [info] tx -2.3571395874023438 ta 4.633514404296875 | turn -0 throttle 0.38101981402213386 | limelightDist 15.810198140221338 throttleDist -0.38101981402213386 slope -1.9375672766415502
+[2021-10-14 18:21:53.150] [info] DriveLimelight - End
+[2021-10-14 18:21:53.150] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.150] [info] DT BRAKE Mode
+[2021-10-14 18:21:53.166] [info] DriveTeleop - End
+[2021-10-14 18:21:53.166] [info] DT COAST Mode
+[2021-10-14 18:21:53.173] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.174] [info] tx -2.2547683715820312 ta 5.072601318359375 | turn -0 throttle 0.29594377039323183 | limelightDist 14.959437703932318 throttleDist -0.29594377039323183 slope -1.9375672766415502
+[2021-10-14 18:21:53.175] [info] DriveLimelight - End
+[2021-10-14 18:21:53.176] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.176] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.206] [info] DriveTeleop - End
+[2021-10-14 18:21:53.206] [info] DT COAST Mode
+[2021-10-14 18:21:53.212] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.212] [info] tx -2.2547683715820312 ta 6.8224639892578125 | turn -0 throttle -0.043103894581707713 | limelightDist 11.568961054182923 throttleDist 0.043103894581707713 slope -1.9375672766415502
+[2021-10-14 18:21:53.212] [info] DriveLimelight - End
+[2021-10-14 18:21:53.213] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.213] [info] DT BRAKE Mode
+[2021-10-14 18:21:53.226] [info] DriveTeleop - End
+[2021-10-14 18:21:53.226] [info] DT COAST Mode
+[2021-10-14 18:21:53.233] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.236] [info] tx -2.1523818969726562 ta 7.2580718994140625 | turn -0 throttle -0.12750585779820406 | limelightDist 10.72494142201796 throttleDist 0.12750585779820406 slope -1.9375672766415502
+[2021-10-14 18:21:53.238] [info] DriveLimelight - End
+[2021-10-14 18:21:53.238] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.239] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.260] [info] DriveTeleop - End
+[2021-10-14 18:21:53.261] [info] DT COAST Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.307] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.312] [info] tx -2.2547683715820312 ta 7.909889221191406 | turn -0 throttle -0.2537998491005956 | limelightDist 9.462001508994044 throttleDist 0.2537998491005956 slope -1.9375672766415502
+[2021-10-14 18:21:53.315] [info] DriveLimelight - End
+[2021-10-14 18:21:53.316] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.316] [info] DT BRAKE Mode
+[2021-10-14 18:21:53.335] [info] DriveTeleop - End
+[2021-10-14 18:21:53.335] [info] DT COAST Mode
+[2021-10-14 18:21:53.345] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.345] [info] tx -2.4594955444335938 ta 8.775749206542969 | turn -0 throttle -0.42156604647764767 | limelightDist 7.784339535223523 throttleDist 0.42156604647764767 slope -1.9375672766415502
+[2021-10-14 18:21:53.345] [info] DriveLimelight - End
+[2021-10-14 18:21:53.345] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.345] [info] DT BRAKE Mode
+[2021-10-14 18:21:53.354] [info] DriveTeleop - End
+[2021-10-14 18:21:53.354] [info] DT COAST Mode
+[2021-10-14 18:21:53.359] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.360] [info] tx -2.4594955444335938 ta 9.314895629882812 | turn -0 throttle -0.5260292931958092 | limelightDist 6.739707068041909 throttleDist 0.5260292931958092 slope -1.9375672766415502
+[2021-10-14 18:21:53.361] [info] DriveLimelight - End
+[2021-10-14 18:21:53.363] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.364] [info] DT BRAKE Mode
+[2021-10-14 18:21:53.373] [info] DriveTeleop - End
+[2021-10-14 18:21:53.373] [info] DT COAST Mode
+[2021-10-14 18:21:53.380] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.384] [info] tx -2.3571395874023438 ta 9.637596130371094 | turn -0 throttle -0.5885546861860036 | limelightDist 6.1144531381399645 throttleDist 0.5885546861860036 slope -1.9375672766415502
+[2021-10-14 18:21:53.384] [info] DriveLimelight - End
+[2021-10-14 18:21:53.386] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.386] [info] DT BRAKE Mode
+Watchdog not fed within 0.020000s
+Watchdog not fed within 0.020000s
+Loop time of 0.020000s overrun
+Loop time of 0.020000s overrun
+CommandScheduler loop time overrun.
+LiveWindow::UpdateValues(): 0.008073s
+RobotPeriodic(): 0.031171s
+SmartDashboard::UpdateValues(): 0.000665s
+TeleopPeriodic(): 0.000362s
+Shuffleboard::Update(): 0.000012s
+LiveWindow::UpdateValues(): 0.008073s
+RobotPeriodic(): 0.031171s
+SmartDashboard::UpdateValues(): 0.000665s
+TeleopPeriodic(): 0.000362s
+Shuffleboard::Update(): 0.000012s
+[2021-10-14 18:21:53.418] [info] DriveTeleop - End
+[2021-10-14 18:21:53.419] [info] DT COAST Mode
+[2021-10-14 18:21:53.428] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.429] [info] tx -2.2547683715820312 ta 9.422531127929688 | turn -0 throttle -0.546884395077873 | limelightDist 6.53115604922127 throttleDist 0.546884395077873 slope -1.9375672766415502
+[2021-10-14 18:21:53.430] [info] DriveLimelight - End
+[2021-10-14 18:21:53.431] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.431] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+buttons.Run(): 0.000037s
+DriveTeleop.Initialize(): 0.012523s
+ClimberRun.Execute(): 0.000532s
+DriveTeleop.End(true): 0.010028s
+DriveLimelight.Initialize(): 0.001104s
+DriveLimelight.Execute(): 0.001019s
+DriveLimelight.End(false): 0.000403s
+Subsystem Periodic(): 0.000006s
+buttons.Run(): 0.000037s
+DriveTeleop.Initialize(): 0.012523s
+ClimberRun.Execute(): 0.000532s
+DriveTeleop.End(true): 0.010028s
+DriveLimelight.Initialize(): 0.001104s
+DriveLimelight.Execute(): 0.001019s
+DriveLimelight.End(false): 0.000403s
+Subsystem Periodic(): 0.000006s
+[2021-10-14 18:21:53.455] [info] DriveTeleop - End
+[2021-10-14 18:21:53.455] [info] DT COAST Mode
+[2021-10-14 18:21:53.465] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.468] [info] tx -2.4594955444335938 ta 8.451499938964844 | turn -0 throttle -0.3587405694442112 | limelightDist 8.412594305557889 throttleDist 0.3587405694442112 slope -1.9375672766415502
+[2021-10-14 18:21:53.469] [info] DriveLimelight - End
+[2021-10-14 18:21:53.470] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.471] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.493] [info] DriveTeleop - End
+[2021-10-14 18:21:53.494] [info] DT COAST Mode
+[2021-10-14 18:21:53.500] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.505] [info] tx -2.5618438720703125 ta 7.8013916015625 | turn -0 throttle -0.23277770536194853 | limelightDist 9.672222946380515 throttleDist 0.23277770536194853 slope -1.9375672766415502
+[2021-10-14 18:21:53.506] [info] DriveLimelight - End
+[2021-10-14 18:21:53.507] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.507] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.533] [info] DriveTeleop - End
+[2021-10-14 18:21:53.533] [info] DT COAST Mode
+[2021-10-14 18:21:53.540] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.542] [info] tx -2.7664947509765625 ta 6.71343994140625 | turn -0 throttle -0.021979751833288753 | limelightDist 11.780202481667112 throttleDist 0.021979751833288753 slope -1.9375672766415502
+[2021-10-14 18:21:53.545] [info] DriveLimelight - End
+[2021-10-14 18:21:53.546] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.546] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.572] [info] DriveTeleop - End
+[2021-10-14 18:21:53.573] [info] DT COAST Mode
+[2021-10-14 18:21:53.579] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.581] [info] tx -2.6641769409179688 ta 5.7300872802734375 | turn -0 throttle 0.1685514419276437 | limelightDist 13.685514419276437 throttleDist -0.1685514419276437 slope -1.9375672766415502
+[2021-10-14 18:21:53.584] [info] DriveLimelight - End
+[2021-10-14 18:21:53.585] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.586] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.595] [info] DriveTeleop - End
+[2021-10-14 18:21:53.596] [info] DT COAST Mode
+[2021-10-14 18:21:53.602] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.606] [info] tx -2.6641769409179688 ta 5.62060546875 | turn -0 throttle 0.18976427946716878 | limelightDist 13.897642794671688 throttleDist -0.18976427946716878 slope -1.9375672766415502
+[2021-10-14 18:21:53.608] [info] DriveLimelight - End
+[2021-10-14 18:21:53.608] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.609] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.632] [info] DriveTeleop - End
+[2021-10-14 18:21:53.633] [info] DT COAST Mode
+[2021-10-14 18:21:53.639] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.644] [info] tx -2.6641769409179688 ta 5.2919158935546875 | turn -0 throttle 0.2534500959743337 | limelightDist 14.534500959743337 throttleDist -0.2534500959743337 slope -1.9375672766415502
+[2021-10-14 18:21:53.645] [info] DriveLimelight - End
+[2021-10-14 18:21:53.646] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.646] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.656] [info] DriveTeleop - End
+[2021-10-14 18:21:53.656] [info] DT COAST Mode
+[2021-10-14 18:21:53.668] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.668] [info] tx -2.8687820434570312 ta 4.9628753662109375 | turn -0 throttle 0.3172039118213468 | limelightDist 15.172039118213467 throttleDist -0.3172039118213468 slope -1.9375672766415502
+[2021-10-14 18:21:53.669] [info] DriveLimelight - End
+[2021-10-14 18:21:53.669] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.669] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.681] [info] DriveTeleop - End
+[2021-10-14 18:21:53.684] [info] DT COAST Mode
+[2021-10-14 18:21:53.690] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.692] [info] tx -2.7664947509765625 ta 4.083892822265625 | turn -0 throttle 0.4875126932101047 | limelightDist 16.875126932101047 throttleDist -0.4875126932101047 slope -1.9375672766415502
+[2021-10-14 18:21:53.694] [info] DriveLimelight - End
+[2021-10-14 18:21:53.694] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.695] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.720] [info] DriveTeleop - End
+[2021-10-14 18:21:53.721] [info] DT COAST Mode
+[2021-10-14 18:21:53.729] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.731] [info] tx -2.4594955444335938 ta 3.0927505493164062 | turn -0 throttle 0.679553176666358 | limelightDist 18.79553176666358 throttleDist -0.679553176666358 slope -1.9375672766415502
+[2021-10-14 18:21:53.741] [info] tx -2.4594955444335938 ta 2.651611328125 | turn -0 throttle 0.7650268686087188 | limelightDist 19.650268686087188 throttleDist -0.7650268686087188 slope -1.9375672766415502
+[2021-10-14 18:21:53.752] [info] tx -2.4594955444335938 ta 2.7619247436523438 | turn -0 throttle 0.7436529021986846 | limelightDist 19.436529021986846 throttleDist -0.7436529021986846 slope -1.9375672766415502
+[2021-10-14 18:21:53.764] [info] tx -2.4594955444335938 ta 2.7619247436523438 | turn -0 throttle 0.7436529021986846 | limelightDist 19.436529021986846 throttleDist -0.7436529021986846 slope -1.9375672766415502
+[2021-10-14 18:21:53.773] [info] tx -2.4594955444335938 ta 2.7619247436523438 | turn -0 throttle 0.7436529021986846 | limelightDist 19.436529021986846 throttleDist -0.7436529021986846 slope -1.9375672766415502
+[2021-10-14 18:21:53.785] [info] tx -2.4594955444335938 ta 2.7619247436523438 | turn -0 throttle 0.7436529021986846 | limelightDist 19.436529021986846 throttleDist -0.7436529021986846 slope -1.9375672766415502
+[2021-10-14 18:21:53.793] [info] tx -2.3571395874023438 ta 2.7619247436523438 | turn -0 throttle 0.7436529021986846 | limelightDist 19.436529021986846 throttleDist -0.7436529021986846 slope -1.9375672766415502
+[2021-10-14 18:21:53.801] [info] tx -2.3571395874023438 ta 2.7619247436523438 | turn -0 throttle 0.7436529021986846 | limelightDist 19.436529021986846 throttleDist -0.7436529021986846 slope -1.9375672766415502
+[2021-10-14 18:21:53.812] [info] tx -2.3571395874023438 ta 3.2029876708984375 | turn -0 throttle 0.6581939927215082 | limelightDist 18.581939927215082 throttleDist -0.6581939927215082 slope -1.9375672766415502
+[2021-10-14 18:21:53.824] [info] tx -2.3571395874023438 ta 3.6436538696289062 | turn -0 throttle 0.5728119520632902 | limelightDist 17.7281195206329 throttleDist -0.5728119520632902 slope -1.9375672766415502
+[2021-10-14 18:21:53.825] [info] DriveLimelight - End
+[2021-10-14 18:21:53.826] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.827] [info] DT BRAKE Mode
+[2021-10-14 18:21:53.855] [info] DriveTeleop - End
+[2021-10-14 18:21:53.856] [info] DT COAST Mode
+[2021-10-14 18:21:53.865] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.867] [info] tx -2.2547683715820312 ta 4.9628753662109375 | turn -0 throttle 0.3172039118213468 | limelightDist 15.172039118213467 throttleDist -0.3172039118213468 slope -1.9375672766415502
+[2021-10-14 18:21:53.868] [info] DriveLimelight - End
+[2021-10-14 18:21:53.869] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.869] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.893] [info] DriveTeleop - End
+[2021-10-14 18:21:53.894] [info] DT COAST Mode
+[2021-10-14 18:21:53.900] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.905] [info] tx -2.1523818969726562 ta 6.8224639892578125 | turn -0 throttle -0.043103894581707713 | limelightDist 11.568961054182923 throttleDist 0.043103894581707713 slope -1.9375672766415502
+[2021-10-14 18:21:53.907] [info] DriveLimelight - End
+[2021-10-14 18:21:53.908] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.908] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.932] [info] DriveTeleop - End
+[2021-10-14 18:21:53.934] [info] DT COAST Mode
+[2021-10-14 18:21:53.940] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.944] [info] tx -2.0499649047851562 ta 7.692832946777344 | turn -0 throttle -0.21174373565115412 | limelightDist 9.882562643488459 throttleDist 0.21174373565115412 slope -1.9375672766415502
+[2021-10-14 18:21:53.945] [info] DriveLimelight - End
+[2021-10-14 18:21:53.946] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.947] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:53.961] [info] DriveTeleop - End
+[2021-10-14 18:21:53.962] [info] DT COAST Mode
+[2021-10-14 18:21:53.969] [info] DriveLimelight - Init
+[2021-10-14 18:21:53.971] [info] tx -2.0499725341796875 ta 8.451499938964844 | turn -0 throttle -0.3587405694442112 | limelightDist 8.412594305557889 throttleDist 0.3587405694442112 slope -1.9375672766415502
+[2021-10-14 18:21:53.972] [info] DriveLimelight - End
+[2021-10-14 18:21:53.972] [info] DriveTeleop - Init
+[2021-10-14 18:21:53.972] [info] DT BRAKE Mode
+[2021-10-14 18:21:54.000] [info] DriveTeleop - End
+[2021-10-14 18:21:54.001] [info] DT COAST Mode
+[2021-10-14 18:21:54.010] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.012] [info] tx -1.9475479125976562 ta 8.343299865722656 | turn -0 throttle -0.3377760773197828 | limelightDist 8.622239226802172 throttleDist 0.3377760773197828 slope -1.9375672766415502
+[2021-10-14 18:21:54.014] [info] DriveLimelight - End
+[2021-10-14 18:21:54.014] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.015] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.037] [info] DriveTeleop - End
+[2021-10-14 18:21:54.037] [info] DT COAST Mode
+[2021-10-14 18:21:54.045] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.047] [info] tx -2.2547683715820312 ta 9.207199096679688 | turn -0 throttle -0.5051623653415973 | limelightDist 6.948376346584027 throttleDist 0.5051623653415973 slope -1.9375672766415502
+[2021-10-14 18:21:54.048] [info] DriveLimelight - End
+[2021-10-14 18:21:54.048] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.048] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.066] [info] DriveTeleop - End
+[2021-10-14 18:21:54.066] [info] DT COAST Mode
+[2021-10-14 18:21:54.071] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.074] [info] tx -2.3571395874023438 ta 9.314895629882812 | turn -0 throttle -0.5260292931958092 | limelightDist 6.739707068041909 throttleDist 0.5260292931958092 slope -1.9375672766415502
+[2021-10-14 18:21:54.074] [info] DriveLimelight - End
+[2021-10-14 18:21:54.075] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.075] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.093] [info] DriveTeleop - End
+[2021-10-14 18:21:54.094] [info] DT COAST Mode
+[2021-10-14 18:21:54.099] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.104] [info] tx -2.2547683715820312 ta 9.852386474609375 | turn -0 throttle -0.6301717604194703 | limelightDist 5.698282395805297 throttleDist 0.6301717604194703 slope -1.9375672766415502
+[2021-10-14 18:21:54.114] [info] tx -2.2547683715820312 ta 9.852386474609375 | turn -0 throttle -0.6301717604194703 | limelightDist 5.698282395805297 throttleDist 0.6301717604194703 slope -1.9375672766415502
+[2021-10-14 18:21:54.124] [info] tx -2.2547683715820312 ta 9.852386474609375 | turn -0 throttle -0.6301717604194703 | limelightDist 5.698282395805297 throttleDist 0.6301717604194703 slope -1.9375672766415502
+[2021-10-14 18:21:54.133] [info] tx -2.2547683715820312 ta 9.852386474609375 | turn -0 throttle -0.6301717604194703 | limelightDist 5.698282395805297 throttleDist 0.6301717604194703 slope -1.9375672766415502
+[2021-10-14 18:21:54.144] [info] tx -2.2547683715820312 ta 9.422531127929688 | turn -0 throttle -0.546884395077873 | limelightDist 6.53115604922127 throttleDist 0.546884395077873 slope -1.9375672766415502
+[2021-10-14 18:21:54.145] [info] DriveLimelight - End
+[2021-10-14 18:21:54.145] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.146] [info] DT BRAKE Mode
+[2021-10-14 18:21:54.159] [info] DriveTeleop - End
+[2021-10-14 18:21:54.160] [info] DT COAST Mode
+[2021-10-14 18:21:54.169] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.172] [info] tx -2.2547683715820312 ta 9.314895629882812 | turn -0 throttle -0.5260292931958092 | limelightDist 6.739707068041909 throttleDist 0.5260292931958092 slope -1.9375672766415502
+[2021-10-14 18:21:54.172] [info] DriveLimelight - End
+[2021-10-14 18:21:54.173] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.173] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.207] [info] DriveTeleop - End
+[2021-10-14 18:21:54.207] [info] DT COAST Mode
+[2021-10-14 18:21:54.215] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.217] [info] tx -2.5618438720703125 ta 7.692832946777344 | turn -0 throttle -0.21174373565115412 | limelightDist 9.882562643488459 throttleDist 0.21174373565115412 slope -1.9375672766415502
+[2021-10-14 18:21:54.217] [info] DriveLimelight - End
+[2021-10-14 18:21:54.218] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.218] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.232] [info] DriveTeleop - End
+[2021-10-14 18:21:54.232] [info] DT COAST Mode
+[2021-10-14 18:21:54.245] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.248] [info] tx -2.7664947509765625 ta 7.040374755859375 | turn -0 throttle -0.08532557164121393 | limelightDist 11.14674428358786 throttleDist 0.08532557164121393 slope -1.9375672766415502
+[2021-10-14 18:21:54.249] [info] DriveLimelight - End
+[2021-10-14 18:21:54.249] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.250] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.267] [info] DriveTeleop - End
+[2021-10-14 18:21:54.267] [info] DT COAST Mode
+[2021-10-14 18:21:54.275] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.276] [info] tx -2.6641769409179688 ta 5.948921203613281 | turn -0 throttle 0.12615089703940702 | limelightDist 13.26150897039407 throttleDist -0.12615089703940702 slope -1.9375672766415502
+[2021-10-14 18:21:54.277] [info] DriveLimelight - End
+[2021-10-14 18:21:54.277] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.277] [info] DT BRAKE Mode
+[2021-10-14 18:21:54.289] [info] DriveTeleop - End
+[2021-10-14 18:21:54.289] [info] DT COAST Mode
+[2021-10-14 18:21:54.296] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.298] [info] tx -2.6641769409179688 ta 5.948921203613281 | turn -0 throttle 0.12615089703940702 | limelightDist 13.26150897039407 throttleDist -0.12615089703940702 slope -1.9375672766415502
+[2021-10-14 18:21:54.298] [info] DriveLimelight - End
+[2021-10-14 18:21:54.298] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.298] [info] DT BRAKE Mode
+[2021-10-14 18:21:54.312] [info] DriveTeleop - End
+[2021-10-14 18:21:54.312] [info] DT COAST Mode
+[2021-10-14 18:21:54.318] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.320] [info] tx -2.6641769409179688 ta 5.7300872802734375 | turn -0 throttle 0.1685514419276437 | limelightDist 13.685514419276437 throttleDist -0.1685514419276437 slope -1.9375672766415502
+[2021-10-14 18:21:54.320] [info] DriveLimelight - End
+[2021-10-14 18:21:54.320] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.320] [info] DT BRAKE Mode
+[2021-10-14 18:21:54.336] [info] DriveTeleop - End
+[2021-10-14 18:21:54.336] [info] DT COAST Mode
+[2021-10-14 18:21:54.345] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.346] [info] tx -2.6641769409179688 ta 5.401512145996094 | turn -0 throttle 0.23221508473703223 | limelightDist 14.322150847370322 throttleDist -0.23221508473703223 slope -1.9375672766415502
+[2021-10-14 18:21:54.346] [info] DriveLimelight - End
+[2021-10-14 18:21:54.346] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.346] [info] DT BRAKE Mode
+[2021-10-14 18:21:54.358] [info] DriveTeleop - End
+[2021-10-14 18:21:54.359] [info] DT COAST Mode
+[2021-10-14 18:21:54.365] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.368] [info] tx -2.6641845703125 ta 5.2919158935546875 | turn -0 throttle 0.2534500959743337 | limelightDist 14.534500959743337 throttleDist -0.2534500959743337 slope -1.9375672766415502
+[2021-10-14 18:21:54.369] [info] DriveLimelight - End
+[2021-10-14 18:21:54.369] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.370] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.388] [info] DriveTeleop - End
+[2021-10-14 18:21:54.390] [info] DT COAST Mode
+[2021-10-14 18:21:54.397] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.399] [info] tx -2.6641769409179688 ta 4.413764953613281 | turn -0 throttle 0.4235977484925826 | limelightDist 16.235977484925826 throttleDist -0.4235977484925826 slope -1.9375672766415502
+[2021-10-14 18:21:54.401] [info] DriveLimelight - End
+[2021-10-14 18:21:54.401] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.402] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+LiveWindow::UpdateValues(): 0.012159s
+RobotPeriodic(): 0.023620s
+SmartDashboard::UpdateValues(): 0.001498s
+TeleopPeriodic(): 0.000819s
+Shuffleboard::Update(): 0.000014s
+LiveWindow::UpdateValues(): 0.012159s
+RobotPeriodic(): 0.023620s
+SmartDashboard::UpdateValues(): 0.001498s
+TeleopPeriodic(): 0.000819s
+Shuffleboard::Update(): 0.000014s
+Watchdog not fed within 0.020000s
+Watchdog not fed within 0.020000s
+[2021-10-14 18:21:54.429] [info] DriveTeleop - End
+Loop time of 0.020000s overrun
+[2021-10-14 18:21:54.429] [info] DT COAST Mode
+Loop time of 0.020000s overrun
+[2021-10-14 18:21:54.439] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.441] [info] tx -2.6641845703125 ta 3.86383056640625 | turn -0 throttle 0.5301512357878092 | limelightDist 17.301512357878092 throttleDist -0.5301512357878092 slope -1.9375672766415502
+[2021-10-14 18:21:54.444] [info] DriveLimelight - End
+[2021-10-14 18:21:54.444] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.445] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+buttons.Run(): 0.000034s
+DriveTeleop.Initialize(): 0.006199s
+ClimberRun.Execute(): 0.000465s
+DriveTeleop.End(true): 0.010475s
+DriveLimelight.Initialize(): 0.001382s
+DriveLimelight.Execute(): 0.002768s
+DriveLimelight.End(false): 0.000356s
+Subsystem Periodic(): 0.000007s
+buttons.Run(): 0.000034s
+DriveTeleop.Initialize(): 0.006199s
+ClimberRun.Execute(): 0.000465s
+DriveTeleop.End(true): 0.010475s
+DriveLimelight.Initialize(): 0.001382s
+DriveLimelight.Execute(): 0.002768s
+DriveLimelight.End(false): 0.000356s
+Subsystem Periodic(): 0.000007s
+[2021-10-14 18:21:54.467] [info] DriveTeleop - End
+[2021-10-14 18:21:54.467] [info] DT COAST Mode
+[2021-10-14 18:21:54.477] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.478] [info] tx -2.3571395874023438 ta 3.5335235595703125 | turn -0 throttle 0.5941504405568822 | limelightDist 17.94150440556882 throttleDist -0.5941504405568822 slope -1.9375672766415502
+[2021-10-14 18:21:54.478] [info] DriveLimelight - End
+[2021-10-14 18:21:54.478] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.478] [info] DT BRAKE Mode
+[2021-10-14 18:21:54.489] [info] DriveTeleop - End
+[2021-10-14 18:21:54.489] [info] DT COAST Mode
+[2021-10-14 18:21:54.496] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.499] [info] tx -2.4595108032226562 ta 3.5335235595703125 | turn -0 throttle 0.5941504405568822 | limelightDist 17.94150440556882 throttleDist -0.5941504405568822 slope -1.9375672766415502
+[2021-10-14 18:21:54.499] [info] DriveLimelight - End
+[2021-10-14 18:21:54.499] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.500] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.527] [info] DriveTeleop - End
+[2021-10-14 18:21:54.528] [info] DT COAST Mode
+[2021-10-14 18:21:54.535] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.537] [info] tx -2.4594955444335938 ta 4.633514404296875 | turn -0 throttle 0.38101981402213386 | limelightDist 15.810198140221338 throttleDist -0.38101981402213386 slope -1.9375672766415502
+[2021-10-14 18:21:54.538] [info] DriveLimelight - End
+[2021-10-14 18:21:54.538] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.539] [info] DT BRAKE Mode
+[2021-10-14 18:21:54.553] [info] DriveTeleop - End
+[2021-10-14 18:21:54.554] [info] DT COAST Mode
+[2021-10-14 18:21:54.560] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.565] [info] tx -2.4594955444335938 ta 4.633514404296875 | turn -0 throttle 0.38101981402213386 | limelightDist 15.810198140221338 throttleDist -0.38101981402213386 slope -1.9375672766415502
+[2021-10-14 18:21:54.565] [info] DriveLimelight - End
+[2021-10-14 18:21:54.566] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.566] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.586] [info] DriveTeleop - End
+[2021-10-14 18:21:54.586] [info] DT COAST Mode
+[2021-10-14 18:21:54.591] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.593] [info] tx -2.3571395874023438 ta 7.040374755859375 | turn -0 throttle -0.08532557164121393 | limelightDist 11.14674428358786 throttleDist 0.08532557164121393 slope -1.9375672766415502
+[2021-10-14 18:21:54.594] [info] DriveLimelight - End
+[2021-10-14 18:21:54.594] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.594] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.617] [info] DriveTeleop - End
+[2021-10-14 18:21:54.618] [info] DT COAST Mode
+[2021-10-14 18:21:54.627] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.629] [info] tx -2.3571395874023438 ta 7.8013916015625 | turn -0 throttle -0.23277770536194853 | limelightDist 9.672222946380515 throttleDist 0.23277770536194853 slope -1.9375672766415502
+[2021-10-14 18:21:54.630] [info] DriveLimelight - End
+[2021-10-14 18:21:54.630] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.631] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.654] [info] DriveTeleop - End
+[2021-10-14 18:21:54.655] [info] DT COAST Mode
+[2021-10-14 18:21:54.661] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.666] [info] tx -2.2547683715820312 ta 8.559638977050781 | turn -0 throttle -0.37969323559649165 | limelightDist 8.203067644035084 throttleDist 0.37969323559649165 slope -1.9375672766415502
+[2021-10-14 18:21:54.667] [info] DriveLimelight - End
+[2021-10-14 18:21:54.667] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.668] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.694] [info] DriveTeleop - End
+[2021-10-14 18:21:54.695] [info] DT COAST Mode
+[2021-10-14 18:21:54.703] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.706] [info] tx -2.3571395874023438 ta 8.883705139160156 | turn -0 throttle -0.442483234713486 | limelightDist 7.57516765286514 throttleDist 0.442483234713486 slope -1.9375672766415502
+[2021-10-14 18:21:54.707] [info] DriveLimelight - End
+[2021-10-14 18:21:54.709] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.710] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.734] [info] DriveTeleop - End
+[2021-10-14 18:21:54.735] [info] DT COAST Mode
+[2021-10-14 18:21:54.741] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.745] [info] tx -2.3571395874023438 ta 9.422531127929688 | turn -0 throttle -0.546884395077873 | limelightDist 6.53115604922127 throttleDist 0.546884395077873 slope -1.9375672766415502
+[2021-10-14 18:21:54.746] [info] DriveLimelight - End
+[2021-10-14 18:21:54.747] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.748] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.775] [info] DriveTeleop - End
+[2021-10-14 18:21:54.776] [info] DT COAST Mode
+[2021-10-14 18:21:54.784] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.785] [info] tx -2.3571395874023438 ta 9.422531127929688 | turn -0 throttle -0.546884395077873 | limelightDist 6.53115604922127 throttleDist 0.546884395077873 slope -1.9375672766415502
+[2021-10-14 18:21:54.786] [info] DriveLimelight - End
+[2021-10-14 18:21:54.786] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.787] [info] DT BRAKE Mode
+[2021-10-14 18:21:54.814] [info] DriveTeleop - End
+[2021-10-14 18:21:54.815] [info] DT COAST Mode
+[2021-10-14 18:21:54.823] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.826] [info] tx -2.3571395874023438 ta 8.667724609375 | turn -0 throttle -0.4006355540231436 | limelightDist 7.993644459768564 throttleDist 0.4006355540231436 slope -1.9375672766415502
+[2021-10-14 18:21:54.827] [info] DriveLimelight - End
+[2021-10-14 18:21:54.828] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.829] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.855] [info] DriveTeleop - End
+[2021-10-14 18:21:54.856] [info] DT COAST Mode
+[2021-10-14 18:21:54.865] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.868] [info] tx -2.4594955444335938 ta 7.475563049316406 | turn -0 throttle -0.16964623129919634 | limelightDist 10.303537687008037 throttleDist 0.16964623129919634 slope -1.9375672766415502
+[2021-10-14 18:21:54.870] [info] DriveLimelight - End
+[2021-10-14 18:21:54.870] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.870] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.895] [info] DriveTeleop - End
+[2021-10-14 18:21:54.895] [info] DT COAST Mode
+[2021-10-14 18:21:54.904] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.905] [info] tx -2.6641769409179688 ta 6.4952392578125 | turn -0 throttle 0.020298098593917936 | limelightDist 12.20298098593918 throttleDist -0.020298098593917936 slope -1.9375672766415502
+[2021-10-14 18:21:54.906] [info] DriveLimelight - End
+[2021-10-14 18:21:54.907] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.909] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.936] [info] DriveTeleop - End
+[2021-10-14 18:21:54.937] [info] DT COAST Mode
+[2021-10-14 18:21:54.951] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.953] [info] tx -2.6641769409179688 ta 5.7300872802734375 | turn -0 throttle 0.1685514419276437 | limelightDist 13.685514419276437 throttleDist -0.1685514419276437 slope -1.9375672766415502
+[2021-10-14 18:21:54.953] [info] DriveLimelight - End
+[2021-10-14 18:21:54.953] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.953] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:54.969] [info] DriveTeleop - End
+[2021-10-14 18:21:54.969] [info] DT COAST Mode
+[2021-10-14 18:21:54.976] [info] DriveLimelight - Init
+[2021-10-14 18:21:54.978] [info] tx -2.6641769409179688 ta 5.401512145996094 | turn -0 throttle 0.23221508473703223 | limelightDist 14.322150847370322 throttleDist -0.23221508473703223 slope -1.9375672766415502
+[2021-10-14 18:21:54.979] [info] DriveLimelight - End
+[2021-10-14 18:21:54.979] [info] DriveTeleop - Init
+[2021-10-14 18:21:54.980] [info] DT BRAKE Mode
+[2021-10-14 18:21:54.995] [info] DriveTeleop - End
+[2021-10-14 18:21:54.995] [info] DT COAST Mode
+[2021-10-14 18:21:55.004] [info] DriveLimelight - Init
+[2021-10-14 18:21:55.006] [info] tx -2.6641769409179688 ta 5.401512145996094 | turn -0 throttle 0.23221508473703223 | limelightDist 14.322150847370322 throttleDist -0.23221508473703223 slope -1.9375672766415502
+[2021-10-14 18:21:55.006] [info] DriveLimelight - End
+[2021-10-14 18:21:55.007] [info] DriveTeleop - Init
+[2021-10-14 18:21:55.007] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+[2021-10-14 18:21:55.024] [info] DriveTeleop - End
+[2021-10-14 18:21:55.024] [info] DT COAST Mode
+[2021-10-14 18:21:55.029] [info] DriveLimelight - Init
+[2021-10-14 18:21:55.031] [info] tx -2.7664947509765625 ta 4.7433319091796875 | turn -0 throttle 0.35974193363579765 | limelightDist 15.597419336357977 throttleDist -0.35974193363579765 slope -1.9375672766415502
+[2021-10-14 18:21:55.033] [info] DriveLimelight - End
+[2021-10-14 18:21:55.034] [info] DriveTeleop - Init
+[2021-10-14 18:21:55.035] [info] DT BRAKE Mode
+[2021-10-14 18:21:55.051] [info] DriveTeleop - End
+[2021-10-14 18:21:55.052] [info] DT COAST Mode
+[2021-10-14 18:21:55.059] [info] DriveLimelight - Init
+[2021-10-14 18:21:55.060] [info] tx -2.5618438720703125 ta 3.8638381958007812 | turn -0 throttle 0.530149757541291 | limelightDist 17.30149757541291 throttleDist -0.530149757541291 slope -1.9375672766415502
+[2021-10-14 18:21:55.060] [info] DriveLimelight - End
+[2021-10-14 18:21:55.060] [info] DriveTeleop - Init
+[2021-10-14 18:21:55.060] [info] DT BRAKE Mode
+[2021-10-14 18:21:55.076] [info] DriveTeleop - End
+[2021-10-14 18:21:55.076] [info] DT COAST Mode
+[2021-10-14 18:21:55.087] [info] DriveLimelight - Init
+[2021-10-14 18:21:55.088] [info] tx -2.4594955444335938 ta 3.5335235595703125 | turn -0 throttle 0.5941504405568822 | limelightDist 17.94150440556882 throttleDist -0.5941504405568822 slope -1.9375672766415502
+[2021-10-14 18:21:55.088] [info] DriveLimelight - End
+[2021-10-14 18:21:55.088] [info] DriveTeleop - Init
+[2021-10-14 18:21:55.088] [info] DT BRAKE Mode
+[2021-10-14 18:21:55.104] [info] DriveTeleop - End
+[2021-10-14 18:21:55.104] [info] DT COAST Mode
+[2021-10-14 18:21:55.111] [info] DriveLimelight - Init
+[2021-10-14 18:21:55.113] [info] tx -2.4594955444335938 ta 3.202972412109375 | turn -0 throttle 0.6581969492145451 | limelightDist 18.58196949214545 throttleDist -0.6581969492145451 slope -1.9375672766415502
+[2021-10-14 18:21:55.116] [info] tx -2.2547683715820312 ta 3.0927505493164062 | turn -0 throttle 0.679553176666358 | limelightDist 18.79553176666358 throttleDist -0.679553176666358 slope -1.9375672766415502
+[2021-10-14 18:21:55.120] [info] tx -2.2547683715820312 ta 3.0927505493164062 | turn -0 throttle 0.679553176666358 | limelightDist 18.79553176666358 throttleDist -0.679553176666358 slope -1.9375672766415502
+[2021-10-14 18:21:55.125] [info] tx -2.2547683715820312 ta 3.0927505493164062 | turn -0 throttle 0.679553176666358 | limelightDist 18.79553176666358 throttleDist -0.679553176666358 slope -1.9375672766415502
+[2021-10-14 18:21:55.129] [info] tx -2.2547683715820312 ta 3.0927505493164062 | turn -0 throttle 0.679553176666358 | limelightDist 18.79553176666358 throttleDist -0.679553176666358 slope -1.9375672766415502
+[2021-10-14 18:21:55.137] [info] tx -2.2547683715820312 ta 3.3131866455078125 | turn -0 throttle 0.6368422000092505 | limelightDist 18.368422000092504 throttleDist -0.6368422000092505 slope -1.9375672766415502
+[2021-10-14 18:21:55.147] [info] tx -2.2547683715820312 ta 3.6436538696289062 | turn -0 throttle 0.5728119520632902 | limelightDist 17.7281195206329 throttleDist -0.5728119520632902 slope -1.9375672766415502
+[2021-10-14 18:21:55.147] [info] DriveLimelight - End
+[2021-10-14 18:21:55.148] [info] DriveTeleop - Init
+[2021-10-14 18:21:55.148] [info] DT BRAKE Mode
+CommandScheduler loop time overrun.
+CTR: No new response to update signal
+[2021-10-14 18:22:15.567] [info] DisabledInit: Match N0, Red Alliance
+[2021-10-14 18:22:15.570] [info] ClimberRun - End
+[2021-10-14 18:22:15.570] [info] DriveTeleop - End
+[2021-10-14 18:22:15.570] [info] DT COAST Mode

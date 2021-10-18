@@ -3,7 +3,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerAttach>false</LocalDebuggerAttach>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>2018_03_31_15_12_05_Sat output</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>2021_10_03-14_28_28-Sun whl</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerCommandArguments>2018_03_31_15_12_05_Sat DTDT</LocalDebuggerCommandArguments>
