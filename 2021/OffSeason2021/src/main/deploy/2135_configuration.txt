@@ -44,17 +44,18 @@
   VC_ExpelSpeed = -0.2
   VC_ExpelSpeedFast = -1.0
 # Shooter settings
-  SH_FlywheelRPM = 3000
-  SH_FeederRPM = 3000
-  SH_FlywheelPidKf = 0.0475
-  SH_FlywheelPidKp = 0.05
-  SH_FlywheelPidKi = 0.000
-  SH_FlywheelPidKd = 0.000
   SH_FeederPidKf = 0.0475
   SH_FeederPidKp = 0.00000
   SH_FeederPidKi = 0.000
   SH_FeederPidKd = 0.000
-  SH_NeutralDeadband = 0.004
+  SH_FeederNeutralDeadband = 0.004
+  SH_FeederTargetRPM = 3000.0
+  SH_FlywheelPidKf = 0.0475
+  SH_FlywheelPidKp = 0.05
+  SH_FlywheelPidKi = 0.000
+  SH_FlywheelPidKd = 0.000
+  SH_FlywheelNeutralDeadband = 0.004
+  SH_FlywheelTargetRPM = 3000.0
 # Climber settings
   CL_InitialUpSpeed = 0.25
   CL_InitialDownSpeed = -0.25
