@@ -664,7 +664,8 @@ void Drivetrain::RamseteFollowerInit(string pathName)
     };
 
     m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(outputDirectory);
-    PlotTrajectory(m_trajectory);
+    if (!m_talonValidL1 && !m_talonValidR3)
+        PlotTrajectory(m_trajectory);
     std::vector<frc::Trajectory::State> trajectoryStates;
     trajectoryStates = m_trajectory.States();
     m_trajTimer.Reset();
