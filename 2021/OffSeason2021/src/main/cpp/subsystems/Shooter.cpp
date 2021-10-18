@@ -171,7 +171,10 @@ void Shooter::Periodic()
 
         if (m_FlywheelTargetRPM > 50 && m_FlywheelCurrentRPM > 50)
         {
-            spdlog::info("SH_FeederRPM {} SH_FlywheelRPM {}", m_FeederCurrentRPM, m_FlywheelCurrentRPM);
+            spdlog::info(
+                "SH m_FeederCurrentRPM {:.1f} m_FlywheelCurrentRPM {:.1f}",
+                m_FeederCurrentRPM,
+                m_FlywheelCurrentRPM);
         }
 
         // Show current drain and slave output if more debugging is needed
@@ -315,13 +318,13 @@ void Shooter::SetShooterSpeed(int state)
         m_motorSH11.Set(ControlMode::Velocity, FlywheelRPMToNative(m_FlywheelTargetRPM));
     }
 
-    spdlog::info("SH Set shooter speed - feeder {} flywheel {}", m_FeederTargetRPM, m_FlywheelTargetRPM);
+    spdlog::info("SH Set shooter speed - feeder {:.1f} flywheel {:.1f}", feederRPM, flywheelRPM);
 }
 
 void Shooter::FlashlightOn(bool onState)
 {
-    spdlog::info("Shooter Flashlight {}", (onState) ? "ON" : "OFF");
-    frc::SmartDashboard::PutBoolean("Flashlight_State", onState);
+    spdlog::info("SH Flashlight {}", (onState) ? "ON" : "OFF");
+    frc::SmartDashboard::PutBoolean("SH_Flashlight", onState);
 
     m_flashlight.Set(onState);
 }
@@ -332,7 +335,7 @@ bool Shooter::AtDesiredRPM()
 
     if (atDesiredSpeed)
     {
-        spdlog::info("RPM at Speed {}", atDesiredSpeed);
+        spdlog::info("SH RPM at Speed {}", (atDesiredSpeed) ? "TRUE" : "FALSE");
     }
 
     return atDesiredSpeed;

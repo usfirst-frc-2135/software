@@ -295,14 +295,11 @@ void Drivetrain::UpdateDashboardValues(void)
     // Only update indicators every 100 ms to cut down on network traffic
     if ((periodicInterval++ % 5 == 0) && (m_driveDebug > 1))
     {
-        double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
-
         spdlog::info(
-            "DT {} deg {} LR cts {} {} amps {} {} {} {}",
-            secs,
-            m_odometry.GetPose().Rotation().Degrees().to<double>(),
-            m_distanceLeft.to<double>(),
-            m_distanceLeft.to<double>(),
+            "DT deg {} LR dist {} {} amps {:.1f} {:.1f} {:.1f} {:.1f}",
+            m_odometry.GetPose().Rotation().Degrees(),
+            m_distanceLeft,
+            m_distanceRight,
             m_currentl1,
             m_currentL2,
             m_currentR3,
@@ -583,6 +580,7 @@ void Drivetrain::MoveWithLimelightInit()
     m_slope = (m_dist2 - m_dist1) / (m_targetArea2 - m_targetArea1);
     m_distOffset = m_dist1 - m_slope * m_targetArea1;
     frc::SmartDashboard::PutNumber("DTL_Slope", m_slope);
+    frc::SmartDashboard::PutNumber("DTL_Offset", m_distOffset);
 }
 
 void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
@@ -602,14 +600,14 @@ void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
 
     // print out inputs and outputs, intermediate values (slope? throttle distance?)
     spdlog::info(
-        "tx {} ta {} | turn {} throttle {} | limelightDist {} throttleDist {} slope {}",
+        "DTL tv {:d} tx {:.1f} ta {:.1f} | turn {:.2f} throttle {:.2f} | limelightDist {:.1f} throttleDist {:.1f}",
+        tv,
         tx,
         ta,
         turnOutput,
         throttleOutput,
         m_limelightDistance,
-        throttleDistance,
-        m_slope);
+        throttleDistance);
 
     // cap max turn and throttle output
     turnOutput = std::clamp(turnOutput, -m_maxTurn, m_maxTurn);
@@ -629,15 +627,7 @@ bool Drivetrain::MoveWithLimelightIsFinished(double tx)
         (fabs(tx) <= m_angleThreshold) && (fabs(m_targetDistance - m_limelightDistance) <= m_distThreshold));
 }
 
-void Drivetrain::MoveWithLimelightEnd() {}
-
-void Drivetrain::ToggleDriveMode()
 {
-    // if (++m_curDriveMode >= DRIVEMODE_LAST)
-    m_curDriveMode = DRIVEMODE_FIRST;
-
-    spdlog::info("ToggleDriveMode: {} (curr)", m_curDriveMode);
-    frc::SmartDashboard::PutNumber("DT_DriveMode", m_curDriveMode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -652,15 +642,15 @@ void Drivetrain::RamseteFollowerInit(string pathName)
     wpi::SmallString<64> outputDirectory;
     frc::filesystem::GetDeployDirectory(outputDirectory);
     outputDirectory.append("/output/" + pathName + ".wpilib.json");
-    spdlog::info("Output Directory is: {}", outputDirectory);
+    spdlog::info("DTR Output Directory is: {}", outputDirectory);
     std::ifstream pathFile(outputDirectory.c_str());
     if (pathFile.good())
     {
-        spdlog::info("pathFile is good");
+        spdlog::info("DTR pathFile is good");
     }
     else
     {
-        spdlog::error("pathFile not good");
+        spdlog::error("DTR pathFile not good");
     };
 
     m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(outputDirectory);
@@ -670,13 +660,13 @@ void Drivetrain::RamseteFollowerInit(string pathName)
     m_trajTimer.Reset();
     m_trajTimer.Start();
 
-    spdlog::info("Size of state table is {}", trajectoryStates.size());
+    spdlog::info("DTR Size of state table is {}", trajectoryStates.size());
 
     for (unsigned int i = 0; i < trajectoryStates.size(); i++)
     {
         frc::Trajectory::State curState = trajectoryStates[i];
         spdlog::info(
-            "state time {} Velocity {} Accleration {} Rotation {}",
+            "DTR state time {} Velocity {} Accleration {} Rotation {}",
             curState.t,
             curState.velocity,
             curState.acceleration,
@@ -744,7 +734,7 @@ void Drivetrain::RamseteFollowerExecute(void)
     TankDriveVolts(leftTotalVolts, rightTotalVolts);
 
     spdlog::info(
-        "cur X {} Y {} R {} | targ X {} Y {} R {} | chas X {} Y {} O {} | whl L {} R {} ffV L {} R {} | toV L {} R {}",
+        "DTR cur X {} Y {} R {} | targ X {} Y {} R {} | chas X {} Y {} O {} | whl L {} R {} ffV L {} R {} | toV L {} R {}",
         currentPose.X(),
         currentPose.Y(),
         currentPose.Rotation().Degrees(),
