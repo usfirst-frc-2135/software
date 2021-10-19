@@ -154,8 +154,8 @@ private:
     double m_angleThreshold;
     double m_distThreshold;
     double m_throttleShape;
-    double m_targetArea1;
-    double m_targetArea2;
+    double m_vertOffset1;
+    double m_vertOffset2;
     double m_dist1;
     double m_dist2;
     double m_slope;
@@ -247,8 +247,8 @@ public:
     void MoveWithJoysticksEnd(void);
 
     void MoveWithLimelightInit();
-    void MoveWithLimelightExecute(double tx, double ta, double tv);
-    bool MoveWithLimelightIsFinished(double tx);
+    void MoveWithLimelightExecute(double tx, double ty, bool tv);
+    bool MoveWithLimelightIsFinished(double tx, bool tv);
     void MoveWithLimelightEnd();
 
     // Autonomous - Ramsete follower command

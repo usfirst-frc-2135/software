@@ -199,8 +199,8 @@ void Drivetrain::ConfigFileLoad(void)
     config->GetValueAsDouble("DTL_DistThreshold", m_distThreshold, 6.0);
     config->GetValueAsDouble("DTL_Dist1", m_dist1, 0.0);
     config->GetValueAsDouble("DTL_Dist2", m_dist2, 0.0);
-    config->GetValueAsDouble("DTL_TargetArea1", m_targetArea1, 0.0);
-    config->GetValueAsDouble("DTL_TargetArea2", m_targetArea2, 0.0);
+    config->GetValueAsDouble("DTL_VertOffset1", m_vertOffset1, 0.0);
+    config->GetValueAsDouble("DTL_VertOffset2", m_vertOffset2, 0.0);
 
     // Ramsete follower settings
     config->GetValueAsDouble("DTR_RamsetePIDKp", m_ramsetePidKp, 2.0);
@@ -226,8 +226,8 @@ void Drivetrain::ConfigFileLoad(void)
     frc::SmartDashboard::PutNumber("DTL_DistThreshold", m_distThreshold);
     frc::SmartDashboard::PutNumber("DTL_Dist1", m_dist1);
     frc::SmartDashboard::PutNumber("DTL_Dist2", m_dist2);
-    frc::SmartDashboard::PutNumber("DTL_TargetArea1", m_targetArea1);
-    frc::SmartDashboard::PutNumber("DTL_TargetArea2", m_targetArea2);
+    frc::SmartDashboard::PutNumber("DTL_VertOffset1", m_vertOffset1);
+    frc::SmartDashboard::PutNumber("DTL_VertOffset2", m_vertOffset2);
 
     frc::SmartDashboard::PutNumber("DTR_ramsetePidKp", m_ramsetePidKp);
     frc::SmartDashboard::PutNumber("DTR_ramsetePidKi", m_ramsetePidKi);
@@ -576,8 +576,8 @@ void Drivetrain::MoveWithLimelightInit()
     m_angleThreshold = frc::SmartDashboard::GetNumber("DTL_AngleThreshold", m_angleThreshold);
     m_distThreshold = frc::SmartDashboard::GetNumber("DTL_DistThreshold", m_distThreshold);
     m_throttleShape = frc::SmartDashboard::GetNumber("DTL_ThrottleShape", m_throttleShape);
-    m_targetArea1 = frc::SmartDashboard::GetNumber("DTL_TargetArea1", m_targetArea1);
-    m_targetArea2 = frc::SmartDashboard::GetNumber("DTL_TargetArea2", m_targetArea2);
+    m_vertOffset1 = frc::SmartDashboard::GetNumber("DTL_VertOffset1", m_vertOffset1);
+    m_vertOffset2 = frc::SmartDashboard::GetNumber("DTL_VertOffset2", m_vertOffset2);
     m_dist1 = frc::SmartDashboard::GetNumber("DTL_Dist1", m_dist1);
     m_dist2 = frc::SmartDashboard::GetNumber("DTL_Dist2", m_dist2);
 
@@ -586,19 +586,19 @@ void Drivetrain::MoveWithLimelightInit()
     m_throttleController = frc2::PIDController(m_throttlepidKp, m_throttlepidKi, m_throttlepidKd);
 
     // calculate slope and y-intercept
-    m_slope = (m_dist2 - m_dist1) / (m_targetArea2 - m_targetArea1);
-    m_distOffset = m_dist1 - m_slope * m_targetArea1;
+    m_slope = (m_dist2 - m_dist1) / (m_vertOffset2 - m_vertOffset1);
+    m_distOffset = m_dist1 - m_slope * m_vertOffset1;
     frc::SmartDashboard::PutNumber("DTL_Slope", m_slope);
     frc::SmartDashboard::PutNumber("DTL_Offset", m_distOffset);
 }
 
-void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
+void Drivetrain::MoveWithLimelightExecute(double tx, double ty, bool tv)
 {
     // get turn value - just horizontal offset from target
     double turnOutput = -m_turnController.Calculate(tx);
 
     // get throttle value
-    m_limelightDistance = m_slope * ta + m_distOffset;
+    m_limelightDistance = m_slope * ty + m_distOffset;
 
     double throttleDistance = m_throttleController.Calculate(m_limelightDistance, m_targetDistance);
     double throttleOutput = -throttleDistance * pow(cos(turnOutput * wpi::math::pi / 180), m_throttleShape);
@@ -609,10 +609,10 @@ void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
 
     // print out inputs and outputs, intermediate values (slope? throttle distance?)
     spdlog::info(
-        "DTL tv {:d} tx {:.1f} ta {:.1f} | turn {:.2f} throttle {:.2f} | limelightDist {:.1f} throttleDist {:.1f}",
+        "DTL tv {} tx {:.1f} ty {:.1f} | turn {:.2f} throttle {:.2f} | limelightDist {:.1f} throttleDist {:.1f}",
         tv,
         tx,
-        ta,
+        ty,
         turnOutput,
         throttleOutput,
         m_limelightDistance,
@@ -630,14 +630,14 @@ void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
         m_diffDrive.ArcadeDrive(throttleOutput, turnOutput, false);
 }
 
-bool Drivetrain::MoveWithLimelightIsFinished(double tx)
+bool Drivetrain::MoveWithLimelightIsFinished(double tx, bool tv)
 {
     bool leftStopped = m_wheelSpeeds.left <= m_tolerance * 1_mps;
     bool rightStopped = m_wheelSpeeds.right <= m_tolerance * 1_mps;
 
     return (
-        (fabs(tx) <= m_angleThreshold) && (fabs(m_targetDistance - m_limelightDistance) <= m_distThreshold)
-        && leftStopped && rightStopped);
+        tv && (fabs(tx) <= m_angleThreshold)
+        && (fabs(m_targetDistance - m_limelightDistance) <= m_distThreshold) && leftStopped && rightStopped);
 }
 
 void Drivetrain::MoveWithLimelightEnd()

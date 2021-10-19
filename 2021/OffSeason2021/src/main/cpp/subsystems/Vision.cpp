@@ -95,5 +95,6 @@ bool Vision::GetTargetValid()
 
 void Vision::SetLEDMode(ledMode_e mode)
 {
-    table->PutNumber("led", mode);
+    table->PutNumber("ledMode", mode);
+    spdlog::info("mode : {}", mode);
 }
