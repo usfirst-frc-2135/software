@@ -194,6 +194,9 @@ private:
     bool leftNearStopped;
     bool rightNearStopped;
 
+    // Auto values
+    double m_waitTime;
+
     ///////////////////////////////////////////////////////////////////////////
 
     // Initialization methods
