@@ -16,9 +16,12 @@
 #include "subsystems/Shooter.h"
 #include "subsystems/VerticalConveyor.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc2/command/ParallelCommandGroup.h>
 #include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/WaitCommand.h>
 
 /**
  *
@@ -39,4 +42,5 @@ public:
 
 private:
     const char *path;
+    int waitTime;
 };

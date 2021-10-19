@@ -33,9 +33,10 @@ AutoDriveShoot::AutoDriveShoot(
 
     AddCommands(
         IntakeDeploy(true),
+        frc2::WaitCommand(frc::SmartDashboard::GetNumber("Auto Wait Time", waitTime) * 1_s),
         AutoDrivePath(path, drivetrain),
-        ScoringAction(intake, fConv, vConv, shooter),
-        AutoDriveStop(drivetrain));
+        frc2::ParallelCommandGroup{ AutoDriveStop(drivetrain),
+                                    ScoringAction(intake, fConv, vConv, shooter) });
 }
 
 bool AutoDriveShoot::RunsWhenDisabled() const
