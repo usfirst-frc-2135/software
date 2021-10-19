@@ -240,6 +240,7 @@ public:
     void SetBrakeMode(bool brakeMode);
     void MoveSetQuickTurn(bool quickTurn);
     void MoveStop(void);
+    bool MoveIsStopped(void);
 
     // Teleop mode
     void MoveWithJoysticksInit(void);

@@ -460,6 +460,14 @@ void Drivetrain::TankDriveVolts(volt_t left, volt_t right)
         m_motorR3.SetVoltage(-right);
 }
 
+//
+bool Drivetrain::MoveIsStopped(void)
+{
+    bool leftStopped = m_wheelSpeeds.left <= m_tolerance * 1_mps;
+    bool rightStopped = m_wheelSpeeds.right <= m_tolerance * 1_mps;
+
+    return (leftStopped && rightStopped);
+}
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  Trajectory management
@@ -632,12 +640,9 @@ void Drivetrain::MoveWithLimelightExecute(double tx, double ty, bool tv)
 
 bool Drivetrain::MoveWithLimelightIsFinished(double tx, bool tv)
 {
-    bool leftStopped = m_wheelSpeeds.left <= m_tolerance * 1_mps;
-    bool rightStopped = m_wheelSpeeds.right <= m_tolerance * 1_mps;
-
     return (
         tv && (fabs(tx) <= m_angleThreshold)
-        && (fabs(m_targetDistance - m_limelightDistance) <= m_distThreshold) && leftStopped && rightStopped);
+        && (fabs(m_targetDistance - m_limelightDistance) <= m_distThreshold) && MoveIsStopped());
 }
 
 void Drivetrain::MoveWithLimelightEnd()
@@ -780,10 +785,7 @@ void Drivetrain::RamseteFollowerExecute(void)
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
-    bool leftStopped = m_wheelSpeeds.left <= m_tolerance * 1_mps;
-    bool rightStopped = m_wheelSpeeds.right <= m_tolerance * 1_mps;
-
-    return (((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime()) && leftStopped && rightStopped);
+    return (((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime()) && MoveIsStopped());
 }
 
 void Drivetrain::RamseteFollowerEnd(void)
