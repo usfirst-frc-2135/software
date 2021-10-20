@@ -30,11 +30,10 @@ AutoDriveShoot::AutoDriveShoot(
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
     path = "driveForward";
-    double waitTime;
 
     AddCommands(
         IntakeDeploy(true),
-        frc2::WaitCommand(frc::SmartDashboard::GetNumber("AUTO_WaitTime", waitTime) * 1_s),
+        frc2::WaitCommand(frc::SmartDashboard::GetNumber("AUTO_WaitTime", 0.0) * 1_s),
         AutoDrivePath(path, drivetrain),
         frc2::ParallelCommandGroup{ AutoDriveStop(drivetrain),
                                     ScoringAction(intake, fConv, vConv, shooter) });
