@@ -95,18 +95,10 @@ private:
     frc::ADXRS450_Gyro m_gyro;
     frc::sim::ADXRS450_GyroSim m_gyroSim{ m_gyro };
 
-    typedef enum driveMode_e
-    { // Driving Algorithms
-        DRIVEMODE_FIRST = 0,
-        DRIVEMODE_CURVATURE = 1,
-        DRIVEMODE_VELCONTROL = 2,
-        DRIVEMODE_LAST
-    } driveMode_e;
-
     //    Declare constants
     const int m_driveDebug = 0; // Debug flag to disable extra logging calls
     const int kPidIndex = 0;    // PID slot index for sensors
-    const int kCANTimeout = 30; // CAN timeout in msec to wait for response
+    const int kCANTimeout = 10; // CAN timeout in msec to wait for response
 
     // TODO: adjust kV and kA angular from robot characterization
     frc::sim::DifferentialDrivetrainSim m_driverSim{ frc::LinearSystemId::IdentifyDrivetrainSystem(
@@ -136,7 +128,6 @@ private:
 
     // Drive modes
     bool m_brakeMode;   // Brake or Coast Mode for Talons
-    int m_curDriveMode; // Current driving mode, arcade by default
     bool m_isQuickTurn; // Setting for quickturn in curvature drive
 
     // Odometry and telemetry
@@ -163,36 +154,44 @@ private:
     double m_angleThreshold;
     double m_distThreshold;
     double m_throttleShape;
-    double m_targetArea1;
-    double m_targetArea2;
+    double m_vertOffset1;
+    double m_vertOffset2;
     double m_dist1;
     double m_dist2;
     double m_slope;
     double m_distOffset;
     double m_limelightDistance;
 
-    // Do another drive characterization
-    frc::SimpleMotorFeedforward<meter> m_feedforward{ DriveConstants::ks,
-                                                      DriveConstants::kv,
-                                                      DriveConstants::ka };
-    frc::DifferentialDriveKinematics m_kinematics{ DriveConstants::kTrackWidthMeters };
-    frc::Field2d m_field;
+    // Ramsete path follower drive
+    double m_ramsetePidKp = 0.0;
+    double m_ramsetePidKi = 0.0;
+    double m_ramsetePidKd = 0.0;
+    double m_ramseteB = 0.0;
+    double m_ramseteZeta = 0.0;
+
+    // Current limit settings
+    SupplyCurrentLimitConfiguration m_supplyCurrentLimits = { true, 45.0, 45.0, 0.001 };
+    StatorCurrentLimitConfiguration m_statorCurrentLimits = { true, 80.0, 80.0, 0.001 };
 
     // DriveWithLimelight pid controller objects
     frc2::PIDController m_turnController{ 0.0, 0.0, 0.0 };
     frc2::PIDController m_throttleController{ 0.0, 0.0, 0.0 };
 
     // Ramsete follower objects
-    frc2::PIDController m_leftController{ DriveConstants::kPDriveVel, 0.0, 0.0 };
-    frc2::PIDController m_rightController{ DriveConstants::kPDriveVel, 0.0, 0.0 };
+    frc::SimpleMotorFeedforward<meter> m_feedforward{ DriveConstants::ks,
+                                                      DriveConstants::kv,
+                                                      DriveConstants::ka };
+    frc::DifferentialDriveKinematics m_kinematics{ DriveConstants::kTrackWidthMeters };
+    frc::Field2d m_field;
+
+    frc2::PIDController m_leftController{ 0.0, 0.0, 0.0 };
+    frc2::PIDController m_rightController{ 0.0, 0.0, 0.0 };
     frc::RamseteController m_ramseteController;
     frc::Trajectory m_trajectory;
     frc::Timer m_trajTimer;
 
     // Path following variables
     double m_tolerance;
-    bool leftNearStopped;
-    bool rightNearStopped;
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -241,6 +240,7 @@ public:
     void SetBrakeMode(bool brakeMode);
     void MoveSetQuickTurn(bool quickTurn);
     void MoveStop(void);
+    bool MoveIsStopped(void);
 
     // Teleop mode
     void MoveWithJoysticksInit(void);
@@ -248,11 +248,9 @@ public:
     void MoveWithJoysticksEnd(void);
 
     void MoveWithLimelightInit();
-    void MoveWithLimelightExecute(double tx, double ta, double tv);
-    bool MoveWithLimelightIsFinished(double tx);
+    void MoveWithLimelightExecute(double tx, double ty, bool tv);
+    bool MoveWithLimelightIsFinished(double tx, bool tv);
     void MoveWithLimelightEnd();
-
-    void ToggleDriveMode(void);
 
     // Autonomous - Ramsete follower command
     void RamseteFollowerInit(string pathName);

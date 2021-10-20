@@ -43,7 +43,7 @@ private:
 
     // Declare constants
     const int m_climberDebug = 0; // DEBUG flag to disable/enable extra logging calls
-    const int kCANTimeout = 30;   // CAN timeout in msec to wait for response
+    const int kCANTimeout = 10;   // CAN timeout in msec to wait for response
 
     // Declare module variables
     bool m_talonValidCL14; // Health indicator for intake Talon 6
@@ -73,4 +73,10 @@ public:
 
     const bool CL_BRAKE_LOCKED = false;
     const bool CL_BRAKE_UNLOCKED = true;
+    enum {
+        CLIMBER_INIT = -2,
+        CLIMBER_DOWN = -1,
+        CLIMBER_STOPPED = 0,
+        CLIMBER_UP = 1
+    };
 };

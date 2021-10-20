@@ -52,13 +52,8 @@ namespace DriveConstants
     static constexpr auto KvAngular = 1.5_V / 1_rad_per_s;
     static constexpr auto KaAngular = 0.3_V / 1_rad_per_s_sq;
 
-    static constexpr double kPDriveVel = 2.0;
     static constexpr meters_per_second_t kMaxSpeed = 1.1336_mps;
     static constexpr meters_per_second_squared_t kMaxAcceleration = 10.668_mps_sq;
-
-    // Reasonable baseline values for a RAMSETE follower in meters and seconds
-    static constexpr double kRamseteB = 2.0;
-    static constexpr double kRamseteZeta = 0.7;
 
 } // namespace DriveConstants
 

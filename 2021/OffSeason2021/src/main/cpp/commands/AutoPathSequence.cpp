@@ -32,9 +32,9 @@ AutoPathSequence::AutoPathSequence(Drivetrain *drivetrain)
     config->GetValueAsString("path2", path2, "driveForward");
     config->GetValueAsString("path3", path3, "driveForward");
 
-    spdlog::info("path1 name: {}", path1);
-    spdlog::info("path2 name: {}", path2);
-    spdlog::info("path3 name: {}", path3);
+    spdlog::info("AutoPathSequence: path1 name: {}", path1);
+    spdlog::info("AutoPathSequence: path2 name: {}", path2);
+    spdlog::info("AutoPathSequence: path3 name: {}", path3);
 
     AddCommands(
         AutoDrivePath(path1.c_str(), drivetrain),

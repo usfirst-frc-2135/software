@@ -27,7 +27,7 @@ AutoDriveStop::AutoDriveStop(Drivetrain *m_drivetrain) : m_drivetrain(m_drivetra
 // Called just before this Command runs the first time
 void AutoDriveStop::Initialize()
 {
-        spdlog::info("AutoDriveStop - Init");
+    spdlog::info("AutoDriveStop - Init");
 }
 
 // Called repeatedly when this Command is scheduled to run
