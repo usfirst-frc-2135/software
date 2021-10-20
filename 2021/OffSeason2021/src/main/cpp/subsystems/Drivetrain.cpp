@@ -208,9 +208,6 @@ void Drivetrain::ConfigFileLoad(void)
     config->GetValueAsDouble("DTL_Dist1", m_dist1, 0.0);
     config->GetValueAsDouble("DTL_Dist2", m_dist2, 0.0);
 
-    // retrieve auto values from config file and put on smartdashboard
-    config->GetValueAsDouble("AUTO_WaitTime", m_waitTime, 3.0);
-
     frc::SmartDashboard::PutNumber("DTL_TurnPIDKp", m_turnpidKd);
     frc::SmartDashboard::PutNumber("DTL_TurnPIDKi", m_turnpidKi);
     frc::SmartDashboard::PutNumber("DTL_TurnPIDKd", m_turnpidKd);
@@ -227,8 +224,6 @@ void Drivetrain::ConfigFileLoad(void)
     frc::SmartDashboard::PutNumber("DTL_TargetArea2", m_targetArea2);
     frc::SmartDashboard::PutNumber("DTL_Dist1", m_dist1);
     frc::SmartDashboard::PutNumber("DTL_Dist2", m_dist2);
-
-    frc::SmartDashboard::PutNumber("AUTO_WaitTime", m_waitTime);
 }
 
 void Drivetrain::TalonMasterInitialize(WPI_BaseMotorController &motor)

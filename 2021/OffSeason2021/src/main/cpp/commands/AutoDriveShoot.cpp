@@ -30,6 +30,7 @@ AutoDriveShoot::AutoDriveShoot(
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
     path = "driveForward";
+    double waitTime;
 
     AddCommands(
         IntakeDeploy(true),

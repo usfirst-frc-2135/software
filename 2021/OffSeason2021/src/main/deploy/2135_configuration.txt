@@ -62,4 +62,4 @@
   path1 = turn1
   path2 = turn1Reverse
   path3 = rightAngleTurn
-  AUTO_WaitTime = 3.0
+  AUTO_WaitTime = 0.0
