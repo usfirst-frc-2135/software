@@ -66,8 +66,8 @@
 # Climber settings
   CL_InitialUpSpeed = 0.25
   CL_InitialDownSpeed = -0.25
-# Path names
+# Auto Settings
   path1 = turn1
   path2 = turn1Reverse
   path3 = rightAngleTurn
-  
+  AUTO_WaitTime = 0.0

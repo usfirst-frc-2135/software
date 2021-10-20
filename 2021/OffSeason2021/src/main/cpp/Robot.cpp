@@ -56,6 +56,11 @@ void Robot::RobotInit()
     spdlog::info("RB Init");
     config->GetValueAsString("RB_Name", robotName, "unknown");
     spdlog::info("RobotInit: name - {}", robotName);
+
+    // Retrieve auto values from config file and put on smartdashboard
+    double waitTime;
+    config->GetValueAsDouble("AUTO_WaitTime", waitTime, 0.0);
+    frc::SmartDashboard::PutNumber("AUTO_WaitTime", waitTime);
 }
 
 /**
