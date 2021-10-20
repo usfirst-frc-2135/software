@@ -29,8 +29,10 @@
   DTL_DistThreshold = 6.0
   DTL_Dist1 = 12
   DTL_Dist2 = 36
-  DTL_TargetArea1 = 1.55
-  DTL_TargetArea2 = -7.48
+  # DTL_VertOffset1 is typically positive
+  DTL_VertOffset1 = 6.28
+  # DTL_VertOffset2 is typically negative
+  DTL_VertOffset2 = -6.50
 # Path following settings
   DTR_RamsetePIDKp = 2.0
   DTR_RamsetePIDKi = 0.0
@@ -68,3 +70,4 @@
   path1 = turn1
   path2 = turn1Reverse
   path3 = rightAngleTurn
+  
