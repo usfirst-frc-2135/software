@@ -33,7 +33,7 @@ AutoDriveShoot::AutoDriveShoot(
 
     AddCommands(
         IntakeDeploy(true),
-        frc2::WaitCommand(frc::SmartDashboard::GetNumber("Auto Wait Time", waitTime) * 1_s),
+        frc2::WaitCommand(frc::SmartDashboard::GetNumber("AUTO_WaitTime", waitTime) * 1_s),
         AutoDrivePath(path, drivetrain),
         frc2::ParallelCommandGroup{ AutoDriveStop(drivetrain),
                                     ScoringAction(intake, fConv, vConv, shooter) });

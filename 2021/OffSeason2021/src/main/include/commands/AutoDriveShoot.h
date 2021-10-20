@@ -42,5 +42,5 @@ public:
 
 private:
     const char *path;
-    int waitTime;
+    double waitTime;
 };
