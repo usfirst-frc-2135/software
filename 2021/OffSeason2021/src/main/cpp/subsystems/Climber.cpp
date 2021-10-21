@@ -43,8 +43,8 @@ Climber::Climber()
 
     // Initialize Variables
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsDouble("CL_InitialUpSpeed", m_upSpeed, 1.0);
-    config->GetValueAsDouble("CL_InitialDownSpeed", m_downSpeed, -0.2);
+    config->GetValueAsDouble("CL_InitialUpSpeed", m_upSpeed, 0.25);
+    config->GetValueAsDouble("CL_InitialDownSpeed", m_downSpeed, -0.25);
 
     // Set motor directions
     // Turn on Coast mode (not brake)
@@ -131,6 +131,7 @@ void Climber::FaultDump(void)
 // Raise climber with Joysticks method
 void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
 {
+    static int state = CLIMBER_INIT;
     double yCLValue = 0.0;
     double motorOutput = 0.0;
 
@@ -138,6 +139,10 @@ void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
 
     if (yCLValue > -0.1 && yCLValue < 0.1)
     {
+        if (state != CLIMBER_STOPPED)
+            spdlog::info("Climber Stopped");
+        state = CLIMBER_STOPPED;
+
         SetBrakeSolenoid(CL_BRAKE_LOCKED);
     }
     else
@@ -146,7 +151,10 @@ void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
         // If joystick is above a value, climber will move up
         if (yCLValue > m_deadband)
         {
-            spdlog::info("Climber Down");
+            if (state != CLIMBER_DOWN)
+                spdlog::info("Climber Down");
+            state = CLIMBER_DOWN;
+
             yCLValue -= m_deadband;
             yCLValue *= (1.0 / (1.0 - m_deadband));
             motorOutput = yCLValue * abs(yCLValue);
@@ -154,7 +162,10 @@ void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
         // If joystick is below a value, climber will move down
         else if (yCLValue < -m_deadband)
         {
-            spdlog::info("Climber Up");
+            if (state != CLIMBER_UP)
+                spdlog::info("Climber Up");
+            state = CLIMBER_UP;
+
             yCLValue += m_deadband;
             yCLValue *= (1.0 / (1.0 - m_deadband));
             motorOutput = yCLValue * abs(yCLValue);
@@ -176,9 +187,10 @@ void Climber::SetClimberStopped(void)
 void Climber::SetBrakeSolenoid(bool climberBrake)
 {
     if (climberBrake != m_brake.Get())
-        spdlog::info("CL {}", (climberBrake) ? "STOPPED" : "NOT STOPPED");
+    {
+        spdlog::info("CL {}", (climberBrake) ? "STOPPED" : "RUNNING");
+        frc::SmartDashboard::PutBoolean("CL_Stopped", climberBrake);
 
-    frc::SmartDashboard::PutBoolean("CL_Stopped", climberBrake);
-
-    m_brake.Set(climberBrake);
+        m_brake.Set(climberBrake);
+    }
 }

@@ -88,10 +88,6 @@ Drivetrain::Drivetrain()
     if (m_talonValidR4)
         TalonFollowerInitialize(m_motorR4, 3);
 
-    // Set to first drive mode option
-    m_curDriveMode = DRIVEMODE_LAST;
-    ToggleDriveMode();
-
     // If either master drive talons are valid, enable safety timer
     m_diffDrive.SetSafetyEnabled(m_talonValidL1 || m_talonValidR3);
 
@@ -103,10 +99,10 @@ Drivetrain::Drivetrain()
     m_throttleController = frc2::PIDController(m_throttlepidKp, m_throttlepidKi, m_throttlepidKd);
 
     // Ramsete PID Controllers
-    m_leftController = frc2::PIDController(DriveConstants::kPDriveVel, 0, 0);
-    m_rightController = frc2::PIDController(DriveConstants::kPDriveVel, 0, 0);
+    m_leftController = frc2::PIDController(m_ramsetePidKp, m_ramsetePidKi, m_ramsetePidKd);
+    m_rightController = frc2::PIDController(m_ramsetePidKp, m_ramsetePidKi, m_ramsetePidKd);
 
-    m_ramseteController = frc::RamseteController(DriveConstants::kRamseteB, DriveConstants::kRamseteZeta);
+    m_ramseteController = frc::RamseteController(m_ramseteB, m_ramseteZeta);
 
     // Simulation only - quadrature encoders
     m_leftEncoder.SetDistancePerPulse(DriveConstants::kEncoderMetersPerCount.to<double>());
@@ -159,7 +155,6 @@ void Drivetrain::Initialize(void)
     MoveStop();
 
     // Initialize the odometry
-    ResetSensors();
     ResetOdometry({ { 0_m, 0_m }, m_gyro.GetRotation2d() });
     m_driverSim.SetPose(m_odometry.GetPose());
     m_field.SetRobotPose(m_odometry.GetPose());
@@ -182,31 +177,40 @@ void Drivetrain::ConfigFileLoad(void)
 {
     //  Retrieve drivetrain modified parameters from RobotConfig
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
-    config->GetValueAsInt("DT_DriveMode", m_curDriveMode, 0);
-    config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 0.4);
-    config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 0.4);
+    config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 0.75);
+    config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 0.75);
     config->GetValueAsDouble("DT_QuickTurnScaling", m_driveQTScaling, 0.5);
     config->GetValueAsDouble("DT_OpenLoopRampRate", m_openLoopRampRate, 0.5);
-    config->GetValueAsDouble("DT_ClosedLoopRampRate", m_closedLoopRampRate, 1.0);
+    config->GetValueAsDouble("DT_ClosedLoopRampRate", m_closedLoopRampRate, 0.0);
     config->GetValueAsDouble("DT_StoppedTolerance", m_tolerance, 0.05);
 
     // retrieve limelight values from config file and put on smartdashboard
-    config->GetValueAsDouble("DTL_TurnPIDKp", m_turnpidKp, 0.1);
+    config->GetValueAsDouble("DTL_TurnPIDKp", m_turnpidKp, 0.045);
     config->GetValueAsDouble("DTL_TurnPIDKi", m_turnpidKi, 0.0);
     config->GetValueAsDouble("DTL_TurnPIDKd", m_turnpidKd, 0.0);
-    config->GetValueAsDouble("DTL_ThrottlePIDKp", m_throttlepidKp, 0.1);
+    config->GetValueAsDouble("DTL_ThrottlePIDKp", m_throttlepidKp, 0.02);
     config->GetValueAsDouble("DTL_ThrottlePIDKi", m_throttlepidKi, 0.0);
     config->GetValueAsDouble("DTL_ThrottlePIDKd", m_throttlepidKd, 0.0);
-    config->GetValueAsDouble("DTL_MaxTurn", m_maxTurn, 0.3);
+    config->GetValueAsDouble("DTL_MaxTurn", m_maxTurn, 0.4);
     config->GetValueAsDouble("DTL_MaxThrottle", m_maxThrottle, 0.2);
-    config->GetValueAsDouble("DTL_TargetDistance", m_targetDistance, 6);
-    config->GetValueAsDouble("DTL_AngleThreshold", m_angleThreshold, 3);
-    config->GetValueAsDouble("DTL_DistThreshold", m_distThreshold, 6);
-    config->GetValueAsDouble("DTL_ThrottleShape", m_throttleShape, 10);
-    config->GetValueAsDouble("DTL_TargetArea1", m_targetArea1, 0.0);
-    config->GetValueAsDouble("DTL_TargetArea2", m_targetArea2, 0.0);
+    config->GetValueAsDouble("DTL_ThrottleShape", m_throttleShape, 10.0);
+    config->GetValueAsDouble("DTL_TargetDistance", m_targetDistance, 12.0);
+    config->GetValueAsDouble("DTL_AngleThreshold", m_angleThreshold, 3.0);
+    config->GetValueAsDouble("DTL_DistThreshold", m_distThreshold, 6.0);
     config->GetValueAsDouble("DTL_Dist1", m_dist1, 0.0);
     config->GetValueAsDouble("DTL_Dist2", m_dist2, 0.0);
+    config->GetValueAsDouble("DTL_VertOffset1", m_vertOffset1, 0.0);
+    config->GetValueAsDouble("DTL_VertOffset2", m_vertOffset2, 0.0);
+
+    // Ramsete follower settings
+    config->GetValueAsDouble("DTR_RamsetePIDKp", m_ramsetePidKp, 2.0);
+    config->GetValueAsDouble("DTR_RamsetePIDKi", m_ramsetePidKi, 0.0);
+    config->GetValueAsDouble("DTR_RamsetePIDKd", m_ramsetePidKd, 0.0);
+    config->GetValueAsDouble("DTR_RamseteB", m_ramseteB, 2.0);
+    config->GetValueAsDouble("DTR_RamseteZeta", m_ramseteZeta, 0.7);
+
+    // Put tunable items to dashboard
+    frc::SmartDashboard::PutNumber("DT_Tolerance", m_tolerance);
 
     frc::SmartDashboard::PutNumber("DTL_TurnPIDKp", m_turnpidKd);
     frc::SmartDashboard::PutNumber("DTL_TurnPIDKi", m_turnpidKi);
@@ -216,14 +220,20 @@ void Drivetrain::ConfigFileLoad(void)
     frc::SmartDashboard::PutNumber("DTL_ThrottlePIDKd", m_throttlepidKd);
     frc::SmartDashboard::PutNumber("DTL_MaxTurn", m_maxTurn);
     frc::SmartDashboard::PutNumber("DTL_MaxThrottle", m_maxThrottle);
+    frc::SmartDashboard::PutNumber("DTL_ThrottleShape", m_throttleShape);
     frc::SmartDashboard::PutNumber("DTL_TargetDistance", m_targetDistance);
     frc::SmartDashboard::PutNumber("DTL_AngleThreshold", m_angleThreshold);
     frc::SmartDashboard::PutNumber("DTL_DistThreshold", m_distThreshold);
-    frc::SmartDashboard::PutNumber("DTL_ThrottleShape", m_throttleShape);
-    frc::SmartDashboard::PutNumber("DTL_TargetArea1", m_targetArea1);
-    frc::SmartDashboard::PutNumber("DTL_TargetArea2", m_targetArea2);
     frc::SmartDashboard::PutNumber("DTL_Dist1", m_dist1);
     frc::SmartDashboard::PutNumber("DTL_Dist2", m_dist2);
+    frc::SmartDashboard::PutNumber("DTL_VertOffset1", m_vertOffset1);
+    frc::SmartDashboard::PutNumber("DTL_VertOffset2", m_vertOffset2);
+
+    frc::SmartDashboard::PutNumber("DTR_ramsetePidKp", m_ramsetePidKp);
+    frc::SmartDashboard::PutNumber("DTR_ramsetePidKi", m_ramsetePidKi);
+    frc::SmartDashboard::PutNumber("DTR_ramsetePidKd", m_ramsetePidKd);
+    frc::SmartDashboard::PutNumber("DTR_ramseteB", m_ramseteB);
+    frc::SmartDashboard::PutNumber("DTR_ramseteZeta", m_ramseteZeta);
 }
 
 void Drivetrain::TalonMasterInitialize(WPI_BaseMotorController &motor)
@@ -295,14 +305,11 @@ void Drivetrain::UpdateDashboardValues(void)
     // Only update indicators every 100 ms to cut down on network traffic
     if ((periodicInterval++ % 5 == 0) && (m_driveDebug > 1))
     {
-        double secs = (double)frc::RobotController::GetFPGATime() / 1000000.0;
-
         spdlog::info(
-            "DT {} deg {} LR cts {} {} amps {} {} {} {}",
-            secs,
-            m_odometry.GetPose().Rotation().Degrees().to<double>(),
-            m_distanceLeft.to<double>(),
-            m_distanceLeft.to<double>(),
+            "DT deg {} LR dist {} {} amps {:.1f} {:.1f} {:.1f} {:.1f}",
+            m_odometry.GetPose().Rotation().Degrees(),
+            m_distanceLeft,
+            m_distanceRight,
             m_currentl1,
             m_currentL2,
             m_currentR3,
@@ -413,8 +420,7 @@ degrees_per_second_t Drivetrain::GetTurnRate()
 //
 void Drivetrain::ResetOdometry(frc::Pose2d pose)
 {
-    ResetEncoders();
-    ResetGyro();
+    ResetSensors();
     m_driverSim.SetPose(pose);
     m_odometry.ResetPosition(pose, GetHeadingAngle());
 }
@@ -454,6 +460,14 @@ void Drivetrain::TankDriveVolts(volt_t left, volt_t right)
         m_motorR3.SetVoltage(-right);
 }
 
+//
+bool Drivetrain::MoveIsStopped(void)
+{
+    bool leftStopped = m_wheelSpeeds.left <= m_tolerance * 1_mps;
+    bool rightStopped = m_wheelSpeeds.right <= m_tolerance * 1_mps;
+
+    return (leftStopped && rightStopped);
+}
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  Trajectory management
@@ -570,8 +584,8 @@ void Drivetrain::MoveWithLimelightInit()
     m_angleThreshold = frc::SmartDashboard::GetNumber("DTL_AngleThreshold", m_angleThreshold);
     m_distThreshold = frc::SmartDashboard::GetNumber("DTL_DistThreshold", m_distThreshold);
     m_throttleShape = frc::SmartDashboard::GetNumber("DTL_ThrottleShape", m_throttleShape);
-    m_targetArea1 = frc::SmartDashboard::GetNumber("DTL_TargetArea1", m_targetArea1);
-    m_targetArea2 = frc::SmartDashboard::GetNumber("DTL_TargetArea2", m_targetArea2);
+    m_vertOffset1 = frc::SmartDashboard::GetNumber("DTL_VertOffset1", m_vertOffset1);
+    m_vertOffset2 = frc::SmartDashboard::GetNumber("DTL_VertOffset2", m_vertOffset2);
     m_dist1 = frc::SmartDashboard::GetNumber("DTL_Dist1", m_dist1);
     m_dist2 = frc::SmartDashboard::GetNumber("DTL_Dist2", m_dist2);
 
@@ -580,18 +594,19 @@ void Drivetrain::MoveWithLimelightInit()
     m_throttleController = frc2::PIDController(m_throttlepidKp, m_throttlepidKi, m_throttlepidKd);
 
     // calculate slope and y-intercept
-    m_slope = (m_dist2 - m_dist1) / (m_targetArea2 - m_targetArea1);
-    m_distOffset = m_dist1 - m_slope * m_targetArea1;
+    m_slope = (m_dist2 - m_dist1) / (m_vertOffset2 - m_vertOffset1);
+    m_distOffset = m_dist1 - m_slope * m_vertOffset1;
     frc::SmartDashboard::PutNumber("DTL_Slope", m_slope);
+    frc::SmartDashboard::PutNumber("DTL_Offset", m_distOffset);
 }
 
-void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
+void Drivetrain::MoveWithLimelightExecute(double tx, double ty, bool tv)
 {
     // get turn value - just horizontal offset from target
     double turnOutput = -m_turnController.Calculate(tx);
 
     // get throttle value
-    m_limelightDistance = m_slope * ta + m_distOffset;
+    m_limelightDistance = m_slope * ty + m_distOffset;
 
     double throttleDistance = m_throttleController.Calculate(m_limelightDistance, m_targetDistance);
     double throttleOutput = -throttleDistance * pow(cos(turnOutput * wpi::math::pi / 180), m_throttleShape);
@@ -602,14 +617,14 @@ void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
 
     // print out inputs and outputs, intermediate values (slope? throttle distance?)
     spdlog::info(
-        "tx {} ta {} | turn {} throttle {} | limelightDist {} throttleDist {} slope {}",
+        "DTL tv {} tx {:.1f} ty {:.1f} | turn {:.2f} throttle {:.2f} | limelightDist {:.1f} throttleDist {:.1f}",
+        tv,
         tx,
-        ta,
+        ty,
         turnOutput,
         throttleOutput,
         m_limelightDistance,
-        throttleDistance,
-        m_slope);
+        throttleDistance);
 
     // cap max turn and throttle output
     turnOutput = std::clamp(turnOutput, -m_maxTurn, m_maxTurn);
@@ -623,21 +638,17 @@ void Drivetrain::MoveWithLimelightExecute(double tx, double ta, double tv)
         m_diffDrive.ArcadeDrive(throttleOutput, turnOutput, false);
 }
 
-bool Drivetrain::MoveWithLimelightIsFinished(double tx)
+bool Drivetrain::MoveWithLimelightIsFinished(double tx, bool tv)
 {
     return (
-        (fabs(tx) <= m_angleThreshold) && (fabs(m_targetDistance - m_limelightDistance) <= m_distThreshold));
+        tv && (fabs(tx) <= m_angleThreshold)
+        && (fabs(m_targetDistance - m_limelightDistance) <= m_distThreshold) && MoveIsStopped());
 }
 
-void Drivetrain::MoveWithLimelightEnd() {}
-
-void Drivetrain::ToggleDriveMode()
+void Drivetrain::MoveWithLimelightEnd()
 {
-    // if (++m_curDriveMode >= DRIVEMODE_LAST)
-    m_curDriveMode = DRIVEMODE_FIRST;
-
-    spdlog::info("ToggleDriveMode: {} (curr)", m_curDriveMode);
-    frc::SmartDashboard::PutNumber("DT_DriveMode", m_curDriveMode);
+    if (m_talonValidL1 || m_talonValidR3)
+        m_diffDrive.ArcadeDrive(0.0, 0.0, false);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -646,37 +657,54 @@ void Drivetrain::ToggleDriveMode()
 //
 void Drivetrain::RamseteFollowerInit(string pathName)
 {
+    m_tolerance = frc::SmartDashboard::GetNumber("DT_Tolerance", 0.05);
+
+    m_ramsetePidKp = frc::SmartDashboard::GetNumber("DTR_ramsetePidKp", m_ramsetePidKp);
+    m_ramsetePidKi = frc::SmartDashboard::GetNumber("DTR_ramsetePidKi", m_ramsetePidKi);
+    m_ramsetePidKd = frc::SmartDashboard::GetNumber("DTR_ramsetePidKd", m_ramsetePidKd);
+    m_ramseteB = frc::SmartDashboard::GetNumber("DTR_ramseteB", m_ramseteB);
+    m_ramseteZeta = frc::SmartDashboard::GetNumber("DTR_ramseteZeta", m_ramseteZeta);
+
+    m_leftController = frc2::PIDController{ m_ramsetePidKp, m_ramsetePidKi, m_ramsetePidKd };
+    m_rightController = frc2::PIDController{ m_ramsetePidKp, m_ramsetePidKi, m_ramsetePidKd };
+    m_ramseteController = frc::RamseteController{ m_ramseteB, m_ramseteZeta };
+
+    // TODO: Not sure if this is really needed or used
+    m_leftController.SetTolerance(m_tolerance);
+    m_rightController.SetTolerance(m_tolerance);
+
     // Get our trajectory
     // TODO: Move this to be able to load a trajectory while disabled when
     //          the user changes the chooser selection
     wpi::SmallString<64> outputDirectory;
     frc::filesystem::GetDeployDirectory(outputDirectory);
     outputDirectory.append("/output/" + pathName + ".wpilib.json");
-    spdlog::info("Output Directory is: {}", outputDirectory);
+    spdlog::info("DTR Output Directory is: {}", outputDirectory);
     std::ifstream pathFile(outputDirectory.c_str());
     if (pathFile.good())
     {
-        spdlog::info("pathFile is good");
+        spdlog::info("DTR pathFile is good");
     }
     else
     {
-        spdlog::error("pathFile not good");
+        spdlog::error("DTR pathFile not good");
     };
 
     m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(outputDirectory);
-    PlotTrajectory(m_trajectory);
+    if (!frc::RobotBase::IsReal())
+        PlotTrajectory(m_trajectory);
     std::vector<frc::Trajectory::State> trajectoryStates;
     trajectoryStates = m_trajectory.States();
     m_trajTimer.Reset();
     m_trajTimer.Start();
 
-    spdlog::info("Size of state table is {}", trajectoryStates.size());
+    spdlog::info("DTR Size of state table is {}", trajectoryStates.size());
 
     for (unsigned int i = 0; i < trajectoryStates.size(); i++)
     {
         frc::Trajectory::State curState = trajectoryStates[i];
         spdlog::info(
-            "state time {} Velocity {} Accleration {} Rotation {}",
+            "DTR state time {} Velocity {} Accleration {} Rotation {}",
             curState.t,
             curState.velocity,
             curState.acceleration,
@@ -698,18 +726,11 @@ void Drivetrain::RamseteFollowerInit(string pathName)
     frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(m_feedforward, m_kinematics, 10_V);
 #endif
 
-    // This initializes the odometry (where we are) and tolerance
+    // This initializes the odometry (where we are)
     SetBrakeMode(false);
-    ResetSensors();
     ResetOdometry(m_trajectory.InitialPose());
     m_driverSim.SetPose(m_odometry.GetPose());
     m_field.SetRobotPose(m_odometry.GetPose());
-
-    // TODO: Not sure if this is really needed or used
-    double dashValue;
-    dashValue = frc::SmartDashboard::GetNumber("DT_Tolerance", 0.99);
-    m_leftController.SetTolerance(dashValue);
-    m_rightController.SetTolerance(dashValue);
 }
 
 void Drivetrain::RamseteFollowerExecute(void)
@@ -744,7 +765,7 @@ void Drivetrain::RamseteFollowerExecute(void)
     TankDriveVolts(leftTotalVolts, rightTotalVolts);
 
     spdlog::info(
-        "cur X {} Y {} R {} | targ X {} Y {} R {} | chas X {} Y {} O {} | whl L {} R {} ffV L {} R {} | toV L {} R {}",
+        "DTR cur X {} Y {} R {} | targ X {} Y {} R {} | chas X {} Y {} O {} | whl L {} R {} ffV L {} R {} | toV L {} R {}",
         currentPose.X(),
         currentPose.Y(),
         currentPose.Rotation().Degrees(),
@@ -764,13 +785,12 @@ void Drivetrain::RamseteFollowerExecute(void)
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
-    leftNearStopped = m_tolerance * 1_mps >= m_wheelSpeeds.left;
-    rightNearStopped = m_tolerance * 1_mps >= m_wheelSpeeds.right;
-    return ((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime() && leftNearStopped && rightNearStopped);
+    return (((m_trajTimer.Get() * 1_s) >= m_trajectory.TotalTime()) && MoveIsStopped());
 }
 
 void Drivetrain::RamseteFollowerEnd(void)
 {
     m_trajTimer.Stop();
     SetBrakeMode(true);
+    TankDriveVolts(0.0_V, 0.0_V);
 }
