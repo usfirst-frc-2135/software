@@ -109,6 +109,9 @@ private:
     double m_feederCurrentRPM;   // Current feeder RPM
     double m_flywheelCurrentRPM; // Current flywheel RPM
 
+    double m_toleranceRPM; // Allowed variation from target RPM
+    int m_state;           // Saved shooter state
+
     // Conversion functions between RPM and Output and CTRE Native Units / 100ms
     double FeederRPMToNative(double rpm);
     double NativeToFeederRPM(double native);
