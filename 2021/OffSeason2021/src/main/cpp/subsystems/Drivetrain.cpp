@@ -765,23 +765,22 @@ void Drivetrain::RamseteFollowerExecute(void)
     TankDriveVolts(leftTotalVolts, rightTotalVolts);
 
     spdlog::info(
-        "DTR cur X {} Y {} R {} | targ X {} Y {} R {} | chas X {} Y {} O {} | whl L {} R {} ffV L {} R {} | toV L {} R {}",
-        currentPose.X(),
-        currentPose.Y(),
-        currentPose.Rotation().Degrees(),
-        trajState.pose.X(),
-        trajState.pose.Y(),
-        trajState.pose.Rotation().Degrees(),
-        targetChassisSpeeds.vx,
-        targetChassisSpeeds.vy,
-        targetChassisSpeeds.omega,
-        targetWheelSpeeds.left,
-        targetWheelSpeeds.right,
-        leftFFVolts,
-        rightFFVolts,
-        leftTotalVolts,
-        rightTotalVolts);
-}
+        "DTR cur XYR {:.2f} {:.2f} {:.1f} | targ XYR {:.2f} {:.2f} {:.1f} | chas XYO {:.2f} {:.2f} {:.1f} | whl LR {:.2f} {:.2f} ffV LR {:.2f} {:.2f} | toV LR {:.2f} {:.2f}",
+        currentPose.X().to<double>(),
+        currentPose.Y().to<double>(),
+        currentPose.Rotation().Degrees().to<double>(),
+        trajState.pose.X().to<double>(),
+        trajState.pose.Y().to<double>(),
+        trajState.pose.Rotation().Degrees().to<double>(),
+        targetChassisSpeeds.vx.to<double>(),
+        targetChassisSpeeds.vy.to<double>(),
+        targetChassisSpeeds.omega.to<double>(),
+        targetWheelSpeeds.left.to<double>(),
+        targetWheelSpeeds.right.to<double>(),
+        leftFFVolts.to<double>(),
+        rightFFVolts.to<double>(),
+        leftTotalVolts.to<double>(),
+        rightTotalVolts.to<double>());}
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
 {
