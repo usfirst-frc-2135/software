@@ -102,7 +102,7 @@ RobotContainer::RobotContainer() :
     frc::SmartDashboard::PutData(
         "Exhausting Action",
         new ExhaustingAction(&m_intake, &m_floorConveyor, &m_verticalConveyor));
-    frc::SmartDashboard::PutData("LED Set", new LEDSet(0, &m_led));
+    frc::SmartDashboard::PutData("LED Set", new LEDSet(&m_led));
 
     ConfigureButtonBindings();
 
