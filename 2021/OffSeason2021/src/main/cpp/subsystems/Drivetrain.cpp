@@ -194,7 +194,7 @@ void Drivetrain::ConfigFileLoad(void)
     config->GetValueAsDouble("DTL_MaxTurn", m_maxTurn, 0.4);
     config->GetValueAsDouble("DTL_MaxThrottle", m_maxThrottle, 0.2);
     config->GetValueAsDouble("DTL_ThrottleShape", m_throttleShape, 10.0);
-    config->GetValueAsDouble("DTL_TargetAngle", m_targetAngle, 12.0);
+    config->GetValueAsDouble("DTL_TargetAngle", m_targetAngle, 0.0);
     config->GetValueAsDouble("DTL_TargetDistance", m_targetDistance, 12.0);
     config->GetValueAsDouble("DTL_AngleThreshold", m_angleThreshold, 3.0);
     config->GetValueAsDouble("DTL_DistThreshold", m_distThreshold, 6.0);
