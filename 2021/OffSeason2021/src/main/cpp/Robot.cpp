@@ -89,6 +89,8 @@ void Robot::DisabledInit()
         MatchTypeToString(ds.GetMatchType()),
         ds.GetMatchNumber(),
         AllianceToString(ds.GetAlliance()));
+    RobotContainer *robotContainer = RobotContainer::GetInstance();
+    robotContainer->m_drivetrain.SetBrakeMode(false);
 }
 
 void Robot::DisabledPeriodic()
