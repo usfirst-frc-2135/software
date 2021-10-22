@@ -16,7 +16,8 @@
 
 #include "commands/DriveLimelight.h"
 
-DriveLimelight::DriveLimelight(Drivetrain *m_drivetrain, Vision *m_vision) :
+DriveLimelight::DriveLimelight(bool endAtTarget, Drivetrain *m_drivetrain, Vision *m_vision) :
+    m_endAtTarget(endAtTarget),
     m_drivetrain(m_drivetrain),
     m_vision(m_vision)
 {
@@ -52,7 +53,9 @@ bool DriveLimelight::IsFinished()
     RobotContainer *robotContainer = RobotContainer::GetInstance();
     double tx = robotContainer->m_vision.GetHorizOffsetDeg();
     bool tv = robotContainer->m_vision.GetTargetValid();
-    return m_drivetrain->MoveWithLimelightIsFinished(tx, tv);
+    if (m_endAtTarget)
+        return m_drivetrain->MoveWithLimelightIsFinished(tx, tv);
+    return false;
 }
 
 // Called once after isFinished returns true
