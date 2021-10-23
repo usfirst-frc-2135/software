@@ -32,7 +32,7 @@ AutoDriveLimelightShoot::AutoDriveLimelightShoot(
 
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
-    path = "driveForwardTest";
+    path = "driveForward";
 
     AddCommands(
         IntakeDeploy(true),
