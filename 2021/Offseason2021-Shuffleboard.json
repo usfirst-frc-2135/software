@@ -2207,7 +2207,7 @@
               "_title": "SmartDashboard/Exhausting Action"
             }
           },
-          "0,8": {
+          "3,6": {
             "size": [
               3,
               2
@@ -2229,7 +2229,7 @@
               "_title": "SmartDashboard/Intaking Stop"
             }
           },
-          "6,6": {
+          "19,6": {
             "size": [
               3,
               2
@@ -2240,7 +2240,7 @@
               "_title": "SmartDashboard/LED Set"
             }
           },
-          "9,6": {
+          "16,6": {
             "size": [
               3,
               2
@@ -2664,7 +2664,7 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "4,4": {
+          "8,0": {
             "size": [
               4,
               2
@@ -2697,7 +2697,7 @@
               "_title": "SmartDashboard/Auto Mode"
             }
           },
-          "4,6": {
+          "8,4": {
             "size": [
               4,
               2
@@ -2708,7 +2708,7 @@
               "_title": "SmartDashboard/Auto Shoot Trench Left"
             }
           },
-          "4,8": {
+          "8,6": {
             "size": [
               4,
               2
@@ -2719,7 +2719,7 @@
               "_title": "SmartDashboard/Auto Shoot Trench Right"
             }
           },
-          "12,2": {
+          "19,2": {
             "size": [
               4,
               2
@@ -2730,7 +2730,7 @@
               "_title": "SmartDashboard/Auto Drive Path: driveBackward"
             }
           },
-          "12,0": {
+          "19,0": {
             "size": [
               4,
               2
@@ -2741,7 +2741,7 @@
               "_title": "SmartDashboard/Auto Drive Path: driveForward"
             }
           },
-          "12,4": {
+          "19,4": {
             "size": [
               4,
               2
@@ -2752,7 +2752,7 @@
               "_title": "SmartDashboard/Auto Drive Path: rightAngleTurn"
             }
           },
-          "12,6": {
+          "19,6": {
             "size": [
               4,
               2
@@ -2768,9 +2768,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -3.0,
-    "y": 25.0,
-    "width": 1163.0,
-    "height": 627.0
+    "x": -6.666666507720947,
+    "y": 1.3333333730697632,
+    "width": 1289.3333740234375,
+    "height": 517.3333129882812
   }
 }
