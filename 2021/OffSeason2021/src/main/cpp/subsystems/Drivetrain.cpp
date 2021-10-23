@@ -797,3 +797,5 @@ void Drivetrain::RamseteFollowerEnd(void)
     SetBrakeMode(true);
     TankDriveVolts(0.0_V, 0.0_V);
 }
+
+void Drivetrain::DriveBackward(double tx, double ty, bool tv) {}
