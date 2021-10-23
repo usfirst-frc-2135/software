@@ -270,7 +270,7 @@ void Shooter::SetShooterSpeed(int state)
 
     m_flywheelPidKf = frc::SmartDashboard::GetNumber("SH_FlywheelPidKf", m_flywheelPidKf);
     m_flywheelPidKp = frc::SmartDashboard::GetNumber("SH_FlywheelPidKp", m_flywheelPidKp);
-    m_flywheelPidKp = frc::SmartDashboard::GetNumber("SH_FlywheelPidKi", m_flywheelPidKi);
+    m_flywheelPidKi = frc::SmartDashboard::GetNumber("SH_FlywheelPidKi", m_flywheelPidKi);
     m_flywheelPidKd = frc::SmartDashboard::GetNumber("SH_FlywheelPidKd", m_flywheelPidKd);
     m_flywheelTargetRPM = frc::SmartDashboard::GetNumber("SH_FlywheelTargetRPM", m_flywheelTargetRPM);
 
