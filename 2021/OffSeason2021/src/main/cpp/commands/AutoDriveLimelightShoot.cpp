@@ -39,8 +39,8 @@ AutoDriveLimelightShoot::AutoDriveLimelightShoot(
         frc2::WaitCommand(frc::SmartDashboard::GetNumber("AUTO_WaitTime", 0.0) * 1_s),
         AutoDrivePath(path, drivetrain),
         //drive backwards until target is valid
-        frc2::ParallelCommandGroup{ DriveLimelight(false, drivetrain, vision), ScoringPrime(shooter) },
-        frc2::ParallelCommandGroup{ DriveLimelight(true, drivetrain, vision),
+        frc2::ParallelCommandGroup{ DriveLimelight(true, drivetrain, vision), ScoringPrime(shooter) },
+        frc2::ParallelCommandGroup{ DriveLimelight(false, drivetrain, vision),
                                     ScoringAction(intake, fConv, vConv, shooter) }
         // drive limelight servo instead of drive limelight in parallel with scoringaction
     );
