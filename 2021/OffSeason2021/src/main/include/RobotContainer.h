@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "commands/AutoDriveLimelightShoot.h"
 #include "commands/ExhaustingAction.h"
 #include "commands/ExhaustingStop.h"
 #include "commands/IntakingAction.h"

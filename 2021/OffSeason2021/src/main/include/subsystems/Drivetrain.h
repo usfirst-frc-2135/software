@@ -258,4 +258,6 @@ public:
     void RamseteFollowerExecute(void);
     bool RamseteFollowerIsFinished(void);
     void RamseteFollowerEnd(void);
+
+    void DriveBackward(double tx, double ty, bool tv);
 };

@@ -134,6 +134,15 @@ RobotContainer::RobotContainer() :
     m_chooser.AddOption(
         "Auto Drive Shoot",
         new AutoDriveShoot(&m_drivetrain, &m_intake, &m_floorConveyor, &m_verticalConveyor, &m_shooter));
+    m_chooser.AddOption(
+        "Auto Drive LL Shoot",
+        new AutoDriveLimelightShoot(
+            &m_drivetrain,
+            &m_intake,
+            &m_floorConveyor,
+            &m_verticalConveyor,
+            &m_shooter,
+            &m_vision));
 
     m_chooser.SetDefaultOption("Auto Drive Stop", new AutoDriveStop(&m_drivetrain));
 
