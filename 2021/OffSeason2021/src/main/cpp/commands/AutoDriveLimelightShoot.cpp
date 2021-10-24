@@ -18,6 +18,10 @@
 #include "commands/ScoringAction.h"
 #include "commands/ScoringPrime.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <frc2/command/ParallelCommandGroup.h>
+#include <frc2/command/WaitCommand.h>
+
 AutoDriveLimelightShoot::AutoDriveLimelightShoot(
     Drivetrain *drivetrain,
     Intake *intake,

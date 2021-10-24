@@ -16,6 +16,10 @@
 #include "commands/IntakeDeploy.h"
 #include "commands/ScoringAction.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <frc2/command/ParallelCommandGroup.h>
+#include <frc2/command/WaitCommand.h>
+
 AutoDriveShoot::AutoDriveShoot(
     Drivetrain *drivetrain,
     Intake *intake,
