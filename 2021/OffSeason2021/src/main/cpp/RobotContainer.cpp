@@ -61,8 +61,8 @@ RobotContainer::RobotContainer() :
         "Auto Drive Path: driveBackward",
         new AutoDrivePath("driveBackward", &m_drivetrain));
     frc::SmartDashboard::PutData(
-        "Auto Drive Path: rightAngleTurn",
-        new AutoDrivePath("rightAngleTurn", &m_drivetrain));
+        "Auto Drive Path: rightAngle90Turn",
+        new AutoDrivePath("testTurnRight90deg", &m_drivetrain));
     frc::SmartDashboard::PutData("Intake Run: INTAKE_STOP", new IntakeRun(0, &m_intake));
     frc::SmartDashboard::PutData("Intake Run: INTAKE_ACQUIRE", new IntakeRun(1, &m_intake));
     frc::SmartDashboard::PutData("Intake Run: INTAKE_EXPEL", new IntakeRun(-1, &m_intake));

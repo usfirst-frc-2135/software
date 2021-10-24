@@ -290,6 +290,11 @@ void Shooter::SetShooterSpeed(int state)
         m_motorSH11.Config_kP(0, m_flywheelPidKp, 0);
         m_motorSH11.Config_kI(0, m_flywheelPidKi, 0);
         m_motorSH11.Config_kD(0, m_flywheelPidKd, 0);
+
+        spdlog::info("Flywheel PidkF {}", m_flywheelPidKf);
+        spdlog::info("Flywheel PidkP {}", m_flywheelPidKp);
+        spdlog::info("Flywheel PidkI {}", m_flywheelPidKi);
+        spdlog::info("Flywheel PidKD {}", m_flywheelPidKd);
     }
 
     // // Validate and set the requested position to move
