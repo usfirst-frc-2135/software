@@ -37,10 +37,11 @@ AutoDriveLimelightShoot::AutoDriveLimelightShoot(
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
     path = "driveForward";
+    frc2::WaitCommand waitCommand{ frc::SmartDashboard::GetNumber("AUTO_WaitTime", 0.0) * 1_s };
 
     AddCommands(
         IntakeDeploy(true),
-        frc2::WaitCommand(frc::SmartDashboard::GetNumber("AUTO_WaitTime", 0.0) * 1_s),
+        waitCommand,
         AutoDrivePath(path, drivetrain),
         //drive backwards until target is valid
         frc2::ParallelCommandGroup{ DriveLimelight(true, drivetrain, vision), ScoringPrime(shooter) },
