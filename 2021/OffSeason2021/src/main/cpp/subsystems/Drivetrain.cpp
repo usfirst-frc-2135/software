@@ -194,6 +194,7 @@ void Drivetrain::ConfigFileLoad(void)
     config->GetValueAsDouble("DTL_MaxTurn", m_maxTurn, 0.4);
     config->GetValueAsDouble("DTL_MaxThrottle", m_maxThrottle, 0.2);
     config->GetValueAsDouble("DTL_ThrottleShape", m_throttleShape, 10.0);
+    config->GetValueAsDouble("DTL_TargetAngle", m_targetAngle, 0.0);
     config->GetValueAsDouble("DTL_TargetDistance", m_targetDistance, 12.0);
     config->GetValueAsDouble("DTL_AngleThreshold", m_angleThreshold, 3.0);
     config->GetValueAsDouble("DTL_DistThreshold", m_distThreshold, 6.0);
@@ -212,15 +213,16 @@ void Drivetrain::ConfigFileLoad(void)
     // Put tunable items to dashboard
     frc::SmartDashboard::PutNumber("DT_Tolerance", m_tolerance);
 
-    frc::SmartDashboard::PutNumber("DTL_TurnPIDKp", m_turnpidKd);
+    frc::SmartDashboard::PutNumber("DTL_TurnPIDKp", m_turnpidKp);
     frc::SmartDashboard::PutNumber("DTL_TurnPIDKi", m_turnpidKi);
     frc::SmartDashboard::PutNumber("DTL_TurnPIDKd", m_turnpidKd);
-    frc::SmartDashboard::PutNumber("DTL_ThrottlePIDKp", m_throttlepidKd);
+    frc::SmartDashboard::PutNumber("DTL_ThrottlePIDKp", m_throttlepidKp);
     frc::SmartDashboard::PutNumber("DTL_ThrottlePIDKi", m_throttlepidKi);
     frc::SmartDashboard::PutNumber("DTL_ThrottlePIDKd", m_throttlepidKd);
     frc::SmartDashboard::PutNumber("DTL_MaxTurn", m_maxTurn);
     frc::SmartDashboard::PutNumber("DTL_MaxThrottle", m_maxThrottle);
     frc::SmartDashboard::PutNumber("DTL_ThrottleShape", m_throttleShape);
+    frc::SmartDashboard::PutNumber("DTL_TargetAngle", m_targetAngle);
     frc::SmartDashboard::PutNumber("DTL_TargetDistance", m_targetDistance);
     frc::SmartDashboard::PutNumber("DTL_AngleThreshold", m_angleThreshold);
     frc::SmartDashboard::PutNumber("DTL_DistThreshold", m_distThreshold);
@@ -580,6 +582,7 @@ void Drivetrain::MoveWithLimelightInit()
 
     m_maxTurn = frc::SmartDashboard::GetNumber("DTL_MaxTurn", m_maxTurn);
     m_maxThrottle = frc::SmartDashboard::GetNumber("DTL_MaxThrottle", m_maxThrottle);
+    m_targetAngle = frc::SmartDashboard::GetNumber("DTL_TargetAngle", m_targetAngle);
     m_targetDistance = frc::SmartDashboard::GetNumber("DTL_TargetDistance", m_targetDistance);
     m_angleThreshold = frc::SmartDashboard::GetNumber("DTL_AngleThreshold", m_angleThreshold);
     m_distThreshold = frc::SmartDashboard::GetNumber("DTL_DistThreshold", m_distThreshold);
@@ -603,7 +606,7 @@ void Drivetrain::MoveWithLimelightInit()
 void Drivetrain::MoveWithLimelightExecute(double tx, double ty, bool tv)
 {
     // get turn value - just horizontal offset from target
-    double turnOutput = -m_turnController.Calculate(tx);
+    double turnOutput = -m_turnController.Calculate(tx, m_targetAngle);
 
     // get throttle value
     m_limelightDistance = m_slope * ty + m_distOffset;
@@ -765,22 +768,22 @@ void Drivetrain::RamseteFollowerExecute(void)
     TankDriveVolts(leftTotalVolts, rightTotalVolts);
 
     spdlog::info(
-        "DTR cur X {} Y {} R {} | targ X {} Y {} R {} | chas X {} Y {} O {} | whl L {} R {} ffV L {} R {} | toV L {} R {}",
-        currentPose.X(),
-        currentPose.Y(),
-        currentPose.Rotation().Degrees(),
-        trajState.pose.X(),
-        trajState.pose.Y(),
-        trajState.pose.Rotation().Degrees(),
-        targetChassisSpeeds.vx,
-        targetChassisSpeeds.vy,
-        targetChassisSpeeds.omega,
-        targetWheelSpeeds.left,
-        targetWheelSpeeds.right,
-        leftFFVolts,
-        rightFFVolts,
-        leftTotalVolts,
-        rightTotalVolts);
+        "DTR cur XYR {:.2f} {:.2f} {:.1f} | targ XYR {:.2f} {:.2f} {:.1f} | chas XYO {:.2f} {:.2f} {:.1f} | whl LR {:.2f} {:.2f} ffV LR {:.2f} {:.2f} | toV LR {:.2f} {:.2f}",
+        currentPose.X().to<double>(),
+        currentPose.Y().to<double>(),
+        currentPose.Rotation().Degrees().to<double>(),
+        trajState.pose.X().to<double>(),
+        trajState.pose.Y().to<double>(),
+        trajState.pose.Rotation().Degrees().to<double>(),
+        targetChassisSpeeds.vx.to<double>(),
+        targetChassisSpeeds.vy.to<double>(),
+        targetChassisSpeeds.omega.to<double>(),
+        targetWheelSpeeds.left.to<double>(),
+        targetWheelSpeeds.right.to<double>(),
+        leftFFVolts.to<double>(),
+        rightFFVolts.to<double>(),
+        leftTotalVolts.to<double>(),
+        rightTotalVolts.to<double>());
 }
 
 bool Drivetrain::RamseteFollowerIsFinished(void)
@@ -794,3 +797,5 @@ void Drivetrain::RamseteFollowerEnd(void)
     SetBrakeMode(true);
     TankDriveVolts(0.0_V, 0.0_V);
 }
+
+void Drivetrain::DriveBackward(double tx, double ty, bool tv) {}

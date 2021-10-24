@@ -129,7 +129,7 @@ void FloorConveyor::SetFloorConveyorSpeed(int mode)
             break;
     }
 
-    spdlog::info("Floor Conveyor Set Speed - {}", strName);
+    spdlog::info("FC Set Speed - {}", strName);
 
     if (m_talonValidFC8)
         m_motorFC8.Set(ControlMode::PercentOutput, outputFC);

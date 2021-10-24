@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "commands/AutoDriveLimelightShoot.h"
 #include "commands/ExhaustingAction.h"
 #include "commands/ExhaustingStop.h"
 #include "commands/IntakingAction.h"
@@ -28,6 +29,7 @@
 #include "commands/ClimberBrake.h"
 #include "commands/ClimberRun.h"
 #include "commands/DriveLimelight.h"
+#include "commands/DriveLimelightShoot.h"
 #include "commands/DriveQuickturn.h"
 #include "commands/DriveTeleop.h"
 #include "commands/FloorConveyorRun.h"

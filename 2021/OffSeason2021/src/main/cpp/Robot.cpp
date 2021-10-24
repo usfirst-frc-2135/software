@@ -89,6 +89,18 @@ void Robot::DisabledInit()
         MatchTypeToString(ds.GetMatchType()),
         ds.GetMatchNumber(),
         AllianceToString(ds.GetAlliance()));
+    RobotContainer *robotContainer = RobotContainer::GetInstance();
+    robotContainer->m_drivetrain.SetBrakeMode(false);
+
+    robotContainer->m_drivetrain.Initialize();
+    robotContainer->m_intake.Initialize();
+    robotContainer->m_floorConveyor.Initialize();
+    robotContainer->m_verticalConveyor.Initialize();
+    robotContainer->m_shooter.Initialize();
+    robotContainer->m_climber.Initialize();
+    robotContainer->m_pneumatics.Initialize();
+    robotContainer->m_power.Initialize();
+    robotContainer->m_led.Initialize();
 }
 
 void Robot::DisabledPeriodic()

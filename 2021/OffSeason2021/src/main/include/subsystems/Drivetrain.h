@@ -150,6 +150,7 @@ private:
     double m_throttlepidKd = 0.0;
     double m_maxTurn;
     double m_maxThrottle;
+    double m_targetAngle;
     double m_targetDistance;
     double m_angleThreshold;
     double m_distThreshold;
@@ -257,4 +258,6 @@ public:
     void RamseteFollowerExecute(void);
     bool RamseteFollowerIsFinished(void);
     void RamseteFollowerEnd(void);
+
+    void DriveBackward(double tx, double ty, bool tv);
 };

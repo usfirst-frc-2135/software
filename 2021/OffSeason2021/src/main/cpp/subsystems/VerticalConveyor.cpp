@@ -127,7 +127,7 @@ void VerticalConveyor::SetVerticalConveyorSpeed(int mode)
             break;
     }
 
-    spdlog::info("Vertical Conveyor Set Speed - {}", strName);
+    spdlog::info("VC Set Speed - {}", strName);
 
     if (m_talonValidVC9)
         m_motorVC9.Set(ControlMode::PercentOutput, outputVC);
