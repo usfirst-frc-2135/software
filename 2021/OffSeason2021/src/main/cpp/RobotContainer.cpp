@@ -104,9 +104,9 @@ RobotContainer::RobotContainer() :
         "Scoring Stop",
         new ScoringStop(&m_intake, &m_floorConveyor, &m_verticalConveyor, &m_shooter));
     frc::SmartDashboard::PutData(
-        "Scoring Stop",
-        new ScoringStop(&m_intake, &m_floorConveyor, &m_verticalConveyor, &m_shooter));
-    frc::SmartDashboard::PutData("LED Set", new LEDSet(0, &m_led));
+        "Exhausting Action",
+        new ExhaustingAction(&m_intake, &m_floorConveyor, &m_verticalConveyor));
+    frc::SmartDashboard::PutData("LED Set", new LEDSet(&m_led));
 
     ConfigureButtonBindings();
 
