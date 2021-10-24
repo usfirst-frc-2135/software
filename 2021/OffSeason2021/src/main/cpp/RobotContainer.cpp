@@ -203,6 +203,8 @@ void RobotContainer::ConfigureButtonBindings()
         &m_verticalConveyor,
         &m_shooter,
         &m_vision));
+    m_rightTriggerDr.WhenReleased(ScoringStop(
+        &m_intake, &m_floorConveyor, &m_verticalConveyor, &m_shooter), true);
 
     // Operator Controller Assignments
     frc2::JoystickButton m_inStowOp{ &m_operatorController, (int)frc::XboxController::Button::kA };
