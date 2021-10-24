@@ -15,7 +15,7 @@
   DT_ClosedLoopRampRate = 0.0
   DT_StoppedTolerance = 0.05
 # Limelight settings
-  DTL_TurnPIDKp = 0.045
+  DTL_TurnPIDKp = 0.035
   DTL_TurnPIDKi = 0.0
   DTL_TurnPIDKd = 0.0
   DTL_ThrottlePIDKp = 0.02

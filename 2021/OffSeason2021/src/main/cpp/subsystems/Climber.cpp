@@ -140,7 +140,7 @@ void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
     if (yCLValue > -0.1 && yCLValue < 0.1)
     {
         if (state != CLIMBER_STOPPED)
-            spdlog::info("Climber Stopped");
+            spdlog::info("CL Climber Stopped");
         state = CLIMBER_STOPPED;
 
         SetBrakeSolenoid(CL_BRAKE_LOCKED);
@@ -152,7 +152,7 @@ void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
         if (yCLValue > m_deadband)
         {
             if (state != CLIMBER_DOWN)
-                spdlog::info("Climber Down");
+                spdlog::info("CL Climber Down");
             state = CLIMBER_DOWN;
 
             yCLValue -= m_deadband;
@@ -163,7 +163,7 @@ void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
         else if (yCLValue < -m_deadband)
         {
             if (state != CLIMBER_UP)
-                spdlog::info("Climber Up");
+                spdlog::info("CL Climber Up");
             state = CLIMBER_UP;
 
             yCLValue += m_deadband;
@@ -178,7 +178,7 @@ void Climber::RaiseClimberWithJoysticks(frc::XboxController *joystick)
 
 void Climber::SetClimberStopped(void)
 {
-    spdlog::info("Set Climber Stopped");
+    spdlog::info("CL Set Climber Stopped");
 
     if (m_talonValidCL14)
         m_motorCL14.Set(ControlMode::PercentOutput, 0);

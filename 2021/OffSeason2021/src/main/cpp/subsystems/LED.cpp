@@ -37,7 +37,12 @@ LED::LED()
     // Add options for colors in SmartDashboard
     m_ledChooser.AddOption("LED_Off", LEDCOLOR_OFF);
     m_ledChooser.AddOption("LED_White", LEDCOLOR_WHITE);
+    m_ledChooser.AddOption("LED_Red", LEDCOLOR_RED);
+    m_ledChooser.AddOption("LED_Orange", LEDCOLOR_ORANGE);
+    m_ledChooser.AddOption("LED_Yellow", LEDCOLOR_YELLOW);
+    m_ledChooser.AddOption("LED_Green", LEDCOLOR_GREEN);
     m_ledChooser.AddOption("LED_Blue", LEDCOLOR_BLUE);
+    m_ledChooser.AddOption("LED_Purple", LEDCOLOR_PURPLE);
 
     frc::SmartDashboard::PutData("LED_Color", &m_ledChooser);
 }
@@ -88,6 +93,11 @@ void LED::SetColor(int color)
 {
     const char *strName;
 
+    if (color == (LEDCOLOR_DASH))
+    {
+        color = m_ledChooser.GetSelected();
+    }
+
     switch (color)
     {
         default:
@@ -99,9 +109,30 @@ void LED::SetColor(int color)
             strName = "WHITE";
             SendRGBToString(255, 255, 255); //white
             break;
+        case LEDCOLOR_RED:
+            strName = "RED";
+            SendRGBToString(255, 0, 0); //red
+            break;
+        case LEDCOLOR_ORANGE:
+            strName = "ORANGE";
+            SendRGBToString(255, 80, 0); //orange
+            break;
+        case LEDCOLOR_YELLOW:
+            strName = "YELLOW";
+            SendRGBToString(255, 255, 0); //yellow
+            break;
+        case LEDCOLOR_GREEN:
+            strName = "GREEN";
+            SendRGBToString(0, 255, 0); //green
+            break;
         case LEDCOLOR_BLUE:
             strName = "BLUE";
             SendRGBToString(0, 0, 255); //blue
+            break;
+        case LEDCOLOR_PURPLE:
+            strName = "PURPLE";
+            SendRGBToString(255, 0, 255); //purple
+            break;
     }
 
     // if (m_previousColor != color)

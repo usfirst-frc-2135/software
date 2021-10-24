@@ -143,7 +143,7 @@ void Intake::SetIntakeSpeed(int mode)
     }
 
     // Set speed of intake and the percent output
-    spdlog::info("Intake Set Speed - {}", strName);
+    spdlog::info("IN Set Speed - {}", strName);
 
     if (m_talonValidIN6)
         m_motorIN6.Set(ControlMode::PercentOutput, output);
@@ -151,7 +151,7 @@ void Intake::SetIntakeSpeed(int mode)
 
 void Intake::SetDeployerSolenoid(bool extended)
 {
-    spdlog::info("Intake {}", (extended) ? "DEPLOY" : "STOW");
+    spdlog::info("IN Intake {}", (extended) ? "DEPLOY" : "STOW");
     frc::SmartDashboard::PutBoolean("IN_Deployed", extended);
 
     m_position.Set(extended);
