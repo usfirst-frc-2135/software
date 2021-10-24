@@ -61,8 +61,8 @@ RobotContainer::RobotContainer() :
         "Auto Drive Path: driveBackward",
         new AutoDrivePath("driveBackward", &m_drivetrain));
     frc::SmartDashboard::PutData(
-        "Auto Drive Path: rightAngleTurn",
-        new AutoDrivePath("rightAngleTurn", &m_drivetrain));
+        "Auto Drive Path: rightAngle90Turn",
+        new AutoDrivePath("testTurnRight90deg", &m_drivetrain));
     frc::SmartDashboard::PutData("Intake Run: INTAKE_STOP", new IntakeRun(0, &m_intake));
     frc::SmartDashboard::PutData("Intake Run: INTAKE_ACQUIRE", new IntakeRun(1, &m_intake));
     frc::SmartDashboard::PutData("Intake Run: INTAKE_EXPEL", new IntakeRun(-1, &m_intake));
@@ -104,9 +104,9 @@ RobotContainer::RobotContainer() :
         "Scoring Stop",
         new ScoringStop(&m_intake, &m_floorConveyor, &m_verticalConveyor, &m_shooter));
     frc::SmartDashboard::PutData(
-        "Exhausting Action",
-        new ExhaustingAction(&m_intake, &m_floorConveyor, &m_verticalConveyor));
-    frc::SmartDashboard::PutData("LED Set", new LEDSet(&m_led));
+        "Scoring Stop",
+        new ScoringStop(&m_intake, &m_floorConveyor, &m_verticalConveyor, &m_shooter));
+    frc::SmartDashboard::PutData("LED Set", new LEDSet(0, &m_led));
 
     ConfigureButtonBindings();
 
@@ -203,8 +203,6 @@ void RobotContainer::ConfigureButtonBindings()
         &m_verticalConveyor,
         &m_shooter,
         &m_vision));
-    m_rightTriggerDr.WhenReleased(ScoringStop(
-        &m_intake, &m_floorConveyor, &m_verticalConveyor, &m_shooter), true);
 
     // Operator Controller Assignments
     frc2::JoystickButton m_inStowOp{ &m_operatorController, (int)frc::XboxController::Button::kA };
