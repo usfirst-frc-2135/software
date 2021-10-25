@@ -16,6 +16,10 @@
 #include "commands/IntakeDeploy.h"
 #include "commands/ScoringAction.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <frc2/command/ParallelCommandGroup.h>
+#include <frc2/command/WaitCommand.h>
+
 AutoDriveShoot::AutoDriveShoot(
     Drivetrain *drivetrain,
     Intake *intake,
@@ -30,10 +34,11 @@ AutoDriveShoot::AutoDriveShoot(
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
     path = "driveForward";
+    frc2::WaitCommand waitCommand{ frc::SmartDashboard::GetNumber("AUTO_WaitTime", 0.0) * 1_s };
 
     AddCommands(
         IntakeDeploy(true),
-        frc2::WaitCommand(frc::SmartDashboard::GetNumber("AUTO_WaitTime", 0.0) * 1_s),
+        waitCommand,
         AutoDrivePath(path, drivetrain),
         frc2::ParallelCommandGroup{ AutoDriveStop(drivetrain),
                                     ScoringAction(intake, fConv, vConv, shooter) });
