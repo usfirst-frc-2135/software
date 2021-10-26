@@ -15,10 +15,13 @@
 #include "commands/AutoPathSequence.h"
 #include "commands/IntakeDeploy.h"
 #include "commands/ScoringAction.h"
+#include "frc2135/RobotConfig.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/ParallelCommandGroup.h>
 #include <frc2/command/WaitCommand.h>
+#include <spdlog/spdlog.h>
+#include <wpi/SmallString.h>
 
 AutoDriveShoot::AutoDriveShoot(
     Drivetrain *drivetrain,
@@ -33,13 +36,15 @@ AutoDriveShoot::AutoDriveShoot(
 
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
-    path = "driveForward";
+    frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
+    config->GetValueAsString("AutoDriveShoot_path", path1, "driveForward70");
+
     frc2::WaitCommand waitCommand{ frc::SmartDashboard::GetNumber("AUTO_WaitTime", 0.0) * 1_s };
 
     AddCommands(
         IntakeDeploy(true),
         waitCommand,
-        AutoDrivePath(path, drivetrain),
+        AutoDrivePath(path1.c_str(), drivetrain),
         frc2::ParallelCommandGroup{ AutoDriveStop(drivetrain),
                                     ScoringAction(intake, fConv, vConv, shooter) });
 }
