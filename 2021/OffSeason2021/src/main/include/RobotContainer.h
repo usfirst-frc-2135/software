@@ -26,6 +26,7 @@
 #include "commands/AutoPathSequence.h"
 #include "commands/AutoShootTrenchLeft.h"
 #include "commands/AutoShootTrenchRight.h"
+#include "commands/CalibrateGyro.h"
 #include "commands/ClimberBrake.h"
 #include "commands/ClimberRun.h"
 #include "commands/DriveLimelight.h"

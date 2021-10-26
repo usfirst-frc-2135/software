@@ -417,6 +417,11 @@ degrees_per_second_t Drivetrain::GetTurnRate()
     return (-m_gyro.GetRate() * 1_deg_per_s);
 }
 
+void Drivetrain::CalibrateGyro()
+{
+    m_gyro.Calibrate();
+}
+
 //
 //  Odometry
 //

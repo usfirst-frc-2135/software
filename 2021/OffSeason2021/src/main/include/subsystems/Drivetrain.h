@@ -260,4 +260,5 @@ public:
     void RamseteFollowerEnd(void);
 
     void DriveBackward(double tx, double ty, bool tv);
+    void CalibrateGyro(void);
 };
