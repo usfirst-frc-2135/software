@@ -30,18 +30,16 @@ CalibrateGyro::CalibrateGyro(Drivetrain *m_drivetrain) : m_drivetrain(m_drivetra
 void CalibrateGyro::Initialize()
 {
     spdlog::info("CalibrateGyro - Init");
+    m_drivetrain->CalibrateGyro();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void CalibrateGyro::Execute()
-{
-    m_drivetrain->CalibrateGyro();
-}
+void CalibrateGyro::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
 bool CalibrateGyro::IsFinished()
 {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
