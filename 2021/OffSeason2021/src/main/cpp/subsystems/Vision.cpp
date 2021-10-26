@@ -30,6 +30,7 @@ Vision::Vision()
 
     table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
     table->PutNumber("ledMode", LED_CUR_MODE);
+    table->PutNumber("stream", PIP_SECONDARY);
 
     Initialize();
 }
