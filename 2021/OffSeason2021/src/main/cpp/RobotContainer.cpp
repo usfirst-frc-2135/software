@@ -183,8 +183,8 @@ void RobotContainer::ConfigureButtonBindings()
     frc2::JoystickButton m_shooterAimOnDr{ &m_driverController, (int)frc::XboxController::Button::kStart };
     frc2::JoystickButton m_shooterAimOffDr{ &m_driverController, (int)frc::XboxController::Button::kBack };
 
-    m_shooterAimOnDr.WhileHeld(ShooterAim(&m_shooter), true);
-    m_shooterAimOffDr.WhileHeld(ShooterAim(&m_shooter), false);
+    m_shooterAimOnDr.WhenPressed(ShooterAim(&m_shooter), true);
+    m_shooterAimOffDr.WhenPressed(ShooterAim(&m_shooter), false);
 
     // Driver - A, B, X, Y
     m_quickturn.WhileHeld(DriveQuickturn(), true);
