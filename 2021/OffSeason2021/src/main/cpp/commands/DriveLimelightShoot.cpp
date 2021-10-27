@@ -16,7 +16,6 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/ParallelCommandGroup.h>
-#include <frc2/command/WaitCommand.h>
 
 DriveLimelightShoot::DriveLimelightShoot(
     Drivetrain *drivetrain,
