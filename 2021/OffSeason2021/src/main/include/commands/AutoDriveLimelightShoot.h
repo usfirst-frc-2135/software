@@ -41,5 +41,5 @@ public:
     bool RunsWhenDisabled() const override;
 
 private:
-    const char *path;
+    string path1;
 };

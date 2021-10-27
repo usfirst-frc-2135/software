@@ -17,10 +17,13 @@
 #include "commands/IntakeDeploy.h"
 #include "commands/ScoringAction.h"
 #include "commands/ScoringPrime.h"
+#include "frc2135/RobotConfig.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/ParallelCommandGroup.h>
 #include <frc2/command/WaitCommand.h>
+#include <spdlog/spdlog.h>
+#include <wpi/SmallString.h>
 
 AutoDriveLimelightShoot::AutoDriveLimelightShoot(
     Drivetrain *drivetrain,
@@ -36,13 +39,15 @@ AutoDriveLimelightShoot::AutoDriveLimelightShoot(
 
     // Add your commands here, e.g.
     // AddCommands(FooCommand(), BarCommand());
-    path = "driveForward";
+    frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
+    config->GetValueAsString("AutoDriveLimelightShoot_path", path1, "driveForward70");
+
     frc2::WaitCommand waitCommand{ frc::SmartDashboard::GetNumber("AUTO_WaitTime", 0.0) * 1_s };
 
     AddCommands(
         IntakeDeploy(true),
         waitCommand,
-        AutoDrivePath(path, drivetrain),
+        AutoDrivePath(path1.c_str(), drivetrain),
         //drive backwards until target is valid
         frc2::ParallelCommandGroup{ DriveLimelight(true, drivetrain, vision), ScoringPrime(shooter) },
         frc2::ParallelCommandGroup{ DriveLimelight(false, drivetrain, vision),
