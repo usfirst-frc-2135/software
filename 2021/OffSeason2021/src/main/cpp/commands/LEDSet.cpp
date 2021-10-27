@@ -15,7 +15,7 @@
 
 #include "commands/LEDSet.h"
 
-LEDSet::LEDSet(LED *m_led) : m_led(m_led)
+LEDSet::LEDSet(int color, LED *m_led) : m_color(color), m_led(m_led)
 {
     // Use AddRequirements() here to declare subsystem dependencies
     // eg. AddRequirements(m_Subsystem);
@@ -28,9 +28,8 @@ LEDSet::LEDSet(LED *m_led) : m_led(m_led)
 // Called just before this Command runs the first time
 void LEDSet::Initialize()
 {
-    spdlog::info("LEDSet - Init ");
-    // m_led->SetColor(m_ledChooser.GetSelected());
-    m_led->SetColor(LED::LEDCOLOR_DASH);
+    spdlog::info("LEDSet - Init {}", m_color);
+    m_led->SetColor(m_color);
 }
 
 // Called repeatedly when this Command is scheduled to run
