@@ -113,6 +113,7 @@ RobotContainer::RobotContainer() :
         "Scoring Stop",
         new ScoringStop(&m_intake, &m_floorConveyor, &m_verticalConveyor, &m_shooter));
     frc::SmartDashboard::PutData("LED Set", new LEDSet(&m_led));
+    frc::SmartDashboard::PutData("AUTO Calibrate Gyro", new CalibrateGyro(&m_drivetrain));
 
     ConfigureButtonBindings();
 
