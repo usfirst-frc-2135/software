@@ -44,7 +44,7 @@ public:
     void SimulationPeriodic() override;
     void Initialize(void);
 
-    // Intake LED mode states
+    // Limelight LED mode states
     typedef enum ledMode_e
     {
         LED_CUR_MODE = 0,
@@ -52,6 +52,14 @@ public:
         LED_BLINK = 2,
         LED_ON = 3,
     } ledMode_e;
+
+    // Camera Limelight streaming
+    typedef enum camStream_e
+    {
+        STANDARD = 0,
+        PIP_MAIN = 1,
+        PIP_SECONDARY = 2,
+    } camStream_e;
 
     double GetHorizOffsetDeg();
     double GetVertOffsetDeg();

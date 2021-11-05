@@ -9,1048 +9,7 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "tiles": {
-          "31,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/VI_VERT_ANGLE",
-              "_title": "VI_VERT_ANGLE"
-            }
-          },
-          "33,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_FlywheelRPM",
-              "_title": "SH_FlywheelRPM"
-            }
-          },
-          "35,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Shooter Aim: OFF",
-              "_title": "Shooter Aim: OFF"
-            }
-          },
-          "38,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/VI_TARGET_AREA",
-              "_title": "VI_TARGET_AREA"
-            }
-          },
-          "31,1": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Climber Run: CLDIR_RUNNING",
-              "_title": "Climber Run: CLDIR_RUNNING"
-            }
-          },
-          "38,1": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Limelight Drive",
-              "_title": "Limelight Drive"
-            }
-          },
-          "34,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/VI_TARGET_VALID",
-              "_title": "VI_TARGET_VALID"
-            }
-          },
-          "36,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_FeederRPM",
-              "_title": "SH_FeederRPM"
-            }
-          },
-          "31,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/CL_Output_CL14",
-              "_title": "CL_Output_CL14"
-            }
-          },
-          "33,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/IN_Output_IN6",
-              "_title": "IN_Output_IN6"
-            }
-          },
-          "35,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_VertOffset1",
-              "_title": "DTL_VertOffset1"
-            }
-          },
-          "37,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_VertOffset2",
-              "_title": "DTL_VertOffset2"
-            }
-          },
-          "39,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/VI_TARGET_SKEW",
-              "_title": "VI_TARGET_SKEW"
-            }
-          },
-          "30,4": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Scoring Stop",
-              "_title": "Scoring Stop"
-            }
-          },
-          "33,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_Current_SH10",
-              "_title": "SH_Current_SH10"
-            }
-          },
-          "35,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_Current_SH11",
-              "_title": "SH_Current_SH11"
-            }
-          },
-          "37,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/FC_Output_FC8",
-              "_title": "FC_Output_FC8"
-            }
-          },
-          "39,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/VC_Output_VC9",
-              "_title": "VC_Output_VC9"
-            }
-          },
-          "0,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Shoot Trench Right",
-              "_title": "Auto Shoot Trench Right"
-            }
-          },
-          "3,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Shooter Aim: ON",
-              "_title": "Shooter Aim: ON"
-            }
-          },
-          "6,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTR_ramsetePidKd",
-              "_title": "DTR_ramsetePidKd"
-            }
-          },
-          "8,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Shooter Aim: LIGHT_ON",
-              "_title": "Shooter Aim: LIGHT_ON"
-            }
-          },
-          "11,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Drive Path: rightAngleTurn",
-              "_title": "Auto Drive Path: rightAngleTurn"
-            }
-          },
-          "14,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTR_ramsetePidKi",
-              "_title": "DTR_ramsetePidKi"
-            }
-          },
-          "16,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/LED Set",
-              "_title": "LED Set"
-            }
-          },
-          "19,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTR_ramsetePidKp",
-              "_title": "DTR_ramsetePidKp"
-            }
-          },
-          "21,0": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Auto Mode",
-              "_title": "Auto Mode"
-            }
-          },
-          "23,0": {
-            "size": [
-              3,
-              3
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/DT_BrakeMode",
-              "_title": "DT_BrakeMode",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "26,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Vertical Conveyor Run: VCONDIR_STOP",
-              "_title": "Vertical Conveyor Run: VCONDIR_STOP"
-            }
-          },
-          "29,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DT_wheelSpeedLeft",
-              "_title": "DT_wheelSpeedLeft"
-            }
-          },
-          "41,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Drive Stop",
-              "_title": "Auto Drive Stop"
-            }
-          },
-          "44,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Drive Path: driveBackward",
-              "_title": "Auto Drive Path: driveBackward"
-            }
-          },
-          "47,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_ThrottlePIDKd",
-              "_title": "DTL_ThrottlePIDKd"
-            }
-          },
-          "6,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_ThrottlePIDKi",
-              "_title": "DTL_ThrottlePIDKi"
-            }
-          },
-          "14,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_ThrottlePIDKp",
-              "_title": "DTL_ThrottlePIDKp"
-            }
-          },
-          "0,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Floor Conveyor Run: FCONDIR_ACQUIRE",
-              "_title": "Floor Conveyor Run: FCONDIR_ACQUIRE"
-            }
-          },
-          "3,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Drive Path: driveForward",
-              "_title": "Auto Drive Path: driveForward"
-            }
-          },
-          "6,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Shooter Run: SHDIR_SHOOT",
-              "_title": "Shooter Run: SHDIR_SHOOT"
-            }
-          },
-          "9,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Shooter Run: SHDIR_STOP",
-              "_title": "Shooter Run: SHDIR_STOP"
-            }
-          },
-          "19,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_FlywheelTargetRPM",
-              "_title": "SH_FlywheelTargetRPM"
-            }
-          },
-          "29,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DT_Current_L1",
-              "_title": "DT_Current_L1"
-            }
-          },
-          "47,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DT_Current_L2",
-              "_title": "DT_Current_L2"
-            }
-          },
-          "12,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Intake Deploy: INTAKE_STOW",
-              "_title": "Intake Deploy: INTAKE_STOW"
-            }
-          },
-          "15,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Shooter Aim: LIGHT_OFF",
-              "_title": "Shooter Aim: LIGHT_OFF"
-            }
-          },
-          "18,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Intake Run: INTAKE_EXPEL",
-              "_title": "Intake Run: INTAKE_EXPEL"
-            }
-          },
-          "26,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Intake Deploy: INTAKE_EXTEND",
-              "_title": "Intake Deploy: INTAKE_EXTEND"
-            }
-          },
-          "21,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DT_heading",
-              "_title": "DT_heading"
-            }
-          },
-          "41,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Scoring Action",
-              "_title": "Scoring Action"
-            }
-          },
-          "29,2": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/LED_Color",
-              "_title": "LED_Color"
-            }
-          },
-          "44,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_TargetDistance",
-              "_title": "DTL_TargetDistance"
-            }
-          },
-          "46,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Floor Conveyor Run: FCONDIR_EXPEL",
-              "_title": "Floor Conveyor Run: FCONDIR_EXPEL"
-            }
-          },
-          "21,3": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Intaking Stop",
-              "_title": "Intaking Stop"
-            }
-          },
-          "0,4": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Exhausting Action",
-              "_title": "Exhausting Action"
-            }
-          },
-          "3,4": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Intake Run: INTAKE_STOP",
-              "_title": "Intake Run: INTAKE_STOP"
-            }
-          },
-          "6,4": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Climber Run: CLDIR_RUN",
-              "_title": "Climber Run: CLDIR_RUN"
-            }
-          },
-          "9,4": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Shoot Trench Left",
-              "_title": "Auto Shoot Trench Left"
-            }
-          },
-          "12,4": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Intaking Action",
-              "_title": "Intaking Action"
-            }
-          },
-          "15,4": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Vertical Conveyor Run: VCONDIR_EXPEL",
-              "_title": "Vertical Conveyor Run: VCONDIR_EXPEL"
-            }
-          },
-          "24,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_TurnPIDKd",
-              "_title": "DTL_TurnPIDKd"
-            }
-          },
-          "44,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTR_ramseteB",
-              "_title": "DTR_ramseteB"
-            }
-          },
-          "18,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_TurnPIDKi",
-              "_title": "DTL_TurnPIDKi"
-            }
-          },
-          "24,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DT_Current_R3",
-              "_title": "DT_Current_R3"
-            }
-          },
-          "26,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DT_Current_R4",
-              "_title": "DT_Current_R4"
-            }
-          },
-          "28,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_TurnPIDKp",
-              "_title": "DTL_TurnPIDKp"
-            }
-          },
-          "41,4": {
-            "size": [
-              3,
-              3
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/CL_Stopped",
-              "_title": "CL_Stopped",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "44,4": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Intake Run: INTAKE_ACQUIRE",
-              "_title": "Intake Run: INTAKE_ACQUIRE"
-            }
-          },
-          "47,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DT_distanceRight",
-              "_title": "DT_distanceRight"
-            }
-          },
-          "18,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/VI_HORIZ_ANGLE",
-              "_title": "VI_HORIZ_ANGLE"
-            }
-          },
-          "20,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_AngleThreshold",
-              "_title": "DTL_AngleThreshold"
-            }
-          },
-          "22,5": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Path Sequence",
-              "_title": "Auto Path Sequence"
-            }
-          },
-          "25,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_FeederPidKd",
-              "_title": "SH_FeederPidKd"
-            }
-          },
-          "27,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_FeederPidKf",
-              "_title": "SH_FeederPidKf"
-            }
-          },
-          "33,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_FeederPidKi",
-              "_title": "SH_FeederPidKi"
-            }
-          },
-          "35,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_FeederTargetRPM",
-              "_title": "SH_FeederTargetRPM"
-            }
-          },
-          "37,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_FeederPidKp",
-              "_title": "SH_FeederPidKp"
-            }
-          },
-          "39,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_ThrottleShape",
-              "_title": "DTL_ThrottleShape"
-            }
-          },
-          "0,6": {
-            "size": [
-              3,
-              3
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/IN_Deployed",
-              "_title": "IN_Deployed",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "3,6": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Drive Shoot",
-              "_title": "Auto Drive Shoot"
-            }
-          },
-          "47,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_MaxThrottle",
-              "_title": "DTL_MaxThrottle"
-            }
-          },
-          "6,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DT_Tolerance",
-              "_title": "DT_Tolerance"
-            }
-          },
-          "8,6": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Vertical Conveyor Run: VCONDIR_ACQUIRE",
-              "_title": "Vertical Conveyor Run: VCONDIR_ACQUIRE"
-            }
-          },
-          "11,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_FlywheelPidKd",
-              "_title": "SH_FlywheelPidKd"
-            }
-          },
-          "13,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_FlywheelPidKf",
-              "_title": "SH_FlywheelPidKf"
-            }
-          },
-          "15,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_FlywheelPidKi",
-              "_title": "SH_FlywheelPidKi"
-            }
-          },
-          "17,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SH_FlywheelPidKp",
-              "_title": "SH_FlywheelPidKp"
-            }
-          },
-          "19,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_Dist1",
-              "_title": "DTL_Dist1"
-            }
-          },
-          "25,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_Dist2",
-              "_title": "DTL_Dist2"
-            }
-          },
-          "27,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DT_distanceLeft",
-              "_title": "DT_distanceLeft"
-            }
-          },
-          "29,6": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Floor Conveyor Run: FCONDIR_STOP",
-              "_title": "Floor Conveyor Run: FCONDIR_STOP"
-            }
-          },
-          "32,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DT_wheelSpeedRight",
-              "_title": "DT_wheelSpeedRight"
-            }
-          },
-          "34,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTR_ramseteZeta",
-              "_title": "DTR_ramseteZeta"
-            }
-          },
-          "36,6": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Climber Run: CLDIR_STOP",
-              "_title": "Climber Run: CLDIR_STOP"
-            }
-          },
-          "39,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_DistThreshold",
-              "_title": "DTL_DistThreshold"
-            }
-          },
-          "44,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DTL_MaxTurn",
-              "_title": "DTL_MaxTurn"
-            }
-          }
-        }
+        "tiles": {}
       }
     },
     {
@@ -1463,6 +422,12 @@
                   "_title": "DigitalInput[4]/Value",
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [14]",
+                  "_title": "LiveWindow/Ungrouped/Talon FX [14]",
+                  "Visuals/Orientation": "HORIZONTAL"
                 }
               ]
             }
@@ -1912,6 +877,17 @@
               "_source0": "network_table:///SmartDashboard/SH_FlywheelTargetRPM",
               "_title": "FlywheelTargetRPM"
             }
+          },
+          "21,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/SH_ToleranceRPM",
+              "_title": "ToleranceRPM"
+            }
           }
         }
       }
@@ -2027,6 +1003,28 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/limelight_PipelineName",
               "_title": "/SmartDashboard/limelight_PipelineName"
+            }
+          },
+          "15,2": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///limelight/stream",
+              "_title": "limelight/stream"
+            }
+          },
+          "12,2": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///limelight/camMode",
+              "_title": "limelight/camMode"
             }
           }
         }
@@ -2440,7 +1438,7 @@
               "_title": "DistThreshold"
             }
           },
-          "14,5": {
+          "21,5": {
             "size": [
               3,
               2
@@ -2582,6 +1580,17 @@
               "_source0": "network_table:///SmartDashboard/DTL_VertOffset2",
               "_title": "VertOffset2"
             }
+          },
+          "14,5": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/DTL_TargetAngle",
+              "_title": "TargetAngle"
+            }
           }
         }
       }
@@ -2664,7 +1673,7 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "8,0": {
+          "22,2": {
             "size": [
               4,
               2
@@ -2675,7 +1684,7 @@
               "_title": "SmartDashboard/Auto Drive Shoot"
             }
           },
-          "4,0": {
+          "22,0": {
             "size": [
               4,
               2
@@ -2688,8 +1697,8 @@
           },
           "0,0": {
             "size": [
-              4,
-              2
+              5,
+              3
             ],
             "content": {
               "_type": "ComboBox Chooser",
@@ -2697,70 +1706,63 @@
               "_title": "SmartDashboard/Auto Mode"
             }
           },
-          "8,4": {
+          "0,3": {
             "size": [
-              4,
+              5,
               2
             ],
             "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Shoot Trench Left",
-              "_title": "SmartDashboard/Auto Shoot Trench Left"
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/AUTO_WaitTime",
+              "_title": "SmartDashboard/AUTO_WaitTime"
             }
           },
-          "8,6": {
+          "5,0": {
             "size": [
-              4,
-              2
+              5,
+              5
             ],
             "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Shoot Trench Right",
-              "_title": "SmartDashboard/Auto Shoot Trench Right"
+              "_type": "Gyro",
+              "_source0": "network_table:///LiveWindow/Ungrouped/ADXRS450_Gyro[0]",
+              "_title": "LiveWindow/Ungrouped/ADXRS450_Gyro[0]",
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
             }
           },
-          "19,2": {
+          "10,0": {
             "size": [
-              4,
+              5,
               2
             ],
             "content": {
               "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Drive Path: driveBackward",
-              "_title": "SmartDashboard/Auto Drive Path: driveBackward"
+              "_source0": "network_table:///SmartDashboard/AUTO Calibrate Gyro",
+              "_title": "SmartDashboard/AUTO Calibrate Gyro"
             }
           },
-          "19,0": {
+          "16,0": {
             "size": [
-              4,
+              3,
               2
             ],
             "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Drive Path: driveForward",
-              "_title": "SmartDashboard/Auto Drive Path: driveForward"
+              "_type": "Text View",
+              "_source0": "network_table:///limelight/camMode",
+              "_title": "limelight/camMode"
             }
           },
-          "19,4": {
+          "16,2": {
             "size": [
-              4,
+              3,
               2
             ],
             "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Drive Path: rightAngleTurn",
-              "_title": "SmartDashboard/Auto Drive Path: rightAngleTurn"
-            }
-          },
-          "19,6": {
-            "size": [
-              4,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Auto Path Sequence",
-              "_title": "SmartDashboard/Auto Path Sequence"
+              "_type": "Text View",
+              "_source0": "network_table:///limelight/stream",
+              "_title": "limelight/stream"
             }
           }
         }

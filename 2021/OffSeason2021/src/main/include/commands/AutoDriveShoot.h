@@ -38,5 +38,6 @@ public:
     bool RunsWhenDisabled() const override;
 
 private:
-    const char *path;
+    // Must be a member variable so commands can use it when they execute
+    std::string m_pathname;
 };
