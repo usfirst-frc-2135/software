@@ -41,7 +41,7 @@ AutoDriveLimelightShoot::AutoDriveLimelightShoot(
     // AddCommands(FooCommand(), BarCommand());
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsString("AutoDriveLimelightShoot_path", m_pathname, "driveForward46");
-    spdlog::info ("AutoDriveLimelightShoot pathname {}", m_pathname.c_str());
+    spdlog::info("AutoDriveLimelightShoot pathname {}", m_pathname.c_str());
 
     AddCommands(
         IntakeDeploy(true),
