@@ -165,7 +165,7 @@ void Drivetrain::Initialize(void)
 
     // If NOT DISABLED and AUTON mode, set brake mode
     if (!frc::RobotState::IsDisabled())
-        if (!frc::RobotState::IsOperatorControl())
+        if (frc::RobotState::IsOperatorControl())
             m_brakeMode = true;
 
     SetBrakeMode(m_brakeMode);
@@ -196,10 +196,11 @@ void Drivetrain::ConfigFileLoad(void)
     //  Retrieve drivetrain modified parameters from RobotConfig
     frc2135::RobotConfig *config = frc2135::RobotConfig::GetInstance();
     config->GetValueAsInt("DT_DriveMode", m_curDriveMode, 0);
-    config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 0.4);
-    config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 0.4);
-    config->GetValueAsDouble("DT_OpenLoopRampRate", m_openLoopRampRate, 1.0);
-    config->GetValueAsDouble("DT_ClosedLoopRampRate", m_closedLoopRampRate, 1.0);
+    config->GetValueAsDouble("DT_DriveXScaling", m_driveXScaling, 0.75);
+    config->GetValueAsDouble("DT_DriveYScaling", m_driveYScaling, 0.75);
+    config->GetValueAsDouble("DT_QuickTurnScaling", m_driveQTScaling, 0.5);
+    config->GetValueAsDouble("DT_OpenLoopRampRate", m_openLoopRampRate, 0.5);
+    config->GetValueAsDouble("DT_ClosedLoopRampRate", m_closedLoopRampRate, 0.0);
     config->GetValueAsDouble("DT_VCMaxSpeed", m_vcMaxSpeed, 13.50);
     config->GetValueAsDouble("DT_VCMaxAngSpeed", m_vcMaxAngSpeed, wpi::math::pi);
     config->GetValueAsDouble("DT_VCPIDKp", m_vcpidKp, 1.0);
@@ -535,48 +536,32 @@ void Drivetrain::MoveStop()
 //
 void Drivetrain::MoveWithJoysticks(frc::XboxController *throttleJstick)
 {
-    double xValue = 0.0;
-    double yValue = 0.0;
+    double xValue = throttleJstick->GetX(frc::GenericHID::kRightHand);
+    double yValue = throttleJstick->GetY(frc::GenericHID::kLeftHand);
+    double xOutput = 0.0;
+    double yOutput = 0.0;
 
-    xValue = throttleJstick->GetX(frc::GenericHID::JoystickHand::kRightHand);
-    yValue = throttleJstick->GetY(frc::GenericHID::JoystickHand::kLeftHand);
+    // If joysticks report a very small value, then stick has been centered
+    if (fabs(yValue) < 0.05 && fabs(xValue) < 0.05)
+        m_throttleZeroed = true;
 
-    xValue *= m_driveXScaling;
-
-    if (m_talonValidL1 || m_talonValidR3)
+    // If throttle and steering not centered, use zero outputs until they do
+    if (m_throttleZeroed)
     {
-        // If joystick reports a very small throttle value
-        if (fabs(yValue) < 0.05)
-            m_throttleZeroed = true;
-
-        // If throttle not zeroed, prevent joystick inputs from entering drive
-        if (!m_throttleZeroed)
+        if (m_isQuickTurn)
         {
-            xValue = 0.0;
-            yValue = 0.0;
+            xOutput = m_driveQTScaling * (xValue * abs(xValue));
+            yOutput = m_driveQTScaling * (yValue * abs(yValue));
+        }
+        else
+        {
+            xOutput = m_driveXScaling * (xValue * abs(xValue));
+            yOutput = m_driveYScaling * (yValue * abs(yValue));
         }
     }
 
-    feet_per_second_t ySpeed = 0.0_fps;
-    radians_per_second_t rot = 0.0_rad_per_s;
-
-    switch (m_curDriveMode)
-    {
-        default:
-        case DRIVEMODE_CURVATURE:
-            m_diffDrive.CurvatureDrive(-yValue, xValue,
-                                       m_isQuickTurn); // Boolean is for quick turn or not
-            break;
-
-        case DRIVEMODE_VELCONTROL:
-            double yValueSquared = yValue * abs(yValue);
-            double xValueSquared = xValue * abs(xValue);
-
-            ySpeed = yValueSquared * feet_per_second_t(m_vcMaxSpeed);
-            rot = xValueSquared * radians_per_second_t(m_vcMaxAngSpeed);
-            VelocityCLDrive(m_kinematics.ToWheelSpeeds({ ySpeed, 0_fps, rot }));
-            break;
-    }
+    if (m_talonValidL1 || m_talonValidR3)
+        m_diffDrive.CurvatureDrive(-yValue, xValue, m_isQuickTurn); // Boolean is for quick turn or not
 }
 
 void Drivetrain::ToggleDriveMode()
