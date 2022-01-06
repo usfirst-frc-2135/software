@@ -163,7 +163,7 @@ void Drivetrain::Initialize(void)
     m_brakeMode = false;
     m_throttleZeroed = false;
 
-    // If NOT DISABLED and AUTON mode, set brake mode
+    // If NOT DISABLED and TELEOP mode, set brake mode
     if (!frc::RobotState::IsDisabled())
         if (frc::RobotState::IsOperatorControl())
             m_brakeMode = true;
