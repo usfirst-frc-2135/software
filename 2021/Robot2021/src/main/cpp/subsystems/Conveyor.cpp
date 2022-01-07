@@ -106,9 +106,9 @@ void Conveyor::Initialize(void)
     {
         m_motorCV8.Set(ControlMode::PercentOutput, 0.0);
 
-        m_motorCV8.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, kCANTimeout);
-        m_motorCV8.SetSensorPhase(false);
-        m_motorCV8.SetSelectedSensorPosition(0, kCANTimeout);
+        // m_motorCV8.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, kCANTimeout);
+        // m_motorCV8.SetSensorPhase(false);
+        // m_motorCV8.SetSelectedSensorPosition(0, kCANTimeout);
     }
 }
 
