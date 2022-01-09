@@ -30,9 +30,9 @@
   DTL_DistThreshold = 6.0
   DTL_Dist1 = 12
   DTL_Dist2 = 36
-  # DTL_VertOffset1 is typically positive
+# DTL_VertOffset1 should typically be positive
   DTL_VertOffset1 = 5.18
-  # DTL_VertOffset2 is typically negative
+# DTL_VertOffset2 should typically be negative
   DTL_VertOffset2 = -8.34
 # Path following settings
   DTR_RamsetePIDKp = 2.0
